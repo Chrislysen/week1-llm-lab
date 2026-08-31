@@ -42,8 +42,15 @@ def view_for(agent, transcript):
     Tip: test it by hand-building a 3-entry transcript and printing the view for
     each of your two agents; the roles should be mirror images.
     """
-    # TODO (WEEK 2): implement and DELETE the line below.
-    raise NotImplementedError("Implement view_for; see the docstring.")
+    messages = [{"role": "system", "content": agent.system_prompt}]
+    for entry in transcript:
+        # The same message is "assistant" in the speaker's own view and "user"
+        # in the other agent's. This is the whole idea of Week 2.
+        role = "assistant" if entry.speaker == agent.name else "user"
+        messages.append({"role": role, "content": entry.content})
+    if not transcript:
+        messages.append({"role": "user", "content": "You speak first."})
+    return messages
 
 
 class DialogueEngine:
@@ -72,21 +79,35 @@ class DialogueEngine:
     def run(self):
         """Run the dialogue to completion. Return the final transcript.
 
-        Loop shape (fill in the body):
-            while not self.budget.exhausted():
-                speaker = self.next_speaker()
-                messages = self.manage_context(view_for(speaker, self.transcript))
-                reply = self.client.chat(speaker.model, messages, speaker.temperature)
-                append Entry(speaker.name, reply.text, reply.prompt_tokens,
-                             reply.completion_tokens, reply.seconds,
-                             len(self.transcript)) to self.transcript
-                self.budget.record(turns=1, tokens=reply.tokens)
-                if self.goal_reached(self.transcript):
-                    self.budget.stop("goal_reached")
-            return self.transcript
+        The Budget is the only thing that ends this loop: it fires on turns,
+        tokens, wall-clock, or an explicit goal_reached stop.
+
+        Note the hook order -- manage_context receives the ALREADY role-mapped
+        message list, so any Week 3 selector sees {"role": ...} entries rather
+        than speaker names, and must keep the system message first and the rest
+        in chronological order.
         """
-        # TODO (WEEK 2): implement the loop above and DELETE this line.
-        raise NotImplementedError("Implement DialogueEngine.run; see the docstring.")
+        while not self.budget.exhausted():
+            speaker = self.next_speaker()
+            messages = self.manage_context(view_for(speaker, self.transcript))
+            reply = self.client.chat(speaker.model, messages, speaker.temperature)
+            self.transcript.append(
+                Entry(
+                    speaker=speaker.name,
+                    content=reply.text,
+                    # prompt_tokens is what the model ACTUALLY saw this turn,
+                    # counted by Ollama -- i.e. realised context spend, not the
+                    # configured budget ceiling.
+                    prompt_tokens=reply.prompt_tokens,
+                    completion_tokens=reply.completion_tokens,
+                    seconds=reply.seconds,
+                    turn_index=len(self.transcript),
+                )
+            )
+            self.budget.record(turns=1, tokens=reply.tokens)
+            if self.goal_reached(self.transcript):
+                self.budget.stop("goal_reached")
+        return self.transcript
 
     # === bookkeeping below is DONE ===
 
