@@ -201,8 +201,13 @@ assert sent[0]["role"] == "system"
 assert len(sent) == 4, [m["role"] for m in sent]
 assert sent[-1]["content"] == FINAL_PLAN_INSTRUCTION
 assert [m["content"] for m in sent[1:3]] == [e.content for e in TRANSCRIPT[-2:]]
-assert window.calls == [{"available": len(TRANSCRIPT), "kept": 2,
-                         "dropped": len(TRANSCRIPT) - 2}], window.calls
+call = window.calls[0]
+assert len(window.calls) == 1
+assert (call["available"], call["kept"], call["dropped"]) == (
+    len(TRANSCRIPT), 2, len(TRANSCRIPT) - 2), call
+# The call record also carries the budget unit, so spend is auditable per call.
+assert call["words_kept"] == sum(len(e.content.split()) for e in TRANSCRIPT[-2:])
+assert call["words_available"] == sum(len(e.content.split()) for e in TRANSCRIPT)
 
 # Without a policy the full dialogue goes through, unchanged.
 client = ScriptedClient([GOOD_PLAN])
