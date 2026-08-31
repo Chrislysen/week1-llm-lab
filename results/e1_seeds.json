@@ -1,0 +1,16 @@
+{
+  "experiment": "E1 post-amendment scored retrieval landscape",
+  "declared_before_any_model_call": true,
+  "protocol": {
+    "history_budget_words": 250,
+    "current_message_separation": true,
+    "alpha": 0.40,
+    "query_for_turn": "latest incoming message",
+    "query_for_finalisation": "FINAL_PLAN_INSTRUCTION + latest dialogue message",
+    "dialogue_turns": 10,
+    "scenario": "db04-payments",
+    "dense_model": "sentence-transformers/all-MiniLM-L6-v2"
+  },
+  "random_seeds": {"1": 1001, "2": 1002, "3": 1003},
+  "note": "One distinct deterministic seed per repeat. Fixed here, committed before the first model call, and echoed into every saved run artifact. Only the `random` arm consumes a seed; the other selectors are deterministic given the transcript."
+}

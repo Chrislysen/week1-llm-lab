@@ -193,6 +193,10 @@ assert c["n_candidates"] == 5, c          # 6 messages, minus the current one
 assert c["words_history"] == 100, c
 assert c["words_current"] == 60, c
 assert c["words_kept"] == 160, c          # history + current, i.e. all sent
+# Which candidates were chosen, recorded rather than reconstructed.
+assert c["selected_ids"] == [0, 3, 4], c
+assert c["n_selected"] == len(c["selected_ids"]) == 3, c
+assert c["selected_ids"] == sorted(c["selected_ids"]), "ids must be chronological"
 # Chronological order is restored regardless of pick order.
 idx = [POOL.index(m) for m in picked]
 assert idx == sorted(idx), "selection must be restored to chronological order"

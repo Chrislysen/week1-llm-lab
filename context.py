@@ -254,6 +254,10 @@ class BudgetedPolicy(ContextPolicy):
             "n_selected": len(chosen),
             "words_history": used,
             "words_current": words(current["content"]),
+            # Which candidates were actually chosen, by position in the pool.
+            # Recorded rather than reconstructed: a replay would depend on the
+            # policy still behaving identically, which is the thing under study.
+            "selected_ids": list(chosen),
         }
         return [system] + [pool[i] for i in chosen] + [current]
 
