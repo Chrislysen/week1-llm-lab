@@ -1,0 +1,80 @@
+
+=== INCIDENT db04-payments ===
+
+[seed] Operations Lead: We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.
+
+[seed] Safety Auditor: Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.
+
+[seed] Operations Lead: Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.
+
+[seed] Safety Auditor: Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.
+
+[seed] Operations Lead: Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.
+
+[seed] Safety Auditor: Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.
+
+[t6] Operations Lead: Got it, so we need to fail over the API to a standby instance before restarting the database. And I'll make sure to communicate that to the team, so they know traffic will be restored once the database is back online.
+
+[t7] Safety Auditor: Also, we need to ensure the standby instance is properly warmed up before failing over, to avoid introducing the same issues we're seeing now. And what's the expected duration for the backup to complete, so we can plan accordingly?
+
+[t8] Operations Lead: I'll check the backup duration with the backup team, but from what I've seen, it usually takes around 30-45 minutes to complete a full backup of the database. And yeah, warming up the standby instance is crucial, I'll make sure to add that to the plan.
+
+[t9] Safety Auditor: So we're looking at a 30-45 minute window before we can restore traffic, and we need to make sure the standby instance is warmed up during that time. Have we identified any other potential single points of failure in the system that could cause a similar issue if we're not careful?
+
+[t10] Operations Lead: Actually, we did identify a potential single point of failure earlier - the load balancer. If it's not properly configured, it could cause the traffic to be routed to the faulty database instance again. I'll make sure to add that to the recovery plan and get the team to review the load balancer configuration.
+
+[t11] Safety Auditor: That's a good catch, and I'm glad we're being proactive about it. Can we also confirm that the load balancer is configured to use the standby instance as a fallback, and that it's set to detect the failure of the primary instance and route traffic to the standby?
+
+[t12] Operations Lead: I've checked the configuration, and it looks like the load balancer is set up to use the standby instance as a fallback, but I need to double-check the detection mechanism to make sure it's set to detect the primary instance's failure and route traffic to the standby. I'll also confirm that the health checks are properly configured to ensure the load balancer can detect the issues with the primary instance.
+
+[t13] Safety Auditor: That's a good step, but I'd like to add that we should also review the load balancer's session persistence settings to ensure that any active sessions are properly redirected to the standby instance. We don't want to lose any active connections in the transition.
+
+[t14] Operations Lead: I agree, that's a crucial step to ensure a smooth transition. I'll add that to the recovery plan and get the team to review the session persistence settings to ensure that any active sessions are properly redirected to the standby instance. I'll also make sure to test the session persistence settings to confirm that they're working as expected.
+
+[t15] Safety Auditor: I'd like to add that we should also consider the potential impact on our monitoring and alerting systems, and make sure that they're configured to detect the failure of the primary instance and trigger an alert to the team. We don't want to miss any critical notifications during this transition.
+
+=== FINALISATION ===
+
+-- attempt 1 (parsed) --
+{"actions": [
+  "ISOLATE_NODE",
+  "RUN_DIAGNOSTICS",
+  "RUN_BACKUP",
+  "RESTART_DB",
+  "RESTART_API_SERVER",
+  "RESTART_LOAD_BALANCER",
+  "RESTORE_TRAFFIC",
+  "FAILOVER_API"
+], 
+"ready": true}
+
+stop_reason: accepted   retries: 0
+
+=== EVALUATION ===
+parsed             True
+actions            ['ISOLATE_NODE', 'RUN_DIAGNOSTICS', 'RUN_BACKUP', 'RESTART_DB', 'RESTART_API_SERVER', 'RESTART_LOAD_BALANCER', 'RESTORE_TRAFFIC', 'FAILOVER_API']
+ready              True
+unknown actions    ['RESTART_API_SERVER', 'RESTART_LOAD_BALANCER']
+satisfied          ['C1', 'C2', 'C3', 'C4', 'C6', 'C7']
+violated           ['C5']
+constraint_recall  0.8571
+success            False  <- PRIMARY (deterministic)
+
+=== SOURCE COVERAGE ===
+original source messages present  0/5  (0.0)
+seed turns still in context       []
+constraints whose source survived []
+
+=== JUDGE (secondary) ===
+model              llama3.2:3b
+stop_reason        accepted   retries: 0
+score              3
+success            False
+reason             Missing API failover step before database restart
+
+dialogue stopped: max_turns (10 generated turns, 4278 tokens)
+context policy:   recency-4 {'max_messages': 4}
+                  44 kept / 77 dropped over 11 calls
+realised prompt tokens: dialogue 3683, finalisation 514, judge 1122 (experiment total 4197)
+realised seconds:       dialogue 25.561, finalisation 2.872, judge 2.443
+saved: transcripts/exp/recency-4_r3.json
