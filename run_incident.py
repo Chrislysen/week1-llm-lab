@@ -17,8 +17,10 @@ import argparse
 
 from budget import Budget
 from context import make_policy
-from engine import DialogueEngine
+from engine import DialogueEngine, view_for
+from evaluate import source_coverage
 from finalise import MAX_ATTEMPTS, finalise
+from judge import DEFAULT_JUDGE_MODEL, judge
 from llm_client import MockClient, OllamaClient
 from scenario import AGENT_A, AGENT_B, INCIDENT
 
@@ -36,7 +38,7 @@ MOCK_REPLIES = [
 ]
 
 
-def main(mock, turns, out, host, window=None):
+def main(mock, turns, out, host, window=None, judge_model=DEFAULT_JUDGE_MODEL):
     client = MockClient(replies=MOCK_REPLIES) if mock else OllamaClient(host=host)
     agents = [AGENT_A, AGENT_B]
     policy = make_policy(window)
@@ -57,6 +59,17 @@ def main(mock, turns, out, host, window=None):
     result = finalise(AGENT_A, engine.transcript, client, final_budget, INCIDENT,
                       manage_context=policy)
 
+    # What the Operations Lead ACTUALLY saw when it wrote the plan. Rebuilt the
+    # same way finalise builds it, so coverage describes the real context.
+    # policy.select, not policy(...), so this measurement is not logged as a call.
+    final_context = policy.select(view_for(AGENT_A, engine.transcript))
+    coverage = source_coverage(final_context, INCIDENT)
+
+    # Judge: secondary evidence, its own budget, its own model call.
+    judge_budget = Budget(max_turns=MAX_ATTEMPTS, max_tokens=100_000, max_seconds=300)
+    verdict = judge(client, engine.transcript, result.plan_text, judge_budget,
+                    model=judge_model)
+
     # -- report --
     print(f"\n=== INCIDENT {INCIDENT.id} ===\n")
     for e in engine.transcript:
@@ -65,8 +78,8 @@ def main(mock, turns, out, host, window=None):
 
     print("=== FINALISATION ===")
     for entry, err in zip(result.attempts, result.attempt_errors):
-        verdict = "PARSE FAILED: " + err if err else "parsed"
-        print(f"\n-- attempt {entry.turn_index + 1} ({verdict}) --")
+        status = "PARSE FAILED: " + err if err else "parsed"
+        print(f"\n-- attempt {entry.turn_index + 1} ({status}) --")
         print(entry.content)
     print(f"\nstop_reason: {result.stop_reason}   retries: {result.retries}")
 
@@ -82,7 +95,21 @@ def main(mock, turns, out, host, window=None):
         print(f"constraint_recall  {ev.constraint_recall:.4f}")
     else:
         print(f"parse_error        {ev.parse_error}")
-    print(f"success            {ev.success}")
+    print(f"success            {ev.success}  <- PRIMARY (deterministic)")
+
+    print("\n=== SOURCE COVERAGE ===")
+    print(f"original source messages present  "
+          f"{coverage['source_messages_present']}/{coverage['source_messages_total']}"
+          f"  ({coverage['coverage']})")
+    print(f"seed turns still in context       {coverage['present_turns']}")
+    print(f"constraints whose source survived {coverage['constraints_with_source_present']}")
+
+    print("\n=== JUDGE (secondary) ===")
+    print(f"model              {verdict.model}")
+    print(f"stop_reason        {verdict.stop_reason}   retries: {verdict.retries}")
+    print(f"score              {verdict.score}")
+    print(f"success            {verdict.success}")
+    print(f"reason             {verdict.reason}")
 
     print(f"\ndialogue stopped: {dialogue_budget.stop_reason} "
           f"({dialogue_budget.turns} generated turns, {dialogue_budget.tokens} tokens)")
@@ -93,26 +120,46 @@ def main(mock, turns, out, host, window=None):
           f"{ctx['totals']['messages_dropped']} dropped "
           f"over {ctx['totals']['calls']} calls")
 
-    # Realised prompt tokens, measured by Ollama, not the configured ceiling.
-    dialogue_prompt = sum(e.prompt_tokens for e in engine.transcript)
-    final_prompt = sum(e.prompt_tokens for e in result.attempts)
-    print(f"realised prompt tokens: dialogue {dialogue_prompt}, "
-          f"finalisation {final_prompt}, total {dialogue_prompt + final_prompt}")
+    # Realised cost, measured by Ollama, not the configured ceiling. The judge
+    # is counted separately: it is secondary evidence and should never be
+    # mistaken for what the experiment itself cost.
+    def totals(entries):
+        return {
+            "prompt_tokens": sum(e.prompt_tokens for e in entries),
+            "completion_tokens": sum(e.completion_tokens for e in entries),
+            "seconds": round(sum(e.seconds for e in entries), 3),
+        }
+
+    realised = {
+        "dialogue": totals(engine.transcript),
+        "finalisation": totals(result.attempts),
+        "judge": totals(verdict.attempts),
+    }
+    realised["experiment_total"] = {
+        k: round(realised["dialogue"][k] + realised["finalisation"][k], 3)
+        for k in ("prompt_tokens", "completion_tokens", "seconds")
+    }
+    r = realised
+    print(f"realised prompt tokens: dialogue {r['dialogue']['prompt_tokens']}, "
+          f"finalisation {r['finalisation']['prompt_tokens']}, "
+          f"judge {r['judge']['prompt_tokens']} "
+          f"(experiment total {r['experiment_total']['prompt_tokens']})")
+    print(f"realised seconds:       dialogue {r['dialogue']['seconds']}, "
+          f"finalisation {r['finalisation']['seconds']}, "
+          f"judge {r['judge']['seconds']}")
 
     path = engine.save(out, meta={
         "scenario": INCIDENT.id,
         "seeded_turns": seeded,
         "mock": mock,
         "context": ctx,
-        "realised_prompt_tokens": {
-            "dialogue": dialogue_prompt,
-            "finalisation": final_prompt,
-            "total": dialogue_prompt + final_prompt,
-        },
+        "source_coverage": coverage,
+        "realised": realised,
         "finalisation": result.as_dict(),
+        "judge": verdict.as_dict(),
     })
     print(f"saved: {path}")
-    return result
+    return result, verdict, coverage
 
 
 if __name__ == "__main__":
@@ -123,6 +170,7 @@ if __name__ == "__main__":
     p.add_argument("--host", default="http://localhost:11434")
     p.add_argument("--window", default=None,
                    help="recency window size, or omit for the full-history ceiling")
+    p.add_argument("--judge-model", default=DEFAULT_JUDGE_MODEL)
     args = p.parse_args()
     main(mock=args.mock, turns=args.turns, out=args.out, host=args.host,
-         window=args.window)
+         window=args.window, judge_model=args.judge_model)

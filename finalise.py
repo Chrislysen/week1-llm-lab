@@ -5,89 +5,55 @@ turn. It is a different question asked of one agent after the conversation has
 ended, it has its own stopping rule, and its cost should not be pooled with the
 dialogue's. The engine stays a dialogue engine.
 
-The retry bound is the Budget's own turn cap, not a hand-rolled counter. A
-Budget(max_turns=2) is literally "one attempt plus one correction", so the
-course's one hard rule -- no model-calling loop without a Budget -- covers this
-loop too. MAX_ATTEMPTS is a second, independent ceiling so a caller who passes a
-looser Budget still cannot get an unbounded retry loop.
-
-Every model call made here is recorded as an Entry with its measured cost,
-including attempts whose output failed to parse. There are no invisible calls:
-`len(result.attempts)` is exactly the number of times the model was asked.
+The retry loop itself lives in structured.py and is shared with the judge.
 """
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
-from engine import Entry, view_for
-from evaluate import Evaluation, evaluate
+from engine import view_for
+from evaluate import Evaluation, evaluate, parse_plan
 from scenario import FINAL_PLAN_INSTRUCTION
+from structured import MAX_ATTEMPTS, StructuredResult, ask_structured
 
-#: One attempt, then at most one corrective retry. Never more.
-MAX_ATTEMPTS = 2
-
-
-def corrective_prompt(error: str) -> str:
-    """The follow-up sent when the first attempt did not parse."""
-    return (
-        f"That could not be read as a valid plan: {error}.\n\n"
-        "Reply with the JSON object only -- no explanation, no code fence, no "
-        'text before or after it. It must have exactly two keys: "actions", a '
-        'list of action identifier strings, and "ready", true or false.'
-    )
+EXPECTED = (
+    'It must have exactly two keys: "actions", a list of action identifier '
+    'strings, and "ready", true or false.'
+)
 
 
 @dataclass
 class Finalisation:
     """The outcome of asking for the final plan, and everything it cost."""
 
-    attempts: list[Entry] = field(default_factory=list)
-    attempt_errors: list[str | None] = field(default_factory=list)
-    evaluation: Evaluation | None = None
-    stop_reason: str = ""
+    result: StructuredResult
+    evaluation: Evaluation
+
+    @property
+    def attempts(self):
+        return self.result.attempts
+
+    @property
+    def attempt_errors(self):
+        return self.result.attempt_errors
+
+    @property
+    def stop_reason(self) -> str:
+        return self.result.stop_reason
 
     @property
     def retries(self) -> int:
-        return max(0, len(self.attempts) - 1)
+        return self.result.retries
 
     @property
     def plan_text(self) -> str | None:
-        """The raw text of the accepted attempt, or None if none was accepted."""
-        if self.stop_reason != "accepted" or not self.attempts:
-            return None
-        return self.attempts[-1].content
+        return self.result.accepted_text
 
     def as_dict(self) -> dict:
-        return {
-            "stop_reason": self.stop_reason,
-            "retries": self.retries,
-            "attempts": [
-                {
-                    "attempt": e.turn_index,
-                    "speaker": e.speaker,
-                    "content": e.content,
-                    "parse_error": err,
-                    "prompt_tokens": e.prompt_tokens,
-                    "completion_tokens": e.completion_tokens,
-                    "seconds": round(e.seconds, 3),
-                }
-                for e, err in zip(self.attempts, self.attempt_errors)
-            ],
-            "totals": {
-                "attempts": len(self.attempts),
-                "prompt_tokens": sum(e.prompt_tokens for e in self.attempts),
-                "completion_tokens": sum(e.completion_tokens for e in self.attempts),
-                "seconds": round(sum(e.seconds for e in self.attempts), 3),
-            },
-            "evaluation": self.evaluation.as_dict() if self.evaluation else None,
-        }
+        return {**self.result.as_dict(), "evaluation": self.evaluation.as_dict()}
 
 
 def finalise(agent, transcript, client, budget, scenario,
              instruction=FINAL_PLAN_INSTRUCTION, manage_context=None):
     """Ask `agent` for the final plan. Returns a Finalisation.
-
-    The agent sees the dialogue from its own point of view (same role mapping as
-    every other turn), then the instruction. If the reply does not parse, it is
-    shown its own output and the parse error, and asked once more.
 
     `manage_context` is applied to the DIALOGUE ONLY. The instruction, and the
     corrective exchange on a retry, sit outside the window -- they are the
@@ -98,53 +64,29 @@ def finalise(agent, transcript, client, budget, scenario,
     ignored the context policy the whole comparison would be measuring dialogue
     quality while the graded decision was made with full history.
     """
-    result = Finalisation()
     select = manage_context or (lambda messages: messages)
     messages = select(view_for(agent, transcript)) + [
         {"role": "user", "content": instruction}
     ]
-    last_evaluation = None
 
-    while len(result.attempts) < MAX_ATTEMPTS and not budget.exhausted():
-        reply = client.chat(agent.model, messages, agent.temperature)
-        result.attempts.append(
-            Entry(
-                speaker=agent.name,
-                content=reply.text,
-                prompt_tokens=reply.prompt_tokens,
-                completion_tokens=reply.completion_tokens,
-                seconds=reply.seconds,
-                turn_index=len(result.attempts),
-            )
-        )
-        budget.record(turns=1, tokens=reply.tokens)
+    result = ask_structured(
+        client=client,
+        model=agent.model,
+        temperature=agent.temperature,
+        messages=messages,
+        validate=parse_plan,
+        budget=budget,
+        speaker=agent.name,
+        expected=EXPECTED,
+    )
 
-        evaluation = evaluate(reply.text, scenario)
-        result.attempt_errors.append(evaluation.parse_error)
-        last_evaluation = evaluation
-
-        if evaluation.parsed:
-            result.evaluation = evaluation
-            result.stop_reason = "accepted"
-            return result
-
-        # Show the model its own malformed output and ask once more. The bad
-        # attempt stays in result.attempts either way.
-        messages = messages + [
-            {"role": "assistant", "content": reply.text},
-            {"role": "user", "content": corrective_prompt(evaluation.parse_error)},
-        ]
-
-    # Nothing was accepted. Say precisely why.
-    if not result.attempts:
-        result.stop_reason = "budget_exhausted"
-        result.evaluation = Evaluation(
+    # Score whatever was actually produced. With no attempt at all there is
+    # nothing to score, so say that rather than inventing a verdict.
+    if result.last_text is None:
+        evaluation = Evaluation(
             parsed=False, parse_error="no attempt made: budget exhausted"
         )
-    elif len(result.attempts) >= MAX_ATTEMPTS:
-        result.stop_reason = "parse_failed"
-        result.evaluation = last_evaluation
     else:
-        result.stop_reason = "budget_exhausted"
-        result.evaluation = last_evaluation
-    return result
+        evaluation = evaluate(result.last_text, scenario)
+
+    return Finalisation(result=result, evaluation=evaluation)

@@ -20,6 +20,7 @@ import json
 from dataclasses import dataclass, field
 
 from scenario import ACTIONS
+from structured import extract_json_object
 
 
 @dataclass
@@ -57,41 +58,9 @@ class Evaluation:
         }
 
 
-def _extract_json_object(text: str) -> str | None:
-    """Return the first balanced {...} block in `text`, or None.
-
-    Scans for a balanced brace pair while ignoring braces inside strings, so a
-    plan wrapped in prose or a ```json fence still parses.
-    """
-    start = text.find("{")
-    if start == -1:
-        return None
-    depth = 0
-    in_string = False
-    escaped = False
-    for i in range(start, len(text)):
-        ch = text[i]
-        if in_string:
-            if escaped:
-                escaped = False
-            elif ch == "\\":
-                escaped = True
-            elif ch == '"':
-                in_string = False
-        elif ch == '"':
-            in_string = True
-        elif ch == "{":
-            depth += 1
-        elif ch == "}":
-            depth -= 1
-            if depth == 0:
-                return text[start : i + 1]
-    return None
-
-
 def parse_plan(text: str) -> tuple[dict | None, str | None]:
     """Parse a final plan. Returns (plan, None) or (None, reason)."""
-    blob = _extract_json_object(text or "")
+    blob = extract_json_object(text or "")
     if blob is None:
         return None, "no JSON object found"
     try:
@@ -127,6 +96,34 @@ def check_constraint(constraint, actions: list[str]) -> bool:
             return False
         return actions.index(constraint.a) < actions.index(constraint.b)
     raise ValueError(f"unknown constraint kind: {constraint.kind}")
+
+
+def source_coverage(messages, scenario) -> dict:
+    """How many planted SOURCE MESSAGES are literally still in this context?
+
+    Deliberately a literal, whole-message check. It answers "did the original
+    statement survive the context policy", NOT "does the model still know this".
+    Those are different questions and conflating them would be dishonest: the
+    two agents relay constraints forward in their own words, so information can
+    survive a window that drops the message which introduced it.
+
+    A run with source coverage 0/5 and constraint recall 7/7 is a real and
+    interesting outcome -- it means the dialogue itself carried the information.
+    Whether that happened is diagnosed by reading the transcript, not by
+    guessing at paraphrases here.
+    """
+    text = "\n".join(m["content"] for m in messages)
+    turns = sorted({c.stated_at_turn for c in scenario.constraints})
+    present = [t for t in turns if scenario.seed_dialogue[t][1] in text]
+    return {
+        "source_messages_present": len(present),
+        "source_messages_total": len(turns),
+        "coverage": round(len(present) / len(turns), 4) if turns else 0.0,
+        "present_turns": present,
+        "constraints_with_source_present": [
+            c.id for c in scenario.constraints if c.stated_at_turn in present
+        ],
+    }
 
 
 def evaluate(text: str, scenario) -> Evaluation:
