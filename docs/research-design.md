@@ -59,7 +59,19 @@ The two halves are deliberately separate. The baseline gives real reason to
 expect **yes to the first and no to the second**, and a design that cannot report
 that split is not worth running.
 
-## 2. Hypotheses
+## 2. Hypotheses — STAGE 1 (pilot). COMPLETED, superseded, preserved verbatim.
+
+> **Status: the pilot ran and the gate passed (PROCEED).** These three
+> hypotheses were written *before* the pilot, when the frozen baseline gave
+> reason to expect that extra task-critical context would not help. The pilot
+> contradicted that expectation. They are kept here unedited as the record of
+> what was predicted in advance; the stage-2 hypotheses in §2b supersede them.
+>
+> **H2 as written below was not supported.** At W = 250 an oracle selecting the
+> same information at the same capacity reached constraint recall 1.0 against
+> recency's 0.5714, and was the only arm to produce a fully valid plan (3/3 vs
+> 0/6). The prediction was wrong, and it is left standing rather than quietly
+> rewritten.
 
 Pre-registered before any run. Committed on this branch before scoring.
 
@@ -86,6 +98,56 @@ Pre-registered before any run. Committed on this branch before scoring.
 
 H2 and H3 are both framed so that the expected outcome is a null. That is
 intentional. A confirmed H2 is a more interesting report than a manufactured win.
+
+---
+
+## 2b. Hypotheses — STAGE 2 (selectors). ACTIVE.
+
+Written after the stage-1 pilot passed its gate and **before any selector was
+implemented or run**. These govern the 15-run selector experiment.
+
+- **H1 — manipulation check.** Relevance-based selection (BM25, dense, fusion)
+  retrieves more task-critical source information than recency under the same
+  history budget.
+
+  Still empirical, still falsifiable. The pool audit (§0) shows the concrete
+  failure mode: domain vocabulary is spread across the generated paraphrases, so
+  a lexical retriever can rank recent restatements above the originals and land
+  on the messages recency already had. The offline selector preflight tests this
+  before any model is called.
+
+- **H2 — primary.** Increased retrieval of task-critical source information
+  produces higher deterministic constraint recall than recency.
+
+  This is now the *positive* direction, reversing stage-1's H2. The pilot
+  justifies the reversal: the oracle demonstrated the causal link exists at this
+  budget. What remains open is whether a selector with no access to the hidden
+  key can realise any of that headroom.
+
+- **H3.** BM25 + dense fusion improves retrieval and task recall over either
+  component alone.
+
+  Also reversed from stage 1, and it is the one I still expect to fail. OpSem
+  documents a LongMemEval-S boundary where the lexical baseline saturates and
+  fusion's gain becomes small and non-significant, and its `tune8_adaptive.py`
+  found a query-adaptive weighting could not beat one global constant on 1978
+  examples. The candidate pool here is 16 messages. Stating H3 in the direction
+  the method is *supposed* to work means a null is a real result rather than a
+  reframing.
+
+### Stage-1 pilot result, recorded as completed evidence
+
+Not to be rerun or tuned. `results/pilot_runs.csv`, `results/pilot_summary.csv`,
+`transcripts/pilot/` (9 transcripts + 9 logs), committed at `1def040`.
+
+| arm | mean constraint recall | retrieval recall | success | mean prompt tokens |
+|---|---|---|---|---|
+| recency | 0.5714 | 0.067 | 0/3 | 4889 |
+| random | 0.7143 | 0.267 | 0/3 | 4925 |
+| **oracle** | **1.0000** | **1.000** | **3/3** | 5230 |
+
+Budget parity spread 6.8% of mean. The oracle was the *most* expensive arm, so
+its advantage is a **paid win** and every selector is held to the same standard.
 
 ## 3. Variables
 

@@ -9,6 +9,7 @@ The retry loop itself lives in structured.py and is shared with the judge.
 """
 from dataclasses import dataclass
 
+from context import query_for_finalisation
 from engine import view_for
 from evaluate import Evaluation, evaluate, parse_plan
 from scenario import FINAL_PLAN_INSTRUCTION
@@ -64,8 +65,11 @@ def finalise(agent, transcript, client, budget, scenario,
     ignored the context policy the whole comparison would be measuring dialogue
     quality while the graded decision was made with full history.
     """
-    select = manage_context or (lambda messages: messages)
-    messages = select(view_for(agent, transcript)) + [
+    select = manage_context or (lambda messages, query=None: messages)
+    view = view_for(agent, transcript)
+    # The instruction is not in `view` yet, so a scoring policy cannot derive
+    # the finalisation query itself. Pass the frozen definition in explicitly.
+    messages = select(view, query=query_for_finalisation(view, instruction)) + [
         {"role": "user", "content": instruction}
     ]
 

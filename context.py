@@ -76,11 +76,18 @@ class ContextPolicy:
     def config(self) -> dict:
         return {}
 
-    def select(self, messages):
+    def select(self, messages, query=None):
         raise NotImplementedError
 
-    def __call__(self, messages):
-        out = self.select(messages)
+    def __call__(self, messages, query=None):
+        """`query` is supplied by the caller only at finalisation.
+
+        On an ordinary turn the engine calls this with one argument and the
+        policy derives the query itself via `query_for_turn`. At finalisation
+        the instruction is not part of the message list yet, so `finalise`
+        passes the frozen `query_for_finalisation` value in explicitly.
+        """
+        out = self.select(messages, query=query)
         # Counts exclude the system prompt, which is never a candidate and is
         # never charged against the budget.
         available, kept = len(messages) - 1, len(out) - 1
@@ -119,7 +126,7 @@ class FullHistory(ContextPolicy):
 
     name = "full"
 
-    def select(self, messages):
+    def select(self, messages, query=None):
         _split_system(messages)
         return list(messages)
 
@@ -142,7 +149,7 @@ class RecencyWindow(ContextPolicy):
     def config(self) -> dict:
         return {"max_messages": self.max_messages}
 
-    def select(self, messages):
+    def select(self, messages, query=None):
         system, rest = _split_system(messages)
         # rest[-0:] is the WHOLE list, not the empty one. Guard it explicitly.
         kept = rest[-self.max_messages :] if self.max_messages > 0 else []
@@ -179,13 +186,17 @@ class BudgetedPolicy(ContextPolicy):
     def config(self) -> dict:
         return {"max_words": self.max_words}
 
-    def priority(self, rest) -> list:
+    def priority(self, rest, query) -> list:
         raise NotImplementedError
 
-    def select(self, messages):
+    def select(self, messages, query=None):
         system, rest = _split_system(messages)
+        # Ordinary turn: derive the frozen query ourselves. Finalisation: the
+        # caller passes it, because the instruction is not in `messages` yet.
+        if query is None:
+            query = query_for_turn(messages)
         chosen, used = [], 0
-        for i in self.priority(rest):
+        for i in self.priority(rest, query):
             w = words(rest[i]["content"])
             if used + w <= self.max_words:
                 chosen.append(i)
@@ -199,7 +210,7 @@ class RecencyBudget(BudgetedPolicy):
 
     name = "recency"
 
-    def priority(self, rest):
+    def priority(self, rest, query):
         return list(range(len(rest) - 1, -1, -1))
 
 
@@ -222,7 +233,7 @@ class RandomBudget(BudgetedPolicy):
     def config(self) -> dict:
         return {"max_words": self.max_words, "seed": self.seed}
 
-    def priority(self, rest):
+    def priority(self, rest, query):
         order = list(range(len(rest)))
         _random.Random(self.seed).shuffle(order)
         return order
@@ -251,12 +262,102 @@ class OracleBudget(BudgetedPolicy):
     def config(self) -> dict:
         return {"max_words": self.max_words, "n_source_texts": len(self.source_texts)}
 
-    def priority(self, rest):
+    def priority(self, rest, query):
         sources = [i for i, m in enumerate(rest) if m["content"] in self.source_texts]
         rest_by_recency = [
             i for i in range(len(rest) - 1, -1, -1) if i not in set(sources)
         ]
         return sources + rest_by_recency
+
+
+# --- Scoring policies (the four selectors) --------------------------------
+
+
+class ScoringPolicy(BudgetedPolicy):
+    """Rank candidates by a relevance score against the frozen query.
+
+    Subclasses implement `scores(docs, query) -> array`. None of them receives
+    constraints, evaluator state, or which messages are planted -- they see
+    message text and a query string, and nothing else. Only `OracleBudget` is
+    given the hidden labels, and it is a diagnostic, not a selector.
+
+    Deterministic tie-breaking: descending score, then MORE RECENT first. Ties
+    are common on a 16-message pool -- BM25 gives exactly 0.0 to every message
+    sharing no query term -- so an unstated rule would silently become "whatever
+    order numpy happened to produce".
+    """
+
+    def scores(self, docs, query):
+        raise NotImplementedError
+
+    def priority(self, rest, query):
+        docs = [m["content"] for m in rest]
+        s = self.scores(docs, query)
+        return sorted(range(len(rest)), key=lambda i: (-float(s[i]), -i))
+
+    def ranking(self, rest, query):
+        """(index, score) in priority order. For the offline preflight only."""
+        docs = [m["content"] for m in rest]
+        s = self.scores(docs, query)
+        return [(i, float(s[i])) for i in self.priority(rest, query)]
+
+
+class BM25Budget(ScoringPolicy):
+    """Message-level BM25. Lexical only."""
+
+    name = "bm25"
+
+    def scores(self, docs, query):
+        from retrieval import bm25_scores
+
+        return bm25_scores(docs, query)
+
+
+class DenseBudget(ScoringPolicy):
+    """Message-level dense cosine, all-MiniLM-L6-v2. No pooling, no late interaction."""
+
+    name = "dense"
+
+    def __init__(self, max_words: int, encoder=None):
+        super().__init__(max_words)
+        self.encoder = encoder
+
+    def scores(self, docs, query):
+        from retrieval import dense_scores
+
+        return dense_scores(docs, query, encoder=self.encoder)
+
+
+class FusionBudget(ScoringPolicy):
+    """alpha * z(bm25) + (1 - alpha) * z(dense), alpha fixed a priori at 0.40.
+
+    From OpSem's measured global optimum. Not tuned here, and not to be.
+    """
+
+    name = "fusion"
+
+    def __init__(self, max_words: int, alpha=None, encoder=None):
+        from retrieval import ALPHA
+
+        super().__init__(max_words)
+        self.alpha = ALPHA if alpha is None else alpha
+        self.encoder = encoder
+
+    @property
+    def label(self) -> str:
+        return f"fusion-{self.max_words}-a{self.alpha}"
+
+    def config(self) -> dict:
+        return {"max_words": self.max_words, "alpha": self.alpha}
+
+    def scores(self, docs, query):
+        from retrieval import bm25_scores, dense_scores, fuse
+
+        return fuse(
+            bm25_scores(docs, query),
+            dense_scores(docs, query, encoder=self.encoder),
+            alpha=self.alpha,
+        )
 
 
 def make_policy(spec):
