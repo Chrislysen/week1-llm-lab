@@ -93,6 +93,27 @@ truth is exact because we wrote it. `next_speaker()` uses
 `len(self.transcript) % len(self.agents)`, so seed an even number of entries to
 keep Agent A speaking first.
 
+### Design rule 1b: stratify constraint placement, or recency wins by construction
+
+Where a constraint sits decides the answer before any selector runs. A constraint
+placed in the last two messages is inside the recency window by definition, so
+`recency` scores it every time — and the reported number becomes an arithmetic
+identity about position rather than a fact about context selection. Placing every
+constraint far back inverts the same bias in favour of retrieval.
+
+So placement is a controlled variable, not a convenience:
+
+- **Stratify** each instance's constraints across distance-from-end bands —
+  near (inside any plausible recency window), mid, far.
+- Hold the **same distribution across all scenario instances**, so instances stay
+  matched.
+- **Report per-stratum**, not just pooled. "BM25 beats recency on far constraints
+  and ties on near ones" is the actual finding; a pooled average hides it and its
+  value depends entirely on a mix that was chosen, not measured.
+
+If the near stratum is where all the score lives, the experiment is measuring the
+placement choice.
+
 ### Design rule 2: natural dialogue, structured only at the end
 
 Free text cannot be scored deterministically. "Restart the database" and "bring
@@ -172,10 +193,16 @@ so A/B order is not confounded with condition.
 Judge model must be **different and larger** than the debaters — `qwen3:14b` or
 `qwen2.5:14b-instruct` are already pulled locally. State the choice explicitly.
 
-**Cost — from `Entry`, free:**
+**Cost — realised, not configured:**
 
-Prompt tokens, completion tokens, wall-clock seconds per run. Enables the Argos
-framing: quality *under a fixed context budget*, not quality at any price.
+A budget is a **ceiling, not a spend.** Comparing arms on their configured
+`budget_tokens` would let an arm win at higher actual cost and still read as a
+clean win. What must be reported is what each arm actually put in the prompt.
+
+This needs no new plumbing: `Entry.prompt_tokens` is Ollama's
+`prompt_eval_count` — the exact number of tokens the model saw that turn. Report
+realised prompt tokens per turn per agent alongside every score delta, and label
+a win at materially higher realised spend as a **paid win**, not a win.
 
 ---
 
@@ -191,12 +218,20 @@ That constraint pushes the design somewhere better anyway:
 
 **Replication unit = distinct scenario instances, not RNG seeds.** Five separate
 incidents — different services, different constraint content — sharing an
-identical structural pattern (3 constraints, injected at matched turn positions,
-needed at matched distances). Varying the scenario tests whether the effect
+identical structural pattern (6–8 constraints, matched distance-from-end strata,
+matched injection positions). Varying the scenario tests whether the effect
 *generalises*; varying an RNG seed only tests sampling noise.
 
-Noise floor is the opposite job and needs no seed at all: repeat one
-configuration unchanged and measure the natural spread.
+**A deterministic rerun is not a noise floor.** *(Correction — an earlier draft
+of this plan treated it as one.)* Re-running an identical config at
+`temperature = 0` will report a spread of ~0.000. That floor is *structurally*
+zero: it measures nothing, and comparing any effect against it would declare
+every difference significant.
+
+The floor has to come from a perturbation that is real but shouldn't matter:
+raise sampling temperature, or paraphrase the scenario without changing its
+constraint structure. If a floor comes back exactly zero, treat that as a
+degenerate measurement to be reported and replaced, not as a free win.
 
 If seeded replicates are wanted later, passing `seed` through `OllamaClient.chat`
 is a two-line change — disclose it in the report as a modification to supplied
@@ -252,7 +287,8 @@ same discipline as the `probes/` pre-registrations in `secret-loyalty-probe`.
 Deliverable: M1 (two agents, N turns, cap proven, transcript, `docs/design.md`).
 
 1. Rewrite the scenario: incident recovery, both personas, closed action
-   vocabulary, constraint set C1–C3.
+   vocabulary for the final plan only, **6–8 constraints** stratified by
+   distance-from-end (design rules 1b and 2).
 2. Rewrite `docs/design.md`:
    - scenario and why
    - both full system prompts
@@ -286,9 +322,9 @@ Deliverable: `view_for` + `DialogueEngine.run`, `test_engine.py` passing.
    label-echo rate and meta-leak rate over N turns, before and after, same seed
    and personas. One variable changed. Report as X/N → Y/N.
 3. **Determinism check.** Run the same config twice at `temperature=0` against
-   Ollama and diff. If byte-identical, repeat-runs are free and the Week 4 noise
-   floor is zero. If not, that variance *is* the noise floor and it needs
-   measuring properly.
+   Ollama and diff. This establishes only whether the harness is reproducible —
+   it does **not** produce a noise floor. A byte-identical rerun gives a spread of
+   zero, which is a degenerate measurement, not a free win. See §3.
 4. Raise `max_tokens` until `stop_reason == "max_turns"` on a full-length run.
 
 **Scenario validation gate — the most important step in the plan.**
@@ -323,14 +359,44 @@ control that can fail — and the whole project depends on it failing correctly.
 
 Deliverable: `manage_context`, judge function, one-parameter-at-a-time experiments.
 
-**The spine — required, and independent of the `opsem` ruling:**
+**Retrieval unit = the individual message.** *(Correction — an earlier draft
+proposed grouping messages into 2-message "episodes" so that turn-level
+late interaction / max-sim would have something to pool over. That was a
+misreading of `opsem`; see `docs/audit.md` §C.1. `opsem`'s max-sim runs over
+16–25+ turn vectors inside a session, its released data contains zero evaluated
+containers under 8 turns, and the measured benefit grows monotonically with
+container size because it is a dilution effect. At 2 messages the formula
+survives and the mechanism does not. Late interaction is dropped, and that
+exclusion — a mechanism with a size precondition this setting cannot meet — is
+itself reportable.)*
 
-1. **Recency-K** — system prompt plus newest messages that fit
-2. **BM25** — system prompt, recent 1–2 turns, top-scoring older turns
+**The main comparison — the three compulsory arms:**
 
-**The extension — only if Meisam approves:**
+1. **recency** — system prompt plus newest messages that fit
+2. **bm25** — system prompt, recent 1–2 messages, top-scoring older messages
+3. **fusion** — `alpha * z(bm25) + (1 - alpha) * z(cosine)`, **plain cosine
+   similarity per message**, `alpha` **fixed a priori** (`opsem`'s global optimum
+   was 0.40, with a broad plateau across 0.30–0.45). Do not tune `alpha` on the
+   same scenarios being scored, and do not inherit `jarvis-cortex`'s 0.7 — that
+   was fitted to a different task. Only if the `opsem` reuse is approved.
 
-3. **Fusion** — system prompt, recent 1–2 turns, BM25 ⊕ turn-level max-sim
+**The diagnostic arms — controls, never headline results:**
+
+| Arm | Purpose | Expected |
+|---|---|---|
+| `full` | ceiling: no trimming at all | `constraint_recall` ≥ 0.80 |
+| `last-message` | floor: system + last message only | ≤ 0.50 |
+| `oracle` | evaluator hands over exactly the decision-critical messages | ≈ ceiling |
+| `sabotage` | deliberately drops constraint-bearing messages | ≈ 0 |
+
+`sabotage` is the evaluator's own sanity check: if a selector built to fail does
+not score near zero, the evaluator is not measuring what the report claims and
+every number downstream is void.
+
+**Inert-run detection.** If the whole transcript fits inside the context budget,
+all selectors return identical messages and the run measures nothing. Assert
+`transcript_tokens > budget_tokens` *before* spending a run; anything failing it
+is state `INERT`, reported and excluded rather than silently averaged in.
 
 This split is deliberate. Recency vs BM25 is already a complete, interesting
 experiment: it tests whether *any* relevance-based selection beats recency under
@@ -370,10 +436,12 @@ fixed. Only `manage_context` changes.
 
 Deliverable: failure analysis, numbers from `transcripts/`, report.
 
-1. **Noise floor first.** Repeat one configuration with everything fixed and
-   measure run-to-run spread. No arm is claimed to beat another unless the gap
-   clears that spread. If Week 2 showed `temperature=0` is deterministic, this is
-   free; if not, it is the single most important number in the report.
+1. **Noise floor first — and not from a deterministic rerun.** Perturb something
+   real but irrelevant (sampling temperature, or a scenario paraphrase that
+   preserves the constraint structure) and measure how much the score moves when
+   nothing meaningful has changed. No arm is claimed to beat another unless the
+   gap clears that spread. A floor of exactly 0.000 means the perturbation was
+   inert — report it and pick a real one.
 2. **Break things deliberately:** context window overflow, an agent emitting
    empty output, budget exhausting mid-turn, personas collapsing into agreement,
    the closed vocabulary being ignored entirely.
@@ -395,6 +463,11 @@ Deliverable: failure analysis, numbers from `transcripts/`, report.
 | 3B model can't emit the final plan format | `parse_rate` is a reported metric; ceiling condition separates format failure from memory failure |
 | `max_tokens` binds before `max_turns`, confounding arms | Assert `stop_reason == "max_turns"`; discard and report others |
 | Constraints placed in system prompt | Design rule 1 — they go in the transcript body |
+| Constraint placement favours recency by construction | Design rule 1b — stratify by distance-from-end, report per stratum |
+| Whole transcript fits the budget, so all arms are identical | Inert-run preflight; state `INERT`, excluded and reported |
+| An arm wins at higher actual context spend | Compare realised `Entry.prompt_tokens`; label it a paid win |
+| Noise floor read from a deterministic rerun (structurally 0) | Perturb something real; a 0.000 floor is degenerate, not a win |
+| Evaluator silently not measuring what is claimed | `sabotage` arm must score ≈ 0 or nothing downstream is valid |
 | Client cannot seed generations | Replicate over scenario instances, not RNG seeds |
 | Effect real but mixed across instances | Sign test needs unanimity at n=5; expand to 10 if 4-of-5 |
 | Wall-clock blowout on hundreds of real-model calls | 5 instances × 2 arms first; batch all judging at the end |
