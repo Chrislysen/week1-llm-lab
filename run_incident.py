@@ -16,6 +16,7 @@ mean the plan could never be requested at all.
 import argparse
 
 from budget import Budget
+from context import make_policy
 from engine import DialogueEngine
 from finalise import MAX_ATTEMPTS, finalise
 from llm_client import MockClient, OllamaClient
@@ -35,21 +36,26 @@ MOCK_REPLIES = [
 ]
 
 
-def main(mock, turns, out, host):
+def main(mock, turns, out, host, window=None):
     client = MockClient(replies=MOCK_REPLIES) if mock else OllamaClient(host=host)
     agents = [AGENT_A, AGENT_B]
+    policy = make_policy(window)
 
     # Dialogue. Pre-seed the scripted opening so the constraints are already in
     # the conversation body before either agent generates anything.
     dialogue_budget = Budget(max_turns=turns, max_tokens=100_000, max_seconds=600)
-    engine = DialogueEngine(agents, client, dialogue_budget)
+    engine = DialogueEngine(agents, client, dialogue_budget,
+                            manage_context=policy)
     engine.transcript = INCIDENT.seed_entries()
     seeded = len(engine.transcript)
     engine.run()
 
-    # Finalisation, on its own budget.
+    # Finalisation, on its own budget, under the SAME context policy -- the
+    # plan is what gets scored, so it must not be written with full history
+    # while the dialogue ran windowed.
     final_budget = Budget(max_turns=MAX_ATTEMPTS, max_tokens=100_000, max_seconds=300)
-    result = finalise(AGENT_A, engine.transcript, client, final_budget, INCIDENT)
+    result = finalise(AGENT_A, engine.transcript, client, final_budget, INCIDENT,
+                      manage_context=policy)
 
     # -- report --
     print(f"\n=== INCIDENT {INCIDENT.id} ===\n")
@@ -81,10 +87,28 @@ def main(mock, turns, out, host):
     print(f"\ndialogue stopped: {dialogue_budget.stop_reason} "
           f"({dialogue_budget.turns} generated turns, {dialogue_budget.tokens} tokens)")
 
+    ctx = policy.as_dict()
+    print(f"context policy:   {ctx['label']} {ctx['config']}")
+    print(f"                  {ctx['totals']['messages_kept']} kept / "
+          f"{ctx['totals']['messages_dropped']} dropped "
+          f"over {ctx['totals']['calls']} calls")
+
+    # Realised prompt tokens, measured by Ollama, not the configured ceiling.
+    dialogue_prompt = sum(e.prompt_tokens for e in engine.transcript)
+    final_prompt = sum(e.prompt_tokens for e in result.attempts)
+    print(f"realised prompt tokens: dialogue {dialogue_prompt}, "
+          f"finalisation {final_prompt}, total {dialogue_prompt + final_prompt}")
+
     path = engine.save(out, meta={
         "scenario": INCIDENT.id,
         "seeded_turns": seeded,
         "mock": mock,
+        "context": ctx,
+        "realised_prompt_tokens": {
+            "dialogue": dialogue_prompt,
+            "finalisation": final_prompt,
+            "total": dialogue_prompt + final_prompt,
+        },
         "finalisation": result.as_dict(),
     })
     print(f"saved: {path}")
@@ -97,5 +121,8 @@ if __name__ == "__main__":
     p.add_argument("--turns", type=int, default=6, help="generated dialogue turns")
     p.add_argument("--out", default="transcripts/incident.json")
     p.add_argument("--host", default="http://localhost:11434")
+    p.add_argument("--window", default=None,
+                   help="recency window size, or omit for the full-history ceiling")
     args = p.parse_args()
-    main(mock=args.mock, turns=args.turns, out=args.out, host=args.host)
+    main(mock=args.mock, turns=args.turns, out=args.out, host=args.host,
+         window=args.window)

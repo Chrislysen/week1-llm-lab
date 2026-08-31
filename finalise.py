@@ -82,15 +82,25 @@ class Finalisation:
 
 
 def finalise(agent, transcript, client, budget, scenario,
-             instruction=FINAL_PLAN_INSTRUCTION):
+             instruction=FINAL_PLAN_INSTRUCTION, manage_context=None):
     """Ask `agent` for the final plan. Returns a Finalisation.
 
     The agent sees the dialogue from its own point of view (same role mapping as
     every other turn), then the instruction. If the reply does not parse, it is
     shown its own output and the parse error, and asked once more.
+
+    `manage_context` is applied to the DIALOGUE ONLY. The instruction, and the
+    corrective exchange on a retry, sit outside the window -- they are the
+    current question, not history, and have the same always-present status as
+    the system prompt. Windowing them away would make the retry unanswerable.
+
+    This matters: the final plan is the thing being scored, so if finalisation
+    ignored the context policy the whole comparison would be measuring dialogue
+    quality while the graded decision was made with full history.
     """
     result = Finalisation()
-    messages = view_for(agent, transcript) + [
+    select = manage_context or (lambda messages: messages)
+    messages = select(view_for(agent, transcript)) + [
         {"role": "user", "content": instruction}
     ]
     last_evaluation = None

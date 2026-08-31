@@ -9,10 +9,11 @@ import os
 import tempfile
 
 from budget import Budget
+from context import RecencyWindow
 from engine import DialogueEngine, Entry
 from finalise import MAX_ATTEMPTS, finalise
 from llm_client import ChatResponse
-from scenario import AGENT_A, AGENT_B, INCIDENT
+from scenario import AGENT_A, AGENT_B, FINAL_PLAN_INSTRUCTION, INCIDENT
 
 S = INCIDENT
 
@@ -184,4 +185,42 @@ assert fin["totals"]["completion_tokens"] > 0
 assert len(loaded["messages"]) == len(TRANSCRIPT)
 
 print("save / load:           OK")
+
+# -- manage_context applies to the dialogue, not to the question ---------
+
+# The final plan is the thing being scored, so finalisation must honour the
+# context policy -- otherwise the graded decision is always made with full
+# history and the whole comparison is inert.
+window = RecencyWindow(2)
+client = ScriptedClient([GOOD_PLAN])
+r = finalise(AGENT_A, TRANSCRIPT, client, fresh_budget(), S, manage_context=window)
+
+sent = client.calls[0]
+assert sent[0]["role"] == "system"
+# system + 2 windowed dialogue messages + the instruction
+assert len(sent) == 4, [m["role"] for m in sent]
+assert sent[-1]["content"] == FINAL_PLAN_INSTRUCTION
+assert [m["content"] for m in sent[1:3]] == [e.content for e in TRANSCRIPT[-2:]]
+assert window.calls == [{"available": len(TRANSCRIPT), "kept": 2,
+                         "dropped": len(TRANSCRIPT) - 2}], window.calls
+
+# Without a policy the full dialogue goes through, unchanged.
+client = ScriptedClient([GOOD_PLAN])
+finalise(AGENT_A, TRANSCRIPT, client, fresh_budget(), S)
+assert len(client.calls[0]) == len(TRANSCRIPT) + 2
+
+# On a retry the corrective exchange survives even a window of 0, because the
+# question is not history. A retry the model cannot read is not a retry.
+window = RecencyWindow(0)
+client = ScriptedClient(["not json", GOOD_PLAN])
+r = finalise(AGENT_A, TRANSCRIPT, client, fresh_budget(), S, manage_context=window)
+assert r.stop_reason == "accepted"
+retry = client.calls[1]
+assert [m["role"] for m in retry] == ["system", "user", "assistant", "user"]
+assert retry[1]["content"] == FINAL_PLAN_INSTRUCTION
+assert "no JSON object found" in retry[-1]["content"]
+# The window is applied once, when the dialogue view is built -- not per attempt.
+assert len(window.calls) == 1
+
+print("windowed finalisation: OK")
 print("\nAll checks passed.")

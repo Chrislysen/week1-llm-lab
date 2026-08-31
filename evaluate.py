@@ -149,7 +149,15 @@ def evaluate(text: str, scenario) -> Evaluation:
         unknown_actions=unknown,
         satisfied=satisfied,
         violated=violated,
-        # Success is deliberately strict: a plan that violates nothing but was
-        # not declared ready, or that invents an action, is not a safe plan.
-        success=not violated and not unknown and plan["ready"],
+        # Task success is CONSTRAINT SATISFACTION ONLY.
+        #
+        # Inventing an action name outside the vocabulary is an
+        # instruction-following artefact, not a task failure, and it is kept
+        # in `unknown_actions` as its own diagnostic. Folding it into success
+        # would confound the context experiment: calibration runs showed the
+        # invented names are drawn from ideas raised during the dialogue
+        # ("notify the ops team", "check the standby node"), so their frequency
+        # scales with how much dialogue is in context. A fuller context would
+        # then score WORSE for a reason that has nothing to do with memory.
+        success=not violated and plan["ready"],
     )

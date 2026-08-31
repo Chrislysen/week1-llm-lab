@@ -172,16 +172,40 @@ assert plan is not None and err is None, err
 
 print("wrapped JSON:        OK")
 
-# -- Invented actions and the ready flag ---------------------------------
+# -- Invented actions are a diagnostic, not a task failure ----------------
 
+# Task success is: parsed AND ready AND zero constraint violations.
+# An invented action name is recorded, but does not by itself fail the task.
 ev = evaluate(plan_json(GOOD + ["REBOOT_EVERYTHING"]), S)
 assert ev.parsed
-assert ev.unknown_actions == ["REBOOT_EVERYTHING"]
-assert not ev.success, "an invented action must not pass"
+assert ev.unknown_actions == ["REBOOT_EVERYTHING"], ev.unknown_actions
+assert ev.violated == []
+assert ev.constraint_recall == 1.0
+assert ev.success, "invented actions are a diagnostic, not a task failure"
 
+# Several invented names, still a success, all of them recorded.
+noisy = ["NOTIFY_OPS"] + GOOD + ["MONITOR_CLUSTER", "TEST_API"]
+ev = evaluate(plan_json(noisy), S)
+assert ev.success
+assert ev.unknown_actions == ["NOTIFY_OPS", "MONITOR_CLUSTER", "TEST_API"]
+
+# But a constraint violation still fails, whether or not names were invented.
+bad_with_noise = ["NOTIFY_OPS", "ISOLATE_NODE", "RESTART_DB", "RUN_BACKUP",
+                  "FAILOVER_API", "RESTORE_TRAFFIC"]
+ev = evaluate(plan_json(bad_with_noise), S)
+assert ev.parsed
+assert ev.unknown_actions == ["NOTIFY_OPS"]
+assert ev.violated, "a real ordering violation must still fail"
+assert not ev.success
+
+# And malformed output fails regardless.
+ev = evaluate("no json at all", S)
+assert not ev.parsed and not ev.success
+
+# `ready: false` is the agent declining to sign off. Not a success.
 ev = evaluate(plan_json(GOOD, ready=False), S)
 assert ev.parsed and ev.violations == 0
 assert not ev.success, "a plan not declared ready is not a success"
 
-print("invalid actions:     OK")
+print("unknown actions:     OK")
 print("\nAll checks passed.")
