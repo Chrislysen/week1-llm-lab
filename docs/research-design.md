@@ -173,6 +173,46 @@ definition, and the fusion weight.
 | realised prompt tokens, seconds | cost, and the budget-parity audit |
 | `judge_score`, `judge_success` | secondary only |
 
+## 3b. Protocol amendment — current-message separation (2026-08-31)
+
+**Amended before any scored selector run. Applied uniformly to every arm.**
+
+> Any message used as the current query is **mandatory current context**: always
+> present, outside the 250-word history budget, and **excluded from the
+> retrievable candidate pool**. At finalisation, the latest dialogue message
+> plus `FINAL_PLAN_INSTRUCTION` form current context; retrieval candidates are
+> earlier dialogue messages only. This applies identically to recency, random,
+> BM25, dense, fusion and the oracle.
+
+**How it was found.** The offline selector-only preflight — no model calls,
+nothing scored — showed BM25 assigning the latest dialogue message **+45.38**
+against a next-best **+12.71**. The frozen finalisation query is the instruction
+plus that same message, so the message was matching itself. A candidate that
+forms part of its own query is a measurement artefact: it guaranteed its own
+selection for every scoring arm and spent budget on a message recency would have
+taken anyway.
+
+**Why this is a protocol correction and not outcome tuning.** It was found
+before any scored selector run, from an offline replay of already-saved
+transcripts. It is applied to every arm rather than the ones it helps. No
+scoring function, no α, no prompt, no budget and no query definition was
+changed. Both the pre-correction and post-correction preflight artifacts are
+preserved (`results/selector_preflight_v1_precorrection*.csv` and
+`*_v2_corrected*.csv`) so the change is auditable in both directions.
+
+**Consequence for existing evidence.** The completed stage-1 pilot
+(`transcripts/pilot/`, commit `1def040`) ran under the pre-amendment candidate
+pool. Its numbers remain valid evidence for the gate decision they were used
+for, but they are **not** directly comparable to post-amendment selector runs
+and must not be pooled with them.
+
+**A second defect found at the same time, and fixed.** The preflight's random
+arm used one fixed seed. `RandomBudget` shuffles `range(len(pool))`, and the
+pool is the same size on every transcript, so a single seed reproduced the
+*identical* selection pattern on all 21 transcripts — n = 1 presented as n = 21.
+The chance baseline is now averaged over 20 seeds (0.3362, sd 0.19). This was a
+broken control being repaired, not a method being tuned.
+
 ## 4. Fixed-budget definition
 
 **Capacity = W = 250 words of RETRIEVED DIALOGUE HISTORY only.**

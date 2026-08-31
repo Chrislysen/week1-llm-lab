@@ -156,18 +156,43 @@ def sized(specs):
 SIZES = [10, 20, 30, 40, 50, 60]          # 210 words total, 6 messages
 POOL = sized(SIZES)
 
-# Recency: newest first, skipping anything that would overflow, chronological
-# on the way out. At W=100 over sizes [10,20,30,40,50,60]:
-#   w5(60) fits -> 60;  w4(50) would make 110 -> SKIPPED;  w3(40) -> 100 exactly.
-# The skip is the documented rule: stopping at the first non-fit would leave
-# this arm at 60/100 and break budget parity with the other arms.
+# CURRENT-MESSAGE SEPARATION: the newest message (w5) is mandatory current
+# context -- always last, outside the budget, and NOT a retrieval candidate.
+# Candidates are w0..w4 only.
+#
+# Recency at W=100 over candidates [10,20,30,40,50]:
+#   w4(50) fits -> 50;  w3(40) -> 90;  w2(30) would make 120 -> SKIPPED;
+#   w1(20) -> 110 SKIPPED;  w0(10) -> 100 exactly.
 out = RecencyBudget(100)(list(POOL))
 assert out[0] == SYS
 kept = [m["content"].split()[0].split("_")[0] for m in out[1:]]
-assert kept == ["w3", "w5"], kept
+assert kept[-1] == "w5", "the current message must always be present, and last"
+assert kept == ["w0", "w3", "w4", "w5"], kept
 
+# The budget covers RETRIEVED HISTORY only; the current message is free.
 picked = RecencyBudget(100).select(POOL)[1:]
-assert sum(words(m["content"]) for m in picked) == 100, "should fill the budget"
+assert sum(words(m["content"]) for m in picked[:-1]) == 100, "history should fill W"
+assert words(picked[-1]["content"]) == 60, "current message is outside the budget"
+
+# The current message is never a candidate, for ANY budgeted policy.
+for pol in (RecencyBudget(500), RandomBudget(500, seed=2),
+            OracleBudget(500, [POOL[6]["content"]])):
+    sel = pol.select(POOL)
+    assert sel[-1] == POOL[6], f"{pol.label} must end on the current message"
+    assert [m for m in sel[1:]].count(POOL[6]) == 1, "current message duplicated"
+
+# Even an oracle told the current message is a source cannot retrieve it twice.
+sel = OracleBudget(30, [POOL[6]["content"], POOL[1]["content"]]).select(POOL)
+assert sel.count(POOL[6]) == 1, sel
+
+# The call record splits budgeted history from mandatory current context.
+p = RecencyBudget(100)
+p(list(POOL))
+c = p.calls[0]
+assert c["n_candidates"] == 5, c          # 6 messages, minus the current one
+assert c["words_history"] == 100, c
+assert c["words_current"] == 60, c
+assert c["words_kept"] == 160, c          # history + current, i.e. all sent
 # Chronological order is restored regardless of pick order.
 idx = [POOL.index(m) for m in picked]
 assert idx == sorted(idx), "selection must be restored to chronological order"
@@ -187,31 +212,38 @@ for W in range(0, 260, 10):
                 OracleBudget(W, SOURCES)):
         sel = pol.select(POOL)
         assert sel[0] == SYS, f"{pol.label} dropped the system prompt"
-        spend = sum(words(m["content"]) for m in sel[1:])
-        assert spend <= W, f"{pol.label} overspent: {spend} > {W}"
+        # W governs RETRIEVED HISTORY. The current message is mandatory and
+        # sits outside it, so it is excluded from the spend check.
+        history, current = sel[1:-1], sel[-1]
+        assert current == POOL[-1], f"{pol.label} lost the current message"
+        spend = sum(words(m["content"]) for m in history)
+        assert spend <= W, f"{pol.label} overspent history: {spend} > {W}"
         assert all(m in POOL for m in sel[1:]), f"{pol.label} injected content"
         i = [POOL.index(m) for m in sel[1:]]
         assert i == sorted(i), f"{pol.label} broke chronological order"
 
-# W = 0 keeps nothing but the system prompt.
-assert RecencyBudget(0).select(POOL) == [SYS]
+# W = 0 retrieves no history, but the current message is still mandatory.
+assert RecencyBudget(0).select(POOL) == [SYS, POOL[-1]]
+# With no dialogue at all there is nothing to reserve.
+assert RecencyBudget(50).select([SYS]) == [SYS]
 
 # Oracle takes the constraint-bearing messages FIRST. At W=30 the two sources
-# (10 + 20) exactly fill the budget and nothing else fits.
+# (10 + 20) exactly fill the history budget and nothing else fits.
 sel = OracleBudget(30, SOURCES).select(POOL)
-assert [m["content"] for m in sel[1:]] == SOURCES, sel
+assert [m["content"] for m in sel[1:-1]] == SOURCES, sel
+assert sel[-1] == POOL[-1], "current message still mandatory"
 
-# Recency at the SAME budget gets neither of them: it spends 30 on the newest
-# message that fits. This is the whole point of the pilot in miniature.
+# Recency at the SAME budget gets neither source: it spends 30 on the newest
+# CANDIDATE that fits. This is the whole point of the pilot in miniature.
 rec = RecencyBudget(30).select(POOL)
-assert not any(m["content"] in SOURCES for m in rec[1:]), rec
+assert not any(m["content"] in SOURCES for m in rec[1:-1]), rec
 
 # With more room the oracle keeps both sources and spends the rest on recency.
 sel = OracleBudget(90, SOURCES).select(POOL)
-got = [m["content"] for m in sel[1:]]
-assert all(s in got for s in SOURCES), "oracle must not drop a source message"
-assert len(got) > len(SOURCES), "oracle should spend leftover budget"
-assert sum(words(m["content"]) for m in sel[1:]) <= 90
+history = [m["content"] for m in sel[1:-1]]
+assert all(s in history for s in SOURCES), "oracle must not drop a source message"
+assert len(history) > len(SOURCES), "oracle should spend leftover budget"
+assert sum(words(m) for m in history) <= 90
 
 # Oracle may SELECT using hidden knowledge but must never INJECT. Its output is
 # always a subset of its input -- the property that makes it a legitimate

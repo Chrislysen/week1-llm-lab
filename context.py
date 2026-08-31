@@ -65,9 +65,13 @@ class ContextPolicy:
     """Base class. Subclasses implement `select`; `__call__` adds the logging."""
 
     name = "policy"
+    #: True when the policy holds the latest message out as mandatory current
+    #: context, outside the budget and out of the candidate pool.
+    reserves_current = False
 
     def __init__(self):
         self.calls = []
+        self._last = None
 
     @property
     def label(self) -> str:
@@ -91,13 +95,19 @@ class ContextPolicy:
         # Counts exclude the system prompt, which is never a candidate and is
         # never charged against the budget.
         available, kept = len(messages) - 1, len(out) - 1
-        self.calls.append({
+        record = {
             "available": available,
             "kept": kept,
             "dropped": available - kept,
             "words_available": sum(words(m["content"]) for m in messages[1:]),
             "words_kept": sum(words(m["content"]) for m in out[1:]),
-        })
+        }
+        # Budgeted policies additionally split what was BUDGETED (retrieved
+        # history) from what was MANDATORY (current context), so the parity
+        # audit compares like with like.
+        if self.reserves_current and self._last is not None:
+            record.update(self._last)
+        self.calls.append(record)
         return out
 
     def as_dict(self) -> dict:
@@ -160,9 +170,34 @@ class RecencyWindow(ContextPolicy):
 
 
 class BudgetedPolicy(ContextPolicy):
-    """Greedy-fill W words of dialogue history, then restore chronological order.
+    """Greedy-fill W words of RETRIEVABLE HISTORY, then restore chronological order.
 
-    Subclasses supply `priority(rest)`: candidate indices in preference order.
+    Subclasses supply `priority(rest, query)`: candidate indices in preference
+    order.
+
+    CURRENT-MESSAGE SEPARATION (protocol amendment, 2026-08-31)
+    ----------------------------------------------------------
+    The most recent dialogue message is CURRENT CONTEXT, not retrievable
+    history. It is always present, sits outside the word budget, and is
+    excluded from the candidate pool -- identically for every policy, including
+    recency, random and the oracle.
+
+    Why: the frozen finalisation query is FINAL_PLAN_INSTRUCTION + the latest
+    dialogue message, and that message was also a retrieval candidate, so it
+    matched itself. The offline selector preflight measured BM25 scoring it
+    +45.38 against a next-best +12.71 -- an order of magnitude, guaranteeing its
+    selection for every scoring arm and burning budget on a message recency
+    would have taken anyway. A candidate that is part of its own query is a
+    measurement artefact.
+
+    This is a PROTOCOL CORRECTION, not outcome tuning: it was found by an
+    offline selector-only preflight, before any scored selector run, and it is
+    applied uniformly to every arm rather than to the ones it happens to help.
+    No scoring function, alpha, prompt or budget was touched.
+
+    NOTE: the completed stage-1 pilot (`transcripts/pilot/`, `1def040`) ran
+    under the PRE-amendment pool. Its numbers are not directly comparable to
+    post-amendment selector runs and must not be pooled with them.
 
     Fill SKIPS a message that would overflow and keeps going, rather than
     stopping at the first non-fit. That is deliberate: stopping early would let
@@ -172,6 +207,7 @@ class BudgetedPolicy(ContextPolicy):
     """
 
     name = "budgeted"
+    reserves_current = True
 
     def __init__(self, max_words: int):
         super().__init__()
@@ -195,14 +231,31 @@ class BudgetedPolicy(ContextPolicy):
         # caller passes it, because the instruction is not in `messages` yet.
         if query is None:
             query = query_for_turn(messages)
+
+        if not rest:
+            self._last = {"n_candidates": 0, "n_selected": 0,
+                          "words_history": 0, "words_current": 0}
+            return [system]
+
+        # Current-message separation: the latest message is mandatory current
+        # context, outside the budget and out of the candidate pool.
+        current, pool = rest[-1], rest[:-1]
+
         chosen, used = [], 0
-        for i in self.priority(rest, query):
-            w = words(rest[i]["content"])
+        for i in self.priority(pool, query):
+            w = words(pool[i]["content"])
             if used + w <= self.max_words:
                 chosen.append(i)
                 used += w
         chosen.sort()  # chronological restoration
-        return [system] + [rest[i] for i in chosen]
+
+        self._last = {
+            "n_candidates": len(pool),
+            "n_selected": len(chosen),
+            "words_history": used,
+            "words_current": words(current["content"]),
+        }
+        return [system] + [pool[i] for i in chosen] + [current]
 
 
 class RecencyBudget(BudgetedPolicy):

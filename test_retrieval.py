@@ -90,29 +90,36 @@ POOL = [SYS] + [{"role": "user", "content": d} for d in DOCS]
 QUERY = "when can we restart the database, and what must happen first?"
 
 
-def selected(policy, query=QUERY):
-    return [m["content"] for m in policy.select(POOL, query=query)[1:]]
+def retrieved(policy, query=QUERY):
+    """The RETRIEVED HISTORY only -- excludes the mandatory current message."""
+    return [m["content"] for m in policy.select(POOL, query=query)[1:-1]]
 
 
-BUDGET = 20  # words; DOCS are 9-10 words each, so ~2 fit
+BUDGET = 20  # words of history; DOCS are 9-10 words each, so ~2 fit
 
 for pol in (BM25Budget(BUDGET), DenseBudget(BUDGET), FusionBudget(BUDGET),
             RecencyBudget(BUDGET), RandomBudget(BUDGET, seed=3)):
     sel = pol.select(POOL, query=QUERY)
     assert sel[0] == SYS, f"{pol.label} dropped the system prompt"
     assert all(m in POOL for m in sel[1:]), f"{pol.label} injected content"
-    assert sum(words(m["content"]) for m in sel[1:]) <= BUDGET, f"{pol.label} overspent"
+    # Current-message separation: DOCS[4] is mandatory current context, always
+    # last, outside the budget, and never a retrieval candidate.
+    assert sel[-1]["content"] == DOCS[4], f"{pol.label} lost the current message"
+    history = sel[1:-1]
+    assert DOCS[4] not in [m["content"] for m in history], \
+        f"{pol.label} retrieved the current message as history"
+    assert sum(words(m["content"]) for m in history) <= BUDGET, f"{pol.label} overspent"
     idx = [POOL.index(m) for m in sel[1:]]
     assert idx == sorted(idx), f"{pol.label} broke chronological order"
 
 # The scoring selectors should prefer the on-topic messages; recency cannot.
-assert DOCS[1] not in selected(BM25Budget(BUDGET)), "BM25 kept the weather message"
-assert DOCS[1] not in selected(FusionBudget(BUDGET)), "fusion kept the weather message"
-# Recency at this budget takes the newest, which includes the filler.
-assert DOCS[3] in selected(RecencyBudget(BUDGET)) or DOCS[4] in selected(RecencyBudget(BUDGET))
+assert DOCS[1] not in retrieved(BM25Budget(BUDGET)), "BM25 kept the weather message"
+assert DOCS[1] not in retrieved(FusionBudget(BUDGET)), "fusion kept the weather message"
+# Recency reaches back from the newest CANDIDATE, which is the filler at DOCS[3].
+assert DOCS[3] in retrieved(RecencyBudget(BUDGET))
 
 # Selectors genuinely differ from recency on this pool.
-assert selected(BM25Budget(BUDGET)) != selected(RecencyBudget(BUDGET))
+assert retrieved(BM25Budget(BUDGET)) != retrieved(RecencyBudget(BUDGET))
 
 print("selectors:           OK")
 
