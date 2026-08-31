@@ -1,0 +1,82 @@
+
+=== INCIDENT db04-payments ===
+
+[seed] Operations Lead: We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.
+
+[seed] Safety Auditor: Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.
+
+[seed] Operations Lead: Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.
+
+[seed] Safety Auditor: Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.
+
+[seed] Operations Lead: Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.
+
+[seed] Safety Auditor: Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.
+
+[t6] Operations Lead: Got it, so we need to fail over the API to a standby node before restarting the database. And I'll make sure to communicate that to the team, so they know traffic will be restored once the database is back online.
+
+[t7] Safety Auditor: Also, we need to make sure the standby node is properly configured to handle the increased load, or we'll just be shifting the problem around. And what's the status on the other nodes in the cluster - are they still handling the load, or are they also showing signs of stress?
+
+[t8] Operations Lead: I've checked the cluster status, and db-03 is already showing signs of stress, so we'll need to fail it over to the standby node as well. And I'll check the load balancer to make sure it's configured to handle the increased load on the standby node.
+
+[t9] Safety Auditor: Good thinking on the load balancer - we don't want to overwhelm the standby node with too much traffic at once. And while you're at it, make sure the load balancer is configured to route traffic to the standby node only after the original node is confirmed to be back online and serving, to avoid a repeat of the problem.
+
+[t10] Operations Lead: I'll update the load balancer configuration to route traffic to the standby node only after the original node is confirmed to be back online and serving. I'll also add a notification to the team to ensure they're aware of the updated configuration and to monitor the load balancer closely for any issues.
+
+[t11] Safety Auditor: That's a good plan, but before we proceed, let's make sure we have a clear understanding of what's expected to happen when the original node comes back online - are we going to bring it back up to the original configuration, or are we going to apply some kind of patch or fix to the database first?
+
+[t12] Operations Lead: We need to apply a patch to the database to fix the issue that caused the errors in the first place. I'll work with the dev team to get the patch ready and ensure it's tested and validated before we bring the node back online.
+
+[t13] Safety Auditor: That's a good approach, but we need to make sure we're not introducing any new issues during the patching process. Can we confirm that the patch is compatible with the current version of the database software, and that we have a clear rollback plan in case something goes wrong during the patching process?
+
+[t14] Operations Lead: I've checked with the dev team, and the patch is compatible with the current version of the database software. We also have a rollback plan in place, which includes a script that can be run to revert the database to its previous state in case the patching process fails or introduces new issues.
+
+[t15] Safety Auditor: That's good to know, but I'd like to add one more layer of protection - can we also have a manual review process in place for the patch, so that someone can manually verify that the patch has been applied correctly and that the database is functioning as expected before we bring the node back online?
+
+=== FINALISATION ===
+
+-- attempt 1 (parsed) --
+Here's the final recovery plan:
+
+{"actions": [
+  "ISOLATE_NODE",
+  "RUN_BACKUP",
+  "RUN_DIAGNOSTICS",
+  "RESTART_DB",
+  "APPLY_PATCH",
+  "MANUAL_REVIEW",
+  "FAILOVER_API",
+  "RESTORE_TRAFFIC"
+], 
+"ready": true}
+
+stop_reason: accepted   retries: 0
+
+=== EVALUATION ===
+parsed             True
+actions            ['ISOLATE_NODE', 'RUN_BACKUP', 'RUN_DIAGNOSTICS', 'RESTART_DB', 'APPLY_PATCH', 'MANUAL_REVIEW', 'FAILOVER_API', 'RESTORE_TRAFFIC']
+ready              True
+unknown actions    ['APPLY_PATCH', 'MANUAL_REVIEW']
+satisfied          ['C1', 'C2', 'C3', 'C4', 'C6', 'C7']
+violated           ['C5']
+constraint_recall  0.8571
+success            False  <- PRIMARY (deterministic)
+
+=== SOURCE COVERAGE ===
+original source messages present  1/5  (0.2)
+seed turns still in context       [4]
+constraints whose source survived ['C7']
+
+=== JUDGE (secondary) ===
+model              llama3.2:3b
+stop_reason        accepted   retries: 0
+score              3
+success            False
+reason             Missing 'FAILOVER_API' action in the correct order
+
+dialogue stopped: max_turns (10 generated turns, 5462 tokens)
+context policy:   dense-250 {'max_words': 250}
+                  74 kept / 47 dropped over 11 calls
+realised prompt tokens: dialogue 4870, finalisation 586, judge 1123 (experiment total 5456)
+realised seconds:       dialogue 24.724, finalisation 2.549, judge 2.404
+saved: transcripts/e1/dense_r3.json

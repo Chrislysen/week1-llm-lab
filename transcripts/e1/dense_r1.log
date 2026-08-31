@@ -1,0 +1,82 @@
+
+=== INCIDENT db04-payments ===
+
+[seed] Operations Lead: We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.
+
+[seed] Safety Auditor: Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.
+
+[seed] Operations Lead: Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.
+
+[seed] Safety Auditor: Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.
+
+[seed] Operations Lead: Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.
+
+[seed] Safety Auditor: Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.
+
+[t6] Operations Lead: Got it, so we need to fail over the API to a standby node, and then restart the database. And we'll need to coordinate with the ops team to ensure the standby node is properly configured and ready to take over.
+
+[t7] Safety Auditor: That's the plan, but don't forget to coordinate with the ops team to also ensure the standby node has the same version of the database software, and that the configuration is identical to the primary node.
+
+[t8] Operations Lead: I'll add that to the plan. I'll also make sure to get the ops team to confirm that the standby node has the same version of the database software and configuration, to avoid any potential issues with data corruption or inconsistencies.
+
+[t9] Safety Auditor: Also, don't forget to get the ops team to confirm that the standby node has the same version of the database software and configuration, to avoid any potential issues with data corruption or inconsistencies.
+
+[t10] Operations Lead: I'll add that to the plan. I'll also make sure to get the ops team to confirm that the standby node has the same version of the database software and configuration, to avoid any potential issues with data corruption or inconsistencies.
+
+[t11] Safety Auditor: I think we've got the recovery plan covered, but what about the notification to the stakeholders? We need to let them know what's happening and when they can expect the API to be back up.
+
+[t12] Operations Lead: I'll draft a notification to the stakeholders, including the expected downtime and the expected time for the API to be back online. I'll also make sure to include a contact person for any urgent questions or concerns.
+
+I'll send the notification to the stakeholders via email and also post an update on our incident management board, so everyone can see the status and timeline.
+
+[t13] Safety Auditor: I'll review the notification to make sure it's clear and concise, and also double-check that the expected downtime and recovery time are realistic. Also, I'll make sure to include the fact that we're taking a backup before the restart, as per our policy, to avoid any questions later on.
+
+[t14] Operations Lead: Sounds good. I'll also make sure to CC the relevant teams, like ops and dev, so they're aware of the plan and can start preparing for the restart.
+
+[t15] Safety Auditor: That's a good idea, but let's also make sure to get the ops team to confirm that the standby node is properly warmed up and ready to take over as soon as the primary node is restarted, to avoid any further downtime. We don't want to add any extra steps to the recovery process.
+
+=== FINALISATION ===
+
+-- attempt 1 (parsed) --
+Here is the final recovery plan:
+
+{"actions": [
+  "RUN_DIAGNOSTICS",
+  "RUN_BACKUP",
+  "RESTART_DB",
+  "CONFIRM_STANDBY_NODE_CONFIG",
+  "FAILOVER_API",
+  "RESTORE_TRAFFIC"
+], 
+"ready": true}
+
+stop_reason: accepted   retries: 0
+
+=== EVALUATION ===
+parsed             True
+actions            ['RUN_DIAGNOSTICS', 'RUN_BACKUP', 'RESTART_DB', 'CONFIRM_STANDBY_NODE_CONFIG', 'FAILOVER_API', 'RESTORE_TRAFFIC']
+ready              True
+unknown actions    ['CONFIRM_STANDBY_NODE_CONFIG']
+satisfied          ['C3', 'C4', 'C6', 'C7']
+violated           ['C1', 'C2', 'C5']
+constraint_recall  0.5714
+success            False  <- PRIMARY (deterministic)
+
+=== SOURCE COVERAGE ===
+original source messages present  0/5  (0.0)
+seed turns still in context       []
+constraints whose source survived []
+
+=== JUDGE (secondary) ===
+model              llama3.2:3b
+stop_reason        accepted   retries: 0
+score              3
+success            False
+reason             plan reorders actions, missing 'CONFIRM_STANDBY_NODE_CONFIG' after 'RESTART_DB'
+
+dialogue stopped: max_turns (10 generated turns, 5222 tokens)
+context policy:   dense-250 {'max_words': 250}
+                  80 kept / 41 dropped over 11 calls
+realised prompt tokens: dialogue 4728, finalisation 613, judge 1016 (experiment total 5341)
+realised seconds:       dialogue 26.875, finalisation 2.732, judge 2.434
+saved: transcripts/e1/dense_r1.json

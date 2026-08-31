@@ -1,0 +1,81 @@
+
+=== INCIDENT db04-payments ===
+
+[seed] Operations Lead: We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.
+
+[seed] Safety Auditor: Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.
+
+[seed] Operations Lead: Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.
+
+[seed] Safety Auditor: Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.
+
+[seed] Operations Lead: Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.
+
+[seed] Safety Auditor: Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.
+
+[t6] Operations Lead: Got it, so we need to fail over the API to a standby node, and then restart the database. And I'll also need to notify the team that's responsible for the API, so they're aware of the plan and can assist with the failover.
+
+[t7] Safety Auditor: Also, we need to notify ops and the team that's responsible for db-04, so they're aware of the plan and can assist with the restart. And let's not forget to document the root cause and the recovery steps, so we can learn from this and prevent similar incidents in the future.
+
+[t8] Operations Lead: I'll send out a notification to ops and the db team, and also document the root cause and recovery steps in our incident log. I'll also make sure to CC the team that's responsible for db-04 on the notification, so they're aware of the plan and can assist with the restart.
+
+[t9] Safety Auditor: Good, that covers the communication and documentation. Now, let's talk about the API. We need to figure out how to get it back online without relying on the database, since we can't restart the database until the backup is complete.
+
+[t10] Operations Lead: I'll get the team to set up a temporary API endpoint that uses a cache or a read-only database connection, so we can still serve customers without hitting the faulty database. We can also use this opportunity to test the API's error handling and logging, to see if we can catch any similar issues before they become major problems.
+
+[t11] Safety Auditor: That sounds like a good plan. I'll review the temporary API endpoint setup to ensure it meets our security and performance requirements. Also, I'll make sure to add the testing and logging aspects to the incident report, so we can track the effectiveness of the temporary fix and identify areas for improvement.
+
+[t12] Operations Lead: I'll coordinate with the ops team to get db-04 restarted as soon as possible, and also arrange for a post-mortem analysis to be done after the incident is resolved, so we can get a better understanding of what went wrong and how we can prevent it in the future. I'll also send a notification to the team that's responsible for db-04, so they're aware of the plan and can assist with the restart.
+
+[t13] Safety Auditor: I'll review the notification to ensure it includes the necessary details, such as the expected downtime and the plan for restoring the API. Also, I'll make sure to add the post-mortem analysis to the incident report, so it's clear that we're taking a thorough look at what happened and how we can improve our processes.
+
+[t14] Operations Lead: I'll coordinate with the ops team to get the isolation and backup done ASAP, and also make sure we have a clear plan for restarting the database and failing over the API. I'll also reach out to the development team to see if they can provide any additional insights into the issue, and if there's anything they can do to help with the recovery.
+
+[t15] Safety Auditor: That sounds like a solid plan. I'll review the temporary API endpoint setup and make sure it's secure and meets our performance requirements. Also, I'll coordinate with the development team to ensure they're aware of the plan and can provide any necessary support during the recovery process.
+
+=== FINALISATION ===
+
+-- attempt 1 (parsed) --
+```
+{
+  "actions": [
+    "ISOLATE_NODE",
+    "RESTART_DB",
+    "RUN_BACKUP",
+    "FAILOVER_API",
+    "RESTORE_TRAFFIC"
+  ],
+  "ready": true
+}
+```
+
+stop_reason: accepted   retries: 0
+
+=== EVALUATION ===
+parsed             True
+actions            ['ISOLATE_NODE', 'RESTART_DB', 'RUN_BACKUP', 'FAILOVER_API', 'RESTORE_TRAFFIC']
+ready              True
+unknown actions    []
+satisfied          ['C1', 'C2', 'C3', 'C6', 'C7']
+violated           ['C4', 'C5']
+constraint_recall  0.7143
+success            False  <- PRIMARY (deterministic)
+
+=== SOURCE COVERAGE ===
+original source messages present  1/5  (0.2)
+seed turns still in context       [1]
+constraints whose source survived ['C1', 'C2']
+
+=== JUDGE (secondary) ===
+model              llama3.2:3b
+stop_reason        accepted   retries: 0
+score              3
+success            False
+reason             Missing explicit ordering of actions
+
+dialogue stopped: max_turns (10 generated turns, 5452 tokens)
+context policy:   random-250-s1002 {'max_words': 250, 'seed': 1002}
+                  75 kept / 46 dropped over 11 calls
+realised prompt tokens: dialogue 4814, finalisation 602, judge 1149 (experiment total 5416)
+realised seconds:       dialogue 24.871, finalisation 2.449, judge 2.361
+saved: transcripts/e1/random_r2.json

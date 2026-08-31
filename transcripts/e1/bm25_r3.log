@@ -1,0 +1,81 @@
+
+=== INCIDENT db04-payments ===
+
+[seed] Operations Lead: We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.
+
+[seed] Safety Auditor: Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.
+
+[seed] Operations Lead: Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.
+
+[seed] Safety Auditor: Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.
+
+[seed] Operations Lead: Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.
+
+[seed] Safety Auditor: Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.
+
+[t6] Operations Lead: Got it, so we need to fail over the API to a standby node, and then restart the database. And I'll also need to notify the team that's responsible for the API, so they're aware of the plan and can assist with the failover.
+
+[t7] Safety Auditor: Also, we need to notify ops and the team that's responsible for db-04, so they're aware of the plan and can assist with the restart. And let's not forget to document the root cause and the recovery steps, so we can learn from this and prevent similar incidents in the future.
+
+[t8] Operations Lead: I'll send out a notification to ops and the db team, and also document the root cause and recovery steps in our incident log. I'll also make sure to CC the team that's responsible for db-04 on the notification, so they're aware of the plan and can assist with the restart.
+
+[t9] Safety Auditor: Good, that covers the communication and documentation. Now, let's talk about the failover process. We need to make sure that the standby node is properly configured to handle the increased load, and that we're not introducing any new single points of failure.
+
+[t10] Operations Lead: I'll check the standby node's configuration to ensure it's set up to handle the increased load, and also verify that it's properly load-balanced and has the necessary resources to handle the traffic. I'll also review the node's monitoring and alerting setup to ensure we can quickly detect any issues that might arise during the failover.
+
+[t11] Safety Auditor: That sounds good. Also, I want to confirm that we're not going to trigger any additional alerts or notifications that might cause a domino effect on other services, given the current high traffic and potential for further errors.
+
+[t12] Operations Lead: I'll review the alerting setup to ensure that we're not triggering any additional alerts that might cause a cascade of notifications, and I'll also check the traffic patterns to see if there are any other services that might be impacted by the failover. I'll also consider implementing a temporary "quiet time" for the affected services to minimize the impact on customers.
+
+[t13] Safety Auditor: I agree that a temporary quiet time could be beneficial, but I want to make sure we're not overcommitting resources. Can we also confirm that the standby node has the same configuration and settings as the primary node, to ensure a seamless failover and minimize downtime?
+
+[t14] Operations Lead: I'll check the configuration and settings of the standby node to ensure it's identical to the primary node, including any custom settings or configurations that might be specific to the database or API. I'll also verify that the standby node has the same version of the software and any necessary patches or updates.
+
+[t15] Safety Auditor: That's a good point about the software version and patches. I'll also want to confirm that the standby node has the same network and security configurations as the primary node, to ensure that we're not introducing any new vulnerabilities or exposing the system to unauthorized access.
+
+=== FINALISATION ===
+
+-- attempt 1 (parsed) --
+{
+  "actions": [
+    "NOTIFY_OPS_AND_DB_TEAM",
+    "CONFIRM_STANDBY_NODE_CONFIG",
+    "RUN_DIAGNOSTICS",
+    "RUN_BACKUP",
+    "RESTART_DB",
+    "FAILOVER_API",
+    "RESTORE_TRAFFIC"
+  ],
+  "ready": true
+}
+
+stop_reason: accepted   retries: 0
+
+=== EVALUATION ===
+parsed             True
+actions            ['NOTIFY_OPS_AND_DB_TEAM', 'CONFIRM_STANDBY_NODE_CONFIG', 'RUN_DIAGNOSTICS', 'RUN_BACKUP', 'RESTART_DB', 'FAILOVER_API', 'RESTORE_TRAFFIC']
+ready              True
+unknown actions    ['NOTIFY_OPS_AND_DB_TEAM', 'CONFIRM_STANDBY_NODE_CONFIG']
+satisfied          ['C3', 'C4', 'C6', 'C7']
+violated           ['C1', 'C2', 'C5']
+constraint_recall  0.5714
+success            False  <- PRIMARY (deterministic)
+
+=== SOURCE COVERAGE ===
+original source messages present  0/5  (0.0)
+seed turns still in context       []
+constraints whose source survived []
+
+=== JUDGE (secondary) ===
+model              llama3.2:3b
+stop_reason        accepted   retries: 0
+score              3
+success            False
+reason             Missing explicit ordering of actions
+
+dialogue stopped: max_turns (10 generated turns, 5492 tokens)
+context policy:   bm25-250 {'max_words': 250}
+                  75 kept / 46 dropped over 11 calls
+realised prompt tokens: dialogue 4907, finalisation 601, judge 1114 (experiment total 5508)
+realised seconds:       dialogue 24.652, finalisation 2.889, judge 2.351
+saved: transcripts/e1/bm25_r3.json

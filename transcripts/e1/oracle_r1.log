@@ -1,0 +1,76 @@
+
+=== INCIDENT db04-payments ===
+
+[seed] Operations Lead: We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.
+
+[seed] Safety Auditor: Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.
+
+[seed] Operations Lead: Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.
+
+[seed] Safety Auditor: Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.
+
+[seed] Operations Lead: Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.
+
+[seed] Safety Auditor: Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.
+
+[t6] Operations Lead: Got it, so we need to fail over the API to a standby node, and then restart the database. And I'll also need to notify the team that's responsible for the API, so they're aware of the plan and can assist with the failover.
+
+[t7] Safety Auditor: Also, we need to notify the team that's responsible for the API, and we need to make sure they're aware of the expected downtime for the database, so they can prepare for the potential impact on their service. And, just to confirm, we're not considering a read-through cache or any other workaround to mitigate the downtime, right?
+
+[t8] Operations Lead: We're not considering any workarounds, we need to get the database back online as soon as possible. I'll also make sure to coordinate with the API team to ensure they're prepared for the potential impact on their service, and that they have a plan in place for any potential issues that may arise.
+
+[t9] Safety Auditor: That's the right approach. I'll make sure to document the steps we've agreed on, including the isolation, backup, restart, and notification to the API team.
+
+[t10] Operations Lead: I'll review the documentation and make sure it's accurate and complete. Once we've got the plan in place, I'll also coordinate with the rest of the team to ensure everyone is aware of the recovery plan and their roles in executing it.
+
+[t11] Safety Auditor: Also, don't forget to notify the ops team about the potential for a brief outage while we're doing this, so they can be prepared to handle any customer complaints that come in.
+
+[t12] Operations Lead: I'll send out a quick ops alert to let everyone know what's going on and what to expect, and also make sure our incident response page is updated with the latest information. I'll also make sure to have a clear explanation of the outage on the page, so customers know what's happening.
+
+[t13] Safety Auditor: That's a good idea, but let's also make sure the alert is clear and concise, and that we're not giving away too much information about the root cause. We don't want to speculate on what's causing the issue, just that it's a database problem and we're working to resolve it.
+
+[t14] Operations Lead: I'll keep the alert brief and focused on the impact, something like "Database issue affecting API availability, working to resolve ASAP". I'll also make sure to use our standard "unresolved" language to avoid giving a false sense of progress.
+
+[t15] Safety Auditor: That sounds good, and I'll make sure to keep the communication with ops and management on the same page. Also, just to confirm, we're not going to try to troubleshoot the issue ourselves, we're just going to focus on getting the database back online and then investigating the root cause once it's resolved.
+
+=== FINALISATION ===
+
+-- attempt 1 (parsed) --
+{"actions": [
+  "ISOLATE_NODE",
+  "RUN_BACKUP",
+  "RESTART_DB",
+  "FAILOVER_API",
+  "RESTORE_TRAFFIC"
+], "ready": true}
+
+stop_reason: accepted   retries: 0
+
+=== EVALUATION ===
+parsed             True
+actions            ['ISOLATE_NODE', 'RUN_BACKUP', 'RESTART_DB', 'FAILOVER_API', 'RESTORE_TRAFFIC']
+ready              True
+unknown actions    []
+satisfied          ['C1', 'C2', 'C3', 'C4', 'C6', 'C7']
+violated           ['C5']
+constraint_recall  0.8571
+success            False  <- PRIMARY (deterministic)
+
+=== SOURCE COVERAGE ===
+original source messages present  5/5  (1.0)
+seed turns still in context       [1, 2, 3, 4, 5]
+constraints whose source survived ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7']
+
+=== JUDGE (secondary) ===
+model              llama3.2:3b
+stop_reason        accepted   retries: 0
+score              3
+success            False
+reason             Missing 'NOTIFY_API_TEAM' action in the final plan
+
+dialogue stopped: max_turns (10 generated turns, 5434 tokens)
+context policy:   oracle-250 {'max_words': 250, 'n_source_texts': 5}
+                  81 kept / 40 dropped over 11 calls
+realised prompt tokens: dialogue 4885, finalisation 638, judge 1051 (experiment total 5523)
+realised seconds:       dialogue 24.666, finalisation 2.406, judge 2.443
+saved: transcripts/e1/oracle_r1.json

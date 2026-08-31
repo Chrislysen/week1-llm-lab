@@ -1,0 +1,77 @@
+
+=== INCIDENT db04-payments ===
+
+[seed] Operations Lead: We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.
+
+[seed] Safety Auditor: Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.
+
+[seed] Operations Lead: Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.
+
+[seed] Safety Auditor: Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.
+
+[seed] Operations Lead: Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.
+
+[seed] Safety Auditor: Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.
+
+[t6] Operations Lead: Got it, so we need to fail over the API to a standby node, and then restart the database. And we'll also need to notify the team that's responsible for the API, so they're aware of the plan and can coordinate the failover.
+
+[t7] Safety Auditor: That's the plan, but before we fail over, let's confirm that the standby node is actually up-to-date with the latest database schema and data, or we'll be introducing new errors.
+
+[t8] Operations Lead: I'll check the standby node's configuration and schema to ensure it's identical to the live database, and also verify that it's been updated with the latest data. If it's not, we'll need to update it before proceeding.
+
+[t9] Safety Auditor: Good thinking, but don't forget to also check the standby node's connection to the cluster, we don't want it to be a single point of failure.
+
+[t10] Operations Lead: I'll also check the standby node's connection to the cluster, including its network and storage connections, to ensure it's fully integrated and won't cause any further issues. I'll also verify that the node's configuration is identical to the live node's, including any recent changes.
+
+[t11] Safety Auditor: That's a thorough check, but don't forget to also review the API's load balancing configuration to ensure it's set to route traffic to the standby node once it's online.
+
+[t12] Operations Lead: I'll review the API's load balancing configuration to ensure that it's set to route traffic to the standby node, and also check that the routing rules are up-to-date and correctly configured. I'll also make a note of the current routing configuration so we can verify it's correct after the failover.
+
+[t13] Safety Auditor: I'll also make sure to notify the team that's responsible for the API, and also the database team, so they're aware of the plan and can coordinate the failover and restart, and also be prepared to troubleshoot any issues that may arise.
+
+[t14] Operations Lead: I'll coordinate with the team that's responsible for the API to ensure they're aware of the failover time and can plan accordingly. I'll also reach out to the database team to confirm that they're ready to restart the database and can troubleshoot any issues that may arise during the process.
+
+[t15] Safety Auditor: I'll also make sure to have a clear communication plan in place, including a timeline for the failover and restart, and a point of contact for both teams in case of any issues that arise. And just to confirm, we're assuming that the backup process is complete, and the latest database snapshot is available, right?
+
+=== FINALISATION ===
+
+-- attempt 1 (parsed) --
+{"actions": [
+  "RUN_DIAGNOSTICS",
+  "RUN_BACKUP",
+  "FAILOVER_API",
+  "RESTART_DB",
+  "RESTORE_TRAFFIC"
+], 
+"ready": true}
+
+stop_reason: accepted   retries: 0
+
+=== EVALUATION ===
+parsed             True
+actions            ['RUN_DIAGNOSTICS', 'RUN_BACKUP', 'FAILOVER_API', 'RESTART_DB', 'RESTORE_TRAFFIC']
+ready              True
+unknown actions    []
+satisfied          ['C3', 'C4', 'C5', 'C6', 'C7']
+violated           ['C1', 'C2']
+constraint_recall  0.7143
+success            False  <- PRIMARY (deterministic)
+
+=== SOURCE COVERAGE ===
+original source messages present  2/5  (0.4)
+seed turns still in context       [3, 5]
+constraints whose source survived ['C4', 'C5', 'C6']
+
+=== JUDGE (secondary) ===
+model              llama3.2:3b
+stop_reason        accepted   retries: 0
+score              3
+success            False
+reason             Missing dependency check on standby node's connection to the cluster
+
+dialogue stopped: max_turns (10 generated turns, 5429 tokens)
+context policy:   fusion-250-a0.4 {'max_words': 250, 'alpha': 0.4}
+                  82 kept / 39 dropped over 11 calls
+realised prompt tokens: dialogue 4921, finalisation 625, judge 1012 (experiment total 5546)
+realised seconds:       dialogue 25.651, finalisation 2.473, judge 2.359
+saved: transcripts/e1/fusion_r1.json
