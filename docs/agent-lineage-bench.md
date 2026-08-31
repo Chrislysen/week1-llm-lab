@@ -1,0 +1,233 @@
+# E2 design — Agent Lineage Bench
+
+**DESIGN ONLY. Nothing here is implemented.** No code, no instances, no runs.
+This document exists so that E2 can be reviewed before it is built, and so that
+any later novelty claim can be checked against what was actually planned.
+
+The compulsory baseline (`compulsory-baseline-v1`) and the frozen selector
+protocol (`selector-protocol-v1`) are untouched by anything described here.
+
+---
+
+## 1. Why E2 exists
+
+E1 and the offline preflight established, on **one** scenario, that every
+selector ranks the agents' own restatements above the authoritative originals
+those restatements came from. That is suggestive and it is not enough. Three
+things are missing:
+
+1. **One scenario.** The effect could be a property of `db04-payments` rather
+   than of multi-agent dialogue.
+2. **No lineage ground truth.** In E1 the relays are LLM-generated, so nothing
+   knows whether turn 8 faithfully restates turn 3 or quietly distorts it.
+   Without that, "derived" is a position in the transcript, not a relationship.
+3. **Retrieval and decision are confounded.** A wrong plan may follow a derived
+   statement *because* the source was never retrieved. That is a retrieval
+   failure wearing a decision failure's clothes.
+
+E2 is the instrument that separates these. It is a benchmark, not a result.
+
+## 2. The two inversions, defined so they can be told apart
+
+**Retrieval authority inversion.** Under a fixed context budget, a selector
+ranks derived agent statements above the authoritative evidence they derive
+from.
+
+> Measured on the *selection*, before any decision exists. Already measurable
+> today: mean rank of source messages minus mean rank of derived messages.
+
+**Decision authority inversion.** With the authoritative source **and** a
+conflicting derived representation **both present in context**, the decision
+follows the derived representation.
+
+> Measured on the *plan*, conditioned on both being retrieved. The conditioning
+> is what makes it a decision failure rather than a retrieval failure.
+
+These can dissociate in all four combinations, and a benchmark that cannot
+report the 2×2 is not measuring the phenomenon:
+
+| | decision follows source | decision follows derivative |
+|---|---|---|
+| **source retrieved, derivative retrieved** | no inversion | **decision authority inversion** |
+| **source not retrieved** | n/a | retrieval failure, not decision failure |
+
+## 3. Procedural instance generation
+
+Instances are generated from a grammar, not written by hand, so that they are
+**structurally matched and lexically distinct**. Hand-written instances would
+let scenario-specific vocabulary leak into the results — exactly the confound
+that produced the E1 pool-audit surprise.
+
+Each generated instance fixes:
+
+- a **domain skin**: service names, host names, entity nouns, drawn from
+  disjoint vocabularies per instance so no lexical overlap survives across
+  instances;
+- an **action vocabulary** of fixed size, used only in the final structured plan;
+- a **hidden formal constraint set** over that vocabulary — `before(a, b)` and
+  `required(a)`, as in the compulsory, with a fixed count and a fixed
+  dependency-graph shape across instances;
+- a **lineage graph**: which message derives from which, with matched
+  source→decision distances across instances.
+
+Structure is held constant; surface form varies. Two instances differ in every
+word and in no measurable structural property.
+
+## 4. Message classes and lineage labels
+
+Every message carries an explicit label. Labels are **hidden from every agent
+and every selector**; they exist only for the scorer, exactly as the constraint
+key does today.
+
+```
+{ msg_id, speaker, text,
+  lineage: SOURCE | FAITHFUL_RELAY | CORRUPTED_RELAY | RECOVERY
+         | DISTRACTOR | SUPERSESSION,
+  derives_from: [msg_id, ...] | null,
+  asserts: [{constraint_id, faithful: bool, asserted_form}],
+  authoritative_at: [turn_range] }
+```
+
+| class | what it does | why it is needed |
+|---|---|---|
+| **SOURCE** | first authoritative statement of a constraint | the ground truth |
+| **FAITHFUL_RELAY** | restates a source without distortion | the E1 baseline behaviour; a system must not penalise it |
+| **CORRUPTED_RELAY** | restates a source with a *specific, known* distortion that conflicts with it | the instrument for decision authority inversion |
+| **RECOVERY** | later message that restores the source's correct content after a corruption | tests whether the damage is repairable in-dialogue |
+| **DISTRACTOR** | plausible, on-topic, constraint-irrelevant | stops "retrieve everything operational" from scoring well |
+| **SUPERSESSION** | later information that *legitimately* overrides an earlier source | see below — the most important class |
+
+### Why SUPERSESSION is the load-bearing class
+
+Without it, "later derived statement disagrees with earlier source" is *always*
+wrong, and a trivial policy — always prefer the earliest authoritative
+statement — scores perfectly while learning nothing. That policy is also
+actively harmful in any real incident, where conditions change and later
+information genuinely does override earlier information.
+
+Including legitimate supersession means the correct behaviour is not "trust
+sources" but "trust the currently-authoritative statement", and the two are
+distinguishable only with lineage. **This is the class that makes the benchmark
+non-trivial, and any candidate router must be scored on it.**
+
+`authoritative_at` encodes the time range over which each statement holds, so
+"which statement is authoritative right now" is a deterministic lookup rather
+than a judgement.
+
+## 5. Conditions
+
+Presence of source and corruption is **controlled**, not left to the selector,
+so the decision measurement is not contaminated by retrieval:
+
+| condition | source in context | corruption in context |
+|---|---|---|
+| `both` | yes | yes | ← where decision authority inversion is measured |
+| `source-only` | yes | no |
+| `corruption-only` | no | yes |
+| `neither` | no | no |
+| `selector` | whatever the selector chose | whatever the selector chose |
+
+The first four are oracle-controlled contexts at matched budget. The fifth is
+the realistic one. Comparing `selector` against `both` separates "the selector
+failed to retrieve" from "the model failed to reason".
+
+## 6. Metrics
+
+**Retrieval side**
+
+- `source_retrieval_recall`
+- `corruption_retrieval_rate`
+- `authority_rank_gap` = mean rank(derived) − mean rank(source), per selector
+- `distractor_selection_rate`
+
+**Decision side** — all conditioned on the `both` condition
+
+- `decision_follows_source`
+- `decision_follows_corruption`
+- `decision_follows_neither`
+- `decision_authority_inversion_rate` = follows_corruption ÷ (follows_source + follows_corruption), reported with its denominator
+- `recovery_effectiveness` — does a later RECOVERY message undo a corruption?
+- `supersession_respected_rate` — does the decision follow a legitimately superseding statement? **A system that always prefers sources must score badly here.**
+
+**Cost and parity** — unchanged from the compulsory: realised prompt tokens,
+history words, seconds. Any win at higher realised spend is a paid win.
+
+## 7. Controls
+
+Carried forward, non-negotiable:
+
+- **random** selection at matched budget, averaged over many seeds — E1 showed a
+  single-seed random arm is n=1 dressed as n=21;
+- **sabotage** — a selector that deliberately excludes sources; the scorer must
+  collapse or the scorer is not measuring what is claimed;
+- **oracle** — upper bound, diagnostic only, never pooled with scored arms;
+- **no-corruption instances** — the corruption rate must be ~0 where no
+  corruption was planted, or the metric is detecting noise.
+
+## 8. Two generation modes, and the honest tension between them
+
+Explicit lineage labels require scripted relays. Scripted relays make the
+dialogue synthetic. Both facts are true and neither is dismissable.
+
+- **Mode A — scripted lineage.** All messages generated procedurally. Lineage is
+  exact. Both inversions measurable without any judge. Dialogue is synthetic.
+- **Mode B — agent-generated.** Agents produce their own relays, as in E1.
+  Dialogue is natural. Lineage must be inferred, so labels are noisy.
+
+**E2 is Mode A.** That is what makes it a benchmark. Mode B is its external
+validity check: if the effect measured in Mode A does not also appear in Mode B,
+the benchmark is measuring an artefact of scripting, and that must be reported
+rather than explained away.
+
+## 9. What would earn AnchorRoute
+
+**AnchorRoute is not designed here and must not be implemented until the
+benchmark says it is warranted.** The gates, declared in advance:
+
+1. **Retrieval inversion generalises.** `authority_rank_gap > 0` across
+   instances, not just `db04-payments`.
+2. **Decision inversion exists.** `decision_authority_inversion_rate` measurably
+   above zero in the `both` condition, with a reported denominator.
+3. **It is not just retrieval.** The `selector` condition must be worse than
+   `both` — otherwise the fix is a better retriever, not a lineage-aware one.
+4. **Lineage carries information a lineage-blind method cannot get.** A strong
+   lineage-blind baseline at the same budget must fail where lineage would
+   succeed. If relevance alone recovers it, there is nothing to route.
+5. **Supersession is not broken by the fix.** Any candidate must not degrade
+   `supersession_respected_rate` — the trivial "always trust the source" policy
+   is the thing to beat, not the thing to become.
+
+Fail any gate → do not build the router; report why.
+
+## 10. Novelty position: still NONE claimed
+
+Per `docs/research-roadmap.md`, generic provenance, contradiction handling,
+role-aware routing, source reliability weighting, multi-hop semantic drift,
+stale/superseded memory and relevance-vs-utility all have prior art. E2 is a
+**measurement instrument**, and the honest description of a completed E2 is "a
+benchmark that separates retrieval authority inversion from decision authority
+inversion with deterministic lineage ground truth" — a resource contribution.
+
+A real prior-art search is a prerequisite for E2 stage 3, not a formality. The
+project's own literature scan already found four of five candidate research
+questions fully pre-empted; the prior should be that this one is too.
+
+## 11. Open questions for review
+
+1. **Instance count and shape.** How many instances, and how many corruptions
+   per instance? Too few and nothing is measurable; too many and each instance
+   becomes an unnatural pile-up of distortions.
+2. **Corruption severity.** Should a corruption invert a constraint
+   (`before(a,b)` → `before(b,a)`), drop a precondition, or weaken it to a
+   suggestion? These are probably not equally detectable and may need to be a
+   reported factor rather than a fixed choice.
+3. **Who speaks the corruption?** The Operations Lead corrupting its own
+   recollection is a different phenomenon from the Safety Auditor doing so, and
+   role may interact with authority.
+4. **Does the scripted dialogue still need two live agents?** If every message
+   is scripted up to the decision, Mode A may be a single-call benchmark with a
+   dialogue-shaped prompt — cheaper, but further from the setting it claims to
+   describe.
+5. **Budget.** Keep W = 250 for continuity with E1, or scale it to instance size?
+   Continuity is worth something; comparability across instance sizes is worth
+   more.

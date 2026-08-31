@@ -1,0 +1,77 @@
+
+=== INCIDENT db04-payments ===
+
+[seed] Operations Lead: We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.
+
+[seed] Safety Auditor: Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.
+
+[seed] Operations Lead: Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.
+
+[seed] Safety Auditor: Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.
+
+[seed] Operations Lead: Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.
+
+[seed] Safety Auditor: Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.
+
+[t6] Operations Lead: Got it, so we need to fail over the API to a standby node, and then restart the database. And we'll also need to notify the team that's responsible for the API, so they're aware of the plan and can coordinate the failover.
+
+[t7] Safety Auditor: That's the plan, but before we fail over, let's confirm that the standby node is actually up-to-date with the latest database schema and data, or we'll be introducing new errors.
+
+[t8] Operations Lead: I'll check the standby node's configuration and verify that it's up-to-date with the latest schema and data. If it's not, we'll need to update it before proceeding with the failover.
+
+[t9] Safety Auditor: And while you're checking the standby node, I'll notify the API team and get them to prepare for the failover, so we can execute the plan as soon as you confirm the standby node is ready.
+
+[t10] Operations Lead: I'll also reach out to the DBA team to confirm that they're ready to restart the database once the failover is complete. And just to confirm, we'll also need to have a plan in place for monitoring the database's performance after the restart, to ensure it's stable and serving correctly.
+
+[t11] Safety Auditor: I'll also coordinate with the monitoring team to ensure they're aware of the plan and can start tracking the database's performance immediately after the restart, so we can catch any issues early.
+
+[t12] Operations Lead: I'll also make sure to have a clear communication plan in place for the team, so they know what to expect and can provide updates on the status of the API and database. I'll also have a rollback plan in place, just in case the restart doesn't go as smoothly as we hope.
+
+[t13] Safety Auditor: I'll make sure to have a clear escalation plan in place, so if the rollback is needed, we can quickly identify the root cause and get the database back up and running.
+
+[t14] Operations Lead: I'll also coordinate with the DevOps team to ensure that the necessary scripts and tools are in place to facilitate a swift rollback, and that we have a clear understanding of the steps required to get the database back online.
+
+[t15] Safety Auditor: I'll also review the incident response plan to ensure that we're following the established procedures and not introducing any new steps that might complicate the process.
+
+=== FINALISATION ===
+
+-- attempt 1 (parsed) --
+{"actions": [
+  "RUN_DIAGNOSTICS",
+  "RUN_BACKUP",
+  "RESTART_DB",
+  "FAILOVER_API",
+  "RESTORE_TRAFFIC"
+], 
+"ready": true}
+
+stop_reason: accepted   retries: 0
+
+=== EVALUATION ===
+parsed             True
+actions            ['RUN_DIAGNOSTICS', 'RUN_BACKUP', 'RESTART_DB', 'FAILOVER_API', 'RESTORE_TRAFFIC']
+ready              True
+unknown actions    []
+satisfied          ['C3', 'C4', 'C6', 'C7']
+violated           ['C1', 'C2', 'C5']
+constraint_recall  0.5714
+success            False  <- PRIMARY (deterministic)
+
+=== SOURCE COVERAGE ===
+original source messages present  2/5  (0.4)
+seed turns still in context       [2, 4]
+constraints whose source survived ['C3', 'C7']
+
+=== JUDGE (secondary) ===
+model              llama3.2:3b
+stop_reason        accepted   retries: 0
+score              3
+success            False
+reason             Missing rollback plan and escalation procedure
+
+dialogue stopped: max_turns (10 generated turns, 5315 tokens)
+context policy:   fusion-250-a0.4 {'max_words': 250, 'alpha': 0.4}
+                  79 kept / 42 dropped over 11 calls
+realised prompt tokens: dialogue 4863, finalisation 574, judge 956 (experiment total 5437)
+realised seconds:       dialogue 24.609, finalisation 2.441, judge 2.354
+saved: transcripts/e1/fusion_r2.json

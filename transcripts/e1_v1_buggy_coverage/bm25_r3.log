@@ -1,0 +1,79 @@
+
+=== INCIDENT db04-payments ===
+
+[seed] Operations Lead: We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.
+
+[seed] Safety Auditor: Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.
+
+[seed] Operations Lead: Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.
+
+[seed] Safety Auditor: Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.
+
+[seed] Operations Lead: Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.
+
+[seed] Safety Auditor: Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.
+
+[t6] Operations Lead: Got it, so we need to fail over the API to a standby node, and then restart the database. And I'll also need to notify the team that's responsible for the API, so they're aware of the plan and can assist with the failover.
+
+[t7] Safety Auditor: Also, we need to notify ops and the team that's responsible for db-04, so they're aware of the plan and can assist with the restart. And let's not forget to document the root cause and the recovery steps, so we can learn from this and prevent similar incidents in the future.
+
+[t8] Operations Lead: I'll send out a notification to ops and the db team, and also document the root cause and recovery steps in our incident log. I'll also make sure to CC the team that's responsible for db-04 on the notification, so they're aware of the plan and can assist with the restart.
+
+[t9] Safety Auditor: Good, that covers the communication and documentation. Now, let's talk about the failover process. We need to make sure that the standby node is properly configured to handle the increased load, and that we're not introducing any new single points of failure.
+
+[t10] Operations Lead: I'll check the standby node's configuration to ensure it's set up to handle the increased load, and also verify that it's properly load-balanced and has the necessary resources to handle the traffic. I'll also review the node's monitoring and alerting setup to ensure we can quickly detect any issues that might arise during the failover process.
+
+[t11] Safety Auditor: That's a good plan. Also, I want to confirm that we're not going to trigger any additional alerts or notifications that might cause a domino effect on other parts of the system. We need to keep the failover as smooth as possible to minimize downtime.
+
+[t12] Operations Lead: I'll review the alerting setup to ensure that we're not triggering any additional alerts that might cause a cascade of notifications. I'll also check the incident management process to see if there are any specific procedures in place for handling a failover of this nature, and if so, I'll follow those procedures to minimize downtime.
+
+[t13] Safety Auditor: That's a good approach. I'll review the incident log to see if there are any existing procedures or checklists that we can follow to ensure we're following the established process. Also, I'll make sure to confirm with ops that the standby node is ready to take over as soon as we initiate the failover.
+
+[t14] Operations Lead: I'll also review the incident log to see if there are any existing procedures or checklists that we can follow to ensure we're following the established process. I'll also make sure to confirm with the db team that they're aware of the failover plan and are ready to assist with the restart of db-04 once the failover is complete.
+
+[t15] Safety Auditor: I think we're covering all the bases now. Let's make sure we're also documenting the root cause of the issue, so we can learn from it and prevent similar issues in the future. Can you confirm that we're going to log the incident as a "database issue" and not a "API issue", since the API is just a symptom of the underlying database problem?
+
+=== FINALISATION ===
+
+-- attempt 1 (parsed) --
+I agree, we should log the incident as a "database issue" to accurately reflect the root cause. Here's the final recovery plan:
+
+{"actions": [
+  "NOTIFY_OPS_AND_DB_TEAM",
+  "RUN_DIAGNOSTICS",
+  "RUN_BACKUP",
+  "CONFIRM_STANDBY_NODE_READINESS",
+  "RESTART_DB",
+  "RESTORE_TRAFFIC"
+], "ready": true}
+
+stop_reason: accepted   retries: 0
+
+=== EVALUATION ===
+parsed             True
+actions            ['NOTIFY_OPS_AND_DB_TEAM', 'RUN_DIAGNOSTICS', 'RUN_BACKUP', 'CONFIRM_STANDBY_NODE_READINESS', 'RESTART_DB', 'RESTORE_TRAFFIC']
+ready              True
+unknown actions    ['NOTIFY_OPS_AND_DB_TEAM', 'CONFIRM_STANDBY_NODE_READINESS']
+satisfied          ['C3', 'C4', 'C6', 'C7']
+violated           ['C1', 'C2', 'C5']
+constraint_recall  0.5714
+success            False  <- PRIMARY (deterministic)
+
+=== SOURCE COVERAGE ===
+original source messages present  1/5  (0.2)
+seed turns still in context       [5]
+constraints whose source survived ['C5', 'C6']
+
+=== JUDGE (secondary) ===
+model              llama3.2:3b
+stop_reason        accepted   retries: 0
+score              3
+success            False
+reason             the plan reorders the actions, missing the failover process
+
+dialogue stopped: max_turns (10 generated turns, 5594 tokens)
+context policy:   bm25-250 {'max_words': 250}
+                  74 kept / 47 dropped over 11 calls
+realised prompt tokens: dialogue 4961, finalisation 631, judge 1178 (experiment total 5592)
+realised seconds:       dialogue 25.038, finalisation 2.679, judge 2.386
+saved: transcripts/e1/bm25_r3.json

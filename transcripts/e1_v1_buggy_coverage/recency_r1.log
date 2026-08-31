@@ -1,0 +1,78 @@
+
+=== INCIDENT db04-payments ===
+
+[seed] Operations Lead: We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.
+
+[seed] Safety Auditor: Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.
+
+[seed] Operations Lead: Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.
+
+[seed] Safety Auditor: Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.
+
+[seed] Operations Lead: Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.
+
+[seed] Safety Auditor: Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.
+
+[t6] Operations Lead: Got it, so we need to fail over the API to a standby node, and then restart the database. And we'll also need to notify the team that's responsible for the API, so they're aware of the expected downtime.
+
+[t7] Safety Auditor: Standby node is the one on node db-03, so that's the one we need to fail over to. And I'll make sure to get the notification to the API team, but also to the ops team, since they're the ones who can help with the restart.
+
+[t8] Operations Lead: I'll start the failover process on db-03, and also start the backup on db-04. Once the backup is complete, I'll restart the database on db-04, and then we can start the API failover and traffic restoration.
+
+[t9] Safety Auditor: Sounds good, but just to confirm: the backup on db-04 is a hot backup, so it's not going to interfere with the failover to db-03, right?
+
+[t10] Operations Lead: The hot backup on db-04 is designed to be read-only, so it shouldn't interfere with the failover to db-03. We can use the hot backup as a temporary database while we wait for the full backup to complete.
+
+[t11] Safety Auditor: That's a good point, but we need to make sure the hot backup is properly configured to be read-only, and that the API team is aware that it's being used as a temporary database.
+
+[t12] Operations Lead: I'll double-check the hot backup configuration to ensure it's set to read-only, and also confirm with the API team that they're aware of the hot backup being used as a temporary database, so they don't try to access it.
+
+[t13] Safety Auditor: Also, while you're confirming with the API team, can you also get an estimate of how long it'll take them to update their code to handle the temporary database, so we can plan the traffic restoration accordingly?
+
+[t14] Operations Lead: I'll also ask them to provide an estimated time frame for updating their code, so we can plan for a potential 30-60 minute window for traffic restoration. I'll also confirm with them that they're aware of the temporary database and can provide a rough estimate of when they'll be able to switch back to the primary database.
+
+[t15] Safety Auditor: I'll review the incident report and update the production plan to reflect the estimated downtime and potential switchback time, so we can keep the team informed and up-to-date on the recovery plan.
+
+=== FINALISATION ===
+
+-- attempt 1 (parsed) --
+{"actions": [
+  "ISOLATE_NODE",
+  "RUN_DIAGNOSTICS",
+  "RUN_BACKUP",
+  "FAILOVER_API",
+  "RESTART_DB",
+  "RESTORE_TRAFFIC"
+], 
+"ready": true}
+
+stop_reason: accepted   retries: 0
+
+=== EVALUATION ===
+parsed             True
+actions            ['ISOLATE_NODE', 'RUN_DIAGNOSTICS', 'RUN_BACKUP', 'FAILOVER_API', 'RESTART_DB', 'RESTORE_TRAFFIC']
+ready              True
+unknown actions    []
+satisfied          ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7']
+violated           []
+constraint_recall  1.0000
+success            True  <- PRIMARY (deterministic)
+
+=== SOURCE COVERAGE ===
+original source messages present  0/5  (0.0)
+seed turns still in context       []
+constraints whose source survived []
+
+=== JUDGE (secondary) ===
+model              llama3.2:3b
+stop_reason        accepted   retries: 0
+score              3
+success            False
+reason             Missing explicit ordering of actions
+
+dialogue stopped: max_turns (10 generated turns, 5480 tokens)
+context policy:   recency-250 {'max_words': 250}
+                  81 kept / 40 dropped over 11 calls
+realised prompt tokens: dialogue 4994, finalisation 594, judge 997 (experiment total 5588)
+realised seconds:       dialogue 31.62, finalisation 2.474, judge 2.334
+saved: transcripts/e1/recency_r1.json

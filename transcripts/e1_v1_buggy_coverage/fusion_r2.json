@@ -1,0 +1,509 @@
+{
+  "meta": {
+    "scenario": "db04-payments",
+    "seeded_turns": 6,
+    "mock": false,
+    "context": {
+      "policy": "fusion",
+      "label": "fusion-250-a0.4",
+      "config": {
+        "max_words": 250,
+        "alpha": 0.4
+      },
+      "calls": [
+        {
+          "available": 6,
+          "kept": 6,
+          "dropped": 0,
+          "words_available": 206,
+          "words_kept": 206,
+          "n_candidates": 5,
+          "n_selected": 5,
+          "words_history": 154,
+          "words_current": 52,
+          "selected_ids": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "available": 7,
+          "kept": 7,
+          "dropped": 0,
+          "words_available": 249,
+          "words_kept": 249,
+          "n_candidates": 6,
+          "n_selected": 6,
+          "words_history": 206,
+          "words_current": 43,
+          "selected_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "available": 8,
+          "kept": 8,
+          "dropped": 0,
+          "words_available": 279,
+          "words_kept": 279,
+          "n_candidates": 7,
+          "n_selected": 7,
+          "words_history": 249,
+          "words_current": 30,
+          "selected_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "available": 9,
+          "kept": 8,
+          "dropped": 1,
+          "words_available": 309,
+          "words_kept": 280,
+          "n_candidates": 8,
+          "n_selected": 7,
+          "words_history": 250,
+          "words_current": 30,
+          "selected_ids": [
+            0,
+            1,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        {
+          "available": 10,
+          "kept": 7,
+          "dropped": 3,
+          "words_available": 345,
+          "words_kept": 266,
+          "n_candidates": 9,
+          "n_selected": 6,
+          "words_history": 230,
+          "words_current": 36,
+          "selected_ids": [
+            1,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "available": 11,
+          "kept": 8,
+          "dropped": 3,
+          "words_available": 395,
+          "words_kept": 294,
+          "n_candidates": 10,
+          "n_selected": 7,
+          "words_history": 244,
+          "words_current": 50,
+          "selected_ids": [
+            0,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ]
+        },
+        {
+          "available": 12,
+          "kept": 7,
+          "dropped": 5,
+          "words_available": 427,
+          "words_kept": 275,
+          "n_candidates": 11,
+          "n_selected": 6,
+          "words_history": 243,
+          "words_current": 32,
+          "selected_ids": [
+            4,
+            5,
+            6,
+            7,
+            9,
+            10
+          ]
+        },
+        {
+          "available": 13,
+          "kept": 7,
+          "dropped": 6,
+          "words_available": 480,
+          "words_kept": 298,
+          "n_candidates": 12,
+          "n_selected": 6,
+          "words_history": 245,
+          "words_current": 53,
+          "selected_ids": [
+            4,
+            5,
+            6,
+            9,
+            10,
+            11
+          ]
+        },
+        {
+          "available": 14,
+          "kept": 7,
+          "dropped": 7,
+          "words_available": 512,
+          "words_kept": 280,
+          "n_candidates": 13,
+          "n_selected": 6,
+          "words_history": 248,
+          "words_current": 32,
+          "selected_ids": [
+            3,
+            4,
+            5,
+            10,
+            11,
+            12
+          ]
+        },
+        {
+          "available": 15,
+          "kept": 7,
+          "dropped": 8,
+          "words_available": 552,
+          "words_kept": 279,
+          "n_candidates": 14,
+          "n_selected": 6,
+          "words_history": 239,
+          "words_current": 40,
+          "selected_ids": [
+            3,
+            6,
+            10,
+            11,
+            12,
+            13
+          ]
+        },
+        {
+          "available": 16,
+          "kept": 7,
+          "dropped": 9,
+          "words_available": 578,
+          "words_kept": 269,
+          "n_candidates": 15,
+          "n_selected": 6,
+          "words_history": 243,
+          "words_current": 26,
+          "selected_ids": [
+            0,
+            6,
+            9,
+            10,
+            12,
+            14
+          ]
+        }
+      ],
+      "totals": {
+        "calls": 11,
+        "messages_available": 121,
+        "messages_kept": 79,
+        "messages_dropped": 42
+      }
+    },
+    "source_coverage": {
+      "source_messages_present": 2,
+      "source_messages_total": 5,
+      "coverage": 0.4,
+      "present_turns": [
+        2,
+        4
+      ],
+      "constraints_with_source_present": [
+        "C3",
+        "C7"
+      ]
+    },
+    "realised": {
+      "dialogue": {
+        "prompt_tokens": 4863,
+        "completion_tokens": 452,
+        "seconds": 24.609
+      },
+      "finalisation": {
+        "prompt_tokens": 574,
+        "completion_tokens": 48,
+        "seconds": 2.441
+      },
+      "judge": {
+        "prompt_tokens": 956,
+        "completion_tokens": 23,
+        "seconds": 2.354
+      },
+      "experiment_total": {
+        "prompt_tokens": 5437,
+        "completion_tokens": 500,
+        "seconds": 27.05
+      }
+    },
+    "finalisation": {
+      "stop_reason": "accepted",
+      "retries": 0,
+      "attempts": [
+        {
+          "attempt": 0,
+          "speaker": "Operations Lead",
+          "content": "{\"actions\": [\n  \"RUN_DIAGNOSTICS\",\n  \"RUN_BACKUP\",\n  \"RESTART_DB\",\n  \"FAILOVER_API\",\n  \"RESTORE_TRAFFIC\"\n], \n\"ready\": true}",
+          "parse_error": null,
+          "prompt_tokens": 574,
+          "completion_tokens": 48,
+          "seconds": 2.441
+        }
+      ],
+      "totals": {
+        "attempts": 1,
+        "prompt_tokens": 574,
+        "completion_tokens": 48,
+        "seconds": 2.441
+      },
+      "evaluation": {
+        "parsed": true,
+        "parse_error": null,
+        "actions": [
+          "RUN_DIAGNOSTICS",
+          "RUN_BACKUP",
+          "RESTART_DB",
+          "FAILOVER_API",
+          "RESTORE_TRAFFIC"
+        ],
+        "ready": true,
+        "unknown_actions": [],
+        "satisfied": [
+          "C3",
+          "C4",
+          "C6",
+          "C7"
+        ],
+        "violated": [
+          "C1",
+          "C2",
+          "C5"
+        ],
+        "violations": 3,
+        "constraint_recall": 0.5714,
+        "success": false
+      }
+    },
+    "judge": {
+      "stop_reason": "accepted",
+      "retries": 0,
+      "attempts": [
+        {
+          "attempt": 0,
+          "speaker": "Judge",
+          "content": "{\"score\": 3, \"success\": false, \"reason\": \"Missing rollback plan and escalation procedure\"}",
+          "parse_error": null,
+          "prompt_tokens": 956,
+          "completion_tokens": 23,
+          "seconds": 2.354
+        }
+      ],
+      "totals": {
+        "attempts": 1,
+        "prompt_tokens": 956,
+        "completion_tokens": 23,
+        "seconds": 2.354
+      },
+      "model": "llama3.2:3b",
+      "score": 3,
+      "success": false,
+      "reason": "Missing rollback plan and escalation procedure",
+      "note": "secondary evidence; the deterministic evaluator is primary"
+    },
+    "e1": {
+      "condition": "fusion",
+      "repeat": 2,
+      "seed": null,
+      "history_budget_words": 250,
+      "protocol_tag": "selector-protocol-v1"
+    }
+  },
+  "agents": [
+    {
+      "name": "Operations Lead",
+      "model": "llama3.2:3b",
+      "temperature": 0
+    },
+    {
+      "name": "Safety Auditor",
+      "model": "llama3.2:3b",
+      "temperature": 0
+    }
+  ],
+  "budget": {
+    "stop_reason": "max_turns",
+    "turns": 10,
+    "tokens": 5315,
+    "seconds": 29.49,
+    "limits": {
+      "max_turns": 10,
+      "max_tokens": 100000,
+      "max_seconds": 600
+    }
+  },
+  "totals": {
+    "turns": 16,
+    "prompt_tokens": 4863,
+    "completion_tokens": 452,
+    "seconds": 24.609
+  },
+  "messages": [
+    {
+      "speaker": "Operations Lead",
+      "content": "We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 0
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 1
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 2
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 3
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 4
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 5
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "Got it, so we need to fail over the API to a standby node, and then restart the database. And we'll also need to notify the team that's responsible for the API, so they're aware of the plan and can coordinate the failover.",
+      "prompt_tokens": 402,
+      "completion_tokens": 53,
+      "seconds": 2.440874599968083,
+      "turn_index": 6
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "That's the plan, but before we fail over, let's confirm that the standby node is actually up-to-date with the latest database schema and data, or we'll be introducing new errors.",
+      "prompt_tokens": 464,
+      "completion_tokens": 40,
+      "seconds": 2.3870609999867156,
+      "turn_index": 7
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "I'll check the standby node's configuration and verify that it's up-to-date with the latest schema and data. If it's not, we'll need to update it before proceeding with the failover.",
+      "prompt_tokens": 503,
+      "completion_tokens": 42,
+      "seconds": 2.347246599965729,
+      "turn_index": 8
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "And while you're checking the standby node, I'll notify the API team and get them to prepare for the failover, so we can execute the plan as soon as you confirm the standby node is ready.",
+      "prompt_tokens": 508,
+      "completion_tokens": 43,
+      "seconds": 2.4051675000227988,
+      "turn_index": 9
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "I'll also reach out to the DBA team to confirm that they're ready to restart the database once the failover is complete. And just to confirm, we'll also need to have a plan in place for monitoring the database's performance after the restart, to ensure it's stable and serving correctly.",
+      "prompt_tokens": 482,
+      "completion_tokens": 62,
+      "seconds": 2.5511503000743687,
+      "turn_index": 10
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "I'll also coordinate with the monitoring team to ensure they're aware of the plan and can start tracking the database's performance immediately after the restart, so we can catch any issues early.",
+      "prompt_tokens": 526,
+      "completion_tokens": 38,
+      "seconds": 2.3794129999587312,
+      "turn_index": 11
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "I'll also make sure to have a clear communication plan in place for the team, so they know what to expect and can provide updates on the status of the API and database. I'll also have a rollback plan in place, just in case the restart doesn't go as smoothly as we hope.",
+      "prompt_tokens": 485,
+      "completion_tokens": 61,
+      "seconds": 2.473952900036238,
+      "turn_index": 12
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "I'll make sure to have a clear escalation plan in place, so if the rollback is needed, we can quickly identify the root cause and get the database back up and running.",
+      "prompt_tokens": 516,
+      "completion_tokens": 37,
+      "seconds": 2.3623579000122845,
+      "turn_index": 13
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "I'll also coordinate with the DevOps team to ensure that the necessary scripts and tools are in place to facilitate a swift rollback, and that we have a clear understanding of the steps required to get the database back online.",
+      "prompt_tokens": 489,
+      "completion_tokens": 45,
+      "seconds": 2.414116599946283,
+      "turn_index": 14
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "I'll also review the incident response plan to ensure that we're following the established procedures and not introducing any new steps that might complicate the process.",
+      "prompt_tokens": 488,
+      "completion_tokens": 31,
+      "seconds": 2.847908900002949,
+      "turn_index": 15
+    }
+  ]
+}

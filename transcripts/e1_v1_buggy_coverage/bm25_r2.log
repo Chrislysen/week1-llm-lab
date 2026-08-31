@@ -1,0 +1,78 @@
+
+=== INCIDENT db04-payments ===
+
+[seed] Operations Lead: We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.
+
+[seed] Safety Auditor: Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.
+
+[seed] Operations Lead: Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.
+
+[seed] Safety Auditor: Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.
+
+[seed] Operations Lead: Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.
+
+[seed] Safety Auditor: Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.
+
+[t6] Operations Lead: Got it, so we need to fail over the API to a standby node, and then restart the database. And I'll also need to notify the team that's responsible for the API, so they're aware of the plan and can assist with the failover.
+
+[t7] Safety Auditor: Also, we need to notify ops and the team that's responsible for db-04, so they're aware of the plan and can assist with the restart. And we should also notify the team that's responsible for the customer-facing service, so they know what to expect when traffic is restored.
+
+[t8] Operations Lead: I'll send out a notification to ops, db-04 team, and the customer-facing service team, and also make sure the API team is aware of the plan and can assist with the failover. I'll use our standard incident notification template to keep everyone informed.
+
+[t9] Safety Auditor: I'll review the notification to make sure it includes the key details: the issue, the plan, and the expected timeline for resolution. Also, I'll make sure to include the contact info for the teams involved, so they can reach out with questions or concerns.
+
+[t10] Operations Lead: I'll review the notification as well, to make sure it's clear and concise, and that we're not missing any critical details. Once we've got the notification ready, I'll send it out to the teams and start working on the failover plan, including getting the standby API node online.
+
+[t11] Safety Auditor: I'll start monitoring the API node's status and be ready to assist with the failover as soon as it's online. Also, I'll keep an eye on the database backup process to ensure it completes successfully before we proceed with the restart.
+
+[t12] Operations Lead: I'll start working on the failover plan, and I'll also check the database backup status to ensure it's complete before we proceed. I'll use our standard failover script to bring the standby API node online, and I'll also make sure to test the API to ensure it's working correctly before we bring the primary node back online.
+
+[t13] Safety Auditor: I'll review the failover script to ensure it's up-to-date and compatible with the current database version. Also, I'll check the incident log to see if there are any other potential issues that could impact the recovery, such as any other nodes or services that might be affected by the database restart.
+
+[t14] Operations Lead: That's a good idea, I'll also review the incident log to see if there are any other potential issues that could impact the recovery. I'll also check the system logs on the affected nodes to see if there are any error messages or clues that might help us identify the root cause of the issue.
+
+[t15] Safety Auditor: I'll also review the system logs on the affected nodes to see if there are any error messages or clues that might help us identify the root cause of the issue. We should also consider reaching out to the database team to see if they have any insights or suggestions on how to resolve the issue.
+
+=== FINALISATION ===
+
+-- attempt 1 (parsed) --
+{"actions": [
+  "NOTIFY_TEAMS",
+  "RUN_DIAGNOSTICS",
+  "REACH_DB_TEAM",
+  "RUN_BACKUP",
+  "FAILOVER_API",
+  "RESTART_DB",
+  "RESTORE_TRAFFIC"
+], "ready": true}
+
+stop_reason: accepted   retries: 0
+
+=== EVALUATION ===
+parsed             True
+actions            ['NOTIFY_TEAMS', 'RUN_DIAGNOSTICS', 'REACH_DB_TEAM', 'RUN_BACKUP', 'FAILOVER_API', 'RESTART_DB', 'RESTORE_TRAFFIC']
+ready              True
+unknown actions    ['NOTIFY_TEAMS', 'REACH_DB_TEAM']
+satisfied          ['C3', 'C4', 'C5', 'C6', 'C7']
+violated           ['C1', 'C2']
+constraint_recall  0.7143
+success            False  <- PRIMARY (deterministic)
+
+=== SOURCE COVERAGE ===
+original source messages present  1/5  (0.2)
+seed turns still in context       [2]
+constraints whose source survived ['C3']
+
+=== JUDGE (secondary) ===
+model              llama3.2:3b
+stop_reason        accepted   retries: 0
+score              3
+success            False
+reason             plan misses the dependency on API node status before database restart
+
+dialogue stopped: max_turns (10 generated turns, 5553 tokens)
+context policy:   bm25-250 {'max_words': 250}
+                  77 kept / 44 dropped over 11 calls
+realised prompt tokens: dialogue 4965, finalisation 616, judge 1105 (experiment total 5581)
+realised seconds:       dialogue 24.696, finalisation 2.494, judge 2.389
+saved: transcripts/e1/bm25_r2.json

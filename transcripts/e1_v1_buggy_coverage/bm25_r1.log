@@ -1,0 +1,77 @@
+
+=== INCIDENT db04-payments ===
+
+[seed] Operations Lead: We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.
+
+[seed] Safety Auditor: Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.
+
+[seed] Operations Lead: Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.
+
+[seed] Safety Auditor: Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.
+
+[seed] Operations Lead: Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.
+
+[seed] Safety Auditor: Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.
+
+[t6] Operations Lead: Got it, so we need to fail over the API to a standby node, and then restart the database. And we'll also need to notify the team that's responsible for the API, so they're aware of the plan and can coordinate the failover.
+
+[t7] Safety Auditor: That's the plan, but before we fail over, I want to confirm that we have a clear understanding of what the API will look like once it's back up - are we talking about a temporary redirect, or a full failover with a new endpoint?
+
+[t8] Operations Lead: We'll need to set up a temporary redirect to the new endpoint, so the API still looks the same to the customers, but we can test the new endpoint without exposing it to traffic.
+
+[t9] Safety Auditor: That's a good plan, but I want to make sure we're not setting up a temporary redirect that's going to cause more problems down the line - we need to make sure it's a clean redirect, not a redirect that's going to cause a loop or other issues.
+
+[t10] Operations Lead: We'll use a 301 permanent redirect, which will update the DNS records and ensure that the new endpoint is cached by browsers and other clients, minimizing the chance of a loop or other issues. I'll also make sure to test the redirect thoroughly before we fail over the API.
+
+[t11] Safety Auditor: That sounds good, but I want to confirm that we're also going to notify the team that's responsible for the API about the redirect, so they're aware of the plan and can test it thoroughly before we fail over.
+
+[t12] Operations Lead: I'll send out a quick email to the API team with the details of the plan, including the redirect URL and the expected behavior, so they can test it and confirm that everything looks good before we fail over. I'll also make sure to CC the ops team, so we're all on the same page.
+
+[t13] Safety Auditor: I'll review the email to make sure it includes the expected downtime for the API, so the team knows what to expect and can plan accordingly.
+
+[t14] Operations Lead: I'll add a note to the email about the expected downtime, which is about 30 minutes, and also mention that we'll be monitoring the situation closely to minimize any further impact. I'll also make sure to update the incident page with the latest information.
+
+[t15] Safety Auditor: I'll review the updated incident page to make sure it accurately reflects the plan and the expected impact on our customers.
+
+=== FINALISATION ===
+
+-- attempt 1 (parsed) --
+{"actions": [
+  "ISOLATE_NODE",
+  "RUN_DIAGNOSTICS",
+  "RUN_BACKUP",
+  "RESTART_DB",
+  "FAILOVER_API",
+  "RESTORE_TRAFFIC"
+], "ready": true}
+
+stop_reason: accepted   retries: 0
+
+=== EVALUATION ===
+parsed             True
+actions            ['ISOLATE_NODE', 'RUN_DIAGNOSTICS', 'RUN_BACKUP', 'RESTART_DB', 'FAILOVER_API', 'RESTORE_TRAFFIC']
+ready              True
+unknown actions    []
+satisfied          ['C1', 'C2', 'C3', 'C4', 'C6', 'C7']
+violated           ['C5']
+constraint_recall  0.8571
+success            False  <- PRIMARY (deterministic)
+
+=== SOURCE COVERAGE ===
+original source messages present  0/5  (0.0)
+seed turns still in context       []
+constraints whose source survived []
+
+=== JUDGE (secondary) ===
+model              llama3.2:3b
+stop_reason        accepted   retries: 0
+score              3
+success            False
+reason             Missing explicit ordering of actions
+
+dialogue stopped: max_turns (10 generated turns, 5272 tokens)
+context policy:   bm25-250 {'max_words': 250}
+                  76 kept / 45 dropped over 11 calls
+realised prompt tokens: dialogue 4796, finalisation 569, judge 986 (experiment total 5365)
+realised seconds:       dialogue 24.415, finalisation 2.594, judge 2.331
+saved: transcripts/e1/bm25_r1.json

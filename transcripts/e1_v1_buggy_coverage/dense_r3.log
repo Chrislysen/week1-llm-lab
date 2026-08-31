@@ -1,0 +1,80 @@
+
+=== INCIDENT db04-payments ===
+
+[seed] Operations Lead: We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.
+
+[seed] Safety Auditor: Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.
+
+[seed] Operations Lead: Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.
+
+[seed] Safety Auditor: Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.
+
+[seed] Operations Lead: Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.
+
+[seed] Safety Auditor: Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.
+
+[t6] Operations Lead: Got it, so we need to fail over the API to a standby node, and then restart the database. And I'll also need to notify the team that's responsible for the API, so they're aware of the plan and can assist with the failover.
+
+[t7] Safety Auditor: Also, we need to notify the team that's responsible for the API, and we need to make sure they're aware of the expected downtime for the database, so they can prepare for the potential impact on their service. And, just to confirm, we're not considering a read-through cache or any other workaround to mitigate the downtime, right?
+
+[t8] Operations Lead: We're not considering any workarounds, we need a clean database and a stable API. I'll send a notification to the API team and the ops team, and also to the customer support team, so they're all aware of the expected downtime and can prepare accordingly.
+
+[t9] Safety Auditor: I'll start the backup process on db-04, and we'll keep the API team informed of the progress. Once the backup is complete, we'll proceed with the restart, and I'll also start the notification process to the customer support team, so they're aware of the expected resolution time.
+
+[t10] Operations Lead: I'll start preparing the standby node for the API failover, and also start the notification process to the customers via our incident response email. I'll also make sure to have a clear communication plan in place for when the database is back online, so we can give a specific update on when the service will be fully restored.
+
+[t11] Safety Auditor: I'll also start the notification process to the ops team, so they're aware of the plan and can assist with the failover and restart. And, just to confirm, we'll have a clear escalation plan in place in case the database doesn't come back online as expected, right?
+
+[t12] Operations Lead: We'll have a clear escalation plan in place, including a secondary database to fall back on if db-04 doesn't recover, and also a plan for manual intervention if needed. I'll also make sure to have a list of key stakeholders and their contact information readily available, so we can keep them informed and up-to-date on the progress.
+
+[t13] Safety Auditor: I'll review the list of key stakeholders and their contact information to ensure we're all on the same page. Also, just to confirm, we'll be using the standard 30-minute window for the API failover, and then we'll have a 15-minute window for the database to come back online, correct?
+
+[t14] Operations Lead: I'll review the escalation plan with you to make sure we're both comfortable with the process. And yes, that's correct, we'll use the standard 30-minute window for the API failover, and then a 15-minute window for the database to come back online. I'll also make sure to have a clear plan in place for any additional resources that may be needed, such as additional ops staff or external experts.
+
+[t15] Safety Auditor: I'll review the incident response plan to ensure we're following the correct procedures. Also, just to confirm, we'll be using the "Notify and Isolate" approach for the API failover, and then the "Restore and Verify" approach for the database restart, correct?
+
+=== FINALISATION ===
+
+-- attempt 1 (parsed) --
+Here's the final recovery plan:
+
+{"actions": [
+  "RUN_BACKUP",
+  "ISOLATE_NODE",
+  "RUN_DIAGNOSTICS",
+  "FAILOVER_API",
+  "RESTART_DB",
+  "RESTORE_TRAFFIC"
+], 
+"ready": true}
+
+stop_reason: accepted   retries: 0
+
+=== EVALUATION ===
+parsed             True
+actions            ['RUN_BACKUP', 'ISOLATE_NODE', 'RUN_DIAGNOSTICS', 'FAILOVER_API', 'RESTART_DB', 'RESTORE_TRAFFIC']
+ready              True
+unknown actions    []
+satisfied          ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7']
+violated           []
+constraint_recall  1.0000
+success            True  <- PRIMARY (deterministic)
+
+=== SOURCE COVERAGE ===
+original source messages present  1/5  (0.2)
+seed turns still in context       [4]
+constraints whose source survived ['C7']
+
+=== JUDGE (secondary) ===
+model              llama3.2:3b
+stop_reason        accepted   retries: 0
+score              3
+success            False
+reason             Plan omits notification to customer support team
+
+dialogue stopped: max_turns (10 generated turns, 5659 tokens)
+context policy:   dense-250 {'max_words': 250}
+                  73 kept / 48 dropped over 11 calls
+realised prompt tokens: dialogue 5014, finalisation 615, judge 1163 (experiment total 5629)
+realised seconds:       dialogue 25.877, finalisation 2.805, judge 2.332
+saved: transcripts/e1/dense_r3.json

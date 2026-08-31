@@ -1,0 +1,82 @@
+
+=== INCIDENT db04-payments ===
+
+[seed] Operations Lead: We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.
+
+[seed] Safety Auditor: Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.
+
+[seed] Operations Lead: Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.
+
+[seed] Safety Auditor: Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.
+
+[seed] Operations Lead: Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.
+
+[seed] Safety Auditor: Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.
+
+[t6] Operations Lead: Got it, so we need to fail over the API to a standby node, and then restart the database. And I'll also need to notify the team that's responsible for the API, so they're aware of the plan and can assist with the failover.
+
+[t7] Safety Auditor: Also, we need to notify ops and the team that's responsible for db-04, so they're aware of the plan and can assist with the restart. And we should also consider notifying customers, so they know what's going on and when they can expect the service to be back up.
+
+[t8] Operations Lead: I'll send out a notification to ops, db-04 team, and also a brief update to customers, just to keep them in the loop. I'll also make sure to include a rough timeline for when we expect the service to be back online.
+
+[t9] Safety Auditor: That's a good idea, but let's not commit to a specific timeline just yet. We don't know how long the database is going to take to recover, and we don't want to give customers a false sense of security.
+
+[t10] Operations Lead: I'll keep the notification brief and just say that we're working on a resolution and will provide an update as soon as we have more information. I'll also make sure to include a contact point for customers who want to follow up on the status of their service.
+
+[t11] Safety Auditor: That's a good approach. I'll make sure to document the steps we're taking and the timeline, so we can provide a clear update to the team and customers. Also, just to confirm, we're not going to try to troubleshoot the issue ourselves, but rather let the database team work on the fix, and we'll provide support and guidance as needed.
+
+[t12] Operations Lead: I agree, we should let the database team take the lead on troubleshooting and resolving the issue, and we'll provide support and guidance as needed. I'll also make sure to keep the ops team informed of the status and any changes to the plan.
+
+[t13] Safety Auditor: That's the right approach. I'll also make sure to keep the incident log up to date, including any changes to the plan, and ensure that all relevant stakeholders are informed and aware of the situation.
+
+[t14] Operations Lead: I'll also make sure to coordinate with the database team to ensure they have the necessary resources and support to resolve the issue as quickly as possible. I'll also send a brief summary of the plan to the incident lead and the rest of the team, so everyone is on the same page.
+
+[t15] Safety Auditor: That's a good idea, but let's also make sure to include a clear escalation point in the summary, in case the issue doesn't resolve as quickly as expected. We don't want to leave anyone wondering who to call if the situation worsens.
+
+=== FINALISATION ===
+
+-- attempt 1 (PARSE FAILED: actions is not a list of strings) --
+{"actions": [
+  {"id": "NOTIFY_OPS_AND_DB_TEAM", "description": "Notify ops and db-04 team of the plan and expected assistance"},
+  {"id": "NOTIFY_CUSTOMERS", "description": "Notify customers of the issue and expected resolution timeline"},
+  {"id": "ISOLATE_NODE", "description": "Isolate node db-04 to prevent further errors"},
+  {"id": "RUN_DIAGNOSTICS", "description": "Run diagnostics on node db-04 to understand the cause of the error"},
+  {"id": "RUN_BACKUP", "description": "Run a backup of the database to ensure data integrity"},
+  {"id": "RESTART_DB", "description": "Restart node db-04 to apply any necessary fixes"},
+  {"id": "FAILOVER_API", "description": "Failover API to a healthy node to minimize impact on customers"},
+  {"id": "RESTORE_TRAFFIC", "description": "Restore traffic to the API once the database has recovered"}
+], "ready": true}
+
+-- attempt 2 (parsed) --
+{"actions": ["NOTIFY_OPS_AND_DB_TEAM", "NOTIFY_CUSTOMERS", "ISOLATE_NODE", "RUN_DIAGNOSTICS", "RUN_BACKUP", "RESTART_DB", "FAILOVER_API", "RESTORE_TRAFFIC"], "ready": true}
+
+stop_reason: accepted   retries: 1
+
+=== EVALUATION ===
+parsed             True
+actions            ['NOTIFY_OPS_AND_DB_TEAM', 'NOTIFY_CUSTOMERS', 'ISOLATE_NODE', 'RUN_DIAGNOSTICS', 'RUN_BACKUP', 'RESTART_DB', 'FAILOVER_API', 'RESTORE_TRAFFIC']
+ready              True
+unknown actions    ['NOTIFY_OPS_AND_DB_TEAM', 'NOTIFY_CUSTOMERS']
+satisfied          ['C1', 'C2', 'C3', 'C4', 'C6', 'C7']
+violated           ['C5']
+constraint_recall  0.8571
+success            False  <- PRIMARY (deterministic)
+
+=== SOURCE COVERAGE ===
+original source messages present  2/5  (0.4)
+seed turns still in context       [2, 4]
+constraints whose source survived ['C3', 'C7']
+
+=== JUDGE (secondary) ===
+model              llama3.2:3b
+stop_reason        accepted   retries: 0
+score              3
+success            False
+reason             plan omits notification to relevant stakeholders
+
+dialogue stopped: max_turns (10 generated turns, 5431 tokens)
+context policy:   random-250-s1001 {'max_words': 250, 'seed': 1001}
+                  77 kept / 44 dropped over 11 calls
+realised prompt tokens: dialogue 4884, finalisation 1456, judge 1064 (experiment total 6340)
+realised seconds:       dialogue 24.461, finalisation 5.801, judge 2.358
+saved: transcripts/e1/random_r1.json

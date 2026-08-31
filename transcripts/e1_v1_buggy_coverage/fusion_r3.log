@@ -1,0 +1,83 @@
+
+=== INCIDENT db04-payments ===
+
+[seed] Operations Lead: We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.
+
+[seed] Safety Auditor: Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.
+
+[seed] Operations Lead: Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.
+
+[seed] Safety Auditor: Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.
+
+[seed] Operations Lead: Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.
+
+[seed] Safety Auditor: Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.
+
+[t6] Operations Lead: Got it, so we need to fail over the API to a standby node, and then restart the database. And I'll also need to notify the team that's responsible for the API, so they're aware of the plan and can assist with the failover.
+
+[t7] Safety Auditor: Also, we need to notify ops and the team that's responsible for db-04, so they're aware of the plan and can assist with the restart. And let's not forget to document the root cause and the recovery steps, so we can learn from this and prevent similar incidents in the future.
+
+[t8] Operations Lead: I'll send out a notification to ops and the db team, and also document the root cause and recovery steps in our incident log. I'll also make sure to CC the team that's responsible for db-04 on the notification, so they're aware of the plan and can assist with the restart.
+
+[t9] Safety Auditor: Also, while you're notifying the teams, let's confirm that the standby node for the API is online and ready to take over, and that we have a clear plan for the node to be taken offline once the database is restarted.
+
+[t10] Operations Lead: I'll send out a notification to ops and the db-04 team, and also document the root cause and recovery steps. I'll also check with the API team to confirm the standby node is online and ready to take over, and I'll review the node's configuration to ensure we have a clear plan for taking it offline once the database is restarted.
+
+[t11] Safety Auditor: Good, that covers the key steps. Let's also confirm that we have a clear plan for the API team to monitor the database's status during the restart, to ensure a smooth transition and prevent any further degradation.
+
+[t12] Operations Lead: I'll add that to the notification, so the API team is aware of the plan and can monitor the database's status during the restart. I'll also make sure to include a clear timeline for the restart, so everyone knows when to expect the database to be back online.
+
+[t13] Safety Auditor: That's a good idea, but let's also make sure we're not setting unrealistic expectations - we should be cautious about the time it takes to restart the database, given the current load on the system.
+
+[t14] Operations Lead: I'll add a note to the plan to indicate that the restart timeline is contingent on the current load being manageable, and that we'll reassess the situation as we go along. That way, we can adjust our expectations and avoid setting ourselves up for disappointment if the load doesn't come down as quickly as we hope.
+
+[t15] Safety Auditor: That's a great way to manage expectations. I'll also add a note to the plan to ensure that we have a clear plan for what happens if the load doesn't come down as expected, and we need to take further action to stabilize the system.
+
+=== FINALISATION ===
+
+-- attempt 1 (parsed) --
+```
+{
+  "actions": [
+    "NOTIFY_OPS_AND_DB_TEAMS",
+    "RUN_DIAGNOSTICS",
+    "RUN_BACKUP",
+    "RESTART_DB",
+    "MONITOR_DB_STATUS",
+    "FAILOVER_API",
+    "RESTORE_TRAFFIC"
+  ],
+  "ready": true
+}
+```
+
+stop_reason: accepted   retries: 0
+
+=== EVALUATION ===
+parsed             True
+actions            ['NOTIFY_OPS_AND_DB_TEAMS', 'RUN_DIAGNOSTICS', 'RUN_BACKUP', 'RESTART_DB', 'MONITOR_DB_STATUS', 'FAILOVER_API', 'RESTORE_TRAFFIC']
+ready              True
+unknown actions    ['NOTIFY_OPS_AND_DB_TEAMS', 'MONITOR_DB_STATUS']
+satisfied          ['C3', 'C4', 'C6', 'C7']
+violated           ['C1', 'C2', 'C5']
+constraint_recall  0.5714
+success            False  <- PRIMARY (deterministic)
+
+=== SOURCE COVERAGE ===
+original source messages present  1/5  (0.2)
+seed turns still in context       [2]
+constraints whose source survived ['C3']
+
+=== JUDGE (secondary) ===
+model              llama3.2:3b
+stop_reason        accepted   retries: 0
+score              3
+success            False
+reason             Missing explicit ordering of actions
+
+dialogue stopped: max_turns (10 generated turns, 5426 tokens)
+context policy:   fusion-250-a0.4 {'max_words': 250, 'alpha': 0.4}
+                  74 kept / 47 dropped over 11 calls
+realised prompt tokens: dialogue 4869, finalisation 601, judge 1087 (experiment total 5470)
+realised seconds:       dialogue 24.669, finalisation 2.605, judge 2.373
+saved: transcripts/e1/fusion_r3.json

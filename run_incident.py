@@ -59,10 +59,24 @@ def main(mock, turns, out, host, window=None, judge_model=DEFAULT_JUDGE_MODEL):
     result = finalise(AGENT_A, engine.transcript, client, final_budget, INCIDENT,
                       manage_context=policy)
 
-    # What the Operations Lead ACTUALLY saw when it wrote the plan. Rebuilt the
-    # same way finalise builds it, so coverage describes the real context.
-    # policy.select, not policy(...), so this measurement is not logged as a call.
-    final_context = policy.select(view_for(AGENT_A, engine.transcript))
+    # What the Operations Lead ACTUALLY saw when it wrote the plan.
+    #
+    # Read back from the policy's own call log rather than re-selecting. An
+    # earlier version called policy.select(view) with NO query, so for the
+    # scoring selectors it derived query_for_turn while finalise had used
+    # query_for_finalisation -- it measured a context that was never sent.
+    # Taking the recorded ids makes drift between the two impossible.
+    view = view_for(AGENT_A, engine.transcript)
+    last_call = policy.calls[-1] if policy.calls else {}
+    if "selected_ids" in last_call:
+        pool = view[1:-1]
+        final_context = ([view[0]]
+                         + [pool[i] for i in last_call["selected_ids"]]
+                         + [view[-1]])
+    else:
+        # Non-budgeted policies (full history, message-count recency) ignore
+        # the query entirely, so re-selecting cannot disagree.
+        final_context = policy.select(view)
     coverage = source_coverage(final_context, INCIDENT)
 
     # Judge: secondary evidence, its own budget, its own model call.
