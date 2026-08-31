@@ -1,0 +1,362 @@
+{
+  "meta": {
+    "scenario": "db04-payments",
+    "seeded_turns": 6,
+    "mock": false,
+    "context": {
+      "policy": "recency",
+      "label": "recency-250",
+      "config": {
+        "max_words": 250
+      },
+      "calls": [
+        {
+          "available": 6,
+          "kept": 6,
+          "dropped": 0,
+          "words_available": 206,
+          "words_kept": 206
+        },
+        {
+          "available": 7,
+          "kept": 7,
+          "dropped": 0,
+          "words_available": 249,
+          "words_kept": 249
+        },
+        {
+          "available": 8,
+          "kept": 6,
+          "dropped": 2,
+          "words_available": 294,
+          "words_kept": 230
+        },
+        {
+          "available": 9,
+          "kept": 6,
+          "dropped": 3,
+          "words_available": 339,
+          "words_kept": 246
+        },
+        {
+          "available": 10,
+          "kept": 6,
+          "dropped": 4,
+          "words_available": 381,
+          "words_kept": 248
+        },
+        {
+          "available": 11,
+          "kept": 6,
+          "dropped": 5,
+          "words_available": 431,
+          "words_kept": 246
+        },
+        {
+          "available": 12,
+          "kept": 5,
+          "dropped": 7,
+          "words_available": 487,
+          "words_kept": 238
+        },
+        {
+          "available": 13,
+          "kept": 5,
+          "dropped": 8,
+          "words_available": 552,
+          "words_kept": 245
+        },
+        {
+          "available": 14,
+          "kept": 5,
+          "dropped": 9,
+          "words_available": 597,
+          "words_kept": 248
+        },
+        {
+          "available": 15,
+          "kept": 5,
+          "dropped": 10,
+          "words_available": 659,
+          "words_kept": 249
+        },
+        {
+          "available": 16,
+          "kept": 5,
+          "dropped": 11,
+          "words_available": 712,
+          "words_kept": 246
+        }
+      ],
+      "totals": {
+        "calls": 11,
+        "messages_available": 121,
+        "messages_kept": 62,
+        "messages_dropped": 59
+      }
+    },
+    "source_coverage": {
+      "source_messages_present": 0,
+      "source_messages_total": 5,
+      "coverage": 0.0,
+      "present_turns": [],
+      "constraints_with_source_present": []
+    },
+    "realised": {
+      "dialogue": {
+        "prompt_tokens": 4366,
+        "completion_tokens": 593,
+        "seconds": 24.807
+      },
+      "finalisation": {
+        "prompt_tokens": 544,
+        "completion_tokens": 136,
+        "seconds": 2.861
+      },
+      "judge": {
+        "prompt_tokens": 1185,
+        "completion_tokens": 28,
+        "seconds": 2.38
+      },
+      "experiment_total": {
+        "prompt_tokens": 4910,
+        "completion_tokens": 729,
+        "seconds": 27.668
+      }
+    },
+    "finalisation": {
+      "stop_reason": "accepted",
+      "retries": 0,
+      "attempts": [
+        {
+          "attempt": 0,
+          "speaker": "Operations Lead",
+          "content": "We're leaning towards a read replica solution to take the load off db-04, as it's a more straightforward and efficient way to handle the traffic. We can set up a read replica on db-04's cluster, and then use that to route traffic to the new endpoint.\n\nHere's the recovery plan:\n\n```\n{\n  \"actions\": [\n    \"ISOLATE_NODE\",\n    \"RUN_DIAGNOSTICS\",\n    \"RUN_BACKUP\",\n    \"RESTART_DB\",\n    \"FAILOVER_API\",\n    \"RESTORE_TRAFFIC\"\n  ],\n  \"ready\": true\n}\n```\n\nLet me know if this looks good to you!",
+          "parse_error": null,
+          "prompt_tokens": 544,
+          "completion_tokens": 136,
+          "seconds": 2.861
+        }
+      ],
+      "totals": {
+        "attempts": 1,
+        "prompt_tokens": 544,
+        "completion_tokens": 136,
+        "seconds": 2.861
+      },
+      "evaluation": {
+        "parsed": true,
+        "parse_error": null,
+        "actions": [
+          "ISOLATE_NODE",
+          "RUN_DIAGNOSTICS",
+          "RUN_BACKUP",
+          "RESTART_DB",
+          "FAILOVER_API",
+          "RESTORE_TRAFFIC"
+        ],
+        "ready": true,
+        "unknown_actions": [],
+        "satisfied": [
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C6",
+          "C7"
+        ],
+        "violated": [
+          "C5"
+        ],
+        "violations": 1,
+        "constraint_recall": 0.8571,
+        "success": false
+      }
+    },
+    "judge": {
+      "stop_reason": "accepted",
+      "retries": 0,
+      "attempts": [
+        {
+          "attempt": 0,
+          "speaker": "Judge",
+          "content": "{\"score\": 3, \"success\": false, \"reason\": \"Plan misses the clear testing phase and escalation procedure agreed upon\"}",
+          "parse_error": null,
+          "prompt_tokens": 1185,
+          "completion_tokens": 28,
+          "seconds": 2.38
+        }
+      ],
+      "totals": {
+        "attempts": 1,
+        "prompt_tokens": 1185,
+        "completion_tokens": 28,
+        "seconds": 2.38
+      },
+      "model": "llama3.2:3b",
+      "score": 3,
+      "success": false,
+      "reason": "Plan misses the clear testing phase and escalation procedure agreed upon",
+      "note": "secondary evidence; the deterministic evaluator is primary"
+    }
+  },
+  "agents": [
+    {
+      "name": "Operations Lead",
+      "model": "llama3.2:3b",
+      "temperature": 0
+    },
+    {
+      "name": "Safety Auditor",
+      "model": "llama3.2:3b",
+      "temperature": 0
+    }
+  ],
+  "budget": {
+    "stop_reason": "max_turns",
+    "turns": 10,
+    "tokens": 4959,
+    "seconds": 30.051,
+    "limits": {
+      "max_turns": 10,
+      "max_tokens": 100000,
+      "max_seconds": 600
+    }
+  },
+  "totals": {
+    "turns": 16,
+    "prompt_tokens": 4366,
+    "completion_tokens": 593,
+    "seconds": 24.807
+  },
+  "messages": [
+    {
+      "speaker": "Operations Lead",
+      "content": "We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 0
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 1
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 2
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 3
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 4
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 5
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "Got it, so we need to fail over the API to a standby node, and then restart the database. And we'll also need to notify the team that's responsible for the API, so they're aware of the plan and can coordinate the failover.",
+      "prompt_tokens": 402,
+      "completion_tokens": 53,
+      "seconds": 2.3797395000001416,
+      "turn_index": 6
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "That's the plan, but before we fail over, I want to confirm that we have a clear understanding of what the API will look like once it's back up - are we talking about a temporary redirect, or a full failover with a new endpoint?",
+      "prompt_tokens": 464,
+      "completion_tokens": 53,
+      "seconds": 2.364700000034645,
+      "turn_index": 7
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "We'll need to set up a temporary redirect to the new endpoint, so the API still looks like it's working, but it's actually just proxying requests to the new database. That way, we can test the API without exposing the underlying issue to the customers.",
+      "prompt_tokens": 430,
+      "completion_tokens": 55,
+      "seconds": 2.3954550999915227,
+      "turn_index": 8
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "That's a good plan, but I want to make sure we're not creating a temporary fix that's just masking the problem - we need to make sure the new endpoint is thoroughly tested and validated before we start routing traffic to it.",
+      "prompt_tokens": 453,
+      "completion_tokens": 48,
+      "seconds": 2.3899030999746174,
+      "turn_index": 9
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "We'll need to add a thorough testing phase to the plan, where we thoroughly test the new endpoint with all the usual load and stress tests, to ensure it's stable and working as expected. We'll also need to validate that it's returning the correct data and handling edge cases correctly.",
+      "prompt_tokens": 449,
+      "completion_tokens": 59,
+      "seconds": 2.5472758000250906,
+      "turn_index": 10
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "I like that - it's good to have a clear testing phase in place. Can we also confirm that we have a clear communication plan in place for the team that's responsible for the API, including a timeline for when the new endpoint will be available and what the expected impact will be on their operations?",
+      "prompt_tokens": 447,
+      "completion_tokens": 62,
+      "seconds": 2.4741072000470012,
+      "turn_index": 11
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "We'll need to send out a clear and concise communication plan to the API team, including a timeline for when the new endpoint will be available, and what the expected impact will be on their operations, including any potential downtime or changes to their workflows. We'll also make sure to keep the rest of the team informed of any updates and changes to the plan.",
+      "prompt_tokens": 424,
+      "completion_tokens": 73,
+      "seconds": 2.49638240004424,
+      "turn_index": 12
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "That sounds good, but I'd like to add a specific request to the plan - can we also include a clear escalation procedure in case the new endpoint doesn't meet expectations, so we can quickly identify and address any issues before they impact the customers?",
+      "prompt_tokens": 432,
+      "completion_tokens": 51,
+      "seconds": 2.372730700066313,
+      "turn_index": 13
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "I agree, that's a good idea. We'll add a clear escalation procedure to the plan, including a specific contact person and process for escalating issues with the new endpoint, so we can quickly identify and address any problems before they affect our customers. We'll also make sure to include a clear definition of what constitutes a \"major\" issue that would trigger escalation.",
+      "prompt_tokens": 425,
+      "completion_tokens": 74,
+      "seconds": 2.902312299935147,
+      "turn_index": 14
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "I like the clarity on that. Now, let's talk about the technical recovery plan for db-04. Have we identified a suitable replacement or backup node that we can bring online to take the load off db-04, or are we looking at a more complex solution like a read replica or a temporary re-route?",
+      "prompt_tokens": 440,
+      "completion_tokens": 65,
+      "seconds": 2.48406440007966,
+      "turn_index": 15
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+
+=== INCIDENT db04-payments ===
+
+[seed] Operations Lead: We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.
+
+[seed] Safety Auditor: Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.
+
+[seed] Operations Lead: Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.
+
+[seed] Safety Auditor: Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.
+
+[seed] Operations Lead: Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.
+
+[seed] Safety Auditor: Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.
+
+[t6] Operations Lead: Got it, so we need to fail over the API to a standby node, and then restart the database. And we'll also need to notify the team that's responsible for the API, so they're aware of the plan and can coordinate the failover.
+
+[t7] Safety Auditor: That's the plan, but before we fail over, I want to confirm that we have a clear understanding of what the API will look like once it's back up - are we talking about a temporary redirect, or a full failover with a new endpoint?
+
+[t8] Operations Lead: We'll need to set up a temporary redirect to the new endpoint, so the API still looks like it's working, but it's actually just proxying requests to the new database. That way, we can test the API without exposing the underlying issue to the customers.
+
+[t9] Safety Auditor: That's a good plan, but I want to make sure we're not creating a temporary fix that's just masking the problem - we need to make sure the new endpoint is thoroughly tested and validated before we start routing traffic to it.
+
+[t10] Operations Lead: We'll need to add a thorough testing phase to the plan, where we thoroughly test the new endpoint with all the usual load and stress tests, to ensure it's stable and working as expected. We'll also need to validate that it's returning the correct data and handling edge cases correctly.
+
+[t11] Safety Auditor: I like that - it's good to have a clear testing phase in place. Can we also confirm that we have a clear communication plan in place for the team that's responsible for the API, including a timeline for when the new endpoint will be available and what the expected impact will be on their operations?
+
+[t12] Operations Lead: We'll need to send out a clear and concise communication plan to the API team, including a timeline for when the new endpoint will be available, and what the expected impact will be on their operations, including any potential downtime or changes to their workflows. We'll also make sure to keep the rest of the team informed of any updates and changes to the plan.
+
+[t13] Safety Auditor: That sounds good, but I'd like to add a specific request to the plan - can we also include a clear escalation procedure in case the new endpoint doesn't meet expectations, so we can quickly identify and address any issues before they impact the customers?
+
+[t14] Operations Lead: I agree, that's a good idea. We'll add a clear escalation procedure to the plan, including a specific contact person and process for escalating issues with the new endpoint, so we can quickly identify and address any problems before they affect our customers. We'll also make sure to include a clear definition of what constitutes a "major" issue that would trigger escalation.
+
+[t15] Safety Auditor: I like the clarity on that. Now, let's talk about the technical recovery plan for db-04. Have we identified a suitable replacement or backup node that we can bring online to take the load off db-04, or are we looking at a more complex solution like a read replica or a temporary re-route?
+
+=== FINALISATION ===
+
+-- attempt 1 (parsed) --
+We're leaning towards a read replica solution to take the load off db-04, as it's a more straightforward and efficient way to handle the traffic. We can set up a read replica on db-04's cluster, and then use that to route traffic to the new endpoint.
+
+Here's the recovery plan:
+
+```
+{
+  "actions": [
+    "ISOLATE_NODE",
+    "RUN_DIAGNOSTICS",
+    "RUN_BACKUP",
+    "RESTART_DB",
+    "FAILOVER_API",
+    "RESTORE_TRAFFIC"
+  ],
+  "ready": true
+}
+```
+
+Let me know if this looks good to you!
+
+stop_reason: accepted   retries: 0
+
+=== EVALUATION ===
+parsed             True
+actions            ['ISOLATE_NODE', 'RUN_DIAGNOSTICS', 'RUN_BACKUP', 'RESTART_DB', 'FAILOVER_API', 'RESTORE_TRAFFIC']
+ready              True
+unknown actions    []
+satisfied          ['C1', 'C2', 'C3', 'C4', 'C6', 'C7']
+violated           ['C5']
+constraint_recall  0.8571
+success            False  <- PRIMARY (deterministic)
+
+=== SOURCE COVERAGE ===
+original source messages present  0/5  (0.0)
+seed turns still in context       []
+constraints whose source survived []
+
+=== JUDGE (secondary) ===
+model              llama3.2:3b
+stop_reason        accepted   retries: 0
+score              3
+success            False
+reason             Plan misses the clear testing phase and escalation procedure agreed upon
+
+dialogue stopped: max_turns (10 generated turns, 4959 tokens)
+context policy:   recency-250 {'max_words': 250}
+                  62 kept / 59 dropped over 11 calls
+realised prompt tokens: dialogue 4366, finalisation 544, judge 1185 (experiment total 4910)
+realised seconds:       dialogue 24.807, finalisation 2.861, judge 2.38
+saved: transcripts/pilot/recency_r3.json

@@ -1,0 +1,376 @@
+{
+  "meta": {
+    "scenario": "db04-payments",
+    "seeded_turns": 6,
+    "mock": false,
+    "context": {
+      "policy": "recency",
+      "label": "recency-250",
+      "config": {
+        "max_words": 250
+      },
+      "calls": [
+        {
+          "available": 6,
+          "kept": 6,
+          "dropped": 0,
+          "words_available": 206,
+          "words_kept": 206
+        },
+        {
+          "available": 7,
+          "kept": 7,
+          "dropped": 0,
+          "words_available": 245,
+          "words_kept": 245
+        },
+        {
+          "available": 8,
+          "kept": 7,
+          "dropped": 1,
+          "words_available": 291,
+          "words_kept": 248
+        },
+        {
+          "available": 9,
+          "kept": 6,
+          "dropped": 3,
+          "words_available": 347,
+          "words_kept": 246
+        },
+        {
+          "available": 10,
+          "kept": 5,
+          "dropped": 5,
+          "words_available": 387,
+          "words_kept": 233
+        },
+        {
+          "available": 11,
+          "kept": 5,
+          "dropped": 6,
+          "words_available": 442,
+          "words_kept": 236
+        },
+        {
+          "available": 12,
+          "kept": 5,
+          "dropped": 7,
+          "words_available": 499,
+          "words_kept": 247
+        },
+        {
+          "available": 13,
+          "kept": 5,
+          "dropped": 8,
+          "words_available": 558,
+          "words_kept": 250
+        },
+        {
+          "available": 14,
+          "kept": 5,
+          "dropped": 9,
+          "words_available": 608,
+          "words_kept": 250
+        },
+        {
+          "available": 15,
+          "kept": 5,
+          "dropped": 10,
+          "words_available": 656,
+          "words_kept": 246
+        },
+        {
+          "available": 16,
+          "kept": 5,
+          "dropped": 11,
+          "words_available": 706,
+          "words_kept": 247
+        }
+      ],
+      "totals": {
+        "calls": 11,
+        "messages_available": 121,
+        "messages_kept": 61,
+        "messages_dropped": 60
+      }
+    },
+    "source_coverage": {
+      "source_messages_present": 0,
+      "source_messages_total": 5,
+      "coverage": 0.0,
+      "present_turns": [],
+      "constraints_with_source_present": []
+    },
+    "realised": {
+      "dialogue": {
+        "prompt_tokens": 4405,
+        "completion_tokens": 595,
+        "seconds": 34.491
+      },
+      "finalisation": {
+        "prompt_tokens": 550,
+        "completion_tokens": 65,
+        "seconds": 2.506
+      },
+      "judge": {
+        "prompt_tokens": 2343,
+        "completion_tokens": 71,
+        "seconds": 4.714
+      },
+      "experiment_total": {
+        "prompt_tokens": 4955,
+        "completion_tokens": 660,
+        "seconds": 36.997
+      }
+    },
+    "finalisation": {
+      "stop_reason": "accepted",
+      "retries": 0,
+      "attempts": [
+        {
+          "attempt": 0,
+          "speaker": "Operations Lead",
+          "content": "{\"actions\": [\n  \"RUN_DIAGNOSTICS\",\n  \"RUN_BACKUP\",\n  \"RESTART_DB\",\n  \"FAILOVER_API\",\n  \"NOTIFY_API_TEAM\",\n  \"NOTIFY_INCIDENT_MANAGEMENT_TEAM\",\n  \"NOTIFY_TEAM_LEAD\"\n], \n\"ready\": true}",
+          "parse_error": null,
+          "prompt_tokens": 550,
+          "completion_tokens": 65,
+          "seconds": 2.506
+        }
+      ],
+      "totals": {
+        "attempts": 1,
+        "prompt_tokens": 550,
+        "completion_tokens": 65,
+        "seconds": 2.506
+      },
+      "evaluation": {
+        "parsed": true,
+        "parse_error": null,
+        "actions": [
+          "RUN_DIAGNOSTICS",
+          "RUN_BACKUP",
+          "RESTART_DB",
+          "FAILOVER_API",
+          "NOTIFY_API_TEAM",
+          "NOTIFY_INCIDENT_MANAGEMENT_TEAM",
+          "NOTIFY_TEAM_LEAD"
+        ],
+        "ready": true,
+        "unknown_actions": [
+          "NOTIFY_API_TEAM",
+          "NOTIFY_INCIDENT_MANAGEMENT_TEAM",
+          "NOTIFY_TEAM_LEAD"
+        ],
+        "satisfied": [
+          "C3",
+          "C4",
+          "C6"
+        ],
+        "violated": [
+          "C1",
+          "C2",
+          "C5",
+          "C7"
+        ],
+        "violations": 4,
+        "constraint_recall": 0.4286,
+        "success": false
+      }
+    },
+    "judge": {
+      "stop_reason": "parse_failed",
+      "retries": 1,
+      "attempts": [
+        {
+          "attempt": 0,
+          "speaker": "Judge",
+          "content": "{\"score\": 3, \"success\": false, \"reason\": \"Plan reorders actions, missing 'ISOLATE_NODE' and 'CHECK_ALERTING_SYSTEM'}\"",
+          "parse_error": "no JSON object found",
+          "prompt_tokens": 1116,
+          "completion_tokens": 36,
+          "seconds": 2.438
+        },
+        {
+          "attempt": 1,
+          "speaker": "Judge",
+          "content": "{\"score\": 3, \"success\": false, \"reason\": \"Plan reorders actions, missing 'ISOLATE_NODE' and 'CHECK_ALERTING_SYSTEM'}",
+          "parse_error": "no JSON object found",
+          "prompt_tokens": 1227,
+          "completion_tokens": 35,
+          "seconds": 2.275
+        }
+      ],
+      "totals": {
+        "attempts": 2,
+        "prompt_tokens": 2343,
+        "completion_tokens": 71,
+        "seconds": 4.714
+      },
+      "model": "llama3.2:3b",
+      "score": null,
+      "success": null,
+      "reason": null,
+      "note": "secondary evidence; the deterministic evaluator is primary"
+    }
+  },
+  "agents": [
+    {
+      "name": "Operations Lead",
+      "model": "llama3.2:3b",
+      "temperature": 0
+    },
+    {
+      "name": "Safety Auditor",
+      "model": "llama3.2:3b",
+      "temperature": 0
+    }
+  ],
+  "budget": {
+    "stop_reason": "max_turns",
+    "turns": 10,
+    "tokens": 5000,
+    "seconds": 41.719,
+    "limits": {
+      "max_turns": 10,
+      "max_tokens": 100000,
+      "max_seconds": 600
+    }
+  },
+  "totals": {
+    "turns": 16,
+    "prompt_tokens": 4405,
+    "completion_tokens": 595,
+    "seconds": 34.491
+  },
+  "messages": [
+    {
+      "speaker": "Operations Lead",
+      "content": "We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 0
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 1
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 2
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 3
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 4
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 5
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "Got it, so we need to fail over the API to a standby node, and then restart the database. And we'll also need to notify the team that's responsible for the API, so they're aware of the expected downtime.",
+      "prompt_tokens": 402,
+      "completion_tokens": 48,
+      "seconds": 12.351570200058632,
+      "turn_index": 6
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Standby node is the one on node db-03, so that's the one we need to fail over to. And I'll make sure to get the notification to the API team, but also to the ops team, since they're the ones who can help with the restart.",
+      "prompt_tokens": 459,
+      "completion_tokens": 58,
+      "seconds": 2.4955275000538677,
+      "turn_index": 7
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "I'll get the ops team on standby to assist with the restart, and also make sure we have a clear timeline for the failover and restart, so we can communicate that to the teams. I'll also check the cluster's alerting system to see if there are any other potential issues that we should be aware of.",
+      "prompt_tokens": 457,
+      "completion_tokens": 66,
+      "seconds": 2.50432790000923,
+      "turn_index": 8
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Good thinking on checking the alerting system, we don't want to miss any other potential problems. And I'll make sure to get the cluster's current load and resource utilization to you, so we can plan the failover and restart accordingly.",
+      "prompt_tokens": 450,
+      "completion_tokens": 50,
+      "seconds": 2.3985997999552637,
+      "turn_index": 9
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "That's a great idea, having that data will help us determine the best time to fail over and restart the database. I'll also make a note to check the database's error logs to see if there's any indication of what's causing the errors, so we can try to identify the root cause after the restart.",
+      "prompt_tokens": 430,
+      "completion_tokens": 65,
+      "seconds": 2.484748200047761,
+      "turn_index": 10
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "That's a good plan, we should try to get as much information as possible about what's causing the errors, so we can take steps to prevent them in the future. I'll also make sure to document the steps we take to recover from this incident, so we can use that as a reference point for future troubleshooting.",
+      "prompt_tokens": 439,
+      "completion_tokens": 66,
+      "seconds": 2.4872921999776736,
+      "turn_index": 11
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "That's a great idea, documenting the steps we take will help us to refine our incident response process and ensure that we're not repeating the same mistakes in the future. I'll also make sure to update our incident management tool with the current status and the steps we're taking to recover, so that the team can track our progress.",
+      "prompt_tokens": 437,
+      "completion_tokens": 68,
+      "seconds": 2.469628299935721,
+      "turn_index": 12
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "I'll also make sure to notify the team lead and the incident management team, so they're aware of the current status and can provide any additional support or resources we may need. And just to confirm, we're still on track to notify the API team about the expected downtime, right?",
+      "prompt_tokens": 449,
+      "completion_tokens": 59,
+      "seconds": 2.4310083999298513,
+      "turn_index": 13
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "Yes, that's correct, we still need to notify the API team about the expected downtime, so they can prepare for the potential impact on their users. I'll make sure to add that to the communication plan, so we can coordinate with them on the timing of the notification.",
+      "prompt_tokens": 442,
+      "completion_tokens": 57,
+      "seconds": 2.4494581000180915,
+      "turn_index": 14
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "I'll also review the notification plan to ensure we're not inadvertently causing more stress on the system by sending out notifications too quickly. We should also consider having a plan in place for if the restart doesn't resolve the issue, so we're not caught off guard if the problem persists.",
+      "prompt_tokens": 440,
+      "completion_tokens": 58,
+      "seconds": 2.4191088000079617,
+      "turn_index": 15
+    }
+  ]
+}

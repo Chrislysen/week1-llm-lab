@@ -1,0 +1,79 @@
+
+=== INCIDENT db04-payments ===
+
+[seed] Operations Lead: We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.
+
+[seed] Safety Auditor: Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.
+
+[seed] Operations Lead: Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.
+
+[seed] Safety Auditor: Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.
+
+[seed] Operations Lead: Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.
+
+[seed] Safety Auditor: Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.
+
+[t6] Operations Lead: Got it, so we need to fail over the API to a standby node, and then restart the database. And I'll also need to notify the team that's responsible for the API, so they're aware of the plan and can assist with the failover.
+
+[t7] Safety Auditor: Also, we need to notify the team that's responsible for the API, and we need to make sure they're aware of the expected downtime for the database, so they can prepare for the potential impact on their end. And while we're at it, let's also notify the ops team that's responsible for the cluster, so they're aware of the node being isolated and the plan to restart it.
+
+[t8] Operations Lead: 
+
+[t9] Safety Auditor: Also, we need to notify the team that's responsible for the API, and make sure they're aware of the plan, so they're not trying to troubleshoot the API while it's still down. And, just to confirm, we're assuming the standby node is db-04's peer, db-04-01, right?
+
+[t10] Operations Lead: That's correct, db-04-01 is the standby node. I'll also send a notification to the API team and the DBA team, and make sure they're aware of the plan and the expected downtime.
+
+[t11] Safety Auditor: Also, make sure the notification includes the expected duration of the downtime, so they can plan accordingly. We don't want to keep customers in the dark about how long they'll be without service.
+
+[t12] Operations Lead: I'll make sure to include the estimated 2-3 hour downtime in the notification, and also let them know that we'll be monitoring the situation closely and will provide updates as soon as the database is back online.
+
+[t13] Safety Auditor: That's a good start, but also make sure to include the fact that the API will be unavailable during that time, so customers will be notified about that too. And consider adding a statement about the steps we're taking to prevent similar issues in the future, to help manage expectations.
+
+[t14] Operations Lead: I'll add that to the plan. So, to recap, the plan is: isolate db-04, backup it, fail over the API, restart the database, and then restore traffic. We'll also notify customers about the API unavailability and provide a clear timeline for when it's expected to be back online.
+
+[t15] Safety Auditor: That sounds solid. One more thing: we need to identify the root cause of the issue, so we can prevent something like this from happening again in the future.
+
+=== FINALISATION ===
+
+-- attempt 1 (parsed) --
+{
+  "actions": [
+    "ISOLATE_NODE",
+    "RUN_BACKUP",
+    "FAILOVER_API",
+    "RESTART_DB",
+    "RESTORE_TRAFFIC"
+  ],
+  "ready": true
+}
+
+stop_reason: accepted   retries: 0
+
+=== EVALUATION ===
+parsed             True
+actions            ['ISOLATE_NODE', 'RUN_BACKUP', 'FAILOVER_API', 'RESTART_DB', 'RESTORE_TRAFFIC']
+ready              True
+unknown actions    []
+satisfied          ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7']
+violated           []
+constraint_recall  1.0000
+success            True  <- PRIMARY (deterministic)
+
+=== SOURCE COVERAGE ===
+original source messages present  5/5  (1.0)
+seed turns still in context       [1, 2, 3, 4, 5]
+constraints whose source survived ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7']
+
+=== JUDGE (secondary) ===
+model              llama3.2:3b
+stop_reason        accepted   retries: 0
+score              3
+success            False
+reason             Missing step to identify root cause of the issue
+
+dialogue stopped: max_turns (10 generated turns, 4984 tokens)
+context policy:   oracle-250 {'max_words': 250, 'n_source_texts': 5}
+                  81 kept / 40 dropped over 11 calls
+realised prompt tokens: dialogue 4491, finalisation 563, judge 1001 (experiment total 5054)
+realised seconds:       dialogue 23.971, finalisation 2.379, judge 2.33
+saved: transcripts/pilot/oracle_r2.json

@@ -1,0 +1,79 @@
+
+=== INCIDENT db04-payments ===
+
+[seed] Operations Lead: We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.
+
+[seed] Safety Auditor: Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.
+
+[seed] Operations Lead: Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.
+
+[seed] Safety Auditor: Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.
+
+[seed] Operations Lead: Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.
+
+[seed] Safety Auditor: Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.
+
+[t6] Operations Lead: Got it, so we need to fail over the API to a standby node, and then restart the database. And we'll also need to notify the team that's responsible for the API, so they're aware of the expected downtime.
+
+[t7] Safety Auditor: Standby node is the one on node db-03, so that's the one we need to fail over to. And I'll make sure to get the notification to the API team, but also to the ops team, since they're the ones who can help with the restart.
+
+[t8] Operations Lead: I'll get the ops team on standby to assist with the restart, and also make sure we have a clear timeline for the failover and restart, so we can communicate that to the teams. I'll also check the cluster's alerting system to see if there are any other potential issues that we should be aware of.
+
+[t9] Safety Auditor: Good thinking on checking the alerting system, we don't want to miss any other potential problems. And I'll make sure to get the cluster's current load and resource utilization to you, so we can plan the failover and restart accordingly.
+
+[t10] Operations Lead: That's a great idea, having that data will help us determine the best time to fail over and restart the database. I'll also make a note to check the database's error logs to see if there's any indication of what's causing the errors, so we can try to identify the root cause after the restart.
+
+[t11] Safety Auditor: That's a good plan, we should try to get as much information as possible about what's causing the errors, so we can take steps to prevent them in the future. I'll also make sure to document the steps we take to recover from this incident, so we can use that as a reference point for future troubleshooting.
+
+[t12] Operations Lead: That's a great idea, documenting the steps we take will help us to refine our incident response process and ensure that we're not repeating the same mistakes in the future. I'll also make sure to update our incident management tool with the current status and the steps we're taking to recover, so that the team can track our progress.
+
+[t13] Safety Auditor: I'll also make sure to notify the team lead and the incident management team, so they're aware of the current status and can provide any additional support or resources we may need. And just to confirm, we're still on track to notify the API team about the expected downtime, right?
+
+[t14] Operations Lead: Yes, that's correct, we still need to notify the API team about the expected downtime, so they can prepare for the potential impact on their users. I'll make sure to add that to the communication plan, so we can coordinate with them on the timing of the notification.
+
+[t15] Safety Auditor: I'll also review the notification plan to ensure we're not inadvertently causing more stress on the system by sending out notifications too quickly. We should also consider having a plan in place for if the restart doesn't resolve the issue, so we're not caught off guard if the problem persists.
+
+=== FINALISATION ===
+
+-- attempt 1 (parsed) --
+{"actions": [
+  "RUN_DIAGNOSTICS",
+  "RUN_BACKUP",
+  "RESTART_DB",
+  "FAILOVER_API",
+  "NOTIFY_API_TEAM",
+  "NOTIFY_INCIDENT_MANAGEMENT_TEAM",
+  "NOTIFY_TEAM_LEAD"
+], 
+"ready": true}
+
+stop_reason: accepted   retries: 0
+
+=== EVALUATION ===
+parsed             True
+actions            ['RUN_DIAGNOSTICS', 'RUN_BACKUP', 'RESTART_DB', 'FAILOVER_API', 'NOTIFY_API_TEAM', 'NOTIFY_INCIDENT_MANAGEMENT_TEAM', 'NOTIFY_TEAM_LEAD']
+ready              True
+unknown actions    ['NOTIFY_API_TEAM', 'NOTIFY_INCIDENT_MANAGEMENT_TEAM', 'NOTIFY_TEAM_LEAD']
+satisfied          ['C3', 'C4', 'C6']
+violated           ['C1', 'C2', 'C5', 'C7']
+constraint_recall  0.4286
+success            False  <- PRIMARY (deterministic)
+
+=== SOURCE COVERAGE ===
+original source messages present  0/5  (0.0)
+seed turns still in context       []
+constraints whose source survived []
+
+=== JUDGE (secondary) ===
+model              llama3.2:3b
+stop_reason        parse_failed   retries: 1
+score              None
+success            None
+reason             None
+
+dialogue stopped: max_turns (10 generated turns, 5000 tokens)
+context policy:   recency-250 {'max_words': 250}
+                  61 kept / 60 dropped over 11 calls
+realised prompt tokens: dialogue 4405, finalisation 550, judge 2343 (experiment total 4955)
+realised seconds:       dialogue 34.491, finalisation 2.506, judge 4.714
+saved: transcripts/pilot/recency_r1.json

@@ -63,10 +63,15 @@ that split is not worth running.
 
 Pre-registered before any run. Committed on this branch before scoring.
 
-- **H1 (manipulation check, not a finding).** At a budget tight enough that
-  recency drops source messages, retrieval-based selection achieves higher
-  `retrieval_recall` than recency. A retriever optimises for this almost by
-  definition; if H1 fails the implementation is broken, not the hypothesis.
+- **H1 (empirical manipulation check).** At a budget tight enough that recency
+  drops source messages, relevance-based selection *measurably increases
+  retrieval recall of task-critical source information* relative to recency.
+  This is **not** true by definition: a retriever optimises a relevance score,
+  which is not the same object as "contains a planted constraint". The pool
+  audit shows exactly how it can fail — the domain vocabulary is spread across
+  the generated paraphrases, so a lexical retriever may rank recent restatements
+  above the originals and land on the same messages recency already had. H1 is
+  therefore a real, falsifiable measurement.
 
 - **H2 (primary).** Higher `retrieval_recall` does **not** produce higher
   `constraint_recall`. Grounded in the baseline: the full-history condition had
@@ -108,8 +113,15 @@ definition, and the fusion weight.
 
 ## 4. Fixed-budget definition
 
-**Capacity = W words of dialogue content**, excluding the system prompt and the
-final-plan instruction, which are always present for every policy.
+**Capacity = W = 250 words of RETRIEVED DIALOGUE HISTORY only.**
+
+Outside the budget, identical across every arm: the system prompt, the current
+query, and the final-plan instruction. Those are not history and are never
+traded against retrieved content.
+
+Selection is **whole messages only** — no truncation, no sentence splitting —
+and selected messages are **restored to chronological order** before the call.
+Both **selected words** and **realised prompt tokens** are recorded per call.
 
 Words, not tokens, because there is no tokenizer in the project and adding one
 to fill a budget would be new infrastructure for no gain in fairness — a proxy
@@ -147,14 +159,24 @@ is the individual message.** No session layer, no late interaction, no max-sim.
 | `fusion` | `α·z(bm25) + (1−α)·z(dense)`, α = 0.40 fixed | ~10 |
 | `random` | seeded shuffle | ~5 |
 
-**Query definition** (a real design choice, fixed in advance): the query is the
-message the agent is currently responding to; at finalisation it is the
-`FINAL_PLAN_INSTRUCTION`. Alternatives exist and must not be tried after seeing
-outcomes.
+**Query definition — FROZEN before any result is seen.** Implemented in
+`context.query_for_turn` / `context.query_for_finalisation` and committed now,
+before the pilot runs, even though the pilot's three arms do not consume it.
 
-**Dense encoder:** `all-MiniLM-L6-v2` via `sentence-transformers` — CPU, ~90 MB,
-deterministic. This is a **new dependency**. OpSem's numbers used e5-large-v2 and
-BGE, so its absolute figures do not transfer and will not be cited as if they do.
+| when | query |
+|---|---|
+| ordinary turn | the latest incoming message |
+| finalisation | `FINAL_PLAN_INSTRUCTION` + the latest dialogue message |
+
+The query is built **only** from what the agent can already see. It never
+contains constraint ids, evaluator state, or any hidden key. A test asserts
+that. Alternatives must not be tried after seeing outcomes.
+
+**Dense encoder — NOT built yet.** The oracle pilot gates whether any selector
+is worth implementing. If headroom exists, `all-MiniLM-L6-v2` via
+`sentence-transformers` is approved (CPU, ~90 MB, deterministic). OpSem's numbers
+used e5-large-v2 and BGE, so its absolute figures do not transfer and will not be
+cited as if they do.
 
 **α = 0.40 is fixed a priori** from OpSem's measured global optimum (broad
 plateau 0.30–0.45). It will **not** be tuned on these scenarios. OpSem selects α
@@ -166,7 +188,7 @@ ceiling; there is no CV pool here, so the honest move is to fix it and say so.
 | control | purpose | expected |
 |---|---|---|
 | `random` at same W | the bar any retriever must clear | ~31% retrieval recall |
-| `oracle` at same W | hands over exactly the source messages | upper bound on any retriever |
+| `oracle` at same W | **budget-matched.** Constraint-bearing source messages first, then the remaining budget filled with the most recent messages. May use hidden evaluator knowledge **to select**, never to inject: it can only return messages already in the dialogue, and a test asserts its output is a subset of its input. | upper bound on any retriever |
 | `sabotage` | deliberately excludes source messages | recall must collapse |
 | `full` | diagnostic ceiling, not budget-matched | reported separately |
 
@@ -221,9 +243,12 @@ and the correct action is to stop and report why.
 
 **Decision rules, declared now:**
 
-- **Oracle ≤ recency on `constraint_recall`** → *stop.* Retrieval cannot help on
-  this scenario. Report H2 confirmed on the strongest possible evidence and
-  write that up. This is a legitimate outcome, not a failure.
+- **Oracle ≤ recency on `constraint_recall`** → *stop selector development.*
+  Report: **"no task-level retrieval headroom demonstrated on this scenario at
+  this budget."** That is the honest claim. It is **not** "H2 is confirmed" —
+  a single 3×3 pilot with no established noise floor cannot confirm a
+  hypothesis, and an oracle failing to help is evidence about *this scenario and
+  budget*, not a general result. A legitimate outcome, not a failure.
 - **Oracle > recency but oracle ≈ random** → the metric is not sensitive to
   *which* messages are kept. Stop and diagnose the scenario.
 - **Oracle > recency and oracle > random** → headroom exists. Proceed to build

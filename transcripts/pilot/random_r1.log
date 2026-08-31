@@ -1,0 +1,75 @@
+
+=== INCIDENT db04-payments ===
+
+[seed] Operations Lead: We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.
+
+[seed] Safety Auditor: Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.
+
+[seed] Operations Lead: Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.
+
+[seed] Safety Auditor: Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.
+
+[seed] Operations Lead: Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.
+
+[seed] Safety Auditor: Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.
+
+[t6] Operations Lead: Got it, so we need to fail over the API to a standby node, and then restart the database. And I'll also need to notify the team that's responsible for the API, so they're aware of the plan and can assist with the failover.
+
+[t7] Safety Auditor: Also, we need to notify ops and the team that's responsible for db-04, so they're aware of the plan and can assist with the restart. And let's not forget to document the root cause and the recovery steps, so we can learn from this and prevent similar incidents in the future.
+
+[t8] Operations Lead: I'll send out a notification to ops and the db-04 team, and also document the root cause and recovery steps in our incident report. I'll also make sure to CC the team that's responsible for db-04 on the notification, so they're aware of the plan and can provide support during the restart.
+
+[t9] Safety Auditor: 
+
+[t10] Operations Lead: I'll also start the backup process on db-04, and then we can schedule the restart for once the backup is complete. I'll keep an eye on the backup progress and let you know as soon as it's finished.
+
+[t11] Safety Auditor: That's a good plan, but I'd like to add that we should also start the backup process on the standby node, just in case the primary database doesn't come back online quickly enough. And while we're waiting for the backup to finish, let's also start testing the API on the standby node to make sure it's working correctly.
+
+[t12] Operations Lead: I'll add that to the plan. I'll start the backup process on db-04's standby node, and also start testing the API on the standby node to ensure it's working correctly and can take over if needed. I'll also check the backup process's estimated completion time to ensure we're not waiting too long for the primary database to recover.
+
+[t13] Safety Auditor: I'd like to add that we should also notify the team that's responsible for the customer-facing API, so they're aware that the API is being tested on the standby node and can start directing traffic to it if the primary database doesn't recover soon. And while we're waiting, let's also check the current load on the standby node to make sure it can handle the increased traffic.
+
+[t14] Operations Lead: I'll add that notification to the plan, and also check the current load on the standby node to ensure it's within acceptable limits. I'll use the cluster's monitoring tools to get the current load and also check the node's CPU, memory, and disk usage to ensure it's not under pressure. I'll also send a quick email to the API team with the plan and the standby node's load status.
+
+[t15] Safety Auditor: That sounds good, and I'll review the email to make sure it's clear and concise. Also, just to confirm, we're still on track to restart the primary database once the backup on db-04 is complete, and we'll have the standby node handling the API traffic in the meantime?
+
+=== FINALISATION ===
+
+-- attempt 1 (parsed) --
+{"actions": [
+  "RUN_BACKUP",
+  "RESTART_DB",
+  "RESTORE_TRAFFIC",
+  "FAILOVER_API"
+], "ready": true}
+
+stop_reason: accepted   retries: 0
+
+=== EVALUATION ===
+parsed             True
+actions            ['RUN_BACKUP', 'RESTART_DB', 'RESTORE_TRAFFIC', 'FAILOVER_API']
+ready              True
+unknown actions    []
+satisfied          ['C2', 'C3', 'C4', 'C6', 'C7']
+violated           ['C1', 'C5']
+constraint_recall  0.7143
+success            False  <- PRIMARY (deterministic)
+
+=== SOURCE COVERAGE ===
+original source messages present  2/5  (0.4)
+seed turns still in context       [2, 3]
+constraints whose source survived ['C3', 'C4']
+
+=== JUDGE (secondary) ===
+model              llama3.2:3b
+stop_reason        accepted   retries: 0
+score              3
+success            False
+reason             plan misses the dependency on standby node's load status
+
+dialogue stopped: max_turns (10 generated turns, 4972 tokens)
+context policy:   random-250-s1 {'max_words': 250, 'seed': 1}
+                  69 kept / 52 dropped over 11 calls
+realised prompt tokens: dialogue 4377, finalisation 549, judge 1091 (experiment total 4926)
+realised seconds:       dialogue 24.533, finalisation 2.343, judge 2.342
+saved: transcripts/pilot/random_r1.json

@@ -22,7 +22,43 @@ was actually dropped" rather than only "what was configured". The realised
 prompt-token count is recorded separately, by the engine, on each Entry --
 Ollama reports it exactly, so cost is measured rather than assumed.
 """
+import random as _random
+
 SYSTEM = "system"
+
+
+def words(text: str) -> int:
+    """The budget unit. Whitespace-delimited words.
+
+    Words, not tokens, because there is no tokenizer in this project and adding
+    one buys no fairness -- what matters is that the SAME proxy is applied to
+    every arm. Realised prompt tokens are reported separately, from Ollama's
+    exact count, as the parity audit.
+    """
+    return len(text.split())
+
+
+# --- Query definition. FROZEN before any result was seen. -----------------
+#
+# Built only from what the agent can already see. It never contains constraint
+# ids, evaluator state, or any part of the hidden key. Nothing in the pilot
+# consumes these -- recency, random and oracle do not score against a query --
+# but they are committed now so the definition cannot be chosen after the fact.
+
+
+def query_for_turn(messages) -> str:
+    """Ordinary turn: the latest incoming message.
+
+    `messages` is a rendered view (system first). Its last entry is the other
+    agent's most recent message, because the current speaker has not spoken yet.
+    """
+    return messages[-1]["content"] if len(messages) > 1 else ""
+
+
+def query_for_finalisation(messages, instruction: str) -> str:
+    """Finalisation: the final-plan instruction plus the latest dialogue message."""
+    latest = messages[-1]["content"] if len(messages) > 1 else ""
+    return f"{instruction}\n\n{latest}" if latest else instruction
 
 
 class ContextPolicy:
@@ -45,11 +81,16 @@ class ContextPolicy:
 
     def __call__(self, messages):
         out = self.select(messages)
-        # Counts exclude the system prompt, which is never a candidate.
+        # Counts exclude the system prompt, which is never a candidate and is
+        # never charged against the budget.
         available, kept = len(messages) - 1, len(out) - 1
-        self.calls.append(
-            {"available": available, "kept": kept, "dropped": available - kept}
-        )
+        self.calls.append({
+            "available": available,
+            "kept": kept,
+            "dropped": available - kept,
+            "words_available": sum(words(m["content"]) for m in messages[1:]),
+            "words_kept": sum(words(m["content"]) for m in out[1:]),
+        })
         return out
 
     def as_dict(self) -> dict:
@@ -108,8 +149,124 @@ class RecencyWindow(ContextPolicy):
         return [system] + kept
 
 
+# --- Word-budgeted policies (the research extension) ----------------------
+
+
+class BudgetedPolicy(ContextPolicy):
+    """Greedy-fill W words of dialogue history, then restore chronological order.
+
+    Subclasses supply `priority(rest)`: candidate indices in preference order.
+
+    Fill SKIPS a message that would overflow and keeps going, rather than
+    stopping at the first non-fit. That is deliberate: stopping early would let
+    one long message leave an arm systematically under budget, and unequal
+    realised spend between arms is exactly the confound this design exists to
+    avoid. Every arm fills as close to W as its priority order allows.
+    """
+
+    name = "budgeted"
+
+    def __init__(self, max_words: int):
+        super().__init__()
+        if max_words < 0:
+            raise ValueError("max_words must be >= 0")
+        self.max_words = max_words
+
+    @property
+    def label(self) -> str:
+        return f"{self.name}-{self.max_words}"
+
+    def config(self) -> dict:
+        return {"max_words": self.max_words}
+
+    def priority(self, rest) -> list:
+        raise NotImplementedError
+
+    def select(self, messages):
+        system, rest = _split_system(messages)
+        chosen, used = [], 0
+        for i in self.priority(rest):
+            w = words(rest[i]["content"])
+            if used + w <= self.max_words:
+                chosen.append(i)
+                used += w
+        chosen.sort()  # chronological restoration
+        return [system] + [rest[i] for i in chosen]
+
+
+class RecencyBudget(BudgetedPolicy):
+    """Most recent first."""
+
+    name = "recency"
+
+    def priority(self, rest):
+        return list(range(len(rest) - 1, -1, -1))
+
+
+class RandomBudget(BudgetedPolicy):
+    """Uniformly random order. The chance bar any retriever must clear.
+
+    Seeded, so a run is reproducible from its saved config.
+    """
+
+    name = "random"
+
+    def __init__(self, max_words: int, seed: int = 0):
+        super().__init__(max_words)
+        self.seed = seed
+
+    @property
+    def label(self) -> str:
+        return f"random-{self.max_words}-s{self.seed}"
+
+    def config(self) -> dict:
+        return {"max_words": self.max_words, "seed": self.seed}
+
+    def priority(self, rest):
+        order = list(range(len(rest)))
+        _random.Random(self.seed).shuffle(order)
+        return order
+
+
+class OracleBudget(BudgetedPolicy):
+    """Constraint-bearing source messages first, then the most recent.
+
+    Budget-matched: it competes under the same W as every other arm.
+
+    It uses hidden evaluator knowledge to CHOOSE -- it is told which message
+    texts carry planted constraints -- but it can only ever return messages that
+    are already in the dialogue. It never injects, rewrites or summarises
+    anything. `select` filters its input; a test asserts the output is a subset.
+
+    This is the upper bound on what any retriever could achieve at this budget.
+    If it does not beat recency, no retriever will.
+    """
+
+    name = "oracle"
+
+    def __init__(self, max_words: int, source_texts):
+        super().__init__(max_words)
+        self.source_texts = frozenset(source_texts)
+
+    def config(self) -> dict:
+        return {"max_words": self.max_words, "n_source_texts": len(self.source_texts)}
+
+    def priority(self, rest):
+        sources = [i for i, m in enumerate(rest) if m["content"] in self.source_texts]
+        rest_by_recency = [
+            i for i in range(len(rest) - 1, -1, -1) if i not in set(sources)
+        ]
+        return sources + rest_by_recency
+
+
 def make_policy(spec):
-    """Build a policy from a config value: None/'full' -> FullHistory, int -> window."""
+    """Build a policy from a config value.
+
+    None/'full' -> FullHistory, int -> RecencyWindow(n), or pass a policy
+    instance straight through (used by the research pilot).
+    """
+    if isinstance(spec, ContextPolicy):
+        return spec
     if spec is None or spec == "full":
         return FullHistory()
     return RecencyWindow(int(spec))

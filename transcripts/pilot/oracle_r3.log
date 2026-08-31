@@ -1,0 +1,81 @@
+
+=== INCIDENT db04-payments ===
+
+[seed] Operations Lead: We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.
+
+[seed] Safety Auditor: Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.
+
+[seed] Operations Lead: Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.
+
+[seed] Safety Auditor: Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.
+
+[seed] Operations Lead: Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.
+
+[seed] Safety Auditor: Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.
+
+[t6] Operations Lead: Got it, so we need to fail over the API to a standby node, and then restart the database. And we'll also need to notify the team that's responsible for the API, so they're aware of the plan and can coordinate the failover.
+
+[t7] Safety Auditor: That's the plan, but before we fail over, I want to confirm that we have a clear understanding of what the API will look like once it's back up - are we talking about a temporary redirect, or a full failover to a different node?
+
+[t8] Operations Lead: I'll make sure to document that the API will be a temporary redirect to a standby node, and that we'll monitor the database's performance closely to determine when it's safe to fail the API back over. I'll also confirm with the team that we have a clear understanding of the API's expected behavior during this time.
+
+[t9] Safety Auditor: That's a good start, but I'd like to add one more thing: we need to confirm with the team that the standby node is fully warmed up and ready to take over the API, and that we have a clear plan for how to handle any potential issues that might arise during the transition.
+
+[t10] Operations Lead: I'll add that to the plan. I'll also make sure to coordinate with the team to confirm the standby node's status and have a clear escalation process in place, just in case. Can I also confirm that we'll be using the existing API load balancer to fail over to the standby node, and that we have a plan for handling any potential issues with the load balancer itself?
+
+[t11] Safety Auditor: 
+
+[t12] Operations Lead: I'll add that to the plan. I'll also make sure to coordinate with the team to confirm the standby node's status and have a clear escalation process in place, just in case. Can I also confirm that we'll have a clear communication plan in place for the customers, so they know what's happening and when?
+
+[t13] Safety Auditor: That's a good point, and yes, we need to keep the customers informed. I'll add that to the plan as well. We'll also need to coordinate with the ops team to get the customer-facing API back online as soon as the database is back up, so we can start serving traffic again.
+
+[t14] Operations Lead: I'll make sure to add that to the plan. I'll also coordinate with the team to get the API team on standby, so they can jump in as soon as the database is back online.
+
+[t15] Safety Auditor: Also, don't forget to notify the ops team about the isolation and the backup, so they can keep an eye on the node and be ready to intervene if needed. And while you're coordinating with the API team, also check with them about their current load and see if they can scale back or adjust their traffic to minimize the impact on the customers.
+
+=== FINALISATION ===
+
+-- attempt 1 (PARSE FAILED: actions is not a list of strings) --
+{"actions": [
+  {"action": "NOTIFY_OPS_TEAM", "description": "Notify ops team about node isolation and backup"},
+  {"action": "CHECK_API_LOAD", "description": "Check with API team about current load and adjust traffic if needed"},
+  {"action": "ISOLATE_NODE", "description": "Isolate node db-04 from cluster network"},
+  {"action": "RUN_BACKUP", "description": "Run backup of node db-04"},
+  {"action": "FAILOVER_API", "description": "Failover API to another node"},
+  {"action": "RESTART_DB", "description": "Restart database on node db-04"},
+  {"action": "RESTORE_TRAFFIC", "description": "Restore traffic to API once database is back and serving"}
+], "ready": true}
+
+-- attempt 2 (parsed) --
+{"actions": ["NOTIFY_OPS_TEAM", "CHECK_API_LOAD", "ISOLATE_NODE", "RUN_BACKUP", "FAILOVER_API", "RESTART_DB", "RESTORE_TRAFFIC"], "ready": true}
+
+stop_reason: accepted   retries: 1
+
+=== EVALUATION ===
+parsed             True
+actions            ['NOTIFY_OPS_TEAM', 'CHECK_API_LOAD', 'ISOLATE_NODE', 'RUN_BACKUP', 'FAILOVER_API', 'RESTART_DB', 'RESTORE_TRAFFIC']
+ready              True
+unknown actions    ['NOTIFY_OPS_TEAM', 'CHECK_API_LOAD']
+satisfied          ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7']
+violated           []
+constraint_recall  1.0000
+success            True  <- PRIMARY (deterministic)
+
+=== SOURCE COVERAGE ===
+original source messages present  5/5  (1.0)
+seed turns still in context       [1, 2, 3, 4, 5]
+constraints whose source survived ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7']
+
+=== JUDGE (secondary) ===
+model              llama3.2:3b
+stop_reason        accepted   retries: 0
+score              3
+success            False
+reason             plan misses API failover confirmation and load balancer handling
+
+dialogue stopped: max_turns (10 generated turns, 4908 tokens)
+context policy:   oracle-250 {'max_words': 250, 'n_source_texts': 5}
+                  73 kept / 48 dropped over 11 calls
+realised prompt tokens: dialogue 4352, finalisation 1348, judge 1064 (experiment total 5700)
+realised seconds:       dialogue 24.14, finalisation 5.475, judge 2.378
+saved: transcripts/pilot/oracle_r3.json
