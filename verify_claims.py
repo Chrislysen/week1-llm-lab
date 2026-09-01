@@ -293,6 +293,90 @@ else:
     print("  the corruption is framed (revision wording 13/36 in A, 3/36 in B).")
 
 
+# ------------------------------------------------------- E9 speaker 2x2 ----
+# The experiment that identified the E7 effect against BOTH confounds.
+
+print("\n=== E9 speaker 2x2 (re-derived from raw plan text) ===")
+from e9_speaker import ARMS as E9_ARMS, exposure as e9_exposure
+
+E9_JSON = sorted(glob.glob("results/e9_speaker_*_o*.json"))
+if not E9_JSON:
+    skip("E9 artifacts", "not found")
+else:
+    det9 = []
+    for p in E9_JSON:
+        det9.extend(json.load(open(p)))
+    by_id = {i.id: i for i in INSTANCES}
+    per9, by9 = {}, {}
+    for rec in det9:
+        inst = by_id.get(rec["instance"])
+        ch = modeb_chain(inst, chains) if inst else None
+        if ch is None:
+            continue
+        chk = check_plan(rec["plan_text"], inst)
+        v = follows_corruption(inst, ch, chk.actions) if chk.parsed else ""
+        per9.setdefault(rec["instance"], {})[rec["arm"]] = v
+        by9.setdefault(rec["arm"], []).append(v)
+
+    for arm, want in (("d1_fresh", 0.9167), ("d1_self", 0.8056),
+                      ("d3_fresh", 0.1944), ("d3_self", 0.1389),
+                      ("d1pad_fresh", 0.5278)):
+        vs = by9.get(arm, [])
+        s_ = sum(v == "source" for v in vs)
+        c_ = sum(v == "corruption" for v in vs)
+        claim(f"E9 {arm} adoption",
+              round(c_ / (s_ + c_), 4) if s_ + c_ else None, want, tol=0.001)
+
+    def mc9(a, b):
+        n01 = sum(1 for x in per9.values()
+                  if x.get(a) == "corruption" and x.get(b) == "source")
+        n10 = sum(1 for x in per9.values()
+                  if x.get(a) == "source" and x.get(b) == "corruption")
+        n = n01 + n10
+        if n == 0:
+            return None
+        k = min(n01, n10)
+        return min(2 * sum(math.comb(n, i) for i in range(k + 1)) / 2 ** n, 1.0)
+
+    for a, b, want in (("d1pad_fresh", "d3_fresh", 1.831e-03),
+                       ("d1_fresh", "d1pad_fresh", 1.221e-04),
+                       ("d1_fresh", "d3_fresh", 2.980e-08),
+                       ("d1_fresh", "d1_self", 0.1250),
+                       ("d3_fresh", "d3_self", 0.5000)):
+        got = mc9(a, b)
+        claim(f"E9 McNemar {a} vs {b}",
+              None if got is None else round(got / want, 3), 1.0, tol=0.005)
+
+    # The structural fact that made E9 necessary, recomputed from the chains.
+    same = {}
+    for name, depth in (("d1", 1), ("d2", 2), ("d3", 3)):
+        same[name] = sum(
+            1 for cid in chains
+            if (lambda e: e[-1].speaker == e[-2].speaker)(
+                modeb_chain(by_id[cid], chains).exposure(depth, True)))
+    claim("E5/E7 confound: contradiction shares a speaker with the message "
+          "before it at d2", same["d2"], 36)
+    claim("...and at d3", same["d3"], 36)
+    claim("...but not at d1", same["d1"] < 36, True)
+
+    # E9 holds the speaker fixed, so this must be zero everywhere.
+    bad = 0
+    for cid in chains:
+        ch = modeb_chain(by_id[cid], chains)
+        for arm, _, selfrev in E9_ARMS:
+            msgs = e9_exposure(ch, arm)
+            spoke = any(m.speaker == msgs[-1].speaker for m in msgs[:-1])
+            bad += spoke != selfrev
+    claim("E9 arms actually deliver the speaker condition they claim", bad, 0)
+
+    print("\n  NOTE: E9 RETRACTS E7's P2. E7 concluded 'length does nothing'")
+    print("  from d1 vs d1_padded (p = 0.2266). With speakers controlled that")
+    print("  comparison is 14-0, p = 1.221e-04 -- filler alone moves adoption")
+    print("  0.9167 -> 0.5278. Corroboration then adds a FURTHER 0.5278 ->")
+    print("  0.1944 (p = 1.831e-03) on top of it. Both factors are real; E7")
+    print("  attributed all of it to one.")
+
+
 # ------------------------------------------------------ E6 router facts ----
 
 print("\n=== E6 router: the measurement that killed AnchorRoute ===")

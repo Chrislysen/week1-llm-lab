@@ -96,14 +96,38 @@ A, B, C, D = ("Operations Lead", "Safety Auditor", "Network Engineer",
               "Duty Manager")
 
 #: (arm, corroborated, self_reversal)
+#:
+#: `d1pad_fresh` IS THE ARM THAT CLOSES THE LAST HOLE, and it was added after
+#: seeing the 2x2 -- not because the result was unwelcome, but because the 2x2
+#: exposed a gap in its own design that the result made obvious:
+#:
+#:     E7's d1_padded vs d3   holds LENGTH fixed, confounds SPEAKER
+#:     E9's d1_fresh vs d3_fresh   holds SPEAKER fixed, confounds LENGTH
+#:
+#: Two comparisons each controlling what the other leaves loose is weaker than
+#: one comparison controlling both. `d1pad_fresh` is d3_fresh with the two
+#: corroborating restatements swapped for irrelevant filler and everything else
+#: -- message count, speaker sequence, contradictor identity -- held byte-fixed:
+#:
+#:     d1pad_fresh   S(A), P1(B), P2(C), C(D)
+#:     d3_fresh      S(A), L1(B), L2(C), C(D)
+#:
+#: That pair differs in exactly one thing: whether the middle two messages
+#: restate the source. It is the cleanest test in the whole project.
 ARMS = [("d1_fresh", False, False), ("d1_self", False, True),
-        ("d3_fresh", True, False), ("d3_self", True, True)]
+        ("d3_fresh", True, False), ("d3_self", True, True),
+        ("d1pad_fresh", False, False)]
 
 
 def exposure(chain, arm):
     """Messages for one cell. Text comes from the frozen corpus untouched."""
     src = replace(chain.source, speaker=A)
     corrupt = chain.corrupted[0]
+    if arm == "d1pad_fresh":
+        return [src,
+                replace(chain.padding[0], speaker=B),
+                replace(chain.padding[1], speaker=C),
+                replace(corrupt, speaker=D)]
     if arm.startswith("d1"):
         voice = A if arm.endswith("self") else D
         return [src, replace(corrupt, speaker=voice)]
@@ -225,7 +249,11 @@ def analyse():
 
     print("\n=== paired McNemar ===")
     stats = []
-    for a, b, what in (("d1_fresh", "d3_fresh", "PRIMARY: corroboration, "
+    for a, b, what in (("d1pad_fresh", "d3_fresh", "DEFINITIVE: length AND "
+                        "speaker both held fixed"),
+                       ("d1_fresh", "d1pad_fresh", "filler / LENGTH alone, "
+                        "speaker held fresh"),
+                       ("d1_fresh", "d3_fresh", "corroboration, "
                         "speaker held fresh"),
                        ("d1_self", "d3_self", "corroboration, speaker held "
                         "self-reversing"),
@@ -239,6 +267,16 @@ def analyse():
     scols = ["comparison", "isolates", "discordant", "p"]
     show(stats, scols)
     write_csv("results/e9_speaker_mcnemar.csv", stats, scols)
+
+    if adopt.get("d1pad_fresh") is not None:
+        pd, pf = mcnemar(per, "d1pad_fresh", "d3_fresh")[0], adopt["d1pad_fresh"]
+        print("\n  THE DEFINITIVE PAIR -- identical message count, identical")
+        print(f"  speaker sequence, identical contradictor, differing ONLY in")
+        print(f"  whether the middle two messages restate the source:")
+        print(f"      d1pad_fresh (filler)      {pf}")
+        print(f"      d3_fresh    (corroborated) {adopt['d3_fresh']}")
+        print(f"      paired McNemar p = {pd:.3e}" if pd is not None
+              else "      no discordant pairs")
 
     corrob_effect = adopt["d1_fresh"] - adopt["d3_fresh"]
     speaker_effect = ((adopt["d1_fresh"] - adopt["d1_self"])

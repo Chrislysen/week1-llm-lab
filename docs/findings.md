@@ -9,34 +9,62 @@ ratio is the honest summary of this project.
 
 ---
 
-## 1. The one result that has survived every control
+## 1. The result, as it stands after E9
 
-**Corroboration of a source, not the amount of text separating it from a later
-contradiction, is what determines whether the contradiction gets adopted into a
-plan.**
+**Corroborating a source reduces adoption of a later contradiction, over and
+above the effect of simply putting more text in between.** Both factors are
+real. An earlier version of this page said length did nothing; that was wrong
+and is retracted in §2.
 
-Two arms, identical in message count, corruption position, and — in Mode B — to
-within 0.0 words of total length. They differ in one thing: whether the two
-intervening messages *restate the source* or are *irrelevant filler*.
+The decisive comparison is E9's `d1pad_fresh` vs `d3_fresh`. These two arms have
+**identical message count, identical speaker sequence, identical contradictor,
+and byte-identical source and contradiction text.** They differ in exactly one
+thing: whether the two middle messages restate the source or are irrelevant
+filler.
 
-| arm | intervening messages | Mode A | Mode B |
-|---|---|---|---|
-| `d1` | none | 0.7778 | 0.7778 |
-| `d1_padded` | 2 × irrelevant filler | 0.8000 | 0.6389 |
-| `d3` | 2 × faithful restatement | 0.4167 | 0.1667 |
+| arm (E9, all with a *fresh* contradictor) | middle messages | adoption |
+|---|---|---|
+| `d1_fresh` | none (2 messages total) | 0.9167 |
+| `d1pad_fresh` | 2 × irrelevant filler | 0.5278 |
+| `d3_fresh` | 2 × faithful restatement | 0.1944 |
+
+```
+d1_fresh    -> d1pad_fresh   14-0   p = 1.221e-04   filler ALONE moves it
+d1pad_fresh -> d3_fresh      13-1   p = 1.831e-03   corroboration adds MORE
+d1_fresh    -> d3_fresh      26-0   p = 2.980e-08   both together
+```
 
 *(adoption = corruption / (source + corruption); ambiguous plans excluded from
-the ratio, never silently counted as either. `neither` = 0 in all Mode B cells.)*
+the ratio, never silently counted as either. `neither` = 0 in every E7 and E9
+cell.)*
 
-Mode B, paired McNemar, n = 36:
+So the honest decomposition, with speaker held fixed throughout: **dilution
+−0.39, corroboration a further −0.33.** The corroboration effect survives, but it
+is roughly half the size the E7 write-up implied, because E7 attributed the whole
+drop to it.
 
-```
-d1  vs d1_padded    3-8    p = 0.2266      filler does not protect
-d1_padded vs d3    0-17    p = 1.526e-05   corroboration does
-d1  vs d3          1-23    p = 2.980e-06
-control                    0.0000          36/36 follow the source when
-                                           nothing contradicts it
-```
+**Why this is not simply "repetition helps".** The restatements are *paraphrases*
+— a gate enforces ≤ 0.75 framing-word overlap against the source and against
+every earlier link — and in E9 they come from two *different* named speakers,
+neither of whom is the contradictor. Verbatim repeats and single-voice
+self-repetition are excluded by construction.
+
+**Why it is not self-preference.** Three different models: `qwen2.5:7b-instruct`
+writes every relay, `qwen2.5:14b-instruct` certifies each in isolation,
+`llama3.2:3b` decides. The decider wrote none of the text it reads, so source
+bias (Dai et al., KDD 2024) cannot be the mechanism.
+
+**Why it is not "the contradictor discredited himself".** See §2 — this was a
+live and unnoticed confound until an adversarial audit found it, and E9 exists to
+settle it. Self-reversal has no detectable effect: `d1_fresh` vs `d1_self`
+p = 0.1250, `d3_fresh` vs `d3_self` p = 0.5000, mean shift +0.083.
+
+**What replicates across generation modes.** Direction, in both Mode A
+(templated relays) and Mode B (model-written). **Shape does not**: Mode A
+declines gradually (0.78 → 0.61 → 0.42), Mode B steps at the first link
+(0.78 → 0.19 → 0.17). The corpora also differ measurably in how the
+contradiction is worded — revision framing in 13/36 Mode A corruptions against
+3/36 in Mode B — which is a candidate explanation, measured but not tested.
 
 **Why this is not simply "repetition helps".** The restatements are *paraphrases*
 — a gate enforces ≤ 0.75 framing-word overlap against the source and against
@@ -78,6 +106,42 @@ Consistency is not evidence.
 | E4b authority effect | p = 0.031 across 5/5 models, then its own speaker-free control removed unanimity and cut the mean 62% | its own control |
 | AnchorRoute | killed at design stage: cos(contradiction, source) = 0.846 > cos(faithful, source) = 0.835, and the contradiction ranks above the least-similar faithful relay in 36/36 — embeddings are blind to order inversion | a measurement made before building it |
 | Mode B corpus v1 | two of its gates were mutually unsatisfiable, dropping 5/36 instances | reading *why* instances dropped |
+| **E7's P2, "length does nothing"** | predeclared and reported as holding (`d1` vs `d1_padded`, p = 0.2266). With speakers controlled the same comparison is **14-0, p = 1.221e-04** — filler alone moves adoption 0.9167 → 0.5278. E7 attributed the entire drop to corroboration; roughly half of it is dilution. | E9 |
+| **E7/E5 identification** | the headline was *not identified*: in every arm, corroboration and "the contradictor is reversing his own just-stated position" were perfectly collinear (36/36 at `d2` and `d3`, absent at `d1`) | an adversarial audit, not any gate |
+
+### The confound that nearly took the headline
+
+Six independent agents were pointed at E7 and told to kill it. One found this,
+and it was real:
+
+| arm | corroboration | contradictor reverses himself |
+|---|---|---|
+| `d1` | no | no |
+| `d1_padded` | no | no |
+| `d2` | yes | **yes, 36/36** |
+| `d3` | yes | **yes, 36/36** |
+
+Those columns are identical, so `d1_padded` vs `d3` — the load-bearing
+comparison at p = 1.526e-05 — moved *both* factors at once. The rival account is
+ordinary: a colleague who states an ordering and then asserts the opposite two
+messages later is contradicting himself, and a reader may discount him for that
+alone.
+
+**The gate that existed to prevent this could not see it.**
+`test_corroborators_come_from_more_than_one_speaker` computes
+`ch.exposure(MAX_DEPTH, True)[1:-1]` — the `[-1]` slices the contradiction out
+before the speaker set is taken, so it only ever compared L1 against L2. And the
+Mode A/Mode B equality check cannot help either: Mode B is built by
+`replace(m, text=...)` on Mode A's own messages, so a field-for-field equality
+assertion *guarantees the confound is reproduced in both modes rather than
+detected*. **An equality test between two arms is blind to any defect they
+share.**
+
+E9 settles it by crossing the two factors. Corroboration survives; self-reversal
+has no detectable effect. The audit's finding was right about the design and
+wrong about the data — which is exactly what an adversarial check is for, and why
+its statistical support was verified rather than accepted (the agent's Fisher
+test, and my first attempt to check it, both used a wrong row sum).
 
 Two of these were caught **after** being written up. That is the reason
 `verify_claims.py` exists, and the reason its first run is described below.
