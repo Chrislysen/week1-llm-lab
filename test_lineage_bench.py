@@ -116,6 +116,56 @@ for inst in INSTANCES:
     assert ann.id in eff, (inst.id, "override deleted rather than replaced")
     assert (eff[ann.id].a, eff[ann.id].b) == (ann.b, ann.a), (inst.id, ann.id)
 
+# CRITICAL CONTROLS -- REGISTERED, NOT INLINE.
+#
+# The echo-the-prompt-order control was written once, caught the worst defect in
+# this project (a printed valid topological order that scored 36/36), and was
+# then SILENTLY DELETED by a later edit whose slice replacement spanned it. The
+# suite kept passing for several commits. verify_claims.py found it, not this
+# file.
+#
+# Controls now live in a registry with an asserted count, so removing one is
+# itself a test failure rather than a quiet reduction in coverage.
+def _ctrl_echo():
+    """Emitting the printed vocabulary order must not solve the task."""
+    n = sum(check_plan(plan_json(list(i.actions)), i).success for i in INSTANCES)
+    assert n <= 2, (f"echo-the-prompt-order scores {n}/36 -- the printed "
+                    "vocabulary is leaking a valid ordering again")
+    return f"echo {n}/36"
+
+
+def _ctrl_solvable():
+    """...but the task must still be solvable, or the fix broke it."""
+    n = sum(check_plan(plan_json(topo_order(i)), i).success for i in INSTANCES)
+    assert n == len(INSTANCES), f"only {n}/36 solvable"
+    return f"optimal {n}/36"
+
+
+def _ctrl_source_truster():
+    """Always-trust-the-source must FAIL -- the differentiator vs prior art."""
+    from lineage_eval import baseline_scores
+    n = sum(baseline_scores(i)["source_truster"]["success"] for i in INSTANCES)
+    assert n == 0, (f"always-trust-the-source succeeds on {n}/36 -- the override "
+                    "has no cost and this rewards the same reflex as all the "
+                    "prior art")
+    return f"source_truster {n}/36"
+
+
+def _ctrl_empty_plan():
+    """An empty plan must never score as a success."""
+    n = sum(check_plan(plan_json([]), i).success for i in INSTANCES)
+    assert n == 0, f"empty plan succeeds on {n}/36"
+    return f"empty {n}/36"
+
+
+CRITICAL_CONTROLS = [_ctrl_echo, _ctrl_solvable, _ctrl_source_truster,
+                     _ctrl_empty_plan]
+assert len(CRITICAL_CONTROLS) == 4, (
+    "a critical control was removed -- restore it or update this count "
+    "deliberately, never silently")
+_results = [c() for c in CRITICAL_CONTROLS]
+print("critical controls (4):       " + ", ".join(_results))
+
 print("shape + satisfiability:      OK")
 
 # -- Evaluator known-good / known-bad ------------------------------------

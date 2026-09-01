@@ -440,17 +440,12 @@ def generate_instance(domain: str, graph: str) -> Instance:
         for i, (kind, s, t) in enumerate(GRAPHS[graph])
     )
 
-    def _valid_order(order):
-        pos = {a: i for i, a in enumerate(order)}
-        return all(pos[c.a] < pos[c.b] for c in constraints if c.kind == "before")
-
+    # The display order is chosen at the END of this function, against the
+    # EFFECTIVE constraint set. Checking it against the AUTHORED set let a
+    # display order that violates only the overridden rule slip through and
+    # still score as a valid plan -- the echo-the-prompt-order null control rose
+    # to 5/36 before verify_claims.py caught it.
     idents = [a for a, _ in dom["actions"]]
-    for _ in range(64):
-        rng.shuffle(idents)
-        if not _valid_order(idents):
-            break
-    else:                                     # pragma: no cover - 6 actions, never hit
-        raise RuntimeError(f"{domain}-{graph}: no non-topological display order")
 
     # Assign lineage roles. Deterministic given the seed, and every instance
     # gets at least one of each of the five non-distractor classes.
@@ -584,10 +579,26 @@ def generate_instance(domain: str, graph: str) -> Instance:
         for i, m in enumerate(ordered)
     ]
 
+    lifted = supersession_closure(constraints, superseded)
+    effective = [Constraint(id=c.id, kind="before", a=c.b, b=c.a)
+                 if c.id in lifted and c.kind == "before" else c
+                 for c in constraints if c.id not in lifted or c.kind == "before"]
+
+    def _valid_order(order):
+        pos = {a: i for i, a in enumerate(order)}
+        return all(pos[c.a] < pos[c.b] for c in effective if c.kind == "before")
+
+    for _ in range(256):
+        rng.shuffle(idents)
+        if not _valid_order(idents):
+            break
+    else:                                     # pragma: no cover - never hit at 6
+        raise RuntimeError(f"{domain}-{graph}: no non-topological display order")
+
     return Instance(
         id=f"{domain}-{graph}", domain=domain, graph=graph, seed=seed,
         setting=dom["setting"], actions=tuple(idents), constraints=constraints,
-        superseded=supersession_closure(constraints, superseded),
+        superseded=lifted,
         announced_supersession=superseded, messages=tuple(messages),
     )
 

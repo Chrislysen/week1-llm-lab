@@ -1,0 +1,51 @@
+=== E5 relay depth: llama3.2:3b, 36 instances x 5 conditions ===
+
+  [ 1/36] payments-chain       d1:corr  d2:corr  d3:corr  control:sour  d1_padded:corr
+  [ 2/36] payments-fork        d1:corr  d2:corr  d3:sour  control:sour  d1_padded:corr
+  [ 3/36] payments-join        d1:corr  d2:corr  d3:sour  control:sour  d1_padded:corr
+  [ 4/36] payments-diamond     d1:corr  d2:sour  d3:sour  control:sour  d1_padded:corr
+  [ 5/36] payments-twochain    d1:corr  d2:corr  d3:sour  control:sour  d1_padded:corr
+  [ 6/36] payments-star        d1:corr  d2:corr  d3:sour  control:sour  d1_padded:corr
+  [ 7/36] robotics-chain       d1:corr  d2:corr  d3:corr  control:sour  d1_padded:corr
+  [ 8/36] robotics-fork        d1:corr  d2:sour  d3:corr  control:sour  d1_padded:sour
+  [ 9/36] robotics-join        d1:sour  d2:sour  d3:sour  control:sour  d1_padded:sour
+  [10/36] robotics-diamond     d1:sour  d2:sour  d3:sour  control:sour  d1_padded:sour
+  [11/36] robotics-twochain    d1:corr  d2:corr  d3:corr  control:sour  d1_padded:corr
+  [12/36] robotics-star        d1:sour  d2:sour  d3:sour  control:sour  d1_padded:corr
+  [13/36] pharmacy-chain       d1:corr  d2:corr  d3:corr  control:sour  d1_padded:corr
+  [14/36] pharmacy-fork        d1:corr  d2:corr  d3:sour  control:sour  d1_padded:corr
+  [15/36] pharmacy-join        d1:corr  d2:sour  d3:sour  control:sour  d1_padded:corr
+  [16/36] pharmacy-diamond     d1:corr  d2:sour  d3:sour  control:sour  d1_padded:corr
+  [17/36] pharmacy-twochain    d1:sour  d2:corr  d3:sour  control:sour  d1_padded:corr
+  [18/36] pharmacy-star        d1:corr  d2:corr  d3:sour  control:sour  d1_padded:corr
+  [19/36] satellite-chain      d1:corr  d2:corr  d3:corr  control:sour  d1_padded:corr
+  [20/36] satellite-fork       d1:corr  d2:corr  d3:corr  control:sour  d1_padded:corr
+  [21/36] satellite-join       d1:corr  d2:corr  d3:corr  control:sour  d1_padded:sour
+  [22/36] satellite-diamond    d1:corr  d2:corr  d3:corr  control:sour  d1_padded:corr
+  [23/36] satellite-twochain   d1:corr  d2:sour  d3:sour  control:sour  d1_padded:corr
+  [24/36] satellite-star       d1:sour  d2:sour  d3:sour  control:sour  d1_padded:corr
+  [25/36] brewery-chain        d1:corr  d2:corr  d3:corr  control:sour  d1_padded:corr
+  [26/36] brewery-fork         d1:corr  d2:corr  d3:corr  control:sour  d1_padded:corr
+  [27/36] brewery-join         d1:corr  d2:corr  d3:sour  control:sour  d1_padded:corr
+  [28/36] brewery-diamond      d1:corr  d2:corr  d3:sour  control:sour  d1_padded:corr
+  [29/36] brewery-twochain     d1:corr  d2:corr  d3:corr  control:sour  d1_padded:corr
+  [30/36] brewery-star         d1:sour  d2:sour  d3:sour  control:sour  d1_padded:sour
+  [31/36] rail-chain           d1:sour  d2:sour  d3:sour  control:sour  d1_padded:sour
+  [32/36] rail-fork            d1:corr  d2:corr  d3:corr  control:sour  d1_padded:corr
+  [33/36] rail-join            d1:corr  d2:sour  d3:corr  control:sour  d1_padded:sour
+  [34/36] rail-diamond         d1:corr  d2:sour  d3:sour  control:sour  d1_padded:corr
+  [35/36] rail-twochain        d1:corr  d2:sour  d3:sour  control:sour  d1_padded:corr
+  [36/36] rail-star            d1:sour  d2:corr  d3:corr  control:sour  d1_padded:neit
+
+=== adoption of the distortion by depth ===
+  condition  depth  corrupt  n   msgs  follows_source  follows_corruption  neither  adoption  recall
+  d1         1      True     36  2     8               28                  0        0.7778    0.5785
+  d2         2      True     36  3     14              22                  0        0.6111    0.6189
+  d3         3      True     36  4     21              15                  0        0.4167    0.6336
+  control    3      False    36  4     36              0                   0        0.0       0.666 
+  d1_padded  1      True     36  4     7               28                  1        0.8       0.5666
+
+  `adoption` = corruption / (source + corruption), so an ambiguous
+  plan is excluded from the ratio rather than counted as either.
+
+wrote results/e5_depth_llama32-3b_o0.csv
