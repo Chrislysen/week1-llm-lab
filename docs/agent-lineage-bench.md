@@ -123,6 +123,22 @@ Every conflict dataset located treats the source as ground truth, so
 breaks that, and it is the one element with no located prior art. The reasoning
 below was written as a design argument; it now also carries the contribution.
 
+> **CORRECTION, 2026-09-01.** The sentence above is **false** and is left in place
+> as the record of what was believed. An adversarial prior-art pass found that the
+> instruction-hierarchy benchmarks already build contexts where neither position
+> heuristic can win because privilege, not position, decides -- ManyIH-Bench
+> (arXiv:2604.09443, 853 procedurally composed tasks, deterministic scoring) and
+> IHEval (NAACL 2025, arXiv:2502.08745, 3,538 items, all programmatic) -- and that
+> a whole family of memory benchmarks rewards the *latest* statement
+> (MemoryAgentBench FactConsolidation, LongMemEval updates, SEQUOR arXiv:2605.06353,
+> STALE arXiv:2605.06527), while Manufactured Confidence (arXiv:2606.29279) crosses
+> forged authority against legitimate in-session correction with ground truth by
+> construction. Supersession is therefore not the class 'with no located prior
+> art'. What is not found assembled elsewhere is narrower: a multi-party transcript
+> with six derivation classes and exact `derives_from`, in which an authorised
+> override and an unauthorised revision are word-identical and only the speaker
+> resolves them, scored as a partial-order plan. See `docs/novelty_matrix.md` C11.
+
 ### Why SUPERSESSION is the load-bearing class
 
 Without it, "later derived statement disagrees with earlier source" is *always*
