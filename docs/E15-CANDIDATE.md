@@ -1,6 +1,8 @@
 # E15-PODT — Provenance-Only Dependence Test — CANDIDATE ONLY
 
-**Status: APPARENTLY OPEN FROM ONE DEEP-RESEARCH REVIEW.**
+**Status: RETIRED 2026-09-02 by the independent Gemini literature review. Kept as the record of a direction considered and closed without a model call.**
+
+~~**Status: APPARENTLY OPEN FROM ONE DEEP-RESEARCH REVIEW.**~~
 **NOT PREREGISTERED. NOT AUTHORIZED. ZERO E15 MODEL CALLS. NOT NOVEL.**
 
 This file records a proposal and nothing else. It contains no corpus, no

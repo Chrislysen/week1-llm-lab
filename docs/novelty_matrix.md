@@ -241,3 +241,19 @@ finding (B-GQA) was read in full and is unambiguous.
 - READY dissociation: 43 queries, 32 papers read (list in the reviewer transcript; ids above).
 - Instrument: 36 queries, 24 papers fetched in full or abstract (ids above; two summariser-hallucinated claims were checked against PDFs and rejected).
 - Human cognition: 12+ queries, 35 papers (Yousif et al. 2019; Connor Desai et al. 2022, 2026; Xie & Hayes 2022; Whalen et al. 2018; Mercier & Miton 2019; Harkins & Petty 1987; Yaniv et al. 2009; Tversky & Shafir 1992; Dhar 1997; Evangelidis et al. 2023; Smithson 1999; Zhu et al. 2025; Cabantous 2007; Fernbach et al. 2011; Nisbett et al. 1981; Couch 2022; Pilditch et al. 2020/2025; Bovens & Hartmann 2003).
+
+
+---
+
+## C15 — FFEP, claim-relative counterfactual auditing of agent evaluations — 2026-09-02
+
+| # | candidate | closest prior work | what prior work demonstrated | what our evidence demonstrates | overlap | remaining distinction | experiment needed | status |
+|---|---|---|---|---|---|---|---|---|
+| **C15** | *FFEP*: claim → named shortcut → minimal validated counterfactual → re-run → mechanical check → identification statement → fail-closed | Mystery Blocksworld arXiv:2305.15771; Reasoning or Reciting arXiv:2307.02477; Turk arXiv:2605.30590; HackDetect arXiv:2607.22368; Epistematics arXiv:2605.14167; ImpossibleBench arXiv:2510.20270; MemoryPolicy-Bench arXiv:2608.17247; Chen et al. arXiv:2608.00981; HANS, contrast sets, CheckList; METAL/MORTAR/ReliabilityBench; AppWorld contrast sets; Ivanova arXiv:2312.01276 | components 1–6 with a deterministic validator on planning (2023); 1–4 and 6 on tool agents with an LLM judge (2026); the identification principle with an abstention rule (2026); contrast sets inside a shipped agent benchmark | a working generator and validator on the frozen formal representation (135 validated discriminators, two families that fail closed correctly), an inventory showing the eligible pool is instances not verifier lines, a corrected estimand, attainability tables, and a strict retrospective in which the method would have caught 5 of 17 of this project's own failures | HEAVY — every component published, the conjunction converged on in 2026 | machine-certified minimality/divergence + deterministic scoring + a first-class UNTESTABLE verdict in one pipeline: methodological packaging | none authorised; `docs/FFEP-FEASIBILITY.md` decision STOP_FFEP | **HEAVY OVERLAP — STOP_FFEP** |
+
+Gemini's external review retired E15-PODT and proposed C15; its "highly
+novel" rating was not accepted and did not survive two independent
+adversarial reviews. Feasibility artefacts (`ffep_inventory.py`,
+`ffep_mutations.py`, `test_ffep_mutations.py`, `ffep_power.py`,
+`docs/ffep_inventory.json`, `docs/ffep_catalogue.json`) are kept as
+reusable, non-experimental infrastructure. No model was called.

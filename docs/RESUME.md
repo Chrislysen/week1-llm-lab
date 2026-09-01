@@ -1,6 +1,29 @@
 # RESUME — where the work stands, and exactly what to do next
 
-# RESEARCH PAUSED PENDING EXTERNAL NOVELTY REVIEW
+# RESEARCH CLOSED — 2026-09-02
+
+**E15-PODT: RETIRED** by the independent Gemini literature review (no model
+call was ever made for it). **FFEP** (Gemini's proposed pivot, claim-relative
+counterfactual auditing of agent evaluations): **STOP_FFEP** after this
+repository's own feasibility audit — two adversarial prior-art reviews
+returned HEAVY OVERLAP (Mystery Blocksworld 2023 performs the procedure;
+Turk 2026 and HackDetect 2026 on agents), the method would have caught 5 of
+17 of this project's own historical failures, and the residue is
+methodological packaging. `docs/FFEP-FEASIBILITY.md` (15 sections, one
+decision). No E15/E16 outcome exists.
+
+Nothing is queued. Do not search for E16. The next action, if any, is the
+negative-results write-up named in `docs/RESEARCH-LEAD-2026-09-02.md` §8.
+
+Feasibility infrastructure added 2026-09-02 (no model calls, no frozen
+artifact touched): `ffep_inventory.py`, `ffep_mutations.py`,
+`test_ffep_mutations.py` (12 gates), `ffep_power.py`, `docs/ffep_*.json`.
+Test expectation is now **104 passed** over 14 suites
+(`test_ffep_mutations.py` added).
+
+---
+
+# (superseded) RESEARCH PAUSED PENDING EXTERNAL NOVELTY REVIEW
 
 **Paused 2026-09-02 at commit `48c6860`.** Working tree clean, no remote,
 nothing running. Frozen hashes intact; `verify_claims.py` 167 VERIFIED /
