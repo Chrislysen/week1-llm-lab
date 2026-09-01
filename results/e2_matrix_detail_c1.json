@@ -2,33 +2,32 @@
   {
     "instance": "pharmacy-chain",
     "condition": "source_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"UPDATE_LABEL\",\n    \"RECALL_SHIPMENT\",\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"RELEASE_STOCK\"\n  ],\n  \"ready\": false\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RECALL_SHIPMENT\",\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"UPDATE_LABEL\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "pharmacy-chain",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "UPDATE_LABEL",
           "RECALL_SHIPMENT",
           "QUARANTINE_BATCH",
           "VERIFY_ASSAY",
-          "RELEASE_STOCK"
+          "UPDATE_LABEL"
         ],
-        "ready": false,
+        "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
+          "K5",
           "K6"
         ],
         "violated": [
           "K2",
           "K3",
-          "K4",
-          "K5"
+          "K4"
         ],
-        "violations": 4,
-        "constraint_recall": 0.3333,
+        "violations": 3,
+        "constraint_recall": 0.5,
         "success": false
       },
       "presence": {
@@ -104,7 +103,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.4,
+        "direct_source": 0.6,
         "direct_source_n": 5,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -124,34 +123,31 @@
   {
     "instance": "pharmacy-chain",
     "condition": "corruption_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"RECALL_SHIPMENT\",\n    \"QUARANTINE_BATCH\",\n    \"UPDATE_LABEL\",\n    \"RELEASE_STOCK\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"VERIFY_ASSAY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"UPDATE_LABEL\",\n    \"RECALL_SHIPMENT\",\n    \"QUARANTINE_BATCH\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "pharmacy-chain",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "RECALL_SHIPMENT",
-          "QUARANTINE_BATCH",
           "UPDATE_LABEL",
-          "RELEASE_STOCK",
-          "NOTIFY_PRESCRIBERS",
-          "VERIFY_ASSAY"
+          "RECALL_SHIPMENT",
+          "QUARANTINE_BATCH"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
-          "K1",
-          "K5",
           "K6"
         ],
         "violated": [
+          "K1",
           "K2",
           "K3",
-          "K4"
+          "K4",
+          "K5"
         ],
-        "violations": 3,
-        "constraint_recall": 0.5,
+        "violations": 5,
+        "constraint_recall": 0.1667,
         "success": false
       },
       "presence": {
@@ -234,8 +230,8 @@
       },
       "corruption_susceptibility": {
         "eligible": 2,
-        "adopted": 1,
-        "rate": 0.5
+        "adopted": 2,
+        "rate": 1.0
       },
       "recovery": {
         "eligible": 0,
@@ -247,34 +243,31 @@
   {
     "instance": "pharmacy-chain",
     "condition": "both",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"RECALL_SHIPMENT\",\n    \"UPDATE_LABEL\",\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"RELEASE_STOCK\",\n    \"NOTIFY_PRESCRIBERS\"\n  ],\n  \"ready\": false\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"UPDATE_LABEL\",\n    \"RECALL_SHIPMENT\",\n    \"QUARANTINE_BATCH\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "pharmacy-chain",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "RECALL_SHIPMENT",
           "UPDATE_LABEL",
-          "QUARANTINE_BATCH",
-          "VERIFY_ASSAY",
-          "RELEASE_STOCK",
-          "NOTIFY_PRESCRIBERS"
+          "RECALL_SHIPMENT",
+          "QUARANTINE_BATCH"
         ],
-        "ready": false,
+        "ready": true,
         "unknown_actions": [],
         "satisfied": [
-          "K1",
-          "K5",
           "K6"
         ],
         "violated": [
+          "K1",
           "K2",
           "K3",
-          "K4"
+          "K4",
+          "K5"
         ],
-        "violations": 3,
-        "constraint_recall": 0.5,
+        "violations": 5,
+        "constraint_recall": 0.1667,
         "success": false
       },
       "presence": {
@@ -329,10 +322,10 @@
       },
       "decision_authority_inversion": {
         "eligible": 2,
-        "follows_source": 1,
-        "follows_corruption": 1,
+        "follows_source": 0,
+        "follows_corruption": 2,
         "follows_neither": 0,
-        "rate": 0.5,
+        "rate": 1.0,
         "detail": [
           {
             "constraint": "K4",
@@ -340,7 +333,7 @@
           },
           {
             "constraint": "K5",
-            "outcome": "source"
+            "outcome": "corruption"
           }
         ]
       },
@@ -359,7 +352,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.6667,
+        "direct_source": 0.3333,
         "direct_source_n": 3,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -499,32 +492,31 @@
   {
     "instance": "pharmacy-chain",
     "condition": "supersession",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"RELEASE_STOCK\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"UPDATE_LABEL\",\n    \"RECALL_SHIPMENT\"\n  ],\n  \"ready\": false\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RECALL_SHIPMENT\",\n    \"UPDATE_LABEL\",\n    \"QUARANTINE_BATCH\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "pharmacy-chain",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "RELEASE_STOCK",
-          "NOTIFY_PRESCRIBERS",
+          "RECALL_SHIPMENT",
           "UPDATE_LABEL",
-          "RECALL_SHIPMENT"
+          "QUARANTINE_BATCH"
         ],
-        "ready": false,
+        "ready": true,
         "unknown_actions": [],
         "satisfied": [
-          "K2",
-          "K3",
-          "K4",
+          "K5",
           "K6"
         ],
         "violated": [
           "K1",
-          "K5"
+          "K2",
+          "K3",
+          "K4"
         ],
-        "violations": 2,
-        "constraint_recall": 0.6667,
+        "violations": 4,
+        "constraint_recall": 0.3333,
         "success": false
       },
       "presence": {
@@ -587,23 +579,24 @@
       },
       "supersession_respected": {
         "eligible": 1,
-        "exercised": 1,
-        "ambiguous": 0,
-        "rate": 1.0
+        "exercised": 0,
+        "ambiguous": 1,
+        "rate": 0.0
       },
       "supersession_collateral": {
         "applicable": true,
-        "violations": 2,
+        "violations": 3,
         "violated": [
           "K1",
-          "K5"
+          "K2",
+          "K4"
         ]
       },
       "discrimination": {
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.6,
+        "direct_source": 0.4,
         "direct_source_n": 5,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -623,15 +616,15 @@
   {
     "instance": "pharmacy-chain",
     "condition": "faithful_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"VERIFY_ASSAY\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"RELEASE_STOCK\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "{\"actions\": [\"NOTIFY_PRESCRIBERS\", \"VERIFY_ASSAY\", \"RELEASE_STOCK\"], \"ready\": true}",
     "score": {
       "instance": "pharmacy-chain",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "VERIFY_ASSAY",
           "NOTIFY_PRESCRIBERS",
+          "VERIFY_ASSAY",
           "RELEASE_STOCK"
         ],
         "ready": true,
@@ -743,33 +736,33 @@
   {
     "instance": "pharmacy-chain",
     "condition": "source_and_faithful",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"RELEASE_STOCK\",\n    \"RECALL_SHIPMENT\",\n    \"UPDATE_LABEL\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RECALL_SHIPMENT\",\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"UPDATE_LABEL\",\n    \"RELEASE_STOCK\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "pharmacy-chain",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
+          "RECALL_SHIPMENT",
           "QUARANTINE_BATCH",
           "VERIFY_ASSAY",
-          "RELEASE_STOCK",
-          "RECALL_SHIPMENT",
-          "UPDATE_LABEL"
+          "UPDATE_LABEL",
+          "RELEASE_STOCK"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
-          "K4",
           "K5",
           "K6"
         ],
         "violated": [
           "K2",
-          "K3"
+          "K3",
+          "K4"
         ],
-        "violations": 2,
-        "constraint_recall": 0.6667,
+        "violations": 3,
+        "constraint_recall": 0.5,
         "success": false
       },
       "presence": {
@@ -845,7 +838,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.8,
+        "direct_source": 0.6,
         "direct_source_n": 5,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -865,33 +858,31 @@
   {
     "instance": "pharmacy-chain",
     "condition": "both_recovery",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"RELEASE_STOCK\",\n    \"RECALL_SHIPMENT\",\n    \"UPDATE_LABEL\"\n  ],\n  \"ready\": false\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"UPDATE_LABEL\",\n    \"RECALL_SHIPMENT\",\n    \"QUARANTINE_BATCH\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "pharmacy-chain",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "QUARANTINE_BATCH",
-          "VERIFY_ASSAY",
-          "RELEASE_STOCK",
+          "UPDATE_LABEL",
           "RECALL_SHIPMENT",
-          "UPDATE_LABEL"
+          "QUARANTINE_BATCH"
         ],
-        "ready": false,
+        "ready": true,
         "unknown_actions": [],
         "satisfied": [
-          "K1",
-          "K4",
-          "K5",
           "K6"
         ],
         "violated": [
+          "K1",
           "K2",
-          "K3"
+          "K3",
+          "K4",
+          "K5"
         ],
-        "violations": 2,
-        "constraint_recall": 0.6667,
+        "violations": 5,
+        "constraint_recall": 0.1667,
         "success": false
       },
       "presence": {
@@ -946,18 +937,18 @@
       },
       "decision_authority_inversion": {
         "eligible": 2,
-        "follows_source": 2,
-        "follows_corruption": 0,
+        "follows_source": 0,
+        "follows_corruption": 2,
         "follows_neither": 0,
-        "rate": 0.0,
+        "rate": 1.0,
         "detail": [
           {
             "constraint": "K4",
-            "outcome": "source"
+            "outcome": "corruption"
           },
           {
             "constraint": "K5",
-            "outcome": "source"
+            "outcome": "corruption"
           }
         ]
       },
@@ -976,7 +967,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.6667,
+        "direct_source": 0.3333,
         "direct_source_n": 3,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -988,39 +979,39 @@
       },
       "recovery": {
         "eligible": 1,
-        "recovered": 1,
-        "rate": 1.0
+        "recovered": 0,
+        "rate": 0.0
       }
     }
   },
   {
     "instance": "pharmacy-chain",
     "condition": "mixed",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"RECALL_SHIPMENT\",\n    \"RELEASE_STOCK\",\n    \"UPDATE_LABEL\"\n  ],\n  \"ready\": false\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"UPDATE_LABEL\",\n    \"RECALL_SHIPMENT\",\n    \"QUARANTINE_BATCH\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "pharmacy-chain",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
+          "UPDATE_LABEL",
           "RECALL_SHIPMENT",
-          "RELEASE_STOCK",
-          "UPDATE_LABEL"
+          "QUARANTINE_BATCH"
         ],
-        "ready": false,
+        "ready": true,
         "unknown_actions": [],
         "satisfied": [
-          "K2",
-          "K3",
-          "K5",
           "K6"
         ],
         "violated": [
           "K1",
-          "K4"
+          "K2",
+          "K3",
+          "K4",
+          "K5"
         ],
-        "violations": 2,
-        "constraint_recall": 0.6667,
+        "violations": 5,
+        "constraint_recall": 0.1667,
         "success": false
       },
       "presence": {
@@ -1075,10 +1066,10 @@
       },
       "decision_authority_inversion": {
         "eligible": 2,
-        "follows_source": 1,
-        "follows_corruption": 1,
+        "follows_source": 0,
+        "follows_corruption": 2,
         "follows_neither": 0,
-        "rate": 0.5,
+        "rate": 1.0,
         "detail": [
           {
             "constraint": "K4",
@@ -1086,22 +1077,24 @@
           },
           {
             "constraint": "K5",
-            "outcome": "source"
+            "outcome": "corruption"
           }
         ]
       },
       "supersession_respected": {
         "eligible": 1,
-        "exercised": 1,
-        "ambiguous": 0,
-        "rate": 1.0
+        "exercised": 0,
+        "ambiguous": 1,
+        "rate": 0.0
       },
       "supersession_collateral": {
         "applicable": true,
-        "violations": 2,
+        "violations": 4,
         "violated": [
           "K1",
-          "K4"
+          "K2",
+          "K4",
+          "K5"
         ]
       },
       "discrimination": {
@@ -1109,14 +1102,14 @@
         "n_corrupted": 2,
         "n_superseded": 1,
         "resisted_corruption": false,
-        "exercised_override": true,
+        "exercised_override": false,
         "correct_both": false,
         "source_reflex": false,
-        "latest_reflex": true,
-        "neither": false
+        "latest_reflex": false,
+        "neither": true
       },
       "utilization": {
-        "direct_source": 0.6667,
+        "direct_source": 0.3333,
         "direct_source_n": 3,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -1136,7 +1129,7 @@
   {
     "instance": "pharmacy-fork",
     "condition": "source_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"RECALL_SHIPMENT\",\n    \"UPDATE_LABEL\",\n    \"QUARANTINE_BATCH\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"QUARANTINE_BATCH\",\n    \"RECALL_SHIPMENT\",\n    \"UPDATE_LABEL\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "pharmacy-fork",
       "plan": {
@@ -1144,9 +1137,9 @@
         "parse_error": null,
         "actions": [
           "NOTIFY_PRESCRIBERS",
+          "QUARANTINE_BATCH",
           "RECALL_SHIPMENT",
-          "UPDATE_LABEL",
-          "QUARANTINE_BATCH"
+          "UPDATE_LABEL"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -1396,7 +1389,7 @@
   {
     "instance": "pharmacy-fork",
     "condition": "both",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"RECALL_SHIPMENT\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"UPDATE_LABEL\",\n    \"VERIFY_ASSAY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"UPDATE_LABEL\",\n    \"VERIFY_ASSAY\",\n    \"RECALL_SHIPMENT\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "pharmacy-fork",
       "plan": {
@@ -1404,26 +1397,26 @@
         "parse_error": null,
         "actions": [
           "QUARANTINE_BATCH",
-          "RECALL_SHIPMENT",
           "NOTIFY_PRESCRIBERS",
           "UPDATE_LABEL",
-          "VERIFY_ASSAY"
+          "VERIFY_ASSAY",
+          "RECALL_SHIPMENT"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
+          "K3",
           "K4",
+          "K5",
           "K6"
         ],
         "violated": [
           "K2",
-          "K3",
-          "K5",
           "K7"
         ],
-        "violations": 4,
-        "constraint_recall": 0.4286,
+        "violations": 2,
+        "constraint_recall": 0.7143,
         "success": false
       },
       "presence": {
@@ -1516,7 +1509,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.75,
+        "direct_source": 1.0,
         "direct_source_n": 4,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -1536,7 +1529,7 @@
   {
     "instance": "pharmacy-fork",
     "condition": "neither",
-    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"NOTIFY_PRESCRIBERS\", \"RELEASE_STOCK\"], \"ready\": true}",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"NOTIFY_PRESCRIBERS\", \"UPDATE_LABEL\"], \"ready\": true}",
     "score": {
       "instance": "pharmacy-fork",
       "plan": {
@@ -1545,7 +1538,7 @@
         "actions": [
           "QUARANTINE_BATCH",
           "NOTIFY_PRESCRIBERS",
-          "RELEASE_STOCK"
+          "UPDATE_LABEL"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -1553,15 +1546,15 @@
           "K1",
           "K3",
           "K4",
-          "K5",
-          "K7"
+          "K5"
         ],
         "violated": [
           "K2",
-          "K6"
+          "K6",
+          "K7"
         ],
-        "violations": 2,
-        "constraint_recall": 0.7143,
+        "violations": 3,
+        "constraint_recall": 0.5714,
         "success": false
       },
       "presence": {
@@ -1798,7 +1791,7 @@
   {
     "instance": "pharmacy-fork",
     "condition": "faithful_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"VERIFY_ASSAY\",\n    \"QUARANTINE_BATCH\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"UPDATE_LABEL\",\n    \"RECALL_SHIPMENT\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "{\"actions\": [\"VERIFY_ASSAY\", \"QUARANTINE_BATCH\", \"NOTIFY_PRESCRIBERS\", \"UPDATE_LABEL\", \"RECALL_SHIPMENT\"], \"ready\": true}",
     "score": {
       "instance": "pharmacy-fork",
       "plan": {
@@ -1929,7 +1922,7 @@
   {
     "instance": "pharmacy-fork",
     "condition": "source_and_faithful",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"RECALL_SHIPMENT\",\n    \"VERIFY_ASSAY\",\n    \"UPDATE_LABEL\",\n    \"QUARANTINE_BATCH\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"RECALL_SHIPMENT\",\n    \"UPDATE_LABEL\",\n    \"QUARANTINE_BATCH\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "pharmacy-fork",
       "plan": {
@@ -1938,7 +1931,6 @@
         "actions": [
           "NOTIFY_PRESCRIBERS",
           "RECALL_SHIPMENT",
-          "VERIFY_ASSAY",
           "UPDATE_LABEL",
           "QUARANTINE_BATCH"
         ],
@@ -1948,15 +1940,15 @@
           "K1",
           "K2",
           "K3",
+          "K4"
+        ],
+        "violated": [
+          "K5",
           "K6",
           "K7"
         ],
-        "violated": [
-          "K4",
-          "K5"
-        ],
-        "violations": 2,
-        "constraint_recall": 0.7143,
+        "violations": 3,
+        "constraint_recall": 0.5714,
         "success": false
       },
       "presence": {
@@ -2040,7 +2032,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.8333,
+        "direct_source": 0.6667,
         "direct_source_n": 6,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -2060,7 +2052,7 @@
   {
     "instance": "pharmacy-fork",
     "condition": "both_recovery",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"RECALL_SHIPMENT\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"VERIFY_ASSAY\",\n    \"UPDATE_LABEL\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"UPDATE_LABEL\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"RECALL_SHIPMENT\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "pharmacy-fork",
       "plan": {
@@ -2068,26 +2060,26 @@
         "parse_error": null,
         "actions": [
           "QUARANTINE_BATCH",
-          "RECALL_SHIPMENT",
-          "NOTIFY_PRESCRIBERS",
           "VERIFY_ASSAY",
-          "UPDATE_LABEL"
+          "UPDATE_LABEL",
+          "NOTIFY_PRESCRIBERS",
+          "RECALL_SHIPMENT"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
+          "K3",
           "K4",
+          "K5",
           "K6",
           "K7"
         ],
         "violated": [
-          "K2",
-          "K3",
-          "K5"
+          "K2"
         ],
-        "violations": 3,
-        "constraint_recall": 0.5714,
+        "violations": 1,
+        "constraint_recall": 0.8571,
         "success": false
       },
       "presence": {
@@ -2180,7 +2172,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.75,
+        "direct_source": 1.0,
         "direct_source_n": 4,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -2200,7 +2192,7 @@
   {
     "instance": "pharmacy-fork",
     "condition": "mixed",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"UPDATE_LABEL\",\n    \"RECALL_SHIPMENT\",\n    \"NOTIFY_PRESCRIBERS\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"UPDATE_LABEL\",\n    \"VERIFY_ASSAY\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"RECALL_SHIPMENT\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "pharmacy-fork",
       "plan": {
@@ -2209,24 +2201,25 @@
         "actions": [
           "QUARANTINE_BATCH",
           "UPDATE_LABEL",
-          "RECALL_SHIPMENT",
-          "NOTIFY_PRESCRIBERS"
+          "VERIFY_ASSAY",
+          "NOTIFY_PRESCRIBERS",
+          "RECALL_SHIPMENT"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
-          "K4"
+          "K3",
+          "K4",
+          "K5",
+          "K6"
         ],
         "violated": [
           "K2",
-          "K3",
-          "K5",
-          "K6",
           "K7"
         ],
-        "violations": 5,
-        "constraint_recall": 0.2857,
+        "violations": 2,
+        "constraint_recall": 0.7143,
         "success": false
       },
       "presence": {
@@ -2306,17 +2299,15 @@
       },
       "supersession_respected": {
         "eligible": 1,
-        "exercised": 0,
-        "ambiguous": 1,
-        "rate": 0.0
+        "exercised": 1,
+        "ambiguous": 0,
+        "rate": 1.0
       },
       "supersession_collateral": {
         "applicable": true,
-        "violations": 4,
+        "violations": 2,
         "violated": [
           "K2",
-          "K3",
-          "K6",
           "K7"
         ]
       },
@@ -2325,14 +2316,14 @@
         "n_corrupted": 2,
         "n_superseded": 1,
         "resisted_corruption": false,
-        "exercised_override": false,
+        "exercised_override": true,
         "correct_both": false,
         "source_reflex": false,
-        "latest_reflex": false,
-        "neither": true
+        "latest_reflex": true,
+        "neither": false
       },
       "utilization": {
-        "direct_source": 0.5,
+        "direct_source": 1.0,
         "direct_source_n": 4,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -2352,7 +2343,7 @@
   {
     "instance": "pharmacy-join",
     "condition": "source_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"RECALL_SHIPMENT\",\n    \"QUARANTINE_BATCH\",\n    \"UPDATE_LABEL\",\n    \"RELEASE_STOCK\",\n    \"VERIFY_ASSAY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"QUARANTINE_BATCH\",\n    \"RECALL_SHIPMENT\",\n    \"UPDATE_LABEL\",\n    \"VERIFY_ASSAY\",\n    \"RELEASE_STOCK\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "pharmacy-join",
       "plan": {
@@ -2360,11 +2351,11 @@
         "parse_error": null,
         "actions": [
           "NOTIFY_PRESCRIBERS",
-          "RECALL_SHIPMENT",
           "QUARANTINE_BATCH",
+          "RECALL_SHIPMENT",
           "UPDATE_LABEL",
-          "RELEASE_STOCK",
-          "VERIFY_ASSAY"
+          "VERIFY_ASSAY",
+          "RELEASE_STOCK"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -2614,7 +2605,7 @@
   {
     "instance": "pharmacy-join",
     "condition": "both",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"RECALL_SHIPMENT\",\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"UPDATE_LABEL\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"RELEASE_STOCK\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RECALL_SHIPMENT\",\n    \"QUARANTINE_BATCH\",\n    \"UPDATE_LABEL\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"RELEASE_STOCK\",\n    \"VERIFY_ASSAY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "pharmacy-join",
       "plan": {
@@ -2623,10 +2614,10 @@
         "actions": [
           "RECALL_SHIPMENT",
           "QUARANTINE_BATCH",
-          "VERIFY_ASSAY",
           "UPDATE_LABEL",
           "NOTIFY_PRESCRIBERS",
-          "RELEASE_STOCK"
+          "RELEASE_STOCK",
+          "VERIFY_ASSAY"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -2755,7 +2746,7 @@
   {
     "instance": "pharmacy-join",
     "condition": "neither",
-    "plan_text": "{\"actions\": [\"NOTIFY_PRESCRIBERS\", \"QUARANTINE_BATCH\", \"UPDATE_LABEL\", \"RELEASE_STOCK\"], \"ready\": true}",
+    "plan_text": "{\"actions\": [\"NOTIFY_PRESCRIBERS\", \"UPDATE_LABEL\", \"RELEASE_STOCK\"], \"ready\": true}",
     "score": {
       "instance": "pharmacy-join",
       "plan": {
@@ -2763,7 +2754,6 @@
         "parse_error": null,
         "actions": [
           "NOTIFY_PRESCRIBERS",
-          "QUARANTINE_BATCH",
           "UPDATE_LABEL",
           "RELEASE_STOCK"
         ],
@@ -2885,17 +2875,17 @@
   {
     "instance": "pharmacy-join",
     "condition": "supersession",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"UPDATE_LABEL\",\n    \"RELEASE_STOCK\",\n    \"RECALL_SHIPMENT\",\n    \"VERIFY_ASSAY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"UPDATE_LABEL\",\n    \"RELEASE_STOCK\",\n    \"VERIFY_ASSAY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "pharmacy-join",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
+          "QUARANTINE_BATCH",
           "NOTIFY_PRESCRIBERS",
           "UPDATE_LABEL",
           "RELEASE_STOCK",
-          "RECALL_SHIPMENT",
           "VERIFY_ASSAY"
         ],
         "ready": true,
@@ -2905,14 +2895,15 @@
           "K2",
           "K3",
           "K4",
-          "K5",
+          "K5"
+        ],
+        "violated": [
           "K6",
           "K7"
         ],
-        "violated": [],
-        "violations": 0,
-        "constraint_recall": 1.0,
-        "success": true
+        "violations": 2,
+        "constraint_recall": 0.7143,
+        "success": false
       },
       "presence": {
         "K1": {
@@ -2988,14 +2979,17 @@
       },
       "supersession_collateral": {
         "applicable": true,
-        "violations": 0,
-        "violated": []
+        "violations": 2,
+        "violated": [
+          "K6",
+          "K7"
+        ]
       },
       "discrimination": {
         "applicable": false
       },
       "utilization": {
-        "direct_source": 1.0,
+        "direct_source": 0.6667,
         "direct_source_n": 6,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -3015,7 +3009,7 @@
   {
     "instance": "pharmacy-join",
     "condition": "faithful_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"RECALL_SHIPMENT\",\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"UPDATE_LABEL\",\n    \"NOTIFY_PRESCRIBERS\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RECALL_SHIPMENT\",\n    \"VERIFY_ASSAY\",\n    \"UPDATE_LABEL\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "pharmacy-join",
       "plan": {
@@ -3023,26 +3017,24 @@
         "parse_error": null,
         "actions": [
           "RECALL_SHIPMENT",
-          "QUARANTINE_BATCH",
           "VERIFY_ASSAY",
-          "UPDATE_LABEL",
-          "NOTIFY_PRESCRIBERS"
+          "UPDATE_LABEL"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
-          "K2",
           "K3",
           "K6",
           "K7"
         ],
         "violated": [
           "K1",
+          "K2",
           "K4",
           "K5"
         ],
-        "violations": 3,
-        "constraint_recall": 0.5714,
+        "violations": 4,
+        "constraint_recall": 0.4286,
         "success": false
       },
       "presence": {
@@ -3278,16 +3270,16 @@
   {
     "instance": "pharmacy-join",
     "condition": "both_recovery",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"RECALL_SHIPMENT\",\n    \"QUARANTINE_BATCH\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"UPDATE_LABEL\",\n    \"RELEASE_STOCK\",\n    \"VERIFY_ASSAY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"RECALL_SHIPMENT\",\n    \"QUARANTINE_BATCH\",\n    \"UPDATE_LABEL\",\n    \"RELEASE_STOCK\",\n    \"VERIFY_ASSAY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "pharmacy-join",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
+          "NOTIFY_PRESCRIBERS",
           "RECALL_SHIPMENT",
           "QUARANTINE_BATCH",
-          "NOTIFY_PRESCRIBERS",
           "UPDATE_LABEL",
           "RELEASE_STOCK",
           "VERIFY_ASSAY"
@@ -3571,7 +3563,7 @@
   {
     "instance": "pharmacy-diamond",
     "condition": "source_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"VERIFY_ASSAY\",\n    \"RELEASE_STOCK\",\n    \"UPDATE_LABEL\",\n    \"RECALL_SHIPMENT\"\n  ],\n  \"ready\": false\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"RELEASE_STOCK\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"UPDATE_LABEL\",\n    \"RECALL_SHIPMENT\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "pharmacy-diamond",
       "plan": {
@@ -3579,25 +3571,24 @@
         "parse_error": null,
         "actions": [
           "QUARANTINE_BATCH",
-          "NOTIFY_PRESCRIBERS",
-          "VERIFY_ASSAY",
           "RELEASE_STOCK",
+          "NOTIFY_PRESCRIBERS",
           "UPDATE_LABEL",
           "RECALL_SHIPMENT"
         ],
-        "ready": false,
+        "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
           "K2",
-          "K6",
-          "K7",
+          "K3",
+          "K4",
           "K8"
         ],
         "violated": [
-          "K3",
-          "K4",
-          "K5"
+          "K5",
+          "K6",
+          "K7"
         ],
         "violations": 3,
         "constraint_recall": 0.625,
@@ -3712,7 +3703,7 @@
   {
     "instance": "pharmacy-diamond",
     "condition": "corruption_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"RECALL_SHIPMENT\",\n    \"QUARANTINE_BATCH\",\n    \"UPDATE_LABEL\"\n  ],\n  \"ready\": false\n}\n```",
+    "plan_text": "{\"actions\": [\"NOTIFY_PRESCRIBERS\", \"RECALL_SHIPMENT\", \"QUARANTINE_BATCH\", \"UPDATE_LABEL\"], \"ready\": true}",
     "score": {
       "instance": "pharmacy-diamond",
       "plan": {
@@ -3724,7 +3715,7 @@
           "QUARANTINE_BATCH",
           "UPDATE_LABEL"
         ],
-        "ready": false,
+        "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K4",
@@ -3851,7 +3842,7 @@
   {
     "instance": "pharmacy-diamond",
     "condition": "both",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"RELEASE_STOCK\",\n    \"VERIFY_ASSAY\",\n    \"UPDATE_LABEL\",\n    \"RECALL_SHIPMENT\"\n  ],\n  \"ready\": false\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"RELEASE_STOCK\",\n    \"VERIFY_ASSAY\",\n    \"UPDATE_LABEL\",\n    \"RECALL_SHIPMENT\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "pharmacy-diamond",
       "plan": {
@@ -3864,7 +3855,7 @@
           "UPDATE_LABEL",
           "RECALL_SHIPMENT"
         ],
-        "ready": false,
+        "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
@@ -4000,7 +3991,7 @@
   {
     "instance": "pharmacy-diamond",
     "condition": "neither",
-    "plan_text": "{\"actions\": [\"NOTIFY_PRESCRIBERS\", \"QUARANTINE_BATCH\", \"UPDATE_LABEL\", \"RELEASE_STOCK\"], \"ready\": true}",
+    "plan_text": "{\"actions\": [\"NOTIFY_PRESCRIBERS\", \"QUARANTINE_BATCH\", \"UPDATE_LABEL\"], \"ready\": true}",
     "score": {
       "instance": "pharmacy-diamond",
       "plan": {
@@ -4009,25 +4000,24 @@
         "actions": [
           "NOTIFY_PRESCRIBERS",
           "QUARANTINE_BATCH",
-          "UPDATE_LABEL",
-          "RELEASE_STOCK"
+          "UPDATE_LABEL"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
-          "K1",
           "K4",
           "K7"
         ],
         "violated": [
+          "K1",
           "K2",
           "K3",
           "K5",
           "K6",
           "K8"
         ],
-        "violations": 5,
-        "constraint_recall": 0.375,
+        "violations": 6,
+        "constraint_recall": 0.25,
         "success": false
       },
       "presence": {
@@ -4139,7 +4129,7 @@
   {
     "instance": "pharmacy-diamond",
     "condition": "supersession",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"UPDATE_LABEL\",\n    \"RELEASE_STOCK\",\n    \"RECALL_SHIPMENT\",\n    \"NOTIFY_PRESCRIBERS\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"RELEASE_STOCK\",\n    \"UPDATE_LABEL\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"RECALL_SHIPMENT\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "pharmacy-diamond",
       "plan": {
@@ -4147,27 +4137,27 @@
         "parse_error": null,
         "actions": [
           "QUARANTINE_BATCH",
-          "UPDATE_LABEL",
           "RELEASE_STOCK",
-          "RECALL_SHIPMENT",
-          "NOTIFY_PRESCRIBERS"
+          "UPDATE_LABEL",
+          "NOTIFY_PRESCRIBERS",
+          "RECALL_SHIPMENT"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
+          "K2",
           "K3",
           "K4",
           "K8"
         ],
         "violated": [
-          "K2",
           "K5",
           "K6",
           "K7"
         ],
-        "violations": 4,
-        "constraint_recall": 0.5,
+        "violations": 3,
+        "constraint_recall": 0.625,
         "success": false
       },
       "presence": {
@@ -4252,9 +4242,8 @@
       },
       "supersession_collateral": {
         "applicable": true,
-        "violations": 3,
+        "violations": 2,
         "violated": [
-          "K2",
           "K6",
           "K7"
         ]
@@ -4263,7 +4252,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.5714,
+        "direct_source": 0.7143,
         "direct_source_n": 7,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -4283,7 +4272,7 @@
   {
     "instance": "pharmacy-diamond",
     "condition": "faithful_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"RECALL_SHIPMENT\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "{\"actions\": [\"NOTIFY_PRESCRIBERS\", \"VERIFY_ASSAY\", \"RECALL_SHIPMENT\", \"QUARANTINE_BATCH\"], \"ready\": true}",
     "score": {
       "instance": "pharmacy-diamond",
       "plan": {
@@ -4291,9 +4280,9 @@
         "parse_error": null,
         "actions": [
           "NOTIFY_PRESCRIBERS",
-          "QUARANTINE_BATCH",
           "VERIFY_ASSAY",
-          "RECALL_SHIPMENT"
+          "RECALL_SHIPMENT",
+          "QUARANTINE_BATCH"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -4422,17 +4411,17 @@
   {
     "instance": "pharmacy-diamond",
     "condition": "source_and_faithful",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"VERIFY_ASSAY\",\n    \"RELEASE_STOCK\",\n    \"UPDATE_LABEL\",\n    \"RECALL_SHIPMENT\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"VERIFY_ASSAY\",\n    \"RELEASE_STOCK\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"QUARANTINE_BATCH\",\n    \"UPDATE_LABEL\",\n    \"RECALL_SHIPMENT\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "pharmacy-diamond",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "QUARANTINE_BATCH",
-          "NOTIFY_PRESCRIBERS",
           "VERIFY_ASSAY",
           "RELEASE_STOCK",
+          "NOTIFY_PRESCRIBERS",
+          "QUARANTINE_BATCH",
           "UPDATE_LABEL",
           "RECALL_SHIPMENT"
         ],
@@ -4441,17 +4430,17 @@
         "satisfied": [
           "K1",
           "K2",
+          "K3",
+          "K5",
           "K6",
           "K7",
           "K8"
         ],
         "violated": [
-          "K3",
-          "K4",
-          "K5"
+          "K4"
         ],
-        "violations": 3,
-        "constraint_recall": 0.625,
+        "violations": 1,
+        "constraint_recall": 0.875,
         "success": false
       },
       "presence": {
@@ -4543,7 +4532,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.7143,
+        "direct_source": 0.8571,
         "direct_source_n": 7,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -4563,7 +4552,7 @@
   {
     "instance": "pharmacy-diamond",
     "condition": "both_recovery",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"RECALL_SHIPMENT\",\n    \"RELEASE_STOCK\",\n    \"UPDATE_LABEL\"\n  ],\n  \"ready\": false\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"RELEASE_STOCK\",\n    \"VERIFY_ASSAY\",\n    \"UPDATE_LABEL\",\n    \"RECALL_SHIPMENT\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "pharmacy-diamond",
       "plan": {
@@ -4571,26 +4560,27 @@
         "parse_error": null,
         "actions": [
           "NOTIFY_PRESCRIBERS",
-          "RECALL_SHIPMENT",
           "RELEASE_STOCK",
-          "UPDATE_LABEL"
+          "VERIFY_ASSAY",
+          "UPDATE_LABEL",
+          "RECALL_SHIPMENT"
         ],
-        "ready": false,
+        "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
           "K2",
-          "K4",
+          "K6",
+          "K7",
           "K8"
         ],
         "violated": [
           "K3",
-          "K5",
-          "K6",
-          "K7"
+          "K4",
+          "K5"
         ],
-        "violations": 4,
-        "constraint_recall": 0.5,
+        "violations": 3,
+        "constraint_recall": 0.625,
         "success": false
       },
       "presence": {
@@ -4691,7 +4681,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.6,
+        "direct_source": 0.8,
         "direct_source_n": 5,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -4711,35 +4701,35 @@
   {
     "instance": "pharmacy-diamond",
     "condition": "mixed",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"VERIFY_ASSAY\",\n    \"RELEASE_STOCK\",\n    \"UPDATE_LABEL\",\n    \"RECALL_SHIPMENT\"\n  ],\n  \"ready\": false\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"RELEASE_STOCK\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"UPDATE_LABEL\",\n    \"VERIFY_ASSAY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "pharmacy-diamond",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "NOTIFY_PRESCRIBERS",
-          "VERIFY_ASSAY",
+          "QUARANTINE_BATCH",
           "RELEASE_STOCK",
+          "NOTIFY_PRESCRIBERS",
           "UPDATE_LABEL",
-          "RECALL_SHIPMENT"
+          "VERIFY_ASSAY"
         ],
-        "ready": false,
+        "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
           "K2",
-          "K6",
-          "K7",
-          "K8"
-        ],
-        "violated": [
           "K3",
           "K4",
-          "K5"
+          "K6",
+          "K7"
         ],
-        "violations": 3,
-        "constraint_recall": 0.625,
+        "violated": [
+          "K5",
+          "K8"
+        ],
+        "violations": 2,
+        "constraint_recall": 0.75,
         "success": false
       },
       "presence": {
@@ -4817,11 +4807,11 @@
         "detail": [
           {
             "constraint": "K3",
-            "outcome": "corruption"
+            "outcome": "source"
           },
           {
             "constraint": "K8",
-            "outcome": "source"
+            "outcome": "corruption"
           }
         ]
       },
@@ -4833,10 +4823,9 @@
       },
       "supersession_collateral": {
         "applicable": true,
-        "violations": 2,
+        "violations": 1,
         "violated": [
-          "K3",
-          "K4"
+          "K8"
         ]
       },
       "discrimination": {
@@ -4851,7 +4840,7 @@
         "neither": true
       },
       "utilization": {
-        "direct_source": 0.8,
+        "direct_source": 1.0,
         "direct_source_n": 5,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -5003,7 +4992,7 @@
   {
     "instance": "pharmacy-twochain",
     "condition": "corruption_only",
-    "plan_text": "{\"actions\": [\"NOTIFY_PRESCRIBERS\", \"VERIFY_ASSAY\", \"RECALL_SHIPMENT\"], \"ready\": true}",
+    "plan_text": "{\"actions\": [\"NOTIFY_PRESCRIBERS\", \"VERIFY_ASSAY\", \"RECALL_SHIPMENT\", \"QUARANTINE_BATCH\"], \"ready\": true}",
     "score": {
       "instance": "pharmacy-twochain",
       "plan": {
@@ -5012,7 +5001,8 @@
         "actions": [
           "NOTIFY_PRESCRIBERS",
           "VERIFY_ASSAY",
-          "RECALL_SHIPMENT"
+          "RECALL_SHIPMENT",
+          "QUARANTINE_BATCH"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -5132,7 +5122,7 @@
   {
     "instance": "pharmacy-twochain",
     "condition": "both",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"UPDATE_LABEL\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"VERIFY_ASSAY\",\n    \"RECALL_SHIPMENT\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"UPDATE_LABEL\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"VERIFY_ASSAY\",\n    \"RELEASE_STOCK\",\n    \"RECALL_SHIPMENT\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "pharmacy-twochain",
       "plan": {
@@ -5143,6 +5133,7 @@
           "UPDATE_LABEL",
           "NOTIFY_PRESCRIBERS",
           "VERIFY_ASSAY",
+          "RELEASE_STOCK",
           "RECALL_SHIPMENT"
         ],
         "ready": true,
@@ -5150,16 +5141,16 @@
         "satisfied": [
           "K1",
           "K4",
-          "K6"
+          "K6",
+          "K7"
         ],
         "violated": [
           "K2",
           "K3",
-          "K5",
-          "K7"
+          "K5"
         ],
-        "violations": 4,
-        "constraint_recall": 0.4286,
+        "violations": 3,
+        "constraint_recall": 0.5714,
         "success": false
       },
       "presence": {
@@ -5252,7 +5243,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.75,
+        "direct_source": 1.0,
         "direct_source_n": 4,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -5272,32 +5263,31 @@
   {
     "instance": "pharmacy-twochain",
     "condition": "neither",
-    "plan_text": "{\"actions\": [\"VERIFY_ASSAY\", \"NOTIFY_PRESCRIBERS\", \"RELEASE_STOCK\"], \"ready\": true}",
+    "plan_text": "{\"actions\": [\"NOTIFY_PRESCRIBERS\", \"VERIFY_ASSAY\"], \"ready\": true}",
     "score": {
       "instance": "pharmacy-twochain",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "VERIFY_ASSAY",
           "NOTIFY_PRESCRIBERS",
-          "RELEASE_STOCK"
+          "VERIFY_ASSAY"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K2",
-          "K3",
           "K5",
-          "K7"
+          "K6"
         ],
         "violated": [
           "K1",
+          "K3",
           "K4",
-          "K6"
+          "K7"
         ],
-        "violations": 3,
-        "constraint_recall": 0.5714,
+        "violations": 4,
+        "constraint_recall": 0.4286,
         "success": false
       },
       "presence": {
@@ -5401,7 +5391,7 @@
   {
     "instance": "pharmacy-twochain",
     "condition": "supersession",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"RECALL_SHIPMENT\",\n    \"QUARANTINE_BATCH\",\n    \"UPDATE_LABEL\",\n    \"VERIFY_ASSAY\",\n    \"RELEASE_STOCK\",\n    \"NOTIFY_PRESCRIBERS\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RECALL_SHIPMENT\",\n    \"QUARANTINE_BATCH\",\n    \"UPDATE_LABEL\",\n    \"RELEASE_STOCK\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"VERIFY_ASSAY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "pharmacy-twochain",
       "plan": {
@@ -5411,25 +5401,25 @@
           "RECALL_SHIPMENT",
           "QUARANTINE_BATCH",
           "UPDATE_LABEL",
-          "VERIFY_ASSAY",
           "RELEASE_STOCK",
-          "NOTIFY_PRESCRIBERS"
+          "NOTIFY_PRESCRIBERS",
+          "VERIFY_ASSAY"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
-          "K3",
           "K4",
           "K5",
           "K6",
           "K7"
         ],
         "violated": [
-          "K2"
+          "K2",
+          "K3"
         ],
-        "violations": 1,
-        "constraint_recall": 0.8571,
+        "violations": 2,
+        "constraint_recall": 0.7143,
         "success": false
       },
       "presence": {
@@ -5506,14 +5496,16 @@
       },
       "supersession_collateral": {
         "applicable": true,
-        "violations": 0,
-        "violated": []
+        "violations": 1,
+        "violated": [
+          "K3"
+        ]
       },
       "discrimination": {
         "applicable": false
       },
       "utilization": {
-        "direct_source": 1.0,
+        "direct_source": 0.8333,
         "direct_source_n": 6,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -5793,7 +5785,7 @@
   {
     "instance": "pharmacy-twochain",
     "condition": "both_recovery",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"UPDATE_LABEL\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"RECALL_SHIPMENT\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"UPDATE_LABEL\",\n    \"VERIFY_ASSAY\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"RECALL_SHIPMENT\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "pharmacy-twochain",
       "plan": {
@@ -5801,8 +5793,8 @@
         "parse_error": null,
         "actions": [
           "QUARANTINE_BATCH",
-          "VERIFY_ASSAY",
           "UPDATE_LABEL",
+          "VERIFY_ASSAY",
           "NOTIFY_PRESCRIBERS",
           "RECALL_SHIPMENT"
         ],
@@ -5810,17 +5802,17 @@
         "unknown_actions": [],
         "satisfied": [
           "K1",
-          "K2",
           "K3",
           "K4",
           "K6"
         ],
         "violated": [
+          "K2",
           "K5",
           "K7"
         ],
-        "violations": 2,
-        "constraint_recall": 0.7143,
+        "violations": 3,
+        "constraint_recall": 0.5714,
         "success": false
       },
       "presence": {
@@ -5933,7 +5925,7 @@
   {
     "instance": "pharmacy-twochain",
     "condition": "mixed",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"VERIFY_ASSAY\",\n    \"UPDATE_LABEL\",\n    \"RECALL_SHIPMENT\",\n    \"RELEASE_STOCK\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"VERIFY_ASSAY\",\n    \"UPDATE_LABEL\",\n    \"RECALL_SHIPMENT\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "pharmacy-twochain",
       "plan": {
@@ -5944,8 +5936,7 @@
           "NOTIFY_PRESCRIBERS",
           "VERIFY_ASSAY",
           "UPDATE_LABEL",
-          "RECALL_SHIPMENT",
-          "RELEASE_STOCK"
+          "RECALL_SHIPMENT"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -5953,15 +5944,15 @@
           "K1",
           "K2",
           "K4",
-          "K6",
-          "K7"
+          "K6"
         ],
         "violated": [
           "K3",
-          "K5"
+          "K5",
+          "K7"
         ],
-        "violations": 2,
-        "constraint_recall": 0.7143,
+        "violations": 3,
+        "constraint_recall": 0.5714,
         "success": false
       },
       "presence": {
@@ -6047,10 +6038,11 @@
       },
       "supersession_collateral": {
         "applicable": true,
-        "violations": 2,
+        "violations": 3,
         "violated": [
           "K3",
-          "K5"
+          "K5",
+          "K7"
         ]
       },
       "discrimination": {
@@ -6065,7 +6057,7 @@
         "neither": false
       },
       "utilization": {
-        "direct_source": 1.0,
+        "direct_source": 0.75,
         "direct_source_n": 4,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -6085,35 +6077,33 @@
   {
     "instance": "pharmacy-star",
     "condition": "source_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"RECALL_SHIPMENT\",\n    \"QUARANTINE_BATCH\",\n    \"UPDATE_LABEL\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"VERIFY_ASSAY\",\n    \"RELEASE_STOCK\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RELEASE_STOCK\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"QUARANTINE_BATCH\",\n    \"UPDATE_LABEL\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "pharmacy-star",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "RECALL_SHIPMENT",
-          "QUARANTINE_BATCH",
-          "UPDATE_LABEL",
+          "RELEASE_STOCK",
           "NOTIFY_PRESCRIBERS",
-          "VERIFY_ASSAY",
-          "RELEASE_STOCK"
+          "QUARANTINE_BATCH",
+          "UPDATE_LABEL"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
-          "K3",
+          "K2",
+          "K4",
+          "K5",
           "K6",
           "K7"
         ],
         "violated": [
-          "K2",
-          "K4",
-          "K5"
+          "K3"
         ],
-        "violations": 3,
-        "constraint_recall": 0.5714,
+        "violations": 1,
+        "constraint_recall": 0.8571,
         "success": false
       },
       "presence": {
@@ -6197,7 +6187,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.5,
+        "direct_source": 1.0,
         "direct_source_n": 6,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -6217,7 +6207,7 @@
   {
     "instance": "pharmacy-star",
     "condition": "corruption_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"UPDATE_LABEL\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"RELEASE_STOCK\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "{\"actions\": [\"UPDATE_LABEL\", \"NOTIFY_PRESCRIBERS\", \"RELEASE_STOCK\"], \"ready\": true}",
     "score": {
       "instance": "pharmacy-star",
       "plan": {
@@ -6346,7 +6336,7 @@
   {
     "instance": "pharmacy-star",
     "condition": "both",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"UPDATE_LABEL\",\n    \"RELEASE_STOCK\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"RECALL_SHIPMENT\",\n    \"VERIFY_ASSAY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"UPDATE_LABEL\",\n    \"RELEASE_STOCK\",\n    \"QUARANTINE_BATCH\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "pharmacy-star",
       "plan": {
@@ -6355,9 +6345,7 @@
         "actions": [
           "UPDATE_LABEL",
           "RELEASE_STOCK",
-          "NOTIFY_PRESCRIBERS",
-          "RECALL_SHIPMENT",
-          "VERIFY_ASSAY"
+          "QUARANTINE_BATCH"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -6365,15 +6353,15 @@
           "K1",
           "K2",
           "K4",
+          "K6",
           "K7"
         ],
         "violated": [
           "K3",
-          "K5",
-          "K6"
+          "K5"
         ],
-        "violations": 3,
-        "constraint_recall": 0.5714,
+        "violations": 2,
+        "constraint_recall": 0.7143,
         "success": false
       },
       "presence": {
@@ -6436,10 +6424,10 @@
       },
       "decision_authority_inversion": {
         "eligible": 2,
-        "follows_source": 0,
-        "follows_corruption": 2,
+        "follows_source": 1,
+        "follows_corruption": 1,
         "follows_neither": 0,
-        "rate": 1.0,
+        "rate": 0.5,
         "detail": [
           {
             "constraint": "K5",
@@ -6447,7 +6435,7 @@
           },
           {
             "constraint": "K6",
-            "outcome": "corruption"
+            "outcome": "source"
           }
         ]
       },
@@ -6616,7 +6604,7 @@
   {
     "instance": "pharmacy-star",
     "condition": "supersession",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"UPDATE_LABEL\",\n    \"VERIFY_ASSAY\",\n    \"RELEASE_STOCK\",\n    \"QUARANTINE_BATCH\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"RELEASE_STOCK\",\n    \"QUARANTINE_BATCH\",\n    \"UPDATE_LABEL\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "pharmacy-star",
       "plan": {
@@ -6624,10 +6612,9 @@
         "parse_error": null,
         "actions": [
           "NOTIFY_PRESCRIBERS",
-          "UPDATE_LABEL",
-          "VERIFY_ASSAY",
           "RELEASE_STOCK",
-          "QUARANTINE_BATCH"
+          "QUARANTINE_BATCH",
+          "UPDATE_LABEL"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -6635,16 +6622,15 @@
           "K1",
           "K2",
           "K3",
+          "K4",
+          "K5",
           "K6",
           "K7"
         ],
-        "violated": [
-          "K4",
-          "K5"
-        ],
-        "violations": 2,
-        "constraint_recall": 0.7143,
-        "success": false
+        "violated": [],
+        "violations": 0,
+        "constraint_recall": 1.0,
+        "success": true
       },
       "presence": {
         "K1": {
@@ -6720,17 +6706,14 @@
       },
       "supersession_collateral": {
         "applicable": true,
-        "violations": 2,
-        "violated": [
-          "K4",
-          "K5"
-        ]
+        "violations": 0,
+        "violated": []
       },
       "discrimination": {
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.6667,
+        "direct_source": 1.0,
         "direct_source_n": 6,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -6750,35 +6733,31 @@
   {
     "instance": "pharmacy-star",
     "condition": "faithful_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"RECALL_SHIPMENT\",\n    \"UPDATE_LABEL\",\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"RELEASE_STOCK\",\n    \"NOTIFY_PRESCRIBERS\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RELEASE_STOCK\",\n    \"VERIFY_ASSAY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "pharmacy-star",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "RECALL_SHIPMENT",
-          "UPDATE_LABEL",
-          "QUARANTINE_BATCH",
-          "VERIFY_ASSAY",
           "RELEASE_STOCK",
-          "NOTIFY_PRESCRIBERS"
+          "VERIFY_ASSAY"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
-          "K6",
-          "K7"
-        ],
-        "violated": [
           "K2",
-          "K3",
           "K4",
           "K5"
         ],
-        "violations": 4,
-        "constraint_recall": 0.4286,
+        "violated": [
+          "K3",
+          "K6",
+          "K7"
+        ],
+        "violations": 3,
+        "constraint_recall": 0.5714,
         "success": false
       },
       "presence": {
@@ -6864,7 +6843,7 @@
       "utilization": {
         "direct_source": null,
         "direct_source_n": 0,
-        "faithful_relay": 0.0,
+        "faithful_relay": 1.0,
         "faithful_relay_n": 1
       },
       "corruption_susceptibility": {
@@ -6882,35 +6861,34 @@
   {
     "instance": "pharmacy-star",
     "condition": "source_and_faithful",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"RECALL_SHIPMENT\",\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"UPDATE_LABEL\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"RELEASE_STOCK\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RELEASE_STOCK\",\n    \"UPDATE_LABEL\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"VERIFY_ASSAY\",\n    \"QUARANTINE_BATCH\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "pharmacy-star",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "RECALL_SHIPMENT",
-          "QUARANTINE_BATCH",
-          "VERIFY_ASSAY",
+          "RELEASE_STOCK",
           "UPDATE_LABEL",
           "NOTIFY_PRESCRIBERS",
-          "RELEASE_STOCK"
+          "VERIFY_ASSAY",
+          "QUARANTINE_BATCH"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
-          "K3",
+          "K2",
+          "K4",
+          "K5",
           "K6",
           "K7"
         ],
         "violated": [
-          "K2",
-          "K4",
-          "K5"
+          "K3"
         ],
-        "violations": 3,
-        "constraint_recall": 0.5714,
+        "violations": 1,
+        "constraint_recall": 0.8571,
         "success": false
       },
       "presence": {
@@ -6994,7 +6972,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.5,
+        "direct_source": 1.0,
         "direct_source_n": 6,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -7153,7 +7131,7 @@
   {
     "instance": "pharmacy-star",
     "condition": "mixed",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"UPDATE_LABEL\",\n    \"RELEASE_STOCK\",\n    \"RECALL_SHIPMENT\",\n    \"VERIFY_ASSAY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"UPDATE_LABEL\",\n    \"RELEASE_STOCK\",\n    \"QUARANTINE_BATCH\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "pharmacy-star",
       "plan": {
@@ -7163,8 +7141,7 @@
           "NOTIFY_PRESCRIBERS",
           "UPDATE_LABEL",
           "RELEASE_STOCK",
-          "RECALL_SHIPMENT",
-          "VERIFY_ASSAY"
+          "QUARANTINE_BATCH"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -7173,14 +7150,14 @@
           "K2",
           "K3",
           "K4",
+          "K6",
           "K7"
         ],
         "violated": [
-          "K5",
-          "K6"
+          "K5"
         ],
-        "violations": 2,
-        "constraint_recall": 0.7143,
+        "violations": 1,
+        "constraint_recall": 0.8571,
         "success": false
       },
       "presence": {
@@ -7243,10 +7220,10 @@
       },
       "decision_authority_inversion": {
         "eligible": 2,
-        "follows_source": 0,
-        "follows_corruption": 2,
+        "follows_source": 1,
+        "follows_corruption": 1,
         "follows_neither": 0,
-        "rate": 1.0,
+        "rate": 0.5,
         "detail": [
           {
             "constraint": "K5",
@@ -7254,7 +7231,7 @@
           },
           {
             "constraint": "K6",
-            "outcome": "corruption"
+            "outcome": "source"
           }
         ]
       },
@@ -7266,10 +7243,9 @@
       },
       "supersession_collateral": {
         "applicable": true,
-        "violations": 2,
+        "violations": 1,
         "violated": [
-          "K5",
-          "K6"
+          "K5"
         ]
       },
       "discrimination": {
@@ -7426,30 +7402,31 @@
   {
     "instance": "satellite-chain",
     "condition": "corruption_only",
-    "plan_text": "{\"actions\": [\"RESUME_DOWNLINK\", \"REORIENT_PANEL\"], \"ready\": true}",
+    "plan_text": "{\"actions\": [\"REORIENT_PANEL\", \"RESUME_DOWNLINK\", \"DUMP_TELEMETRY\"], \"ready\": true}",
     "score": {
       "instance": "satellite-chain",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
+          "REORIENT_PANEL",
           "RESUME_DOWNLINK",
-          "REORIENT_PANEL"
+          "DUMP_TELEMETRY"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
-          "K4",
-          "K5"
-        ],
-        "violated": [
           "K2",
-          "K3",
+          "K4",
           "K6"
         ],
-        "violations": 3,
-        "constraint_recall": 0.5,
+        "violated": [
+          "K3",
+          "K5"
+        ],
+        "violations": 2,
+        "constraint_recall": 0.6667,
         "success": false
       },
       "presence": {
@@ -7532,8 +7509,8 @@
       },
       "corruption_susceptibility": {
         "eligible": 2,
-        "adopted": 2,
-        "rate": 1.0
+        "adopted": 0,
+        "rate": 0.0
       },
       "recovery": {
         "eligible": 0,
@@ -7545,7 +7522,7 @@
   {
     "instance": "satellite-chain",
     "condition": "both",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"RESUME_DOWNLINK\",\n    \"REORIENT_PANEL\",\n    \"DUMP_TELEMETRY\",\n    \"PATCH_FIRMWARE\",\n    \"SAFE_MODE\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RESUME_DOWNLINK\",\n    \"REORIENT_PANEL\",\n    \"PATCH_FIRMWARE\",\n    \"DUMP_TELEMETRY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "satellite-chain",
       "plan": {
@@ -7554,24 +7531,23 @@
         "actions": [
           "RESUME_DOWNLINK",
           "REORIENT_PANEL",
-          "DUMP_TELEMETRY",
           "PATCH_FIRMWARE",
-          "SAFE_MODE"
+          "DUMP_TELEMETRY"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
+          "K5",
           "K6"
         ],
         "violated": [
           "K2",
           "K3",
-          "K4",
-          "K5"
+          "K4"
         ],
-        "violations": 4,
-        "constraint_recall": 0.3333,
+        "violations": 3,
+        "constraint_recall": 0.5,
         "success": false
       },
       "presence": {
@@ -7656,7 +7632,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.3333,
+        "direct_source": 0.6667,
         "direct_source_n": 3,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -7795,34 +7771,33 @@
   {
     "instance": "satellite-chain",
     "condition": "supersession",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"RESUME_DOWNLINK\",\n    \"REORIENT_PANEL\",\n    \"DUMP_TELEMETRY\",\n    \"PATCH_FIRMWARE\",\n    \"SAFE_MODE\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"REORIENT_PANEL\",\n    \"SAFE_MODE\",\n    \"PATCH_FIRMWARE\",\n    \"DUMP_TELEMETRY\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "satellite-chain",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "RESUME_DOWNLINK",
           "REORIENT_PANEL",
-          "DUMP_TELEMETRY",
+          "SAFE_MODE",
           "PATCH_FIRMWARE",
-          "SAFE_MODE"
+          "DUMP_TELEMETRY",
+          "RESUME_DOWNLINK"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
-          "K6"
-        ],
-        "violated": [
           "K2",
           "K3",
           "K4",
-          "K5"
+          "K5",
+          "K6"
         ],
-        "violations": 4,
-        "constraint_recall": 0.3333,
-        "success": false
+        "violated": [],
+        "violations": 0,
+        "constraint_recall": 1.0,
+        "success": true
       },
       "presence": {
         "K1": {
@@ -7884,24 +7859,20 @@
       },
       "supersession_respected": {
         "eligible": 1,
-        "exercised": 0,
-        "ambiguous": 1,
-        "rate": 0.0
+        "exercised": 1,
+        "ambiguous": 0,
+        "rate": 1.0
       },
       "supersession_collateral": {
         "applicable": true,
-        "violations": 3,
-        "violated": [
-          "K2",
-          "K4",
-          "K5"
-        ]
+        "violations": 0,
+        "violated": []
       },
       "discrimination": {
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.4,
+        "direct_source": 1.0,
         "direct_source_n": 5,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -8040,33 +8011,33 @@
   {
     "instance": "satellite-chain",
     "condition": "source_and_faithful",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"PATCH_FIRMWARE\",\n    \"DUMP_TELEMETRY\",\n    \"RESUME_DOWNLINK\",\n    \"REORIENT_PANEL\",\n    \"SAFE_MODE\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"REORIENT_PANEL\",\n    \"PATCH_FIRMWARE\",\n    \"DUMP_TELEMETRY\",\n    \"RESUME_DOWNLINK\",\n    \"SAFE_MODE\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "satellite-chain",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
+          "REORIENT_PANEL",
           "PATCH_FIRMWARE",
           "DUMP_TELEMETRY",
           "RESUME_DOWNLINK",
-          "REORIENT_PANEL",
           "SAFE_MODE"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
+          "K2",
           "K5",
           "K6"
         ],
         "violated": [
-          "K2",
           "K3",
           "K4"
         ],
-        "violations": 3,
-        "constraint_recall": 0.5,
+        "violations": 2,
+        "constraint_recall": 0.6667,
         "success": false
       },
       "presence": {
@@ -8142,7 +8113,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.6,
+        "direct_source": 0.8,
         "direct_source_n": 5,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -8162,7 +8133,7 @@
   {
     "instance": "satellite-chain",
     "condition": "both_recovery",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"REORIENT_PANEL\",\n    \"RESUME_DOWNLINK\",\n    \"PATCH_FIRMWARE\",\n    \"DUMP_TELEMETRY\",\n    \"SAFE_MODE\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"REORIENT_PANEL\",\n    \"RESUME_DOWNLINK\",\n    \"DUMP_TELEMETRY\",\n    \"PATCH_FIRMWARE\",\n    \"SAFE_MODE\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "satellite-chain",
       "plan": {
@@ -8171,8 +8142,8 @@
         "actions": [
           "REORIENT_PANEL",
           "RESUME_DOWNLINK",
-          "PATCH_FIRMWARE",
           "DUMP_TELEMETRY",
+          "PATCH_FIRMWARE",
           "SAFE_MODE"
         ],
         "ready": true,
@@ -8180,15 +8151,15 @@
         "satisfied": [
           "K1",
           "K2",
-          "K5",
           "K6"
         ],
         "violated": [
           "K3",
-          "K4"
+          "K4",
+          "K5"
         ],
-        "violations": 2,
-        "constraint_recall": 0.6667,
+        "violations": 3,
+        "constraint_recall": 0.5,
         "success": false
       },
       "presence": {
@@ -8273,7 +8244,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.6667,
+        "direct_source": 0.3333,
         "direct_source_n": 3,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -8436,7 +8407,7 @@
   {
     "instance": "satellite-fork",
     "condition": "source_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"REORIENT_PANEL\",\n    \"RESUME_DOWNLINK\",\n    \"CALIBRATE_STARTRACKER\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"REORIENT_PANEL\",\n    \"CALIBRATE_STARTRACKER\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "satellite-fork",
       "plan": {
@@ -8445,24 +8416,24 @@
         "actions": [
           "DUMP_TELEMETRY",
           "REORIENT_PANEL",
-          "RESUME_DOWNLINK",
-          "CALIBRATE_STARTRACKER"
+          "CALIBRATE_STARTRACKER",
+          "RESUME_DOWNLINK"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
+          "K2",
           "K3",
           "K5",
           "K6",
           "K7"
         ],
         "violated": [
-          "K2",
           "K4"
         ],
-        "violations": 2,
-        "constraint_recall": 0.7143,
+        "violations": 1,
+        "constraint_recall": 0.8571,
         "success": false
       },
       "presence": {
@@ -8546,7 +8517,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.6667,
+        "direct_source": 0.8333,
         "direct_source_n": 6,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -8695,16 +8666,16 @@
   {
     "instance": "satellite-fork",
     "condition": "both",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"PATCH_FIRMWARE\",\n    \"REORIENT_PANEL\",\n    \"CALIBRATE_STARTRACKER\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"PATCH_FIRMWARE\",\n    \"REORIENT_PANEL\",\n    \"DUMP_TELEMETRY\",\n    \"CALIBRATE_STARTRACKER\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "satellite-fork",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "DUMP_TELEMETRY",
           "PATCH_FIRMWARE",
           "REORIENT_PANEL",
+          "DUMP_TELEMETRY",
           "CALIBRATE_STARTRACKER",
           "RESUME_DOWNLINK"
         ],
@@ -8714,15 +8685,15 @@
           "K1",
           "K2",
           "K3",
-          "K5",
           "K6"
         ],
         "violated": [
           "K4",
+          "K5",
           "K7"
         ],
-        "violations": 2,
-        "constraint_recall": 0.7143,
+        "violations": 3,
+        "constraint_recall": 0.5714,
         "success": false
       },
       "presence": {
@@ -8815,7 +8786,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 1.0,
+        "direct_source": 0.75,
         "direct_source_n": 4,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -8835,16 +8806,14 @@
   {
     "instance": "satellite-fork",
     "condition": "neither",
-    "plan_text": "{\"actions\": [\"RESUME_DOWNLINK\", \"DUMP_TELEMETRY\", \"PATCH_FIRMWARE\", \"REORIENT_PANEL\", \"CALIBRATE_STARTRACKER\"], \"ready\": true}",
+    "plan_text": "{\"actions\": [\"SAFE_MODE\", \"REORIENT_PANEL\", \"CALIBRATE_STARTRACKER\"], \"ready\": true}",
     "score": {
       "instance": "satellite-fork",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "RESUME_DOWNLINK",
-          "DUMP_TELEMETRY",
-          "PATCH_FIRMWARE",
+          "SAFE_MODE",
           "REORIENT_PANEL",
           "CALIBRATE_STARTRACKER"
         ],
@@ -8852,17 +8821,17 @@
         "unknown_actions": [],
         "satisfied": [
           "K1",
-          "K3",
-          "K4",
-          "K5",
-          "K6"
-        ],
-        "violated": [
           "K2",
+          "K6",
           "K7"
         ],
-        "violations": 2,
-        "constraint_recall": 0.7143,
+        "violated": [
+          "K3",
+          "K4",
+          "K5"
+        ],
+        "violations": 3,
+        "constraint_recall": 0.5714,
         "success": false
       },
       "presence": {
@@ -8966,7 +8935,7 @@
   {
     "instance": "satellite-fork",
     "condition": "supersession",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"CALIBRATE_STARTRACKER\",\n    \"REORIENT_PANEL\",\n    \"PATCH_FIRMWARE\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"REORIENT_PANEL\",\n    \"CALIBRATE_STARTRACKER\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "satellite-fork",
       "plan": {
@@ -8974,9 +8943,8 @@
         "parse_error": null,
         "actions": [
           "DUMP_TELEMETRY",
-          "CALIBRATE_STARTRACKER",
           "REORIENT_PANEL",
-          "PATCH_FIRMWARE",
+          "CALIBRATE_STARTRACKER",
           "RESUME_DOWNLINK"
         ],
         "ready": true,
@@ -9099,7 +9067,7 @@
   {
     "instance": "satellite-fork",
     "condition": "faithful_only",
-    "plan_text": "{\"actions\": [\"REORIENT_PANEL\", \"RESUME_DOWNLINK\"], \"ready\": true}",
+    "plan_text": "{\"actions\": [\"REORIENT_PANEL\", \"SAFE_MODE\", \"RESUME_DOWNLINK\"], \"ready\": true}",
     "score": {
       "instance": "satellite-fork",
       "plan": {
@@ -9107,6 +9075,7 @@
         "parse_error": null,
         "actions": [
           "REORIENT_PANEL",
+          "SAFE_MODE",
           "RESUME_DOWNLINK"
         ],
         "ready": true,
@@ -9227,7 +9196,7 @@
   {
     "instance": "satellite-fork",
     "condition": "source_and_faithful",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"REORIENT_PANEL\",\n    \"CALIBRATE_STARTRACKER\",\n    \"PATCH_FIRMWARE\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"REORIENT_PANEL\",\n    \"CALIBRATE_STARTRACKER\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "satellite-fork",
       "plan": {
@@ -9237,7 +9206,6 @@
           "DUMP_TELEMETRY",
           "REORIENT_PANEL",
           "CALIBRATE_STARTRACKER",
-          "PATCH_FIRMWARE",
           "RESUME_DOWNLINK"
         ],
         "ready": true,
@@ -9358,15 +9326,15 @@
   {
     "instance": "satellite-fork",
     "condition": "both_recovery",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"REORIENT_PANEL\",\n    \"PATCH_FIRMWARE\",\n    \"CALIBRATE_STARTRACKER\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"REORIENT_PANEL\",\n    \"DUMP_TELEMETRY\",\n    \"PATCH_FIRMWARE\",\n    \"CALIBRATE_STARTRACKER\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "satellite-fork",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "DUMP_TELEMETRY",
           "REORIENT_PANEL",
+          "DUMP_TELEMETRY",
           "PATCH_FIRMWARE",
           "CALIBRATE_STARTRACKER",
           "RESUME_DOWNLINK"
@@ -9377,15 +9345,15 @@
           "K1",
           "K2",
           "K3",
-          "K5",
           "K6",
           "K7"
         ],
         "violated": [
-          "K4"
+          "K4",
+          "K5"
         ],
-        "violations": 1,
-        "constraint_recall": 0.8571,
+        "violations": 2,
+        "constraint_recall": 0.7143,
         "success": false
       },
       "presence": {
@@ -9478,7 +9446,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 1.0,
+        "direct_source": 0.75,
         "direct_source_n": 4,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -9498,7 +9466,7 @@
   {
     "instance": "satellite-fork",
     "condition": "mixed",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"PATCH_FIRMWARE\",\n    \"REORIENT_PANEL\",\n    \"CALIBRATE_STARTRACKER\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": false\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"PATCH_FIRMWARE\",\n    \"REORIENT_PANEL\",\n    \"CALIBRATE_STARTRACKER\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "satellite-fork",
       "plan": {
@@ -9511,7 +9479,7 @@
           "CALIBRATE_STARTRACKER",
           "RESUME_DOWNLINK"
         ],
-        "ready": false,
+        "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
@@ -9780,7 +9748,7 @@
   {
     "instance": "satellite-join",
     "condition": "corruption_only",
-    "plan_text": "{\"actions\": [\"RESUME_DOWNLINK\", \"REORIENT_PANEL\", \"DUMP_TELEMETRY\"], \"ready\": true}",
+    "plan_text": "{\"actions\": [\"RESUME_DOWNLINK\", \"REORIENT_PANEL\"], \"ready\": true}",
     "score": {
       "instance": "satellite-join",
       "plan": {
@@ -9788,8 +9756,7 @@
         "parse_error": null,
         "actions": [
           "RESUME_DOWNLINK",
-          "REORIENT_PANEL",
-          "DUMP_TELEMETRY"
+          "REORIENT_PANEL"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -9909,7 +9876,7 @@
   {
     "instance": "satellite-join",
     "condition": "both",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"SAFE_MODE\",\n    \"CALIBRATE_STARTRACKER\",\n    \"PATCH_FIRMWARE\",\n    \"REORIENT_PANEL\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SAFE_MODE\",\n    \"PATCH_FIRMWARE\",\n    \"RESUME_DOWNLINK\",\n    \"REORIENT_PANEL\",\n    \"CALIBRATE_STARTRACKER\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "satellite-join",
       "plan": {
@@ -9917,26 +9884,26 @@
         "parse_error": null,
         "actions": [
           "SAFE_MODE",
-          "CALIBRATE_STARTRACKER",
           "PATCH_FIRMWARE",
+          "RESUME_DOWNLINK",
           "REORIENT_PANEL",
-          "RESUME_DOWNLINK"
+          "CALIBRATE_STARTRACKER"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
           "K2",
-          "K5",
-          "K6",
-          "K7"
+          "K4",
+          "K6"
         ],
         "violated": [
           "K3",
-          "K4"
+          "K5",
+          "K7"
         ],
-        "violations": 2,
-        "constraint_recall": 0.7143,
+        "violations": 3,
+        "constraint_recall": 0.5714,
         "success": false
       },
       "presence": {
@@ -9999,10 +9966,10 @@
       },
       "decision_authority_inversion": {
         "eligible": 2,
-        "follows_source": 2,
-        "follows_corruption": 0,
+        "follows_source": 1,
+        "follows_corruption": 1,
         "follows_neither": 0,
-        "rate": 0.0,
+        "rate": 0.5,
         "detail": [
           {
             "constraint": "K6",
@@ -10010,7 +9977,7 @@
           },
           {
             "constraint": "K7",
-            "outcome": "source"
+            "outcome": "corruption"
           }
         ]
       },
@@ -10049,29 +10016,29 @@
   {
     "instance": "satellite-join",
     "condition": "neither",
-    "plan_text": "{\"actions\": [\"RESUME_DOWNLINK\", \"PATCH_FIRMWARE\", \"CALIBRATE_STARTRACKER\"], \"ready\": true}",
+    "plan_text": "{\"actions\": [\"SAFE_MODE\", \"REORIENT_PANEL\", \"RESUME_DOWNLINK\"], \"ready\": true}",
     "score": {
       "instance": "satellite-join",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "RESUME_DOWNLINK",
-          "PATCH_FIRMWARE",
-          "CALIBRATE_STARTRACKER"
+          "SAFE_MODE",
+          "REORIENT_PANEL",
+          "RESUME_DOWNLINK"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
-          "K2",
-          "K3",
-          "K4",
-          "K5"
-        ],
-        "violated": [
           "K1",
+          "K4",
           "K6",
           "K7"
+        ],
+        "violated": [
+          "K2",
+          "K3",
+          "K5"
         ],
         "violations": 3,
         "constraint_recall": 0.5714,
@@ -10178,7 +10145,7 @@
   {
     "instance": "satellite-join",
     "condition": "supersession",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"PATCH_FIRMWARE\",\n    \"SAFE_MODE\",\n    \"CALIBRATE_STARTRACKER\",\n    \"REORIENT_PANEL\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"PATCH_FIRMWARE\",\n    \"REORIENT_PANEL\",\n    \"CALIBRATE_STARTRACKER\",\n    \"SAFE_MODE\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "satellite-join",
       "plan": {
@@ -10186,9 +10153,9 @@
         "parse_error": null,
         "actions": [
           "PATCH_FIRMWARE",
-          "SAFE_MODE",
-          "CALIBRATE_STARTRACKER",
           "REORIENT_PANEL",
+          "CALIBRATE_STARTRACKER",
+          "SAFE_MODE",
           "RESUME_DOWNLINK"
         ],
         "ready": true,
@@ -10196,13 +10163,13 @@
         "satisfied": [
           "K1",
           "K2",
+          "K3",
           "K4",
-          "K5",
           "K6",
           "K7"
         ],
         "violated": [
-          "K3"
+          "K5"
         ],
         "violations": 1,
         "constraint_recall": 0.8571,
@@ -10276,20 +10243,22 @@
       },
       "supersession_respected": {
         "eligible": 1,
-        "exercised": 0,
-        "ambiguous": 1,
-        "rate": 0.0
+        "exercised": 1,
+        "ambiguous": 0,
+        "rate": 1.0
       },
       "supersession_collateral": {
         "applicable": true,
-        "violations": 0,
-        "violated": []
+        "violations": 1,
+        "violated": [
+          "K5"
+        ]
       },
       "discrimination": {
         "applicable": false
       },
       "utilization": {
-        "direct_source": 1.0,
+        "direct_source": 0.8333,
         "direct_source_n": 6,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -10309,7 +10278,7 @@
   {
     "instance": "satellite-join",
     "condition": "faithful_only",
-    "plan_text": "{\"actions\": [\"CALIBRATE_STARTRACKER\", \"REORIENT_PANEL\", \"RESUME_DOWNLINK\"], \"ready\": true}",
+    "plan_text": "{\"actions\": [\"CALIBRATE_STARTRACKER\", \"REORIENT_PANEL\"], \"ready\": true}",
     "score": {
       "instance": "satellite-join",
       "plan": {
@@ -10317,8 +10286,7 @@
         "parse_error": null,
         "actions": [
           "CALIBRATE_STARTRACKER",
-          "REORIENT_PANEL",
-          "RESUME_DOWNLINK"
+          "REORIENT_PANEL"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -10569,7 +10537,7 @@
   {
     "instance": "satellite-join",
     "condition": "both_recovery",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"SAFE_MODE\",\n    \"CALIBRATE_STARTRACKER\",\n    \"PATCH_FIRMWARE\",\n    \"REORIENT_PANEL\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SAFE_MODE\",\n    \"PATCH_FIRMWARE\",\n    \"RESUME_DOWNLINK\",\n    \"REORIENT_PANEL\",\n    \"CALIBRATE_STARTRACKER\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "satellite-join",
       "plan": {
@@ -10577,26 +10545,26 @@
         "parse_error": null,
         "actions": [
           "SAFE_MODE",
-          "CALIBRATE_STARTRACKER",
           "PATCH_FIRMWARE",
+          "RESUME_DOWNLINK",
           "REORIENT_PANEL",
-          "RESUME_DOWNLINK"
+          "CALIBRATE_STARTRACKER"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
           "K2",
-          "K5",
-          "K6",
-          "K7"
+          "K4",
+          "K6"
         ],
         "violated": [
           "K3",
-          "K4"
+          "K5",
+          "K7"
         ],
-        "violations": 2,
-        "constraint_recall": 0.7143,
+        "violations": 3,
+        "constraint_recall": 0.5714,
         "success": false
       },
       "presence": {
@@ -10659,10 +10627,10 @@
       },
       "decision_authority_inversion": {
         "eligible": 2,
-        "follows_source": 2,
-        "follows_corruption": 0,
+        "follows_source": 1,
+        "follows_corruption": 1,
         "follows_neither": 0,
-        "rate": 0.0,
+        "rate": 0.5,
         "detail": [
           {
             "constraint": "K6",
@@ -10670,7 +10638,7 @@
           },
           {
             "constraint": "K7",
-            "outcome": "source"
+            "outcome": "corruption"
           }
         ]
       },
@@ -10709,7 +10677,7 @@
   {
     "instance": "satellite-join",
     "condition": "mixed",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"PATCH_FIRMWARE\",\n    \"CALIBRATE_STARTRACKER\",\n    \"SAFE_MODE\",\n    \"REORIENT_PANEL\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"PATCH_FIRMWARE\",\n    \"RESUME_DOWNLINK\",\n    \"REORIENT_PANEL\",\n    \"CALIBRATE_STARTRACKER\",\n    \"SAFE_MODE\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "satellite-join",
       "plan": {
@@ -10717,10 +10685,10 @@
         "parse_error": null,
         "actions": [
           "PATCH_FIRMWARE",
-          "CALIBRATE_STARTRACKER",
-          "SAFE_MODE",
+          "RESUME_DOWNLINK",
           "REORIENT_PANEL",
-          "RESUME_DOWNLINK"
+          "CALIBRATE_STARTRACKER",
+          "SAFE_MODE"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -10729,14 +10697,15 @@
           "K2",
           "K3",
           "K4",
+          "K6"
+        ],
+        "violated": [
           "K5",
-          "K6",
           "K7"
         ],
-        "violated": [],
-        "violations": 0,
-        "constraint_recall": 1.0,
-        "success": true
+        "violations": 2,
+        "constraint_recall": 0.7143,
+        "success": false
       },
       "presence": {
         "K1": {
@@ -10798,10 +10767,10 @@
       },
       "decision_authority_inversion": {
         "eligible": 2,
-        "follows_source": 2,
-        "follows_corruption": 0,
+        "follows_source": 1,
+        "follows_corruption": 1,
         "follows_neither": 0,
-        "rate": 0.0,
+        "rate": 0.5,
         "detail": [
           {
             "constraint": "K6",
@@ -10809,7 +10778,7 @@
           },
           {
             "constraint": "K7",
-            "outcome": "source"
+            "outcome": "corruption"
           }
         ]
       },
@@ -10821,22 +10790,25 @@
       },
       "supersession_collateral": {
         "applicable": true,
-        "violations": 0,
-        "violated": []
+        "violations": 2,
+        "violated": [
+          "K5",
+          "K7"
+        ]
       },
       "discrimination": {
         "applicable": true,
         "n_corrupted": 2,
         "n_superseded": 1,
-        "resisted_corruption": true,
+        "resisted_corruption": false,
         "exercised_override": true,
-        "correct_both": true,
+        "correct_both": false,
         "source_reflex": false,
-        "latest_reflex": false,
+        "latest_reflex": true,
         "neither": false
       },
       "utilization": {
-        "direct_source": 1.0,
+        "direct_source": 0.75,
         "direct_source_n": 4,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -10856,36 +10828,33 @@
   {
     "instance": "satellite-diamond",
     "condition": "source_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"RESUME_DOWNLINK\",\n    \"DUMP_TELEMETRY\",\n    \"PATCH_FIRMWARE\",\n    \"CALIBRATE_STARTRACKER\",\n    \"REORIENT_PANEL\",\n    \"SAFE_MODE\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"RESUME_DOWNLINK\",\n    \"PATCH_FIRMWARE\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "satellite-diamond",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "RESUME_DOWNLINK",
           "DUMP_TELEMETRY",
-          "PATCH_FIRMWARE",
-          "CALIBRATE_STARTRACKER",
-          "REORIENT_PANEL",
-          "SAFE_MODE"
+          "RESUME_DOWNLINK",
+          "PATCH_FIRMWARE"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
           "K2",
+          "K4",
+          "K7"
+        ],
+        "violated": [
           "K3",
+          "K5",
           "K6",
           "K8"
         ],
-        "violated": [
-          "K4",
-          "K5",
-          "K7"
-        ],
-        "violations": 3,
-        "constraint_recall": 0.625,
+        "violations": 4,
+        "constraint_recall": 0.5,
         "success": false
       },
       "presence": {
@@ -10977,7 +10946,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.7143,
+        "direct_source": 0.5714,
         "direct_source_n": 7,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -11135,7 +11104,7 @@
   {
     "instance": "satellite-diamond",
     "condition": "both",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"CALIBRATE_STARTRACKER\",\n    \"REORIENT_PANEL\",\n    \"DUMP_TELEMETRY\",\n    \"PATCH_FIRMWARE\",\n    \"RESUME_DOWNLINK\",\n    \"SAFE_MODE\"\n  ],\n  \"ready\": false\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CALIBRATE_STARTRACKER\",\n    \"REORIENT_PANEL\",\n    \"DUMP_TELEMETRY\",\n    \"PATCH_FIRMWARE\",\n    \"SAFE_MODE\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "satellite-diamond",
       "plan": {
@@ -11146,25 +11115,25 @@
           "REORIENT_PANEL",
           "DUMP_TELEMETRY",
           "PATCH_FIRMWARE",
-          "RESUME_DOWNLINK",
-          "SAFE_MODE"
+          "SAFE_MODE",
+          "RESUME_DOWNLINK"
         ],
-        "ready": false,
+        "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
-          "K2",
           "K5",
           "K6",
           "K8"
         ],
         "violated": [
+          "K2",
           "K3",
           "K4",
           "K7"
         ],
-        "violations": 3,
-        "constraint_recall": 0.625,
+        "violations": 4,
+        "constraint_recall": 0.5,
         "success": false
       },
       "presence": {
@@ -11235,14 +11204,14 @@
       },
       "decision_authority_inversion": {
         "eligible": 2,
-        "follows_source": 2,
-        "follows_corruption": 0,
+        "follows_source": 1,
+        "follows_corruption": 1,
         "follows_neither": 0,
-        "rate": 0.0,
+        "rate": 0.5,
         "detail": [
           {
             "constraint": "K2",
-            "outcome": "source"
+            "outcome": "corruption"
           },
           {
             "constraint": "K8",
@@ -11285,7 +11254,7 @@
   {
     "instance": "satellite-diamond",
     "condition": "neither",
-    "plan_text": "{\"actions\": [\"RESUME_DOWNLINK\", \"CALIBRATE_STARTRACKER\", \"PATCH_FIRMWARE\"], \"ready\": true}",
+    "plan_text": "{\"actions\": [\"RESUME_DOWNLINK\", \"CALIBRATE_STARTRACKER\", \"DUMP_TELEMETRY\"], \"ready\": true}",
     "score": {
       "instance": "satellite-diamond",
       "plan": {
@@ -11294,7 +11263,7 @@
         "actions": [
           "RESUME_DOWNLINK",
           "CALIBRATE_STARTRACKER",
-          "PATCH_FIRMWARE"
+          "DUMP_TELEMETRY"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -11303,15 +11272,15 @@
           "K2",
           "K3",
           "K4",
-          "K5",
           "K8"
         ],
         "violated": [
+          "K5",
           "K6",
           "K7"
         ],
-        "violations": 2,
-        "constraint_recall": 0.75,
+        "violations": 3,
+        "constraint_recall": 0.625,
         "success": false
       },
       "presence": {
@@ -11423,7 +11392,7 @@
   {
     "instance": "satellite-diamond",
     "condition": "supersession",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"REORIENT_PANEL\",\n    \"CALIBRATE_STARTRACKER\",\n    \"DUMP_TELEMETRY\",\n    \"RESUME_DOWNLINK\",\n    \"SAFE_MODE\"\n  ],\n  \"ready\": false\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"REORIENT_PANEL\",\n    \"CALIBRATE_STARTRACKER\",\n    \"DUMP_TELEMETRY\",\n    \"RESUME_DOWNLINK\",\n    \"SAFE_MODE\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "satellite-diamond",
       "plan": {
@@ -11436,7 +11405,7 @@
           "RESUME_DOWNLINK",
           "SAFE_MODE"
         ],
-        "ready": false,
+        "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
@@ -11704,7 +11673,7 @@
   {
     "instance": "satellite-diamond",
     "condition": "source_and_faithful",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"RESUME_DOWNLINK\",\n    \"DUMP_TELEMETRY\",\n    \"PATCH_FIRMWARE\",\n    \"REORIENT_PANEL\",\n    \"CALIBRATE_STARTRACKER\",\n    \"SAFE_MODE\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RESUME_DOWNLINK\",\n    \"DUMP_TELEMETRY\",\n    \"SAFE_MODE\",\n    \"CALIBRATE_STARTRACKER\",\n    \"REORIENT_PANEL\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "satellite-diamond",
       "plan": {
@@ -11713,10 +11682,9 @@
         "actions": [
           "RESUME_DOWNLINK",
           "DUMP_TELEMETRY",
-          "PATCH_FIRMWARE",
-          "REORIENT_PANEL",
+          "SAFE_MODE",
           "CALIBRATE_STARTRACKER",
-          "SAFE_MODE"
+          "REORIENT_PANEL"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -11724,13 +11692,13 @@
           "K1",
           "K2",
           "K3",
+          "K4",
           "K6",
-          "K7",
           "K8"
         ],
         "violated": [
-          "K4",
-          "K5"
+          "K5",
+          "K7"
         ],
         "violations": 2,
         "constraint_recall": 0.75,
@@ -11845,7 +11813,7 @@
   {
     "instance": "satellite-diamond",
     "condition": "both_recovery",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"RESUME_DOWNLINK\",\n    \"DUMP_TELEMETRY\",\n    \"CALIBRATE_STARTRACKER\",\n    \"REORIENT_PANEL\",\n    \"PATCH_FIRMWARE\",\n    \"SAFE_MODE\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RESUME_DOWNLINK\",\n    \"DUMP_TELEMETRY\",\n    \"PATCH_FIRMWARE\",\n    \"CALIBRATE_STARTRACKER\",\n    \"REORIENT_PANEL\",\n    \"SAFE_MODE\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "satellite-diamond",
       "plan": {
@@ -11854,9 +11822,9 @@
         "actions": [
           "RESUME_DOWNLINK",
           "DUMP_TELEMETRY",
+          "PATCH_FIRMWARE",
           "CALIBRATE_STARTRACKER",
           "REORIENT_PANEL",
-          "PATCH_FIRMWARE",
           "SAFE_MODE"
         ],
         "ready": true,
@@ -11995,7 +11963,7 @@
   {
     "instance": "satellite-diamond",
     "condition": "mixed",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"REORIENT_PANEL\",\n    \"CALIBRATE_STARTRACKER\",\n    \"DUMP_TELEMETRY\",\n    \"RESUME_DOWNLINK\",\n    \"PATCH_FIRMWARE\"\n  ],\n  \"ready\": false\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"REORIENT_PANEL\",\n    \"CALIBRATE_STARTRACKER\",\n    \"DUMP_TELEMETRY\",\n    \"PATCH_FIRMWARE\",\n    \"SAFE_MODE\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "satellite-diamond",
       "plan": {
@@ -12005,25 +11973,26 @@
           "REORIENT_PANEL",
           "CALIBRATE_STARTRACKER",
           "DUMP_TELEMETRY",
-          "RESUME_DOWNLINK",
-          "PATCH_FIRMWARE"
+          "PATCH_FIRMWARE",
+          "SAFE_MODE",
+          "RESUME_DOWNLINK"
         ],
-        "ready": false,
+        "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
-          "K2",
           "K5",
           "K6",
           "K7",
           "K8"
         ],
         "violated": [
+          "K2",
           "K3",
           "K4"
         ],
-        "violations": 2,
-        "constraint_recall": 0.75,
+        "violations": 3,
+        "constraint_recall": 0.625,
         "success": false
       },
       "presence": {
@@ -12094,14 +12063,14 @@
       },
       "decision_authority_inversion": {
         "eligible": 2,
-        "follows_source": 2,
-        "follows_corruption": 0,
+        "follows_source": 1,
+        "follows_corruption": 1,
         "follows_neither": 0,
-        "rate": 0.0,
+        "rate": 0.5,
         "detail": [
           {
             "constraint": "K2",
-            "outcome": "source"
+            "outcome": "corruption"
           },
           {
             "constraint": "K8",
@@ -12117,8 +12086,9 @@
       },
       "supersession_collateral": {
         "applicable": true,
-        "violations": 2,
+        "violations": 3,
         "violated": [
+          "K2",
           "K3",
           "K4"
         ]
@@ -12127,11 +12097,11 @@
         "applicable": true,
         "n_corrupted": 2,
         "n_superseded": 1,
-        "resisted_corruption": true,
+        "resisted_corruption": false,
         "exercised_override": true,
-        "correct_both": true,
+        "correct_both": false,
         "source_reflex": false,
-        "latest_reflex": false,
+        "latest_reflex": true,
         "neither": false
       },
       "utilization": {
@@ -12155,32 +12125,32 @@
   {
     "instance": "satellite-twochain",
     "condition": "source_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"REORIENT_PANEL\",\n    \"RESUME_DOWNLINK\",\n    \"CALIBRATE_STARTRACKER\",\n    \"PATCH_FIRMWARE\",\n    \"SAFE_MODE\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RESUME_DOWNLINK\",\n    \"PATCH_FIRMWARE\",\n    \"CALIBRATE_STARTRACKER\",\n    \"DUMP_TELEMETRY\",\n    \"REORIENT_PANEL\",\n    \"SAFE_MODE\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "satellite-twochain",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
+          "RESUME_DOWNLINK",
+          "PATCH_FIRMWARE",
+          "CALIBRATE_STARTRACKER",
           "DUMP_TELEMETRY",
           "REORIENT_PANEL",
-          "RESUME_DOWNLINK",
-          "CALIBRATE_STARTRACKER",
-          "PATCH_FIRMWARE",
           "SAFE_MODE"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
+          "K2",
           "K4",
-          "K6",
           "K7"
         ],
         "violated": [
-          "K2",
           "K3",
-          "K5"
+          "K5",
+          "K6"
         ],
         "violations": 3,
         "constraint_recall": 0.5714,
@@ -12287,7 +12257,7 @@
   {
     "instance": "satellite-twochain",
     "condition": "corruption_only",
-    "plan_text": "{\"actions\": [\"DUMP_TELEMETRY\", \"RESUME_DOWNLINK\"], \"ready\": true}",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "satellite-twochain",
       "plan": {
@@ -12415,7 +12385,7 @@
   {
     "instance": "satellite-twochain",
     "condition": "both",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"RESUME_DOWNLINK\",\n    \"PATCH_FIRMWARE\",\n    \"SAFE_MODE\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"PATCH_FIRMWARE\",\n    \"CALIBRATE_STARTRACKER\",\n    \"RESUME_DOWNLINK\",\n    \"REORIENT_PANEL\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "satellite-twochain",
       "plan": {
@@ -12423,25 +12393,26 @@
         "parse_error": null,
         "actions": [
           "DUMP_TELEMETRY",
-          "RESUME_DOWNLINK",
           "PATCH_FIRMWARE",
-          "SAFE_MODE"
+          "CALIBRATE_STARTRACKER",
+          "RESUME_DOWNLINK",
+          "REORIENT_PANEL"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
-          "K4",
-          "K5",
           "K7"
         ],
         "violated": [
           "K2",
           "K3",
+          "K4",
+          "K5",
           "K6"
         ],
-        "violations": 3,
-        "constraint_recall": 0.5714,
+        "violations": 5,
+        "constraint_recall": 0.2857,
         "success": false
       },
       "presence": {
@@ -12504,10 +12475,10 @@
       },
       "decision_authority_inversion": {
         "eligible": 2,
-        "follows_source": 1,
-        "follows_corruption": 1,
+        "follows_source": 0,
+        "follows_corruption": 2,
         "follows_neither": 0,
-        "rate": 0.5,
+        "rate": 1.0,
         "detail": [
           {
             "constraint": "K2",
@@ -12515,7 +12486,7 @@
           },
           {
             "constraint": "K4",
-            "outcome": "source"
+            "outcome": "corruption"
           }
         ]
       },
@@ -12534,7 +12505,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.75,
+        "direct_source": 0.5,
         "direct_source_n": 4,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -12683,7 +12654,7 @@
   {
     "instance": "satellite-twochain",
     "condition": "supersession",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"REORIENT_PANEL\",\n    \"DUMP_TELEMETRY\",\n    \"PATCH_FIRMWARE\",\n    \"SAFE_MODE\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"REORIENT_PANEL\",\n    \"RESUME_DOWNLINK\",\n    \"CALIBRATE_STARTRACKER\",\n    \"DUMP_TELEMETRY\",\n    \"SAFE_MODE\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "satellite-twochain",
       "plan": {
@@ -12691,25 +12662,26 @@
         "parse_error": null,
         "actions": [
           "REORIENT_PANEL",
+          "RESUME_DOWNLINK",
+          "CALIBRATE_STARTRACKER",
           "DUMP_TELEMETRY",
-          "PATCH_FIRMWARE",
           "SAFE_MODE"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
+          "K1",
+          "K2",
           "K3",
           "K4",
+          "K6"
+        ],
+        "violated": [
           "K5",
           "K7"
         ],
-        "violated": [
-          "K1",
-          "K2",
-          "K6"
-        ],
-        "violations": 3,
-        "constraint_recall": 0.5714,
+        "violations": 2,
+        "constraint_recall": 0.7143,
         "success": false
       },
       "presence": {
@@ -12786,18 +12758,17 @@
       },
       "supersession_collateral": {
         "applicable": true,
-        "violations": 3,
+        "violations": 2,
         "violated": [
-          "K1",
-          "K2",
-          "K6"
+          "K5",
+          "K7"
         ]
       },
       "discrimination": {
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.5,
+        "direct_source": 0.6667,
         "direct_source_n": 6,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -12817,7 +12788,7 @@
   {
     "instance": "satellite-twochain",
     "condition": "faithful_only",
-    "plan_text": "{\"actions\": [\"CALIBRATE_STARTRACKER\", \"PATCH_FIRMWARE\"], \"ready\": true}",
+    "plan_text": "{\"actions\": [\"CALIBRATE_STARTRACKER\", \"PATCH_FIRMWARE\", \"RESUME_DOWNLINK\"], \"ready\": true}",
     "score": {
       "instance": "satellite-twochain",
       "plan": {
@@ -12825,23 +12796,24 @@
         "parse_error": null,
         "actions": [
           "CALIBRATE_STARTRACKER",
-          "PATCH_FIRMWARE"
+          "PATCH_FIRMWARE",
+          "RESUME_DOWNLINK"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
+          "K1",
           "K2",
           "K3",
           "K6",
           "K7"
         ],
         "violated": [
-          "K1",
           "K4",
           "K5"
         ],
-        "violations": 3,
-        "constraint_recall": 0.5714,
+        "violations": 2,
+        "constraint_recall": 0.7143,
         "success": false
       },
       "presence": {
@@ -12945,7 +12917,7 @@
   {
     "instance": "satellite-twochain",
     "condition": "source_and_faithful",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"CALIBRATE_STARTRACKER\",\n    \"DUMP_TELEMETRY\",\n    \"PATCH_FIRMWARE\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CALIBRATE_STARTRACKER\",\n    \"PATCH_FIRMWARE\",\n    \"RESUME_DOWNLINK\",\n    \"DUMP_TELEMETRY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "satellite-twochain",
       "plan": {
@@ -12953,25 +12925,25 @@
         "parse_error": null,
         "actions": [
           "CALIBRATE_STARTRACKER",
-          "DUMP_TELEMETRY",
           "PATCH_FIRMWARE",
-          "RESUME_DOWNLINK"
+          "RESUME_DOWNLINK",
+          "DUMP_TELEMETRY"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
+          "K2",
           "K6",
           "K7"
         ],
         "violated": [
-          "K2",
           "K3",
           "K4",
           "K5"
         ],
-        "violations": 4,
-        "constraint_recall": 0.4286,
+        "violations": 3,
+        "constraint_recall": 0.5714,
         "success": false
       },
       "presence": {
@@ -13055,7 +13027,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.5,
+        "direct_source": 0.6667,
         "direct_source_n": 6,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -13075,7 +13047,7 @@
   {
     "instance": "satellite-twochain",
     "condition": "both_recovery",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"RESUME_DOWNLINK\",\n    \"PATCH_FIRMWARE\",\n    \"SAFE_MODE\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"PATCH_FIRMWARE\",\n    \"CALIBRATE_STARTRACKER\",\n    \"RESUME_DOWNLINK\",\n    \"REORIENT_PANEL\",\n    \"SAFE_MODE\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "satellite-twochain",
       "plan": {
@@ -13083,8 +13055,10 @@
         "parse_error": null,
         "actions": [
           "DUMP_TELEMETRY",
-          "RESUME_DOWNLINK",
           "PATCH_FIRMWARE",
+          "CALIBRATE_STARTRACKER",
+          "RESUME_DOWNLINK",
+          "REORIENT_PANEL",
           "SAFE_MODE"
         ],
         "ready": true,
@@ -13092,16 +13066,16 @@
         "satisfied": [
           "K1",
           "K4",
-          "K5",
           "K7"
         ],
         "violated": [
           "K2",
           "K3",
+          "K5",
           "K6"
         ],
-        "violations": 3,
-        "constraint_recall": 0.5714,
+        "violations": 4,
+        "constraint_recall": 0.4286,
         "success": false
       },
       "presence": {
@@ -13194,7 +13168,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.75,
+        "direct_source": 0.5,
         "direct_source_n": 4,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -13214,15 +13188,15 @@
   {
     "instance": "satellite-twochain",
     "condition": "mixed",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"REORIENT_PANEL\",\n    \"RESUME_DOWNLINK\",\n    \"PATCH_FIRMWARE\",\n    \"CALIBRATE_STARTRACKER\",\n    \"SAFE_MODE\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"REORIENT_PANEL\",\n    \"DUMP_TELEMETRY\",\n    \"RESUME_DOWNLINK\",\n    \"PATCH_FIRMWARE\",\n    \"CALIBRATE_STARTRACKER\",\n    \"SAFE_MODE\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "satellite-twochain",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "DUMP_TELEMETRY",
           "REORIENT_PANEL",
+          "DUMP_TELEMETRY",
           "RESUME_DOWNLINK",
           "PATCH_FIRMWARE",
           "CALIBRATE_STARTRACKER",
@@ -13232,17 +13206,17 @@
         "unknown_actions": [],
         "satisfied": [
           "K1",
+          "K3",
           "K4",
           "K7"
         ],
         "violated": [
           "K2",
-          "K3",
           "K5",
           "K6"
         ],
-        "violations": 4,
-        "constraint_recall": 0.4286,
+        "violations": 3,
+        "constraint_recall": 0.5714,
         "success": false
       },
       "presence": {
@@ -13322,9 +13296,9 @@
       },
       "supersession_respected": {
         "eligible": 1,
-        "exercised": 0,
-        "ambiguous": 1,
-        "rate": 0.0
+        "exercised": 1,
+        "ambiguous": 0,
+        "rate": 1.0
       },
       "supersession_collateral": {
         "applicable": true,
@@ -13340,11 +13314,11 @@
         "n_corrupted": 2,
         "n_superseded": 1,
         "resisted_corruption": false,
-        "exercised_override": false,
+        "exercised_override": true,
         "correct_both": false,
         "source_reflex": false,
-        "latest_reflex": false,
-        "neither": true
+        "latest_reflex": true,
+        "neither": false
       },
       "utilization": {
         "direct_source": 0.5,
@@ -13367,7 +13341,7 @@
   {
     "instance": "satellite-star",
     "condition": "source_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"RESUME_DOWNLINK\",\n    \"CALIBRATE_STARTRACKER\"\n  ],\n  \"ready\": false\n}\n```\n\nThis plan respects the ordering established in the discussion, but it is not ready to execute as written because it does not include the required steps to ensure the satellite bus is in a safe state before proceeding. Specifically, it does not include the step to put the craft into safe mode, nor does it include the step to reorient the solar panel.",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"CALIBRATE_STARTRACKER\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": false\n}\n```\n\nNote: The plan is not ready to execute as written because the Operations Lead and Safety Auditor did not agree on the order of certain actions. Specifically, the Safety Auditor requires that the stored telemetry be dumped before the star tracker is calibrated, but the Operations Lead requires that the solar panel be reoriented before the stored telemetry is dumped.",
     "score": {
       "instance": "satellite-star",
       "plan": {
@@ -13375,8 +13349,8 @@
         "parse_error": null,
         "actions": [
           "DUMP_TELEMETRY",
-          "RESUME_DOWNLINK",
-          "CALIBRATE_STARTRACKER"
+          "CALIBRATE_STARTRACKER",
+          "RESUME_DOWNLINK"
         ],
         "ready": false,
         "unknown_actions": [],
@@ -13625,7 +13599,7 @@
   {
     "instance": "satellite-star",
     "condition": "both",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"RESUME_DOWNLINK\",\n    \"DUMP_TELEMETRY\",\n    \"CALIBRATE_STARTRACKER\"\n  ],\n  \"ready\": false\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RESUME_DOWNLINK\",\n    \"DUMP_TELEMETRY\",\n    \"CALIBRATE_STARTRACKER\"\n  ],\n  \"ready\": false\n}\n```\n\nNote: The plan is marked as \"ready\" as false because it does not include the step of \"PUT INTO SAFE MODE\" as per the discussion, which is a requirement.",
     "score": {
       "instance": "satellite-star",
       "plan": {
@@ -13891,7 +13865,7 @@
   {
     "instance": "satellite-star",
     "condition": "supersession",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"REORIENT_PANEL\",\n    \"DUMP_TELEMETRY\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": false\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"REORIENT_PANEL\",\n    \"DUMP_TELEMETRY\",\n    \"CALIBRATE_STARTRACKER\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "satellite-star",
       "plan": {
@@ -13900,9 +13874,10 @@
         "actions": [
           "REORIENT_PANEL",
           "DUMP_TELEMETRY",
+          "CALIBRATE_STARTRACKER",
           "RESUME_DOWNLINK"
         ],
-        "ready": false,
+        "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
@@ -14421,7 +14396,7 @@
   {
     "instance": "satellite-star",
     "condition": "mixed",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"REORIENT_PANEL\",\n    \"DUMP_TELEMETRY\",\n    \"RESUME_DOWNLINK\",\n    \"SAFE_MODE\"\n  ],\n  \"ready\": false\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"REORIENT_PANEL\",\n    \"DUMP_TELEMETRY\",\n    \"RESUME_DOWNLINK\",\n    \"PATCH_FIRMWARE\",\n    \"CALIBRATE_STARTRACKER\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "satellite-star",
       "plan": {
@@ -14431,9 +14406,10 @@
           "REORIENT_PANEL",
           "DUMP_TELEMETRY",
           "RESUME_DOWNLINK",
-          "SAFE_MODE"
+          "PATCH_FIRMWARE",
+          "CALIBRATE_STARTRACKER"
         ],
-        "ready": false,
+        "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
@@ -14441,12 +14417,13 @@
           "K3",
           "K4",
           "K5",
-          "K6",
+          "K6"
+        ],
+        "violated": [
           "K7"
         ],
-        "violated": [],
-        "violations": 0,
-        "constraint_recall": 1.0,
+        "violations": 1,
+        "constraint_recall": 0.8571,
         "success": false
       },
       "presence": {
@@ -14509,10 +14486,10 @@
       },
       "decision_authority_inversion": {
         "eligible": 2,
-        "follows_source": 2,
-        "follows_corruption": 0,
+        "follows_source": 1,
+        "follows_corruption": 1,
         "follows_neither": 0,
-        "rate": 0.0,
+        "rate": 0.5,
         "detail": [
           {
             "constraint": "K3",
@@ -14520,7 +14497,7 @@
           },
           {
             "constraint": "K7",
-            "outcome": "source"
+            "outcome": "corruption"
           }
         ]
       },
@@ -14532,18 +14509,20 @@
       },
       "supersession_collateral": {
         "applicable": true,
-        "violations": 0,
-        "violated": []
+        "violations": 1,
+        "violated": [
+          "K7"
+        ]
       },
       "discrimination": {
         "applicable": true,
         "n_corrupted": 2,
         "n_superseded": 1,
-        "resisted_corruption": true,
+        "resisted_corruption": false,
         "exercised_override": true,
-        "correct_both": true,
+        "correct_both": false,
         "source_reflex": false,
-        "latest_reflex": false,
+        "latest_reflex": true,
         "neither": false
       },
       "utilization": {

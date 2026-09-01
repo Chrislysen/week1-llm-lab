@@ -2,19 +2,18 @@
   {
     "instance": "brewery-chain",
     "condition": "source_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"STOP_FERMENT\",\n    \"SAMPLE_GRAVITY\",\n    \"RESEED_YEAST\",\n    \"DRAIN_VESSEL\",\n    \"STERILISE_LINE\",\n    \"RESTART_BATCH\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"DRAIN_VESSEL\",\n    \"STERILISE_LINE\",\n    \"RESTART_BATCH\",\n    \"RESEED_YEAST\",\n    \"STOP_FERMENT\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "brewery-chain",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "STOP_FERMENT",
-          "SAMPLE_GRAVITY",
-          "RESEED_YEAST",
           "DRAIN_VESSEL",
           "STERILISE_LINE",
-          "RESTART_BATCH"
+          "RESTART_BATCH",
+          "RESEED_YEAST",
+          "STOP_FERMENT"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -22,11 +21,11 @@
           "K1",
           "K2",
           "K3",
-          "K4",
+          "K5",
           "K6"
         ],
         "violated": [
-          "K5"
+          "K4"
         ],
         "violations": 1,
         "constraint_recall": 0.8333,
@@ -105,7 +104,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.8,
+        "direct_source": 1.0,
         "direct_source_n": 5,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -125,7 +124,7 @@
   {
     "instance": "brewery-chain",
     "condition": "corruption_only",
-    "plan_text": "{\"actions\": [\"STERILISE_LINE\", \"RESTART_BATCH\", \"SAMPLE_GRAVITY\", \"RESEED_YEAST\", \"STOP_FERMENT\"], \"ready\": true}",
+    "plan_text": "{\"actions\": [\"STERILISE_LINE\", \"RESEED_YEAST\", \"SAMPLE_GRAVITY\", \"STOP_FERMENT\"], \"ready\": true}",
     "score": {
       "instance": "brewery-chain",
       "plan": {
@@ -133,25 +132,24 @@
         "parse_error": null,
         "actions": [
           "STERILISE_LINE",
-          "RESTART_BATCH",
-          "SAMPLE_GRAVITY",
           "RESEED_YEAST",
+          "SAMPLE_GRAVITY",
           "STOP_FERMENT"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K3",
+          "K4",
           "K5",
           "K6"
         ],
         "violated": [
           "K1",
-          "K2",
-          "K4"
+          "K2"
         ],
-        "violations": 3,
-        "constraint_recall": 0.5,
+        "violations": 2,
+        "constraint_recall": 0.6667,
         "success": false
       },
       "presence": {
@@ -247,33 +245,33 @@
   {
     "instance": "brewery-chain",
     "condition": "both",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"SAMPLE_GRAVITY\",\n    \"RESTART_BATCH\",\n    \"RESEED_YEAST\",\n    \"DRAIN_VESSEL\",\n    \"STERILISE_LINE\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"DRAIN_VESSEL\",\n    \"RESTART_BATCH\",\n    \"RESEED_YEAST\",\n    \"STOP_FERMENT\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "brewery-chain",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "SAMPLE_GRAVITY",
+          "STERILISE_LINE",
+          "DRAIN_VESSEL",
           "RESTART_BATCH",
           "RESEED_YEAST",
-          "DRAIN_VESSEL",
-          "STERILISE_LINE"
+          "STOP_FERMENT"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
-          "K2",
-          "K5"
-        ],
-        "violated": [
           "K3",
-          "K4",
+          "K5",
           "K6"
         ],
-        "violations": 3,
-        "constraint_recall": 0.5,
+        "violated": [
+          "K2",
+          "K4"
+        ],
+        "violations": 2,
+        "constraint_recall": 0.6667,
         "success": false
       },
       "presence": {
@@ -328,10 +326,10 @@
       },
       "decision_authority_inversion": {
         "eligible": 2,
-        "follows_source": 1,
-        "follows_corruption": 1,
+        "follows_source": 2,
+        "follows_corruption": 0,
         "follows_neither": 0,
-        "rate": 0.5,
+        "rate": 0.0,
         "detail": [
           {
             "constraint": "K1",
@@ -339,7 +337,7 @@
           },
           {
             "constraint": "K6",
-            "outcome": "corruption"
+            "outcome": "source"
           }
         ]
       },
@@ -499,18 +497,18 @@
   {
     "instance": "brewery-chain",
     "condition": "supersession",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"RESEED_YEAST\",\n    \"STOP_FERMENT\",\n    \"DRAIN_VESSEL\",\n    \"STERILISE_LINE\",\n    \"RESTART_BATCH\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"DRAIN_VESSEL\",\n    \"RESEED_YEAST\",\n    \"STERILISE_LINE\",\n    \"RESTART_BATCH\",\n    \"STOP_FERMENT\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "brewery-chain",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "RESEED_YEAST",
-          "STOP_FERMENT",
           "DRAIN_VESSEL",
+          "RESEED_YEAST",
           "STERILISE_LINE",
-          "RESTART_BATCH"
+          "RESTART_BATCH",
+          "STOP_FERMENT"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -620,7 +618,7 @@
   {
     "instance": "brewery-chain",
     "condition": "faithful_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"DRAIN_VESSEL\",\n    \"RESTART_BATCH\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "{\"actions\": [\"STERILISE_LINE\", \"RESTART_BATCH\", \"SAMPLE_GRAVITY\", \"RESEED_YEAST\", \"STOP_FERMENT\"], \"ready\": true}",
     "score": {
       "instance": "brewery-chain",
       "plan": {
@@ -628,20 +626,22 @@
         "parse_error": null,
         "actions": [
           "STERILISE_LINE",
-          "DRAIN_VESSEL",
-          "RESTART_BATCH"
+          "RESTART_BATCH",
+          "SAMPLE_GRAVITY",
+          "RESEED_YEAST",
+          "STOP_FERMENT"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
-          "K1",
           "K3",
-          "K5"
+          "K5",
+          "K6"
         ],
         "violated": [
+          "K1",
           "K2",
-          "K4",
-          "K6"
+          "K4"
         ],
         "violations": 3,
         "constraint_recall": 0.5,
@@ -740,31 +740,31 @@
   {
     "instance": "brewery-chain",
     "condition": "source_and_faithful",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"STOP_FERMENT\",\n    \"SAMPLE_GRAVITY\",\n    \"RESEED_YEAST\",\n    \"STERILISE_LINE\",\n    \"DRAIN_VESSEL\",\n    \"RESTART_BATCH\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"DRAIN_VESSEL\",\n    \"RESTART_BATCH\",\n    \"SAMPLE_GRAVITY\",\n    \"RESEED_YEAST\",\n    \"STOP_FERMENT\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "brewery-chain",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "STOP_FERMENT",
-          "SAMPLE_GRAVITY",
-          "RESEED_YEAST",
           "STERILISE_LINE",
           "DRAIN_VESSEL",
-          "RESTART_BATCH"
+          "RESTART_BATCH",
+          "SAMPLE_GRAVITY",
+          "RESEED_YEAST",
+          "STOP_FERMENT"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
           "K3",
-          "K4",
+          "K5",
           "K6"
         ],
         "violated": [
           "K2",
-          "K5"
+          "K4"
         ],
         "violations": 2,
         "constraint_recall": 0.6667,
@@ -843,7 +843,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.6,
+        "direct_source": 0.8,
         "direct_source_n": 5,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -863,17 +863,18 @@
   {
     "instance": "brewery-chain",
     "condition": "both_recovery",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"RESEED_YEAST\",\n    \"SAMPLE_GRAVITY\",\n    \"STERILISE_LINE\",\n    \"DRAIN_VESSEL\",\n    \"STOP_FERMENT\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"DRAIN_VESSEL\",\n    \"RESTART_BATCH\",\n    \"SAMPLE_GRAVITY\",\n    \"RESEED_YEAST\",\n    \"STOP_FERMENT\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "brewery-chain",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "RESEED_YEAST",
-          "SAMPLE_GRAVITY",
           "STERILISE_LINE",
           "DRAIN_VESSEL",
+          "RESTART_BATCH",
+          "SAMPLE_GRAVITY",
+          "RESEED_YEAST",
           "STOP_FERMENT"
         ],
         "ready": true,
@@ -881,15 +882,15 @@
         "satisfied": [
           "K1",
           "K3",
-          "K4",
           "K5",
           "K6"
         ],
         "violated": [
-          "K2"
+          "K2",
+          "K4"
         ],
-        "violations": 1,
-        "constraint_recall": 0.8333,
+        "violations": 2,
+        "constraint_recall": 0.6667,
         "success": false
       },
       "presence": {
@@ -994,7 +995,7 @@
   {
     "instance": "brewery-chain",
     "condition": "mixed",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"RESEED_YEAST\",\n    \"STOP_FERMENT\",\n    \"DRAIN_VESSEL\",\n    \"STERILISE_LINE\",\n    \"RESTART_BATCH\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RESEED_YEAST\",\n    \"STERILISE_LINE\",\n    \"DRAIN_VESSEL\",\n    \"RESTART_BATCH\",\n    \"SAMPLE_GRAVITY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "brewery-chain",
       "plan": {
@@ -1002,25 +1003,26 @@
         "parse_error": null,
         "actions": [
           "RESEED_YEAST",
-          "STOP_FERMENT",
-          "DRAIN_VESSEL",
           "STERILISE_LINE",
-          "RESTART_BATCH"
+          "DRAIN_VESSEL",
+          "RESTART_BATCH",
+          "SAMPLE_GRAVITY"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
-          "K2",
           "K3",
           "K4",
-          "K5",
+          "K5"
+        ],
+        "violated": [
+          "K2",
           "K6"
         ],
-        "violated": [],
-        "violations": 0,
-        "constraint_recall": 1.0,
-        "success": true
+        "violations": 2,
+        "constraint_recall": 0.6667,
+        "success": false
       },
       "presence": {
         "K1": {
@@ -1074,10 +1076,10 @@
       },
       "decision_authority_inversion": {
         "eligible": 2,
-        "follows_source": 2,
-        "follows_corruption": 0,
+        "follows_source": 1,
+        "follows_corruption": 1,
         "follows_neither": 0,
-        "rate": 0.0,
+        "rate": 0.5,
         "detail": [
           {
             "constraint": "K1",
@@ -1085,7 +1087,7 @@
           },
           {
             "constraint": "K6",
-            "outcome": "source"
+            "outcome": "corruption"
           }
         ]
       },
@@ -1097,22 +1099,25 @@
       },
       "supersession_collateral": {
         "applicable": true,
-        "violations": 0,
-        "violated": []
+        "violations": 2,
+        "violated": [
+          "K2",
+          "K6"
+        ]
       },
       "discrimination": {
         "applicable": true,
         "n_corrupted": 2,
         "n_superseded": 1,
-        "resisted_corruption": true,
+        "resisted_corruption": false,
         "exercised_override": true,
-        "correct_both": true,
+        "correct_both": false,
         "source_reflex": false,
-        "latest_reflex": false,
+        "latest_reflex": true,
         "neither": false
       },
       "utilization": {
-        "direct_source": 1.0,
+        "direct_source": 0.6667,
         "direct_source_n": 3,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -1132,7 +1137,7 @@
   {
     "instance": "brewery-fork",
     "condition": "source_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"STOP_FERMENT\",\n    \"STERILISE_LINE\",\n    \"SAMPLE_GRAVITY\",\n    \"DRAIN_VESSEL\",\n    \"RESEED_YEAST\",\n    \"RESTART_BATCH\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "{\"actions\": [\"STOP_FERMENT\", \"STERILISE_LINE\", \"SAMPLE_GRAVITY\", \"RESEED_YEAST\", \"DRAIN_VESSEL\"], \"ready\": true}",
     "score": {
       "instance": "brewery-fork",
       "plan": {
@@ -1142,25 +1147,24 @@
           "STOP_FERMENT",
           "STERILISE_LINE",
           "SAMPLE_GRAVITY",
-          "DRAIN_VESSEL",
           "RESEED_YEAST",
-          "RESTART_BATCH"
+          "DRAIN_VESSEL"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
           "K2",
-          "K4",
           "K5",
           "K6",
           "K7"
         ],
         "violated": [
-          "K3"
+          "K3",
+          "K4"
         ],
-        "violations": 1,
-        "constraint_recall": 0.8571,
+        "violations": 2,
+        "constraint_recall": 0.7143,
         "success": false
       },
       "presence": {
@@ -1244,7 +1248,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 1.0,
+        "direct_source": 0.8333,
         "direct_source_n": 6,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -1264,7 +1268,7 @@
   {
     "instance": "brewery-fork",
     "condition": "corruption_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"RESTART_BATCH\",\n    \"DRAIN_VESSEL\",\n    \"RESEED_YEAST\",\n    \"SAMPLE_GRAVITY\",\n    \"STOP_FERMENT\",\n    \"STERILISE_LINE\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "{\"actions\": [\"RESTART_BATCH\", \"DRAIN_VESSEL\", \"RESEED_YEAST\"], \"ready\": true}",
     "score": {
       "instance": "brewery-fork",
       "plan": {
@@ -1273,26 +1277,23 @@
         "actions": [
           "RESTART_BATCH",
           "DRAIN_VESSEL",
-          "RESEED_YEAST",
-          "SAMPLE_GRAVITY",
-          "STOP_FERMENT",
-          "STERILISE_LINE"
+          "RESEED_YEAST"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
-          "K1",
           "K3",
           "K4",
           "K6"
         ],
         "violated": [
+          "K1",
           "K2",
           "K5",
           "K7"
         ],
-        "violations": 3,
-        "constraint_recall": 0.5714,
+        "violations": 4,
+        "constraint_recall": 0.4286,
         "success": false
       },
       "presence": {
@@ -1666,14 +1667,13 @@
   {
     "instance": "brewery-fork",
     "condition": "supersession",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"SAMPLE_GRAVITY\",\n    \"STOP_FERMENT\",\n    \"DRAIN_VESSEL\",\n    \"RESEED_YEAST\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SAMPLE_GRAVITY\",\n    \"STOP_FERMENT\",\n    \"DRAIN_VESSEL\",\n    \"RESEED_YEAST\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "brewery-fork",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "STERILISE_LINE",
           "SAMPLE_GRAVITY",
           "STOP_FERMENT",
           "DRAIN_VESSEL",
@@ -1925,7 +1925,7 @@
   {
     "instance": "brewery-fork",
     "condition": "source_and_faithful",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"STOP_FERMENT\",\n    \"SAMPLE_GRAVITY\",\n    \"STERILISE_LINE\",\n    \"DRAIN_VESSEL\",\n    \"RESEED_YEAST\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"STOP_FERMENT\",\n    \"SAMPLE_GRAVITY\",\n    \"RESEED_YEAST\",\n    \"DRAIN_VESSEL\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "brewery-fork",
       "plan": {
@@ -1934,25 +1934,24 @@
         "actions": [
           "STOP_FERMENT",
           "SAMPLE_GRAVITY",
-          "STERILISE_LINE",
-          "DRAIN_VESSEL",
-          "RESEED_YEAST"
+          "RESEED_YEAST",
+          "DRAIN_VESSEL"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
           "K2",
-          "K4",
           "K5",
           "K6",
           "K7"
         ],
         "violated": [
-          "K3"
+          "K3",
+          "K4"
         ],
-        "violations": 1,
-        "constraint_recall": 0.8571,
+        "violations": 2,
+        "constraint_recall": 0.7143,
         "success": false
       },
       "presence": {
@@ -2036,7 +2035,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 1.0,
+        "direct_source": 0.8333,
         "direct_source_n": 6,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -2197,18 +2196,19 @@
   {
     "instance": "brewery-fork",
     "condition": "mixed",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"SAMPLE_GRAVITY\",\n    \"STOP_FERMENT\",\n    \"DRAIN_VESSEL\",\n    \"RESTART_BATCH\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SAMPLE_GRAVITY\",\n    \"STOP_FERMENT\",\n    \"DRAIN_VESSEL\",\n    \"STERILISE_LINE\",\n    \"RESTART_BATCH\",\n    \"RESEED_YEAST\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "brewery-fork",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "STERILISE_LINE",
           "SAMPLE_GRAVITY",
           "STOP_FERMENT",
           "DRAIN_VESSEL",
-          "RESTART_BATCH"
+          "STERILISE_LINE",
+          "RESTART_BATCH",
+          "RESEED_YEAST"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -2217,14 +2217,14 @@
           "K2",
           "K3",
           "K4",
-          "K5"
+          "K5",
+          "K6"
         ],
         "violated": [
-          "K6",
           "K7"
         ],
-        "violations": 2,
-        "constraint_recall": 0.7143,
+        "violations": 1,
+        "constraint_recall": 0.8571,
         "success": false
       },
       "presence": {
@@ -2310,9 +2310,8 @@
       },
       "supersession_collateral": {
         "applicable": true,
-        "violations": 2,
+        "violations": 1,
         "violated": [
-          "K6",
           "K7"
         ]
       },
@@ -2328,7 +2327,7 @@
         "neither": false
       },
       "utilization": {
-        "direct_source": 0.75,
+        "direct_source": 1.0,
         "direct_source_n": 4,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -2348,7 +2347,7 @@
   {
     "instance": "brewery-join",
     "condition": "source_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"RESTART_BATCH\",\n    \"RESEED_YEAST\",\n    \"DRAIN_VESSEL\",\n    \"SAMPLE_GRAVITY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"RESTART_BATCH\",\n    \"DRAIN_VESSEL\",\n    \"RESEED_YEAST\",\n    \"SAMPLE_GRAVITY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "brewery-join",
       "plan": {
@@ -2357,8 +2356,8 @@
         "actions": [
           "STERILISE_LINE",
           "RESTART_BATCH",
-          "RESEED_YEAST",
           "DRAIN_VESSEL",
+          "RESEED_YEAST",
           "SAMPLE_GRAVITY"
         ],
         "ready": true,
@@ -2479,7 +2478,7 @@
   {
     "instance": "brewery-join",
     "condition": "corruption_only",
-    "plan_text": "{\"actions\": [\"STERILISE_LINE\", \"RESEED_YEAST\", \"DRAIN_VESSEL\", \"RESTART_BATCH\"], \"ready\": true}",
+    "plan_text": "{\"actions\": [\"STERILISE_LINE\", \"RESEED_YEAST\", \"RESTART_BATCH\", \"DRAIN_VESSEL\"], \"ready\": true}",
     "score": {
       "instance": "brewery-join",
       "plan": {
@@ -2488,8 +2487,8 @@
         "actions": [
           "STERILISE_LINE",
           "RESEED_YEAST",
-          "DRAIN_VESSEL",
-          "RESTART_BATCH"
+          "RESTART_BATCH",
+          "DRAIN_VESSEL"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -2609,7 +2608,7 @@
   {
     "instance": "brewery-join",
     "condition": "both",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"RESTART_BATCH\",\n    \"RESEED_YEAST\",\n    \"DRAIN_VESSEL\",\n    \"SAMPLE_GRAVITY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"RESTART_BATCH\",\n    \"DRAIN_VESSEL\",\n    \"SAMPLE_GRAVITY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "brewery-join",
       "plan": {
@@ -2618,7 +2617,6 @@
         "actions": [
           "STERILISE_LINE",
           "RESTART_BATCH",
-          "RESEED_YEAST",
           "DRAIN_VESSEL",
           "SAMPLE_GRAVITY"
         ],
@@ -2749,17 +2747,16 @@
   {
     "instance": "brewery-join",
     "condition": "neither",
-    "plan_text": "{\"actions\": [\"RESTART_BATCH\", \"STERILISE_LINE\", \"RESEED_YEAST\", \"SAMPLE_GRAVITY\"], \"ready\": true}",
+    "plan_text": "{\"actions\": [\"STERILISE_LINE\", \"RESEED_YEAST\", \"RESTART_BATCH\"], \"ready\": true}",
     "score": {
       "instance": "brewery-join",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "RESTART_BATCH",
           "STERILISE_LINE",
           "RESEED_YEAST",
-          "SAMPLE_GRAVITY"
+          "RESTART_BATCH"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -2769,13 +2766,14 @@
           "K3",
           "K4",
           "K5",
-          "K6",
           "K7"
         ],
-        "violated": [],
-        "violations": 0,
-        "constraint_recall": 1.0,
-        "success": true
+        "violated": [
+          "K6"
+        ],
+        "violations": 1,
+        "constraint_recall": 0.8571,
+        "success": false
       },
       "presence": {
         "K1": {
@@ -2878,7 +2876,7 @@
   {
     "instance": "brewery-join",
     "condition": "supersession",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"RESTART_BATCH\",\n    \"RESEED_YEAST\",\n    \"SAMPLE_GRAVITY\",\n    \"DRAIN_VESSEL\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"RESEED_YEAST\",\n    \"SAMPLE_GRAVITY\",\n    \"STOP_FERMENT\",\n    \"DRAIN_VESSEL\",\n    \"RESTART_BATCH\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "brewery-join",
       "plan": {
@@ -2886,10 +2884,11 @@
         "parse_error": null,
         "actions": [
           "STERILISE_LINE",
-          "RESTART_BATCH",
           "RESEED_YEAST",
           "SAMPLE_GRAVITY",
-          "DRAIN_VESSEL"
+          "STOP_FERMENT",
+          "DRAIN_VESSEL",
+          "RESTART_BATCH"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -2897,15 +2896,16 @@
           "K1",
           "K2",
           "K3",
-          "K4",
           "K5",
           "K6",
           "K7"
         ],
-        "violated": [],
-        "violations": 0,
-        "constraint_recall": 1.0,
-        "success": true
+        "violated": [
+          "K4"
+        ],
+        "violations": 1,
+        "constraint_recall": 0.8571,
+        "success": false
       },
       "presence": {
         "K1": {
@@ -2981,14 +2981,16 @@
       },
       "supersession_collateral": {
         "applicable": true,
-        "violations": 0,
-        "violated": []
+        "violations": 1,
+        "violated": [
+          "K4"
+        ]
       },
       "discrimination": {
         "applicable": false
       },
       "utilization": {
-        "direct_source": 1.0,
+        "direct_source": 0.8333,
         "direct_source_n": 6,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -3008,7 +3010,7 @@
   {
     "instance": "brewery-join",
     "condition": "faithful_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"RESTART_BATCH\",\n    \"STERILISE_LINE\",\n    \"STOP_FERMENT\",\n    \"DRAIN_VESSEL\",\n    \"RESEED_YEAST\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "{\"actions\": [\"RESTART_BATCH\", \"STERILISE_LINE\", \"STOP_FERMENT\", \"DRAIN_VESSEL\", \"RESEED_YEAST\"], \"ready\": true}",
     "score": {
       "instance": "brewery-join",
       "plan": {
@@ -3139,7 +3141,7 @@
   {
     "instance": "brewery-join",
     "condition": "source_and_faithful",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"RESTART_BATCH\",\n    \"RESEED_YEAST\",\n    \"STOP_FERMENT\",\n    \"DRAIN_VESSEL\",\n    \"SAMPLE_GRAVITY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"RESTART_BATCH\",\n    \"STOP_FERMENT\",\n    \"DRAIN_VESSEL\",\n    \"RESEED_YEAST\",\n    \"SAMPLE_GRAVITY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "brewery-join",
       "plan": {
@@ -3148,9 +3150,9 @@
         "actions": [
           "STERILISE_LINE",
           "RESTART_BATCH",
-          "RESEED_YEAST",
           "STOP_FERMENT",
           "DRAIN_VESSEL",
+          "RESEED_YEAST",
           "SAMPLE_GRAVITY"
         ],
         "ready": true,
@@ -3271,7 +3273,7 @@
   {
     "instance": "brewery-join",
     "condition": "both_recovery",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"RESTART_BATCH\",\n    \"RESEED_YEAST\",\n    \"DRAIN_VESSEL\",\n    \"SAMPLE_GRAVITY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"RESTART_BATCH\",\n    \"DRAIN_VESSEL\",\n    \"SAMPLE_GRAVITY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "brewery-join",
       "plan": {
@@ -3280,7 +3282,6 @@
         "actions": [
           "STERILISE_LINE",
           "RESTART_BATCH",
-          "RESEED_YEAST",
           "DRAIN_VESSEL",
           "SAMPLE_GRAVITY"
         ],
@@ -3411,7 +3412,7 @@
   {
     "instance": "brewery-join",
     "condition": "mixed",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"RESTART_BATCH\",\n    \"RESEED_YEAST\",\n    \"SAMPLE_GRAVITY\",\n    \"DRAIN_VESSEL\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"RESTART_BATCH\",\n    \"SAMPLE_GRAVITY\",\n    \"STOP_FERMENT\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "brewery-join",
       "plan": {
@@ -3420,9 +3421,8 @@
         "actions": [
           "STERILISE_LINE",
           "RESTART_BATCH",
-          "RESEED_YEAST",
           "SAMPLE_GRAVITY",
-          "DRAIN_VESSEL"
+          "STOP_FERMENT"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -3558,14 +3558,13 @@
   {
     "instance": "brewery-diamond",
     "condition": "source_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"STOP_FERMENT\",\n    \"DRAIN_VESSEL\",\n    \"SAMPLE_GRAVITY\",\n    \"RESEED_YEAST\",\n    \"RESTART_BATCH\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"STOP_FERMENT\",\n    \"DRAIN_VESSEL\",\n    \"SAMPLE_GRAVITY\",\n    \"RESEED_YEAST\",\n    \"RESTART_BATCH\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "brewery-diamond",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "STERILISE_LINE",
           "STOP_FERMENT",
           "DRAIN_VESSEL",
           "SAMPLE_GRAVITY",
@@ -3699,7 +3698,7 @@
   {
     "instance": "brewery-diamond",
     "condition": "corruption_only",
-    "plan_text": "{\"actions\": [\"STERILISE_LINE\", \"DRAIN_VESSEL\", \"STOP_FERMENT\", \"RESTART_BATCH\", \"SAMPLE_GRAVITY\"], \"ready\": true}",
+    "plan_text": "{\"actions\": [\"STERILISE_LINE\", \"RESEED_YEAST\", \"STOP_FERMENT\", \"SAMPLE_GRAVITY\", \"RESTART_BATCH\"], \"ready\": true}",
     "score": {
       "instance": "brewery-diamond",
       "plan": {
@@ -3707,27 +3706,27 @@
         "parse_error": null,
         "actions": [
           "STERILISE_LINE",
-          "DRAIN_VESSEL",
+          "RESEED_YEAST",
           "STOP_FERMENT",
-          "RESTART_BATCH",
-          "SAMPLE_GRAVITY"
+          "SAMPLE_GRAVITY",
+          "RESTART_BATCH"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
-          "K3",
-          "K6",
-          "K8"
-        ],
-        "violated": [
           "K2",
           "K4",
           "K5",
-          "K7"
+          "K6",
+          "K7",
+          "K8"
         ],
-        "violations": 4,
-        "constraint_recall": 0.5,
+        "violated": [
+          "K3"
+        ],
+        "violations": 1,
+        "constraint_recall": 0.875,
         "success": false
       },
       "presence": {
@@ -3826,8 +3825,8 @@
       },
       "corruption_susceptibility": {
         "eligible": 2,
-        "adopted": 2,
-        "rate": 1.0
+        "adopted": 0,
+        "rate": 0.0
       },
       "recovery": {
         "eligible": 0,
@@ -3839,30 +3838,30 @@
   {
     "instance": "brewery-diamond",
     "condition": "both",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"DRAIN_VESSEL\",\n    \"STOP_FERMENT\",\n    \"RESTART_BATCH\",\n    \"SAMPLE_GRAVITY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"DRAIN_VESSEL\",\n    \"STOP_FERMENT\",\n    \"RESTART_BATCH\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "brewery-diamond",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
+          "STERILISE_LINE",
           "DRAIN_VESSEL",
           "STOP_FERMENT",
-          "RESTART_BATCH",
-          "SAMPLE_GRAVITY"
+          "RESTART_BATCH"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
           "K3",
-          "K6",
+          "K5",
           "K8"
         ],
         "violated": [
           "K2",
           "K4",
-          "K5",
+          "K6",
           "K7"
         ],
         "violations": 4,
@@ -3987,7 +3986,7 @@
   {
     "instance": "brewery-diamond",
     "condition": "neither",
-    "plan_text": "{\"actions\": [\"STERILISE_LINE\", \"RESEED_YEAST\", \"SAMPLE_GRAVITY\", \"STOP_FERMENT\", \"DRAIN_VESSEL\", \"RESTART_BATCH\"], \"ready\": true}",
+    "plan_text": "{\"actions\": [\"STERILISE_LINE\", \"SAMPLE_GRAVITY\", \"RESEED_YEAST\", \"RESTART_BATCH\"], \"ready\": true}",
     "score": {
       "instance": "brewery-diamond",
       "plan": {
@@ -3995,28 +3994,26 @@
         "parse_error": null,
         "actions": [
           "STERILISE_LINE",
-          "RESEED_YEAST",
           "SAMPLE_GRAVITY",
-          "STOP_FERMENT",
-          "DRAIN_VESSEL",
+          "RESEED_YEAST",
           "RESTART_BATCH"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
-          "K1",
           "K2",
           "K4",
-          "K5",
           "K6",
           "K7",
           "K8"
         ],
         "violated": [
-          "K3"
+          "K1",
+          "K3",
+          "K5"
         ],
-        "violations": 1,
-        "constraint_recall": 0.875,
+        "violations": 3,
+        "constraint_recall": 0.625,
         "success": false
       },
       "presence": {
@@ -4128,7 +4125,7 @@
   {
     "instance": "brewery-diamond",
     "condition": "supersession",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"SAMPLE_GRAVITY\",\n    \"STOP_FERMENT\",\n    \"RESEED_YEAST\",\n    \"DRAIN_VESSEL\",\n    \"RESTART_BATCH\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"SAMPLE_GRAVITY\",\n    \"STOP_FERMENT\",\n    \"DRAIN_VESSEL\",\n    \"RESTART_BATCH\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "brewery-diamond",
       "plan": {
@@ -4138,7 +4135,6 @@
           "STERILISE_LINE",
           "SAMPLE_GRAVITY",
           "STOP_FERMENT",
-          "RESEED_YEAST",
           "DRAIN_VESSEL",
           "RESTART_BATCH"
         ],
@@ -4271,7 +4267,7 @@
   {
     "instance": "brewery-diamond",
     "condition": "faithful_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"SAMPLE_GRAVITY\",\n    \"STOP_FERMENT\",\n    \"RESEED_YEAST\",\n    \"RESTART_BATCH\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "{\"actions\": [\"STERILISE_LINE\", \"SAMPLE_GRAVITY\", \"STOP_FERMENT\", \"RESEED_YEAST\", \"RESTART_BATCH\"], \"ready\": true}",
     "score": {
       "instance": "brewery-diamond",
       "plan": {
@@ -4552,7 +4548,7 @@
   {
     "instance": "brewery-diamond",
     "condition": "both_recovery",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"DRAIN_VESSEL\",\n    \"STOP_FERMENT\",\n    \"RESEED_YEAST\",\n    \"RESTART_BATCH\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"DRAIN_VESSEL\",\n    \"STOP_FERMENT\",\n    \"RESEED_YEAST\",\n    \"RESTART_BATCH\",\n    \"SAMPLE_GRAVITY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "brewery-diamond",
       "plan": {
@@ -4563,7 +4559,8 @@
           "DRAIN_VESSEL",
           "STOP_FERMENT",
           "RESEED_YEAST",
-          "RESTART_BATCH"
+          "RESTART_BATCH",
+          "SAMPLE_GRAVITY"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -4571,16 +4568,16 @@
           "K1",
           "K3",
           "K5",
+          "K6",
           "K8"
         ],
         "violated": [
           "K2",
           "K4",
-          "K6",
           "K7"
         ],
-        "violations": 4,
-        "constraint_recall": 0.5,
+        "violations": 3,
+        "constraint_recall": 0.625,
         "success": false
       },
       "presence": {
@@ -4681,7 +4678,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.8,
+        "direct_source": 1.0,
         "direct_source_n": 5,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -4701,7 +4698,7 @@
   {
     "instance": "brewery-diamond",
     "condition": "mixed",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"SAMPLE_GRAVITY\",\n    \"RESTART_BATCH\",\n    \"DRAIN_VESSEL\",\n    \"RESEED_YEAST\",\n    \"STOP_FERMENT\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"DRAIN_VESSEL\",\n    \"SAMPLE_GRAVITY\",\n    \"STOP_FERMENT\",\n    \"RESEED_YEAST\",\n    \"RESTART_BATCH\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "brewery-diamond",
       "plan": {
@@ -4709,24 +4706,24 @@
         "parse_error": null,
         "actions": [
           "STERILISE_LINE",
-          "SAMPLE_GRAVITY",
-          "RESTART_BATCH",
           "DRAIN_VESSEL",
+          "SAMPLE_GRAVITY",
+          "STOP_FERMENT",
           "RESEED_YEAST",
-          "STOP_FERMENT"
+          "RESTART_BATCH"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
-          "K4",
+          "K3",
           "K6",
           "K7",
           "K8"
         ],
         "violated": [
           "K2",
-          "K3",
+          "K4",
           "K5"
         ],
         "violations": 3,
@@ -4818,16 +4815,15 @@
       },
       "supersession_respected": {
         "eligible": 1,
-        "exercised": 1,
-        "ambiguous": 0,
-        "rate": 1.0
+        "exercised": 0,
+        "ambiguous": 1,
+        "rate": 0.0
       },
       "supersession_collateral": {
         "applicable": true,
-        "violations": 3,
+        "violations": 2,
         "violated": [
           "K2",
-          "K3",
           "K5"
         ]
       },
@@ -4836,14 +4832,14 @@
         "n_corrupted": 2,
         "n_superseded": 1,
         "resisted_corruption": false,
-        "exercised_override": true,
+        "exercised_override": false,
         "correct_both": false,
         "source_reflex": false,
-        "latest_reflex": true,
-        "neither": false
+        "latest_reflex": false,
+        "neither": true
       },
       "utilization": {
-        "direct_source": 0.6,
+        "direct_source": 0.8,
         "direct_source_n": 5,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -4995,7 +4991,7 @@
   {
     "instance": "brewery-twochain",
     "condition": "corruption_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"RESTART_BATCH\",\n    \"SAMPLE_GRAVITY\",\n    \"RESEED_YEAST\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "{\"actions\": [\"STERILISE_LINE\", \"RESEED_YEAST\", \"SAMPLE_GRAVITY\", \"STOP_FERMENT\", \"DRAIN_VESSEL\"], \"ready\": true}",
     "score": {
       "instance": "brewery-twochain",
       "plan": {
@@ -5003,21 +4999,22 @@
         "parse_error": null,
         "actions": [
           "STERILISE_LINE",
-          "RESTART_BATCH",
+          "RESEED_YEAST",
           "SAMPLE_GRAVITY",
-          "RESEED_YEAST"
+          "STOP_FERMENT",
+          "DRAIN_VESSEL"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
+          "K1",
           "K2",
-          "K4",
           "K6",
           "K7"
         ],
         "violated": [
-          "K1",
           "K3",
+          "K4",
           "K5"
         ],
         "violations": 3,
@@ -5112,8 +5109,8 @@
       },
       "corruption_susceptibility": {
         "eligible": 2,
-        "adopted": 1,
-        "rate": 0.5
+        "adopted": 2,
+        "rate": 1.0
       },
       "recovery": {
         "eligible": 0,
@@ -5125,7 +5122,7 @@
   {
     "instance": "brewery-twochain",
     "condition": "both",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"RESTART_BATCH\",\n    \"DRAIN_VESSEL\",\n    \"SAMPLE_GRAVITY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"RESTART_BATCH\",\n    \"SAMPLE_GRAVITY\",\n    \"DRAIN_VESSEL\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "brewery-twochain",
       "plan": {
@@ -5134,8 +5131,8 @@
         "actions": [
           "STERILISE_LINE",
           "RESTART_BATCH",
-          "DRAIN_VESSEL",
-          "SAMPLE_GRAVITY"
+          "SAMPLE_GRAVITY",
+          "DRAIN_VESSEL"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -5264,7 +5261,7 @@
   {
     "instance": "brewery-twochain",
     "condition": "neither",
-    "plan_text": "{\"actions\": [\"STERILISE_LINE\", \"RESEED_YEAST\", \"RESTART_BATCH\", \"SAMPLE_GRAVITY\"], \"ready\": true}",
+    "plan_text": "{\"actions\": [\"STERILISE_LINE\", \"RESEED_YEAST\", \"RESTART_BATCH\"], \"ready\": true}",
     "score": {
       "instance": "brewery-twochain",
       "plan": {
@@ -5273,24 +5270,23 @@
         "actions": [
           "STERILISE_LINE",
           "RESEED_YEAST",
-          "RESTART_BATCH",
-          "SAMPLE_GRAVITY"
+          "RESTART_BATCH"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K2",
           "K4",
-          "K6",
-          "K7"
+          "K6"
         ],
         "violated": [
           "K1",
           "K3",
-          "K5"
+          "K5",
+          "K7"
         ],
-        "violations": 3,
-        "constraint_recall": 0.5714,
+        "violations": 4,
+        "constraint_recall": 0.4286,
         "success": false
       },
       "presence": {
@@ -5394,19 +5390,19 @@
   {
     "instance": "brewery-twochain",
     "condition": "supersession",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"STOP_FERMENT\",\n    \"STERILISE_LINE\",\n    \"RESTART_BATCH\",\n    \"DRAIN_VESSEL\",\n    \"SAMPLE_GRAVITY\",\n    \"RESEED_YEAST\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RESTART_BATCH\",\n    \"STERILISE_LINE\",\n    \"STOP_FERMENT\",\n    \"SAMPLE_GRAVITY\",\n    \"RESEED_YEAST\",\n    \"DRAIN_VESSEL\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "brewery-twochain",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "STOP_FERMENT",
-          "STERILISE_LINE",
           "RESTART_BATCH",
-          "DRAIN_VESSEL",
+          "STERILISE_LINE",
+          "STOP_FERMENT",
           "SAMPLE_GRAVITY",
-          "RESEED_YEAST"
+          "RESEED_YEAST",
+          "DRAIN_VESSEL"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -5415,15 +5411,14 @@
           "K2",
           "K3",
           "K4",
+          "K5",
           "K6",
           "K7"
         ],
-        "violated": [
-          "K5"
-        ],
-        "violations": 1,
-        "constraint_recall": 0.8571,
-        "success": false
+        "violated": [],
+        "violations": 0,
+        "constraint_recall": 1.0,
+        "success": true
       },
       "presence": {
         "K1": {
@@ -5499,16 +5494,14 @@
       },
       "supersession_collateral": {
         "applicable": true,
-        "violations": 1,
-        "violated": [
-          "K5"
-        ]
+        "violations": 0,
+        "violated": []
       },
       "discrimination": {
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.8333,
+        "direct_source": 1.0,
         "direct_source_n": 6,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -5658,7 +5651,7 @@
   {
     "instance": "brewery-twochain",
     "condition": "source_and_faithful",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"RESTART_BATCH\",\n    \"STERILISE_LINE\",\n    \"RESEED_YEAST\",\n    \"STOP_FERMENT\",\n    \"DRAIN_VESSEL\",\n    \"SAMPLE_GRAVITY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RESTART_BATCH\",\n    \"STERILISE_LINE\",\n    \"STOP_FERMENT\",\n    \"RESEED_YEAST\",\n    \"DRAIN_VESSEL\",\n    \"SAMPLE_GRAVITY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "brewery-twochain",
       "plan": {
@@ -5667,8 +5660,8 @@
         "actions": [
           "RESTART_BATCH",
           "STERILISE_LINE",
-          "RESEED_YEAST",
           "STOP_FERMENT",
+          "RESEED_YEAST",
           "DRAIN_VESSEL",
           "SAMPLE_GRAVITY"
         ],
@@ -5677,17 +5670,16 @@
         "satisfied": [
           "K1",
           "K2",
+          "K3",
           "K4",
           "K5",
           "K6",
           "K7"
         ],
-        "violated": [
-          "K3"
-        ],
-        "violations": 1,
-        "constraint_recall": 0.8571,
-        "success": false
+        "violated": [],
+        "violations": 0,
+        "constraint_recall": 1.0,
+        "success": true
       },
       "presence": {
         "K1": {
@@ -5770,7 +5762,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.8333,
+        "direct_source": 1.0,
         "direct_source_n": 6,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -5790,7 +5782,7 @@
   {
     "instance": "brewery-twochain",
     "condition": "both_recovery",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"RESTART_BATCH\",\n    \"STERILISE_LINE\",\n    \"RESTART_BATCH\",\n    \"DRAIN_VESSEL\",\n    \"SAMPLE_GRAVITY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RESTART_BATCH\",\n    \"STERILISE_LINE\",\n    \"RESEED_YEAST\",\n    \"STOP_FERMENT\",\n    \"DRAIN_VESSEL\",\n    \"SAMPLE_GRAVITY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "brewery-twochain",
       "plan": {
@@ -5799,7 +5791,8 @@
         "actions": [
           "RESTART_BATCH",
           "STERILISE_LINE",
-          "RESTART_BATCH",
+          "RESEED_YEAST",
+          "STOP_FERMENT",
           "DRAIN_VESSEL",
           "SAMPLE_GRAVITY"
         ],
@@ -5807,14 +5800,14 @@
         "unknown_actions": [],
         "satisfied": [
           "K1",
-          "K3",
+          "K2",
           "K4",
           "K5",
           "K6",
           "K7"
         ],
         "violated": [
-          "K2"
+          "K3"
         ],
         "violations": 1,
         "constraint_recall": 0.8571,
@@ -5910,7 +5903,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 1.0,
+        "direct_source": 0.75,
         "direct_source_n": 4,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -5930,7 +5923,7 @@
   {
     "instance": "brewery-twochain",
     "condition": "mixed",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"RESTART_BATCH\",\n    \"SAMPLE_GRAVITY\",\n    \"DRAIN_VESSEL\",\n    \"RESEED_YEAST\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"RESTART_BATCH\",\n    \"SAMPLE_GRAVITY\",\n    \"STOP_FERMENT\",\n    \"DRAIN_VESSEL\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "brewery-twochain",
       "plan": {
@@ -5940,24 +5933,24 @@
           "STERILISE_LINE",
           "RESTART_BATCH",
           "SAMPLE_GRAVITY",
-          "DRAIN_VESSEL",
-          "RESEED_YEAST"
+          "STOP_FERMENT",
+          "DRAIN_VESSEL"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
+          "K2",
+          "K3",
           "K4",
           "K6",
           "K7"
         ],
         "violated": [
-          "K2",
-          "K3",
           "K5"
         ],
-        "violations": 3,
-        "constraint_recall": 0.5714,
+        "violations": 1,
+        "constraint_recall": 0.8571,
         "success": false
       },
       "presence": {
@@ -6037,15 +6030,14 @@
       },
       "supersession_respected": {
         "eligible": 1,
-        "exercised": 0,
-        "ambiguous": 1,
-        "rate": 0.0
+        "exercised": 1,
+        "ambiguous": 0,
+        "rate": 1.0
       },
       "supersession_collateral": {
         "applicable": true,
-        "violations": 2,
+        "violations": 1,
         "violated": [
-          "K3",
           "K5"
         ]
       },
@@ -6054,14 +6046,14 @@
         "n_corrupted": 2,
         "n_superseded": 1,
         "resisted_corruption": false,
-        "exercised_override": false,
+        "exercised_override": true,
         "correct_both": false,
         "source_reflex": false,
-        "latest_reflex": false,
-        "neither": true
+        "latest_reflex": true,
+        "neither": false
       },
       "utilization": {
-        "direct_source": 0.75,
+        "direct_source": 1.0,
         "direct_source_n": 4,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -6081,7 +6073,7 @@
   {
     "instance": "brewery-star",
     "condition": "source_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"DRAIN_VESSEL\",\n    \"RESTART_BATCH\",\n    \"SAMPLE_GRAVITY\",\n    \"RESEED_YEAST\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"DRAIN_VESSEL\",\n    \"RESEED_YEAST\",\n    \"SAMPLE_GRAVITY\",\n    \"RESTART_BATCH\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "brewery-star",
       "plan": {
@@ -6090,9 +6082,9 @@
         "actions": [
           "STERILISE_LINE",
           "DRAIN_VESSEL",
-          "RESTART_BATCH",
+          "RESEED_YEAST",
           "SAMPLE_GRAVITY",
-          "RESEED_YEAST"
+          "RESTART_BATCH"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -6212,7 +6204,7 @@
   {
     "instance": "brewery-star",
     "condition": "corruption_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"STOP_FERMENT\",\n    \"STERILISE_LINE\",\n    \"SAMPLE_GRAVITY\",\n    \"RESEED_YEAST\",\n    \"DRAIN_VESSEL\",\n    \"RESTART_BATCH\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "{\"actions\": [\"STOP_FERMENT\", \"STERILISE_LINE\", \"SAMPLE_GRAVITY\", \"RESEED_YEAST\", \"DRAIN_VESSEL\"], \"ready\": true}",
     "score": {
       "instance": "brewery-star",
       "plan": {
@@ -6223,8 +6215,7 @@
           "STERILISE_LINE",
           "SAMPLE_GRAVITY",
           "RESEED_YEAST",
-          "DRAIN_VESSEL",
-          "RESTART_BATCH"
+          "DRAIN_VESSEL"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -6344,7 +6335,7 @@
   {
     "instance": "brewery-star",
     "condition": "both",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"STOP_FERMENT\",\n    \"STERILISE_LINE\",\n    \"DRAIN_VESSEL\",\n    \"RESTART_BATCH\",\n    \"SAMPLE_GRAVITY\",\n    \"RESEED_YEAST\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"STOP_FERMENT\",\n    \"STERILISE_LINE\",\n    \"DRAIN_VESSEL\",\n    \"RESEED_YEAST\",\n    \"SAMPLE_GRAVITY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "brewery-star",
       "plan": {
@@ -6354,9 +6345,8 @@
           "STOP_FERMENT",
           "STERILISE_LINE",
           "DRAIN_VESSEL",
-          "RESTART_BATCH",
-          "SAMPLE_GRAVITY",
-          "RESEED_YEAST"
+          "RESEED_YEAST",
+          "SAMPLE_GRAVITY"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -6485,7 +6475,7 @@
   {
     "instance": "brewery-star",
     "condition": "neither",
-    "plan_text": "{\"actions\": [\"STERILISE_LINE\", \"RESEED_YEAST\", \"RESTART_BATCH\"], \"ready\": true}",
+    "plan_text": "{\"actions\": [\"STERILISE_LINE\", \"SAMPLE_GRAVITY\", \"RESEED_YEAST\", \"RESTART_BATCH\"], \"ready\": true}",
     "score": {
       "instance": "brewery-star",
       "plan": {
@@ -6493,6 +6483,7 @@
         "parse_error": null,
         "actions": [
           "STERILISE_LINE",
+          "SAMPLE_GRAVITY",
           "RESEED_YEAST",
           "RESTART_BATCH"
         ],
@@ -6502,15 +6493,15 @@
           "K1",
           "K3",
           "K4",
-          "K5"
+          "K5",
+          "K7"
         ],
         "violated": [
           "K2",
-          "K6",
-          "K7"
+          "K6"
         ],
-        "violations": 3,
-        "constraint_recall": 0.5714,
+        "violations": 2,
+        "constraint_recall": 0.7143,
         "success": false
       },
       "presence": {
@@ -6614,7 +6605,7 @@
   {
     "instance": "brewery-star",
     "condition": "supersession",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"DRAIN_VESSEL\",\n    \"STERILISE_LINE\",\n    \"SAMPLE_GRAVITY\",\n    \"RESTART_BATCH\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"DRAIN_VESSEL\",\n    \"STERILISE_LINE\",\n    \"SAMPLE_GRAVITY\",\n    \"RESEED_YEAST\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "brewery-star",
       "plan": {
@@ -6624,7 +6615,7 @@
           "DRAIN_VESSEL",
           "STERILISE_LINE",
           "SAMPLE_GRAVITY",
-          "RESTART_BATCH"
+          "RESEED_YEAST"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -6743,7 +6734,7 @@
   {
     "instance": "brewery-star",
     "condition": "faithful_only",
-    "plan_text": "{\"actions\": [\"STERILISE_LINE\", \"RESEED_YEAST\", \"SAMPLE_GRAVITY\", \"STOP_FERMENT\"], \"ready\": true}",
+    "plan_text": "{\"actions\": [\"STERILISE_LINE\", \"SAMPLE_GRAVITY\", \"RESEED_YEAST\", \"RESTART_BATCH\"], \"ready\": true}",
     "score": {
       "instance": "brewery-star",
       "plan": {
@@ -6751,9 +6742,9 @@
         "parse_error": null,
         "actions": [
           "STERILISE_LINE",
-          "RESEED_YEAST",
           "SAMPLE_GRAVITY",
-          "STOP_FERMENT"
+          "RESEED_YEAST",
+          "RESTART_BATCH"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -6873,7 +6864,7 @@
   {
     "instance": "brewery-star",
     "condition": "source_and_faithful",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"DRAIN_VESSEL\",\n    \"SAMPLE_GRAVITY\",\n    \"RESEED_YEAST\",\n    \"RESTART_BATCH\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"DRAIN_VESSEL\",\n    \"RESEED_YEAST\",\n    \"SAMPLE_GRAVITY\",\n    \"RESTART_BATCH\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "brewery-star",
       "plan": {
@@ -6882,8 +6873,8 @@
         "actions": [
           "STERILISE_LINE",
           "DRAIN_VESSEL",
-          "SAMPLE_GRAVITY",
           "RESEED_YEAST",
+          "SAMPLE_GRAVITY",
           "RESTART_BATCH"
         ],
         "ready": true,
@@ -7004,7 +6995,7 @@
   {
     "instance": "brewery-star",
     "condition": "both_recovery",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"DRAIN_VESSEL\",\n    \"RESTART_BATCH\",\n    \"RESEED_YEAST\",\n    \"SAMPLE_GRAVITY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"RESEED_YEAST\",\n    \"STOP_FERMENT\",\n    \"DRAIN_VESSEL\",\n    \"SAMPLE_GRAVITY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "brewery-star",
       "plan": {
@@ -7012,9 +7003,9 @@
         "parse_error": null,
         "actions": [
           "STERILISE_LINE",
-          "DRAIN_VESSEL",
-          "RESTART_BATCH",
           "RESEED_YEAST",
+          "STOP_FERMENT",
+          "DRAIN_VESSEL",
           "SAMPLE_GRAVITY"
         ],
         "ready": true,
@@ -7144,7 +7135,7 @@
   {
     "instance": "brewery-star",
     "condition": "mixed",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"DRAIN_VESSEL\",\n    \"STERILISE_LINE\",\n    \"RESEED_YEAST\",\n    \"SAMPLE_GRAVITY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"DRAIN_VESSEL\",\n    \"RESTART_BATCH\",\n    \"STERILISE_LINE\",\n    \"SAMPLE_GRAVITY\",\n    \"RESEED_YEAST\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "brewery-star",
       "plan": {
@@ -7152,9 +7143,10 @@
         "parse_error": null,
         "actions": [
           "DRAIN_VESSEL",
+          "RESTART_BATCH",
           "STERILISE_LINE",
-          "RESEED_YEAST",
-          "SAMPLE_GRAVITY"
+          "SAMPLE_GRAVITY",
+          "RESEED_YEAST"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -7412,34 +7404,31 @@
   {
     "instance": "rail-chain",
     "condition": "corruption_only",
-    "plan_text": "{\"actions\": [\n  \"TEST_INTERLOCK\",\n  \"INSPECT_POINTS\",\n  \"BLOCK_SECTION\",\n  \"GROUND_CATENARY\",\n  \"REPLACE_RELAY\",\n  \"CLEAR_SECTION\"\n], \n\"ready\": true}",
+    "plan_text": "{\"actions\": [\"INSPECT_POINTS\", \"TEST_INTERLOCK\", \"BLOCK_SECTION\"], \"ready\": true}",
     "score": {
       "instance": "rail-chain",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "TEST_INTERLOCK",
           "INSPECT_POINTS",
-          "BLOCK_SECTION",
-          "GROUND_CATENARY",
-          "REPLACE_RELAY",
-          "CLEAR_SECTION"
+          "TEST_INTERLOCK",
+          "BLOCK_SECTION"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
-          "K1",
           "K2",
-          "K4",
-          "K5",
-          "K6"
+          "K5"
         ],
         "violated": [
-          "K3"
+          "K1",
+          "K3",
+          "K4",
+          "K6"
         ],
-        "violations": 1,
-        "constraint_recall": 0.8333,
+        "violations": 4,
+        "constraint_recall": 0.3333,
         "success": false
       },
       "presence": {
@@ -7522,8 +7511,8 @@
       },
       "corruption_susceptibility": {
         "eligible": 2,
-        "adopted": 1,
-        "rate": 0.5
+        "adopted": 2,
+        "rate": 1.0
       },
       "recovery": {
         "eligible": 0,
@@ -7535,7 +7524,7 @@
   {
     "instance": "rail-chain",
     "condition": "both",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"REPLACE_RELAY\",\n    \"INSPECT_POINTS\",\n    \"TEST_INTERLOCK\",\n    \"BLOCK_SECTION\",\n    \"GROUND_CATENARY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"REPLACE_RELAY\",\n    \"INSPECT_POINTS\",\n    \"GROUND_CATENARY\",\n    \"TEST_INTERLOCK\",\n    \"BLOCK_SECTION\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "rail-chain",
       "plan": {
@@ -7544,9 +7533,9 @@
         "actions": [
           "REPLACE_RELAY",
           "INSPECT_POINTS",
+          "GROUND_CATENARY",
           "TEST_INTERLOCK",
-          "BLOCK_SECTION",
-          "GROUND_CATENARY"
+          "BLOCK_SECTION"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -7785,7 +7774,7 @@
   {
     "instance": "rail-chain",
     "condition": "supersession",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"BLOCK_SECTION\",\n    \"REPLACE_RELAY\",\n    \"INSPECT_POINTS\",\n    \"GROUND_CATENARY\",\n    \"TEST_INTERLOCK\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"BLOCK_SECTION\",\n    \"REPLACE_RELAY\",\n    \"GROUND_CATENARY\",\n    \"INSPECT_POINTS\",\n    \"TEST_INTERLOCK\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "rail-chain",
       "plan": {
@@ -7794,8 +7783,8 @@
         "actions": [
           "BLOCK_SECTION",
           "REPLACE_RELAY",
-          "INSPECT_POINTS",
           "GROUND_CATENARY",
+          "INSPECT_POINTS",
           "TEST_INTERLOCK"
         ],
         "ready": true,
@@ -7804,14 +7793,14 @@
           "K1",
           "K2",
           "K3",
-          "K5",
           "K6"
         ],
         "violated": [
-          "K4"
+          "K4",
+          "K5"
         ],
-        "violations": 1,
-        "constraint_recall": 0.8333,
+        "violations": 2,
+        "constraint_recall": 0.6667,
         "success": false
       },
       "presence": {
@@ -7880,16 +7869,17 @@
       },
       "supersession_collateral": {
         "applicable": true,
-        "violations": 1,
+        "violations": 2,
         "violated": [
-          "K4"
+          "K4",
+          "K5"
         ]
       },
       "discrimination": {
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.8,
+        "direct_source": 0.6,
         "direct_source_n": 5,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -8281,7 +8271,7 @@
   {
     "instance": "rail-chain",
     "condition": "mixed",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"BLOCK_SECTION\",\n    \"REPLACE_RELAY\",\n    \"INSPECT_POINTS\",\n    \"GROUND_CATENARY\",\n    \"TEST_INTERLOCK\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"BLOCK_SECTION\",\n    \"REPLACE_RELAY\",\n    \"INSPECT_POINTS\",\n    \"TEST_INTERLOCK\",\n    \"GROUND_CATENARY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "rail-chain",
       "plan": {
@@ -8291,8 +8281,8 @@
           "BLOCK_SECTION",
           "REPLACE_RELAY",
           "INSPECT_POINTS",
-          "GROUND_CATENARY",
-          "TEST_INTERLOCK"
+          "TEST_INTERLOCK",
+          "GROUND_CATENARY"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -8422,7 +8412,7 @@
   {
     "instance": "rail-fork",
     "condition": "source_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"REPLACE_RELAY\",\n    \"BLOCK_SECTION\",\n    \"GROUND_CATENARY\",\n    \"TEST_INTERLOCK\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "{\"actions\": [\"REPLACE_RELAY\", \"BLOCK_SECTION\", \"GROUND_CATENARY\", \"TEST_INTERLOCK\"], \"ready\": true}",
     "score": {
       "instance": "rail-fork",
       "plan": {
@@ -8821,7 +8811,7 @@
   {
     "instance": "rail-fork",
     "condition": "neither",
-    "plan_text": "{\"actions\": [\n  \"TEST_INTERLOCK\",\n  \"INSPECT_POINTS\",\n  \"BLOCK_SECTION\",\n  \"REPLACE_RELAY\",\n  \"CLEAR_SECTION\"\n], \n\"ready\": true}",
+    "plan_text": "{\"actions\": [\"TEST_INTERLOCK\", \"BLOCK_SECTION\", \"GROUND_CATENARY\"], \"ready\": true}",
     "score": {
       "instance": "rail-fork",
       "plan": {
@@ -8829,26 +8819,24 @@
         "parse_error": null,
         "actions": [
           "TEST_INTERLOCK",
-          "INSPECT_POINTS",
           "BLOCK_SECTION",
-          "REPLACE_RELAY",
-          "CLEAR_SECTION"
+          "GROUND_CATENARY"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
-          "K1",
-          "K2",
           "K5",
           "K6",
           "K7"
         ],
         "violated": [
+          "K1",
+          "K2",
           "K3",
           "K4"
         ],
-        "violations": 2,
-        "constraint_recall": 0.7143,
+        "violations": 4,
+        "constraint_recall": 0.4286,
         "success": false
       },
       "presence": {
@@ -8952,7 +8940,7 @@
   {
     "instance": "rail-fork",
     "condition": "supersession",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"REPLACE_RELAY\",\n    \"TEST_INTERLOCK\",\n    \"BLOCK_SECTION\",\n    \"GROUND_CATENARY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"REPLACE_RELAY\",\n    \"TEST_INTERLOCK\",\n    \"GROUND_CATENARY\",\n    \"BLOCK_SECTION\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "rail-fork",
       "plan": {
@@ -8961,8 +8949,8 @@
         "actions": [
           "REPLACE_RELAY",
           "TEST_INTERLOCK",
-          "BLOCK_SECTION",
-          "GROUND_CATENARY"
+          "GROUND_CATENARY",
+          "BLOCK_SECTION"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -9483,7 +9471,7 @@
   {
     "instance": "rail-fork",
     "condition": "mixed",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"REPLACE_RELAY\",\n    \"TEST_INTERLOCK\",\n    \"BLOCK_SECTION\",\n    \"GROUND_CATENARY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"REPLACE_RELAY\",\n    \"GROUND_CATENARY\",\n    \"TEST_INTERLOCK\",\n    \"BLOCK_SECTION\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "rail-fork",
       "plan": {
@@ -9491,9 +9479,9 @@
         "parse_error": null,
         "actions": [
           "REPLACE_RELAY",
+          "GROUND_CATENARY",
           "TEST_INTERLOCK",
-          "BLOCK_SECTION",
-          "GROUND_CATENARY"
+          "BLOCK_SECTION"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -9501,16 +9489,15 @@
           "K1",
           "K2",
           "K3",
+          "K4",
           "K5",
           "K6",
           "K7"
         ],
-        "violated": [
-          "K4"
-        ],
-        "violations": 1,
-        "constraint_recall": 0.8571,
-        "success": false
+        "violated": [],
+        "violations": 0,
+        "constraint_recall": 1.0,
+        "success": true
       },
       "presence": {
         "K1": {
@@ -9595,10 +9582,8 @@
       },
       "supersession_collateral": {
         "applicable": true,
-        "violations": 1,
-        "violated": [
-          "K4"
-        ]
+        "violations": 0,
+        "violated": []
       },
       "discrimination": {
         "applicable": true,
@@ -9612,7 +9597,7 @@
         "neither": false
       },
       "utilization": {
-        "direct_source": 0.75,
+        "direct_source": 1.0,
         "direct_source_n": 4,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -9632,7 +9617,7 @@
   {
     "instance": "rail-join",
     "condition": "source_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"TEST_INTERLOCK\",\n    \"REPLACE_RELAY\",\n    \"CLEAR_SECTION\",\n    \"INSPECT_POINTS\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"TEST_INTERLOCK\",\n    \"CLEAR_SECTION\",\n    \"INSPECT_POINTS\",\n    \"REPLACE_RELAY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "rail-join",
       "plan": {
@@ -9640,26 +9625,25 @@
         "parse_error": null,
         "actions": [
           "TEST_INTERLOCK",
-          "REPLACE_RELAY",
           "CLEAR_SECTION",
-          "INSPECT_POINTS"
+          "INSPECT_POINTS",
+          "REPLACE_RELAY"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
           "K2",
+          "K3",
           "K4",
           "K5",
           "K6",
           "K7"
         ],
-        "violated": [
-          "K3"
-        ],
-        "violations": 1,
-        "constraint_recall": 0.8571,
-        "success": false
+        "violated": [],
+        "violations": 0,
+        "constraint_recall": 1.0,
+        "success": true
       },
       "presence": {
         "K1": {
@@ -9762,7 +9746,7 @@
   {
     "instance": "rail-join",
     "condition": "corruption_only",
-    "plan_text": "{\"actions\": [\n  \"TEST_INTERLOCK\",\n  \"INSPECT_POINTS\",\n  \"CLEAR_SECTION\",\n  \"GROUND_CATENARY\"\n], \n\"ready\": true}",
+    "plan_text": "{\"actions\": [\"TEST_INTERLOCK\", \"INSPECT_POINTS\", \"CLEAR_SECTION\"], \"ready\": true}",
     "score": {
       "instance": "rail-join",
       "plan": {
@@ -9771,8 +9755,7 @@
         "actions": [
           "TEST_INTERLOCK",
           "INSPECT_POINTS",
-          "CLEAR_SECTION",
-          "GROUND_CATENARY"
+          "CLEAR_SECTION"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -9892,7 +9875,7 @@
   {
     "instance": "rail-join",
     "condition": "both",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"TEST_INTERLOCK\",\n    \"REPLACE_RELAY\",\n    \"BLOCK_SECTION\",\n    \"INSPECT_POINTS\",\n    \"CLEAR_SECTION\"\n  ],\n  \"ready\": false\n}\n```",
+    "plan_text": "{\"actions\": [\n  \"TEST_INTERLOCK\",\n  \"INSPECT_POINTS\",\n  \"CLEAR_SECTION\",\n  \"REPLACE_RELAY\"\n], \n\"ready\": true}",
     "score": {
       "instance": "rail-join",
       "plan": {
@@ -9900,26 +9883,25 @@
         "parse_error": null,
         "actions": [
           "TEST_INTERLOCK",
-          "REPLACE_RELAY",
-          "BLOCK_SECTION",
           "INSPECT_POINTS",
-          "CLEAR_SECTION"
+          "CLEAR_SECTION",
+          "REPLACE_RELAY"
         ],
-        "ready": false,
+        "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
           "K2",
-          "K4",
-          "K6"
-        ],
-        "violated": [
           "K3",
-          "K5",
+          "K4",
+          "K6",
           "K7"
         ],
-        "violations": 3,
-        "constraint_recall": 0.5714,
+        "violated": [
+          "K5"
+        ],
+        "violations": 1,
+        "constraint_recall": 0.8571,
         "success": false
       },
       "presence": {
@@ -10012,7 +9994,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.75,
+        "direct_source": 1.0,
         "direct_source_n": 4,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -10032,7 +10014,7 @@
   {
     "instance": "rail-join",
     "condition": "neither",
-    "plan_text": "{\"actions\": [\n  \"TEST_INTERLOCK\",\n  \"INSPECT_POINTS\",\n  \"REPLACE_RELAY\",\n  \"BLOCK_SECTION\",\n  \"GROUND_CATENARY\",\n  \"CLEAR_SECTION\"\n], \n\"ready\": true}",
+    "plan_text": "{\"actions\": [\"TEST_INTERLOCK\", \"INSPECT_POINTS\"], \"ready\": true}",
     "score": {
       "instance": "rail-join",
       "plan": {
@@ -10040,23 +10022,19 @@
         "parse_error": null,
         "actions": [
           "TEST_INTERLOCK",
-          "INSPECT_POINTS",
-          "REPLACE_RELAY",
-          "BLOCK_SECTION",
-          "GROUND_CATENARY",
-          "CLEAR_SECTION"
+          "INSPECT_POINTS"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
-          "K1",
           "K2",
+          "K3",
           "K4",
           "K6",
           "K7"
         ],
         "violated": [
-          "K3",
+          "K1",
           "K5"
         ],
         "violations": 2,
@@ -10164,7 +10142,7 @@
   {
     "instance": "rail-join",
     "condition": "supersession",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"TEST_INTERLOCK\",\n    \"CLEAR_SECTION\",\n    \"REPLACE_RELAY\",\n    \"INSPECT_POINTS\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"TEST_INTERLOCK\",\n    \"CLEAR_SECTION\",\n    \"INSPECT_POINTS\",\n    \"REPLACE_RELAY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "rail-join",
       "plan": {
@@ -10173,8 +10151,8 @@
         "actions": [
           "TEST_INTERLOCK",
           "CLEAR_SECTION",
-          "REPLACE_RELAY",
-          "INSPECT_POINTS"
+          "INSPECT_POINTS",
+          "REPLACE_RELAY"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -10553,33 +10531,35 @@
   {
     "instance": "rail-join",
     "condition": "both_recovery",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"TEST_INTERLOCK\",\n    \"CLEAR_SECTION\",\n    \"REPLACE_RELAY\",\n    \"INSPECT_POINTS\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"REPLACE_RELAY\",\n    \"CLEAR_SECTION\",\n    \"TEST_INTERLOCK\",\n    \"INSPECT_POINTS\",\n    \"GROUND_CATENARY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "rail-join",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "TEST_INTERLOCK",
-          "CLEAR_SECTION",
           "REPLACE_RELAY",
-          "INSPECT_POINTS"
+          "CLEAR_SECTION",
+          "TEST_INTERLOCK",
+          "INSPECT_POINTS",
+          "GROUND_CATENARY"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
           "K2",
-          "K3",
-          "K4",
           "K5",
           "K6",
           "K7"
         ],
-        "violated": [],
-        "violations": 0,
-        "constraint_recall": 1.0,
-        "success": true
+        "violated": [
+          "K3",
+          "K4"
+        ],
+        "violations": 2,
+        "constraint_recall": 0.7143,
+        "success": false
       },
       "presence": {
         "K1": {
@@ -10671,7 +10651,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 1.0,
+        "direct_source": 0.75,
         "direct_source_n": 4,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -10691,7 +10671,7 @@
   {
     "instance": "rail-join",
     "condition": "mixed",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"TEST_INTERLOCK\",\n    \"CLEAR_SECTION\",\n    \"REPLACE_RELAY\",\n    \"INSPECT_POINTS\"\n  ],\n  \"ready\": false\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"TEST_INTERLOCK\",\n    \"INSPECT_POINTS\",\n    \"CLEAR_SECTION\",\n    \"REPLACE_RELAY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "rail-join",
       "plan": {
@@ -10699,24 +10679,25 @@
         "parse_error": null,
         "actions": [
           "TEST_INTERLOCK",
+          "INSPECT_POINTS",
           "CLEAR_SECTION",
-          "REPLACE_RELAY",
-          "INSPECT_POINTS"
+          "REPLACE_RELAY"
         ],
-        "ready": false,
+        "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
           "K2",
           "K3",
           "K4",
-          "K5",
           "K6",
           "K7"
         ],
-        "violated": [],
-        "violations": 0,
-        "constraint_recall": 1.0,
+        "violated": [
+          "K5"
+        ],
+        "violations": 1,
+        "constraint_recall": 0.8571,
         "success": false
       },
       "presence": {
@@ -10779,14 +10760,14 @@
       },
       "decision_authority_inversion": {
         "eligible": 2,
-        "follows_source": 2,
-        "follows_corruption": 0,
+        "follows_source": 1,
+        "follows_corruption": 1,
         "follows_neither": 0,
-        "rate": 0.0,
+        "rate": 0.5,
         "detail": [
           {
             "constraint": "K5",
-            "outcome": "source"
+            "outcome": "corruption"
           },
           {
             "constraint": "K6",
@@ -10802,18 +10783,20 @@
       },
       "supersession_collateral": {
         "applicable": true,
-        "violations": 0,
-        "violated": []
+        "violations": 1,
+        "violated": [
+          "K5"
+        ]
       },
       "discrimination": {
         "applicable": true,
         "n_corrupted": 2,
         "n_superseded": 1,
-        "resisted_corruption": true,
+        "resisted_corruption": false,
         "exercised_override": true,
-        "correct_both": true,
+        "correct_both": false,
         "source_reflex": false,
-        "latest_reflex": false,
+        "latest_reflex": true,
         "neither": false
       },
       "utilization": {
@@ -10976,7 +10959,7 @@
   {
     "instance": "rail-diamond",
     "condition": "corruption_only",
-    "plan_text": "{\"actions\": [\"INSPECT_POINTS\", \"REPLACE_RELAY\", \"BLOCK_SECTION\"], \"ready\": true}",
+    "plan_text": "{\"actions\": [\"INSPECT_POINTS\", \"REPLACE_RELAY\", \"GROUND_CATENARY\"], \"ready\": true}",
     "score": {
       "instance": "rail-diamond",
       "plan": {
@@ -10985,24 +10968,24 @@
         "actions": [
           "INSPECT_POINTS",
           "REPLACE_RELAY",
-          "BLOCK_SECTION"
+          "GROUND_CATENARY"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
+          "K1",
+          "K2",
           "K3",
           "K5",
           "K6",
           "K8"
         ],
         "violated": [
-          "K1",
-          "K2",
           "K4",
           "K7"
         ],
-        "violations": 4,
-        "constraint_recall": 0.5,
+        "violations": 2,
+        "constraint_recall": 0.75,
         "success": false
       },
       "presence": {
@@ -11101,8 +11084,8 @@
       },
       "corruption_susceptibility": {
         "eligible": 2,
-        "adopted": 2,
-        "rate": 1.0
+        "adopted": 1,
+        "rate": 0.5
       },
       "recovery": {
         "eligible": 0,
@@ -11114,7 +11097,7 @@
   {
     "instance": "rail-diamond",
     "condition": "both",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"GROUND_CATENARY\",\n    \"BLOCK_SECTION\",\n    \"INSPECT_POINTS\",\n    \"REPLACE_RELAY\",\n    \"CLEAR_SECTION\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"GROUND_CATENARY\",\n    \"BLOCK_SECTION\",\n    \"TEST_INTERLOCK\",\n    \"INSPECT_POINTS\",\n    \"REPLACE_RELAY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "rail-diamond",
       "plan": {
@@ -11123,9 +11106,9 @@
         "actions": [
           "GROUND_CATENARY",
           "BLOCK_SECTION",
+          "TEST_INTERLOCK",
           "INSPECT_POINTS",
-          "REPLACE_RELAY",
-          "CLEAR_SECTION"
+          "REPLACE_RELAY"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -11263,7 +11246,7 @@
   {
     "instance": "rail-diamond",
     "condition": "neither",
-    "plan_text": "{\"actions\": [\"TEST_INTERLOCK\", \"BLOCK_SECTION\"], \"ready\": true}",
+    "plan_text": "{\"actions\": [\"TEST_INTERLOCK\", \"REPLACE_RELAY\", \"GROUND_CATENARY\", \"INSPECT_POINTS\"], \"ready\": true}",
     "score": {
       "instance": "rail-diamond",
       "plan": {
@@ -11271,24 +11254,26 @@
         "parse_error": null,
         "actions": [
           "TEST_INTERLOCK",
-          "BLOCK_SECTION"
+          "REPLACE_RELAY",
+          "GROUND_CATENARY",
+          "INSPECT_POINTS"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
-          "K3",
-          "K4",
-          "K5",
-          "K7"
-        ],
-        "violated": [
           "K1",
           "K2",
+          "K3",
+          "K5",
           "K6",
+          "K7",
           "K8"
         ],
-        "violations": 4,
-        "constraint_recall": 0.5,
+        "violated": [
+          "K4"
+        ],
+        "violations": 1,
+        "constraint_recall": 0.875,
         "success": false
       },
       "presence": {
@@ -11400,17 +11385,17 @@
   {
     "instance": "rail-diamond",
     "condition": "supersession",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"REPLACE_RELAY\",\n    \"GROUND_CATENARY\",\n    \"BLOCK_SECTION\",\n    \"TEST_INTERLOCK\",\n    \"INSPECT_POINTS\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"GROUND_CATENARY\",\n    \"BLOCK_SECTION\",\n    \"REPLACE_RELAY\",\n    \"CLEAR_SECTION\",\n    \"INSPECT_POINTS\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "rail-diamond",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "REPLACE_RELAY",
           "GROUND_CATENARY",
           "BLOCK_SECTION",
-          "TEST_INTERLOCK",
+          "REPLACE_RELAY",
+          "CLEAR_SECTION",
           "INSPECT_POINTS"
         ],
         "ready": true,
@@ -11419,17 +11404,16 @@
           "K1",
           "K2",
           "K3",
+          "K4",
           "K5",
           "K6",
           "K7",
           "K8"
         ],
-        "violated": [
-          "K4"
-        ],
-        "violations": 1,
-        "constraint_recall": 0.875,
-        "success": false
+        "violated": [],
+        "violations": 0,
+        "constraint_recall": 1.0,
+        "success": true
       },
       "presence": {
         "K1": {
@@ -11513,16 +11497,14 @@
       },
       "supersession_collateral": {
         "applicable": true,
-        "violations": 1,
-        "violated": [
-          "K4"
-        ]
+        "violations": 0,
+        "violated": []
       },
       "discrimination": {
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.8571,
+        "direct_source": 1.0,
         "direct_source_n": 7,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -11542,36 +11524,33 @@
   {
     "instance": "rail-diamond",
     "condition": "faithful_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"BLOCK_SECTION\",\n    \"REPLACE_RELAY\",\n    \"TEST_INTERLOCK\",\n    \"CLEAR_SECTION\",\n    \"GROUND_CATENARY\",\n    \"INSPECT_POINTS\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "{\"actions\": [\"REPLACE_RELAY\", \"BLOCK_SECTION\", \"GROUND_CATENARY\"], \"ready\": true}",
     "score": {
       "instance": "rail-diamond",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "BLOCK_SECTION",
           "REPLACE_RELAY",
-          "TEST_INTERLOCK",
-          "CLEAR_SECTION",
-          "GROUND_CATENARY",
-          "INSPECT_POINTS"
+          "BLOCK_SECTION",
+          "GROUND_CATENARY"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
-          "K4",
+          "K3",
           "K5",
           "K6",
-          "K7",
-          "K8"
+          "K7"
         ],
         "violated": [
           "K2",
-          "K3"
+          "K4",
+          "K8"
         ],
-        "violations": 2,
-        "constraint_recall": 0.75,
+        "violations": 3,
+        "constraint_recall": 0.625,
         "success": false
       },
       "presence": {
@@ -11665,7 +11644,7 @@
       "utilization": {
         "direct_source": null,
         "direct_source_n": 0,
-        "faithful_relay": 1.0,
+        "faithful_relay": 0.0,
         "faithful_relay_n": 1
       },
       "corruption_susceptibility": {
@@ -11683,7 +11662,7 @@
   {
     "instance": "rail-diamond",
     "condition": "source_and_faithful",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"GROUND_CATENARY\",\n    \"BLOCK_SECTION\",\n    \"REPLACE_RELAY\",\n    \"TEST_INTERLOCK\",\n    \"INSPECT_POINTS\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"GROUND_CATENARY\",\n    \"BLOCK_SECTION\",\n    \"REPLACE_RELAY\",\n    \"INSPECT_POINTS\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "rail-diamond",
       "plan": {
@@ -11693,7 +11672,6 @@
           "GROUND_CATENARY",
           "BLOCK_SECTION",
           "REPLACE_RELAY",
-          "TEST_INTERLOCK",
           "INSPECT_POINTS"
         ],
         "ready": true,
@@ -11822,7 +11800,7 @@
   {
     "instance": "rail-diamond",
     "condition": "both_recovery",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"GROUND_CATENARY\",\n    \"BLOCK_SECTION\",\n    \"INSPECT_POINTS\",\n    \"REPLACE_RELAY\",\n    \"CLEAR_SECTION\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"GROUND_CATENARY\",\n    \"BLOCK_SECTION\",\n    \"REPLACE_RELAY\",\n    \"INSPECT_POINTS\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "rail-diamond",
       "plan": {
@@ -11831,9 +11809,8 @@
         "actions": [
           "GROUND_CATENARY",
           "BLOCK_SECTION",
-          "INSPECT_POINTS",
           "REPLACE_RELAY",
-          "CLEAR_SECTION"
+          "INSPECT_POINTS"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -11844,14 +11821,13 @@
           "K4",
           "K5",
           "K6",
+          "K7",
           "K8"
         ],
-        "violated": [
-          "K7"
-        ],
-        "violations": 1,
-        "constraint_recall": 0.875,
-        "success": false
+        "violated": [],
+        "violations": 0,
+        "constraint_recall": 1.0,
+        "success": true
       },
       "presence": {
         "K1": {
@@ -11921,10 +11897,10 @@
       },
       "decision_authority_inversion": {
         "eligible": 2,
-        "follows_source": 1,
-        "follows_corruption": 1,
+        "follows_source": 2,
+        "follows_corruption": 0,
         "follows_neither": 0,
-        "rate": 0.5,
+        "rate": 0.0,
         "detail": [
           {
             "constraint": "K1",
@@ -11932,7 +11908,7 @@
           },
           {
             "constraint": "K7",
-            "outcome": "corruption"
+            "outcome": "source"
           }
         ]
       },
@@ -11971,7 +11947,7 @@
   {
     "instance": "rail-diamond",
     "condition": "mixed",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"GROUND_CATENARY\",\n    \"REPLACE_RELAY\",\n    \"BLOCK_SECTION\",\n    \"INSPECT_POINTS\",\n    \"CLEAR_SECTION\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"GROUND_CATENARY\",\n    \"BLOCK_SECTION\",\n    \"REPLACE_RELAY\",\n    \"INSPECT_POINTS\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "rail-diamond",
       "plan": {
@@ -11979,10 +11955,9 @@
         "parse_error": null,
         "actions": [
           "GROUND_CATENARY",
-          "REPLACE_RELAY",
           "BLOCK_SECTION",
-          "INSPECT_POINTS",
-          "CLEAR_SECTION"
+          "REPLACE_RELAY",
+          "INSPECT_POINTS"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -11990,17 +11965,16 @@
           "K1",
           "K2",
           "K3",
+          "K4",
           "K5",
           "K6",
           "K7",
           "K8"
         ],
-        "violated": [
-          "K4"
-        ],
-        "violations": 1,
-        "constraint_recall": 0.875,
-        "success": false
+        "violated": [],
+        "violations": 0,
+        "constraint_recall": 1.0,
+        "success": true
       },
       "presence": {
         "K1": {
@@ -12093,10 +12067,8 @@
       },
       "supersession_collateral": {
         "applicable": true,
-        "violations": 1,
-        "violated": [
-          "K4"
-        ]
+        "violations": 0,
+        "violated": []
       },
       "discrimination": {
         "applicable": true,
@@ -12110,7 +12082,7 @@
         "neither": false
       },
       "utilization": {
-        "direct_source": 0.8,
+        "direct_source": 1.0,
         "direct_source_n": 5,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -12130,7 +12102,7 @@
   {
     "instance": "rail-twochain",
     "condition": "source_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"TEST_INTERLOCK\",\n    \"BLOCK_SECTION\",\n    \"REPLACE_RELAY\",\n    \"INSPECT_POINTS\",\n    \"GROUND_CATENARY\",\n    \"CLEAR_SECTION\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"TEST_INTERLOCK\",\n    \"BLOCK_SECTION\",\n    \"REPLACE_RELAY\",\n    \"INSPECT_POINTS\",\n    \"CLEAR_SECTION\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "rail-twochain",
       "plan": {
@@ -12141,7 +12113,6 @@
           "BLOCK_SECTION",
           "REPLACE_RELAY",
           "INSPECT_POINTS",
-          "GROUND_CATENARY",
           "CLEAR_SECTION"
         ],
         "ready": true,
@@ -12262,7 +12233,7 @@
   {
     "instance": "rail-twochain",
     "condition": "corruption_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"GROUND_CATENARY\",\n    \"INSPECT_POINTS\",\n    \"CLEAR_SECTION\",\n    \"BLOCK_SECTION\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "{\"actions\": [\"GROUND_CATENARY\", \"BLOCK_SECTION\", \"TEST_INTERLOCK\", \"INSPECT_POINTS\"], \"ready\": true}",
     "score": {
       "instance": "rail-twochain",
       "plan": {
@@ -12270,25 +12241,25 @@
         "parse_error": null,
         "actions": [
           "GROUND_CATENARY",
-          "INSPECT_POINTS",
-          "CLEAR_SECTION",
-          "BLOCK_SECTION"
+          "BLOCK_SECTION",
+          "TEST_INTERLOCK",
+          "INSPECT_POINTS"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
+          "K4",
           "K5",
-          "K7"
+          "K6"
         ],
         "violated": [
           "K1",
           "K2",
           "K3",
-          "K4",
-          "K6"
+          "K7"
         ],
-        "violations": 5,
-        "constraint_recall": 0.2857,
+        "violations": 4,
+        "constraint_recall": 0.4286,
         "success": false
       },
       "presence": {
@@ -12379,8 +12350,8 @@
       },
       "corruption_susceptibility": {
         "eligible": 2,
-        "adopted": 2,
-        "rate": 1.0
+        "adopted": 1,
+        "rate": 0.5
       },
       "recovery": {
         "eligible": 0,
@@ -12392,34 +12363,34 @@
   {
     "instance": "rail-twochain",
     "condition": "both",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"GROUND_CATENARY\",\n    \"TEST_INTERLOCK\",\n    \"BLOCK_SECTION\",\n    \"REPLACE_RELAY\",\n    \"INSPECT_POINTS\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"TEST_INTERLOCK\",\n    \"GROUND_CATENARY\",\n    \"INSPECT_POINTS\",\n    \"REPLACE_RELAY\",\n    \"CLEAR_SECTION\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "rail-twochain",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "GROUND_CATENARY",
           "TEST_INTERLOCK",
-          "BLOCK_SECTION",
+          "GROUND_CATENARY",
+          "INSPECT_POINTS",
           "REPLACE_RELAY",
-          "INSPECT_POINTS"
+          "CLEAR_SECTION"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
-          "K2",
           "K4",
-          "K6"
-        ],
-        "violated": [
-          "K3",
-          "K5",
           "K7"
         ],
-        "violations": 3,
-        "constraint_recall": 0.5714,
+        "violated": [
+          "K2",
+          "K3",
+          "K5",
+          "K6"
+        ],
+        "violations": 4,
+        "constraint_recall": 0.4286,
         "success": false
       },
       "presence": {
@@ -12482,10 +12453,10 @@
       },
       "decision_authority_inversion": {
         "eligible": 2,
-        "follows_source": 1,
-        "follows_corruption": 1,
+        "follows_source": 0,
+        "follows_corruption": 2,
         "follows_neither": 0,
-        "rate": 0.5,
+        "rate": 1.0,
         "detail": [
           {
             "constraint": "K3",
@@ -12493,7 +12464,7 @@
           },
           {
             "constraint": "K6",
-            "outcome": "source"
+            "outcome": "corruption"
           }
         ]
       },
@@ -12532,35 +12503,31 @@
   {
     "instance": "rail-twochain",
     "condition": "neither",
-    "plan_text": "{\"actions\": [\n  \"CLEAR_SECTION\",\n  \"GROUND_CATENARY\",\n  \"BLOCK_SECTION\",\n  \"TEST_INTERLOCK\",\n  \"REPLACE_RELAY\",\n  \"INSPECT_POINTS\"\n], \n\"ready\": true}",
+    "plan_text": "{\"actions\": [\"TEST_INTERLOCK\", \"INSPECT_POINTS\"], \"ready\": true}",
     "score": {
       "instance": "rail-twochain",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "CLEAR_SECTION",
-          "GROUND_CATENARY",
-          "BLOCK_SECTION",
           "TEST_INTERLOCK",
-          "REPLACE_RELAY",
           "INSPECT_POINTS"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
+          "K3",
+          "K4",
+          "K6"
+        ],
+        "violated": [
           "K1",
           "K2",
-          "K4",
           "K5",
           "K7"
         ],
-        "violated": [
-          "K3",
-          "K6"
-        ],
-        "violations": 2,
-        "constraint_recall": 0.7143,
+        "violations": 4,
+        "constraint_recall": 0.4286,
         "success": false
       },
       "presence": {
@@ -12664,7 +12631,7 @@
   {
     "instance": "rail-twochain",
     "condition": "supersession",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"BLOCK_SECTION\",\n    \"TEST_INTERLOCK\",\n    \"REPLACE_RELAY\",\n    \"INSPECT_POINTS\",\n    \"CLEAR_SECTION\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"BLOCK_SECTION\",\n    \"GROUND_CATENARY\",\n    \"TEST_INTERLOCK\",\n    \"INSPECT_POINTS\",\n    \"REPLACE_RELAY\",\n    \"CLEAR_SECTION\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "rail-twochain",
       "plan": {
@@ -12672,26 +12639,28 @@
         "parse_error": null,
         "actions": [
           "BLOCK_SECTION",
+          "GROUND_CATENARY",
           "TEST_INTERLOCK",
-          "REPLACE_RELAY",
           "INSPECT_POINTS",
+          "REPLACE_RELAY",
           "CLEAR_SECTION"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
-          "K2",
-          "K3",
           "K4",
           "K5",
           "K6",
           "K7"
         ],
-        "violated": [],
-        "violations": 0,
-        "constraint_recall": 1.0,
-        "success": true
+        "violated": [
+          "K2",
+          "K3"
+        ],
+        "violations": 2,
+        "constraint_recall": 0.7143,
+        "success": false
       },
       "presence": {
         "K1": {
@@ -12767,14 +12736,17 @@
       },
       "supersession_collateral": {
         "applicable": true,
-        "violations": 0,
-        "violated": []
+        "violations": 2,
+        "violated": [
+          "K2",
+          "K3"
+        ]
       },
       "discrimination": {
         "applicable": false
       },
       "utilization": {
-        "direct_source": 1.0,
+        "direct_source": 0.6667,
         "direct_source_n": 6,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -12922,17 +12894,15 @@
   {
     "instance": "rail-twochain",
     "condition": "source_and_faithful",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"REPLACE_RELAY\",\n    \"TEST_INTERLOCK\",\n    \"BLOCK_SECTION\",\n    \"GROUND_CATENARY\",\n    \"INSPECT_POINTS\",\n    \"CLEAR_SECTION\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"TEST_INTERLOCK\",\n    \"REPLACE_RELAY\",\n    \"INSPECT_POINTS\",\n    \"CLEAR_SECTION\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "rail-twochain",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "REPLACE_RELAY",
           "TEST_INTERLOCK",
-          "BLOCK_SECTION",
-          "GROUND_CATENARY",
+          "REPLACE_RELAY",
           "INSPECT_POINTS",
           "CLEAR_SECTION"
         ],
@@ -12941,13 +12911,13 @@
         "satisfied": [
           "K1",
           "K2",
+          "K3",
           "K4",
-          "K6",
           "K7"
         ],
         "violated": [
-          "K3",
-          "K5"
+          "K5",
+          "K6"
         ],
         "violations": 2,
         "constraint_recall": 0.7143,
@@ -13345,7 +13315,7 @@
   {
     "instance": "rail-star",
     "condition": "source_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"BLOCK_SECTION\",\n    \"GROUND_CATENARY\",\n    \"CLEAR_SECTION\",\n    \"TEST_INTERLOCK\",\n    \"INSPECT_POINTS\",\n    \"REPLACE_RELAY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"BLOCK_SECTION\",\n    \"GROUND_CATENARY\",\n    \"TEST_INTERLOCK\",\n    \"INSPECT_POINTS\",\n    \"CLEAR_SECTION\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "rail-star",
       "plan": {
@@ -13354,26 +13324,25 @@
         "actions": [
           "BLOCK_SECTION",
           "GROUND_CATENARY",
-          "CLEAR_SECTION",
           "TEST_INTERLOCK",
           "INSPECT_POINTS",
-          "REPLACE_RELAY"
+          "CLEAR_SECTION"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
-          "K3",
           "K4",
           "K5",
           "K6",
           "K7"
         ],
         "violated": [
-          "K2"
+          "K2",
+          "K3"
         ],
-        "violations": 1,
-        "constraint_recall": 0.8571,
+        "violations": 2,
+        "constraint_recall": 0.7143,
         "success": false
       },
       "presence": {
@@ -13457,7 +13426,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.8333,
+        "direct_source": 0.6667,
         "direct_source_n": 6,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -13477,7 +13446,7 @@
   {
     "instance": "rail-star",
     "condition": "corruption_only",
-    "plan_text": "{\"actions\": [\"GROUND_CATENARY\", \"CLEAR_SECTION\"], \"ready\": false}",
+    "plan_text": "{\"actions\": [\"GROUND_CATENARY\", \"CLEAR_SECTION\"], \"ready\": true}",
     "score": {
       "instance": "rail-star",
       "plan": {
@@ -13487,7 +13456,7 @@
           "GROUND_CATENARY",
           "CLEAR_SECTION"
         ],
-        "ready": false,
+        "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
@@ -13605,35 +13574,34 @@
   {
     "instance": "rail-star",
     "condition": "both",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"BLOCK_SECTION\",\n    \"REPLACE_RELAY\",\n    \"GROUND_CATENARY\",\n    \"TEST_INTERLOCK\",\n    \"INSPECT_POINTS\",\n    \"CLEAR_SECTION\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"GROUND_CATENARY\",\n    \"CLEAR_SECTION\",\n    \"REPLACE_RELAY\",\n    \"INSPECT_POINTS\",\n    \"BLOCK_SECTION\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "rail-star",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "BLOCK_SECTION",
-          "REPLACE_RELAY",
           "GROUND_CATENARY",
-          "TEST_INTERLOCK",
+          "CLEAR_SECTION",
+          "REPLACE_RELAY",
           "INSPECT_POINTS",
-          "CLEAR_SECTION"
+          "BLOCK_SECTION"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
-          "K5",
+          "K3",
+          "K4",
           "K6",
           "K7"
         ],
         "violated": [
           "K2",
-          "K3",
-          "K4"
+          "K5"
         ],
-        "violations": 3,
-        "constraint_recall": 0.5714,
+        "violations": 2,
+        "constraint_recall": 0.7143,
         "success": false
       },
       "presence": {
@@ -13696,10 +13664,10 @@
       },
       "decision_authority_inversion": {
         "eligible": 2,
-        "follows_source": 0,
-        "follows_corruption": 2,
+        "follows_source": 1,
+        "follows_corruption": 1,
         "follows_neither": 0,
-        "rate": 1.0,
+        "rate": 0.5,
         "detail": [
           {
             "constraint": "K2",
@@ -13707,7 +13675,7 @@
           },
           {
             "constraint": "K4",
-            "outcome": "corruption"
+            "outcome": "source"
           }
         ]
       },
@@ -13726,7 +13694,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.75,
+        "direct_source": 1.0,
         "direct_source_n": 4,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -13746,28 +13714,28 @@
   {
     "instance": "rail-star",
     "condition": "neither",
-    "plan_text": "{\"actions\": [\n  \"GROUND_CATENARY\",\n  \"TEST_INTERLOCK\",\n  \"INSPECT_POINTS\"\n], \n\"ready\": true}",
+    "plan_text": "{\"actions\": [\"TEST_INTERLOCK\", \"INSPECT_POINTS\", \"CLEAR_SECTION\"], \"ready\": true}",
     "score": {
       "instance": "rail-star",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "GROUND_CATENARY",
           "TEST_INTERLOCK",
-          "INSPECT_POINTS"
+          "INSPECT_POINTS",
+          "CLEAR_SECTION"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
-          "K4",
-          "K5",
-          "K6"
-        ],
-        "violated": [
           "K1",
           "K2",
+          "K4"
+        ],
+        "violated": [
           "K3",
+          "K5",
+          "K6",
           "K7"
         ],
         "violations": 4,
@@ -13875,7 +13843,7 @@
   {
     "instance": "rail-star",
     "condition": "supersession",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"BLOCK_SECTION\",\n    \"GROUND_CATENARY\",\n    \"CLEAR_SECTION\",\n    \"TEST_INTERLOCK\",\n    \"INSPECT_POINTS\",\n    \"REPLACE_RELAY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"BLOCK_SECTION\",\n    \"TEST_INTERLOCK\",\n    \"INSPECT_POINTS\",\n    \"CLEAR_SECTION\",\n    \"GROUND_CATENARY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "rail-star",
       "plan": {
@@ -13883,24 +13851,23 @@
         "parse_error": null,
         "actions": [
           "BLOCK_SECTION",
-          "GROUND_CATENARY",
-          "CLEAR_SECTION",
           "TEST_INTERLOCK",
           "INSPECT_POINTS",
-          "REPLACE_RELAY"
+          "CLEAR_SECTION",
+          "GROUND_CATENARY"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
-          "K3",
+          "K2",
           "K4",
           "K5",
           "K6",
           "K7"
         ],
         "violated": [
-          "K2"
+          "K3"
         ],
         "violations": 1,
         "constraint_recall": 0.8571,
@@ -13982,7 +13949,7 @@
         "applicable": true,
         "violations": 1,
         "violated": [
-          "K2"
+          "K3"
         ]
       },
       "discrimination": {
@@ -14009,7 +13976,7 @@
   {
     "instance": "rail-star",
     "condition": "faithful_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"CLEAR_SECTION\",\n    \"TEST_INTERLOCK\",\n    \"INSPECT_POINTS\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "{\"actions\": [\"CLEAR_SECTION\", \"TEST_INTERLOCK\", \"INSPECT_POINTS\"], \"ready\": true}",
     "score": {
       "instance": "rail-star",
       "plan": {
@@ -14138,7 +14105,7 @@
   {
     "instance": "rail-star",
     "condition": "source_and_faithful",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"CLEAR_SECTION\",\n    \"TEST_INTERLOCK\",\n    \"INSPECT_POINTS\",\n    \"BLOCK_SECTION\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CLEAR_SECTION\",\n    \"INSPECT_POINTS\",\n    \"TEST_INTERLOCK\",\n    \"REPLACE_RELAY\",\n    \"GROUND_CATENARY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "rail-star",
       "plan": {
@@ -14146,9 +14113,10 @@
         "parse_error": null,
         "actions": [
           "CLEAR_SECTION",
-          "TEST_INTERLOCK",
           "INSPECT_POINTS",
-          "BLOCK_SECTION"
+          "TEST_INTERLOCK",
+          "REPLACE_RELAY",
+          "GROUND_CATENARY"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -14157,11 +14125,11 @@
           "K2",
           "K3",
           "K4",
-          "K7"
+          "K6"
         ],
         "violated": [
           "K5",
-          "K6"
+          "K7"
         ],
         "violations": 2,
         "constraint_recall": 0.7143,
@@ -14268,7 +14236,7 @@
   {
     "instance": "rail-star",
     "condition": "both_recovery",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"CLEAR_SECTION\",\n    \"BLOCK_SECTION\",\n    \"REPLACE_RELAY\",\n    \"TEST_INTERLOCK\",\n    \"INSPECT_POINTS\",\n    \"GROUND_CATENARY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CLEAR_SECTION\",\n    \"GROUND_CATENARY\",\n    \"REPLACE_RELAY\",\n    \"TEST_INTERLOCK\",\n    \"INSPECT_POINTS\",\n    \"BLOCK_SECTION\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "rail-star",
       "plan": {
@@ -14276,11 +14244,11 @@
         "parse_error": null,
         "actions": [
           "CLEAR_SECTION",
-          "BLOCK_SECTION",
+          "GROUND_CATENARY",
           "REPLACE_RELAY",
           "TEST_INTERLOCK",
           "INSPECT_POINTS",
-          "GROUND_CATENARY"
+          "BLOCK_SECTION"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -14409,33 +14377,35 @@
   {
     "instance": "rail-star",
     "condition": "mixed",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"BLOCK_SECTION\",\n    \"GROUND_CATENARY\",\n    \"REPLACE_RELAY\",\n    \"CLEAR_SECTION\"\n  ],\n  \"ready\": false\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"GROUND_CATENARY\",\n    \"BLOCK_SECTION\",\n    \"TEST_INTERLOCK\",\n    \"REPLACE_RELAY\",\n    \"INSPECT_POINTS\",\n    \"CLEAR_SECTION\"\n  ],\n  \"ready\": false\n}\n```",
     "score": {
       "instance": "rail-star",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "BLOCK_SECTION",
           "GROUND_CATENARY",
+          "BLOCK_SECTION",
+          "TEST_INTERLOCK",
           "REPLACE_RELAY",
+          "INSPECT_POINTS",
           "CLEAR_SECTION"
         ],
         "ready": false,
         "unknown_actions": [],
         "satisfied": [
           "K1",
-          "K3",
           "K5",
           "K6",
           "K7"
         ],
         "violated": [
           "K2",
+          "K3",
           "K4"
         ],
-        "violations": 2,
-        "constraint_recall": 0.7143,
+        "violations": 3,
+        "constraint_recall": 0.5714,
         "success": false
       },
       "presence": {
@@ -14521,9 +14491,10 @@
       },
       "supersession_collateral": {
         "applicable": true,
-        "violations": 2,
+        "violations": 3,
         "violated": [
           "K2",
+          "K3",
           "K4"
         ]
       },
@@ -14539,7 +14510,7 @@
         "neither": false
       },
       "utilization": {
-        "direct_source": 1.0,
+        "direct_source": 0.75,
         "direct_source_n": 4,
         "faithful_relay": null,
         "faithful_relay_n": 0

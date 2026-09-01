@@ -155,6 +155,43 @@ def main():
         print(f"  {c:<20} n={n}  mean={statistics.mean(vals):.4f}" if vals
               else f"  {c:<20} n={n}  (undefined)")
 
+    # ---- E3: a corruption and a legitimate override in ONE context ----
+    mix = [r for r in rows if r["condition"] == "mixed" and r["disc_applicable"]]
+    if mix:
+        print("\n=== E3: corruption AND legitimate override in one context ===")
+        n = len(mix)
+        cb = sum(r["disc_correct_both"] for r in mix)
+        sr = sum(r["disc_source_reflex"] for r in mix)
+        lr = sum(r["disc_latest_reflex"] for r in mix)
+        nn = sum(r["disc_neither"] for r in mix)
+        print(f"  applicable instances       {n}/36")
+        print(f"  correct on BOTH            {cb}/{n} = {cb / n:.4f}")
+        print(f"  source reflex (kept both)  {sr}/{n} = {sr / n:.4f}")
+        print(f"  latest reflex (took both)  {lr}/{n} = {lr / n:.4f}")
+        print(f"  neither                    {nn}/{n} = {nn / n:.4f}")
+        print(f"  resisted the corruption    {sum(r['disc_resisted'] for r in mix)}/{n}")
+        print(f"  exercised the override     {sum(r['disc_exercised'] for r in mix)}/{n}")
+
+        ids = sorted({r["instance"] for r in mix})
+        bl = [baseline_scores(generate_instance(*i.split("-"))) for i in ids]
+        print("\n  reflex baselines, computed WITHOUT any model call:")
+        for k in ("source_truster", "latest_truster"):
+            rec = statistics.mean(b[k]["constraint_recall"] for b in bl)
+            suc = sum(b[k]["success"] for b in bl)
+            print(f"    {k:<16} mean recall {rec:.4f}   success {suc}/{len(bl)}")
+        print(f"    {'model':<16} mean recall "
+              f"{statistics.mean(r['constraint_recall'] for r in mix):.4f}   "
+              f"success {sum(r['success'] for r in mix)}/{n}")
+
+        for axis in ("domain", "graph"):
+            cells = []
+            for v in sorted({r[axis] for r in mix}):
+                g = [r for r in mix if r[axis] == v]
+                cells.append(f"{v} {sum(r['disc_correct_both'] for r in g)}/{len(g)}")
+            print(f"  correct-both by {axis}: " + "  ".join(cells))
+
+        write_csv("results/e3_mixed_runs.csv", mix, list(mix[0].keys()))
+
     print("\nwrote results/e2_matrix_runs.csv, e2_matrix_summary.csv, "
           "e2_matrix_detail.json")
 

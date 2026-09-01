@@ -2,7 +2,7 @@
   {
     "instance": "payments-chain",
     "condition": "source_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"PROBE_LATENCY\",\n    \"SNAPSHOT_STORE\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "{\"actions\": [\"CYCLE_ENGINE\", \"SHIFT_ROUTING\", \"PROBE_LATENCY\", \"SNAPSHOT_STORE\", \"REOPEN_GATEWAY\"], \"ready\": true}",
     "score": {
       "instance": "payments-chain",
       "plan": {
@@ -376,7 +376,7 @@
   {
     "instance": "payments-chain",
     "condition": "neither",
-    "plan_text": "{\"actions\": [\n  \"CYCLE_ENGINE\",\n  \"SNAPSHOT_STORE\",\n  \"DRAIN_NODE\",\n  \"SHIFT_ROUTING\",\n  \"REOPEN_GATEWAY\"\n], \n\"ready\": true}",
+    "plan_text": "{\"actions\": [\n  \"CYCLE_ENGINE\",\n  \"SNAPSHOT_STORE\",\n  \"SHIFT_ROUTING\",\n  \"DRAIN_NODE\",\n  \"REOPEN_GATEWAY\"\n], \n\"ready\": true}",
     "score": {
       "instance": "payments-chain",
       "plan": {
@@ -385,8 +385,8 @@
         "actions": [
           "CYCLE_ENGINE",
           "SNAPSHOT_STORE",
-          "DRAIN_NODE",
           "SHIFT_ROUTING",
+          "DRAIN_NODE",
           "REOPEN_GATEWAY"
         ],
         "ready": true,
@@ -622,7 +622,7 @@
   {
     "instance": "payments-chain",
     "condition": "faithful_only",
-    "plan_text": "{\"actions\": [\n  \"SHIFT_ROUTING\",\n  \"CYCLE_ENGINE\",\n  \"DRAIN_NODE\",\n  \"SNAPSHOT_STORE\",\n  \"REOPEN_GATEWAY\"\n], \n\"ready\": true}",
+    "plan_text": "{\"actions\": [\n  \"SHIFT_ROUTING\",\n  \"CYCLE_ENGINE\",\n  \"PROBE_LATENCY\",\n  \"SNAPSHOT_STORE\",\n  \"REOPEN_GATEWAY\"\n], \n\"ready\": true}",
     "score": {
       "instance": "payments-chain",
       "plan": {
@@ -631,7 +631,7 @@
         "actions": [
           "SHIFT_ROUTING",
           "CYCLE_ENGINE",
-          "DRAIN_NODE",
+          "PROBE_LATENCY",
           "SNAPSHOT_STORE",
           "REOPEN_GATEWAY"
         ],
@@ -641,11 +641,11 @@
           "K1",
           "K2",
           "K3",
-          "K4",
+          "K5",
           "K6"
         ],
         "violated": [
-          "K5"
+          "K4"
         ],
         "violations": 1,
         "constraint_recall": 0.8333,
@@ -744,7 +744,7 @@
   {
     "instance": "payments-chain",
     "condition": "source_and_faithful",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"REOPEN_GATEWAY\",\n    \"PROBE_LATENCY\",\n    \"SNAPSHOT_STORE\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"PROBE_LATENCY\",\n    \"SNAPSHOT_STORE\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "payments-chain",
       "plan": {
@@ -753,24 +753,24 @@
         "actions": [
           "CYCLE_ENGINE",
           "SHIFT_ROUTING",
-          "REOPEN_GATEWAY",
           "PROBE_LATENCY",
-          "SNAPSHOT_STORE"
+          "SNAPSHOT_STORE",
+          "REOPEN_GATEWAY"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
           "K3",
-          "K4",
           "K5",
           "K6"
         ],
         "violated": [
-          "K2"
+          "K2",
+          "K4"
         ],
-        "violations": 1,
-        "constraint_recall": 0.8333,
+        "violations": 2,
+        "constraint_recall": 0.6667,
         "success": false
       },
       "presence": {
@@ -846,7 +846,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 1.0,
+        "direct_source": 0.8,
         "direct_source_n": 5,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -866,7 +866,7 @@
   {
     "instance": "payments-chain",
     "condition": "both_recovery",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SNAPSHOT_STORE\",\n    \"SHIFT_ROUTING\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"PROBE_LATENCY\",\n    \"SNAPSHOT_STORE\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "payments-chain",
       "plan": {
@@ -874,8 +874,9 @@
         "parse_error": null,
         "actions": [
           "CYCLE_ENGINE",
-          "SNAPSHOT_STORE",
           "SHIFT_ROUTING",
+          "PROBE_LATENCY",
+          "SNAPSHOT_STORE",
           "REOPEN_GATEWAY"
         ],
         "ready": true,
@@ -883,12 +884,12 @@
         "satisfied": [
           "K1",
           "K3",
-          "K4",
+          "K5",
           "K6"
         ],
         "violated": [
           "K2",
-          "K5"
+          "K4"
         ],
         "violations": 2,
         "constraint_recall": 0.6667,
@@ -1137,17 +1138,17 @@
   {
     "instance": "payments-fork",
     "condition": "source_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"DRAIN_NODE\",\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"SNAPSHOT_STORE\",\n    \"REOPEN_GATEWAY\",\n    \"PROBE_LATENCY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "{\"actions\": [\n  \"CYCLE_ENGINE\",\n  \"SHIFT_ROUTING\",\n  \"SNAPSHOT_STORE\",\n  \"DRAIN_NODE\",\n  \"REOPEN_GATEWAY\",\n  \"PROBE_LATENCY\"\n], \n\"ready\": true}",
     "score": {
       "instance": "payments-fork",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "DRAIN_NODE",
           "CYCLE_ENGINE",
           "SHIFT_ROUTING",
           "SNAPSHOT_STORE",
+          "DRAIN_NODE",
           "REOPEN_GATEWAY",
           "PROBE_LATENCY"
         ],
@@ -1158,14 +1159,14 @@
           "K2",
           "K3",
           "K5",
-          "K6"
-        ],
-        "violated": [
-          "K4",
+          "K6",
           "K7"
         ],
-        "violations": 2,
-        "constraint_recall": 0.7143,
+        "violated": [
+          "K4"
+        ],
+        "violations": 1,
+        "constraint_recall": 0.8571,
         "success": false
       },
       "presence": {
@@ -1249,7 +1250,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.6667,
+        "direct_source": 0.8333,
         "direct_source_n": 6,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -1269,35 +1270,32 @@
   {
     "instance": "payments-fork",
     "condition": "corruption_only",
-    "plan_text": "{\"actions\": [\n  \"CYCLE_ENGINE\",\n  \"SNAPSHOT_STORE\",\n  \"SHIFT_ROUTING\",\n  \"REOPEN_GATEWAY\",\n  \"DRAIN_NODE\",\n  \"PROBE_LATENCY\"\n], \n\"ready\": true}",
+    "plan_text": "{\"actions\": [\"SNAPSHOT_STORE\", \"SHIFT_ROUTING\", \"PROBE_LATENCY\"], \"ready\": true}",
     "score": {
       "instance": "payments-fork",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "CYCLE_ENGINE",
           "SNAPSHOT_STORE",
           "SHIFT_ROUTING",
-          "REOPEN_GATEWAY",
-          "DRAIN_NODE",
           "PROBE_LATENCY"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
-          "K1",
-          "K2",
           "K3",
           "K6",
           "K7"
         ],
         "violated": [
+          "K1",
+          "K2",
           "K4",
           "K5"
         ],
-        "violations": 2,
-        "constraint_recall": 0.7143,
+        "violations": 4,
+        "constraint_recall": 0.4286,
         "success": false
       },
       "presence": {
@@ -1401,7 +1399,7 @@
   {
     "instance": "payments-fork",
     "condition": "both",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"REOPEN_GATEWAY\",\n    \"SNAPSHOT_STORE\",\n    \"SHIFT_ROUTING\",\n    \"DRAIN_NODE\",\n    \"PROBE_LATENCY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"REOPEN_GATEWAY\",\n    \"SNAPSHOT_STORE\",\n    \"SHIFT_ROUTING\",\n    \"PROBE_LATENCY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "payments-fork",
       "plan": {
@@ -1411,7 +1409,6 @@
           "REOPEN_GATEWAY",
           "SNAPSHOT_STORE",
           "SHIFT_ROUTING",
-          "DRAIN_NODE",
           "PROBE_LATENCY"
         ],
         "ready": true,
@@ -1541,7 +1538,7 @@
   {
     "instance": "payments-fork",
     "condition": "neither",
-    "plan_text": "{\"actions\": [\n  \"CYCLE_ENGINE\",\n  \"DRAIN_NODE\",\n  \"SHIFT_ROUTING\",\n  \"PROBE_LATENCY\",\n  \"SNAPSHOT_STORE\",\n  \"REOPEN_GATEWAY\"\n], \n\"ready\": true}",
+    "plan_text": "{\"actions\": [\n  \"CYCLE_ENGINE\",\n  \"SHIFT_ROUTING\",\n  \"DRAIN_NODE\",\n  \"SNAPSHOT_STORE\",\n  \"REOPEN_GATEWAY\"\n], \n\"ready\": true}",
     "score": {
       "instance": "payments-fork",
       "plan": {
@@ -1549,9 +1546,8 @@
         "parse_error": null,
         "actions": [
           "CYCLE_ENGINE",
-          "DRAIN_NODE",
           "SHIFT_ROUTING",
-          "PROBE_LATENCY",
+          "DRAIN_NODE",
           "SNAPSHOT_STORE",
           "REOPEN_GATEWAY"
         ],
@@ -1559,13 +1555,13 @@
         "unknown_actions": [],
         "satisfied": [
           "K1",
+          "K2",
           "K3",
-          "K4",
           "K5",
           "K6"
         ],
         "violated": [
-          "K2",
+          "K4",
           "K7"
         ],
         "violations": 2,
@@ -1673,7 +1669,7 @@
   {
     "instance": "payments-fork",
     "condition": "supersession",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"SHIFT_ROUTING\",\n    \"DRAIN_NODE\",\n    \"CYCLE_ENGINE\",\n    \"PROBE_LATENCY\",\n    \"SNAPSHOT_STORE\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SHIFT_ROUTING\",\n    \"REOPEN_GATEWAY\",\n    \"CYCLE_ENGINE\",\n    \"PROBE_LATENCY\",\n    \"SNAPSHOT_STORE\",\n    \"DRAIN_NODE\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "payments-fork",
       "plan": {
@@ -1681,28 +1677,27 @@
         "parse_error": null,
         "actions": [
           "SHIFT_ROUTING",
-          "DRAIN_NODE",
+          "REOPEN_GATEWAY",
           "CYCLE_ENGINE",
           "PROBE_LATENCY",
           "SNAPSHOT_STORE",
-          "REOPEN_GATEWAY"
+          "DRAIN_NODE"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
+          "K2",
           "K3",
           "K4",
           "K5",
-          "K6"
-        ],
-        "violated": [
-          "K2",
+          "K6",
           "K7"
         ],
-        "violations": 2,
-        "constraint_recall": 0.7143,
-        "success": false
+        "violated": [],
+        "violations": 0,
+        "constraint_recall": 1.0,
+        "success": true
       },
       "presence": {
         "K1": {
@@ -1778,17 +1773,14 @@
       },
       "supersession_collateral": {
         "applicable": true,
-        "violations": 2,
-        "violated": [
-          "K2",
-          "K7"
-        ]
+        "violations": 0,
+        "violated": []
       },
       "discrimination": {
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.6667,
+        "direct_source": 1.0,
         "direct_source_n": 6,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -1808,35 +1800,35 @@
   {
     "instance": "payments-fork",
     "condition": "faithful_only",
-    "plan_text": "{\"actions\": [\n  \"CYCLE_ENGINE\",\n  \"SNAPSHOT_STORE\",\n  \"PROBE_LATENCY\",\n  \"REOPEN_GATEWAY\",\n  \"SHIFT_ROUTING\",\n  \"DRAIN_NODE\"\n], \n\"ready\": true}",
+    "plan_text": "{\"actions\": [\n  \"SNAPSHOT_STORE\",\n  \"CYCLE_ENGINE\",\n  \"REOPEN_GATEWAY\",\n  \"BOOK_POST_INCIDENT_REVIEW_ROOM\"\n], \n\"ready\": true}",
     "score": {
       "instance": "payments-fork",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "CYCLE_ENGINE",
           "SNAPSHOT_STORE",
-          "PROBE_LATENCY",
+          "CYCLE_ENGINE",
           "REOPEN_GATEWAY",
-          "SHIFT_ROUTING",
-          "DRAIN_NODE"
+          "BOOK_POST_INCIDENT_REVIEW_ROOM"
         ],
         "ready": true,
-        "unknown_actions": [],
+        "unknown_actions": [
+          "BOOK_POST_INCIDENT_REVIEW_ROOM"
+        ],
         "satisfied": [
           "K1",
+          "K2",
           "K6",
           "K7"
         ],
         "violated": [
-          "K2",
           "K3",
           "K4",
           "K5"
         ],
-        "violations": 4,
-        "constraint_recall": 0.4286,
+        "violations": 3,
+        "constraint_recall": 0.5714,
         "success": false
       },
       "presence": {
@@ -1940,7 +1932,7 @@
   {
     "instance": "payments-fork",
     "condition": "source_and_faithful",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"REOPEN_GATEWAY\",\n    \"SHIFT_ROUTING\",\n    \"SNAPSHOT_STORE\",\n    \"DRAIN_NODE\",\n    \"PROBE_LATENCY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"REOPEN_GATEWAY\",\n    \"SHIFT_ROUTING\",\n    \"SNAPSHOT_STORE\",\n    \"CYCLE_ENGINE\",\n    \"PROBE_LATENCY\",\n    \"DRAIN_NODE\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "payments-fork",
       "plan": {
@@ -1950,8 +1942,9 @@
           "REOPEN_GATEWAY",
           "SHIFT_ROUTING",
           "SNAPSHOT_STORE",
-          "DRAIN_NODE",
-          "PROBE_LATENCY"
+          "CYCLE_ENGINE",
+          "PROBE_LATENCY",
+          "DRAIN_NODE"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -2071,7 +2064,7 @@
   {
     "instance": "payments-fork",
     "condition": "both_recovery",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"REOPEN_GATEWAY\",\n    \"PROBE_LATENCY\",\n    \"SHIFT_ROUTING\",\n    \"SNAPSHOT_STORE\",\n    \"DRAIN_NODE\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"REOPEN_GATEWAY\",\n    \"SHIFT_ROUTING\",\n    \"SNAPSHOT_STORE\",\n    \"PROBE_LATENCY\",\n    \"DRAIN_NODE\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "payments-fork",
       "plan": {
@@ -2079,9 +2072,9 @@
         "parse_error": null,
         "actions": [
           "REOPEN_GATEWAY",
-          "PROBE_LATENCY",
           "SHIFT_ROUTING",
           "SNAPSHOT_STORE",
+          "PROBE_LATENCY",
           "DRAIN_NODE"
         ],
         "ready": true,
@@ -2089,16 +2082,16 @@
         "satisfied": [
           "K1",
           "K2",
-          "K4",
           "K5",
           "K6",
           "K7"
         ],
         "violated": [
-          "K3"
+          "K3",
+          "K4"
         ],
-        "violations": 1,
-        "constraint_recall": 0.8571,
+        "violations": 2,
+        "constraint_recall": 0.7143,
         "success": false
       },
       "presence": {
@@ -2161,14 +2154,14 @@
       },
       "decision_authority_inversion": {
         "eligible": 2,
-        "follows_source": 2,
-        "follows_corruption": 0,
+        "follows_source": 1,
+        "follows_corruption": 1,
         "follows_neither": 0,
-        "rate": 0.0,
+        "rate": 0.5,
         "detail": [
           {
             "constraint": "K4",
-            "outcome": "source"
+            "outcome": "corruption"
           },
           {
             "constraint": "K5",
@@ -2211,34 +2204,34 @@
   {
     "instance": "payments-fork",
     "condition": "mixed",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"SHIFT_ROUTING\",\n    \"SNAPSHOT_STORE\",\n    \"DRAIN_NODE\",\n    \"REOPEN_GATEWAY\",\n    \"PROBE_LATENCY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"REOPEN_GATEWAY\",\n    \"SHIFT_ROUTING\",\n    \"SNAPSHOT_STORE\",\n    \"PROBE_LATENCY\",\n    \"DRAIN_NODE\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "payments-fork",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
+          "REOPEN_GATEWAY",
           "SHIFT_ROUTING",
           "SNAPSHOT_STORE",
-          "DRAIN_NODE",
-          "REOPEN_GATEWAY",
-          "PROBE_LATENCY"
+          "PROBE_LATENCY",
+          "DRAIN_NODE"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
           "K2",
-          "K3",
           "K5",
           "K6",
           "K7"
         ],
         "violated": [
+          "K3",
           "K4"
         ],
-        "violations": 1,
-        "constraint_recall": 0.8571,
+        "violations": 2,
+        "constraint_recall": 0.7143,
         "success": false
       },
       "presence": {
@@ -2318,9 +2311,9 @@
       },
       "supersession_respected": {
         "eligible": 1,
-        "exercised": 1,
-        "ambiguous": 0,
-        "rate": 1.0
+        "exercised": 0,
+        "ambiguous": 1,
+        "rate": 0.0
       },
       "supersession_collateral": {
         "applicable": true,
@@ -2334,11 +2327,11 @@
         "n_corrupted": 2,
         "n_superseded": 1,
         "resisted_corruption": false,
-        "exercised_override": true,
+        "exercised_override": false,
         "correct_both": false,
         "source_reflex": false,
-        "latest_reflex": true,
-        "neither": false
+        "latest_reflex": false,
+        "neither": true
       },
       "utilization": {
         "direct_source": 1.0,
@@ -2361,7 +2354,7 @@
   {
     "instance": "payments-join",
     "condition": "source_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SNAPSHOT_STORE\",\n    \"SHIFT_ROUTING\",\n    \"DRAIN_NODE\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "{\"actions\": [\"CYCLE_ENGINE\", \"SNAPSHOT_STORE\", \"SHIFT_ROUTING\", \"DRAIN_NODE\", \"REOPEN_GATEWAY\"], \"ready\": true}",
     "score": {
       "instance": "payments-join",
       "plan": {
@@ -2621,7 +2614,7 @@
   {
     "instance": "payments-join",
     "condition": "both",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"SNAPSHOT_STORE\",\n    \"CYCLE_ENGINE\",\n    \"DRAIN_NODE\",\n    \"SHIFT_ROUTING\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": false\n}\n```",
+    "plan_text": "{\"actions\": [\n  \"SNAPSHOT_STORE\",\n  \"CYCLE_ENGINE\",\n  \"DRAIN_NODE\",\n  \"SHIFT_ROUTING\",\n  \"REOPEN_GATEWAY\"\n], \n\"ready\": true}",
     "score": {
       "instance": "payments-join",
       "plan": {
@@ -2634,7 +2627,7 @@
           "SHIFT_ROUTING",
           "REOPEN_GATEWAY"
         ],
-        "ready": false,
+        "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
@@ -2761,14 +2754,13 @@
   {
     "instance": "payments-join",
     "condition": "neither",
-    "plan_text": "{\"actions\": [\n  \"DRAIN_NODE\",\n  \"CYCLE_ENGINE\",\n  \"PROBE_LATENCY\",\n  \"SNAPSHOT_STORE\",\n  \"REOPEN_GATEWAY\"\n], \n\"ready\": true}",
+    "plan_text": "{\"actions\": [\n  \"CYCLE_ENGINE\",\n  \"PROBE_LATENCY\",\n  \"SNAPSHOT_STORE\",\n  \"REOPEN_GATEWAY\"\n], \n\"ready\": true}",
     "score": {
       "instance": "payments-join",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "DRAIN_NODE",
           "CYCLE_ENGINE",
           "PROBE_LATENCY",
           "SNAPSHOT_STORE",
@@ -2778,17 +2770,17 @@
         "unknown_actions": [],
         "satisfied": [
           "K1",
+          "K3",
+          "K4",
+          "K5",
           "K6",
           "K7"
         ],
         "violated": [
-          "K2",
-          "K3",
-          "K4",
-          "K5"
+          "K2"
         ],
-        "violations": 4,
-        "constraint_recall": 0.4286,
+        "violations": 1,
+        "constraint_recall": 0.8571,
         "success": false
       },
       "presence": {
@@ -3021,7 +3013,7 @@
   {
     "instance": "payments-join",
     "condition": "faithful_only",
-    "plan_text": "{\"actions\": [\n  \"SNAPSHOT_STORE\",\n  \"CYCLE_ENGINE\",\n  \"PROBE_LATENCY\",\n  \"REOPEN_GATEWAY\"\n], \n\"ready\": true}",
+    "plan_text": "{\"actions\": [\"SNAPSHOT_STORE\", \"CYCLE_ENGINE\", \"PROBE_LATENCY\", \"REOPEN_GATEWAY\"], \"ready\": true}",
     "score": {
       "instance": "payments-join",
       "plan": {
@@ -3151,15 +3143,15 @@
   {
     "instance": "payments-join",
     "condition": "source_and_faithful",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"SNAPSHOT_STORE\",\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "{\"actions\": [\"CYCLE_ENGINE\", \"SNAPSHOT_STORE\", \"SHIFT_ROUTING\", \"REOPEN_GATEWAY\"], \"ready\": true}",
     "score": {
       "instance": "payments-join",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "SNAPSHOT_STORE",
           "CYCLE_ENGINE",
+          "SNAPSHOT_STORE",
           "SHIFT_ROUTING",
           "REOPEN_GATEWAY"
         ],
@@ -3280,7 +3272,7 @@
   {
     "instance": "payments-join",
     "condition": "both_recovery",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"SNAPSHOT_STORE\",\n    \"DRAIN_NODE\",\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": false\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SNAPSHOT_STORE\",\n    \"DRAIN_NODE\",\n    \"CYCLE_ENGINE\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "payments-join",
       "plan": {
@@ -3290,24 +3282,23 @@
           "SNAPSHOT_STORE",
           "DRAIN_NODE",
           "CYCLE_ENGINE",
-          "SHIFT_ROUTING",
           "REOPEN_GATEWAY"
         ],
-        "ready": false,
+        "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
-          "K2",
           "K5",
           "K6",
           "K7"
         ],
         "violated": [
+          "K2",
           "K3",
           "K4"
         ],
-        "violations": 2,
-        "constraint_recall": 0.7143,
+        "violations": 3,
+        "constraint_recall": 0.5714,
         "success": false
       },
       "presence": {
@@ -3370,14 +3361,14 @@
       },
       "decision_authority_inversion": {
         "eligible": 2,
-        "follows_source": 1,
-        "follows_corruption": 1,
+        "follows_source": 0,
+        "follows_corruption": 2,
         "follows_neither": 0,
-        "rate": 0.5,
+        "rate": 1.0,
         "detail": [
           {
             "constraint": "K2",
-            "outcome": "source"
+            "outcome": "corruption"
           },
           {
             "constraint": "K3",
@@ -3412,8 +3403,8 @@
       },
       "recovery": {
         "eligible": 1,
-        "recovered": 1,
-        "rate": 1.0
+        "recovered": 0,
+        "rate": 0.0
       }
     }
   },
@@ -3571,7 +3562,7 @@
   {
     "instance": "payments-diamond",
     "condition": "source_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"SHIFT_ROUTING\",\n    \"CYCLE_ENGINE\",\n    \"PROBE_LATENCY\",\n    \"SNAPSHOT_STORE\",\n    \"DRAIN_NODE\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SHIFT_ROUTING\",\n    \"CYCLE_ENGINE\",\n    \"DRAIN_NODE\",\n    \"PROBE_LATENCY\",\n    \"SNAPSHOT_STORE\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "payments-diamond",
       "plan": {
@@ -3580,26 +3571,26 @@
         "actions": [
           "SHIFT_ROUTING",
           "CYCLE_ENGINE",
+          "DRAIN_NODE",
           "PROBE_LATENCY",
-          "SNAPSHOT_STORE",
-          "DRAIN_NODE"
+          "SNAPSHOT_STORE"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
           "K2",
+          "K4",
           "K6",
           "K7",
           "K8"
         ],
         "violated": [
           "K3",
-          "K4",
           "K5"
         ],
-        "violations": 3,
-        "constraint_recall": 0.625,
+        "violations": 2,
+        "constraint_recall": 0.75,
         "success": false
       },
       "presence": {
@@ -3691,7 +3682,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.7143,
+        "direct_source": 0.8571,
         "direct_source_n": 7,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -4136,7 +4127,7 @@
   {
     "instance": "payments-diamond",
     "condition": "supersession",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"PROBE_LATENCY\",\n    \"SHIFT_ROUTING\",\n    \"DRAIN_NODE\",\n    \"SNAPSHOT_STORE\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"PROBE_LATENCY\",\n    \"DRAIN_NODE\",\n    \"SNAPSHOT_STORE\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "payments-diamond",
       "plan": {
@@ -4144,8 +4135,8 @@
         "parse_error": null,
         "actions": [
           "CYCLE_ENGINE",
-          "PROBE_LATENCY",
           "SHIFT_ROUTING",
+          "PROBE_LATENCY",
           "DRAIN_NODE",
           "SNAPSHOT_STORE"
         ],
@@ -4155,16 +4146,16 @@
           "K1",
           "K2",
           "K3",
-          "K5",
           "K6",
           "K7",
           "K8"
         ],
         "violated": [
-          "K4"
+          "K4",
+          "K5"
         ],
-        "violations": 1,
-        "constraint_recall": 0.875,
+        "violations": 2,
+        "constraint_recall": 0.75,
         "success": false
       },
       "presence": {
@@ -4243,9 +4234,9 @@
       },
       "supersession_respected": {
         "eligible": 1,
-        "exercised": 1,
-        "ambiguous": 0,
-        "rate": 1.0
+        "exercised": 0,
+        "ambiguous": 1,
+        "rate": 0.0
       },
       "supersession_collateral": {
         "applicable": true,
@@ -4417,7 +4408,7 @@
   {
     "instance": "payments-diamond",
     "condition": "source_and_faithful",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"SHIFT_ROUTING\",\n    \"CYCLE_ENGINE\",\n    \"PROBE_LATENCY\",\n    \"SNAPSHOT_STORE\",\n    \"DRAIN_NODE\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SHIFT_ROUTING\",\n    \"CYCLE_ENGINE\",\n    \"DRAIN_NODE\",\n    \"PROBE_LATENCY\",\n    \"SNAPSHOT_STORE\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "payments-diamond",
       "plan": {
@@ -4426,26 +4417,26 @@
         "actions": [
           "SHIFT_ROUTING",
           "CYCLE_ENGINE",
+          "DRAIN_NODE",
           "PROBE_LATENCY",
-          "SNAPSHOT_STORE",
-          "DRAIN_NODE"
+          "SNAPSHOT_STORE"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
           "K2",
+          "K4",
           "K6",
           "K7",
           "K8"
         ],
         "violated": [
           "K3",
-          "K4",
           "K5"
         ],
-        "violations": 3,
-        "constraint_recall": 0.625,
+        "violations": 2,
+        "constraint_recall": 0.75,
         "success": false
       },
       "presence": {
@@ -4537,7 +4528,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.7143,
+        "direct_source": 0.8571,
         "direct_source_n": 7,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -4706,17 +4697,17 @@
   {
     "instance": "payments-diamond",
     "condition": "mixed",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"PROBE_LATENCY\",\n    \"SHIFT_ROUTING\",\n    \"DRAIN_NODE\",\n    \"SNAPSHOT_STORE\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SHIFT_ROUTING\",\n    \"CYCLE_ENGINE\",\n    \"DRAIN_NODE\",\n    \"PROBE_LATENCY\",\n    \"SNAPSHOT_STORE\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "payments-diamond",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "CYCLE_ENGINE",
-          "PROBE_LATENCY",
           "SHIFT_ROUTING",
+          "CYCLE_ENGINE",
           "DRAIN_NODE",
+          "PROBE_LATENCY",
           "SNAPSHOT_STORE"
         ],
         "ready": true,
@@ -4724,17 +4715,17 @@
         "satisfied": [
           "K1",
           "K2",
-          "K3",
-          "K5",
+          "K4",
           "K6",
           "K7",
           "K8"
         ],
         "violated": [
-          "K4"
+          "K3",
+          "K5"
         ],
-        "violations": 1,
-        "constraint_recall": 0.875,
+        "violations": 2,
+        "constraint_recall": 0.75,
         "success": false
       },
       "presence": {
@@ -4805,10 +4796,10 @@
       },
       "decision_authority_inversion": {
         "eligible": 2,
-        "follows_source": 2,
-        "follows_corruption": 0,
+        "follows_source": 1,
+        "follows_corruption": 1,
         "follows_neither": 0,
-        "rate": 0.0,
+        "rate": 0.5,
         "detail": [
           {
             "constraint": "K2",
@@ -4816,36 +4807,36 @@
           },
           {
             "constraint": "K3",
-            "outcome": "source"
+            "outcome": "corruption"
           }
         ]
       },
       "supersession_respected": {
         "eligible": 1,
-        "exercised": 1,
-        "ambiguous": 0,
-        "rate": 1.0
+        "exercised": 0,
+        "ambiguous": 1,
+        "rate": 0.0
       },
       "supersession_collateral": {
         "applicable": true,
         "violations": 1,
         "violated": [
-          "K4"
+          "K3"
         ]
       },
       "discrimination": {
         "applicable": true,
         "n_corrupted": 2,
         "n_superseded": 1,
-        "resisted_corruption": true,
-        "exercised_override": true,
-        "correct_both": true,
+        "resisted_corruption": false,
+        "exercised_override": false,
+        "correct_both": false,
         "source_reflex": false,
         "latest_reflex": false,
-        "neither": false
+        "neither": true
       },
       "utilization": {
-        "direct_source": 0.8,
+        "direct_source": 1.0,
         "direct_source_n": 5,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -4865,7 +4856,7 @@
   {
     "instance": "payments-twochain",
     "condition": "source_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"DRAIN_NODE\",\n    \"SHIFT_ROUTING\",\n    \"SNAPSHOT_STORE\",\n    \"PROBE_LATENCY\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "{\"actions\": [\n  \"CYCLE_ENGINE\",\n  \"DRAIN_NODE\",\n  \"SHIFT_ROUTING\",\n  \"PROBE_LATENCY\",\n  \"SNAPSHOT_STORE\",\n  \"REOPEN_GATEWAY\"\n], \n\"ready\": true}",
     "score": {
       "instance": "payments-twochain",
       "plan": {
@@ -4875,25 +4866,25 @@
           "CYCLE_ENGINE",
           "DRAIN_NODE",
           "SHIFT_ROUTING",
-          "SNAPSHOT_STORE",
           "PROBE_LATENCY",
+          "SNAPSHOT_STORE",
           "REOPEN_GATEWAY"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
-          "K3",
           "K4",
           "K5",
           "K6",
           "K7"
         ],
         "violated": [
-          "K2"
+          "K2",
+          "K3"
         ],
-        "violations": 1,
-        "constraint_recall": 0.8571,
+        "violations": 2,
+        "constraint_recall": 0.7143,
         "success": false
       },
       "presence": {
@@ -4997,7 +4988,7 @@
   {
     "instance": "payments-twochain",
     "condition": "corruption_only",
-    "plan_text": "{\"actions\": [\"PROBE_LATENCY\", \"SHIFT_ROUTING\", \"DRAIN_NODE\", \"CYCLE_ENGINE\", \"SNAPSHOT_STORE\", \"REOPEN_GATEWAY\"], \"ready\": true}",
+    "plan_text": "{\"actions\": [\"PROBE_LATENCY\", \"CYCLE_ENGINE\", \"DRAIN_NODE\", \"REOPEN_GATEWAY\"], \"ready\": true}",
     "score": {
       "instance": "payments-twochain",
       "plan": {
@@ -5005,10 +4996,8 @@
         "parse_error": null,
         "actions": [
           "PROBE_LATENCY",
-          "SHIFT_ROUTING",
-          "DRAIN_NODE",
           "CYCLE_ENGINE",
-          "SNAPSHOT_STORE",
+          "DRAIN_NODE",
           "REOPEN_GATEWAY"
         ],
         "ready": true,
@@ -5016,16 +5005,16 @@
         "satisfied": [
           "K1",
           "K4",
-          "K7"
+          "K5",
+          "K6"
         ],
         "violated": [
           "K2",
           "K3",
-          "K5",
-          "K6"
+          "K7"
         ],
-        "violations": 4,
-        "constraint_recall": 0.4286,
+        "violations": 3,
+        "constraint_recall": 0.5714,
         "success": false
       },
       "presence": {
@@ -5116,8 +5105,8 @@
       },
       "corruption_susceptibility": {
         "eligible": 2,
-        "adopted": 2,
-        "rate": 1.0
+        "adopted": 1,
+        "rate": 0.5
       },
       "recovery": {
         "eligible": 0,
@@ -5269,15 +5258,15 @@
   {
     "instance": "payments-twochain",
     "condition": "neither",
-    "plan_text": "{\"actions\": [\n  \"PROBE_LATENCY\",\n  \"SHIFT_ROUTING\",\n  \"CYCLE_ENGINE\",\n  \"SNAPSHOT_STORE\",\n  \"REOPEN_GATEWAY\"\n], \n\"ready\": true}",
+    "plan_text": "{\"actions\": [\"SHIFT_ROUTING\", \"PROBE_LATENCY\", \"CYCLE_ENGINE\", \"SNAPSHOT_STORE\", \"REOPEN_GATEWAY\"], \"ready\": true}",
     "score": {
       "instance": "payments-twochain",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "PROBE_LATENCY",
           "SHIFT_ROUTING",
+          "PROBE_LATENCY",
           "CYCLE_ENGINE",
           "SNAPSHOT_STORE",
           "REOPEN_GATEWAY"
@@ -5400,16 +5389,16 @@
   {
     "instance": "payments-twochain",
     "condition": "supersession",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"SNAPSHOT_STORE\",\n    \"PROBE_LATENCY\",\n    \"CYCLE_ENGINE\",\n    \"REOPEN_GATEWAY\",\n    \"SHIFT_ROUTING\",\n    \"DRAIN_NODE\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "{\"actions\": [\n  \"CYCLE_ENGINE\",\n  \"SNAPSHOT_STORE\",\n  \"PROBE_LATENCY\",\n  \"REOPEN_GATEWAY\",\n  \"SHIFT_ROUTING\",\n  \"DRAIN_NODE\"\n], \n\"ready\": true}",
     "score": {
       "instance": "payments-twochain",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
+          "CYCLE_ENGINE",
           "SNAPSHOT_STORE",
           "PROBE_LATENCY",
-          "CYCLE_ENGINE",
           "REOPEN_GATEWAY",
           "SHIFT_ROUTING",
           "DRAIN_NODE"
@@ -5535,7 +5524,7 @@
   {
     "instance": "payments-twochain",
     "condition": "faithful_only",
-    "plan_text": "{\"actions\": [\n  \"CYCLE_ENGINE\",\n  \"PROBE_LATENCY\",\n  \"SHIFT_ROUTING\",\n  \"SNAPSHOT_STORE\",\n  \"REOPEN_GATEWAY\"\n], \n\"ready\": true}",
+    "plan_text": "{\"actions\": [\n  \"CYCLE_ENGINE\",\n  \"PROBE_LATENCY\",\n  \"SNAPSHOT_STORE\",\n  \"REOPEN_GATEWAY\"\n], \n\"ready\": true}",
     "score": {
       "instance": "payments-twochain",
       "plan": {
@@ -5544,7 +5533,6 @@
         "actions": [
           "CYCLE_ENGINE",
           "PROBE_LATENCY",
-          "SHIFT_ROUTING",
           "SNAPSHOT_STORE",
           "REOPEN_GATEWAY"
         ],
@@ -5554,12 +5542,12 @@
           "K1",
           "K4",
           "K5",
-          "K7"
+          "K6"
         ],
         "violated": [
           "K2",
           "K3",
-          "K6"
+          "K7"
         ],
         "violations": 3,
         "constraint_recall": 0.5714,
@@ -5666,7 +5654,7 @@
   {
     "instance": "payments-twochain",
     "condition": "source_and_faithful",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"DRAIN_NODE\",\n    \"SHIFT_ROUTING\",\n    \"PROBE_LATENCY\",\n    \"SNAPSHOT_STORE\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"DRAIN_NODE\",\n    \"PROBE_LATENCY\",\n    \"REOPEN_GATEWAY\",\n    \"SHIFT_ROUTING\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "payments-twochain",
       "plan": {
@@ -5675,10 +5663,9 @@
         "actions": [
           "CYCLE_ENGINE",
           "DRAIN_NODE",
-          "SHIFT_ROUTING",
           "PROBE_LATENCY",
-          "SNAPSHOT_STORE",
-          "REOPEN_GATEWAY"
+          "REOPEN_GATEWAY",
+          "SHIFT_ROUTING"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -5938,17 +5925,17 @@
   {
     "instance": "payments-twochain",
     "condition": "mixed",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"SNAPSHOT_STORE\",\n    \"PROBE_LATENCY\",\n    \"CYCLE_ENGINE\",\n    \"DRAIN_NODE\",\n    \"REOPEN_GATEWAY\",\n    \"SHIFT_ROUTING\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"DRAIN_NODE\",\n    \"CYCLE_ENGINE\",\n    \"SNAPSHOT_STORE\",\n    \"PROBE_LATENCY\",\n    \"REOPEN_GATEWAY\",\n    \"SHIFT_ROUTING\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "payments-twochain",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
+          "DRAIN_NODE",
+          "CYCLE_ENGINE",
           "SNAPSHOT_STORE",
           "PROBE_LATENCY",
-          "CYCLE_ENGINE",
-          "DRAIN_NODE",
           "REOPEN_GATEWAY",
           "SHIFT_ROUTING"
         ],
@@ -5958,15 +5945,15 @@
           "K1",
           "K3",
           "K4",
-          "K5",
           "K6",
           "K7"
         ],
         "violated": [
-          "K2"
+          "K2",
+          "K5"
         ],
-        "violations": 1,
-        "constraint_recall": 0.8571,
+        "violations": 2,
+        "constraint_recall": 0.7143,
         "success": false
       },
       "presence": {
@@ -6029,10 +6016,10 @@
       },
       "decision_authority_inversion": {
         "eligible": 2,
-        "follows_source": 1,
-        "follows_corruption": 1,
+        "follows_source": 0,
+        "follows_corruption": 2,
         "follows_neither": 0,
-        "rate": 0.5,
+        "rate": 1.0,
         "detail": [
           {
             "constraint": "K2",
@@ -6040,7 +6027,7 @@
           },
           {
             "constraint": "K5",
-            "outcome": "source"
+            "outcome": "corruption"
           }
         ]
       },
@@ -6052,9 +6039,10 @@
       },
       "supersession_collateral": {
         "applicable": true,
-        "violations": 1,
+        "violations": 2,
         "violated": [
-          "K2"
+          "K2",
+          "K5"
         ]
       },
       "discrimination": {
@@ -6089,7 +6077,7 @@
   {
     "instance": "payments-star",
     "condition": "source_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"SHIFT_ROUTING\",\n    \"CYCLE_ENGINE\",\n    \"SNAPSHOT_STORE\",\n    \"DRAIN_NODE\",\n    \"PROBE_LATENCY\"\n  ],\n  \"ready\": false\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SHIFT_ROUTING\",\n    \"CYCLE_ENGINE\",\n    \"SNAPSHOT_STORE\",\n    \"DRAIN_NODE\",\n    \"PROBE_LATENCY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "payments-star",
       "plan": {
@@ -6102,7 +6090,7 @@
           "DRAIN_NODE",
           "PROBE_LATENCY"
         ],
-        "ready": false,
+        "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
@@ -6220,7 +6208,7 @@
   {
     "instance": "payments-star",
     "condition": "corruption_only",
-    "plan_text": "{\"actions\": [\n  \"DRAIN_NODE\",\n  \"CYCLE_ENGINE\",\n  \"PROBE_LATENCY\",\n  \"REOPEN_GATEWAY\",\n  \"SHIFT_ROUTING\"\n], \n\"ready\": true}",
+    "plan_text": "{\"actions\": [\"DRAIN_NODE\", \"PROBE_LATENCY\", \"REOPEN_GATEWAY\", \"CYCLE_ENGINE\"], \"ready\": true}",
     "score": {
       "instance": "payments-star",
       "plan": {
@@ -6228,26 +6216,25 @@
         "parse_error": null,
         "actions": [
           "DRAIN_NODE",
-          "CYCLE_ENGINE",
           "PROBE_LATENCY",
           "REOPEN_GATEWAY",
-          "SHIFT_ROUTING"
+          "CYCLE_ENGINE"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
-          "K1",
           "K2",
           "K4",
           "K7"
         ],
         "violated": [
+          "K1",
           "K3",
           "K5",
           "K6"
         ],
-        "violations": 3,
-        "constraint_recall": 0.5714,
+        "violations": 4,
+        "constraint_recall": 0.4286,
         "success": false
       },
       "presence": {
@@ -6338,8 +6325,8 @@
       },
       "corruption_susceptibility": {
         "eligible": 2,
-        "adopted": 1,
-        "rate": 0.5
+        "adopted": 2,
+        "rate": 1.0
       },
       "recovery": {
         "eligible": 0,
@@ -6351,7 +6338,7 @@
   {
     "instance": "payments-star",
     "condition": "both",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"SHIFT_ROUTING\",\n    \"CYCLE_ENGINE\",\n    \"SNAPSHOT_STORE\",\n    \"PROBE_LATENCY\"\n  ],\n  \"ready\": false\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SHIFT_ROUTING\",\n    \"CYCLE_ENGINE\",\n    \"SNAPSHOT_STORE\",\n    \"DRAIN_NODE\",\n    \"PROBE_LATENCY\"\n  ],\n  \"ready\": false\n}\n```",
     "score": {
       "instance": "payments-star",
       "plan": {
@@ -6361,6 +6348,7 @@
           "SHIFT_ROUTING",
           "CYCLE_ENGINE",
           "SNAPSHOT_STORE",
+          "DRAIN_NODE",
           "PROBE_LATENCY"
         ],
         "ready": false,
@@ -6490,7 +6478,7 @@
   {
     "instance": "payments-star",
     "condition": "neither",
-    "plan_text": "{\"actions\": [\"SHIFT_ROUTING\", \"CYCLE_ENGINE\", \"PROBE_LATENCY\", \"DRAIN_NODE\"], \"ready\": true}",
+    "plan_text": "{\"actions\": [\"SHIFT_ROUTING\", \"CYCLE_ENGINE\"], \"ready\": true}",
     "score": {
       "instance": "payments-star",
       "plan": {
@@ -6498,9 +6486,7 @@
         "parse_error": null,
         "actions": [
           "SHIFT_ROUTING",
-          "CYCLE_ENGINE",
-          "PROBE_LATENCY",
-          "DRAIN_NODE"
+          "CYCLE_ENGINE"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -6620,31 +6606,30 @@
   {
     "instance": "payments-star",
     "condition": "supersession",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"SHIFT_ROUTING\",\n    \"PROBE_LATENCY\",\n    \"CYCLE_ENGINE\",\n    \"SNAPSHOT_STORE\",\n    \"DRAIN_NODE\"\n  ],\n  \"ready\": false\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"PROBE_LATENCY\",\n    \"SHIFT_ROUTING\",\n    \"SNAPSHOT_STORE\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "payments-star",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "SHIFT_ROUTING",
-          "PROBE_LATENCY",
           "CYCLE_ENGINE",
-          "SNAPSHOT_STORE",
-          "DRAIN_NODE"
+          "PROBE_LATENCY",
+          "SHIFT_ROUTING",
+          "SNAPSHOT_STORE"
         ],
-        "ready": false,
+        "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
           "K2",
           "K3",
-          "K5",
+          "K4",
           "K6",
           "K7"
         ],
         "violated": [
-          "K4"
+          "K5"
         ],
         "violations": 1,
         "constraint_recall": 0.8571,
@@ -6718,20 +6703,22 @@
       },
       "supersession_respected": {
         "eligible": 1,
-        "exercised": 0,
-        "ambiguous": 1,
-        "rate": 0.0
+        "exercised": 1,
+        "ambiguous": 0,
+        "rate": 1.0
       },
       "supersession_collateral": {
         "applicable": true,
-        "violations": 0,
-        "violated": []
+        "violations": 1,
+        "violated": [
+          "K5"
+        ]
       },
       "discrimination": {
         "applicable": false
       },
       "utilization": {
-        "direct_source": 1.0,
+        "direct_source": 0.8333,
         "direct_source_n": 6,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -6879,7 +6866,7 @@
   {
     "instance": "payments-star",
     "condition": "source_and_faithful",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"SHIFT_ROUTING\",\n    \"CYCLE_ENGINE\",\n    \"SNAPSHOT_STORE\",\n    \"PROBE_LATENCY\"\n  ],\n  \"ready\": false\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SHIFT_ROUTING\",\n    \"SNAPSHOT_STORE\",\n    \"CYCLE_ENGINE\",\n    \"PROBE_LATENCY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "payments-star",
       "plan": {
@@ -6887,11 +6874,11 @@
         "parse_error": null,
         "actions": [
           "SHIFT_ROUTING",
-          "CYCLE_ENGINE",
           "SNAPSHOT_STORE",
+          "CYCLE_ENGINE",
           "PROBE_LATENCY"
         ],
-        "ready": false,
+        "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
@@ -7009,7 +6996,7 @@
   {
     "instance": "payments-star",
     "condition": "both_recovery",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"SNAPSHOT_STORE\",\n    \"PROBE_LATENCY\"\n  ],\n  \"ready\": false\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SNAPSHOT_STORE\",\n    \"SHIFT_ROUTING\",\n    \"PROBE_LATENCY\"\n  ],\n  \"ready\": false\n}\n```",
     "score": {
       "instance": "payments-star",
       "plan": {
@@ -7017,25 +7004,25 @@
         "parse_error": null,
         "actions": [
           "CYCLE_ENGINE",
-          "SHIFT_ROUTING",
           "SNAPSHOT_STORE",
+          "SHIFT_ROUTING",
           "PROBE_LATENCY"
         ],
         "ready": false,
         "unknown_actions": [],
         "satisfied": [
           "K1",
-          "K2",
           "K3",
           "K6",
           "K7"
         ],
         "violated": [
+          "K2",
           "K4",
           "K5"
         ],
-        "violations": 2,
-        "constraint_recall": 0.7143,
+        "violations": 3,
+        "constraint_recall": 0.5714,
         "success": false
       },
       "presence": {
@@ -7128,7 +7115,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.75,
+        "direct_source": 0.5,
         "direct_source_n": 4,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -7420,7 +7407,7 @@
   {
     "instance": "robotics-chain",
     "condition": "corruption_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"SWAP_GRIPPER\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"SWAP_GRIPPER\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "robotics-chain",
       "plan": {
@@ -7428,19 +7415,18 @@
         "parse_error": null,
         "actions": [
           "HALT_CONVEYOR",
-          "LOCK_BAY",
           "SWAP_GRIPPER",
           "RESUME_LINE"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
-          "K1",
+          "K2",
           "K5",
           "K6"
         ],
         "violated": [
-          "K2",
+          "K1",
           "K3",
           "K4"
         ],
@@ -7541,7 +7527,7 @@
   {
     "instance": "robotics-chain",
     "condition": "both",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"CALIBRATE_ARM\",\n    \"LOCK_BAY\",\n    \"SWAP_GRIPPER\",\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CALIBRATE_ARM\",\n    \"LOCK_BAY\",\n    \"SWAP_GRIPPER\",\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "robotics-chain",
       "plan": {
@@ -7552,8 +7538,7 @@
           "LOCK_BAY",
           "SWAP_GRIPPER",
           "HALT_CONVEYOR",
-          "AUDIT_INVENTORY",
-          "RESUME_LINE"
+          "AUDIT_INVENTORY"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -7562,13 +7547,14 @@
           "K2",
           "K3",
           "K4",
-          "K5",
+          "K5"
+        ],
+        "violated": [
           "K6"
         ],
-        "violated": [],
-        "violations": 0,
-        "constraint_recall": 1.0,
-        "success": true
+        "violations": 1,
+        "constraint_recall": 0.8333,
+        "success": false
       },
       "presence": {
         "K1": {
@@ -7622,10 +7608,10 @@
       },
       "decision_authority_inversion": {
         "eligible": 2,
-        "follows_source": 2,
-        "follows_corruption": 0,
+        "follows_source": 1,
+        "follows_corruption": 1,
         "follows_neither": 0,
-        "rate": 0.0,
+        "rate": 0.5,
         "detail": [
           {
             "constraint": "K4",
@@ -7633,7 +7619,7 @@
           },
           {
             "constraint": "K6",
-            "outcome": "source"
+            "outcome": "corruption"
           }
         ]
       },
@@ -7672,17 +7658,16 @@
   {
     "instance": "robotics-chain",
     "condition": "neither",
-    "plan_text": "{\"actions\": [\"LOCK_BAY\", \"SWAP_GRIPPER\", \"HALT_CONVEYOR\", \"AUDIT_INVENTORY\"], \"ready\": true}",
+    "plan_text": "{\"actions\": [\"SWAP_GRIPPER\", \"AUDIT_INVENTORY\", \"LOCK_BAY\"], \"ready\": true}",
     "score": {
       "instance": "robotics-chain",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "LOCK_BAY",
           "SWAP_GRIPPER",
-          "HALT_CONVEYOR",
-          "AUDIT_INVENTORY"
+          "AUDIT_INVENTORY",
+          "LOCK_BAY"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -7793,15 +7778,15 @@
   {
     "instance": "robotics-chain",
     "condition": "supersession",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"CALIBRATE_ARM\",\n    \"LOCK_BAY\",\n    \"SWAP_GRIPPER\",\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"LOCK_BAY\",\n    \"CALIBRATE_ARM\",\n    \"SWAP_GRIPPER\",\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "robotics-chain",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "CALIBRATE_ARM",
           "LOCK_BAY",
+          "CALIBRATE_ARM",
           "SWAP_GRIPPER",
           "HALT_CONVEYOR",
           "AUDIT_INVENTORY",
@@ -7811,16 +7796,17 @@
         "unknown_actions": [],
         "satisfied": [
           "K1",
-          "K2",
           "K3",
           "K4",
           "K5",
           "K6"
         ],
-        "violated": [],
-        "violations": 0,
-        "constraint_recall": 1.0,
-        "success": true
+        "violated": [
+          "K2"
+        ],
+        "violations": 1,
+        "constraint_recall": 0.8333,
+        "success": false
       },
       "presence": {
         "K1": {
@@ -7882,9 +7868,9 @@
       },
       "supersession_respected": {
         "eligible": 1,
-        "exercised": 1,
-        "ambiguous": 0,
-        "rate": 1.0
+        "exercised": 0,
+        "ambiguous": 1,
+        "rate": 0.0
       },
       "supersession_collateral": {
         "applicable": true,
@@ -7915,7 +7901,7 @@
   {
     "instance": "robotics-chain",
     "condition": "faithful_only",
-    "plan_text": "{\"actions\": [\"LOCK_BAY\", \"HALT_CONVEYOR\", \"CALIBRATE_ARM\", \"SWAP_GRIPPER\", \"RESUME_LINE\"], \"ready\": true}",
+    "plan_text": "{\"actions\": [\"LOCK_BAY\", \"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"SWAP_GRIPPER\", \"CALIBRATE_ARM\", \"RESUME_LINE\"], \"ready\": true}",
     "score": {
       "instance": "robotics-chain",
       "plan": {
@@ -7924,24 +7910,25 @@
         "actions": [
           "LOCK_BAY",
           "HALT_CONVEYOR",
-          "CALIBRATE_ARM",
+          "AUDIT_INVENTORY",
           "SWAP_GRIPPER",
+          "CALIBRATE_ARM",
           "RESUME_LINE"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
-          "K3",
           "K5",
           "K6"
         ],
         "violated": [
           "K2",
+          "K3",
           "K4"
         ],
-        "violations": 2,
-        "constraint_recall": 0.6667,
+        "violations": 3,
+        "constraint_recall": 0.5,
         "success": false
       },
       "presence": {
@@ -8019,7 +8006,7 @@
       "utilization": {
         "direct_source": null,
         "direct_source_n": 0,
-        "faithful_relay": 1.0,
+        "faithful_relay": 0.0,
         "faithful_relay_n": 1
       },
       "corruption_susceptibility": {
@@ -8291,7 +8278,7 @@
   {
     "instance": "robotics-chain",
     "condition": "mixed",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"CALIBRATE_ARM\",\n    \"LOCK_BAY\",\n    \"SWAP_GRIPPER\",\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CALIBRATE_ARM\",\n    \"LOCK_BAY\",\n    \"HALT_CONVEYOR\",\n    \"SWAP_GRIPPER\",\n    \"AUDIT_INVENTORY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "robotics-chain",
       "plan": {
@@ -8300,8 +8287,8 @@
         "actions": [
           "CALIBRATE_ARM",
           "LOCK_BAY",
-          "SWAP_GRIPPER",
           "HALT_CONVEYOR",
+          "SWAP_GRIPPER",
           "AUDIT_INVENTORY"
         ],
         "ready": true,
@@ -8310,14 +8297,14 @@
           "K1",
           "K2",
           "K3",
-          "K4",
           "K5"
         ],
         "violated": [
+          "K4",
           "K6"
         ],
-        "violations": 1,
-        "constraint_recall": 0.8333,
+        "violations": 2,
+        "constraint_recall": 0.6667,
         "success": false
       },
       "presence": {
@@ -8372,14 +8359,14 @@
       },
       "decision_authority_inversion": {
         "eligible": 2,
-        "follows_source": 1,
-        "follows_corruption": 1,
+        "follows_source": 0,
+        "follows_corruption": 2,
         "follows_neither": 0,
-        "rate": 0.5,
+        "rate": 1.0,
         "detail": [
           {
             "constraint": "K4",
-            "outcome": "source"
+            "outcome": "corruption"
           },
           {
             "constraint": "K6",
@@ -8395,8 +8382,9 @@
       },
       "supersession_collateral": {
         "applicable": true,
-        "violations": 1,
+        "violations": 2,
         "violated": [
+          "K4",
           "K6"
         ]
       },
@@ -8432,7 +8420,7 @@
   {
     "instance": "robotics-fork",
     "condition": "source_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"SWAP_GRIPPER\",\n    \"LOCK_BAY\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"SWAP_GRIPPER\",\n    \"LOCK_BAY\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "robotics-fork",
       "plan": {
@@ -8440,6 +8428,7 @@
         "parse_error": null,
         "actions": [
           "HALT_CONVEYOR",
+          "AUDIT_INVENTORY",
           "SWAP_GRIPPER",
           "LOCK_BAY",
           "CALIBRATE_ARM",
@@ -8563,7 +8552,7 @@
   {
     "instance": "robotics-fork",
     "condition": "corruption_only",
-    "plan_text": "{\"actions\": [\"LOCK_BAY\", \"CALIBRATE_ARM\", \"RESUME_LINE\", \"SWAP_GRIPPER\"], \"ready\": true}",
+    "plan_text": "{\"actions\": [\"LOCK_BAY\", \"RESUME_LINE\"], \"ready\": true}",
     "score": {
       "instance": "robotics-fork",
       "plan": {
@@ -8571,25 +8560,23 @@
         "parse_error": null,
         "actions": [
           "LOCK_BAY",
-          "CALIBRATE_ARM",
-          "RESUME_LINE",
-          "SWAP_GRIPPER"
+          "RESUME_LINE"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
+          "K2",
           "K4",
           "K6",
           "K7"
         ],
         "violated": [
           "K1",
-          "K2",
           "K3",
           "K5"
         ],
-        "violations": 4,
-        "constraint_recall": 0.4286,
+        "violations": 3,
+        "constraint_recall": 0.5714,
         "success": false
       },
       "presence": {
@@ -8693,17 +8680,17 @@
   {
     "instance": "robotics-fork",
     "condition": "both",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"LOCK_BAY\",\n    \"RESUME_LINE\",\n    \"HALT_CONVEYOR\",\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"SWAP_GRIPPER\",\n    \"RESUME_LINE\",\n    \"CALIBRATE_ARM\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "robotics-fork",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "LOCK_BAY",
-          "RESUME_LINE",
           "HALT_CONVEYOR",
+          "LOCK_BAY",
           "SWAP_GRIPPER",
+          "RESUME_LINE",
           "CALIBRATE_ARM"
         ],
         "ready": true,
@@ -8711,16 +8698,16 @@
         "satisfied": [
           "K1",
           "K2",
+          "K3",
           "K4",
           "K6",
           "K7"
         ],
         "violated": [
-          "K3",
           "K5"
         ],
-        "violations": 2,
-        "constraint_recall": 0.7143,
+        "violations": 1,
+        "constraint_recall": 0.8571,
         "success": false
       },
       "presence": {
@@ -8813,7 +8800,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.75,
+        "direct_source": 1.0,
         "direct_source_n": 4,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -8833,7 +8820,7 @@
   {
     "instance": "robotics-fork",
     "condition": "neither",
-    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"CALIBRATE_ARM\", \"SWAP_GRIPPER\", \"RESUME_LINE\", \"AUDIT_INVENTORY\"], \"ready\": true}",
+    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"CALIBRATE_ARM\", \"SWAP_GRIPPER\", \"AUDIT_INVENTORY\"], \"ready\": true}",
     "score": {
       "instance": "robotics-fork",
       "plan": {
@@ -8843,7 +8830,6 @@
           "HALT_CONVEYOR",
           "CALIBRATE_ARM",
           "SWAP_GRIPPER",
-          "RESUME_LINE",
           "AUDIT_INVENTORY"
         ],
         "ready": true,
@@ -9097,7 +9083,7 @@
   {
     "instance": "robotics-fork",
     "condition": "faithful_only",
-    "plan_text": "{\"actions\": [\"LOCK_BAY\", \"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"RESUME_LINE\"], \"ready\": true}",
+    "plan_text": "{\"actions\": [\"LOCK_BAY\", \"AUDIT_INVENTORY\", \"SWAP_GRIPPER\", \"CALIBRATE_ARM\", \"HALT_CONVEYOR\"], \"ready\": true}",
     "score": {
       "instance": "robotics-fork",
       "plan": {
@@ -9105,25 +9091,26 @@
         "parse_error": null,
         "actions": [
           "LOCK_BAY",
-          "HALT_CONVEYOR",
           "AUDIT_INVENTORY",
-          "RESUME_LINE"
+          "SWAP_GRIPPER",
+          "CALIBRATE_ARM",
+          "HALT_CONVEYOR"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
-          "K2",
           "K3",
           "K4",
           "K6",
           "K7"
         ],
         "violated": [
+          "K2",
           "K5"
         ],
-        "violations": 1,
-        "constraint_recall": 0.8571,
+        "violations": 2,
+        "constraint_recall": 0.7143,
         "success": false
       },
       "presence": {
@@ -9227,7 +9214,7 @@
   {
     "instance": "robotics-fork",
     "condition": "source_and_faithful",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"SWAP_GRIPPER\",\n    \"LOCK_BAY\",\n    \"RESUME_LINE\",\n    \"CALIBRATE_ARM\",\n    \"AUDIT_INVENTORY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"SWAP_GRIPPER\",\n    \"LOCK_BAY\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "robotics-fork",
       "plan": {
@@ -9237,9 +9224,8 @@
           "HALT_CONVEYOR",
           "SWAP_GRIPPER",
           "LOCK_BAY",
-          "RESUME_LINE",
           "CALIBRATE_ARM",
-          "AUDIT_INVENTORY"
+          "RESUME_LINE"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -9359,7 +9345,7 @@
   {
     "instance": "robotics-fork",
     "condition": "both_recovery",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"CALIBRATE_ARM\",\n    \"SWAP_GRIPPER\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"SWAP_GRIPPER\",\n    \"LOCK_BAY\",\n    \"RESUME_LINE\",\n    \"CALIBRATE_ARM\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "robotics-fork",
       "plan": {
@@ -9367,10 +9353,10 @@
         "parse_error": null,
         "actions": [
           "HALT_CONVEYOR",
-          "LOCK_BAY",
-          "CALIBRATE_ARM",
           "SWAP_GRIPPER",
-          "RESUME_LINE"
+          "LOCK_BAY",
+          "RESUME_LINE",
+          "CALIBRATE_ARM"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -9378,15 +9364,15 @@
           "K1",
           "K2",
           "K3",
-          "K4",
           "K6",
           "K7"
         ],
         "violated": [
+          "K4",
           "K5"
         ],
-        "violations": 1,
-        "constraint_recall": 0.8571,
+        "violations": 2,
+        "constraint_recall": 0.7143,
         "success": false
       },
       "presence": {
@@ -9499,7 +9485,7 @@
   {
     "instance": "robotics-fork",
     "condition": "mixed",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"LOCK_BAY\",\n    \"RESUME_LINE\",\n    \"SWAP_GRIPPER\",\n    \"HALT_CONVEYOR\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"LOCK_BAY\",\n    \"SWAP_GRIPPER\",\n    \"RESUME_LINE\",\n    \"CALIBRATE_ARM\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "robotics-fork",
       "plan": {
@@ -9507,25 +9493,25 @@
         "parse_error": null,
         "actions": [
           "LOCK_BAY",
-          "RESUME_LINE",
           "SWAP_GRIPPER",
-          "HALT_CONVEYOR"
+          "RESUME_LINE",
+          "CALIBRATE_ARM"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
-          "K1",
           "K4",
           "K6",
           "K7"
         ],
         "violated": [
+          "K1",
           "K2",
           "K3",
           "K5"
         ],
-        "violations": 3,
-        "constraint_recall": 0.5714,
+        "violations": 4,
+        "constraint_recall": 0.4286,
         "success": false
       },
       "presence": {
@@ -9588,14 +9574,14 @@
       },
       "decision_authority_inversion": {
         "eligible": 2,
-        "follows_source": 1,
-        "follows_corruption": 1,
+        "follows_source": 0,
+        "follows_corruption": 2,
         "follows_neither": 0,
-        "rate": 0.5,
+        "rate": 1.0,
         "detail": [
           {
             "constraint": "K1",
-            "outcome": "source"
+            "outcome": "corruption"
           },
           {
             "constraint": "K5",
@@ -9611,8 +9597,9 @@
       },
       "supersession_collateral": {
         "applicable": true,
-        "violations": 3,
+        "violations": 4,
         "violated": [
+          "K1",
           "K2",
           "K3",
           "K5"
@@ -9650,7 +9637,7 @@
   {
     "instance": "robotics-join",
     "condition": "source_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"AUDIT_INVENTORY\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\",\n    \"SWAP_GRIPPER\",\n    \"LOCK_BAY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "{\"actions\": [\"AUDIT_INVENTORY\", \"CALIBRATE_ARM\", \"RESUME_LINE\", \"LOCK_BAY\", \"SWAP_GRIPPER\"], \"ready\": true}",
     "score": {
       "instance": "robotics-join",
       "plan": {
@@ -9660,8 +9647,8 @@
           "AUDIT_INVENTORY",
           "CALIBRATE_ARM",
           "RESUME_LINE",
-          "SWAP_GRIPPER",
-          "LOCK_BAY"
+          "LOCK_BAY",
+          "SWAP_GRIPPER"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -9781,7 +9768,7 @@
   {
     "instance": "robotics-join",
     "condition": "corruption_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"CALIBRATE_ARM\",\n    \"SWAP_GRIPPER\",\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"LOCK_BAY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CALIBRATE_ARM\",\n    \"SWAP_GRIPPER\",\n    \"AUDIT_INVENTORY\",\n    \"LOCK_BAY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "robotics-join",
       "plan": {
@@ -9790,22 +9777,22 @@
         "actions": [
           "CALIBRATE_ARM",
           "SWAP_GRIPPER",
-          "HALT_CONVEYOR",
           "AUDIT_INVENTORY",
-          "LOCK_BAY"
+          "LOCK_BAY",
+          "RESUME_LINE"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
+          "K1",
           "K2",
           "K5",
-          "K6",
-          "K7"
+          "K6"
         ],
         "violated": [
-          "K1",
           "K3",
-          "K4"
+          "K4",
+          "K7"
         ],
         "violations": 3,
         "constraint_recall": 0.5714,
@@ -9912,18 +9899,16 @@
   {
     "instance": "robotics-join",
     "condition": "both",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"RESUME_LINE\",\n    \"CALIBRATE_ARM\",\n    \"AUDIT_INVENTORY\",\n    \"SWAP_GRIPPER\",\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"AUDIT_INVENTORY\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\",\n    \"LOCK_BAY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "robotics-join",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "RESUME_LINE",
-          "CALIBRATE_ARM",
           "AUDIT_INVENTORY",
-          "SWAP_GRIPPER",
-          "HALT_CONVEYOR",
+          "CALIBRATE_ARM",
+          "RESUME_LINE",
           "LOCK_BAY"
         ],
         "ready": true,
@@ -9931,16 +9916,16 @@
         "satisfied": [
           "K1",
           "K2",
-          "K3",
+          "K4",
           "K5",
-          "K6",
-          "K7"
+          "K6"
         ],
         "violated": [
-          "K4"
+          "K3",
+          "K7"
         ],
-        "violations": 1,
-        "constraint_recall": 0.8571,
+        "violations": 2,
+        "constraint_recall": 0.7143,
         "success": false
       },
       "presence": {
@@ -10003,14 +9988,14 @@
       },
       "decision_authority_inversion": {
         "eligible": 2,
-        "follows_source": 1,
-        "follows_corruption": 1,
+        "follows_source": 2,
+        "follows_corruption": 0,
         "follows_neither": 0,
-        "rate": 0.5,
+        "rate": 0.0,
         "detail": [
           {
             "constraint": "K4",
-            "outcome": "corruption"
+            "outcome": "source"
           },
           {
             "constraint": "K6",
@@ -10033,7 +10018,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 1.0,
+        "direct_source": 0.75,
         "direct_source_n": 4,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -10053,16 +10038,16 @@
   {
     "instance": "robotics-join",
     "condition": "neither",
-    "plan_text": "{\"actions\": [\"SWAP_GRIPPER\", \"HALT_CONVEYOR\", \"CALIBRATE_ARM\", \"RESUME_LINE\", \"AUDIT_INVENTORY\"], \"ready\": true}",
+    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"CALIBRATE_ARM\", \"SWAP_GRIPPER\", \"RESUME_LINE\", \"AUDIT_INVENTORY\"], \"ready\": true}",
     "score": {
       "instance": "robotics-join",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "SWAP_GRIPPER",
           "HALT_CONVEYOR",
           "CALIBRATE_ARM",
+          "SWAP_GRIPPER",
           "RESUME_LINE",
           "AUDIT_INVENTORY"
         ],
@@ -10184,18 +10169,17 @@
   {
     "instance": "robotics-join",
     "condition": "supersession",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"CALIBRATE_ARM\",\n    \"SWAP_GRIPPER\",\n    \"RESUME_LINE\",\n    \"LOCK_BAY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"AUDIT_INVENTORY\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\",\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "robotics-join",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "HALT_CONVEYOR",
           "AUDIT_INVENTORY",
           "CALIBRATE_ARM",
-          "SWAP_GRIPPER",
           "RESUME_LINE",
+          "HALT_CONVEYOR",
           "LOCK_BAY"
         ],
         "ready": true,
@@ -10318,7 +10302,7 @@
   {
     "instance": "robotics-join",
     "condition": "faithful_only",
-    "plan_text": "{\"actions\": [\"AUDIT_INVENTORY\", \"SWAP_GRIPPER\", \"CALIBRATE_ARM\", \"RESUME_LINE\"], \"ready\": true}",
+    "plan_text": "{\"actions\": [\"AUDIT_INVENTORY\", \"SWAP_GRIPPER\", \"HALT_CONVEYOR\", \"CALIBRATE_ARM\", \"RESUME_LINE\"], \"ready\": true}",
     "score": {
       "instance": "robotics-join",
       "plan": {
@@ -10327,6 +10311,7 @@
         "actions": [
           "AUDIT_INVENTORY",
           "SWAP_GRIPPER",
+          "HALT_CONVEYOR",
           "CALIBRATE_ARM",
           "RESUME_LINE"
         ],
@@ -10448,7 +10433,7 @@
   {
     "instance": "robotics-join",
     "condition": "source_and_faithful",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"AUDIT_INVENTORY\",\n    \"CALIBRATE_ARM\",\n    \"LOCK_BAY\",\n    \"SWAP_GRIPPER\",\n    \"HALT_CONVEYOR\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"AUDIT_INVENTORY\",\n    \"CALIBRATE_ARM\",\n    \"LOCK_BAY\",\n    \"RESUME_LINE\",\n    \"SWAP_GRIPPER\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "robotics-join",
       "plan": {
@@ -10458,9 +10443,8 @@
           "AUDIT_INVENTORY",
           "CALIBRATE_ARM",
           "LOCK_BAY",
-          "SWAP_GRIPPER",
-          "HALT_CONVEYOR",
-          "RESUME_LINE"
+          "RESUME_LINE",
+          "SWAP_GRIPPER"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -10580,7 +10564,7 @@
   {
     "instance": "robotics-join",
     "condition": "both_recovery",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"AUDIT_INVENTORY\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\",\n    \"SWAP_GRIPPER\",\n    \"LOCK_BAY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"AUDIT_INVENTORY\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\",\n    \"LOCK_BAY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "robotics-join",
       "plan": {
@@ -10590,7 +10574,6 @@
           "AUDIT_INVENTORY",
           "CALIBRATE_ARM",
           "RESUME_LINE",
-          "SWAP_GRIPPER",
           "LOCK_BAY"
         ],
         "ready": true,
@@ -10720,21 +10703,20 @@
   {
     "instance": "robotics-join",
     "condition": "mixed",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"CALIBRATE_ARM\",\n    \"AUDIT_INVENTORY\",\n    \"RESUME_LINE\",\n    \"SWAP_GRIPPER\",\n    \"LOCK_BAY\"\n  ],\n  \"ready\": false\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CALIBRATE_ARM\",\n    \"AUDIT_INVENTORY\",\n    \"RESUME_LINE\",\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "robotics-join",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "HALT_CONVEYOR",
           "CALIBRATE_ARM",
           "AUDIT_INVENTORY",
           "RESUME_LINE",
-          "SWAP_GRIPPER",
+          "HALT_CONVEYOR",
           "LOCK_BAY"
         ],
-        "ready": false,
+        "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
@@ -11580,36 +11562,33 @@
   {
     "instance": "robotics-diamond",
     "condition": "faithful_only",
-    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"LOCK_BAY\", \"SWAP_GRIPPER\", \"RESUME_LINE\", \"CALIBRATE_ARM\", \"AUDIT_INVENTORY\"], \"ready\": true}",
+    "plan_text": "{\"actions\": [\"LOCK_BAY\", \"HALT_CONVEYOR\", \"AUDIT_INVENTORY\"], \"ready\": true}",
     "score": {
       "instance": "robotics-diamond",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "HALT_CONVEYOR",
           "LOCK_BAY",
-          "SWAP_GRIPPER",
-          "RESUME_LINE",
-          "CALIBRATE_ARM",
+          "HALT_CONVEYOR",
           "AUDIT_INVENTORY"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
-          "K5",
-          "K6",
-          "K8"
-        ],
-        "violated": [
           "K2",
           "K3",
           "K4",
+          "K5",
+          "K8"
+        ],
+        "violated": [
+          "K6",
           "K7"
         ],
-        "violations": 4,
-        "constraint_recall": 0.5,
+        "violations": 2,
+        "constraint_recall": 0.75,
         "success": false
       },
       "presence": {
@@ -11721,7 +11700,7 @@
   {
     "instance": "robotics-diamond",
     "condition": "source_and_faithful",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"AUDIT_INVENTORY\",\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"AUDIT_INVENTORY\",\n    \"HALT_CONVEYOR\",\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "robotics-diamond",
       "plan": {
@@ -11730,7 +11709,6 @@
         "actions": [
           "AUDIT_INVENTORY",
           "HALT_CONVEYOR",
-          "LOCK_BAY",
           "SWAP_GRIPPER",
           "CALIBRATE_ARM",
           "RESUME_LINE"
@@ -12011,7 +11989,7 @@
   {
     "instance": "robotics-diamond",
     "condition": "mixed",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"AUDIT_INVENTORY\",\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"AUDIT_INVENTORY\",\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\",\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "robotics-diamond",
       "plan": {
@@ -12019,10 +11997,10 @@
         "parse_error": null,
         "actions": [
           "AUDIT_INVENTORY",
-          "HALT_CONVEYOR",
-          "LOCK_BAY",
           "SWAP_GRIPPER",
           "CALIBRATE_ARM",
+          "HALT_CONVEYOR",
+          "LOCK_BAY",
           "RESUME_LINE"
         ],
         "ready": true,
@@ -12034,14 +12012,13 @@
           "K4",
           "K5",
           "K6",
+          "K7",
           "K8"
         ],
-        "violated": [
-          "K7"
-        ],
-        "violations": 1,
-        "constraint_recall": 0.875,
-        "success": false
+        "violated": [],
+        "violations": 0,
+        "constraint_recall": 1.0,
+        "success": true
       },
       "presence": {
         "K1": {
@@ -12134,10 +12111,8 @@
       },
       "supersession_collateral": {
         "applicable": true,
-        "violations": 1,
-        "violated": [
-          "K7"
-        ]
+        "violations": 0,
+        "violated": []
       },
       "discrimination": {
         "applicable": true,
@@ -12151,7 +12126,7 @@
         "neither": false
       },
       "utilization": {
-        "direct_source": 0.8,
+        "direct_source": 1.0,
         "direct_source_n": 5,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -12171,7 +12146,7 @@
   {
     "instance": "robotics-twochain",
     "condition": "source_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"LOCK_BAY\",\n    \"HALT_CONVEYOR\",\n    \"SWAP_GRIPPER\",\n    \"RESUME_LINE\",\n    \"CALIBRATE_ARM\",\n    \"AUDIT_INVENTORY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"LOCK_BAY\",\n    \"HALT_CONVEYOR\",\n    \"SWAP_GRIPPER\",\n    \"RESUME_LINE\",\n    \"AUDIT_INVENTORY\",\n    \"CALIBRATE_ARM\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "robotics-twochain",
       "plan": {
@@ -12182,24 +12157,24 @@
           "HALT_CONVEYOR",
           "SWAP_GRIPPER",
           "RESUME_LINE",
-          "CALIBRATE_ARM",
-          "AUDIT_INVENTORY"
+          "AUDIT_INVENTORY",
+          "CALIBRATE_ARM"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
           "K2",
-          "K3",
           "K4",
           "K7"
         ],
         "violated": [
+          "K3",
           "K5",
           "K6"
         ],
-        "violations": 2,
-        "constraint_recall": 0.7143,
+        "violations": 3,
+        "constraint_recall": 0.5714,
         "success": false
       },
       "presence": {
@@ -12303,16 +12278,16 @@
   {
     "instance": "robotics-twochain",
     "condition": "corruption_only",
-    "plan_text": "{\"actions\": [\"SWAP_GRIPPER\", \"HALT_CONVEYOR\", \"RESUME_LINE\", \"AUDIT_INVENTORY\"], \"ready\": true}",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RESUME_LINE\",\n    \"SWAP_GRIPPER\",\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "robotics-twochain",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
+          "RESUME_LINE",
           "SWAP_GRIPPER",
           "HALT_CONVEYOR",
-          "RESUME_LINE",
           "AUDIT_INVENTORY"
         ],
         "ready": true,
@@ -12433,35 +12408,35 @@
   {
     "instance": "robotics-twochain",
     "condition": "both",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"LOCK_BAY\",\n    \"HALT_CONVEYOR\",\n    \"SWAP_GRIPPER\",\n    \"RESUME_LINE\",\n    \"AUDIT_INVENTORY\",\n    \"CALIBRATE_ARM\"\n  ],\n  \"ready\": false\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CALIBRATE_ARM\",\n    \"AUDIT_INVENTORY\",\n    \"SWAP_GRIPPER\",\n    \"RESUME_LINE\",\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "robotics-twochain",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "LOCK_BAY",
-          "HALT_CONVEYOR",
+          "CALIBRATE_ARM",
+          "AUDIT_INVENTORY",
           "SWAP_GRIPPER",
           "RESUME_LINE",
-          "AUDIT_INVENTORY",
-          "CALIBRATE_ARM"
+          "HALT_CONVEYOR",
+          "LOCK_BAY"
         ],
-        "ready": false,
+        "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
-          "K2",
+          "K3",
           "K4",
+          "K5",
+          "K6",
           "K7"
         ],
         "violated": [
-          "K3",
-          "K5",
-          "K6"
+          "K2"
         ],
-        "violations": 3,
-        "constraint_recall": 0.5714,
+        "violations": 1,
+        "constraint_recall": 0.8571,
         "success": false
       },
       "presence": {
@@ -12554,7 +12529,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.5,
+        "direct_source": 0.75,
         "direct_source_n": 4,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -12574,29 +12549,31 @@
   {
     "instance": "robotics-twochain",
     "condition": "neither",
-    "plan_text": "{\"actions\": [\"LOCK_BAY\", \"CALIBRATE_ARM\", \"SWAP_GRIPPER\", \"AUDIT_INVENTORY\"], \"ready\": true}",
+    "plan_text": "{\"actions\": [\"AUDIT_INVENTORY\", \"SWAP_GRIPPER\", \"LOCK_BAY\", \"CALIBRATE_ARM\", \"HALT_CONVEYOR\", \"RESUME_LINE\"], \"ready\": true}",
     "score": {
       "instance": "robotics-twochain",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
+          "AUDIT_INVENTORY",
+          "SWAP_GRIPPER",
           "LOCK_BAY",
           "CALIBRATE_ARM",
-          "SWAP_GRIPPER",
-          "AUDIT_INVENTORY"
+          "HALT_CONVEYOR",
+          "RESUME_LINE"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
-          "K3",
+          "K1",
           "K4",
           "K5",
           "K7"
         ],
         "violated": [
-          "K1",
           "K2",
+          "K3",
           "K6"
         ],
         "violations": 3,
@@ -12704,7 +12681,7 @@
   {
     "instance": "robotics-twochain",
     "condition": "supersession",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"CALIBRATE_ARM\",\n    \"AUDIT_INVENTORY\",\n    \"SWAP_GRIPPER\",\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CALIBRATE_ARM\",\n    \"AUDIT_INVENTORY\",\n    \"RESUME_LINE\",\n    \"HALT_CONVEYOR\",\n    \"SWAP_GRIPPER\",\n    \"LOCK_BAY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "robotics-twochain",
       "plan": {
@@ -12713,10 +12690,10 @@
         "actions": [
           "CALIBRATE_ARM",
           "AUDIT_INVENTORY",
-          "SWAP_GRIPPER",
+          "RESUME_LINE",
           "HALT_CONVEYOR",
-          "LOCK_BAY",
-          "RESUME_LINE"
+          "SWAP_GRIPPER",
+          "LOCK_BAY"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -12724,15 +12701,15 @@
           "K1",
           "K3",
           "K4",
-          "K5",
           "K6",
           "K7"
         ],
         "violated": [
-          "K2"
+          "K2",
+          "K5"
         ],
-        "violations": 1,
-        "constraint_recall": 0.8571,
+        "violations": 2,
+        "constraint_recall": 0.7143,
         "success": false
       },
       "presence": {
@@ -12809,16 +12786,17 @@
       },
       "supersession_collateral": {
         "applicable": true,
-        "violations": 1,
+        "violations": 2,
         "violated": [
-          "K2"
+          "K2",
+          "K5"
         ]
       },
       "discrimination": {
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.8333,
+        "direct_source": 0.6667,
         "direct_source_n": 6,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -12838,14 +12816,13 @@
   {
     "instance": "robotics-twochain",
     "condition": "faithful_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"LOCK_BAY\",\n    \"SWAP_GRIPPER\",\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "{\"actions\": [\"SWAP_GRIPPER\", \"HALT_CONVEYOR\", \"AUDIT_INVENTORY\"], \"ready\": true}",
     "score": {
       "instance": "robotics-twochain",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "LOCK_BAY",
           "SWAP_GRIPPER",
           "HALT_CONVEYOR",
           "AUDIT_INVENTORY"
@@ -12855,13 +12832,13 @@
         "satisfied": [
           "K4",
           "K5",
-          "K7"
+          "K6"
         ],
         "violated": [
           "K1",
           "K2",
           "K3",
-          "K6"
+          "K7"
         ],
         "violations": 4,
         "constraint_recall": 0.4286,
@@ -13100,15 +13077,15 @@
   {
     "instance": "robotics-twochain",
     "condition": "both_recovery",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"LOCK_BAY\",\n    \"HALT_CONVEYOR\",\n    \"SWAP_GRIPPER\",\n    \"RESUME_LINE\",\n    \"AUDIT_INVENTORY\",\n    \"CALIBRATE_ARM\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"SWAP_GRIPPER\",\n    \"RESUME_LINE\",\n    \"AUDIT_INVENTORY\",\n    \"CALIBRATE_ARM\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "robotics-twochain",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "LOCK_BAY",
           "HALT_CONVEYOR",
+          "LOCK_BAY",
           "SWAP_GRIPPER",
           "RESUME_LINE",
           "AUDIT_INVENTORY",
@@ -13120,15 +13097,15 @@
           "K1",
           "K2",
           "K4",
+          "K6",
           "K7"
         ],
         "violated": [
           "K3",
-          "K5",
-          "K6"
+          "K5"
         ],
-        "violations": 3,
-        "constraint_recall": 0.5714,
+        "violations": 2,
+        "constraint_recall": 0.7143,
         "success": false
       },
       "presence": {
@@ -13221,7 +13198,7 @@
         "applicable": false
       },
       "utilization": {
-        "direct_source": 0.5,
+        "direct_source": 0.75,
         "direct_source_n": 4,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -13241,7 +13218,7 @@
   {
     "instance": "robotics-twochain",
     "condition": "mixed",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"CALIBRATE_ARM\",\n    \"AUDIT_INVENTORY\",\n    \"RESUME_LINE\",\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CALIBRATE_ARM\",\n    \"AUDIT_INVENTORY\",\n    \"SWAP_GRIPPER\",\n    \"RESUME_LINE\",\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "robotics-twochain",
       "plan": {
@@ -13250,6 +13227,7 @@
         "actions": [
           "CALIBRATE_ARM",
           "AUDIT_INVENTORY",
+          "SWAP_GRIPPER",
           "RESUME_LINE",
           "HALT_CONVEYOR",
           "LOCK_BAY"
@@ -13259,16 +13237,16 @@
         "satisfied": [
           "K1",
           "K3",
+          "K4",
+          "K5",
           "K6",
           "K7"
         ],
         "violated": [
-          "K2",
-          "K4",
-          "K5"
+          "K2"
         ],
-        "violations": 3,
-        "constraint_recall": 0.5714,
+        "violations": 1,
+        "constraint_recall": 0.8571,
         "success": false
       },
       "presence": {
@@ -13354,11 +13332,9 @@
       },
       "supersession_collateral": {
         "applicable": true,
-        "violations": 3,
+        "violations": 1,
         "violated": [
-          "K2",
-          "K4",
-          "K5"
+          "K2"
         ]
       },
       "discrimination": {
@@ -13373,7 +13349,7 @@
         "neither": false
       },
       "utilization": {
-        "direct_source": 0.25,
+        "direct_source": 0.75,
         "direct_source_n": 4,
         "faithful_relay": null,
         "faithful_relay_n": 0
@@ -13393,7 +13369,7 @@
   {
     "instance": "robotics-star",
     "condition": "source_only",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"RESUME_LINE\",\n    \"CALIBRATE_ARM\",\n    \"SWAP_GRIPPER\",\n    \"AUDIT_INVENTORY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"AUDIT_INVENTORY\",\n    \"CALIBRATE_ARM\",\n    \"SWAP_GRIPPER\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "robotics-star",
       "plan": {
@@ -13402,10 +13378,10 @@
         "actions": [
           "HALT_CONVEYOR",
           "LOCK_BAY",
-          "RESUME_LINE",
+          "AUDIT_INVENTORY",
           "CALIBRATE_ARM",
           "SWAP_GRIPPER",
-          "AUDIT_INVENTORY"
+          "RESUME_LINE"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -13525,7 +13501,7 @@
   {
     "instance": "robotics-star",
     "condition": "corruption_only",
-    "plan_text": "{\"actions\": [\"LOCK_BAY\", \"CALIBRATE_ARM\", \"AUDIT_INVENTORY\", \"SWAP_GRIPPER\", \"HALT_CONVEYOR\", \"RESUME_LINE\"], \"ready\": true}",
+    "plan_text": "{\"actions\": [\"LOCK_BAY\", \"HALT_CONVEYOR\", \"AUDIT_INVENTORY\"], \"ready\": true}",
     "score": {
       "instance": "robotics-star",
       "plan": {
@@ -13533,24 +13509,21 @@
         "parse_error": null,
         "actions": [
           "LOCK_BAY",
-          "CALIBRATE_ARM",
-          "AUDIT_INVENTORY",
-          "SWAP_GRIPPER",
           "HALT_CONVEYOR",
-          "RESUME_LINE"
+          "AUDIT_INVENTORY"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
           "K1",
-          "K3",
-          "K6",
-          "K7"
+          "K4",
+          "K5",
+          "K6"
         ],
         "violated": [
           "K2",
-          "K4",
-          "K5"
+          "K3",
+          "K7"
         ],
         "violations": 3,
         "constraint_recall": 0.5714,
@@ -13657,7 +13630,7 @@
   {
     "instance": "robotics-star",
     "condition": "both",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"LOCK_BAY\",\n    \"HALT_CONVEYOR\",\n    \"CALIBRATE_ARM\",\n    \"SWAP_GRIPPER\",\n    \"AUDIT_INVENTORY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"LOCK_BAY\",\n    \"HALT_CONVEYOR\",\n    \"CALIBRATE_ARM\",\n    \"SWAP_GRIPPER\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "robotics-star",
       "plan": {
@@ -13668,7 +13641,7 @@
           "HALT_CONVEYOR",
           "CALIBRATE_ARM",
           "SWAP_GRIPPER",
-          "AUDIT_INVENTORY"
+          "RESUME_LINE"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -13797,35 +13770,33 @@
   {
     "instance": "robotics-star",
     "condition": "neither",
-    "plan_text": "{\"actions\": [\"LOCK_BAY\", \"AUDIT_INVENTORY\", \"CALIBRATE_ARM\", \"SWAP_GRIPPER\", \"HALT_CONVEYOR\", \"RESUME_LINE\"], \"ready\": true}",
+    "plan_text": "{\"actions\": [\"AUDIT_INVENTORY\", \"CALIBRATE_ARM\", \"SWAP_GRIPPER\", \"LOCK_BAY\"], \"ready\": true}",
     "score": {
       "instance": "robotics-star",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
-          "LOCK_BAY",
           "AUDIT_INVENTORY",
           "CALIBRATE_ARM",
           "SWAP_GRIPPER",
-          "HALT_CONVEYOR",
-          "RESUME_LINE"
+          "LOCK_BAY"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
-          "K1",
           "K3",
           "K6",
           "K7"
         ],
         "violated": [
+          "K1",
           "K2",
           "K4",
           "K5"
         ],
-        "violations": 3,
-        "constraint_recall": 0.5714,
+        "violations": 4,
+        "constraint_recall": 0.4286,
         "success": false
       },
       "presence": {
@@ -13929,7 +13900,7 @@
   {
     "instance": "robotics-star",
     "condition": "supersession",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"LOCK_BAY\",\n    \"CALIBRATE_ARM\",\n    \"SWAP_GRIPPER\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"AUDIT_INVENTORY\",\n    \"CALIBRATE_ARM\",\n    \"SWAP_GRIPPER\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "robotics-star",
       "plan": {
@@ -13937,8 +13908,8 @@
         "parse_error": null,
         "actions": [
           "HALT_CONVEYOR",
-          "AUDIT_INVENTORY",
           "LOCK_BAY",
+          "AUDIT_INVENTORY",
           "CALIBRATE_ARM",
           "SWAP_GRIPPER",
           "RESUME_LINE"
@@ -14061,7 +14032,7 @@
   {
     "instance": "robotics-star",
     "condition": "faithful_only",
-    "plan_text": "{\"actions\": [\"LOCK_BAY\", \"AUDIT_INVENTORY\", \"CALIBRATE_ARM\", \"SWAP_GRIPPER\", \"HALT_CONVEYOR\", \"RESUME_LINE\"], \"ready\": true}",
+    "plan_text": "{\"actions\": [\"LOCK_BAY\", \"CALIBRATE_ARM\", \"AUDIT_INVENTORY\"], \"ready\": true}",
     "score": {
       "instance": "robotics-star",
       "plan": {
@@ -14069,23 +14040,20 @@
         "parse_error": null,
         "actions": [
           "LOCK_BAY",
-          "AUDIT_INVENTORY",
           "CALIBRATE_ARM",
-          "SWAP_GRIPPER",
-          "HALT_CONVEYOR",
-          "RESUME_LINE"
+          "AUDIT_INVENTORY"
         ],
         "ready": true,
         "unknown_actions": [],
         "satisfied": [
-          "K1",
           "K3",
+          "K4",
           "K6",
           "K7"
         ],
         "violated": [
+          "K1",
           "K2",
-          "K4",
           "K5"
         ],
         "violations": 3,
@@ -14193,7 +14161,7 @@
   {
     "instance": "robotics-star",
     "condition": "source_and_faithful",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\",\n    \"AUDIT_INVENTORY\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"CALIBRATE_ARM\",\n    \"SWAP_GRIPPER\",\n    \"AUDIT_INVENTORY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "robotics-star",
       "plan": {
@@ -14202,9 +14170,10 @@
         "actions": [
           "HALT_CONVEYOR",
           "LOCK_BAY",
-          "SWAP_GRIPPER",
           "CALIBRATE_ARM",
-          "AUDIT_INVENTORY"
+          "SWAP_GRIPPER",
+          "AUDIT_INVENTORY",
+          "RESUME_LINE"
         ],
         "ready": true,
         "unknown_actions": [],
@@ -14464,16 +14433,16 @@
   {
     "instance": "robotics-star",
     "condition": "mixed",
-    "plan_text": "```\n{\n  \"actions\": [\n    \"LOCK_BAY\",\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"CALIBRATE_ARM\",\n    \"SWAP_GRIPPER\"\n  ],\n  \"ready\": true\n}\n```",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"AUDIT_INVENTORY\",\n    \"LOCK_BAY\",\n    \"HALT_CONVEYOR\",\n    \"CALIBRATE_ARM\",\n    \"SWAP_GRIPPER\"\n  ],\n  \"ready\": true\n}\n```",
     "score": {
       "instance": "robotics-star",
       "plan": {
         "parsed": true,
         "parse_error": null,
         "actions": [
+          "AUDIT_INVENTORY",
           "LOCK_BAY",
           "HALT_CONVEYOR",
-          "AUDIT_INVENTORY",
           "CALIBRATE_ARM",
           "SWAP_GRIPPER"
         ],
@@ -14481,17 +14450,17 @@
         "unknown_actions": [],
         "satisfied": [
           "K1",
+          "K3",
           "K4",
           "K5",
           "K6",
           "K7"
         ],
         "violated": [
-          "K2",
-          "K3"
+          "K2"
         ],
-        "violations": 2,
-        "constraint_recall": 0.7143,
+        "violations": 1,
+        "constraint_recall": 0.8571,
         "success": false
       },
       "presence": {
@@ -14571,9 +14540,9 @@
       },
       "supersession_respected": {
         "eligible": 1,
-        "exercised": 0,
-        "ambiguous": 1,
-        "rate": 0.0
+        "exercised": 1,
+        "ambiguous": 0,
+        "rate": 1.0
       },
       "supersession_collateral": {
         "applicable": true,
@@ -14587,11 +14556,11 @@
         "n_corrupted": 2,
         "n_superseded": 1,
         "resisted_corruption": false,
-        "exercised_override": false,
+        "exercised_override": true,
         "correct_both": false,
         "source_reflex": false,
-        "latest_reflex": false,
-        "neither": true
+        "latest_reflex": true,
+        "neither": false
       },
       "utilization": {
         "direct_source": 1.0,
