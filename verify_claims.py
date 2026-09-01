@@ -463,6 +463,94 @@ else:
     print("  is assertion multiplicity, not evidential lineage.")
 
 
+# ----------------------------------------------------------- E11 ----------
+# The experiment built to attack E10's null -- and it confirmed it while
+# breaking one of E10's own secondary findings.
+
+print("\n=== E11 multiplicity sweep (re-derived from raw plan text) ===")
+from lineage_e11 import ARMS as E11_ARMS, all_e11
+from lineage_e11 import corpus_hash as e11_hash
+from e11_multiplicity import verdict as e11_verdict
+
+E11_JSON = sorted(glob.glob("results/e11_*_o*.json"))
+if not E11_JSON:
+    skip("E11 artifacts", "not found")
+else:
+    claim("E11 corpus fixture", e11_hash(), "5c28ada4c4b899dc")
+    claim("E11 arm count", len(E11_ARMS), 10)
+    claim("E10 corpus still reproduces (E11 must not disturb it)",
+          e10_hash(), "00947dde8eb0520b")
+
+    d11 = []
+    for p in E11_JSON:
+        d11.extend(json.load(open(p)))
+    by_id = {i.id: i for i in INSTANCES}
+    rec_by_id = {r["instance"]: r for r in all_e11()}
+    per11, by11 = {}, {}
+    for rec in d11:
+        inst, r = by_id.get(rec["instance"]), rec_by_id.get(rec["instance"])
+        if inst is None or r is None:
+            continue
+        chk = check_plan(rec["plan_text"], inst)
+        v = e11_verdict(inst, r, chk.actions) if chk.parsed else ""
+        per11.setdefault(rec["instance"], {})[rec["arm"]] = v
+        by11.setdefault(rec["arm"], []).append(v)
+
+    for arm, want in (("bare", 0.75),
+                      ("filler_k1", 0.7222), ("filler_k2", 0.7778),
+                      ("filler_k3", 0.6389),
+                      ("same_k1", 0.4167), ("same_k2", 0.2778),
+                      ("same_k3", 0.1111),
+                      ("indep_k1", 0.3611), ("indep_k2", 0.25),
+                      ("indep_k3", 0.0556)):
+        vs = by11.get(arm, [])
+        s_ = sum(v == "source" for v in vs)
+        f_ = sum(v == "flip" for v in vs)
+        claim(f"E11 {arm} flip rate",
+              round(f_ / (s_ + f_), 4) if s_ + f_ else None, want, tol=0.001)
+
+    def mc11(a, b):
+        n01 = sum(1 for x in per11.values()
+                  if x.get(a) == "flip" and x.get(b) not in (None, "flip"))
+        n10 = sum(1 for x in per11.values()
+                  if x.get(b) == "flip" and x.get(a) not in (None, "flip"))
+        n = n01 + n10
+        if n == 0:
+            return None
+        k = min(n01, n10)
+        return min(2 * sum(math.comb(n, i) for i in range(k + 1)) / 2 ** n, 1.0)
+
+    # H7: the dose-response that makes the H6 null informative.
+    claim("E11 H7 step bare->same_k1 (dose-response exists)",
+          round(mc11("bare", "same_k1") / 0.0004883, 2), 1.0, tol=0.02)
+    claim("E11 H7 step same_k2->same_k3",
+          round(mc11("same_k2", "same_k3") / 0.03125, 2), 1.0, tol=0.02)
+
+    # H6: null at every k.
+    for k, want in ((1, 0.5), (2, 1.0), (3, 0.625)):
+        claim(f"E11 H6 same_k{k} vs indep_k{k} (must be null)",
+              round(mc11(f"same_k{k}", f"indep_k{k}"), 4), want, tol=0.001)
+
+    # H8: corroboration vs matched-length filler, large at every k.
+    for k, want in ((1, 0.003418), (2, 7.629e-06), (3, 3.815e-06)):
+        claim(f"E11 H8 filler_k{k} vs same_k{k} (corroboration)",
+              round(mc11(f"filler_k{k}", f"same_k{k}") / want, 2), 1.0, tol=0.02)
+
+    # THE NON-REPLICATION. E10's H1 said intervening text alone matters.
+    for k in (1, 2, 3):
+        p = mc11("bare", f"filler_k{k}")
+        claim(f"E11 bare vs filler_k{k} is NULL (E10's H1 does not replicate)",
+              p is None or p > 0.05, True)
+
+    print("\n  NOTE: E11 CONFIRMS E10's primary null and BREAKS E10's H1.")
+    print("  H7 gives a clean dose-response (0.75 -> 0.4167 -> 0.2778 ->")
+    print("  0.1111), so the design had room and the H6 null is informative,")
+    print("  not saturated. H6 is null at every k (p_holm = 1.0 throughout).")
+    print("  But bare-vs-filler, which E10 reported at p = 0.0078, is null at")
+    print("  all three k here. The DILUTION effect is unstable across corpus")
+    print("  realisations; the CORROBORATION effect is not.")
+
+
 # ------------------------------------------------------ E6 router facts ----
 
 print("\n=== E6 router: the measurement that killed AnchorRoute ===")
