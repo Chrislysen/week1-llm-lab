@@ -53,3 +53,36 @@ Per arm: ready rate; ordering flip rate. Paired same_root vs indep_root on
   null.
 
 No SESOI, no p-threshold decision, no claim. Seed and reps as E12.
+
+---
+
+## Outcome — 2026-09-01 (exploratory; no claim)
+
+432 calls, parse 432/432, 0 transport retries, mean 2.6 s/call. Read with
+`python screen_analysis.py --e12x qwen2.5:14b-instruct`.
+
+| arm | ready | ready rate | flip rate |
+|---|---|---|---|
+| bare | 66/108 | 0.611 | 0.444 |
+| filler | 43/108 | 0.398 | 0.556 |
+| same_root | 95/108 | 0.880 | 0.028 |
+| indep_root | 100/108 | 0.926 | 0.028 |
+
+| contrast (instance-level) | delta | paired | p_two | 95 % CI |
+|---|---|---|---|---|
+| ready: same_root − indep_root | **−0.046** | 3 vs 8 | 0.28 | [−0.111, +0.018] |
+| ready: filler − same_root | −0.481 | 3 vs 55 | < 0.001 | [−0.593, −0.370] |
+| ready: bare − filler | +0.213 | 32 vs 9 | 0.003 | [+0.093, +0.333] |
+| flip: same_root − indep_root | 0.000 | 2 vs 2 | 1.0 | [−0.037, +0.037] |
+| flip: filler − same_root | +0.528 | 57 vs 0 | < 0.001 | [+0.417, +0.639] |
+
+**Reading, per the rule fixed above.** No same/indep readiness difference in
+llama's direction (sign reversed, CI includes 0). The READY dissociation is
+recorded as **llama-specific**: it is absent in the only other local decider
+whose `ready` field varies at all. E14-v2 in any form is not pursued.
+
+**A model reversal, noted and not claimed.** In `qwen2.5:14b-instruct`,
+corroboration *raises* readiness (filler 0.40 → same 0.88 → indep 0.93) while
+in `llama3.2:3b` it *lowers* it (filler 0.97 → same 0.56 → indep 0.30). The
+ordering channel is at floor under corroboration here (3 flips per arm), so
+the dependence contrast on ordering is uninformative beyond "at floor".

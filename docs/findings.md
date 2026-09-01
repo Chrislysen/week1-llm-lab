@@ -89,7 +89,10 @@ p = 0.008) while the independent arm is flat (17, 17, 17); two agreeing
 reports of either kind *lower* readiness from ~0.78 to ~0.5 (bare > same in
 E10, E11 and E12); the gap runs from +0.5 to 0 by which document names the
 rotation draws; and `ready = true` follows the model's own same-source token
-(129/242 vs 1/190). That is a consistency/repetition effect on one model's
+(129/242 vs 1/190). Qwen-14B, the only other decider whose `ready` varies,
+shows no such gap on the same corpus (−0.046, CI [−0.111, +0.018]) and its
+readiness rises with corroboration where llama's falls. That is a
+consistency/repetition effect on one model's
 commitment token, not evidential dependence -- and the abstraction of an
 evidence property moving a commit gate while judgment stays put is already
 published (arXiv:2608.27167). E14-v1 stays aborted; no v2 is opened. Six
