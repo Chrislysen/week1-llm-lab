@@ -52,6 +52,10 @@ log `docs/novelty_matrix.md`.
 The only thing in this project that none of them contains is S4 — and S4 is
 the one thing this project did not preregister.
 
+> **Superseded 2026-09-01 (evening).** S4 is closed: the readiness effect is a
+> single-model repetition/consistency effect, not dependence, and the
+> commit-gate abstraction is already published. `docs/novelty_matrix.md` C9-C10.
+
 ## 4. The one open lead, and its gate
 
 **E14 — the `ready` channel, preregistered.** Outcome: `ready`, per unit,

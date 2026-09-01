@@ -78,6 +78,30 @@ decision-level generalisation of the null is contradicted by `ready` (above).
 The paired count test was also post-hoc and mislabelled predeclared.
 `docs/protocols/E13-CORRECTIONS.md`.
 
+**Research-lead pass, 2026-09-01 (evening) -- the READY direction is closed.**
+The plan field `ready` was re-parsed from every raw plan on disk (E2, E4, E7,
+E8, E9, E10, E11, E12, E13; five deciders). It is at ceiling for Aya-8B,
+Qwen-3B and Qwen-7B in every arm of every experiment (at least 358 of 360
+responses), so the channel exists only in llama-3B and Qwen-14B. In llama the
+same-root gap is produced by readiness *rising* with each repetition of the
+identical citation (E11 nested dose: 19 -> 21 -> 27; k1 vs k3 paired 0/8,
+p = 0.008) while the independent arm is flat (17, 17, 17); two agreeing
+reports of either kind *lower* readiness from ~0.78 to ~0.5 (bare > same in
+E10, E11 and E12); the gap runs from +0.5 to 0 by which document names the
+rotation draws; and `ready = true` follows the model's own same-source token
+(129/242 vs 1/190). That is a consistency/repetition effect on one model's
+commitment token, not evidential dependence -- and the abstraction of an
+evidence property moving a commit gate while judgment stays put is already
+published (arXiv:2608.27167). E14-v1 stays aborted; no v2 is opened. Six
+adversarial reviews and the full table are in `docs/novelty_matrix.md` C9-C14.
+
+**The instrument is a resource, not a contribution.** Its founding premise --
+that every conflict benchmark rewards trusting the source -- is false
+(ManyIH-Bench, IHEval, the latest-wins memory benchmarks); corrected in
+`docs/agent-lineage-bench.md` with the original sentence left standing. The
+latest-truster finding (E3/E4) replicates IHEval and Control Illusion; the
+verification apparatus is pre-empted component by component.
+
 **Nothing here is claimed as novel.** See `docs/novelty_matrix.md`: the
 surviving positive effect (C1) is pre-empted by the corroboration and
 illusory-truth literature, and the equivalence-supported null (C4) is
@@ -264,6 +288,12 @@ Two of these were caught **after** being written up. That is the reason
 
 This project's base rate held: **five of five** candidate questions came back
 pre-empted in whole or in every part.
+
+After the research-lead pass the count is **thirteen of fourteen** rows
+pre-empted, closed, withdrawn or dead; the fourteenth (C14, the normative
+backfire) is a named phenomenon already shown on this model (KAIROS,
+arXiv:2508.18321); a declared cross-family screen decides only whether a
+short variant note is defensible.
 
 ---
 
