@@ -99,6 +99,30 @@ for inst in INSTANCES:
                if c.kind == "before" and c.a == ann.a}
     assert orphans <= inst.superseded, (inst.id, orphans - inst.superseded)
 
+# NULL CONTROL: echoing the printed vocabulary order must NOT work.
+#
+# In the first build every `before` edge ran low->high slot index and
+# plan_instruction printed the actions in slot order, so the printed list WAS a
+# valid topological order. A policy that echoed it and never read the dialogue
+# scored 36/36 success in every exposure condition, including `neither`. The
+# benchmark had no floor and no measured value could be attributed to reading
+# anything. Found by adversarial audit, not by this suite -- which is why the
+# control is now permanent.
+echo_wins = sum(
+    check_plan(plan_json(list(i.actions)), i).success for i in INSTANCES)
+assert echo_wins <= 4, (
+    f"echo-the-prompt-order scores {echo_wins}/36 -- the printed vocabulary is "
+    "leaking a valid ordering again")
+
+# It must still be SOLVABLE, or the fix has just made it impossible.
+assert all(check_plan(plan_json(topo_order(i)), i).success for i in INSTANCES)
+
+# The two permutations must be independent: slot order and print order should
+# not coincide across instances.
+same = sum(tuple(i.actions) == tuple(
+    dict(DOMAINS[i.domain]["actions"]).keys()) for i in INSTANCES)
+assert same < len(INSTANCES), "print order never permuted"
+
 print("shape + satisfiability:      OK")
 
 # -- Evaluator known-good / known-bad ------------------------------------

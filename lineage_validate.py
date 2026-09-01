@@ -45,7 +45,7 @@ GATE = [
     ("pharmacy", "join"),
     ("satellite", "diamond"),
     ("brewery", "twochain"),
-    ("rail", "gated"),
+    ("rail", "star"),
 ]
 
 CONDITIONS = ["source_only", "corruption_only", "supersession"]

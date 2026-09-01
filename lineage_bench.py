@@ -41,9 +41,12 @@ GRAPHS = {
     "twochain": [("required", 0, None), ("before", 0, 1), ("before", 1, 2),
                  ("required", 3, None), ("before", 3, 4), ("before", 4, 5),
                  ("required", 5, None)],
-    "gated": [("required", 0, None), ("before", 0, 1), ("before", 1, 3),
-              ("before", 0, 2), ("before", 2, 3), ("required", 3, None),
-              ("before", 3, 5), ("required", 5, None)],
+    # "gated" was 'diamond' relabelled (slot 3 <-> 4) -- five shapes, not six.
+    # Replaced with a hub: one action gates four independent successors, with no
+    # reconvergence, which none of the other five contain.
+    "star": [("required", 0, None), ("before", 0, 1), ("before", 0, 2),
+             ("before", 0, 3), ("before", 0, 4), ("required", 1, None),
+             ("required", 4, None)],
 }
 
 # --------------------------------------------------------------- domains ----
@@ -175,6 +178,10 @@ T_BEFORE_CORRUPT = [
     "As I understood it, we {b} first and then {a}.",
     "My note says {b} comes before we {a}.",
     "I had it as {b}, then {a}.",
+    # Institutional register, still wrong. Without these the class is separable
+    # from SUPERSESSION by first-person phrasing alone.
+    "Update from the duty manager: {b} comes before we {a}.",
+    "The revised procedure has {b} first, then {a}.",
 ]
 T_BEFORE_RECOVERY = [
     "Correction -- I had that backwards. We {a} before we {b}.",
@@ -185,6 +192,10 @@ T_BEFORE_SUPERSEDE = [
     "Update from the duty manager: {a} is no longer a prerequisite for {b}; "
     "that dependency has been cleared.",
     "That has changed -- we no longer need to {a} before we {b}.",
+    # Hedged register, still a legitimate override.
+    "I gather that dependency has been cleared -- {a} is no longer needed "
+    "before we {b}.",
+    "My latest is that we no longer have to {a} before we {b}.",
 ]
 
 T_REQ_SOURCE = [
@@ -201,6 +212,8 @@ T_REQ_CORRUPT = [
     "I think {a} is optional this time.",
     "My understanding is we can skip {a} if we are pressed.",
     "As I recall {a} was only a suggestion.",
+    "Update from the duty manager: {a} is optional this time.",
+    "The revised procedure treats {a} as a suggestion.",
 ]
 T_REQ_RECOVERY = [
     "Correction -- {a} is mandatory, not optional.",
@@ -209,6 +222,8 @@ T_REQ_RECOVERY = [
 T_REQ_SUPERSEDE = [
     "Update from the duty manager: {a} is no longer required for this case.",
     "That requirement has been lifted -- we do not need to {a} now.",
+    "I gather {a} is no longer required for this case.",
+    "My latest is that requirement has been lifted; we do not need to {a}.",
 ]
 
 SPEAKERS = ("Operations Lead", "Safety Auditor")
@@ -320,14 +335,41 @@ def generate_instance(domain: str, graph: str) -> Instance:
     seed = _seed_for(domain, graph)
     rng = random.Random(seed)
     dom = DOMAINS[domain]
-    idents = [a for a, _ in dom["actions"]]
     verbs = {a: v for a, v in dom["actions"]}
 
+    # THE TOPOLOGICAL LEAK, and the fix.
+    #
+    # Every `before` edge in GRAPHS runs from a lower slot index to a higher one,
+    # and plan_instruction prints the action vocabulary. If slot order and print
+    # order coincide, the printed list IS a valid topological order and a policy
+    # that echoes it -- never reading the dialogue at all -- scores success on
+    # every instance in every exposure condition, including `neither`. That was
+    # true of the first build: 36/36. The benchmark had no floor.
+    #
+    # Two independent per-instance permutations break it: slots are assigned to
+    # actions in one order, and the vocabulary is PRINTED in another. Neither is
+    # derivable from the other, and `display` is re-drawn until it is not itself
+    # a valid ordering, so the echo policy is a genuine null.
+    slot_ident = [a for a, _ in dom["actions"]]
+    rng.shuffle(slot_ident)
+
     constraints = tuple(
-        Constraint(id=f"K{i + 1}", kind=kind, a=idents[s],
-                   b=idents[t] if t is not None else None)
+        Constraint(id=f"K{i + 1}", kind=kind, a=slot_ident[s],
+                   b=slot_ident[t] if t is not None else None)
         for i, (kind, s, t) in enumerate(GRAPHS[graph])
     )
+
+    def _valid_order(order):
+        pos = {a: i for i, a in enumerate(order)}
+        return all(pos[c.a] < pos[c.b] for c in constraints if c.kind == "before")
+
+    idents = [a for a, _ in dom["actions"]]
+    for _ in range(64):
+        rng.shuffle(idents)
+        if not _valid_order(idents):
+            break
+    else:                                     # pragma: no cover - 6 actions, never hit
+        raise RuntimeError(f"{domain}-{graph}: no non-topological display order")
 
     # Assign lineage roles. Deterministic given the seed, and every instance
     # gets at least one of each of the five non-distractor classes.
@@ -422,6 +464,12 @@ EXPOSURES = {
     "both":             ("SOURCE", "CORRUPTED_RELAY", "DISTRACTOR"),
     "neither":          ("DISTRACTOR",),
     "supersession":     ("SOURCE", "SUPERSESSION", "DISTRACTOR"),
+    # FAITHFUL_RELAY appeared in NO condition in the first build, so
+    # utilization.faithful_relay was permanently n=0 -- a metric that could
+    # never fire. `faithful_only` is where it is measured: the restatement is
+    # present and its source is not.
+    "faithful_only":    ("FAITHFUL_RELAY", "DISTRACTOR"),
+    "source_and_faithful": ("SOURCE", "FAITHFUL_RELAY", "DISTRACTOR"),
     # Needed to measure recovery_rate at all; not one of the five paired
     # conditions, and reported separately.
     "both_recovery":    ("SOURCE", "CORRUPTED_RELAY", "RECOVERY", "DISTRACTOR"),
