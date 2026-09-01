@@ -4,8 +4,9 @@
 build E2 / AgentLineageBench Mode A" instruction, written so a reviewer who has
 not seen the repo can judge where the work should go next. Numbers here are
 machine-re-derivable: `python verify_claims.py` recomputes them from raw model
-output and exits non-zero on drift (currently **51 verified, 0 mismatched, 3
-unverifiable**).
+output and exits non-zero on drift (currently **116 verified, 0 mismatched, 3
+unverifiable**). **See §10 for the E10-E12 falsification campaign, which
+supersedes several conclusions below.**
 
 Repo is local only. Branch `crazy`. Nothing pushed to any remote.
 
@@ -100,8 +101,11 @@ every model-calling loop.
 | E5 | relay depth (`e5_depth.py`) | does a distortion travel? | corroboration reduces adoption; shape claim retracted twice |
 | E6 | AnchorRoute feasibility (`e6_router.py`) | can a label-free router exploit lineage? | **killed at design stage** (see §5) |
 | E7 | Mode B external validity (`e7_modeb.py`) | does E5 survive model-written relays? | all 3 predeclared predictions held |
-| E8 | cross-model (`e8_crossmodel.py`) | is it a 3B artefact? | **partially run — see §7** |
+| E8 | cross-model (`e8_crossmodel.py`) | is it a 3B artefact? | complete; 2/2 clean deciders. My P7 test was defective and is corrected in place |
 | E9 | speaker 2×2 (`e9_speaker.py`) | corroboration, or a self-contradicting speaker? | corroboration survives; E7's length claim does not |
+| E10 | lineage independence (`e10_independence.py`) | does evidential *dependence* matter? | difference +0.0000 — **conclusion RETRACTED as underpowered** |
+| E11 | multiplicity sweep (`e11_multiplicity.py`) | is E10's null a k=2 artefact? | no; dose-response confirmed; E10's H1 does **not** replicate |
+| E12 | powered independence (`e12_powered.py`) | resolve it at n=108, clustered | **equivalence-supported null**, properly earned |
 
 ### E2 exposure matrix (36 instances × 9 conditions, Mode A)
 
