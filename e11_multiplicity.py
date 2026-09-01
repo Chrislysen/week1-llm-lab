@@ -239,11 +239,87 @@ def analyse(model=DECIDER):
     print("  corroboration from the effect of simply adding messages.")
 
 
+def cross():
+    """Phase 6: the principal contrasts across model families.
+
+    THE PRINCIPAL CONTRAST IS NOW H8, NOT H6. E10's independence result was
+    retracted as underpowered (docs/protocols/E10-H3-RETRACTION.md), so the
+    finding worth replicating is the one that is actually well-powered: does
+    paraphrastic corroboration beat length-matched filler, dose-dependently?
+
+    H6 is still reported per model, but it carries the same power problem
+    everywhere and no equivalence claim may be made from it.
+    """
+    rows = load()
+    models = sorted({r["model"] for r in rows})
+    print("=== E11 across model families ===")
+    print(f"  corpus {corpus_hash()}   n = 36 instances per model\n")
+
+    fam = {"llama3.2:3b": "Llama (Meta)", "aya-expanse:8b": "Aya (Cohere)",
+           "qwen2.5:7b-instruct": "Qwen (Alibaba)",
+           "qwen2.5:3b-instruct": "Qwen (Alibaba)",
+           "qwen2.5:14b-instruct": "Qwen (Alibaba)"}
+
+    out = []
+    for m in models:
+        per = {}
+        for r in rows:
+            if r["model"] == m and r["parsed"]:
+                per.setdefault(r["instance"], {})[r["arm"]] = r["verdict"]
+
+        def rate(a):
+            g = [v[a] for v in per.values() if a in v]
+            s = sum(x == "source" for x in g)
+            f = sum(x == "flip" for x in g)
+            return round(f / (s + f), 4) if s + f else None
+
+        row = {"model": m, "family": fam.get(m, "?"),
+               "bare": rate("bare")}
+        for k in K_VALUES:
+            row[f"same_k{k}"] = rate(f"same_k{k}")
+        # H8 at k=3, the strongest corroboration contrast
+        p8, n01, n10 = mcnemar(per, "filler_k3", "same_k3")
+        row["H8_k3"] = None if p8 is None else float(f"{p8:.3g}")
+        row["H8_disc"] = f"{n10}-{n01}"
+        # H7: does the dose curve move at all for this model?
+        p7, _, _ = mcnemar(per, "bare", "same_k3")
+        row["H7"] = None if p7 is None else float(f"{p7:.3g}")
+        # H6 at k=3
+        p6, m01, m10 = mcnemar(per, "same_k3", "indep_k3")
+        row["H6_k3"] = None if p6 is None else float(f"{p6:.3g}")
+        row["H6_disc"] = f"{m10}-{m01}"
+        out.append(row)
+
+    cols = (["model", "family", "bare"] + [f"same_k{k}" for k in K_VALUES]
+            + ["H7", "H8_k3", "H8_disc", "H6_k3", "H6_disc"])
+    show(out, cols)
+    write_csv("results/e11_cross_model.csv", out, cols)
+
+    fams = {r["family"] for r in out}
+    h8ok = sum(1 for r in out if r["H8_k3"] is not None and r["H8_k3"] < 0.05)
+    print(f"\n  H8 (corroboration beats matched-length filler) significant in "
+          f"{h8ok}/{len(out)} deciders across {len(fams)} families.")
+    print("  H7 is the dose-response; H6 is the independence contrast, which")
+    print("  remains underpowered in every model and supports NO equivalence")
+    print("  claim -- see docs/protocols/E10-H3-RETRACTION.md.")
+    if len(fams) < 3:
+        print(f"\n  ONLY {len(fams)} DISTINCT FAMILIES. qwen2.5 at several scales")
+        print("  is ONE family, not three. Per the campaign kill rule, an effect")
+        print("  surviving fewer than 3 families is a model-specific behavioural")
+        print("  finding and must be reported as such.")
+
+
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
+    p.add_argument("--cross", action="store_true")
     p.add_argument("--model", default=DECIDER)
     p.add_argument("--offset", type=int, default=0)
     p.add_argument("--limit", type=int, default=None)
     p.add_argument("--analyse", action="store_true")
     a = p.parse_args()
-    analyse(a.model) if a.analyse else run(a.model, a.offset, a.limit)
+    if a.cross:
+        cross()
+    elif a.analyse:
+        analyse(a.model)
+    else:
+        run(a.model, a.offset, a.limit)

@@ -1,0 +1,722 @@
+[
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-chain",
+    "arm": "bare",
+    "plan_text": "{\"actions\": [\"VERIFY_ASSAY\", \"QUARANTINE_BATCH\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-chain",
+    "arm": "filler_k1",
+    "plan_text": "{\"actions\": [\"VERIFY_ASSAY\", \"QUARANTINE_BATCH\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-chain",
+    "arm": "filler_k2",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"VERIFY_ASSAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-chain",
+    "arm": "filler_k3",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"VERIFY_ASSAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-chain",
+    "arm": "same_k1",
+    "plan_text": "{\"actions\": [\"VERIFY_ASSAY\", \"QUARANTINE_BATCH\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-chain",
+    "arm": "same_k2",
+    "plan_text": "{\"actions\": [\"VERIFY_ASSAY\", \"QUARANTINE_BATCH\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-chain",
+    "arm": "same_k3",
+    "plan_text": "{\"actions\": [\"VERIFY_ASSAY\", \"QUARANTINE_BATCH\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-chain",
+    "arm": "indep_k1",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"VERIFY_ASSAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-chain",
+    "arm": "indep_k2",
+    "plan_text": "{\"actions\": [\"VERIFY_ASSAY\", \"QUARANTINE_BATCH\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-chain",
+    "arm": "indep_k3",
+    "plan_text": "{\"actions\": [\"VERIFY_ASSAY\", \"QUARANTINE_BATCH\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-fork",
+    "arm": "bare",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"NOTIFY_PRESCRIBERS\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-fork",
+    "arm": "filler_k1",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"NOTIFY_PRESCRIBERS\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-fork",
+    "arm": "filler_k2",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"NOTIFY_PRESCRIBERS\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-fork",
+    "arm": "filler_k3",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"NOTIFY_PRESCRIBERS\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-fork",
+    "arm": "same_k1",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"NOTIFY_PRESCRIBERS\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-fork",
+    "arm": "same_k2",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"NOTIFY_PRESCRIBERS\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-fork",
+    "arm": "same_k3",
+    "plan_text": "{\"actions\": [\"NOTIFY_PRESCRIBERS\", \"QUARANTINE_BATCH\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-fork",
+    "arm": "indep_k1",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"NOTIFY_PRESCRIBERS\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-fork",
+    "arm": "indep_k2",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"NOTIFY_PRESCRIBERS\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-fork",
+    "arm": "indep_k3",
+    "plan_text": "{\"actions\": [\"NOTIFY_PRESCRIBERS\", \"QUARANTINE_BATCH\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-join",
+    "arm": "bare",
+    "plan_text": "{\"actions\": [\"UPDATE_LABEL\", \"QUARANTINE_BATCH\", \"VERIFY_ASSAY\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-join",
+    "arm": "filler_k1",
+    "plan_text": "{\"actions\": [\"UPDATE_LABEL\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-join",
+    "arm": "filler_k2",
+    "plan_text": "{\"actions\": [\"UPDATE_LABEL\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-join",
+    "arm": "filler_k3",
+    "plan_text": "{\"actions\": [\"UPDATE_LABEL\", \"QUARANTINE_BATCH\", \"RECALL_SHIPMENT\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-join",
+    "arm": "same_k1",
+    "plan_text": "{\"actions\": [\"UPDATE_LABEL\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-join",
+    "arm": "same_k2",
+    "plan_text": "{\"actions\": [\"UPDATE_LABEL\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-join",
+    "arm": "same_k3",
+    "plan_text": "{\"actions\": [\"VERIFY_ASSAY\", \"RELEASE_STOCK\", \"UPDATE_LABEL\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-join",
+    "arm": "indep_k1",
+    "plan_text": "{\"actions\": [\"UPDATE_LABEL\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-join",
+    "arm": "indep_k2",
+    "plan_text": "{\"actions\": [\"UPDATE_LABEL\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-join",
+    "arm": "indep_k3",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"VERIFY_ASSAY\", \"UPDATE_LABEL\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-diamond",
+    "arm": "bare",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"VERIFY_ASSAY\", \"NOTIFY_PRESCRIBERS\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-diamond",
+    "arm": "filler_k1",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"VERIFY_ASSAY\", \"NOTIFY_PRESCRIBERS\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-diamond",
+    "arm": "filler_k2",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"UPDATE_LABEL\", \"NOTIFY_PRESCRIBERS\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-diamond",
+    "arm": "filler_k3",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"UPDATE_LABEL\", \"NOTIFY_PRESCRIBERS\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-diamond",
+    "arm": "same_k1",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"VERIFY_ASSAY\", \"NOTIFY_PRESCRIBERS\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-diamond",
+    "arm": "same_k2",
+    "plan_text": "{\"actions\": [\"VERIFY_ASSAY\", \"QUARANTINE_BATCH\", \"NOTIFY_PRESCRIBERS\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-diamond",
+    "arm": "same_k3",
+    "plan_text": "{\"actions\": [\"VERIFY_ASSAY\", \"QUARANTINE_BATCH\", \"NOTIFY_PRESCRIBERS\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-diamond",
+    "arm": "indep_k1",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"VERIFY_ASSAY\", \"NOTIFY_PRESCRIBERS\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-diamond",
+    "arm": "indep_k2",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"VERIFY_ASSAY\", \"NOTIFY_PRESCRIBERS\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-diamond",
+    "arm": "indep_k3",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"VERIFY_ASSAY\", \"NOTIFY_PRESCRIBERS\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-twochain",
+    "arm": "bare",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"VERIFY_ASSAY\", \"NOTIFY_PRESCRIBERS\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-twochain",
+    "arm": "filler_k1",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"VERIFY_ASSAY\", \"NOTIFY_PRESCRIBERS\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-twochain",
+    "arm": "filler_k2",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"VERIFY_ASSAY\", \"NOTIFY_PRESCRIBERS\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-twochain",
+    "arm": "filler_k3",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"VERIFY_ASSAY\", \"NOTIFY_PRESCRIBERS\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-twochain",
+    "arm": "same_k1",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"VERIFY_ASSAY\", \"NOTIFY_PRESCRIBERS\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-twochain",
+    "arm": "same_k2",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"VERIFY_ASSAY\", \"NOTIFY_PRESCRIBERS\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-twochain",
+    "arm": "same_k3",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"VERIFY_ASSAY\", \"NOTIFY_PRESCRIBERS\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-twochain",
+    "arm": "indep_k1",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"VERIFY_ASSAY\", \"NOTIFY_PRESCRIBERS\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-twochain",
+    "arm": "indep_k2",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"VERIFY_ASSAY\", \"NOTIFY_PRESCRIBERS\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-twochain",
+    "arm": "indep_k3",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"VERIFY_ASSAY\", \"NOTIFY_PRESCRIBERS\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-star",
+    "arm": "bare",
+    "plan_text": "{\"actions\": [\"NOTIFY_PRESCRIBERS\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-star",
+    "arm": "filler_k1",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"VERIFY_ASSAY\", \"UPDATE_LABEL\", \"NOTIFY_PRESCRIBERS\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-star",
+    "arm": "filler_k2",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"UPDATE_LABEL\", \"RECALL_SHIPMENT\", \"RELEASE_STOCK\", \"NOTIFY_PRESCRIBERS\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-star",
+    "arm": "filler_k3",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"UPDATE_LABEL\", \"NOTIFY_PRESCRIBERS\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-star",
+    "arm": "same_k1",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"VERIFY_ASSAY\", \"UPDATE_LABEL\", \"NOTIFY_PRESCRIBERS\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-star",
+    "arm": "same_k2",
+    "plan_text": "{\"actions\": [\"RECALL_SHIPMENT\", \"QUARANTINE_BATCH\", \"UPDATE_LABEL\", \"VERIFY_ASSAY\", \"RELEASE_STOCK\", \"NOTIFY_PRESCRIBERS\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-star",
+    "arm": "same_k3",
+    "plan_text": "{\"actions\": [\"RELEASE_STOCK\", \"NOTIFY_PRESCRIBERS\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-star",
+    "arm": "indep_k1",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"VERIFY_ASSAY\", \"UPDATE_LABEL\", \"NOTIFY_PRESCRIBERS\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-star",
+    "arm": "indep_k2",
+    "plan_text": "{\"actions\": [\"NOTIFY_PRESCRIBERS\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "pharmacy-star",
+    "arm": "indep_k3",
+    "plan_text": "{\"actions\": [\"RELEASE_STOCK\", \"NOTIFY_PRESCRIBERS\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-chain",
+    "arm": "bare",
+    "plan_text": "{\"actions\": [\"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-chain",
+    "arm": "filler_k1",
+    "plan_text": "{\"actions\": [\"RESUME_DOWNLINK\", \"REORIENT_PANEL\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-chain",
+    "arm": "filler_k2",
+    "plan_text": "{\"actions\": [\"RESUME_DOWNLINK\", \"REORIENT_PANEL\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-chain",
+    "arm": "filler_k3",
+    "plan_text": "{\"actions\": [\"RESUME_DOWNLINK\", \"REORIENT_PANEL\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-chain",
+    "arm": "same_k1",
+    "plan_text": "{\"actions\": [\"REORIENT_PANEL\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-chain",
+    "arm": "same_k2",
+    "plan_text": "{\"actions\": [\"REORIENT_PANEL\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-chain",
+    "arm": "same_k3",
+    "plan_text": "{\"actions\": [\"REORIENT_PANEL\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-chain",
+    "arm": "indep_k1",
+    "plan_text": "{\"actions\": [\"REORIENT_PANEL\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-chain",
+    "arm": "indep_k2",
+    "plan_text": "{\"actions\": [\"REORIENT_PANEL\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-chain",
+    "arm": "indep_k3",
+    "plan_text": "{\"actions\": [\"REORIENT_PANEL\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-fork",
+    "arm": "bare",
+    "plan_text": "{\"actions\": [\"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-fork",
+    "arm": "filler_k1",
+    "plan_text": "{\"actions\": [\"RESUME_DOWNLINK\", \"CALIBRATE_STARTRACKER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-fork",
+    "arm": "filler_k2",
+    "plan_text": "{\"actions\": [\"RESUME_DOWNLINK\", \"CALIBRATE_STARTRACKER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-fork",
+    "arm": "filler_k3",
+    "plan_text": "{\"actions\": [\"RESUME_DOWNLINK\", \"CALIBRATE_STARTRACKER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-fork",
+    "arm": "same_k1",
+    "plan_text": "{\"actions\": [\"RESUME_DOWNLINK\", \"CALIBRATE_STARTRACKER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-fork",
+    "arm": "same_k2",
+    "plan_text": "{\"actions\": [\"CALIBRATE_STARTRACKER\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-fork",
+    "arm": "same_k3",
+    "plan_text": "{\"actions\": [\"CALIBRATE_STARTRACKER\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-fork",
+    "arm": "indep_k1",
+    "plan_text": "{\"actions\": [\"RESUME_DOWNLINK\", \"CALIBRATE_STARTRACKER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-fork",
+    "arm": "indep_k2",
+    "plan_text": "{\"actions\": [\"RESUME_DOWNLINK\", \"CALIBRATE_STARTRACKER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-fork",
+    "arm": "indep_k3",
+    "plan_text": "{\"actions\": [\"CALIBRATE_STARTRACKER\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-join",
+    "arm": "bare",
+    "plan_text": "{\"actions\": [\"CALIBRATE_STARTRACKER\", \"PATCH_FIRMWARE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-join",
+    "arm": "filler_k1",
+    "plan_text": "{\"actions\": [\"CALIBRATE_STARTRACKER\", \"SAFE_MODE\", \"PATCH_FIRMWARE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-join",
+    "arm": "filler_k2",
+    "plan_text": "{\"actions\": [\"CALIBRATE_STARTRACKER\", \"PATCH_FIRMWARE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-join",
+    "arm": "filler_k3",
+    "plan_text": "{\"actions\": [\"CALIBRATE_STARTRACKER\", \"SAFE_MODE\", \"PATCH_FIRMWARE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-join",
+    "arm": "same_k1",
+    "plan_text": "{\"actions\": [\"CALIBRATE_STARTRACKER\", \"PATCH_FIRMWARE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-join",
+    "arm": "same_k2",
+    "plan_text": "{\"actions\": [\"CALIBRATE_STARTRACKER\", \"PATCH_FIRMWARE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-join",
+    "arm": "same_k3",
+    "plan_text": "{\"actions\": [\"PATCH_FIRMWARE\", \"CALIBRATE_STARTRACKER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-join",
+    "arm": "indep_k1",
+    "plan_text": "{\"actions\": [\"CALIBRATE_STARTRACKER\", \"PATCH_FIRMWARE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-join",
+    "arm": "indep_k2",
+    "plan_text": "{\"actions\": [\"CALIBRATE_STARTRACKER\", \"PATCH_FIRMWARE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-join",
+    "arm": "indep_k3",
+    "plan_text": "{\"actions\": [\"PATCH_FIRMWARE\", \"CALIBRATE_STARTRACKER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-diamond",
+    "arm": "bare",
+    "plan_text": "{\"actions\": [\"SAFE_MODE\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-diamond",
+    "arm": "filler_k1",
+    "plan_text": "{\"actions\": [\"SAFE_MODE\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-diamond",
+    "arm": "filler_k2",
+    "plan_text": "{\"actions\": [\"SAFE_MODE\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-diamond",
+    "arm": "filler_k3",
+    "plan_text": "{\"actions\": [\"RESUME_DOWNLINK\", \"SAFE_MODE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-diamond",
+    "arm": "same_k1",
+    "plan_text": "{\"actions\": [\"SAFE_MODE\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-diamond",
+    "arm": "same_k2",
+    "plan_text": "{\"actions\": [\"SAFE_MODE\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-diamond",
+    "arm": "same_k3",
+    "plan_text": "{\"actions\": [\"RESUME_DOWNLINK\", \"SAFE_MODE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-diamond",
+    "arm": "indep_k1",
+    "plan_text": "{\"actions\": [\"SAFE_MODE\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-diamond",
+    "arm": "indep_k2",
+    "plan_text": "{\"actions\": [\"SAFE_MODE\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-diamond",
+    "arm": "indep_k3",
+    "plan_text": "{\"actions\": [\"RESUME_DOWNLINK\", \"SAFE_MODE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-twochain",
+    "arm": "bare",
+    "plan_text": "{\"actions\": [\"DUMP_TELEMETRY\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-twochain",
+    "arm": "filler_k1",
+    "plan_text": "{\"actions\": [\"DUMP_TELEMETRY\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-twochain",
+    "arm": "filler_k2",
+    "plan_text": "{\"actions\": [\"DUMP_TELEMETRY\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-twochain",
+    "arm": "filler_k3",
+    "plan_text": "{\"actions\": [\"DUMP_TELEMETRY\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-twochain",
+    "arm": "same_k1",
+    "plan_text": "{\"actions\": [\"DUMP_TELEMETRY\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-twochain",
+    "arm": "same_k2",
+    "plan_text": "{\"actions\": [\"DUMP_TELEMETRY\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-twochain",
+    "arm": "same_k3",
+    "plan_text": "{\"actions\": [\"RESUME_DOWNLINK\", \"DUMP_TELEMETRY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-twochain",
+    "arm": "indep_k1",
+    "plan_text": "{\"actions\": [\"DUMP_TELEMETRY\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-twochain",
+    "arm": "indep_k2",
+    "plan_text": "{\"actions\": [\"DUMP_TELEMETRY\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-twochain",
+    "arm": "indep_k3",
+    "plan_text": "{\"actions\": [\"RESUME_DOWNLINK\", \"DUMP_TELEMETRY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-star",
+    "arm": "bare",
+    "plan_text": "{\"actions\": [\"REORIENT_PANEL\", \"DUMP_TELEMETRY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-star",
+    "arm": "filler_k1",
+    "plan_text": "{\"actions\": [\"REORIENT_PANEL\", \"DUMP_TELEMETRY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-star",
+    "arm": "filler_k2",
+    "plan_text": "{\"actions\": [\"REORIENT_PANEL\", \"DUMP_TELEMETRY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-star",
+    "arm": "filler_k3",
+    "plan_text": "{\"actions\": [\"REORIENT_PANEL\", \"DUMP_TELEMETRY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-star",
+    "arm": "same_k1",
+    "plan_text": "{\"actions\": [\"REORIENT_PANEL\", \"DUMP_TELEMETRY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-star",
+    "arm": "same_k2",
+    "plan_text": "{\"actions\": [\"REORIENT_PANEL\", \"DUMP_TELEMETRY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-star",
+    "arm": "same_k3",
+    "plan_text": "{\"actions\": [\"DUMP_TELEMETRY\", \"REORIENT_PANEL\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-star",
+    "arm": "indep_k1",
+    "plan_text": "{\"actions\": [\"REORIENT_PANEL\", \"DUMP_TELEMETRY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-star",
+    "arm": "indep_k2",
+    "plan_text": "{\"actions\": [\"REORIENT_PANEL\", \"DUMP_TELEMETRY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "instance": "satellite-star",
+    "arm": "indep_k3",
+    "plan_text": "{\"actions\": [\"DUMP_TELEMETRY\", \"REORIENT_PANEL\"], \"ready\": true}"
+  }
+]

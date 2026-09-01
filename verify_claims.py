@@ -564,6 +564,71 @@ else:
     print("  realisations; the CORROBORATION effect is not.")
 
 
+# ------------------------------------- E11 across three model families -----
+# Phase 6. The contrast replicated here is H8 (corroboration vs matched-length
+# filler), NOT the retracted independence contrast.
+
+print("\n=== E11 cross-model (re-derived from raw plan text) ===")
+if not E11_JSON:
+    skip("E11 cross-model", "not found")
+else:
+    per_model = {}
+    for p in E11_JSON:
+        for rec in json.load(open(p)):
+            inst = by_id.get(rec["instance"])
+            r = rec_by_id.get(rec["instance"])
+            if inst is None or r is None:
+                continue
+            chk = check_plan(rec["plan_text"], inst)
+            v = e11_verdict(inst, r, chk.actions) if chk.parsed else ""
+            per_model.setdefault(rec["model"], {}).setdefault(
+                rec["instance"], {})[rec["arm"]] = v
+
+    def mc(per, a, b):
+        n01 = sum(1 for x in per.values()
+                  if x.get(a) == "flip" and x.get(b) not in (None, "flip"))
+        n10 = sum(1 for x in per.values()
+                  if x.get(b) == "flip" and x.get(a) not in (None, "flip"))
+        n = n01 + n10
+        if n == 0:
+            return None, n01, n10
+        k = min(n01, n10)
+        return min(2 * sum(math.comb(n, i)
+                           for i in range(k + 1)) / 2 ** n, 1.0), n01, n10
+
+    claim("E11 ran on three deciders", len(per_model), 3)
+    FAMILIES = {"llama3.2:3b": "Llama", "aya-expanse:8b": "Aya",
+                "qwen2.5:7b-instruct": "Qwen"}
+    claim("...from three DISTINCT families (scales of one family do not count)",
+          len({FAMILIES.get(m) for m in per_model}), 3)
+
+    h8_sig = h7_sig = h6_sig = 0
+    for m, per in sorted(per_model.items()):
+        p8 = mc(per, "filler_k3", "same_k3")[0]
+        p7 = mc(per, "bare", "same_k3")[0]
+        p6 = mc(per, "same_k3", "indep_k3")[0]
+        h8_sig += p8 is not None and p8 < 0.05
+        h7_sig += p7 is not None and p7 < 0.05
+        h6_sig += p6 is not None and p6 < 0.05
+    claim("E11 H8 (corroboration beats matched filler) significant in ALL "
+          "three families", h8_sig, 3)
+    claim("E11 H7 (dose-response) significant in all three", h7_sig, 3)
+    claim("E11 H6 (independence) significant in NONE -- and underpowered in "
+          "all three, so this is not evidence of absence", h6_sig, 0)
+
+    # The power problem is universal, not a llama artefact.
+    worst = max(sum(mc(per, "same_k3", "indep_k3")[1:])
+                for per in per_model.values())
+    claim("...max discordant pairs for H6 in any model (needs >=6 for p<.05)",
+          worst <= 5, True)
+
+    print("\n  Corroboration replicates across Meta, Cohere and Alibaba models.")
+    print("  The independence contrast is null everywhere AND has at most 5")
+    print("  discordant pairs in any model -- 6 are needed for p < 0.05, so no")
+    print("  model could have detected it. The power ceiling is a property of")
+    print("  the design, not of llama3.2:3b.")
+
+
 # ------------------------------------------------------ E6 router facts ----
 
 print("\n=== E6 router: the measurement that killed AnchorRoute ===")
