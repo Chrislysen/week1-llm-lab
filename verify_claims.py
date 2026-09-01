@@ -214,6 +214,85 @@ else:
     print("  Length still does nothing: d1 vs d1_padded p = 1.0000.")
 
 
+# ------------------------------------------------------- E7 Mode B ---------
+# Re-derived from raw plan text against the MODE B chains, so a corpus that
+# moved would show up here as a mismatch rather than as a quiet re-score.
+
+print("\n=== E7 Mode B (re-derived from raw plan text) ===")
+from lineage_modeb import certified, fixture_hash, modeb_chain
+
+E7_JSON = sorted(glob.glob("results/e7_modeb_*_o*.json"))
+if not E7_JSON:
+    skip("E7 artifacts", "not found")
+else:
+    chains = certified()
+    claim("Mode B corpus is complete", len(chains), 36)
+    claim("Mode B corpus fixture", fixture_hash(), "4a2938565a36ee9f")
+    claim("every Mode B chain was certified by the verifier",
+          all(c["verify"] and all(v["ok"] for v in c["verify"])
+              for c in chains.values()), True)
+
+    detail = []
+    for p in E7_JSON:
+        detail.extend(json.load(open(p)))
+
+    per7, by7 = {}, {}
+    for rec in detail:
+        inst = {i.id: i for i in INSTANCES}.get(rec["instance"])
+        ch = modeb_chain(inst, chains) if inst else None
+        if ch is None:
+            continue
+        chk = check_plan(rec["plan_text"], inst)
+        v = follows_corruption(inst, ch, chk.actions) if chk.parsed else ""
+        per7.setdefault(rec["instance"], {})[rec["condition"]] = v
+        by7.setdefault(rec["condition"], []).append(v)
+
+    for cond, want in (("d1", 0.7778), ("d2", 0.1944), ("d3", 0.1667),
+                       ("control", 0.0), ("d1_padded", 0.6389)):
+        vs = by7.get(cond, [])
+        s = sum(v == "source" for v in vs)
+        c = sum(v == "corruption" for v in vs)
+        claim(f"E7 {cond} adoption",
+              round(c / (s + c), 4) if s + c else None, want, tol=0.001)
+
+    def mcnemar7(a, b):
+        n01 = sum(1 for x in per7.values()
+                  if x.get(a) == "corruption" and x.get(b) == "source")
+        n10 = sum(1 for x in per7.values()
+                  if x.get(a) == "source" and x.get(b) == "corruption")
+        n = n01 + n10
+        if n == 0:
+            return None
+        k = min(n01, n10)
+        return min(2 * sum(math.comb(n, i) for i in range(k + 1)) / 2 ** n, 1.0)
+
+    # Relative tolerance, because these span seven orders of magnitude and an
+    # absolute 1e-4 would call 9.5e-07 and 3.0e-06 indistinguishable.
+    for a, b, want in (("d1", "d2", 9.537e-07), ("d2", "d3", 1.0),
+                       ("d1", "d3", 2.980e-06), ("d1", "d1_padded", 0.2266),
+                       ("d1_padded", "d3", 1.526e-05)):
+        got = mcnemar7(a, b)
+        claim(f"E7 McNemar {a} vs {b}",
+              None if got is None else round(got / want, 3), 1.0, tol=0.002)
+
+    # The predeclared checks, re-derived rather than read back from the report.
+    a7 = {c: (lambda s, x: round(x / (s + x), 4) if s + x else None)(
+              sum(v == "source" for v in vs), sum(v == "corruption" for v in vs))
+          for c, vs in by7.items()}
+    claim("P1 holds: adoption(d1) > adoption(d3)", a7["d1"] > a7["d3"], True)
+    claim("P2 holds: d1_padded is nearer d1 than d3",
+          abs(a7["d1_padded"] - a7["d1"]) < abs(a7["d1_padded"] - a7["d3"]), True)
+    claim("P3 holds: control adoption is 0", a7["control"], 0.0)
+    claim("no ambiguous plans to hide (neither == 0)",
+          sum(v == "neither" for vs in by7.values() for v in vs), 0)
+
+    print("\n  NOTE: Mode B replicates the DIRECTION and the length")
+    print("  dissociation, not the shape -- Mode A declines gradually, Mode B")
+    print("  steps at the first corroborating link. The cross-mode magnitude")
+    print("  comparison is NOT made: the two corpora differ measurably in how")
+    print("  the corruption is framed (revision wording 13/36 in A, 3/36 in B).")
+
+
 # ------------------------------------------------------ E6 router facts ----
 
 print("\n=== E6 router: the measurement that killed AnchorRoute ===")

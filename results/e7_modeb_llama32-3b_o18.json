@@ -1,0 +1,542 @@
+[
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-chain",
+    "condition": "d1",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RESUME_DOWNLINK\",\n    \"CALIBRATE_STARTRACKER\",\n    \"REORIENT_PANEL\",\n    \"PATCH_FIRMWARE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-chain",
+    "condition": "d2",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"REORIENT_PANEL\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-chain",
+    "condition": "d3",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"REORIENT_PANEL\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-chain",
+    "condition": "control",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"REORIENT_PANEL\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-chain",
+    "condition": "d1_padded",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SAFE_MODE\",\n    \"DUMP_TELEMETRY\",\n    \"RESUME_DOWNLINK\",\n    \"PATCH_FIRMWARE\",\n    \"REORIENT_PANEL\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-fork",
+    "condition": "d1",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"CALIBRATE_STARTRACKER\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-fork",
+    "condition": "d2",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CALIBRATE_STARTRACKER\",\n    \"DUMP_TELEMETRY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-fork",
+    "condition": "d3",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"CALIBRATE_STARTRACKER\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-fork",
+    "condition": "control",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CALIBRATE_STARTRACKER\",\n    \"DUMP_TELEMETRY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-fork",
+    "condition": "d1_padded",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"RESUME_DOWNLINK\",\n    \"PATCH_FIRMWARE\",\n    \"REORIENT_PANEL\",\n    \"SAFE_MODE\",\n    \"CALIBRATE_STARTRACKER\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-join",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"DUMP_TELEMETRY\", \"PATCH_FIRMWARE\", \"CALIBRATE_STARTRACKER\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-join",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"PATCH_FIRMWARE\", \"CALIBRATE_STARTRACKER\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-join",
+    "condition": "d3",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"PATCH_FIRMWARE\",\n    \"CALIBRATE_STARTRACKER\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-join",
+    "condition": "control",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"PATCH_FIRMWARE\",\n    \"CALIBRATE_STARTRACKER\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-join",
+    "condition": "d1_padded",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"PATCH_FIRMWARE\",\n    \"CALIBRATE_STARTRACKER\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-diamond",
+    "condition": "d1",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-diamond",
+    "condition": "d2",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-diamond",
+    "condition": "d3",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-diamond",
+    "condition": "control",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RESUME_DOWNLINK\",\n    \"DUMP_TELEMETRY\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-diamond",
+    "condition": "d1_padded",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"RESUME_DOWNLINK\",\n    \"PATCH_FIRMWARE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-twochain",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"PATCH_FIRMWARE\", \"CALIBRATE_STARTRACKER\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-twochain",
+    "condition": "d2",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CALIBRATE_STARTRACKER\",\n    \"PATCH_FIRMWARE\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-twochain",
+    "condition": "d3",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SAFE_MODE\",\n    \"CALIBRATE_STARTRACKER\",\n    \"PATCH_FIRMWARE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-twochain",
+    "condition": "control",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CALIBRATE_STARTRACKER\",\n    \"PATCH_FIRMWARE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-twochain",
+    "condition": "d1_padded",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"REORIENT_PANEL\",\n    \"PATCH_FIRMWARE\",\n    \"DUMP_TELEMETRY\",\n    \"SAFE_MODE\",\n    \"CALIBRATE_STARTRACKER\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-star",
+    "condition": "d1",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CALIBRATE_STARTRACKER\",\n    \"DUMP_TELEMETRY\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-star",
+    "condition": "d2",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"CALIBRATE_STARTRACKER\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-star",
+    "condition": "d3",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"CALIBRATE_STARTRACKER\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-star",
+    "condition": "control",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"CALIBRATE_STARTRACKER\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-star",
+    "condition": "d1_padded",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"RESUME_DOWNLINK\",\n    \"PATCH_FIRMWARE\",\n    \"CALIBRATE_STARTRACKER\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "brewery-chain",
+    "condition": "d1",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RESTART_BATCH\",\n    \"SAMPLE_GRAVITY\",\n    \"STERILISE_LINE\",\n    \"DRAIN_VESSEL\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "brewery-chain",
+    "condition": "d2",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"RESTART_BATCH\",\n    \"STERILISE_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "brewery-chain",
+    "condition": "d3",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"RESTART_BATCH\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "brewery-chain",
+    "condition": "control",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"RESTART_BATCH\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "brewery-chain",
+    "condition": "d1_padded",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RESTART_BATCH\",\n    \"SAMPLE_GRAVITY\",\n    \"RESEED_YEAST\",\n    \"STERILISE_LINE\",\n    \"DRAIN_VESSEL\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "brewery-fork",
+    "condition": "d1",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"RESTART_BATCH\",\n    \"STOP_FERMENT\",\n    \"SAMPLE_GRAVITY\",\n    \"DRAIN_VESSEL\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "brewery-fork",
+    "condition": "d2",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"RESTART_BATCH\",\n    \"STOP_FERMENT\",\n    \"SAMPLE_GRAVITY\",\n    \"DRAIN_VESSEL\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "brewery-fork",
+    "condition": "d3",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"RESEED_YEAST\",\n    \"DRAIN_VESSEL\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "brewery-fork",
+    "condition": "control",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"STOP_FERMENT\",\n    \"DRAIN_VESSEL\",\n    \"RESEED_YEAST\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "brewery-fork",
+    "condition": "d1_padded",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"RESTART_BATCH\",\n    \"SAMPLE_GRAVITY\",\n    \"RESEED_YEAST\",\n    \"DRAIN_VESSEL\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "brewery-join",
+    "condition": "d1",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"RESEED_YEAST\",\n    \"STOP_FERMENT\",\n    \"DRAIN_VESSEL\",\n    \"SAMPLE_GRAVITY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "brewery-join",
+    "condition": "d2",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"RESEED_YEAST\",\n    \"STOP_FERMENT\",\n    \"SAMPLE_GRAVITY\",\n    \"DRAIN_VESSEL\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "brewery-join",
+    "condition": "d3",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SAMPLE_GRAVITY\",\n    \"STERILISE_LINE\",\n    \"RESEED_YEAST\",\n    \"STOP_FERMENT\",\n    \"DRAIN_VESSEL\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "brewery-join",
+    "condition": "control",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SAMPLE_GRAVITY\",\n    \"STERILISE_LINE\",\n    \"RESEED_YEAST\",\n    \"STOP_FERMENT\",\n    \"DRAIN_VESSEL\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "brewery-join",
+    "condition": "d1_padded",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"RESEED_YEAST\",\n    \"STOP_FERMENT\",\n    \"DRAIN_VESSEL\",\n    \"SAMPLE_GRAVITY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "brewery-diamond",
+    "condition": "d1",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RESTART_BATCH\",\n    \"SAMPLE_GRAVITY\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "brewery-diamond",
+    "condition": "d2",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"RESEED_YEAST\",\n    \"STOP_FERMENT\",\n    \"DRAIN_VESSEL\",\n    \"RESTART_BATCH\",\n    \"SAMPLE_GRAVITY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "brewery-diamond",
+    "condition": "d3",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"DRAIN_VESSEL\",\n    \"STOP_FERMENT\",\n    \"RESEED_YEAST\",\n    \"SAMPLE_GRAVITY\",\n    \"RESTART_BATCH\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "brewery-diamond",
+    "condition": "control",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SAMPLE_GRAVITY\",\n    \"STERILISE_LINE\",\n    \"DRAIN_VESSEL\",\n    \"STOP_FERMENT\",\n    \"RESTART_BATCH\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "brewery-diamond",
+    "condition": "d1_padded",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RESTART_BATCH\",\n    \"STERILISE_LINE\",\n    \"DRAIN_VESSEL\",\n    \"RESEED_YEAST\",\n    \"SAMPLE_GRAVITY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "brewery-twochain",
+    "condition": "d1",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RESTART_BATCH\",\n    \"STERILISE_LINE\",\n    \"RESEED_YEAST\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "brewery-twochain",
+    "condition": "d2",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RESTART_BATCH\",\n    \"STERILISE_LINE\",\n    \"RESEED_YEAST\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "brewery-twochain",
+    "condition": "d3",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RESTART_BATCH\",\n    \"STOP_FERMENT\",\n    \"SAMPLE_GRAVITY\",\n    \"STERILISE_LINE\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "brewery-twochain",
+    "condition": "control",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RESTART_BATCH\",\n    \"STOP_FERMENT\",\n    \"SAMPLE_GRAVITY\",\n    \"STERILISE_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "brewery-twochain",
+    "condition": "d1_padded",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RESEED_YEAST\",\n    \"STERILISE_LINE\",\n    \"RESTART_BATCH\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "brewery-star",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"RESEED_YEAST\", \"STERILISE_LINE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "brewery-star",
+    "condition": "d2",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"RESEED_YEAST\",\n    \"SAMPLE_GRAVITY\",\n    \"STOP_FERMENT\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "brewery-star",
+    "condition": "d3",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RESEED_YEAST\",\n    \"STERILISE_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "brewery-star",
+    "condition": "control",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"STERILISE_LINE\",\n    \"RESEED_YEAST\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "brewery-star",
+    "condition": "d1_padded",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RESEED_YEAST\",\n    \"STERILISE_LINE\",\n    \"SAMPLE_GRAVITY\",\n    \"STOP_FERMENT\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "rail-chain",
+    "condition": "d1",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"TEST_INTERLOCK\",\n    \"INSPECT_POINTS\",\n    \"GROUND_CATENARY\",\n    \"BLOCK_SECTION\",\n    \"CLEAR_SECTION\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "rail-chain",
+    "condition": "d2",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"TEST_INTERLOCK\",\n    \"INSPECT_POINTS\",\n    \"GROUND_CATENARY\",\n    \"BLOCK_SECTION\",\n    \"CLEAR_SECTION\",\n    \"REPLACE_RELAY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "rail-chain",
+    "condition": "d3",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"TEST_INTERLOCK\",\n    \"INSPECT_POINTS\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "rail-chain",
+    "condition": "control",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"TEST_INTERLOCK\",\n    \"INSPECT_POINTS\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "rail-chain",
+    "condition": "d1_padded",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"INSPECT_POINTS\",\n    \"TEST_INTERLOCK\",\n    \"GROUND_CATENARY\",\n    \"BLOCK_SECTION\",\n    \"CLEAR_SECTION\",\n    \"REPLACE_RELAY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "rail-fork",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"BLOCK_SECTION\", \"TEST_INTERLOCK\", \"REPLACE_RELAY\", \"GROUND_CATENARY\", \"INSPECT_POINTS\", \"CLEAR_SECTION\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "rail-fork",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"BLOCK_SECTION\", \"TEST_INTERLOCK\", \"REPLACE_RELAY\", \"CLEAR_SECTION\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "rail-fork",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"BLOCK_SECTION\", \"TEST_INTERLOCK\", \"REPLACE_RELAY\", \"CLEAR_SECTION\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "rail-fork",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"REPLACE_RELAY\", \"BLOCK_SECTION\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "rail-fork",
+    "condition": "d1_padded",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"BLOCK_SECTION\",\n    \"TEST_INTERLOCK\",\n    \"REPLACE_RELAY\",\n    \"CLEAR_SECTION\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "rail-join",
+    "condition": "d1",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CLEAR_SECTION\",\n    \"BLOCK_SECTION\",\n    \"TEST_INTERLOCK\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "rail-join",
+    "condition": "d2",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"BLOCK_SECTION\",\n    \"REPLACE_RELAY\",\n    \"GROUND_CATENARY\",\n    \"TEST_INTERLOCK\",\n    \"CLEAR_SECTION\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "rail-join",
+    "condition": "d3",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"REPLACE_RELAY\",\n    \"TEST_INTERLOCK\",\n    \"BLOCK_SECTION\",\n    \"GROUND_CATENARY\",\n    \"CLEAR_SECTION\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "rail-join",
+    "condition": "control",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"TEST_INTERLOCK\",\n    \"CLEAR_SECTION\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "rail-join",
+    "condition": "d1_padded",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"BLOCK_SECTION\",\n    \"REPLACE_RELAY\",\n    \"TEST_INTERLOCK\",\n    \"CLEAR_SECTION\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "rail-diamond",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"REPLACE_RELAY\", \"BLOCK_SECTION\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "rail-diamond",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"BLOCK_SECTION\", \"TEST_INTERLOCK\", \"INSPECT_POINTS\", \"REPLACE_RELAY\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "rail-diamond",
+    "condition": "d3",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"BLOCK_SECTION\",\n    \"TEST_INTERLOCK\",\n    \"INSPECT_POINTS\",\n    \"REPLACE_RELAY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "rail-diamond",
+    "condition": "control",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"BLOCK_SECTION\",\n    \"TEST_INTERLOCK\",\n    \"INSPECT_POINTS\",\n    \"REPLACE_RELAY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "rail-diamond",
+    "condition": "d1_padded",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"REPLACE_RELAY\",\n    \"BLOCK_SECTION\",\n    \"TEST_INTERLOCK\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "rail-twochain",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"CLEAR_SECTION\", \"BLOCK_SECTION\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "rail-twochain",
+    "condition": "d2",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"BLOCK_SECTION\",\n    \"CLEAR_SECTION\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "rail-twochain",
+    "condition": "d3",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"BLOCK_SECTION\",\n    \"CLEAR_SECTION\",\n    \"TEST_INTERLOCK\",\n    \"REPLACE_RELAY\",\n    \"INSPECT_POINTS\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "rail-twochain",
+    "condition": "control",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"BLOCK_SECTION\",\n    \"TEST_INTERLOCK\",\n    \"CLEAR_SECTION\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "rail-twochain",
+    "condition": "d1_padded",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CLEAR_SECTION\",\n    \"TEST_INTERLOCK\",\n    \"BLOCK_SECTION\",\n    \"INSPECT_POINTS\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "rail-star",
+    "condition": "d1",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"GROUND_CATENARY\",\n    \"TEST_INTERLOCK\",\n    \"CLEAR_SECTION\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "rail-star",
+    "condition": "d2",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"TEST_INTERLOCK\",\n    \"REPLACE_RELAY\",\n    \"GROUND_CATENARY\",\n    \"CLEAR_SECTION\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "rail-star",
+    "condition": "d3",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"TEST_INTERLOCK\",\n    \"INSPECT_POINTS\",\n    \"CLEAR_SECTION\",\n    \"GROUND_CATENARY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "rail-star",
+    "condition": "control",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CLEAR_SECTION\",\n    \"TEST_INTERLOCK\",\n    \"GROUND_CATENARY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "rail-star",
+    "condition": "d1_padded",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"INSPECT_POINTS\",\n    \"BLOCK_SECTION\",\n    \"TEST_INTERLOCK\",\n    \"GROUND_CATENARY\",\n    \"CLEAR_SECTION\"\n  ],\n  \"ready\": true\n}\n```"
+  }
+]
