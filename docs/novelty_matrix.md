@@ -42,7 +42,7 @@ LLM Bayesian source dependence
 | C1 | Repeated/corroborated evidence reduces adoption of a later contradiction | corroboration count in knowledge conflict (Xie et al. ICLR 2024, arXiv:2305.13300; Jin et al. COLING 2024, arXiv:2402.14409); repetition / illusory truth (arXiv:2601.03746) | **near-total** | measured on a downstream *plan* rather than a stated belief; paraphrastic rather than verbatim | **PREEMPTED** |
 | C2 | Intervening text alone (dilution) reduces adoption | — | — | — | **INVALID — does not replicate.** Large in E9 (p=1.2e-04), moderate in E10 (p=7.8e-03), **absent in E11** at all three k. Withdrawn. |
 | C3 | Same-source memories can manufacture a false evidential majority | CAMA / Beyond Memory Majority (arXiv:2608.19701); TMA-NM / manufactured corroboration (arXiv:2606.24322); MemLineage (arXiv:2605.14421) | **heavy** — the campaign brief lists this phenomenon as already unsafe to claim | ours is a *decision-level* measurement on a formal planning task with a deterministic evaluator | **HEAVY OVERLAP** |
-| C4 | ~~The dependence discount is exactly zero~~ **RETRACTED, see `docs/protocols/E10-H3-RETRACTION.md`.** What remains: the independence effect is *bounded* at 0.111 and is far smaller than the corroboration effect measured in the same instrument (18–19/36 discordant vs at most 3/36). The model does distinguish 1 root from 3 at p = 1.5e-08. | as C3, plus source bias (Dai et al. KDD 2024, arXiv:2310.20501); **GroupQA (arXiv:2601.06189, Jan 2026)** contrasts "rephrased variations of a single supporting document" with "unique, distinct supporting documents" and finds the paraphrases weighted *more* on 4 models (Table 4) | **heavy** — GroupQA §4.4 is E12's manipulation, on larger models, with the anti-normative direction detected | E12 adds clustering, a preregistered SESOI and an equivalence reading; GroupQA has none of those, but it has the phenomenon. E12/E13 are an internal refinement of a published result | **PRE-EMPTED (behavioural), 2026-09-01** |
+| C4 | ~~The dependence discount is exactly zero~~ **RETRACTED, see `docs/protocols/E10-H3-RETRACTION.md`.** What remains: the independence effect is *bounded* at 0.111 and is far smaller than the corroboration effect measured in the same instrument (18–19/36 discordant vs at most 3/36). The model does distinguish 1 root from 3 at p = 1.5e-08. | as C3, plus source bias (Dai et al. KDD 2024, arXiv:2310.20501); **GroupQA (arXiv:2601.06189, Jan 2026)** contrasts "rephrased variations of a single supporting document" with "unique, distinct supporting documents" and finds the paraphrases weighted *more* on 4 models (Table 4) | **heavy** — GroupQA §4.4 is E12's manipulation, on larger models, with the anti-normative direction detected | E12 adds clustering, a preregistered SESOI and an equivalence reading; GroupQA has none of those, but it has the phenomenon. E12/E13 are an internal refinement of a published result | **PRE-EMPTED (behavioural), 2026-09-01; and re-scoped to the ordering verdict the same day** — the `ready` field is not indifferent (`docs/protocols/E13-CORRECTIONS.md` §3) |
 | C5 | Prior corroboration does **not** create hysteresis against a legitimate authoritative update | stale/superseded memory work — MemStrata (arXiv:2606.26511), STALE (arXiv:2605.06527), Memora (arXiv:2604.20006) | moderate | a *null* on an explicit, easy supersession, at ceiling (36/36 both arms) | **UNKNOWN, and weak** — ceiling effect; tests only an easy update |
 | C6 | Removing speaker labels reverses the independent-root advantage (exploratory) | speaker-free / paraphrastic conformity (arXiv:2607.05545) | unknown | not predeclared; a mundane account (lexical diversity → recency fallback) is not excluded | **UNKNOWN — exploratory, not claimed** |
 | C7 | AnchorRoute / lineage-aware routing | RCR-Router (arXiv:2508.04903); governed shared memory (arXiv:2606.24535) | high | — | **DEAD.** Killed on measurement in E6 (embeddings are blind to order inversion). E10/E11 do NOT add a second kill -- they are inconclusive on whether the decider uses dependence -- but they supply no demonstrated effect for a router to exploit either. |
@@ -79,8 +79,13 @@ evidential root nevertheless prices them as k independent confirmations in a
 downstream executable decision; and this can be moved (or not) by routing the
 recognised structure into the reasoning step.
 
-**Status: OPEN (NARROW). Not pre-empted on the conjunction; pre-empted in every
-component separately. Not NOVEL.** The fixed rule below fired neither way:
+**Status: WITHDRAWN AS PHRASED (2026-09-01, step-10 attack). The
+ordering-channel remainder is OPEN (NARROW) and not NOVEL.** The claim text
+says the model prices dependent reports "as k independent confirmations in a
+downstream executable decision". On this project's own data that is false for
+the decision's `ready` field, which moves ~+0.2 with dependence in every arm
+(`docs/protocols/E13-CORRECTIONS.md` §3); it holds for the ordering verdict
+only. On prior art, the fixed rule below fired neither way:
 B-CAMA and B-L2D both answer "no", so C8 is not PREEMPTED — but the same search
 found a paper (B-GQA) that already runs E12's manipulation and finds the
 behaviour, and a genre of papers that already own the "decodable but unused"
@@ -115,18 +120,20 @@ deduplication (arXiv:2605.09611, 2607.24332 — engineering, no probe).
 
 Three things appear in none of the papers above:
 
-1. **A direct recognition probe on the same units as the decision.** E12's
-   frozen probe (27/36 vs 0/36, p = 1.5e-08) and E13's paired COUNT (49 vs 2,
-   sign p = 1.18e-12) show the model *reports* the structure. GroupQA, WFW,
-   CONF and CAMA never ask.
+1. **A direct recognition probe on the same units as the decision.** E10's
+   manipulation check (27/36 vs 0/36, on E10's texts) and E13's paired
+   primary boolean (40 vs 0, p = 1.8e-12 — a post-hoc pairing) show the model
+   *reports* the structure in ~40–45 % of units and misreports INDEPENDENT in
+   ~40 % by every measure. GroupQA, WFW, CONF and CAMA never ask.
 2. **An executable decision scored deterministically**, not a yes/no answer.
    (The matrix already discounts this distinction for C3; it is a task-format
    difference, not a phenomenon.)
-3. **An oracle arm.** `gold` hands the model the correct structure outright and
-   behaviour moves by **0.0000**. L2D's reliability prompt *improved*
-   discernment; WFW's repetition prompt helped its largest model. Here the
-   ceiling intervention does nothing on a 3B model. This is the single result
-   with no counterpart in the found literature.
+3. ~~**An oracle arm.**~~ **WITHDRAWN 2026-09-01.** `gold` moved the
+   ordering verdict by 0.0000 but is INCONCLUSIVE BY RULE there, and on the
+   `ready` field it moved **+0.20** (cluster p = 0.0001). There is no oracle
+   null. What has no counterpart in the found literature is instead the
+   post-hoc `ready` sensitivity — which this project cannot claim until a
+   preregistered E14 confirms it.
 
 ### What the residue does not license
 
@@ -140,15 +147,17 @@ Three things appear in none of the papers above:
   *anti-normative* preference for paraphrases; E13 NORMATIVE's −0.074
   (CI [−0.139, −0.009]) points the same way but is inconclusive by rule. E13
   is consistent with GroupQA, not additive to it, on the behaviour.
-- The primary recognition boolean shows a response bias (0.843 vs 0.528); only
-  the secondary count discriminates. Leg 1 rests on the secondary measure.
+- The recognition analyses that discriminate are post-hoc pairings; the
+  predeclared per-response measures put INDEP recognition at 0.528 (boolean)
+  and 0.130 (count_strict). Rule 2 is unadjudicated.
 
-**Verdict.** C8 is not pre-empted by the fixed rule and is not promotable to
-NOVEL. Its honest size is *a recognition probe plus an oracle null, on one
-small model, attached to a behavioural finding GroupQA already published*.
-That is a short note or a section in someone else's paper, not a claim this
-project can carry on its own. The claim memo (`docs/CLAIM-E13.md`) is scoped
-to exactly that.
+**Verdict.** C8 is not pre-empted by the fixed rule, is not promotable to
+NOVEL, and is contradicted as phrased by the `ready` field. Its honest size is
+*a recognition probe on the same units as an ordering-channel null, on one
+small model, attached to a behavioural finding GroupQA already published — plus
+a post-hoc, unconfirmed dependence effect on a second decision field that none
+of the papers above reports and this project cannot yet claim*. The claim memo
+(`docs/CLAIM-E13.md`) is scoped to exactly that.
 
 ---
 

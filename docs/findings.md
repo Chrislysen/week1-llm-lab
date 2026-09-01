@@ -1,7 +1,7 @@
 # Findings — what is established, what is retracted, what is unclaimed
 
 One page, kept current. Every number here re-derives from raw artifacts via
-`python verify_claims.py`, which exits non-zero on drift (currently **143
+`python verify_claims.py`, which exits non-zero on drift (currently **161
 verified, 0 mismatched, 3 unverifiable**).
 
 Read the retraction table first. It is longer than the results table, and that
@@ -26,8 +26,9 @@ full retraction of a conclusion I had already committed.
 
 **What does *not* survive:**
 
-- **Evidential independence: an EQUIVALENCE-SUPPORTED NULL (E12).** The model
-  applies no practically meaningful discount to correlated evidence. 108
+- **Evidential independence: an EQUIVALENCE-SUPPORTED NULL (E12) — on the
+  ORDERING verdict.** The model applies no practically meaningful discount to
+  correlated evidence in the action ordering it emits. 108
   propositions in 36 instance clusters, with instance-level permutation and
   bootstrap: difference **+0.0185**, cluster-permutation **p = 0.749**, 95% CI
   **[-0.037, +0.074]** — entirely inside the preregistered SESOI of 0.10. That
@@ -38,13 +39,20 @@ full retraction of a conclusion I had already committed.
   (`docs/protocols/E10-H3-RETRACTION.md`) after an adversarial panel found my
   own preregistered code printing *"inconclusive"* while I reported a fired kill
   rule. E12 earned it properly.
-- **And it is not a perception failure.** A preregistered non-decision probe
-  shows the model reports more distinct documents for the independent arm in
-  **27/36** and fewer in **0/36** (sign test p = 1.5e-08). It *sees* the
-  redundancy and prices it at nothing. (Perception evidence cannot by itself
-  narrow a CI on the decision measure — conflating the two was part of the
-  original error — but with E12's CI established, the two together are
-  informative.)
+- **And it is not a perception failure.** E10's preregistered manipulation
+  check (on E10's 36 texts, not E12's units) shows the model reports more
+  distinct documents for the independent arm in **27/36** and fewer in
+  **0/36** (sign test p = 1.5e-08). It *sees* the redundancy and, in the
+  ordering, prices it at nothing.
+- **CORRECTION 2026-09-01 — "prices it at nothing" is WITHDRAWN as a claim
+  about the decision.** The plan JSON has two decision fields, `actions` and
+  `ready` ("safe to execute as written"). Only the ordering was ever scored.
+  Re-derived post-hoc from the raw plans, `ready` is dependence-sensitive in
+  every arm: E12 same_root 60/108 vs indep_root 32/108 (**+0.26**, cluster
+  p < 0.0001); E13 `default` **+0.23**, CI [+0.139, +0.333]; `gold` +0.20.
+  Three restatements of one record are declared "safe" more often than three
+  distinct records. Found by the step-10 adversarial panel, verified, **not
+  preregistered, not confirmed**. `docs/protocols/E13-CORRECTIONS.md` §3.
 - **The dilution/length effect does not replicate.** §1 below reported it as
   established. Null in E11 at all three k (p = 1.0, 1.0, 0.34), and null again
   in E12 (p = 0.238). Large in E9, moderate in E10, absent in E11 and E12.
@@ -57,6 +65,19 @@ the flat independence result is not a ceiling artifact. **Power**: E12 raised n
 from 36 to 108 clustered units, which is where the equivalence bound became
 reachable at all. Neither objection survives.
 
+**E13 (2026-09-01), and the corrections it needed.** `default`, byte-identical
+to E12's prompt, replicated the ordering null exactly (+0.0000, CI
+[−0.056, +0.056], discordance 0.093 in the powered band). `identify`,
+`normative`, `sham` and `gold` are INCONCLUSIVE BY RULE on the ordering
+verdict. The step-10 adversarial panel then found three defects in my own
+write-up, all verified: the "two recognition measures disagree / response
+bias" story was one variable scored two ways (paired, the primary boolean
+discriminates **40 vs 0**, exactly as the count does); "NORMATIVE degrades
+recognition" was one row of two with a sign-reversed mechanism; and the
+decision-level generalisation of the null is contradicted by `ready` (above).
+The paired count test was also post-hoc and mislabelled predeclared.
+`docs/protocols/E13-CORRECTIONS.md`.
+
 **Nothing here is claimed as novel.** See `docs/novelty_matrix.md`: the
 surviving positive effect (C1) is pre-empted by the corroboration and
 illusory-truth literature, and the equivalence-supported null (C4) is
@@ -64,9 +85,10 @@ pre-empted behaviourally by GroupQA (arXiv:2601.06189, Jan 2026), which runs
 the same paraphrases-of-one-document vs distinct-documents contrast on four
 8B–70B models and finds no discount — a *preference* for the paraphrases, in
 fact. The adversarial search ran on 2026-09-01 (matrix, "Search log"). What
-E12/E13 add over GroupQA is a direct recognition probe on the same units and
-an oracle arm that moves behaviour by 0.0000; that residue is scoped in C8 of
-the matrix and in `docs/CLAIM-E13.md`.
+E12/E13 add over GroupQA is a direct recognition probe on the same units; the
+"oracle null" residue was withdrawn the same day (`gold` is inconclusive by
+rule on ordering and moves `ready` by +0.20). `docs/CLAIM-E13.md` states what
+is left.
 
 ---
 
@@ -155,6 +177,9 @@ Consistency is not evidence.
 | **AnchorRoute, second death** | already killed on embedding geometry (E6); E10/E11 kill it again from the other side -- the decider does not use evidential dependence, so no router can exploit it | E10/E11 |
 | **E7's P2, "length does nothing"** | predeclared and reported as holding (`d1` vs `d1_padded`, p = 0.2266). With speakers controlled the same comparison is **14-0, p = 1.221e-04** — filler alone moves adoption 0.9167 → 0.5278. E7 attributed the entire drop to corroboration; roughly half of it is dilution. | E9 |
 | **E7/E5 identification** | the headline was *not identified*: in every arm, corroboration and "the contradictor is reversing his own just-stated position" were perfectly collinear (36/36 at `d2` and `d3`, absent at `d1`) | an adversarial audit, not any gate |
+| **E13 "the two recognition measures disagree; the boolean is a response bias"** | one variable scored two ways: unpaired accuracy on the boolean set beside a paired sign test on the count. Paired, the primary boolean discriminates **40 vs 0** (p = 1.8e-12), the same as the count. The paired count test was itself post-hoc — added after the first 36 units were on disk — and labelled "predeclared" | an adversarial agent panel (step 10) |
+| **E13 "NORMATIVE degrades recognition"** | one row of two (SAME 0.843 → 0.602) while INDEP moved the other way (0.528 → 0.676); no between-arm test anywhere; the stated mechanism ("primes *same*") has the wrong sign — `same=True` fell on both levels | an adversarial agent panel (step 10) |
+| **E12/E13 "prices one root exactly as k independent roots" / "prices it at nothing", as a claim about the decision** | the plan has two decision fields and only the ordering verdict was scored. `ready` moves **+0.23** (E13 `default`, CI [+0.139, +0.333]) and **+0.26** (E12) with dependence, cluster p < 0.001, in every arm including `gold`. The ordering null stands; the generalisation does not. Post-hoc, unconfirmed | an adversarial agent panel (step 10) |
 
 ### The confound that nearly took the headline
 
@@ -232,7 +257,10 @@ Two of these were caught **after** being written up. That is the reason
   Information Discernment (arXiv:2607.19355) probes recognition of
   *dependence* — but every component is pre-empted separately, and the
   "decodable but unused" template already belongs to a genre (arXiv:2606.05403,
-  2603.22619, 2605.05957). Status **OPEN (NARROW)**, not NOVEL.
+  2603.22619, 2605.05957). Status was **OPEN (NARROW)**, not NOVEL — and
+  then the step-10 attack contradicted C8 *as phrased* on this project's own
+  data (the `ready` field). **WITHDRAWN AS PHRASED**; an ordering-channel
+  remainder stays open and unclaimed.
 
 This project's base rate held: **five of five** candidate questions came back
 pre-empted in whole or in every part.

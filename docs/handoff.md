@@ -4,7 +4,7 @@
 build E2 / AgentLineageBench Mode A" instruction, written so a reviewer who has
 not seen the repo can judge where the work should go next. Numbers here are
 machine-re-derivable: `python verify_claims.py` recomputes them from raw model
-output and exits non-zero on drift (currently **116 verified, 0 mismatched, 3
+output and exits non-zero on drift (currently **161 verified, 0 mismatched, 3
 unverifiable**). **See §10 for the E10-E12 falsification campaign, which
 supersedes several conclusions below.**
 
@@ -364,6 +364,17 @@ non-decision probe shows it reports more distinct documents for the independent
 arm in **27/36** and fewer in **0/36** (p = 1.5e-08). It sees the redundancy and
 prices it at nothing.
 
+> **Correction, 2026-09-01 (`docs/protocols/E13-CORRECTIONS.md`).** The
+> paragraph above holds for the plan's **ordering** verdict only. The plan's
+> other decision field, `ready` ("safe to execute as written"), was never
+> scored by E10–E13; re-derived post-hoc it is dependence-sensitive in every
+> arm (E12 +0.26, E13 `default` +0.23, cluster p < 0.001, direction: one
+> repeated record is declared "safe" more often than three distinct ones).
+> "Prices it at nothing" is withdrawn as a claim about the decision. The
+> 27/36 probe is E10's manipulation check, not E12's. E13 (`docs/RESUME.md`
+> §3–4) replicated the ordering null exactly; its interventions are
+> inconclusive by rule; the `ready` finding is post-hoc and unconfirmed.
+
 **What replicated, and what did not**
 
 - **Corroboration vs length-matched filler**: large, dose-dependent, and
@@ -387,6 +398,8 @@ E12 then earned the conclusion properly. `docs/protocols/E10-H3-RETRACTION.md`.
 decider actually uses. There is none — that is now established rather than
 assumed, which is the difference between E10 and E12.
 
-**Blocker B1 still stands.** The adversarial prior-art search never ran (search
-budget exhausted). `docs/novelty_matrix.md` holds seven candidate claims: one
-pre-empted, one invalid, one dead, three unknown, **none novel**.
+**Blocker B1 was discharged on 2026-09-01.** The adversarial prior-art search
+ran (19 queries, 15 papers). `docs/novelty_matrix.md` holds eight candidate
+claims: **none novel**. C4 is pre-empted behaviourally by GroupQA
+(arXiv:2601.06189); C8, the E13 claim, is not pre-empted on its conjunction
+but was withdrawn as phrased the same day by the step-10 attack.

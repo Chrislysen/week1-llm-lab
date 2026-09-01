@@ -1,9 +1,8 @@
 # RESUME — where the work stands, and exactly what to do next
 
-**Paused 2026-09-01, mid-campaign, at the end of E13 step 9.** Everything is
-committed. Nothing is running. No remote exists.
-
-Start a new session with: *"Read docs/RESUME.md and continue from step 10."*
+**Updated 2026-09-01 after steps 10–12. The campaign is closed.** Everything
+is committed. Nothing is running. No remote exists. Nothing is queued; if work
+resumes, §5 names the one conditional next step.
 
 ---
 
@@ -13,7 +12,7 @@ Start a new session with: *"Read docs/RESUME.md and continue from step 10."*
 cd C:/Users/chris/week1-llm-lab
 git branch --show-current            # expect: crazy
 git status --porcelain               # expect: empty
-python verify_claims.py              # expect: 143 verified, 0 mismatched, 3 unverifiable
+python verify_claims.py              # expect: 161 verified, 0 mismatched, 3 unverifiable
 python prospective_design_check.py --self-test    # expect: 7/7 passed
 ```
 
@@ -44,14 +43,18 @@ Tags: `compulsory-baseline-v1`, `e1-landscape-v1`, `selector-protocol-v1`,
 faithful paraphrastic corroborations increase, in 3/3 distinct model families
 (Meta, Cohere, Alibaba). Llama: 0.75 → 0.4167 → 0.2778 → 0.1111.
 
-**Evidential-dependence null (E12, replicated by E13).** SAME_ROOT vs
-INDEPENDENT_ROOT: E12 diff +0.0185, p = 0.749, CI [−0.037, +0.074]; E13
-DEFAULT diff **+0.0000**, p = 1.0, CI [−0.056, +0.056]. Both inside the
-preregistered SESOI of 0.10. **Equivalence-supported.**
+**Evidential-dependence null ON THE ORDERING VERDICT (E12, replicated by
+E13).** SAME_ROOT vs INDEPENDENT_ROOT: E12 diff +0.0185, p = 0.749, CI
+[−0.037, +0.074]; E13 DEFAULT diff **+0.0000**, p = 1.0, CI [−0.056, +0.056].
+Both inside the preregistered SESOI of 0.10. **Equivalence-supported — for
+the ordering only.** Scope correction 2026-09-01: the plan's `ready` field is
+dependence-sensitive (post-hoc, unconfirmed; §4). Do not write "prices it at
+nothing" about the decision.
 
 Standing prohibitions: do not claim lineage sensitivity, do not build
 AnchorRoute, do not try to make SAME differ from INDEP, do not change the
-SESOI, do not revive dilution or E8's P7.
+SESOI, do not revive dilution or E8's P7, do not claim the `ready` effect
+before a preregistered E14 confirms it.
 
 ---
 
@@ -70,26 +73,26 @@ every cell.
 
 \* blocked by a **defect in my own band rule** — see §5.
 
-**Recognition (RQ1).** The two predeclared measures disagree:
-- **boolean (primary)** — response bias: `identify` scores 0.843 on same-root
-  but 0.528 on independent-root.
-- **count (secondary)** — discriminates strongly: `identify` reports more
-  sources for INDEP in **49** units vs **2**, sign p = **1.18e-12**, agreeing
-  with E12's frozen probe (27 vs 0, p = 1.5e-08).
+**Recognition (RQ1) — CORRECTED 2026-09-01.** What `418bab2` called "two
+measures disagreeing" was one variable scored two ways. Paired by unit, the
+primary boolean discriminates **40 vs 0** (p = 1.8e-12) under `identify`,
+exactly as the count does (49 vs 2); under `normative` **34 vs 4**. The
+paired count test was **post-hoc** — added after the first 36 units were on
+disk — and mislabelled predeclared. The predeclared per-response numbers:
+`identify` INDEP boolean 0.528, count_strict **0.130**. **42/108 units
+misrecognise INDEP by every measure.** Rule 2 has no threshold and is
+unadjudicated. The "27 vs 0" probe is E10's manipulation check, not E12's.
 
-The boolean stays primary. Its bias is a reported measurement defect, **not** a
-reason to swap measures after the fact.
+**"NORMATIVE degraded recognition" is WITHDRAWN** — one row of two, no
+between-arm test, and the stated mechanism has the wrong sign.
 
-**NORMATIVE degraded recognition** — boolean same-root 0.843 → 0.602, count
-discrimination 36 vs 25 (p = 0.20). Stating the principle made the model *worse*
-at seeing the structure.
-
-**GOLD moved behaviour by exactly 0.0000** while being handed the correct
-structure outright.
+**GOLD moved the ORDERING verdict by 0.0000** while being handed the correct
+structure outright — and is INCONCLUSIVE BY RULE there, not an "oracle null".
+On the `ready` field it moved **+0.20** (§4).
 
 ---
 
-## 4. Two defects recorded against my own work
+## 4. Defects recorded against my own work
 
 **The coupling test could not have worked.** `P(sensitive | recognized)` vs
 `P(sensitive | misrecognized)` is 0.025 vs 0.088 (Fisher p = 0.256) and 0.059 vs
@@ -104,48 +107,59 @@ discordance is favourable. It blocked `sham` and `gold`; read on the equivalence
 criterion both are equivalence-supported. The rule is left as written and fired;
 the corrected reading is printed separately and flagged post-hoc.
 
+**The decision has two output fields and I scored one (found by the step-10
+panel, verified).** The plan JSON is `{"actions", "ready"}`; `ready` ("safe to
+execute as written") is required to parse and is part of
+`deterministic_success`. E12 and E13 never analysed it. Re-derived:
+`default` ready(SAME) 59/108 vs ready(INDEP) 34/108, **+0.2315**, cluster
+p = 0.0002, CI [+0.139, +0.333]; `gold` +0.2037 (p = 0.0001); E12 +0.2593.
+Every arm, about twice the SESOI. The ordering null stands; "prices one root
+exactly as k independent roots" is withdrawn as a decision-level claim.
+**Post-hoc, unconfirmed — the one thing worth an E14.**
+`docs/protocols/E13-CORRECTIONS.md`, which also records that the paired count
+test was post-hoc and that "NORMATIVE degrades" is withdrawn.
+
 ---
 
-## 5. NEXT — resume at step 10
+## 5. Steps 10–12 — DONE 2026-09-01. Nothing is queued.
 
-**Step 10 — adversarially attack the E13 interpretation.** A workflow script is
-already written and ready:
+**Step 10 — DONE.** `docs/attack_e13.js` ran as workflow `wf_35c74eab-aee`:
+27 agents, 22 candidates, **5 survived refutation**, every one re-derived by
+me before acceptance and recorded in `docs/protocols/E13-CORRECTIONS.md`.
+Three conclusions withdrawn (the recognition "disagreement / response bias";
+"NORMATIVE degrades"; the decision-level "prices it at nothing") and two
+record corrections (the paired count test was post-hoc; the 27 vs 0 probe is
+E10's). `e13_recognition.py --analyse` now prints both post-hoc blocks
+flagged, and `verify_claims.py` pins the corrected numbers (161 verified).
 
-```
-C:/Users/chris/AppData/Local/Temp/claude/C--Users-chris-week1-llm-lab/
-  4c244fd2-6d3b-4297-82e4-a6ac784bb2d9/scratchpad/attack_e13.js
-```
+**Step 11 — DONE 2026-09-01 (commit `f5d218d`).** The search ran in a fresh
+session: 19 searches, 15 papers. **Neither blocking paper fires the rule** —
+CAMA (arXiv:2608.19701) has no recognition probe and no told-correlation
+baseline; Information Discernment (arXiv:2607.19355) defines M1/M2 over source
+*reliability* only. **But GroupQA (arXiv:2601.06189, Jan 2026) already runs
+E12's paraphrased-one-document vs distinct-documents contrast** on four 8B–70B
+models and finds the paraphrases weighted *more*, with no recognition probe and
+no intervention. C8 was therefore **OPEN (NARROW), not NOVEL** — and was then withdrawn as
+phrased in step 10: residue = recognition probe on the same units + `gold`'s
+ordering result (0.0000; the "oracle null" reading is withdrawn), on one 3B
+model. C4 is PRE-EMPTED (behavioural). Full table and search log in
+`docs/novelty_matrix.md`; `docs/findings.md` §0/§4 updated.
 
-Launch with `Workflow({scriptPath: "<that path>"})`. Five lenses: overclaim,
-parse-rate confound, whether the recognition measure is real or lexical,
-the coupling statistic, and whether SHAM is difficulty-matched.
-*(If the scratchpad has been cleared, the script is small enough to rewrite from
-the lens list above.)*
+**Step 12 — DONE.** E13 survived the prior art (C8 not pre-empted on its
+conjunction) and did **not** survive the attack intact. `docs/CLAIM-E13.md`
+states what is left. No router, no new campaign.
 
-**Step 11 — the blocking prior-art search. THIS IS THE GATE ON EVERYTHING.**
-`docs/novelty_matrix.md` C8 is `UNKNOWN` and cannot be promoted without it. The
-two questions that decide it:
+**Not yet run, and conditional — E14, the `ready` channel.** The only thing
+this project found that is both new to it and not pre-empted is post-hoc. A
+preregistered confirmation would: declare `ready` as the outcome; reuse E12's
+108 units unmutated; run `prospective_design_check` for a *difference* at
+SESOI 0.10 (observed discordance here is ~0.27, far outside the band the
+ordering design was powered for, so check first); predeclare the direction
+(+ = one root declared safe more often) and what `ready` is taken to measure.
+Do not run it before the design check passes, and do not claim it before it
+runs.
 
-1. **CAMA, arXiv:2608.19701** — does it already show a *base* LLM correctly
-   recognising shared-source dependence yet failing to behaviourally price it?
-   If yes, **C8 is pre-empted outright.**
-2. **Information Discernment, arXiv:2607.19355** — does its M1/M2 decomposition
-   cover source *dependence*, or only source *reliability*? If "apply" already
-   covers independence, C8 collapses into it.
-
-Also check: Whose Facts Win? (arXiv:2601.03746), Most LLM Conformity Needs No
-Speaker (arXiv:2607.05545), and the human illusion-of-consensus work (Yousif
-2019; Connor Desai 2022/2026). Twelve adversarial queries are listed in
-`docs/novelty_matrix.md`.
-
-**This session exhausted its web-search budget (200/200), which is why the
-search never ran.** A new session gets a fresh budget — run it first.
-
-**Step 12 — stop and report.** Do **not** start another broad campaign. Do not
-build a router. If E13 survives the attack *and* the prior art, write a
-publication-level claim memo and stop.
-
-**Not yet run, and conditional:** cross-model E13 (Aya, Qwen) only after the
+**Also not yet run, and conditional:** cross-model E13 (Aya, Qwen) only after the
 mechanism is identified on Llama; `LEDGER` (RQ5) only if a normative
 intervention works — it did not.
 
@@ -163,8 +177,11 @@ support) but that was at ceiling on an easy supersession.
 | `docs/novelty_matrix.md` | 8 candidate claims; **none novel**; C8 is the live one |
 | `docs/protocols/E13-recognition-utilization-v1.md` | E13 preregistration |
 | `docs/protocols/E10-H3-RETRACTION.md` | the retraction that shaped everything after it |
+| `docs/protocols/E13-CORRECTIONS.md` | the step-10 corrections: three E13 conclusions withdrawn, all verified |
+| `docs/CLAIM-E13.md` | what can still be claimed, and what cannot |
+| `docs/attack_e13.js` | the adversarial workflow that found them |
 | `docs/handoff.md` | full external-review document |
-| `verify_claims.py` | re-derives all 143 numbers from raw output |
+| `verify_claims.py` | re-derives all 161 numbers from raw output |
 | `prospective_design_check.py` | refuses designs that cannot reach their conclusion |
 | `robust_client.py` | bounded transport-only retry |
 
