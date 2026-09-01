@@ -62,3 +62,36 @@ dependence-related effect the decider uses. E10/E11 do not demonstrate one, and
 after the retraction they do not demonstrate its absence either. Building
 witness-preserving routing now would be building a method for a problem that has
 not been shown to exist.
+
+---
+
+## E13 candidate claim, and the two papers closest to killing it
+
+**C8 — RECOGNITION–UTILIZATION DISSOCIATION FOR EVIDENTIAL DEPENDENCE.**
+A model that *correctly reports* that k corroborating messages share one
+evidential root nevertheless prices them as k independent confirmations in a
+downstream executable decision; and this can be moved (or not) by routing the
+recognised structure into the reasoning step.
+
+Status: **UNKNOWN — and it must stay unknown until the two boundary questions
+below are answered against the actual papers.** This is not a generic
+"models know but don't use" claim; that framing is already crowded. The only
+defensible scoping is the conjunction:
+
+> evidential **dependence** (not reliability, not credibility, not repetition)
+> **+** a direct recognition probe **+** a downstream *executable* decision
+> **+** a within-instance causal intervention.
+
+| # | closest work | the question that decides whether C8 survives | status |
+|---|---|---|---|
+| B-CAMA | CAMA / Memory Correlation Bias, arXiv:2608.19701 | **Does CAMA show a base LLM correctly RECOGNISING shared-source dependence and still failing to price it?** CAMA models correlated vs independent memories and builds a mitigation. If it already reports the recognition/behaviour gap in a base model, C8 is pre-empted outright. If it only shows the *behavioural* bias and fixes it architecturally, the recognition probe and the intervention ladder are the remaining distinction. | **UNRESOLVED — blocking** |
+| B-L2D | Information Discernment in LLMs, arXiv:2607.19355 | **Does its M1/M2 decomposition cover source DEPENDENCE, or only source RELIABILITY?** M1/M2 separates failing to *estimate* source quality from failing to *apply* it — structurally the same shape as C8. If "apply" already covers independence/dependence, C8 collapses into it. If M1/M2 is strictly about reliability/trustworthiness of individual sources, then independence structure is a different quantity. | **UNRESOLVED — blocking** |
+| B-WFW | Whose Facts Win?, arXiv:2601.03746 | Does it manipulate evidential *independence*, or only credibility and repetition count? | UNRESOLVED |
+| B-CONF | Most LLM Conformity Needs No Speaker, arXiv:2607.05545 | Does it probe knowledge/use of source dependence, or only speaker-free conformity magnitude? | UNRESOLVED |
+| B-HUMAN | Illusion of consensus — Yousif et al. 2019; Connor Desai et al. 2022/2026 | Humans become *more* independence-sensitive when causal source relations are made transparent. Does explicit transparency similarly rescue LLM action selection? | **EXPLORATORY ONLY** — the human/LLM contrast is not preregistered as a test and may not be reported as one |
+
+**Rule for C8, fixed now:** if either B-CAMA or B-L2D answers "yes, already
+shown", C8 is **PREEMPTED** and E13 becomes an internal replication with no
+novelty claim. Neither question can be answered from this session — the
+adversarial search budget is exhausted (B1) — so **C8 cannot be promoted above
+UNKNOWN no matter how clean E13's result is.**
