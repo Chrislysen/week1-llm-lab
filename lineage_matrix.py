@@ -49,9 +49,11 @@ def ask(client, instance, condition):
                  'identifier strings, and "ready", true or false.')
 
 
-def main():
+def main(offset=0, limit=None, out_tag=""):
+    """Chunkable: long single runs kept getting killed, so the matrix is run
+    in slices and merged. Each slice writes its own artifacts."""
     client = OllamaClient()
-    instances = all_instances()
+    instances = all_instances()[offset:None if limit is None else offset + limit]
     rows, detail = [], []
 
     total = len(instances) * len(CONDITIONS)
@@ -101,9 +103,12 @@ def main():
             done += 1
         print(f"  [{done:>3}/{total}] {inst.id}")
 
-    write_csv("results/e2_matrix_runs.csv", rows, list(rows[0].keys()))
-    with open("results/e2_matrix_detail.json", "w") as f:
+    write_csv(f"results/e2_matrix_runs{out_tag}.csv", rows, list(rows[0].keys()))
+    with open(f"results/e2_matrix_detail{out_tag}.json", "w") as f:
         json.dump(detail, f, indent=2)
+    if out_tag:
+        print(f"slice written: offset={offset} n={len(instances)} rows={len(rows)}")
+        return
 
     def agg(g, num, den):
         n = sum(r[num] for r in g)
@@ -172,4 +177,10 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    import argparse
+    p = argparse.ArgumentParser()
+    p.add_argument("--offset", type=int, default=0)
+    p.add_argument("--limit", type=int, default=None)
+    p.add_argument("--tag", default="")
+    a = p.parse_args()
+    main(offset=a.offset, limit=a.limit, out_tag=a.tag)
