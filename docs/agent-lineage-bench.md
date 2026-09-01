@@ -205,6 +205,54 @@ validity check: if the effect measured in Mode A does not also appear in Mode B,
 the benchmark is measuring an artefact of scripting, and that must be reported
 rather than explained away.
 
+### 8.1 Mode B as built (`lineage_modeb.py`, `e7_modeb.py`)
+
+Mode B as specified above says lineage "must be inferred, so labels are noisy."
+The implementation takes a narrower and stronger option: **natural text with
+known parentage.** A model writes each relay, but we know `L2` derives from `L1`
+because we handed it `L1` and asked for a restatement. Nothing is inferred, so
+nothing is noisy — and the one property the check exists to vary, the *wording*,
+is fully in the model's hands.
+
+The price is that Mode B tests scripted *wording*, not scripted *conversation*.
+The exposure schedule is still curated: a real dialogue decides for itself how
+many times a claim gets restated. Mode B makes the text natural, not the
+conversation. That limit is stated in `e7_modeb.py` and is not a hedge — it is
+the difference between this and a claim about deployed systems.
+
+Three models, none marking its own work: `qwen2.5:7b-instruct` writes,
+`qwen2.5:14b-instruct` certifies each message *shown alone*, `llama3.2:3b`
+decides (E5's model, unchanged). Because the decider wrote none of the text it
+reads, source bias — a model preferring its own generations, Dai et al. KDD 2024
+— is ruled out without needing an extra arm.
+
+**Gates that enforce vs gates that measure.** Mode A can compel its generator;
+Mode B cannot compel a model, so half of Mode A's guarantees become
+measurements, and which is which is stated at each gate:
+
+| enforced | measured |
+|---|---|
+| length bounds; both actions mentioned; no action *identifier* leaked into prose; filler mentions neither action; links mutually distinct (≤ 0.75 content-word overlap); one corruption wording reused at all three depths; filler and links length-matched | keyword separability of faithful vs corrupted (Mode A forbids it by construction — Mode B can only report it); paraphrase drift from the source across L1/L2/L3; verifier disagreement rate |
+
+**What building it cost, and what that bought.** Three defects that every
+existing gate passed: relays that were verbatim-identical at every depth
+(temperature 0 makes restating a minimal sentence a fixed point, so depth 3
+would have measured *repetition*); speakers assigned per class, which turned two
+parties corroborating into one person repeating themselves; and a shape check
+that was vacuously true on an uncertified chain. All three are recorded in the
+commit history rather than tidied away.
+
+**It also found a limitation in Mode A.** `d1_padded` is the arm carrying E5's
+headline — it holds message count and corruption position at the `d3` values
+while swapping corroborating links for filler. It held the count; it never held
+the length. Mode A's filler averages 7.6 words against its links' 12.4, so
+`d1_padded` runs ~11 words (20%) shorter than `d3`. The confound points the
+wrong way for a text-volume account — `d1_padded` is *shorter* and shows *less*
+adoption — so the reading survives, but "the confound points the wrong way" is
+weaker than "the confound is absent," and E5 was written as though it were the
+second. Mode B matches the pair to ~1 word, making its length control strictly
+stronger than the one it was built to validate.
+
 ## 9. What would earn AnchorRoute
 
 **AnchorRoute is not designed here and must not be implemented until the
