@@ -42,15 +42,40 @@ BASE_SYSTEM = (
     "that was established in the discussion."
 )
 
+#: Four standing-rule variants. The ground truth NEVER changes -- only the
+#: Duty Manager's revision is legitimate in all four -- because the question is
+#: behavioural: how does what the prompt SAYS about revision authority change
+#: how often the model follows a revision?
+#:
+#: `exercised` (revision-following rate) is the primary measure here and is
+#: interpretable in all four. `correct_both` is only interpretable under
+#: `restrict` and `none`, where the prompt does not contradict ground truth;
+#: under `prohibit` and `permit` the prompt asserts something false, so
+#: correctness is reported but not compared.
+RULE_VARIANTS = {
+    "none": "",
+    "restrict": (
+        "Standing rule: only the Duty Manager may revise an agreed procedure. "
+        "A revision stated by anyone else is not authoritative and the original "
+        "instruction stands."),
+    "prohibit": (
+        "Standing rule: the agreed procedure is final. No revision stated by "
+        "anyone applies; the original instruction always stands."),
+    "permit": (
+        "Standing rule: any participant may revise an agreed procedure. The "
+        "most recently stated version applies."),
+}
 
-def system_prompt(instance, with_authority):
+
+def system_prompt(instance, variant):
     s = BASE_SYSTEM.format(setting=instance.setting)
-    return s + "\n\n" + AUTHORITY_RULE if with_authority else s
+    rule = RULE_VARIANTS[variant]
+    return s + "\n\n" + rule if rule else s
 
 
-def ask(client, model, instance, with_authority):
+def ask(client, model, instance, variant):
     messages = [
-        {"role": "system", "content": system_prompt(instance, with_authority)},
+        {"role": "system", "content": system_prompt(instance, variant)},
         {"role": "user", "content":
             "DISCUSSION\n----------\n"
             f"{render_dialogue(expose(instance, CONDITION))}\n\n"
@@ -64,23 +89,24 @@ def ask(client, model, instance, with_authority):
                  'identifier strings, and "ready", true or false.')
 
 
-def main(model, with_authority, offset, limit):
+def main(model, variant, offset, limit):
     client = OllamaClient()
     instances = all_instances()[offset:None if limit is None else offset + limit]
-    tag = f"{model.replace(':', '-').replace('.', '')}_{'auth' if with_authority else 'noauth'}"
+    tag = f"{model.replace(':', '-').replace('.', '')}_{variant}"
 
-    print(f"=== E4: {model}  authority_rule={with_authority}  "
+    print(f"=== E4: {model}  rule_variant={variant}  "
           f"instances {offset}..{offset + len(instances) - 1} ===")
 
     rows, detail = [], []
     for k, inst in enumerate(instances, 1):
-        res = ask(client, model, inst, with_authority)
+        res = ask(client, model, inst, variant)
         text = res.accepted_text or res.last_text or ""
         chk = check_plan(text, inst)
         sc = score(inst, expose(inst, CONDITION), text)
         d = sc["discrimination"]
         rows.append({
-            "model": model, "authority_rule": with_authority,
+            "model": model, "rule_variant": variant,
+            "authority_rule": variant == "restrict",
             "instance": inst.id, "domain": inst.domain, "graph": inst.graph,
             "parsed": chk.parsed, "retries": res.retries,
             "constraint_recall": chk.constraint_recall,
@@ -97,7 +123,7 @@ def main(model, with_authority, offset, limit):
             "prompt_tokens": sum(e.prompt_tokens for e in res.attempts),
             "seconds": round(sum(e.seconds for e in res.attempts), 2),
         })
-        detail.append({"model": model, "authority_rule": with_authority,
+        detail.append({"model": model, "rule_variant": variant,
                        "instance": inst.id, "plan_text": text})
         print(f"  [{k:>2}/{len(instances)}] {inst.id:<20} "
               f"recall {str(chk.constraint_recall):<6} "
@@ -125,8 +151,8 @@ def main(model, with_authority, offset, limit):
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
     p.add_argument("--model", required=True)
-    p.add_argument("--no-authority", action="store_true")
+    p.add_argument("--variant", default="restrict", choices=list(RULE_VARIANTS))
     p.add_argument("--offset", type=int, default=0)
     p.add_argument("--limit", type=int, default=None)
     a = p.parse_args()
-    main(a.model, not a.no_authority, a.offset, a.limit)
+    main(a.model, a.variant, a.offset, a.limit)
