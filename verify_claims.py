@@ -882,6 +882,95 @@ else:
     print("  claim; it survives only for the ordering channel.")
 
 
+# ----------------------------------------------------------- E14 ----------
+# PREREGISTERED SUPPORT, written before any E14 model call. The pre-result
+# block guards the frozen design; the post-result block re-scores every raw
+# response and recomputes every reported statistic. No E14 summary CSV is ever
+# read as truth -- each is compared against a fresh computation from raw text.
+
+print("\n=== E14 ready channel (re-derived from raw responses) ===")
+from lineage_e14 import (all_units as _e14_units, by_instance as _e14_insts,
+                         corpus_hash as e14_hash, fixed_plan as _e14_plan,
+                         fixed_plan_manifest as _e14_manifest,
+                         plan_is_valid as _e14_valid, cells_for as _e14_cells,
+                         PRIMARY_CELLS as _E14_PRIMARY)
+import e14_ready as _E14
+
+claim("E14 corpus hash", e14_hash(), "6cd7dafac78c31fe")
+_u14 = _e14_units()
+_i14 = _e14_insts()
+claim("E14 unit count", len(_u14), 432)
+claim("E14 instance clusters", len({u["instance"] for u in _u14}), 144)
+claim("E14 decider calls per model",
+      sum(len(_e14_cells(i)) for i in range(len(_u14))), 1800)
+try:
+    _man = json.load(open("docs/protocols/e14_fixed_plans.json"))
+    claim("E14 fixed-plan manifest re-derives from the generator",
+          _man == _e14_manifest(), True)
+    claim("E14 every fixed plan passes the deterministic evaluator on every "
+          "unit it is shown with",
+          all(_e14_valid(_i14[u["instance"]], _e14_plan(_i14[u["instance"]]), u)
+              for u in _u14), True)
+except FileNotFoundError:
+    skip("E14 fixed-plan manifest", "docs/protocols/e14_fixed_plans.json missing")
+
+E14_CSV = sorted(glob.glob("results/e14_*_o*.csv"))
+if not E14_CSV:
+    skip("E14 outcomes", "not run yet -- preregistered, zero outcomes")
+else:
+    _rows14 = _E14.load()
+    _det14 = _E14.load_detail()
+    _rc = _E14.recompute_from_detail(_det14, _i14, {u["unit"]: u for u in _u14})
+    _bad = _E14.mismatches(_rows14, _rc)
+    claim("E14 every CSV row re-scores identically from its raw response",
+          len(_bad), 0)
+    claim("E14 raw responses on disk for every CSV row",
+          all((r["unit"], r["mode"], r["dependence"]) in _rc for r in _rows14), True)
+    _gate = _E14.fixed_plan_gate(_det14, _man)
+    claim("E14 FIXED arms were shown the manifest plan, byte-identical across "
+          "arms", len(_gate), 0)
+    _cells = {(r["mode"], r["dependence"]) for r in _rows14}
+    claim("E14 all seven cells present", len(_cells), 7)
+    for mode, dep, diag in _E14.CELLS:
+        g = [r for r in _rows14 if r["mode"] == mode and r["dependence"] == dep]
+        claim(f"E14 {mode}/{dep} row count", len(g), 24 if diag else 432)
+
+    # Recompute the contrasts from the re-scored rows, not from the CSV values.
+    _rows_rc = []
+    for r in _rows14:
+        rc = _rc[(r["unit"], r["mode"], r["dependence"])]
+        _rows_rc.append({**r, "parsed": str(rc["parsed"]),
+                         "ready": str(rc["ready"]), "verdict": rc["verdict"]})
+    _stats14 = {}
+    for mode, outcome in (("fixed", "ready"), ("generated", "ready"),
+                          ("generated", "flip")):
+        per, dropped = _E14.pairs(_rows_rc, mode, outcome)
+        _stats14[(mode, outcome)] = (_E14.paired_stats(per), dropped)
+    _sum14 = {r["contrast"]: r for r in csv.DictReader(open("results/e14_primary.csv"))} \
+        if os.path.exists("results/e14_primary.csv") else {}
+    for (mode, outcome), label in ((("fixed", "ready"), "PRIMARY  fixed READY"),
+                                   (("generated", "ready"), "replication  generated READY"),
+                                   (("generated", "flip"), "control  generated ORDERING(flip)")):
+        st, dropped = _stats14[(mode, outcome)]
+        row = _sum14.get(label)
+        if row is None:
+            skip(f"E14 {label} summary row", "results/e14_primary.csv missing it")
+            continue
+        claim(f"E14 {label}: delta recomputed from raw", st["diff"],
+              float(row["delta"]), tol=0.0005)
+        claim(f"E14 {label}: n_pairs", st["n"], int(row["n_pairs"]))
+        claim(f"E14 {label}: dropped incomplete", dropped, int(row["dropped"]))
+        claim(f"E14 {label}: paired counts", (st["same_gt"], st["indep_gt"]),
+              (int(row["same_gt"]), int(row["indep_gt"])))
+        claim(f"E14 {label}: discordance", st["disc"], float(row["disc"]),
+              tol=0.0005)
+        claim(f"E14 {label}: one-sided cluster-permutation p",
+              round(st["p_one"], 4), float(row["p_one"]), tol=0.01)
+        claim(f"E14 {label}: cluster-bootstrap CI",
+              f"[{st['lo']:+.3f},{st['hi']:+.3f}]", row["ci"])
+    # E14_PINNED: literal numbers are appended here after the run, never before.
+
+
 # ------------------------------------------------------ E6 router facts ----
 
 print("\n=== E6 router: the measurement that killed AnchorRoute ===")

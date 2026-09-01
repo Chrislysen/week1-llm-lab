@@ -1,8 +1,9 @@
 # RESUME — where the work stands, and exactly what to do next
 
-**Updated 2026-09-01 after steps 10–12. The campaign is closed.** Everything
-is committed. Nothing is running. No remote exists. Nothing is queued; if work
-resumes, §5 names the one conditional next step.
+**Updated 2026-09-01 after steps 10–12 and the E14 v1 abort. The campaign is
+closed.** Everything is committed. Nothing is running. No remote exists.
+Nothing is queued; §5 names the one decision that is pending, and it is the
+user's.
 
 ---
 
@@ -12,14 +13,14 @@ resumes, §5 names the one conditional next step.
 cd C:/Users/chris/week1-llm-lab
 git branch --show-current            # expect: crazy
 git status --porcelain               # expect: empty
-python verify_claims.py              # expect: 161 verified, 0 mismatched, 3 unverifiable
-python prospective_design_check.py --self-test    # expect: 7/7 passed
+python verify_claims.py              # expect: 167 verified, 0 mismatched, 4 unverifiable
+python prospective_design_check.py --self-test    # expect: 10/10 passed
 ```
 
-All twelve suites must pass:
+All thirteen suites must pass:
 `test_engine test_scenario test_finalise test_context test_judge test_retrieval
 test_lineage_bench test_lineage_modeb test_lineage_e10 test_lineage_e11
-test_lineage_e12 test_lineage_e13`
+test_lineage_e12 test_lineage_e13 test_lineage_e14`
 
 Frozen corpus hashes — **if any differ, stop and investigate before anything
 else**:
@@ -31,6 +32,7 @@ else**:
 | E11 | `5c28ada4c4b899dc` |
 | E12 | `ecf1f4884fa49270` |
 | E13 prompts | `5c23297196241110` |
+| E14 (preregistered, never run) | `6cd7dafac78c31fe` |
 
 Tags: `compulsory-baseline-v1`, `e1-landscape-v1`, `selector-protocol-v1`,
 `e3-authority-v1`, `e7-modeb-v1`, `e12-powered-v1`.
@@ -149,15 +151,20 @@ model. C4 is PRE-EMPTED (behavioural). Full table and search log in
 conjunction) and did **not** survive the attack intact. `docs/CLAIM-E13.md`
 states what is left. No router, no new campaign.
 
-**Not yet run, and conditional — E14, the `ready` channel.** The only thing
-this project found that is both new to it and not pre-empted is post-hoc. A
-preregistered confirmation would: declare `ready` as the outcome; reuse E12's
-108 units unmutated; run `prospective_design_check` for a *difference* at
-SESOI 0.10 (observed discordance here is ~0.27, far outside the band the
-ordering design was powered for, so check first); predeclare the direction
-(+ = one root declared safe more often) and what `ready` is taken to measure.
-Do not run it before the design check passes, and do not claim it before it
-runs.
+**E14 v1 — preregistered and ABORTED before any confirmatory call
+(2026-09-01).** Built to the instruction: a fresh 432-unit / 144-cluster
+corpus (four salted draws of the frozen generator), FIXED_PLAN primary,
+GENERATED replication, a within-response interaction test, checker operating
+bands (432/144 PROCEEDS; 324/108 ABORTS), a verifier section and four fixture
+tests — all committed with zero outcomes. Hypothesis-blind pilots then found
+the FIXED instrument **at floor** on `llama3.2:3b`: **0 of 149** `ready =
+true` across seven framings, three plan contents and every graph, because in
+judge mode the model treats the contradictory discussion as making any plan
+unsafe. Kill rule 5 fires before the run; **no confirmatory call was made**.
+`docs/protocols/E14-ready-channel-v1.md` §16 holds the pilot table and four
+v2 options (GENERATED-only primary; a different decider; a FIXED arm without
+the contradiction; stop). **Choosing among them is the user's decision. Do not
+run any of them unasked.**
 
 **Also not yet run, and conditional:** cross-model E13 (Aya, Qwen) only after the
 mechanism is identified on Llama; `LEDGER` (RQ5) only if a normative
@@ -178,6 +185,8 @@ support) but that was at ceiling on an easy supersession.
 | `docs/protocols/E13-recognition-utilization-v1.md` | E13 preregistration |
 | `docs/protocols/E10-H3-RETRACTION.md` | the retraction that shaped everything after it |
 | `docs/protocols/E13-CORRECTIONS.md` | the step-10 corrections: three E13 conclusions withdrawn, all verified |
+| `docs/protocols/E14-ready-channel-v1.md` | E14 preregistration, and its §16 abort record with the pilot table |
+| `lineage_e14.py`, `e14_ready.py`, `test_lineage_e14.py` | E14 corpus, experiment and analysis, 23 gates + 4 fixture tests — built, never run |
 | `docs/CLAIM-E13.md` | what can still be claimed, and what cannot |
 | `docs/attack_e13.js` | the adversarial workflow that found them |
 | `docs/handoff.md` | full external-review document |

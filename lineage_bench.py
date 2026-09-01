@@ -390,9 +390,14 @@ def supersession_closure(constraints, announced: str) -> frozenset:
     return frozenset(lifted)
 
 
-def _seed_for(domain: str, graph: str) -> int:
-    """Deterministic per-instance seed. Same inputs -> same instance, always."""
-    h = hashlib.sha256(f"agentlineagebench-v1|{domain}|{graph}".encode()).digest()
+def _seed_for(domain: str, graph: str, salt: str = "agentlineagebench-v1") -> int:
+    """Deterministic per-instance seed. Same inputs -> same instance, always.
+
+    `salt` (E14, 2026-09-01) draws a FRESH instance from the same generator.
+    The default is the frozen benchmark, byte for byte; every historical
+    corpus hash is asserted by the gate suites.
+    """
+    h = hashlib.sha256(f"{salt}|{domain}|{graph}".encode()).digest()
     return int.from_bytes(h[:4], "big")
 
 
@@ -411,9 +416,11 @@ def _render(templates, rng, c, verbs):
     return t.format(a=_phr(a), A=_cap(a), b=_phr(b), B=_cap(b) if b else "")
 
 
-def generate_instance(domain: str, graph: str) -> Instance:
-    """Build one instance. Fully determined by (domain, graph)."""
-    seed = _seed_for(domain, graph)
+def generate_instance(domain: str, graph: str, salt: str | None = None) -> Instance:
+    """Build one instance. Fully determined by (domain, graph) -- and by `salt`
+    when one is given, which yields a different, equally valid instance with
+    its own id (`{domain}-{graph}~{salt}`). No salt: the frozen benchmark."""
+    seed = _seed_for(domain, graph) if salt is None else _seed_for(domain, graph, salt)
     rng = random.Random(seed)
     dom = DOMAINS[domain]
     verbs = {a: v for a, v in dom["actions"]}
@@ -596,7 +603,8 @@ def generate_instance(domain: str, graph: str) -> Instance:
         raise RuntimeError(f"{domain}-{graph}: no non-topological display order")
 
     return Instance(
-        id=f"{domain}-{graph}", domain=domain, graph=graph, seed=seed,
+        id=f"{domain}-{graph}" if salt is None else f"{domain}-{graph}~{salt}",
+        domain=domain, graph=graph, seed=seed,
         setting=dom["setting"], actions=tuple(idents), constraints=constraints,
         superseded=lifted,
         announced_supersession=superseded, messages=tuple(messages),
