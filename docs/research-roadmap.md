@@ -110,6 +110,58 @@ this project already found four of five candidate research questions fully
 pre-empted. The prior assumption should be that any given framing is covered,
 until a real search says otherwise.
 
+---
+
+## Prior-art scan on Authority Drift itself (2026-09-01)
+
+The assumption held again. **Two of the four claims are already published, and
+one of them under a name this project had never searched for.**
+
+| claim | status | owned by |
+|---|---|---|
+| Retrievers rank agent restatements above their sources | PARTIALLY_NOVEL | **source bias** — Dai et al., *Neural Retrievers are Biased Towards LLM-Generated Content*, KDD 2024, arXiv:2310.20501 |
+| Decision follows a conflicting derived restatement over the source | **ALREADY_KNOWN** | Tan et al., *Blinded by Generated Contexts*, ACL 2024, arXiv:2401.11911 |
+| A lineage-labelled benchmark separating retrieval from utilisation failure | **PLAUSIBLY_NOVEL** | composite; gap named by arXiv:2606.04990 |
+| Self-generated content is more retrieval-salient than source content | **ALREADY_KNOWN** | Dai et al. 2024; Chen et al., *Spiral of Silence*, ACL 2024, arXiv:2404.10496 |
+
+**The single most damaging paper is Tan et al. (arXiv:2401.11911).** It pairs a
+generated context against a retrieved one where only one is correct, and finds
+models follow the generated context *even when it is wrong*, with the
+similarity-to-query mechanism already diagnosed. That is our decision authority
+inversion minus the derivation relation. Our measured 0.4545 is therefore best
+described as a **replication of a 2024 result on a new substrate**, not a
+discovery.
+
+Also close and very recent: MemIR, *Mitigating Provenance-Role Collapse in
+Long-Term Agents* (arXiv:2605.25869), which already names the source-monitoring
+failure in agent memory; and arXiv:2603.02473, which already performs the
+retrieval-vs-utilisation factorisation, though on write-strategies rather than
+lineage.
+
+### What survives, in order of defensibility
+
+1. **Legitimate supersession.** Every conflict benchmark found treats the
+   authoritative source as the answer key. A design in which a later derived
+   message *should sometimes win* — making "always trust the source" a failing
+   strategy — was not found anywhere. This is the one element to build a
+   contribution around.
+2. **Parent–child rank inversion as the unit of measurement.** Source bias
+   compares *populations* of texts; nothing found compares a specific
+   restatement to its own specific parent, or treats derivation-chain depth as
+   an independent variable.
+3. **Retrieval/utilisation factorisation applied to lineage** rather than to
+   memory write-format.
+
+### Framings now explicitly forbidden
+
+- "We discover that models prefer self-generated content" — Dai et al. 2024.
+- "We discover that retrievers favour model-generated text" — same.
+- "We discover that decisions follow generated over retrieved context" —
+  Tan et al. 2024.
+- Citing the model-collapse / self-consuming-loop literature as the nearest
+  prior work. It is training-time distributional degradation, not retrieval
+  salience, and reaching for it would be citing the easier baseline.
+
 What the project currently has that is *not* obviously in the literature is an
 **instrument**, not a finding: a two-role natural-language dialogue with planted
 constraints, a deterministic non-LLM evaluator, and a fixed-budget context

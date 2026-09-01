@@ -110,6 +110,19 @@ key does today.
 | **DISTRACTOR** | plausible, on-topic, constraint-irrelevant | stops "retrieve everything operational" from scoring well |
 | **SUPERSESSION** | later information that *legitimately* overrides an earlier source | see below — the most important class |
 
+### SUPERSESSION is now the whole contribution, not just a control
+
+The prior-art scan (`research-roadmap.md`) found that decision authority
+inversion is already published — Tan et al., ACL 2024, arXiv:2401.11911 — and
+that retrieval-side preference for generated text is "source bias", Dai et al.,
+KDD 2024. What it did **not** find anywhere is a conflict benchmark in which the
+authoritative source is *not* always the answer key.
+
+Every conflict dataset located treats the source as ground truth, so
+"always trust the source" is a winning strategy in all of them. SUPERSESSION
+breaks that, and it is the one element with no located prior art. The reasoning
+below was written as a design argument; it now also carries the contribution.
+
 ### Why SUPERSESSION is the load-bearing class
 
 Without it, "later derived statement disagrees with earlier source" is *always*
