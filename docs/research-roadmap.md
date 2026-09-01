@@ -196,6 +196,53 @@ white-bear effect.
 in an operational planning task, and a speaker-free control shows most of it does
 not require an authority to be named."
 
+### E5, and the null I over-read (2026-09-01)
+
+Seventh candidate, seventh pre-emption — and this one also caught me committing
+the error this project criticises elsewhere.
+
+**The finding.** Adoption of an identical contradiction: d1 0.750, d2 0.417,
+d3 0.444, d1_padded 0.694, control 0.000. Paired McNemar: d1→d2 p = 0.0005;
+d1→d1_padded (length only) p = 0.6250; d1_padded→d2 p = 0.0020.
+
+**Every component is published.**
+
+| component | owned by |
+|---|---|
+| Corroboration count governs conflict outcomes | Xie et al., ICLR 2024, arXiv:2305.13300 — "predisposition towards answers corroborated by a larger volume of documents"; Jin et al., COLING 2024, arXiv:2402.14409 — "majority rule … evidence that appears more frequently" |
+| Corroboration confers resistance to a contradicting bloc | arXiv:2608.11247 reports the Asch dissenter/partner effect in LLMs **by name** |
+| A lone ally strengthens the held position | arXiv:2607.21558 Study 3 |
+| Saturation after roughly one piece of evidence | arXiv:2601.06189 — flip threshold X_min = 1.27–1.52 documents; arXiv:2510.02657 — first document +16–20%, second +2.8–4.4% |
+| Distance / context length does not drive the bias | AMEL, arXiv:2605.22714 — 12 models, 84k calls, OLS slope p = 0.80 |
+| Repetition survives paraphrase and survives removing the speaker | arXiv:2607.05545 |
+
+My d1/d2/d3 arms are literally 1:1, 2:1 and 3:1 evidence-frequency contrasts.
+The 0.750 → 0.417 drop is the textbook prediction of that literature.
+
+**Two statistics I over-read, and the correction.**
+
+1. **The "step function" is a null with no power.** d2 vs d3 is *4–5 discordant
+   pairs, p = 1.000, n = 36, one model*. That is a **failure to reject**, not a
+   demonstrated plateau. Describing it as "the second corroboration adds
+   nothing" treats absence of evidence as evidence of absence — exactly the move
+   this project retracted in §3b and in the vacuous-metric retraction.
+   **Retracted.**
+2. **"Length does nothing" is an underpowered rediscovery.** d1 vs d1_padded is
+   p = 0.6250 at n = 36. AMEL establishes the same thing at 12 models and 84k
+   calls. Reporting mine as a finding would be claiming a result someone else
+   has 2000× the power for.
+
+**An unbroken confound.** Every corroboration in E5 comes from a *different
+speaker*, so corroboration-count and speaker-count are perfectly confounded.
+arXiv:2607.05545 shows the effect survives removing the speaker entirely — the
+repeated proposition does the work, not the independent voice. A
+same-speaker-restates arm was never run, so "independent corroboration" is not
+supported by this design.
+
+**Status: NOT NOVEL.** The honest sentence is "we replicate the known
+corroboration-count effect on conflict adoption in a dialogue-ordered planning
+task, with a length-matched filler control."
+
 ### Framings now explicitly forbidden
 
 - "We discover that models prefer self-generated content" — Dai et al. 2024.
