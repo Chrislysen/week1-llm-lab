@@ -1,7 +1,7 @@
 # Findings — what is established, what is retracted, what is unclaimed
 
 One page, kept current. Every number here re-derives from raw artifacts via
-`python verify_claims.py`, which exits non-zero on drift (currently **37
+`python verify_claims.py`, which exits non-zero on drift (currently **95
 verified, 0 mismatched, 3 unverifiable**).
 
 Read the retraction table first. It is longer than the results table, and that
@@ -99,30 +99,12 @@ live and unnoticed confound until an adversarial audit found it, and E9 exists t
 settle it. Self-reversal has no detectable effect: `d1_fresh` vs `d1_self`
 p = 0.1250, `d3_fresh` vs `d3_self` p = 0.5000, mean shift +0.083.
 
-**What replicates across generation modes.** Direction, in both Mode A
-(templated relays) and Mode B (model-written). **Shape does not**: Mode A
-declines gradually (0.78 → 0.61 → 0.42), Mode B steps at the first link
-(0.78 → 0.19 → 0.17). The corpora also differ measurably in how the
-contradiction is worded — revision framing in 13/36 Mode A corruptions against
-3/36 in Mode B — which is a candidate explanation, measured but not tested.
-
-**Why this is not simply "repetition helps".** The restatements are *paraphrases*
-— a gate enforces ≤ 0.75 framing-word overlap against the source and against
-every earlier link — and they come from *more than one speaker*, also gated.
-Verbatim repeats and single-voice self-repetition are both excluded by
-construction, and both would have been the more mundane explanation.
-
-**Why it is not self-preference.** In Mode B three different models are used:
-`qwen2.5:7b-instruct` writes every relay, `qwen2.5:14b-instruct` certifies each
-one in isolation, `llama3.2:3b` decides. The decider wrote none of the text it
-reads, so source bias (Dai et al., KDD 2024) cannot be the mechanism.
-
 **What replicates across generation modes, and what does not.**
 
 | | replicates |
 |---|---|
 | direction (`d1` > `d3`) | yes, both modes |
-| length dissociation (P2) | yes, and *stronger* in Mode B, whose control is genuinely length-matched |
+| length dissociation (P2) | *appeared* to, and **later failed** — see §0; E11 finds no dilution effect at all |
 | **shape** | **no.** Mode A declines gradually (0.78 → 0.61 → 0.42); Mode B steps at the first link and the second adds nothing (`d2` vs `d3` p = 1.0000) |
 
 The two corpora differ measurably in how the contradiction is worded — revision
