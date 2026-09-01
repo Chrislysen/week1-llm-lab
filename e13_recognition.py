@@ -279,6 +279,40 @@ def analyse(model=DECIDER):
     print("  If recognition is weak the problem is PERCEPTUAL, not utilization,")
     print("  and the whole direction narrows -- falsification rule 2.")
 
+    # The count, analysed PAIRED -- the same shape as E12's frozen probe, which
+    # reported 27 vs 0, p = 1.5e-08. The boolean is the predeclared PRIMARY and
+    # stays primary; this is the predeclared SECONDARY, and reporting both is
+    # what lets a disagreement between them be seen rather than chosen between.
+    print("\n=== RQ1b -- does the reported COUNT discriminate, paired by unit? ===")
+    import math as _m
+    disc_tab = []
+    for arm in sorted(RECOGNITION_ARMS):
+        per = {}
+        for r in rows:
+            if r["intervention"] == arm and r["recog_count"] != "":
+                try:
+                    per.setdefault(r["unit"], {})[r["dependence"]] = int(
+                        r["recog_count"])
+                except ValueError:
+                    pass
+        hi = sum(1 for v in per.values()
+                 if len(v) == 2 and v["indep_root"] > v["same_root"])
+        lo = sum(1 for v in per.values()
+                 if len(v) == 2 and v["indep_root"] < v["same_root"])
+        n, k = hi + lo, min(hi, lo)
+        p = (min(2 * sum(_m.comb(n, i) for i in range(k + 1)) / 2 ** n, 1.0)
+             if n else None)
+        disc_tab.append({"intervention": arm, "indep_gt_same": hi,
+                         "indep_lt_same": lo,
+                         "sign_p": None if p is None else float(f"{p:.4g}")})
+    show(disc_tab, ["intervention", "indep_gt_same", "indep_lt_same", "sign_p"])
+    write_csv("results/e13_count_discrimination.csv", disc_tab,
+              ["intervention", "indep_gt_same", "indep_lt_same", "sign_p"])
+    print("  E12's frozen probe, for comparison: 27 vs 0, p = 1.5e-08.")
+    print("  A boolean that says 'same' regardless while the COUNT tracks the")
+    print("  manipulation is a RESPONSE BIAS in the boolean, not an absence of")
+    print("  recognition -- and the two measures must be reported together.")
+
     # ---- RQ2-RQ4: behavioural differentiation per intervention ------------
     print("\n=== behavioural differentiation: flip(SAME) - flip(INDEP) ===")
     print("  positive = NORMATIVE direction (one root should protect LESS)\n")
