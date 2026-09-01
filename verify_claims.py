@@ -394,7 +394,8 @@ else:
 
     d10 = []
     for p in E10_JSON:
-        d10.extend(json.load(open(p)))
+        d10.extend(r for r in json.load(open(p))
+                   if r.get("model") == "llama3.2:3b")
     by_id = {i.id: i for i in INSTANCES}
     e10_by_id = {e.instance_id: e for e in _all_e10()}
     per10, by10 = {}, {}
@@ -419,7 +420,8 @@ else:
               round(f_ / (s_ + f_), 4) if s_ + f_ else None, want, tol=0.001)
 
     p3 = e10_mcnemar(per10, "same_root", "indep_root")[0]
-    claim("E10 H3 (PRIMARY) p-value -- the null that fired the kill rule",
+    claim("E10 H3 (PRIMARY) p-value -- INCONCLUSIVE, not a fired kill rule; "
+          "see docs/protocols/E10-H3-RETRACTION.md",
           round(p3, 4) if p3 is not None else None, 1.0)
     claim("E10 H3 paired difference is exactly zero",
           round((lambda a, b: b - a)(
@@ -456,11 +458,15 @@ else:
         claim("manipulation check: reports MORE roots for indep_root", hi, 27)
         claim("manipulation check: never reports fewer", lo, 0)
 
-    print("\n  NOTE: E10's H3 is EXACTLY zero (0.25 vs 0.25, p = 1.0) while the")
-    print("  same model, on the same corpus, distinguishes one evidential root")
-    print("  from three at p = 1.5e-08. It SEES the dependence and assigns it")
-    print("  ZERO decision weight. The preregistered kill rule fires: the effect")
-    print("  is assertion multiplicity, not evidential lineage.")
+    print("\n  RETRACTED READING -- docs/protocols/E10-H3-RETRACTION.md.")
+    print("  H3's point estimate is 0.0000, but its 95% CI is [-0.111, +0.111]")
+    print("  against a preregistered equivalence bound of 0.10, so the")
+    print("  protocol's OWN decision procedure returns INCONCLUSIVE. Simulated")
+    print("  power at that SESOI was 0.14. The claim that the model 'assigns")
+    print("  ZERO decision weight' is WITHDRAWN.")
+    print("  What survives: the CI excludes |effect| > 0.111, and in the same")
+    print("  instrument corroboration moves 18-19/36 instances while")
+    print("  independence moves at most 3. Far smaller -- not zero.")
 
 
 # ----------------------------------------------------------- E11 ----------
@@ -481,9 +487,14 @@ else:
     claim("E10 corpus still reproduces (E11 must not disturb it)",
           e10_hash(), "00947dde8eb0520b")
 
+    # MODEL FILTER, and it is load-bearing. The glob picks up every E11 run,
+    # so the moment a second decider was added the aggregate silently mixed
+    # models and ten claims went red. The verifier caught it; the lesson is
+    # that a glob over a results directory is a claim about what is in it.
     d11 = []
     for p in E11_JSON:
-        d11.extend(json.load(open(p)))
+        d11.extend(r for r in json.load(open(p))
+                   if r.get("model") == "llama3.2:3b")
     by_id = {i.id: i for i in INSTANCES}
     rec_by_id = {r["instance"]: r for r in all_e11()}
     per11, by11 = {}, {}
@@ -542,10 +553,12 @@ else:
         claim(f"E11 bare vs filler_k{k} is NULL (E10's H1 does not replicate)",
               p is None or p > 0.05, True)
 
-    print("\n  NOTE: E11 CONFIRMS E10's primary null and BREAKS E10's H1.")
-    print("  H7 gives a clean dose-response (0.75 -> 0.4167 -> 0.2778 ->")
-    print("  0.1111), so the design had room and the H6 null is informative,")
-    print("  not saturated. H6 is null at every k (p_holm = 1.0 throughout).")
+    print("\n  NOTE: E11 does NOT rescue E10's overclaim. H6 is null at every k,")
+    print("  but each contrast has at most 4 discordant pairs, so it is exactly")
+    print("  as underpowered as E10 was and cannot establish equivalence either.")
+    print("  E11's real contributions are H7 (0.75 -> 0.4167 -> 0.2778 ->")
+    print("  0.1111, so the instrument demonstrably has room) and the H1")
+    print("  NON-replication.")
     print("  But bare-vs-filler, which E10 reported at p = 0.0078, is null at")
     print("  all three k here. The DILUTION effect is unstable across corpus")
     print("  realisations; the CORROBORATION effect is not.")

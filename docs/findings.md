@@ -25,23 +25,31 @@ mine.
 
 **What does *not* survive:**
 
-- **Evidential independence does nothing.** One document restated *k* times is
-  worth what *k+1* independent documents are worth, to within 0.03–0.06 at every
-  k. Paired difference at k=2 is **+0.0000** (p = 1.0). The preregistered kill
-  rule fired and the lineage direction is **retired**.
-- **And that null is not a perception failure.** A preregistered non-decision
-  probe on the same corpus shows the model reports more distinct documents for
-  the independent arm in **27/36** and fewer in **0/36** (sign test
-  p = 1.5e-08). **It sees the redundancy and prices it at zero.**
+- **Evidential independence: INCONCLUSIVE, not zero.** I first reported this as
+  a fired kill rule. That was wrong and is retracted in full --
+  `docs/protocols/E10-H3-RETRACTION.md`. The point estimate is +0.0000, but the
+  95% CI is [-0.111, +0.111] against a preregistered equivalence bound of 0.10,
+  so my *own* preregistered code returns "inconclusive at n = 36" and I reported
+  the opposite. Simulated power at that SESOI: **0.14**.
+  What survives: the effect is **bounded** at 0.111, and in the same instrument
+  corroboration moves 18-19 of 36 instances while independence moves at most 3.
+  **Far smaller -- not zero.** The lineage direction is *unresolved*, not
+  refuted.
+- **The model does perceive the manipulation.** A preregistered non-decision
+  probe shows it reports more distinct documents for the independent arm in
+  **27/36** and fewer in **0/36** (sign test p = 1.5e-08). That makes the null
+  interesting, but perception evidence cannot narrow a CI on the decision
+  measure -- conflating the two was part of the original error.
 - **The dilution/length effect does not replicate.** §1 below reported it as
   established. E11 finds `bare → filler` null at all three k (p = 1.0, 1.0,
   0.34). Across three experiments it is large (E9), moderate (E10), then absent
   (E11). **Withdrawn.** The E9 decomposition "dilution −0.39, corroboration
   −0.33" overstated dilution.
 
-The saturation objection to the null was tested and killed: E11's dose-response
-shows the design had ample room to move (0.75 → 0.11), so a null in the
-independence contrast is informative rather than a ceiling artifact.
+One objection to the null *was* tested and killed: E11's dose-response shows the
+instrument had ample room to move (0.75 → 0.11), so the flat independence result
+is not a ceiling artifact. That rules out saturation. It does **not** rule out
+insufficient power, which is the objection that actually landed.
 
 **Nothing here is claimed as novel.** See `docs/novelty_matrix.md`: the
 surviving effect (C1) is pre-empted, and the interesting null (C4) cannot be
@@ -130,7 +138,7 @@ Consistency is not evidence.
 | Mode B corpus v1 | two of its gates were mutually unsatisfiable, dropping 5/36 instances | reading *why* instances dropped |
 | **E7's P2, "length does nothing"** | superseded twice: E9 showed length DOES matter (p=1.2e-04), then E11 showed it does not replicate at all | E9, then E11 |
 | **E9/E10's dilution effect** | reported as established in §1. E11: `bare` vs `filler` null at k=1,2,3 (p = 1.0, 1.0, 0.34). Large in E9, moderate in E10, absent in E11 -- unstable across corpus realisations | E11 |
-| **The lineage-independence hypothesis (H3)** | preregistered as load-bearing; paired difference **+0.0000**, p = 1.0, and null again at every k in E11. Kill rule fired, direction retired | E10, confirmed by E11 |
+| **"H3's kill rule fired / the model assigns ZERO weight"** | **my own overclaim.** The preregistered code printed *"inconclusive at n = 36"* and I reported a fired kill rule. CI [-0.111,+0.111] vs a 0.10 equivalence bound; power at the SESOI = 0.14; the equivalence branch was structurally unreachable because attainable bootstrap bounds jump 0.0833 to 0.1111 around 0.10. Same failure mode as the E5 step function, already retracted in this repo | an adversarial agent panel |
 | **AnchorRoute, second death** | already killed on embedding geometry (E6); E10/E11 kill it again from the other side -- the decider does not use evidential dependence, so no router can exploit it | E10/E11 |
 | **E7's P2, "length does nothing"** | predeclared and reported as holding (`d1` vs `d1_padded`, p = 0.2266). With speakers controlled the same comparison is **14-0, p = 1.221e-04** — filler alone moves adoption 0.9167 → 0.5278. E7 attributed the entire drop to corroboration; roughly half of it is dilution. | E9 |
 | **E7/E5 identification** | the headline was *not identified*: in every arm, corroboration and "the contradictor is reversing his own just-stated position" were perfectly collinear (36/36 at `d2` and `d3`, absent at `d1`) | an adversarial audit, not any gate |
