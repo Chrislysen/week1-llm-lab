@@ -1,0 +1,542 @@
+[
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "payments-chain",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"SNAPSHOT_STORE\", \"REOPEN_GATEWAY\", \"SHIFT_ROUTING\", \"CYCLE_ENGINE\", \"DRAIN_NODE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "payments-chain",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"SNAPSHOT_STORE\", \"REOPEN_GATEWAY\", \"SHIFT_ROUTING\", \"CYCLE_ENGINE\", \"DRAIN_NODE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "payments-chain",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"SNAPSHOT_STORE\", \"PROBE_LATENCY\", \"CYCLE_ENGINE\", \"DRAIN_NODE\", \"REOPEN_GATEWAY\", \"SHIFT_ROUTING\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "payments-chain",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"CYCLE_ENGINE\", \"DRAIN_NODE\", \"SHIFT_ROUTING\", \"REOPEN_GATEWAY\", \"SNAPSHOT_STORE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "payments-chain",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"SNAPSHOT_STORE\", \"CYCLE_ENGINE\", \"DRAIN_NODE\", \"REOPEN_GATEWAY\", \"SHIFT_ROUTING\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "payments-fork",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"DRAIN_NODE\", \"SNAPSHOT_STORE\", \"PROBE_LATENCY\", \"REOPEN_GATEWAY\", \"CYCLE_ENGINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "payments-fork",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"SNAPSHOT_STORE\", \"DRAIN_NODE\", \"PROBE_LATENCY\", \"REOPEN_GATEWAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "payments-fork",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"SNAPSHOT_STORE\", \"DRAIN_NODE\", \"PROBE_LATENCY\", \"REOPEN_GATEWAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "payments-fork",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"SNAPSHOT_STORE\", \"DRAIN_NODE\", \"PROBE_LATENCY\", \"REOPEN_GATEWAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "payments-fork",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"DRain_NODE\", \"SHIFT_ROUTING\", \"SNAPSHOT_STORE\", \"PROBE_LATENCY\", \"REOPEN_GATEWAY\", \"CYCLE_ENGINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "payments-join",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"SNAPSHOT_STORE\", \"DRAIN_NODE\", \"SHIFT_ROUTING\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "payments-join",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"SNAPSHOT_STORE\", \"DRAIN_NODE\", \"SHIFT_ROUTing\", \"REOPEN_GATEWAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "payments-join",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"DRAIN_NODE\", \"REOPEN_GATEWAY\", \"SHIFT_ROUTING\", \"SNAPSHOT_STORE\", \"CYCLE_ENGINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "payments-join",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"SHIFT_ROUTING\", \"DRAIN_NODE\", \"REOPEN_GATEWAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "payments-join",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"DRAIN_NODE\", \"REOPEN_GATEWAY\", \"SHIFT_ROUTING\", \"PROBE_LATENCY\", \"SNAPSHOT_STORE\", \"CYCLE_ENGINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "payments-diamond",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"SNAPSHOT_STORE\", \"DRAIN_NODE\", \"CYCLE_ENGINE\", \"REOPEN_GATEWAY\", \"PROBE_LATENCY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "payments-diamond",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"SNAPSHOT_STORE\", \"DRAIN_NODE\", \"CYCLE_ENGINE\", \"REOPEN_GATEWAY\", \"PROBE_LATENCY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "payments-diamond",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"CYCLE_ENGINE\", \"SNAPSHOT_STORE\", \"DRAIN_NODE\", \"PROBE_LATENCY\", \"SHIFT_ROUTING\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "payments-diamond",
+    "condition": "control",
+    "plan_text": "{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SNAPSHOT_STORE\",\n    \"DRAIN_NODE\",\n    \"PROBE_LATENCY\",\n    \"SHIFT_ROUTING\"\n  ],\n  \"ready\": true\n}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "payments-diamond",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"SNAPSHOT_STORE\", \"DRAIN_NODE\", \"CYCLE_ENGINE\", \"PROBE_LATENCY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "payments-twochain",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"SNAPSHOT_STORE\", \"DRAIN_NODE\", \"CYCLE_ENGINE\", \"REOPEN_GATEWAY\", \"SHIFT_ROUTING\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "payments-twochain",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"SNAPSHOT_STORE\", \"DRAIN_NODE\", \"SHIFT_ROUTING\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "payments-twochain",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"SNAPSHOT_STORE\", \"DRAIN_NODE\", \"SHIFT_ROUTING\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "payments-twochain",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"DRAIN_NODE\", \"SNAPSHOT_STORE\", \"REOPEN_GATEWAY\", \"SHIFT_ROUTING\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "payments-twochain",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"PROBE_LATENCY\", \"SHIFT_ROUTING\", \"SNAPSHOT_STORE\", \"CYCLE_ENGINE\", \"REOPEN_GATEWAY\", \"DRAIN_NODE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "payments-star",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"SNAPSHOT_STORE\", \"DRAIN_NODE\", \"REOPEN_GATEWAY\", \"CYCLE_ENGINE\", \"SHIFT_ROUTING\", \"PROBE_LATENCY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "payments-star",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"DRAIN_NODE\", \"SHIFT_ROUTING\", \"PROBE_LATENCY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "payments-star",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"SNAPSHOT_STORE\", \"SHIFT_ROUTING\", \"PROBE_LATENCY\", \"DRAIN_NODE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "payments-star",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"SNAPSHOT_STORE\", \"SHIFT_ROUTING\", \"PROBE_LATENCY\", \"DRAIN_NODE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "payments-star",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"SNAPSHOT_STORE\", \"DRAIN_NODE\", \"REOPEN_GATEWAY\", \"CYCLE_ENGINE\", \"SHIFT_ROUTING\", \"PROBE_LATENCY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "robotics-chain",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"SWAP_GRIPPER\", \"CALIBRATE_ARM\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "robotics-chain",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"AUDIT_INVENTORY\", \"HALT_CONVEYOR\", \"LOCK_BAY\", \"SWAP_GRIPPER\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "robotics-chain",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"AUDIT_INVENTORY\", \"SWAP_GRIPPER\", \"HALT_CONVEYOR\", \"LOCK_BAY\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "robotics-chain",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"SWAP_GRIPPER\", \"HALT_CONVEYOR\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "robotics-chain",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"SWAP_GRIPPER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "robotics-fork",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"AUDIT_INVENTORY\", \"CALIBRATE_ARM\", \"HALT_CONVEYOR\", \"LOCK_BAY\", \"SWAP_GRIPPER\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "robotics-fork",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"AUDIT_INVENTORY\", \"CALIBRATE_ARM\", \"HALT_CONVEYOR\", \"RESUME_LINE\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "robotics-fork",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"AUDIT_INVENTORY\", \"CALIBRATE_ARM\", \"HALT_CONVEYOR\", \"SWAP_GRIPPER\", \"RESUME_LINE\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "robotics-fork",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"RESUME_LINE\", \"HALT_CONVEYOR\", \"CALIBRATE_ARM\", \"SWAP_GRIPPER\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "robotics-fork",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"CALIBRATE_ARM\", \"HALT_CONVEYOR\", \"LOCK_BAY\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "robotics-join",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"CALIBRATE_ARM\", \"SWAP_GRIPPER\", \"LOCK_BAY\", \"AUDIT_INVENTORY\", \"HALT_CONVEYOR\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "robotics-join",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"AUDIT_INVENTORY\", \"CALIBRATE_ARM\", \"HALT_CONVEYOR\", \"SWAP_GRIPPER\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "robotics-join",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"AUDIT_INVENTORY\", \"CALIBRATE_ARM\", \"HALT_CONVEYOR\", \"SWAP_GRIPPER\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "robotics-join",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"AUDIT_INVENTORY\", \"CALIBRATE_ARM\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "robotics-join",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"CALIBRATE_ARM\", \"AUDIT_INVENTORY\", \"HALT_CONVEYOR\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "robotics-diamond",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"LOCK_BAY\", \"AUDIT_INVENTORY\", \"CALIBRATE_ARM\", \"SWAP_GRIPPER\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "robotics-diamond",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"LOCK_BAY\", \"AUDIT_INVENTORY\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "robotics-diamond",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "robotics-diamond",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"AUDIT_INVENTORY\", \"HALT_CONVEYOR\", \"CALIBRATE_ARM\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "robotics-diamond",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"CALIBRATE_ARM\", \"HALT_CONVEYOR\", \"RESUME_LINE\", \"AUDIT_INVENTORY\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "robotics-twochain",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"SWAP_GRIPPER\", \"AUDIT_INVENTORY\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "robotics-twochain",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"CALIBRATE_ARM\", \"HALT_CONVEYOR\", \"SWAP_GRIPPER\", \"RESUME_LINE\", \"AUDIT_INVENTORY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "robotics-twochain",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"SWAP_GRIPPER\", \"RESUME_LINE\", \"AUDIT_INVENTORY\", \"CALIBRATE_ARM\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "robotics-twochain",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"RESUME_LINE\", \"SWAP_GRIPPER\", \"AUDIT_INVENTORY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "robotics-twochain",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"CALIBRATE_ARM\", \"HALT_CONVEYOR\", \"RESUME_LINE\", \"AUDIT_INVENTORY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "robotics-star",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"LOCK_BAY\", \"CALIBRATE_ARM\", \"SWAP_GRIPPER\", \"AUDIT_INVENTORY\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "robotics-star",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "robotics-star",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"LOCK_BAY\", \"AUDIT_INVENTORY\", \"RESUME_LINE\", \"CALIBRATE_ARM\", \"SWAP_GRIPPER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "robotics-star",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "robotics-star",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"LOCK_BAY\", \"HALT_CONVEYOR\", \"CALIBRATE_ARM\", \"SWAP_GRIPPER\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "pharmacy-chain",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"UPDATE_LABEL\", \"RECALL_SHIPMENT\", \"NOTIFY_PRESCRIBERS\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "pharmacy-chain",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"UPDATE_LABEL\", \"RECALL_SHIPMENT\", \"RELEASE_STOCK\", \"VERIFY_ASSAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "pharmacy-chain",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"RECALL_SHIPMENT\", \"UPDATE_LABEL\", \"NOTIFY_PRESCRIBERS\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "pharmacy-chain",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"RECALL_SHIPMENT\", \"UPDATE_LABEL\", \"NOTIFY_PRESCRIBERS\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "pharmacy-chain",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"UPDATE_LABEL\", \"RECALL_SHIPMENT\", \"NOTIFY_PRESCRIBERS\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "pharmacy-fork",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"RECALL_SHIPMENT\", \"UPDATE_LABEL\", \"NOTIFY_PRESCRIBERS\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "pharmacy-fork",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"VERIFY_ASSAY\", \"QUARANTINE_BATCH\", \"NOTIFY_PRESCRIBERS\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "pharmacy-fork",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"VERIFY_ASSAY\", \"QUARANTINE_BATCH\", \"RECALL_SHIPMENT\", \"NOTIFY_PRESCRIBERS\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "pharmacy-fork",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"NOTIFY_PRESCRIBERS\", \"QUARANTINE_BATCH\", \"RECALL_SHIPMENT\", \"UPDATE_LABEL\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "pharmacy-fork",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"NOTIFY_PRESCRIBERS\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "pharmacy-join",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"VERIFY_ASSAY\", \"RECALL_SHIPMENT\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "pharmacy-join",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"RECALL_SHIPMENT\", \"VERIFY_ASSAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "pharmacy-join",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"RECALL_SHIPMENT\", \"VERIFY_ASSAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "pharmacy-join",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"RECALL_SHIPMENT\", \"QUARANTINE_BATCH\", \"VERIFY_ASSAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "pharmacy-join",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"VERIFY_ASSAY\", \"RECALL_SHIPMENT\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "pharmacy-diamond",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"VERIFY_ASSAY\", \"UPDATE_LABEL\", \"NOTIFY_PRESCRIBERS\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "pharmacy-diamond",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"UPDATE_LABEL\", \"VERIFY_ASSAY\", \"RECALL_SHIPMENT\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "pharmacy-diamond",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"UPDATE_LABEL\", \"VERIFY_ASSAY\", \"RECALL_SHIPMENT\", \"NOTIFY_PRESCRIBERS\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "pharmacy-diamond",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"UPDATE_LABEL\", \"VERIFY_ASSAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "pharmacy-diamond",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"RECALL_SHIPMENT\", \"QUARANTINE_BATCH\", \"VERIFY_ASSAY\", \"UPDATE_LABEL\", \"NOTIFY_PRESCRIBERS\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "pharmacy-twochain",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"VERIFY_ASSAY\", \"RECALL_SHIPMENT\", \"UPDATE_LABEL\", \"NOTIFY_PRESCRIBERS\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "pharmacy-twochain",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"VERIFY_ASSAY\", \"QUARANTINE_BATCH\", \"RECALL_SHIPMENT\", \"UPDATE_LABEL\", \"NOTIFY_PRESCRIBERS\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "pharmacy-twochain",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"VERIFY_ASSAY\", \"RECALL_SHIPMENT\", \"UPDATE_LABEL\", \"NOTIFY_PRESCRIBERS\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "pharmacy-twochain",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"VERIFY_ASSAY\", \"UPDATE_LABEL\", \"NOTIFY_PRESCRIBERS\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "pharmacy-twochain",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"RECALL_SHIPMENT\", \"UPDATE_LABEL\", \"NOTIFY_PRESCRIBERS\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "pharmacy-star",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"VERIFY_ASSAY\", \"UPDATE_LABEL\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "pharmacy-star",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"RECALL_SHIPMENT\", \"VERIFY_ASSAY\", \"UPDATE_LABEL\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "pharmacy-star",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"RECALL_SHIPMENT\", \"UPDATE_LABEL\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "pharmacy-star",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"RECALL_SHIPMENT\", \"UPDATE_LABEL\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "pharmacy-star",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"VERIFY_ASSAY\", \"UPDATE_LABEL\", \"RELEASE_STOCK\"], \"ready\": true}"
+  }
+]

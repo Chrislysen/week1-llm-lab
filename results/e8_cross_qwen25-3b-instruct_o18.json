@@ -1,0 +1,542 @@
+[
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "satellite-chain",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"SAFE_MODE\", \"CALIBRATE_STARTRACKER\", \"REORIENT_PANEL\", \"RESUME_DOWNLINK\", \"DUMP_TELEMETRY\", \"PATCH_FIRMWARE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "satellite-chain",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"SAFE_MODE\", \"CALIBRATE_STARTRACKER\", \"REORIENT_PANEL\", \"RESUME_DOWNLINK\", \"DUMP_TELEMETRY\", \"PATCH_FIRMWARE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "satellite-chain",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"CALIBRATE_STARTRACKER\", \"REORIENT_PANEL\", \"RESUME_DOWNLINK\", \"DUMP_TELEMETRY\", \"SAFE_MODE\", \"PATCH_FIRMWARE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "satellite-chain",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"REORIENT_PANEL\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "satellite-chain",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"SAFE_MODE\", \"REORIENT_PANEL\", \"PATCH_FIRMWARE\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "satellite-fork",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"SAFE_MODE\", \"REORIENT_PANEL\", \"CALIBRATE_STARTRACKER\", \"DUMP_TELEMETRY\", \"RESUME_DOWNLINK\", \"PATCH_FIRMWARE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "satellite-fork",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"CALIBRATE_STARTRACKER\", \"DUMP_TELEMETRY\", \"REORIENT_PANEL\", \"SAFE_MODE\", \"PATCH_FIRMWARE\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "satellite-fork",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"CALIBRATE_STARTRACKER\", \"DUMP_TELEMETRY\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "satellite-fork",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"CALIBRATE_STARTRACKER\", \"REORIENT_PANEL\", \"DUMP_TELEMETRY\", \"SAFE_MODE\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "satellite-fork",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"DUMP_TELEMETRY\", \"CALIBRATE_STARTRACKER\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "satellite-join",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"REORIENT_PANEL\", \"CALIBRATE_STARTRACKER\", \"PATCH_FIRMWARE\", \"RESUME_DOWNLINK\", \"DUMP_TELEMETRY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "satellite-join",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"PATCH_FIRMWARE\", \"CALIBRATE_STARTRACKER\", \"DUMP_TELEMETRY\", \"RESUME_DOWNLINK\", \"REORIENT_PANEL\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "satellite-join",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"PATCH_FIRMWARE\", \"CALIBRATE_STARTRACKER\", \"DUMP_TELEMETRY\", \"RESUME_DOWNLINK\", \"REORIENT_PANEL\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "satellite-join",
+    "condition": "control",
+    "plan_text": "{\n  \"actions\": [\n    \"PATCH_FIRMWARE\",\n    \"CALIBRATE_STARTRACKER\"\n  ],\n  \"ready\": true\n}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "satellite-join",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"CALIBRATE_STARTRACKER\", \"REORIENT_PANEL\", \"DUMP_TELEMETRY\", \"PATCH_FIRMWARE\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "satellite-diamond",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"CALIBRATE_STARTRACKER\", \"REORIENT_PANEL\", \"PATCH_FIRMWARE\", \"DUMP_TELEMETRY\", \"SAFE_MODE\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "satellite-diamond",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"CALIBRATE_STARTRACKER\", \"SAFE_MODE\", \"REORIENT_PANEL\", \"PATCH_FIRMWARE\", \"DUMP_TELEMETRY\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "satellite-diamond",
+    "condition": "d3",
+    "plan_text": "{\n  \"actions\": [\n    \"CALIBRATE_STARTRACKER\",\n    \"SAFE_MODE\",\n    \"REORIENT_PANEL\",\n    \"PATCH_FIRMWARE\",\n    \"RESUME_DOWNLINK\",\n    \"DUMP_TELEMETRY\"\n  ],\n  \"ready\": true\n}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "satellite-diamond",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"SAFE_MODE\", \"REORIENT_PANEL\", \"RESUME_DOWNLINK\", \"CALIBRATE_STARTRACKER\", \"PATCH_FIRMWARE\", \"DUMP_TELEMETRY\"], \"ready\": false}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "satellite-diamond",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"SAFE_MODE\", \"REORIENT_PANEL\", \"PATCH_FIRMWARE\", \"RESUME_DOWNLINK\", \"DUMP_TELEMETRY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "satellite-twochain",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"RESUME_DOWNLINK\", \"SAFE_MODE\", \"PATCH_FIRMWARE\", \"CALIBRATE_STARTRACKER\", \"DUMP_TELEMETRY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "satellite-twochain",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"CALIBRATE_STARTRACKER\", \"PATCH_FIRMWARE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "satellite-twochain",
+    "condition": "d3",
+    "plan_text": "{\n  \"actions\": [\n    \"CALIBRATE_STARTRACKER\",\n    \"PATCH_FIRMWARE\"\n  ],\n  \"ready\": true\n}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "satellite-twochain",
+    "condition": "control",
+    "plan_text": "{\n  \"actions\": [\n    \"CALIBRATE_STARTRACKER\",\n    \"PATCH_FIRMWARE\"\n  ],\n  \"ready\": true\n}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "satellite-twochain",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"PATCH_FIRMWARE\", \"CALIBRATE_STARTRACKER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "satellite-star",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"CALIBRATE_STARTRACKER\", \"DUMP_TELEMETRY\", \"SAFE_MODE\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "satellite-star",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"DUMP_TELEMETRY\", \"CALIBRATE_STARTRACKER\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "satellite-star",
+    "condition": "d3",
+    "plan_text": "{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"CALIBRATE_STARTRACKER\"\n  ],\n  \"ready\": true\n}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "satellite-star",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"DUMP_TELEMETRY\", \"CALIBRATE_STARTRACKER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "satellite-star",
+    "condition": "d1_padded",
+    "plan_text": "{\n  \"actions\": [\n    \"CALIBRATE_STARTRACKER\",\n    \"DUMP_TELEMETRY\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "brewery-chain",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"STERILISE_LINE\", \"RESTART_BATCH\", \"DRAIN_VESSEL\", \"SAMPLE_GRAVITY\", \"RESEED_YEAST\", \"STOP_FERMENT\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "brewery-chain",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"STERILISE_LINE\", \"RESTART_BATCH\", \"DRAIN_VESSEL\", \"SAMPLE_GRAVITY\", \"RESEED_YEAST\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "brewery-chain",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"STERILISE_LINE\", \"RESTART_BATCH\", \"DRAIN_VESSEL\", \"RESEED_YEAST\", \"SAMPLE_GRAVITY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "brewery-chain",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"STERILISE_LINE\", \"RESTART_BATCH\", \"DRAIN_VESSEL\", \"RESEED_YEAST\", \"SAMPLE_GRAVITY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "brewery-chain",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"RESTART_BATCH\", \"DRAIN_VESSEL\", \"STERILISE_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "brewery-fork",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"STERILISE_LINE\", \"STOP_FERMENT\", \"SAMPLE_GRAVITY\", \"RESEED_YEAST\", \"DRAIN_VESSEL\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "brewery-fork",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"STERILISE_LINE\", \"DRAIN_VESSEL\", \"STOP_FERMENT\", \"SAMPLE_GRAVITY\", \"RESEED_YEAST\", \"RESTART_BATCH\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "brewery-fork",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"STERILISE_LINE\", \"STOP_FERMENT\", \"SAMPLE_GRAVITY\", \"DRAIN_VESSEL\", \"RESEED_YEAST\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "brewery-fork",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"STERILISE_LINE\", \"STOP_FERMENT\", \"SAMPLE_GRAVITY\", \"DRAIN_VESSEL\", \"RESEED_YEAST\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "brewery-fork",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"RESEED_YEAST\", \"DRAIN_VESSEL\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "brewery-join",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"DRAIN_VESSEL\", \"RESTART_BATCH\", \"RESEED_YEAST\", \"SAMPLE_GRAVITY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "brewery-join",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"STERILISE_LINE\", \"RESTART_BATCH\", \"RESEED_YEAST\", \"DRAIN_VESSEL\", \"SAMPLE_GRAVITY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "brewery-join",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"STERILISE_LINE\", \"RESTART_BATCH\", \"RESEED_YEAST\", \"DRAIN_VESSEL\", \"SAMPLE_GRAVITY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "brewery-join",
+    "condition": "control",
+    "plan_text": "{\n  \"actions\": [\n    \"RESEED_YEAST\",\n    \"STERILISE_LINE\",\n    \"SAMPLE_GRAVITY\",\n    \"STOP_FERMENT\",\n    \"DRAIN_VESSEL\"\n  ],\n  \"ready\": true\n}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "brewery-join",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"STOP_FERMENT\", \"DRAIN_VESSEL\", \"RESTART_BATCH\", \"RESEED_YEAST\", \"SAMPLE_GRAVITY\", \"STERILISE_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "brewery-diamond",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"STERILISE_LINE\", \"DRAIN_VESSEL\", \"STOP_FERMENT\", \"RESEED_YEAST\", \"RESTART_BATCH\", \"SAMPLE_GRAVITY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "brewery-diamond",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"STERILISE_LINE\", \"DRAIN_VESSEL\", \"STOP_FERMENT\", \"RESEED_YEAST\", \"SAMPLE_GRAVITY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "brewery-diamond",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"STERILISE_LINE\", \"DRAIN_VESSEL\", \"STOP_FERMENT\", \"RESTART_BATCH\", \"SAMPLE_GRAVITY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "brewery-diamond",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"STERILISE_LINE\", \"DRAIN_VESSEL\", \"STOP_FERMENT\", \"RESEED_YEAST\", \"SAMPLE_GRAVITY\", \"RESTART_BATCH\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "brewery-diamond",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"RESTART_BATCH\", \"DRAIN_VESSEL\", \"STOP_FERMENT\", \"STERILISE_LINE\", \"RESEED_YEAH\", \"SAMPLE_GRAVITY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "brewery-twochain",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"STERILISE_LINE\", \"DRAIN_VESSEL\", \"RESTART_BATCH\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "brewery-twochain",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"RESTART_BATCH\", \"STERILISE_LINE\", \"SAMPLE_GRAVITY\", \"DRAIN_VESSEL\", \"RESEED_YEA\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "brewery-twochain",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"DRAIN_VESSEL\", \"RESTART_BATCH\", \"SAMPLE_GRAVITY\", \"STERILISE_LINE\", \"RESEED_YEAST\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "brewery-twochain",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"RESTART_BATCH\", \"SAMPLE_GRAVITY\", \"STERILISE_LINE\", \"DRAIN_VESSEL\", \"RESEED_YEA\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "brewery-twochain",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"STERILISE_LINE\", \"RESTART_BATCH\", \"SAMPLE_GRAVITY\", \"DRAIN_VESSEL\", \"RESEED_YEAST\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "brewery-star",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"DRAIN_VESSEL\", \"RESEED_YEAST\", \"STERILISE_LINE\", \"SAMPLE_GRAVITY\", \"RESTART_BATCH\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "brewery-star",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"SAMPLE_GRAVITY\", \"RESEED_YEAST\", \"STERILISE_LINE\", \"RESTART_BATCH\", \"DRAIN_VESSEL\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "brewery-star",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"STERILISE_LINE\", \"RESEED_YEAST\", \"DRAIN_VESSEL\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "brewery-star",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"STERILISE_LINE\", \"SAMPLE_GRAVITY\", \"RESEED_YEAST\", \"RESTART_BATCH\", \"DRAIN_VESSEL\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "brewery-star",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"RESEED_YEAST\", \"STERILISE_LINE\", \"SAMPLE_GRAVITY\", \"RESTART_BATCH\", \"DRAIN_VESSEL\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "rail-chain",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"INSPECT_POINTS\", \"TEST_INTERLOCK\", \"CLEAR_SECTION\", \"BLOCK_SECTION\", \"GROUND_CATENARY\", \"REPLACE_RELAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "rail-chain",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"TEST_INTERLOCK\", \"INSPECT_POINTS\", \"GROUND_CATENARY\", \"BLOCK_SECTION\", \"CLEAR_SECTION\", \"REPLACE_RELAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "rail-chain",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"TEST_INTERLOCK\", \"INSPECT_POINTS\", \"GROUND_CATENARY\", \"BLOCK_SECTION\", \"CLEAR_SECTION\", \"REPLACE_RELAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "rail-chain",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"TEST_INTERLOCK\", \"INSPECT_POINTS\", \"GROUND_CATENARY\", \"BLOCK_SECTION\", \"CLEAR_SECTION\", \"REPLACE_RELAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "rail-chain",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"INSPECT_POINTS\", \"GROUND_CATENARY\", \"BLOCK_SECTION\", \"CLEAR_SECTION\", \"TEST_INTERLOCK\", \"REPLACE_RELAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "rail-fork",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"BLOCK_SECTION\", \"INSPECT_POINTS\", \"CLEAR_SECTION\", \"TEST_INTERLOCK\", \"REPLACE_RELAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "rail-fork",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"BLOCK_SECTION\", \"INSPECT_POINTS\", \"TEST_INTERLOCK\", \"REPLACE_RELAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "rail-fork",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"INSPECT_POINTS\", \"BLOCK_SECTION\", \"TEST_INTERLOCK\", \"REPLACE_RELAY\", \"CLEAR_SECTION\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "rail-fork",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"INSPECT_POINTS\", \"CLEAR_SECTION\", \"BLOCK_SECTION\", \"TEST_INTERLOCK\", \"REPLACE_RELAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "rail-fork",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"CLEAR_SECTION\", \"BLOCK_SECTION\", \"INSPECT_POINTS\", \"TEST_INTERLOCK\", \"REPLACE_RELAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "rail-join",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"INSPECT_POINTS\", \"BLOCK_SECTION\", \"REPLACE_RELAY\", \"GROUND_CATENARY\", \"TEST_INTERLOCK\", \"CLEAR_SECTION\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "rail-join",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"INSPECT_POINTS\", \"BLOCK_SECTION\", \"CLEAR_SECTION\", \"TEST_INTERLOCK\", \"REPLACE_RELAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "rail-join",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"INSPECT_POINTS\", \"BLOCK_SECTION\", \"REPLACE_RELAY\", \"GROUND_CATENARY\", \"TEST_INTERLOCK\", \"CLEAR_SECTION\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "rail-join",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"TEST_INTERLOCK\", \"BLOCK_SECTION\", \"CLEAR_SECTION\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "rail-join",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"CLEAR_SECTION\", \"GROUND_CATENARY\", \"TEST_INTERLOCK\", \"BLOCK_SECTION\", \"REPLACE_RELAY\", \"INSPECT_POINTS\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "rail-diamond",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"INSPECT_POINTS\", \"GROUND_CATENARY\", \"REPLACE_RELAY\", \"BLOCK_SECTION\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "rail-diamond",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"INSPECT_POINTS\", \"GROUND_CATENARY\", \"BLOCK_SECTION\", \"REPLACE_RELAY\", \"TEST_INTERLOCK\", \"CLEAR_SECTION\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "rail-diamond",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"INSPECT_POINTS\", \"GROUND_CATENARY\", \"BLOCK_SECTION\", \"TEST_INTERLOCK\", \"REPLACE_RELAY\", \"CLEAR_SECTION\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "rail-diamond",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"BLOCK_SECTION\", \"INSPECT_POINTS\", \"CLEAR_SECTION\", \"GROUND_CATENARY\", \"REPLACE_RELAY\", \"TEST_INTERLOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "rail-diamond",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"INSPECT_POINTS\", \"GROUND_CATENARY\", \"REPLACE_RELAY\", \"BLOCK_SECTION\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "rail-twochain",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"GROUND_CATENARY\", \"BLOCK_SECTION\", \"TEST_INTERLOCK\", \"CLEAR_SECTION\", \"INSPECT_POINTS\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "rail-twochain",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"BLOCK_SECTION\", \"TEST_INTERLOCK\", \"INSPECT_POINTS\", \"CLEAR_SECTION\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "rail-twochain",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"BLOCK_SECTION\", \"TEST_INTERLOCK\", \"INSPECT_POINTS\", \"CLEAR_SECTION\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "rail-twochain",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"BLOCK_SECTION\", \"TEST_INTERLOCK\", \"INSPECT_POINTS\", \"CLEAR_SECTION\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "rail-twochain",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"GROUND_CATENARY\", \"CLEAR_SECTION\", \"TEST_INTERLOCK\", \"BLOCK_SECTION\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "rail-star",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"INSPECT_POINTS\", \"GROUND_CATENARY\", \"TEST_INTERLOCK\", \"BLOCK_SECTION\", \"CLEAR_SECTION\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "rail-star",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"INSPECT_POINTS\", \"BLOCK_SECTION\", \"CLEAR_SECTION\", \"GROUND_CATENARY\", \"TEST_INTERLOCK\", \"REPLACE_RELAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "rail-star",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"INSPECT_POINTS\", \"BLOCK_SECTION\", \"CLEAR_SECTION\", \"GROUND_CATENARY\", \"TEST_INTERLOCK\", \"REPLACE_RELAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "rail-star",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"INSPECT_POINTS\", \"BLOCK_SECTION\", \"CLEAR_SECTION\", \"GROUND_CATENARY\", \"TEST_INTERLOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:3b-instruct",
+    "instance": "rail-star",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"GROUND_CATENARY\", \"INSPECT_POINTS\", \"BLOCK_SECTION\", \"CLEAR_SECTION\", \"TEST_INTERLOCK\", \"REPLACE_RELAY\"], \"ready\": true}"
+  }
+]

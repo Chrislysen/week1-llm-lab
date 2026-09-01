@@ -188,6 +188,45 @@ def test_corroborators_come_from_more_than_one_speaker():
         assert len({m.speaker for m in links}) > 1, r["instance"]
 
 
+def measure_speaker_confound():
+    """THE SLICE ABOVE DROPS THE CORRUPTION, AND THAT IS WHERE THE PROBLEM IS.
+
+    `[1:-1]` discards the contradiction before the speaker set is computed, so
+    the gate only ever compares L1 against L2. It is structurally incapable of
+    noticing what an adversarial audit found: in `d2` and `d3` the contradiction
+    is spoken by THE SAME VOICE that just made the corroborating restatement, in
+    36/36 instances. In `d1` and `d1_padded` there is no prior restatement at
+    all.
+
+    So "the source was corroborated" and "the contradictor is visibly reversing
+    his own just-stated position" are PERFECTLY COLLINEAR across every arm of
+    E5/E7. Nothing in either experiment can tell them apart, and docs/findings.md
+    leaned on this very gate to rule out the mundane readings.
+
+    This is reported as a measurement, not asserted as a bug to be silenced: the
+    disambiguation is e9_speaker.py, which crosses the two factors.
+
+    Note also what a same-field equality check cannot do: Mode B is built with
+    `replace(m, text=...)` on Mode A's own messages, so
+    test_exposure_schedule_is_identical_to_mode_a guarantees the confound is
+    REPRODUCED in both modes rather than detected. An equality test between two
+    arms is blind to any defect they share.
+    """
+    out = {}
+    for name, depth in (("d1", 1), ("d2", 2), ("d3", 3)):
+        n = 0
+        for r in certified().values():
+            e = modeb_chain(BY_ID[r["instance"]]).exposure(depth, True)
+            n += e[-1].speaker == e[-2].speaker
+        out[name] = n
+    n = 0
+    for r in certified().values():
+        e = modeb_chain(BY_ID[r["instance"]]).padded(MAX_DEPTH - 1)
+        n += e[-1].speaker == e[-2].speaker
+    out["d1_padded"] = n
+    return out
+
+
 def test_corruption_reused_at_every_depth():
     """Mode A's discipline: one corruption wording, shown at three distances.
     Per-depth wordings would confound depth with phrasing."""
