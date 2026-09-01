@@ -188,6 +188,17 @@ T_BEFORE_RECOVERY = [
     "Scratch that, the order is {a} first, then {b}.",
 ]
 #: Legitimate supersession: the dependency is genuinely lifted.
+#: A legitimate override that REVERSES an ordering. Semantically identical to a
+#: CORRUPTED_RELAY -- both assert the opposite of the source -- and separable
+#: only by authority marking. That symmetry is deliberate: it is what forces the
+#: discrimination to be about authority rather than about content.
+T_BEFORE_REPLACE = [
+    "Update from the duty manager: that ordering has been reversed -- we {b} "
+    "before we {a} now.",
+    "That has changed: the new procedure is {b} first, then {a}.",
+    "Revised instruction from the duty manager: {b} now comes before we {a}.",
+]
+
 T_BEFORE_SUPERSEDE = [
     "Update from the duty manager: {a} is no longer a prerequisite for {b}; "
     "that dependency has been cleared.",
@@ -256,6 +267,40 @@ class Message:
     faithful: bool | None = None
 
 
+def reversible_before(constraints):
+    """`before` constraints whose reversal leaves the graph acyclic.
+
+    A legitimate override reverses an ordering. Reversing an edge in a DAG can
+    close a cycle, which would make the post-override ground truth unsatisfiable,
+    so candidates are filtered here rather than discovered at scoring time.
+    """
+    ok = []
+    for c in constraints:
+        if c.kind != "before":
+            continue
+        edges = [(x.a, x.b) for x in constraints if x.kind == "before" and x is not c]
+        edges.append((c.b, c.a))
+        nodes = {n for e in edges for n in e}
+        seen, stack = set(), []
+
+        def cyclic(n):
+            if n in stack:
+                return True
+            if n in seen:
+                return False
+            seen.add(n)
+            stack.append(n)
+            for x, y in edges:
+                if x == n and cyclic(y):
+                    return True
+            stack.pop()
+            return False
+
+        if not any(cyclic(n) for n in nodes):
+            ok.append(c)
+    return ok
+
+
 @dataclass(frozen=True)
 class Instance:
     id: str
@@ -273,8 +318,23 @@ class Instance:
 
     @property
     def effective_constraints(self):
-        """Ground truth: the authored set minus anything legitimately lifted."""
-        return tuple(c for c in self.constraints if c.id not in self.superseded)
+        """Ground truth AFTER the legitimate override.
+
+        The overridden rule is REPLACED by its reverse, not deleted. Deleting it
+        made the effective set a strict subset of the authored set, so a plan
+        that obeyed every authored rule satisfied the ground truth perfectly --
+        "always trust the source" scored 1.0000 recall and 36/36 success, which
+        is exactly the property every conflict benchmark in the prior art has
+        and the one thing this design exists to break. Replacement gives
+        ignoring an override a cost.
+        """
+        out = []
+        for c in self.constraints:
+            if c.id in self.superseded and c.kind == "before":
+                out.append(Constraint(id=c.id, kind="before", a=c.b, b=c.a))
+            elif c.id not in self.superseded:
+                out.append(c)
+        return tuple(out)
 
     def by_lineage(self, cls):
         return [m for m in self.messages if m.lineage == cls]
@@ -378,8 +438,16 @@ def generate_instance(domain: str, graph: str) -> Instance:
     rng.shuffle(shuffled)
     corrupted = shuffled[0]
     recovered = shuffled[1]          # corrupted AND later recovered
-    superseded = shuffled[2]
-    faithful = shuffled[3]
+    faithful = shuffled[2]
+    # The override must REVERSE an ordering, and the reversal must leave the
+    # graph acyclic, so it is drawn from the reversible `before` set rather than
+    # from the constraints at large -- and never from one already carrying a
+    # corruption, or the two signals would collide on the same rule.
+    cand = [c.id for c in reversible_before(constraints)
+            if c.id not in (corrupted, recovered, faithful)]
+    if not cand:
+        cand = [c.id for c in reversible_before(constraints)]
+    superseded = cand[rng.randrange(len(cand))]
 
     banks = {
         "before": (T_BEFORE_SOURCE, T_BEFORE_FAITHFUL, T_BEFORE_CORRUPT,
@@ -436,8 +504,8 @@ def generate_instance(domain: str, graph: str) -> Instance:
     add(_render(rec, rng, cmap[recovered], verbs), "RECOVERY",
         recovered, (corrupt_of_recovered, source_of[recovered]), True)
 
-    _, _, _, _, sup = banks[cmap[superseded].kind]
-    add(_render(sup, rng, cmap[superseded], verbs), "SUPERSESSION",
+    # Always a `before` reversal now, so the replacement bank is used directly.
+    add(_render(T_BEFORE_REPLACE, rng, cmap[superseded], verbs), "SUPERSESSION",
         superseded, (source_of[superseded],), True)
 
     # POSITION LEAK, and the fix.
@@ -520,6 +588,14 @@ EXPOSURES = {
     # Needed to measure recovery_rate at all; not one of the five paired
     # conditions, and reported separately.
     "both_recovery":    ("SOURCE", "CORRUPTED_RELAY", "RECOVERY", "DISTRACTOR"),
+    # E3. A corruption and a LEGITIMATE OVERRIDE in the same context, on
+    # different constraints. Correct behaviour requires following the source for
+    # one and the derived statement for the other, so "always trust the source"
+    # and "always trust the latest" BOTH fail. Every conflict benchmark located
+    # in the prior-art scan treats the source as the answer key, which makes
+    # source-trusting a winning strategy in all of them; this condition is the
+    # one place that is false.
+    "mixed":            ("SOURCE", "CORRUPTED_RELAY", "SUPERSESSION", "DISTRACTOR"),
 }
 
 

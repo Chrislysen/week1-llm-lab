@@ -354,6 +354,99 @@ def recovery_rate(instance, pres, check):
     return {"eligible": n, "recovered": ok, "rate": _rate(ok, n)}
 
 
+def _plan_source_truster(instance):
+    """The policy every located conflict benchmark rewards: obey EVERY authored
+    constraint, ignoring any legitimate override. Returns an action list."""
+    return _topo(instance, instance.constraints)
+
+
+def _plan_latest_truster(instance):
+    """The opposite reflex: take the most recent statement about a constraint as
+    authoritative. Overrides are honoured (correctly) AND corruptions are
+    adopted (incorrectly)."""
+    cs = []
+    corrupted = {m.constraint_id for m in instance.by_lineage("CORRUPTED_RELAY")}
+    for c in instance.effective_constraints:
+        if c.id in corrupted:
+            alt = corrupted_form(c)
+            if alt is not None:
+                cs.append(alt)
+            # a demoted `required` simply drops out
+        else:
+            cs.append(c)
+    return _topo(instance, cs)
+
+
+def _topo(instance, constraints):
+    order, remaining = [], list(instance.actions)
+    edges = [(c.a, c.b) for c in constraints if c.kind == "before"]
+    while remaining:
+        for a in remaining:
+            if not any(b == a and x in remaining for x, b in edges):
+                order.append(a)
+                remaining.remove(a)
+                break
+        else:                      # a corrupted set can be cyclic; give up cleanly
+            order.extend(remaining)
+            break
+    return order
+
+
+def discrimination(instance, pres, check):
+    """E3. Did the model tell a corruption apart from a legitimate override?
+
+    Scored only where BOTH are present in context, on DIFFERENT constraints.
+    Three outcomes per instance:
+
+      correct_both   followed the source on the corrupted constraint AND was
+                     free of the lifted one
+      source_reflex  followed the source on both -- right about the corruption,
+                     wrong to stay bound by the override
+      latest_reflex  followed the derived statement on both -- right about the
+                     override, wrong to adopt the corruption
+
+    The point of the condition is that source_reflex and latest_reflex are each
+    exactly half right, so neither trivial policy can win.
+    """
+    if not check.parsed:
+        return {"applicable": False}
+    cor_ids = [c.id for c in instance.constraints
+               if pres[c.id]["corruption_present"] and not pres[c.id]["superseded"]]
+    sup_ids = [c.id for c in instance.constraints
+               if pres[c.id]["supersession_present"] and pres[c.id]["superseded"]]
+    if not cor_ids or not sup_ids:
+        return {"applicable": False}
+
+    cmap = {c.id: c for c in instance.constraints}
+    resisted = all(obeys(cmap[i], check.actions) for i in cor_ids)
+    exercised = any(not obeys(cmap[i], check.actions) for i in sup_ids)
+    return {
+        "applicable": True,
+        "n_corrupted": len(cor_ids), "n_superseded": len(sup_ids),
+        "resisted_corruption": resisted,
+        "exercised_override": exercised,
+        "correct_both": resisted and exercised,
+        "source_reflex": resisted and not exercised,
+        "latest_reflex": (not resisted) and exercised,
+        "neither": (not resisted) and (not exercised),
+    }
+
+
+def baseline_scores(instance):
+    """What the two reflex policies would score. No model involved."""
+    out = {}
+    for name, plan in (("source_truster", _plan_source_truster(instance)),
+                       ("latest_truster", _plan_latest_truster(instance))):
+        import json as _j
+        chk = check_plan(_j.dumps({"actions": plan, "ready": True}), instance)
+        out[name] = {
+            "constraint_recall": chk.constraint_recall,
+            "violated": chk.violated,
+            "success": chk.success,
+        }
+    return out
+
+
 def score(instance, exposed_messages, plan_text, ranking=None):
     """Everything, for one (instance, exposure, plan)."""
     pres = presence(instance, exposed_messages)
@@ -366,6 +459,7 @@ def score(instance, exposed_messages, plan_text, ranking=None):
             instance, pres, check),
         "supersession_respected": supersession_respected(instance, pres, check),
         "supersession_collateral": supersession_collateral(instance, pres, check),
+        "discrimination": discrimination(instance, pres, check),
         "utilization": utilization(instance, pres, check),
         "corruption_susceptibility": corruption_susceptibility(
             instance, pres, check),

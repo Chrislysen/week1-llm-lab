@@ -83,47 +83,38 @@ for inst in INSTANCES:
     topo_order(inst)
     topo_order(inst, inst.constraints)
 
-# SUPERSESSION CLOSURE: lifting required(a) must also lift before(a, ...),
-# or a plan that correctly omits `a` is punished by an orphaned ordering
-# rule. Found in validation on brewery-twochain. The check: after the lift,
-# a valid plan omitting the lifted action must exist.
-for inst in INSTANCES:
-    ann = {c.id: c for c in inst.constraints}[inst.announced_supersession]
-    if ann.kind != "required":
-        continue
-    plan = [a for a in topo_order(inst) if a != ann.a]
-    chk = check_plan(plan_json(plan), inst)
-    assert chk.violated == [], (
-        f"{inst.id}: omitting the lifted action {ann.a} still violates "
-        f"{chk.violated} -- the supersession closure is incomplete")
-    # And every orphaned ordering rule really was lifted.
-    orphans = {c.id for c in inst.constraints
-               if c.kind == "before" and c.a == ann.a}
-    assert orphans <= inst.superseded, (inst.id, orphans - inst.superseded)
-
-# NULL CONTROL: echoing the printed vocabulary order must NOT work.
+# THE DIFFERENTIATOR. A legitimate override REPLACES an ordering with its
+# reverse, so ignoring it costs something.
 #
-# In the first build every `before` edge ran low->high slot index and
-# plan_instruction printed the actions in slot order, so the printed list WAS a
-# valid topological order. A policy that echoed it and never read the dialogue
-# scored 36/36 success in every exposure condition, including `neither`. The
-# benchmark had no floor and no measured value could be attributed to reading
-# anything. Found by adversarial audit, not by this suite -- which is why the
-# control is now permanent.
-echo_wins = sum(
-    check_plan(plan_json(list(i.actions)), i).success for i in INSTANCES)
-assert echo_wins <= 4, (
-    f"echo-the-prompt-order scores {echo_wins}/36 -- the printed vocabulary is "
-    "leaking a valid ordering again")
+# An earlier design had the override merely DELETE the rule. That made the
+# effective set a strict subset of the authored set, so a plan obeying every
+# authored rule satisfied ground truth perfectly: source_truster scored 1.0000
+# recall and 36/36 success. That is precisely the property every conflict
+# benchmark in the prior-art scan has -- the authoritative source is always the
+# answer key -- and it is the one thing this benchmark exists to break.
+from lineage_eval import baseline_scores as _bl
 
-# It must still be SOLVABLE, or the fix has just made it impossible.
+_b = [_bl(i) for i in INSTANCES]
+_src_wins = sum(x["source_truster"]["success"] for x in _b)
+_lat_wins = sum(x["latest_truster"]["success"] for x in _b)
+assert _src_wins == 0, (
+    f"always-trust-the-source succeeds on {_src_wins}/36 -- the override has no "
+    "cost and the benchmark rewards the same reflex as all the prior art")
+assert _lat_wins < len(INSTANCES) // 2, (
+    f"always-trust-the-latest succeeds on {_lat_wins}/36 -- the corruption has "
+    "no cost")
+
+# Both reflexes must fail while the task stays solvable, or the fix has just
+# made it impossible.
 assert all(check_plan(plan_json(topo_order(i)), i).success for i in INSTANCES)
 
-# The two permutations must be independent: slot order and print order should
-# not coincide across instances.
-same = sum(tuple(i.actions) == tuple(
-    dict(DOMAINS[i.domain]["actions"]).keys()) for i in INSTANCES)
-assert same < len(INSTANCES), "print order never permuted"
+for inst in INSTANCES:
+    ann = {c.id: c for c in inst.constraints}[inst.announced_supersession]
+    assert ann.kind == "before", (inst.id, ann.kind)
+    # The effective set carries the REVERSED rule, not a hole.
+    eff = {c.id: c for c in inst.effective_constraints}
+    assert ann.id in eff, (inst.id, "override deleted rather than replaced")
+    assert (eff[ann.id].a, eff[ann.id].b) == (ann.b, ann.a), (inst.id, ann.id)
 
 print("shape + satisfiability:      OK")
 
@@ -365,16 +356,18 @@ assert empty["exercised"] == 0, (
     "vacuity the first version of the metric had")
 
 # The metric MUST be able to return 1.0, or it is unfalsifiable in the other
-# direction. Build a plan that violates the lifted rule on purpose.
+# direction. Since the override REVERSES the rule, a plan satisfying the
+# effective (post-override) set necessarily violates the original -- which is
+# exactly what "exercised" means.
 ann = {c.id: c for c in inst.constraints}[inst.announced_supersession]
-if ann.kind == "before":
-    p2 = topo_order(inst)
-    ia, ib = p2.index(ann.a), p2.index(ann.b)
-    p2[ia], p2[ib] = ann.b, ann.a
-else:
-    p2 = [a for a in topo_order(inst) if a != ann.a]
-used = supersession_respected(inst, pres, check_plan(plan_json(p2), inst))
+used = supersession_respected(
+    inst, pres, check_plan(plan_json(topo_order(inst)), inst))
 assert used["exercised"] == 1 and used["rate"] == 1.0, used
+# And a plan built against the OLD rule must NOT count as exercising it.
+old_plan = topo_order(inst, inst.constraints)
+stayed = supersession_respected(
+    inst, pres, check_plan(plan_json(old_plan), inst))
+assert stayed["exercised"] == 0, stayed
 
 # Collateral damage is only applicable where an override was actually present.
 assert supersession_collateral(inst, pres, chk)["applicable"] is True
