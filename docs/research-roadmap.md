@@ -152,6 +152,50 @@ lineage.
 3. **Retrieval/utilisation factorisation applied to lineage** rather than to
    memory write-format.
 
+### E4b, and why it is NOT a novel claim (2026-09-01)
+
+A candidate emerged with real statistical support and was then retired by its own
+control. Recorded in full because a retired candidate is the cheapest thing this
+project can hand the next person.
+
+**The finding.** Varying ONE system-prompt sentence, ground truth unchanged:
+adding *"only the Duty Manager may revise an agreed procedure"* raised
+revision-following in **5/5 models** (mean +0.127, sign test one-sided
+p = 0.031), while resistance to the *unauthorised* revision rose only +0.047.
+`restrict` beat `permit`, which explicitly allows what `restrict` limits.
+`prohibit` never fell below `none`.
+
+**Why it is not novel.** The general effect is published several times over:
+
+| | |
+|---|---|
+| arXiv:2601.08070 "Semantic Gravity Wells" | Runs the exact restricted-mention vs no-mention contrast on **qwen2.5-7b-instruct** — one of these five models — and finds the restriction raises the restricted output above baseline in 87.5% of violations |
+| arXiv:2605.28639 "Attentional White Bear Effect" | Suppression vs concept-absent baseline; mention raises salience regardless of polarity |
+| arXiv:2511.12381 (NeurIPS 2025) | ReboundBench: above-baseline ironic rebound, systematically |
+| arXiv:2601.21433 "When Prohibitions Become Permissions" | Small open models endorse actions **more** under prohibition framing; 16 models, 3B–14B |
+| arXiv:2608.12321 | Owns the second half: prompted mention shifts behaviour **globally, not conditionally** |
+| arXiv:2607.05545 | A **60–80% speaker-free revision floor** — most conformity needs no speaker |
+
+**And the control killed the residual.** Re-running with every turn attributed
+to a generic "Engineer" — no Duty Manager, nothing for the rule to bind to:
+
+    model                 attributed   anonymous   change
+    llama3.2:3b               +0.083      +0.083   +0.000
+    qwen2.5:14b-instruct      +0.167      +0.111   -0.056
+    qwen2.5:7b-instruct       +0.194      -0.028   -0.222
+    positive deltas          3/3          2/3
+    mean delta             +0.1481      +0.0556
+
+Unanimity is lost and the mean drops by 62%. The effect is not *purely* generic
+priming, but at n=3 with a sign flip it does not establish an authority-specific
+mechanism either. The surviving portion is consistent with the published
+white-bear effect.
+
+**Status: NOT NOVEL. Do not write this up as a finding.** The honest sentence is
+"we replicate the ironic-rebound effect for agent-scoped authority restrictions
+in an operational planning task, and a speaker-free control shows most of it does
+not require an authority to be named."
+
 ### Framings now explicitly forbidden
 
 - "We discover that models prefer self-generated content" — Dai et al. 2024.

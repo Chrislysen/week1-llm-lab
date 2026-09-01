@@ -29,6 +29,7 @@ from budget import Budget
 from experiment import show, write_csv
 from lineage_bench import (AUTHORITY_RULE, all_instances, expose,
                            plan_instruction, render_dialogue)
+from lineage_bench import SPEAKERS as _SPK
 from lineage_eval import baseline_scores, check_plan, parse_plan, score
 from llm_client import OllamaClient
 from structured import MAX_ATTEMPTS, ask_structured
@@ -73,12 +74,27 @@ def system_prompt(instance, variant):
     return s + "\n\n" + rule if rule else s
 
 
-def ask(client, model, instance, variant):
+def render_anonymous(messages):
+    """Every turn attributed to the same generic speaker.
+
+    THE DECISIVE CONTROL. arXiv:2607.05545 reports a 60-80% speaker-free
+    revision floor: most LLM conformity needs no speaker at all. Here there is
+    no Duty Manager, no entitled party, and nothing for an authority rule to
+    bind to. If the restrict-vs-none lift SURVIVES, the effect is generic
+    ironic rebound / priming -- the white-bear result already published in
+    arXiv:2601.08070, 2605.28639, 2511.12381 -- and the authority framing has
+    to be dropped rather than defended.
+    """
+    return "\n".join(f"Engineer: {m.text}" for m in messages)
+
+
+def ask(client, model, instance, variant, anonymous=False):
+    render = render_anonymous if anonymous else render_dialogue
     messages = [
         {"role": "system", "content": system_prompt(instance, variant)},
         {"role": "user", "content":
             "DISCUSSION\n----------\n"
-            f"{render_dialogue(expose(instance, CONDITION))}\n\n"
+            f"{render(expose(instance, CONDITION))}\n\n"
             f"{plan_instruction(instance)}"},
     ]
     budget = Budget(max_turns=MAX_ATTEMPTS, max_tokens=200_000, max_seconds=600)
@@ -89,23 +105,25 @@ def ask(client, model, instance, variant):
                  'identifier strings, and "ready", true or false.')
 
 
-def main(model, variant, offset, limit):
+def main(model, variant, offset, limit, anonymous=False):
     client = OllamaClient()
     instances = all_instances()[offset:None if limit is None else offset + limit]
-    tag = f"{model.replace(':', '-').replace('.', '')}_{variant}"
+    tag = (f"{model.replace(':', '-').replace('.', '')}_{variant}"
+           + ("_anon" if anonymous else ""))
 
     print(f"=== E4: {model}  rule_variant={variant}  "
           f"instances {offset}..{offset + len(instances) - 1} ===")
 
     rows, detail = [], []
     for k, inst in enumerate(instances, 1):
-        res = ask(client, model, inst, variant)
+        res = ask(client, model, inst, variant, anonymous)
         text = res.accepted_text or res.last_text or ""
         chk = check_plan(text, inst)
         sc = score(inst, expose(inst, CONDITION), text)
         d = sc["discrimination"]
         rows.append({
             "model": model, "rule_variant": variant,
+            "anonymous": anonymous,
             "authority_rule": variant == "restrict",
             "instance": inst.id, "domain": inst.domain, "graph": inst.graph,
             "parsed": chk.parsed, "retries": res.retries,
@@ -154,5 +172,7 @@ if __name__ == "__main__":
     p.add_argument("--variant", default="restrict", choices=list(RULE_VARIANTS))
     p.add_argument("--offset", type=int, default=0)
     p.add_argument("--limit", type=int, default=None)
+    p.add_argument("--anon", action="store_true",
+                   help="strip speaker identity: the speaker-free control")
     a = p.parse_args()
-    main(a.model, a.variant, a.offset, a.limit)
+    main(a.model, a.variant, a.offset, a.limit, a.anon)

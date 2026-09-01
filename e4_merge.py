@@ -50,7 +50,12 @@ def load():
                     float(r["constraint_recall"])
                     if r["constraint_recall"] else None)
                 r["seconds"] = float(r["seconds"])
-                k = (r["model"], r["rule_variant"], r["instance"])
+                # Files written before the control carry no `anonymous` column;
+                # fall back to the filename, which always encodes it.
+                r["anonymous"] = (r.get("anonymous") == "True"
+                                  or "_anon_" in path)
+                k = (r["model"], r["rule_variant"], r["anonymous"],
+                     r["instance"])
                 if k in seen:
                     continue
                 seen.add(k)
@@ -77,7 +82,8 @@ def main():
     for m in models:
         for v in VARIANTS:
             g = [r for r in rows if r["model"] == m
-                 and r["rule_variant"] == v and r["applicable"]]
+                 and r["rule_variant"] == v and not r["anonymous"]
+                 and r["applicable"]]
             if not g:
                 continue
             n = len(g)
@@ -158,6 +164,43 @@ def main():
           f"mean {statistics.mean(rdelta):+.4f}")
     print("  That is the point: the rule raises compliance with EVERY revision")
     print("  rather than selectively with the one it authorises.")
+
+    # ---- THE DECISIVE CONTROL ----
+    print("\n=== speaker-free control: does the lift need an authority at all? ===")
+    print('    Same prompts, every turn attributed to a generic "Engineer". No')
+    print("    Duty Manager, no entitled party, nothing for the rule to bind to.")
+    print("    arXiv:2607.05545 reports a 60-80% speaker-free revision floor, so")
+    print("    this is what decides whether the effect is about authority or is")
+    print("    the already-published white-bear / priming effect.\n")
+    anon = {}
+    for m in models:
+        for v in ("none", "restrict"):
+            g = [r for r in rows if r["model"] == m and r["rule_variant"] == v
+                 and r["anonymous"] and r["applicable"]]
+            if g:
+                anon[(m, v)] = sum(r["exercised"] for r in g) / len(g)
+    have = [m for m in models
+            if (m, "none") in anon and (m, "restrict") in anon
+            and (m, "none") in cells and (m, "restrict") in cells]
+    if have:
+        print(f"  {'model':<22}{'attributed':>12}{'anonymous':>12}{'change':>10}")
+        das, dns = [], []
+        for m in have:
+            da = cells[(m, "restrict")]["exercised"] - cells[(m, "none")]["exercised"]
+            dn = anon[(m, "restrict")] - anon[(m, "none")]
+            das.append(da)
+            dns.append(dn)
+            print(f"  {m:<22}{da:>+12.3f}{dn:>+12.3f}{dn - da:>+10.3f}")
+        print(f"\n  positive deltas: attributed {sum(d > 0 for d in das)}/{len(have)}"
+              f"   anonymous {sum(d > 0 for d in dns)}/{len(have)}")
+        print(f"  mean delta:      attributed {statistics.mean(das):+.4f}"
+              f"   anonymous {statistics.mean(dns):+.4f}")
+        print("\n  VERDICT. The lift shrinks without a speaker and LOSES UNANIMITY.")
+        print("  So it is not purely generic priming -- but with n=3 models and a")
+        print("  sign flip it does not establish an authority-specific mechanism")
+        print("  either. The surviving portion is consistent with the published")
+        print("  white-bear effect (arXiv:2601.08070, 2605.28639, 2511.12381).")
+        print("  NO NOVEL CLAIM IS SUPPORTED.")
 
     print("\n  Caveats that stay attached to this number: the models are not")
     print("  independent draws (three share the qwen2.5 family), a sign test")
