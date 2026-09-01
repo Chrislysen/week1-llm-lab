@@ -9,7 +9,47 @@ ratio is the honest summary of this project.
 
 ---
 
-## 1. The result, as it stands after E9
+## 0. The result, as it stands after E11 — read this first
+
+Two experiments (E10, E11) were run under falsification-first preregistration
+after E9. They changed the picture twice, both times against earlier claims of
+mine.
+
+**What survives, and it is one thing:**
+
+> **Paraphrastic corroboration of a source reduces adoption of a later
+> contradiction, in a dose-dependent way, relative to length-matched irrelevant
+> filler.** E11, `llama3.2:3b`, n = 36, at three levels of k:
+> `filler → same-root` p = 3.4e-03 (k=1), 7.6e-06 (k=2), 3.8e-06 (k=3).
+> Flip rate falls 0.75 → 0.4167 → 0.2778 → 0.1111 as correlated support is added.
+
+**What does *not* survive:**
+
+- **Evidential independence does nothing.** One document restated *k* times is
+  worth what *k+1* independent documents are worth, to within 0.03–0.06 at every
+  k. Paired difference at k=2 is **+0.0000** (p = 1.0). The preregistered kill
+  rule fired and the lineage direction is **retired**.
+- **And that null is not a perception failure.** A preregistered non-decision
+  probe on the same corpus shows the model reports more distinct documents for
+  the independent arm in **27/36** and fewer in **0/36** (sign test
+  p = 1.5e-08). **It sees the redundancy and prices it at zero.**
+- **The dilution/length effect does not replicate.** §1 below reported it as
+  established. E11 finds `bare → filler` null at all three k (p = 1.0, 1.0,
+  0.34). Across three experiments it is large (E9), moderate (E10), then absent
+  (E11). **Withdrawn.** The E9 decomposition "dilution −0.39, corroboration
+  −0.33" overstated dilution.
+
+The saturation objection to the null was tested and killed: E11's dose-response
+shows the design had ample room to move (0.75 → 0.11), so a null in the
+independence contrast is informative rather than a ceiling artifact.
+
+**Nothing here is claimed as novel.** See `docs/novelty_matrix.md`: the
+surviving effect (C1) is pre-empted, and the interesting null (C4) cannot be
+assessed because the adversarial prior-art search is blocked.
+
+---
+
+## 1. The result as it stood after E9 — superseded by §0, kept for the record
 
 **Corroborating a source reduces adoption of a later contradiction, over and
 above the effect of simply putting more text in between.** Both factors are
@@ -106,6 +146,10 @@ Consistency is not evidence.
 | E4b authority effect | p = 0.031 across 5/5 models, then its own speaker-free control removed unanimity and cut the mean 62% | its own control |
 | AnchorRoute | killed at design stage: cos(contradiction, source) = 0.846 > cos(faithful, source) = 0.835, and the contradiction ranks above the least-similar faithful relay in 36/36 — embeddings are blind to order inversion | a measurement made before building it |
 | Mode B corpus v1 | two of its gates were mutually unsatisfiable, dropping 5/36 instances | reading *why* instances dropped |
+| **E7's P2, "length does nothing"** | superseded twice: E9 showed length DOES matter (p=1.2e-04), then E11 showed it does not replicate at all | E9, then E11 |
+| **E9/E10's dilution effect** | reported as established in §1. E11: `bare` vs `filler` null at k=1,2,3 (p = 1.0, 1.0, 0.34). Large in E9, moderate in E10, absent in E11 -- unstable across corpus realisations | E11 |
+| **The lineage-independence hypothesis (H3)** | preregistered as load-bearing; paired difference **+0.0000**, p = 1.0, and null again at every k in E11. Kill rule fired, direction retired | E10, confirmed by E11 |
+| **AnchorRoute, second death** | already killed on embedding geometry (E6); E10/E11 kill it again from the other side -- the decider does not use evidential dependence, so no router can exploit it | E10/E11 |
 | **E7's P2, "length does nothing"** | predeclared and reported as holding (`d1` vs `d1_padded`, p = 0.2266). With speakers controlled the same comparison is **14-0, p = 1.221e-04** — filler alone moves adoption 0.9167 → 0.5278. E7 attributed the entire drop to corroboration; roughly half of it is dilution. | E9 |
 | **E7/E5 identification** | the headline was *not identified*: in every arm, corroboration and "the contradictor is reversing his own just-stated position" were perfectly collinear (36/36 at `d2` and `d3`, absent at `d1`) | an adversarial audit, not any gate |
 
