@@ -250,7 +250,10 @@ class Instance:
     setting: str
     actions: tuple                      # concrete identifiers, slot order
     constraints: tuple                  # as authored
-    superseded: frozenset               # constraint ids legitimately lifted
+    superseded: frozenset               # LIFTED set: the announced constraint
+                                        # plus its ordering closure (see
+                                        # supersession_closure)
+    announced_supersession: str         # the one constraint actually announced
     messages: tuple
 
     @property
@@ -263,6 +266,32 @@ class Instance:
 
     def representations(self, constraint_id):
         return [m for m in self.messages if m.constraint_id == constraint_id]
+
+
+def supersession_closure(constraints, announced: str) -> frozenset:
+    """Which constraints a legitimate override actually lifts.
+
+    Lifting `required(a)` must also lift every `before(a, ...)`. Otherwise the
+    ground truth is incoherent: a plan that correctly omits the no-longer-
+    required action is still punished by an ordering rule that exists only to
+    sequence it, and the model has to infer a hidden cascade -- drop `a`, so
+    also drop everything `a` was required to precede -- which is a different
+    reasoning task from the one supersession is meant to probe.
+
+    Found in validation: brewery-twochain lifted `required(RESEED_YEAST)` while
+    `before(RESEED_YEAST, RESTART_BATCH)` survived, so omitting the yeast step
+    violated K5 the moment RESTART_BATCH appeared.
+
+    Lifting a `before(a, b)` needs no closure -- removing an ordering cannot
+    strand anything.
+    """
+    cmap = {c.id: c for c in constraints}
+    target = cmap[announced]
+    lifted = {announced}
+    if target.kind == "required":
+        lifted |= {c.id for c in constraints
+                   if c.kind == "before" and c.a == target.a}
+    return frozenset(lifted)
 
 
 def _seed_for(domain: str, graph: str) -> int:
@@ -317,6 +346,10 @@ def generate_instance(domain: str, graph: str) -> Instance:
                      T_REQ_RECOVERY, T_REQ_SUPERSEDE),
     }
 
+    # Distractors are drawn WITHOUT replacement; rng.choice repeats, and a
+    # duplicated message is noise that no real transcript would contain.
+    noise = rng.sample(dom["noise"], 2)
+
     messages, mid = [], 0
 
     def add(text, lineage, cid=None, derives=(), faithful_flag=None):
@@ -336,7 +369,7 @@ def generate_instance(domain: str, graph: str) -> Instance:
         source_of[c.id] = messages[-1].msg_id
 
     # 2. A distractor, so the pool is never purely constraint-bearing.
-    add(rng.choice(dom["noise"]), "DISTRACTOR")
+    add(noise[0], "DISTRACTOR")
 
     # 3. Derivatives, in a fixed order so the layout is comparable across
     #    instances: faithful relay, corrupted relay, corrupted+recovered,
@@ -356,7 +389,7 @@ def generate_instance(domain: str, graph: str) -> Instance:
         recovered, (source_of[recovered],), False)
     corrupt_of_recovered = messages[-1].msg_id
 
-    add(rng.choice(dom["noise"]), "DISTRACTOR")
+    add(noise[1], "DISTRACTOR")
 
     add(_render(rec, rng, cmap[recovered], verbs), "RECOVERY",
         recovered, (corrupt_of_recovered, source_of[recovered]), True)
@@ -368,7 +401,8 @@ def generate_instance(domain: str, graph: str) -> Instance:
     return Instance(
         id=f"{domain}-{graph}", domain=domain, graph=graph, seed=seed,
         setting=dom["setting"], actions=tuple(idents), constraints=constraints,
-        superseded=frozenset({superseded}), messages=tuple(messages),
+        superseded=supersession_closure(constraints, superseded),
+        announced_supersession=superseded, messages=tuple(messages),
     )
 
 

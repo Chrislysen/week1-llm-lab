@@ -64,7 +64,8 @@ for inst in INSTANCES:
                 "RECOVERY", "DISTRACTOR", "SUPERSESSION"):
         assert cls in have, f"{inst.id} missing {cls}"
     assert have <= set(LINEAGE_CLASSES), have
-    assert len(inst.superseded) == 1, inst.id
+    assert len(inst.superseded) >= 1, inst.id
+    assert inst.announced_supersession in inst.superseded, inst.id
 
 # Vocabularies are disjoint across domains, so no single domain's lexical
 # accident can dominate the benchmark.
@@ -78,6 +79,24 @@ for d1 in vocabs:
 for inst in INSTANCES:
     topo_order(inst)
     topo_order(inst, inst.constraints)
+
+# SUPERSESSION CLOSURE: lifting required(a) must also lift before(a, ...),
+# or a plan that correctly omits `a` is punished by an orphaned ordering
+# rule. Found in validation on brewery-twochain. The check: after the lift,
+# a valid plan omitting the lifted action must exist.
+for inst in INSTANCES:
+    ann = {c.id: c for c in inst.constraints}[inst.announced_supersession]
+    if ann.kind != "required":
+        continue
+    plan = [a for a in topo_order(inst) if a != ann.a]
+    chk = check_plan(plan_json(plan), inst)
+    assert chk.violated == [], (
+        f"{inst.id}: omitting the lifted action {ann.a} still violates "
+        f"{chk.violated} -- the supersession closure is incomplete")
+    # And every orphaned ordering rule really was lifted.
+    orphans = {c.id for c in inst.constraints
+               if c.kind == "before" and c.a == ann.a}
+    assert orphans <= inst.superseded, (inst.id, orphans - inst.superseded)
 
 print("shape + satisfiability:      OK")
 
@@ -170,7 +189,10 @@ for inst in INSTANCES:
     fai = {m.constraint_id for m in inst.by_lineage("FAITHFUL_RELAY")}
     assert rec <= cor, f"{inst.id}: recovery without a corruption"
     assert not (sup & cor) and not (sup & fai), f"{inst.id}: role collision"
-    assert sup == set(inst.superseded), inst.id
+    assert sup == {inst.announced_supersession}, inst.id
+    # Distractors are drawn without replacement.
+    dtexts = [m.text for m in inst.by_lineage("DISTRACTOR")]
+    assert len(dtexts) == len(set(dtexts)), f"{inst.id}: duplicate distractor"
 
     # A corruption must actually conflict with its source.
     for m in inst.by_lineage("CORRUPTED_RELAY"):
