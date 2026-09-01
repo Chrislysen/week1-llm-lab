@@ -12,6 +12,10 @@ Turk 2026 and HackDetect 2026 on agents), the method would have caught 5 of
 methodological packaging. `docs/FFEP-FEASIBILITY.md` (15 sections, one
 decision). No E15/E16 outcome exists.
 
+**Remote:** private GitHub repository https://github.com/Chrislysen/week1-llm-lab
+(branches `crazy`, `main`, `core-frozen`; all six tags). `main` is
+fast-forwarded to `crazy`; the two are identical.
+
 Nothing is queued. Do not search for E16. The next action, if any, is the
 negative-results write-up named in `docs/RESEARCH-LEAD-2026-09-02.md` §8.
 
@@ -25,7 +29,8 @@ Test expectation is now **104 passed** over 14 suites
 
 # (superseded) RESEARCH PAUSED PENDING EXTERNAL NOVELTY REVIEW
 
-**Paused 2026-09-02 at commit `48c6860`.** Working tree clean, no remote,
+**Paused 2026-09-02 at commit `48c6860`.** Working tree clean, no remote at
+the time (a private remote was added later, see the top of this file),
 nothing running. Frozen hashes intact; `verify_claims.py` 167 VERIFIED /
 0 MISMATCHED / 4 UNVERIFIABLE; 92 tests; checker self-test 10/10.
 
@@ -273,5 +278,5 @@ support) but that was at ceiling on an easy supersession.
 | `robust_client.py` | bounded transport-only retry |
 
 **Standing rules:** no outcome-based tuning; preregister before model calls;
-retractions are immutable; frozen artifacts are never modified; no remote
+retractions are immutable; frozen artifacts are never modified; no public remote (the private one above only)
 without explicit instruction.
