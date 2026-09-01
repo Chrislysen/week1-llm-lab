@@ -1,7 +1,7 @@
 # Findings — what is established, what is retracted, what is unclaimed
 
 One page, kept current. Every number here re-derives from raw artifacts via
-`python verify_claims.py`, which exits non-zero on drift (currently **116
+`python verify_claims.py`, which exits non-zero on drift (currently **143
 verified, 0 mismatched, 3 unverifiable**).
 
 Read the retraction table first. It is longer than the results table, and that
@@ -59,10 +59,14 @@ reachable at all. Neither objection survives.
 
 **Nothing here is claimed as novel.** See `docs/novelty_matrix.md`: the
 surviving positive effect (C1) is pre-empted by the corroboration and
-illusory-truth literature, and the equivalence-supported null (C4) cannot be
-assessed at all because the adversarial prior-art search is blocked (B1). A
-null this clean is exactly the kind of result that is easy to scoop; it stays
-unclaimed until the search runs.
+illusory-truth literature, and the equivalence-supported null (C4) is
+pre-empted behaviourally by GroupQA (arXiv:2601.06189, Jan 2026), which runs
+the same paraphrases-of-one-document vs distinct-documents contrast on four
+8B–70B models and finds no discount — a *preference* for the paraphrases, in
+fact. The adversarial search ran on 2026-09-01 (matrix, "Search log"). What
+E12/E13 add over GroupQA is a direct recognition probe on the same units and
+an oracle arm that moves behaviour by 0.0000; that residue is scoped in C8 of
+the matrix and in `docs/CLAIM-E13.md`.
 
 ---
 
@@ -214,21 +218,24 @@ Two of these were caught **after** being written up. That is the reason
 
 ---
 
-## 4. Unclaimed — the blocker
+## 4. Unclaimed — the search has now run
 
-**No novelty claim is made.** `docs/research-roadmap.md` blocker **B1**: the
-prior-art scan on the *sharpened* framing has not been run. The framing that
-survives the controls is much narrower than anything scanned so far —
-paraphrastic corroboration, multi-speaker, of a single source rather than
-independent evidence, measured on a downstream plan rather than a stated belief,
-against a length-matched filler control. The nearest neighbours to check first
-are repetition / illusory-truth effects, corroboration count in knowledge
-conflict (Xie et al. ICLR 2024; Jin et al. COLING 2024), and source bias (Dai et
-al. KDD 2024).
+**No novelty claim is made.** The adversarial prior-art pass that blocker
+**B1** was waiting on ran on 2026-09-01: 19 searches, 15 papers, log in
+`docs/novelty_matrix.md`. Outcome, per candidate:
 
-This project's own base rate is that **four of five** candidate research
-questions came back fully pre-empted. Assume this one is too until a real search
-says otherwise.
+- **C1** (corroboration dose-response): pre-empted, as expected.
+- **C4** (no dependence discount): pre-empted behaviourally by GroupQA
+  (arXiv:2601.06189).
+- **C8** (recognition without utilisation, with an intervention ladder): not
+  pre-empted on the conjunction — neither CAMA (arXiv:2608.19701) nor
+  Information Discernment (arXiv:2607.19355) probes recognition of
+  *dependence* — but every component is pre-empted separately, and the
+  "decodable but unused" template already belongs to a genre (arXiv:2606.05403,
+  2603.22619, 2605.05957). Status **OPEN (NARROW)**, not NOVEL.
+
+This project's base rate held: **five of five** candidate questions came back
+pre-empted in whole or in every part.
 
 ---
 
