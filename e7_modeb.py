@@ -67,7 +67,7 @@ from experiment import show, write_csv
 from lineage_bench import all_instances, plan_instruction
 from lineage_depth import follows_corruption
 from lineage_eval import check_plan, parse_plan
-from lineage_modeb import fixture_hash, load, modeb_chain
+from lineage_modeb import certified, fixture_hash, modeb_chain
 from llm_client import OllamaClient
 from structured import MAX_ATTEMPTS, ask_structured
 
@@ -189,9 +189,9 @@ def analyse():
 
 
 def main(offset, limit):
-    chains = load()
+    chains = certified()
     if not chains:
-        raise SystemExit("no Mode B corpus; run: python lineage_modeb.py")
+        raise SystemExit("no certified Mode B corpus; run: python lineage_modeb.py")
     instances = [i for i in all_instances() if i.id in chains]
     instances = instances[offset:None if limit is None else offset + limit]
     client = OllamaClient()

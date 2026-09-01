@@ -14,8 +14,8 @@ import os
 from lineage_bench import DOMAINS, all_instances
 from lineage_depth import MAX_DEPTH, build_chain
 from lineage_modeb import (FIXTURE, MAX_OVERLAP, _check_filler, _check_relay,
-                           _mentions, _overlap, _too_similar, fixture_hash,
-                           load, modeb_chain)
+                           _mentions, _overlap, _too_similar, certified,
+                           fixture_hash, modeb_chain)
 
 INSTANCES = all_instances()
 BY_ID = {i.id: i for i in INSTANCES}
@@ -76,12 +76,16 @@ def test_filler_gate_rejects_constraint_talk():
 # ------------------------------------------------ corpus gates (enforced) ---
 
 def test_fixture_shape():
-    chains = load()
+    chains = certified()
     assert chains, "no Mode B fixture yet -- run lineage_modeb.py"
     for r in chains.values():
         assert len(r["faithful"]) == MAX_DEPTH, r["instance"]
         assert isinstance(r["corrupted"], str) and r["corrupted"]
         assert len(r["padding"]) == MAX_DEPTH - 1, r["instance"]
+        # `all([])` is True, so this must ALSO require that certification ran.
+        # Without the first clause an uncertified chain passes the very gate
+        # that exists to stop it.
+        assert r["verify"], f"{r['instance']}: never certified"
         assert all(v["ok"] for v in r["verify"]), (
             f"{r['instance']}: a message the verifier rejected was admitted")
 
@@ -90,7 +94,7 @@ def test_every_admitted_message_passes_its_own_gate():
     """The fixture is on disk; re-run the gates against it rather than trusting
     that they ran at generation time. A gate that is not re-checkable is a claim,
     not a gate."""
-    for r in load().values():
+    for r in certified().values():
         inst = BY_ID[r["instance"]]
         c = {x.id: x for x in inst.constraints}[r["constraint"]]
         verbs = dict(DOMAINS[inst.domain]["actions"])
@@ -112,26 +116,54 @@ def test_exposure_schedule_is_identical_to_mode_a():
     corruption sits, an E5-vs-E7 difference would be uninterpretable. This pins
     the schedule to Mode A's, message for message.
     """
-    for r in load().values():
+    for r in certified().values():
         inst = BY_ID[r["instance"]]
         a, b = build_chain(inst), modeb_chain(inst)
         assert b is not None
         assert a.constraint_id == b.constraint_id
+        # EVERY FIELD EXCEPT `text` MUST MATCH. The first version of this gate
+        # compared only message count and lineage sequence, and passed while
+        # Mode B was assigning speakers per class -- so at depth 3 the two
+        # "corroborating" relays came from the SAME speaker, which is one person
+        # repeating themselves, not two parties agreeing. The mechanism under
+        # test had been silently removed and the gate saw nothing. Compare the
+        # whole record.
+        def strip(m):
+            return (m.msg_id, m.speaker, m.lineage, m.constraint_id,
+                    m.derives_from, m.faithful)
+
         for d in range(1, MAX_DEPTH + 1):
             for corrupt in (True, False):
                 ea, eb = a.exposure(d, corrupt), b.exposure(d, corrupt)
-                assert len(ea) == len(eb)
-                assert [m.lineage for m in ea] == [m.lineage for m in eb]
-        assert (len(a.padded(MAX_DEPTH - 1)) == len(b.padded(MAX_DEPTH - 1)))
-        # The source is the SAME message object in both modes: only relays are
+                assert [strip(m) for m in ea] == [strip(m) for m in eb], (
+                    f"{r['instance']} d{d} corrupt={corrupt}")
+        assert ([strip(m) for m in a.padded(MAX_DEPTH - 1)]
+                == [strip(m) for m in b.padded(MAX_DEPTH - 1)])
+        # The source is the SAME message in both modes: only relays are
         # regenerated, so the authoritative claim is held fixed across modes.
         assert a.source.text == b.source.text
+        # ...and the relays genuinely are NOT the same, or Mode B is a no-op.
+        assert all(x.text != y.text for x, y in zip(a.faithful, b.faithful))
+
+
+def test_corroborators_come_from_more_than_one_speaker():
+    """At depth 3 the two intervening restatements must not be one voice.
+
+    Corroboration by independent parties is what E5 claims does the work. If
+    both links carried the same speaker label the arm would test self-repetition
+    instead, and the headline would be about a different phenomenon than the one
+    reported.
+    """
+    for r in certified().values():
+        ch = modeb_chain(BY_ID[r["instance"]])
+        links = ch.exposure(MAX_DEPTH, True)[1:-1]
+        assert len({m.speaker for m in links}) > 1, r["instance"]
 
 
 def test_corruption_reused_at_every_depth():
     """Mode A's discipline: one corruption wording, shown at three distances.
     Per-depth wordings would confound depth with phrasing."""
-    for r in load().values():
+    for r in certified().values():
         ch = modeb_chain(BY_ID[r["instance"]])
         assert len({m.text for m in ch.corrupted}) == 1, r["instance"]
 
@@ -149,7 +181,7 @@ def measure_separability():
     than Mode A's for a reason unrelated to depth, and any E5-vs-E7 difference
     could be that instead.
     """
-    chains = load()
+    chains = certified()
     fth = [t for r in chains.values() for t in r["faithful"]]
     cor = [r["corrupted"] for r in chains.values()]
 
@@ -189,7 +221,7 @@ def test_padded_control_is_token_matched():
     way: it is the reason Mode B's P2 is a stricter test than Mode A's, and it
     was measured and written down BEFORE any decision call was made.
     """
-    chains = load()
+    chains = certified()
     L = [len(t.split()) for r in chains.values() for t in r["faithful"]]
     P = [len(t.split()) for r in chains.values() for t in r["padding"]]
     gap = abs(sum(P) / len(P) - sum(L) / len(L))
@@ -204,7 +236,7 @@ def measure_condition_words():
     out = {}
     for mode, fn in (("A", chain_a), ("B", modeb_chain)):
         rows = {}
-        for r in load().values():
+        for r in certified().values():
             ch = fn(BY_ID[r["instance"]])
             for name, depth, corrupt in (("d1", 1, True), ("d2", 2, True),
                                          ("d3", 3, True), ("control", 3, False)):
@@ -219,7 +251,7 @@ def measure_condition_words():
 def measure_drift():
     """How far the chain travels from its source, in content words retained."""
     rows = []
-    for r in load().values():
+    for r in certified().values():
         src = build_chain(BY_ID[r["instance"]]).source.text
         rows.append([_overlap(t, src) for t in r["faithful"]])
     return [round(sum(c[k] for c in rows) / len(rows), 3)
@@ -235,7 +267,7 @@ if __name__ == "__main__":
         t()
         print(f"  ok  {t.__name__}")
 
-    chains = load()
+    chains = certified()
     log = json.load(open(FIXTURE)).get("attempts", [])
     admitted = sum(1 for a in log if a["error"] is None)
     print(f"\n  {len(TESTS)} gates passed")

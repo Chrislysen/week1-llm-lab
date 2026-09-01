@@ -62,9 +62,10 @@ import hashlib
 import json
 import os
 import re
+from dataclasses import replace
 
 from budget import Budget
-from lineage_bench import DOMAINS, Message, SPEAKERS, all_instances
+from lineage_bench import DOMAINS, all_instances
 from lineage_depth import MAX_DEPTH, DepthChain, build_chain
 from llm_client import OllamaClient
 from structured import extract_json_object
@@ -290,12 +291,28 @@ def verify(client, msg, phrase_a, phrase_b, expect):
 
 # --------------------------------------------------------------- corpus ----
 
-def build_one(client, instance, log):
-    """Generate the whole Mode B chain for one instance, or None if gated out."""
-    ref = build_chain(instance)                    # same constraint as Mode A
-    c = {x.id: x for x in instance.constraints}[ref.constraint_id]
+def _actions_of(instance, constraint_id):
+    c = {x.id: x for x in instance.constraints}[constraint_id]
     verbs = dict(DOMAINS[instance.domain]["actions"])
-    pa, pb = verbs[c.a], verbs[c.b]                # source says: pa before pb
+    return verbs[c.a], verbs[c.b]                  # source says: pa before pb
+
+
+def generate_one(client, instance, log):
+    """Write one Mode B chain. GENERATOR ONLY -- no verifier call in here.
+
+    Split out of a single interleaved loop for a mundane reason with a
+    non-mundane payoff. Interleaving a 7B writer with a 14B verifier made Ollama
+    swap models ten times per instance: generation cost 44s of compute per
+    instance and roughly 150s of wall clock, nearly all of it loading weights.
+    Two single-model passes remove the thrash.
+
+    It also happens to be the right shape. Certification is a separate pass over
+    a finished artefact, not a step inside the loop that produces it, and the
+    generator never sees a verifier verdict either way -- the verifier only ever
+    admits or drops.
+    """
+    ref = build_chain(instance)                    # same constraint as Mode A
+    pa, pb = _actions_of(instance, ref.constraint_id)
 
     out = {"instance": instance.id, "constraint": ref.constraint_id,
            "faithful": [], "corrupted": None, "padding": [], "verify": []}
@@ -310,10 +327,6 @@ def build_one(client, instance, log):
                                       or _too_similar(m, s)), f"L{k}", log)
         if got is None:
             return None
-        said, ok = verify(client, got["message"], pa, pb, "A")
-        out["verify"].append({"tag": f"L{k}", "said": said, "ok": ok})
-        if not ok:
-            return None
         out["faithful"].append(got["message"])
         seen.append(got["message"])
         parent = got["message"]                    # L_{k+1} derives from L_k
@@ -327,10 +340,6 @@ def build_one(client, instance, log):
         RELAY_FORMAT,
         lambda m: _check_relay(m, instance, pa, pb), "C", log)
     if got is None:
-        return None
-    said, ok = verify(client, got["message"], pa, pb, "B")
-    out["verify"].append({"tag": "C", "said": said, "ok": ok})
-    if not ok:
         return None
     out["corrupted"] = got["message"]
 
@@ -347,6 +356,23 @@ def build_one(client, instance, log):
             return None
         out["padding"].append(got["message"])
     return out
+
+
+def certify_one(client, instance, rec):
+    """VERIFIER ONLY. Every relay is shown alone, with no context and no clue
+    about which class it belongs to, and must report the ordering we asked for.
+
+    Records the verdict on every message before deciding, so a chain that gets
+    dropped still leaves evidence of WHY. Returns True if the chain is admitted.
+    """
+    pa, pb = _actions_of(instance, rec["constraint"])
+    rec["verify"] = []
+    for k, t in enumerate(rec["faithful"], 1):
+        said, ok = verify(client, t, pa, pb, "A")
+        rec["verify"].append({"tag": f"L{k}", "said": said, "ok": ok})
+    said, ok = verify(client, rec["corrupted"], pa, pb, "B")
+    rec["verify"].append({"tag": "C", "said": said, "ok": ok})
+    return all(v["ok"] for v in rec["verify"])
 
 
 def load(path=FIXTURE):
@@ -374,6 +400,19 @@ def fixture_hash(path=FIXTURE):
     ).encode()).hexdigest()[:16]
 
 
+def certified(path=FIXTURE):
+    """Only chains the verifier has actually passed.
+
+    `load()` returns whatever is on disk, including chains written by pass 1 but
+    not yet certified by pass 2 -- the generator needs that to know what to
+    skip. A DECISION RUN MUST NOT SEE THEM. The distinction matters because the
+    obvious shape check, `all(v["ok"] for v in rec["verify"])`, is vacuously
+    true on an empty verify list, so an uncertified chain would sail through the
+    gate that exists to stop it.
+    """
+    return {k: r for k, r in load(path).items() if r["verify"]}
+
+
 def modeb_chain(instance, chains=None):
     """A DepthChain whose text is model-written.
 
@@ -382,30 +421,36 @@ def modeb_chain(instance, chains=None):
     schedule is the independent variable; only the text differs between modes,
     which is the one thing this comparison is allowed to change.
     """
-    chains = load() if chains is None else chains
+    chains = certified() if chains is None else chains
     rec = chains.get(instance.id)
     if rec is None:
         return None
+    assert rec["verify"] and all(v["ok"] for v in rec["verify"]), (
+        f"{instance.id} was never certified; it must not reach a decision run")
     ref = build_chain(instance)
-    cid = rec["constraint"]
 
-    def msg(i, text, lineage, faithful, parent):
-        return Message(msg_id=30_000 + i, speaker=SPEAKERS[i % 2], text=text,
-                       lineage=lineage, constraint_id=cid,
-                       derives_from=(parent,), faithful=faithful)
+    # BUILT BY REPLACING TEXT ON MODE A'S OWN MESSAGES, not by constructing new
+    # ones. The first version assembled fresh Message objects and assigned
+    # speakers from the message index, which made every faithful relay come from
+    # one speaker and every corruption from the other. That is not a cosmetic
+    # difference: at depth 3 it turns two different people agreeing with the
+    # source into ONE PERSON RESTATING THEMSELVES TWICE. Corroboration by
+    # independent parties is the mechanism under test, so Mode B would have
+    # removed the thing it exists to check -- while every count-and-lineage
+    # assertion still passed.
+    #
+    # Deriving from Mode A instead makes msg_id, speaker, lineage, derives_from
+    # and the faithful flag identical by construction. Text is the only field
+    # that can differ, which is exactly what this experiment is allowed to vary.
+    def swap(m, text):
+        return replace(m, text=text)
 
-    faithful, prev = [], ref.source.msg_id
-    for k, t in enumerate(rec["faithful"], 1):
-        faithful.append(msg(2 * k + 1, t, "FAITHFUL_RELAY", True, prev))
-        prev = faithful[-1].msg_id
-    corrupted = [msg(2 * k, rec["corrupted"], "CORRUPTED_RELAY", False,
-                     ref.source.msg_id if k == 1 else faithful[k - 2].msg_id)
-                 for k in range(1, MAX_DEPTH + 1)]
-    padding = [msg(100 + k, t, "DISTRACTOR", True, ref.source.msg_id)
-               for k, t in enumerate(rec["padding"])]
-    return DepthChain(instance_id=instance.id, constraint_id=cid,
-                      source=ref.source, faithful=tuple(faithful),
-                      corrupted=tuple(corrupted), padding=tuple(padding))
+    faithful = tuple(swap(m, t) for m, t in zip(ref.faithful, rec["faithful"]))
+    corrupted = tuple(swap(m, rec["corrupted"]) for m in ref.corrupted)
+    padding = tuple(swap(m, t) for m, t in zip(ref.padding, rec["padding"]))
+    return DepthChain(instance_id=instance.id, constraint_id=rec["constraint"],
+                      source=ref.source, faithful=faithful,
+                      corrupted=corrupted, padding=padding)
 
 
 def main(offset, limit, report):
@@ -429,38 +474,51 @@ def main(offset, limit, report):
                 print(f"    P{k}   {t}")
         return
 
-    todo = [i for i in instances[offset:offset + (limit or len(instances))]
-            if i.id not in chains]
-    print(f"=== Mode B generation: {GEN_MODEL} writes, {VERIFY_MODEL} verifies "
-          f"({len(todo)} instances to do, {len(chains)} already cached) ===\n")
+    window = instances[offset:offset + (limit or len(instances))]
     client = OllamaClient()
-    log = []
-    if os.path.exists(FIXTURE):
-        log = json.load(open(FIXTURE)).get("attempts", [])
+    log = json.load(open(FIXTURE)).get("attempts", []) if os.path.exists(FIXTURE) else []
 
-    rejected = []
+    # --- pass 1: the writer, alone ---------------------------------------
+    todo = [i for i in window if i.id not in chains]
+    if todo:
+        print(f"=== pass 1/2: {GEN_MODEL} writes ({len(todo)} instances, "
+              f"{len(chains)} already cached) ===\n")
+    dropped = []
     for k, inst in enumerate(todo, 1):
         before = len(log)
-        rec = build_one(client, inst, log)
-        marks = "".join("." if a["error"] is None else "x"
-                        for a in log[before:])
+        rec = generate_one(client, inst, log)
+        marks = "".join("." if a["error"] is None else "x" for a in log[before:])
         if rec is None:
-            rejected.append(inst.id)
-            print(f"  [{k:>2}/{len(todo)}] {inst.id:<20} REJECTED  {marks}")
+            dropped.append((inst.id, "no message passed the gates"))
+            print(f"  [{k:>2}/{len(todo)}] {inst.id:<20} DROPPED   {marks}")
             continue
         chains[inst.id] = rec
         save(chains, log)                     # checkpoint: a kill loses one item
-        bad = [v["tag"] for v in rec["verify"] if not v["ok"]]
-        print(f"  [{k:>2}/{len(todo)}] {inst.id:<20} ok  {marks}"
-              + (f"  verifier disagreed on {bad}" if bad else ""))
+        print(f"  [{k:>2}/{len(todo)}] {inst.id:<20} written   {marks}")
+
+    # --- pass 2: the verifier, alone -------------------------------------
+    pending = [i for i in window if i.id in chains and not chains[i.id]["verify"]]
+    if pending:
+        print(f"\n=== pass 2/2: {VERIFY_MODEL} certifies ({len(pending)} "
+              f"instances) ===\n")
+    for k, inst in enumerate(pending, 1):
+        rec = chains[inst.id]
+        ok = certify_one(client, inst, rec)
+        bad = [f"{v['tag']}->{v['said']}" for v in rec["verify"] if not v["ok"]]
+        if not ok:
+            del chains[inst.id]
+            dropped.append((inst.id, f"verifier disagreed on {bad}"))
+        save(chains, log)
+        print(f"  [{k:>2}/{len(pending)}] {inst.id:<20} "
+              + ("certified" if ok else f"DROPPED   {bad}"))
 
     save(chains, log)
-    ok = sum(1 for a in log if a["error"] is None)
-    print(f"\n  generated {len(chains)}/{len(instances)} instances")
-    print(f"  generation attempts {len(log)}, admitted {ok}, "
-          f"rejected by a gate {len(log) - ok}")
-    if rejected:
-        print(f"  instances dropped entirely: {rejected}")
+    admitted = sum(1 for a in log if a["error"] is None)
+    print(f"\n  corpus {len(chains)}/{len(instances)} instances")
+    print(f"  generation attempts {len(log)}, admitted {admitted}, "
+          f"rejected by a gate {len(log) - admitted}")
+    for iid, why in dropped:
+        print(f"  DROPPED {iid}: {why}")
     print(f"  fixture hash {fixture_hash()}  ->  {FIXTURE}")
 
 
