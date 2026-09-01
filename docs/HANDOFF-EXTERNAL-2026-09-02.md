@@ -1,6 +1,6 @@
 # External handoff — for an independent research model, 2026-09-02
 
-**State.** Branch `crazy`, commit `48c6860`, paused. Local only, no remote.
+**State.** Branch `crazy`, commit `48c6860`, paused. Private remote: https://github.com/Chrislysen/week1-llm-lab (main == crazy).
 Working tree clean. `verify_claims.py`: 167 VERIFIED / 0 MISMATCHED /
 4 UNVERIFIABLE. 92 tests in 13 suites. `prospective_design_check.py
 --self-test` 10/10. Every frozen hash intact (table below).
