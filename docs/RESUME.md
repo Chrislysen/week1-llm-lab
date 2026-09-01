@@ -1,9 +1,9 @@
 # RESUME — where the work stands, and exactly what to do next
 
-**Updated 2026-09-01 after steps 10–12 and the E14 v1 abort. The campaign is
-closed.** Everything is committed. Nothing is running. No remote exists.
-Nothing is queued; §5 names the one decision that is pending, and it is the
-user's.
+**Updated 2026-09-02 after the research-lead pass. The programme is closed.**
+Everything is committed. No remote exists. `docs/RESEARCH-LEAD-2026-09-02.md`
+is the closing memo; `docs/novelty_matrix.md` C9–C14 is the verdict table.
+There is no pending decision and nothing queued.
 
 ---
 
@@ -123,7 +123,39 @@ test was post-hoc and that "NORMATIVE degrades" is withdrawn.
 
 ---
 
-## 5. Steps 10–12 — DONE 2026-09-01. Nothing is queued.
+## 5. Research-lead pass — 2026-09-01/02. The programme is closed.
+
+Everything below the next heading is history. What closed it:
+
+- **`ready` mined from every raw plan on disk** (E2, E4, E7, E8, E9, E10, E11,
+  E12, E13; five deciders). At ceiling for Aya-8B, Qwen-3B, Qwen-7B in every
+  arm; varies only in llama-3B and Qwen-14B.
+- **READY is a repetition/consistency effect, not dependence** (matrix C10):
+  same-root readiness rises with each repeated identical citation (E11 19 →
+  21 → 27, k1 vs k3 paired 0/8), independent-root is flat (17, 17, 17), two
+  agreeing reports of either kind lower readiness from ~0.78 to ~0.5, the gap
+  runs 0 → +0.5 by which document names the rotation draws, and `ready`
+  follows the model's own same-source token (129/242 vs 1/190).
+- **Qwen-14B (declared screen E12-X)** shows no same/indep readiness gap
+  (−0.046, CI [−0.111, +0.018]) and its readiness rises with corroboration
+  where llama's falls. READY is llama-specific. **E14 in any form is not
+  pursued.**
+- **Prior art** (six adversarial reviewers, ~150 searches): the commit-gate
+  abstraction is published (arXiv:2608.27167); the same-source contrast on
+  Llama-3.2-3B exists (arXiv:2601.03746); the benchmark's premise is false
+  (ManyIH-Bench, IHEval; corrected in `docs/agent-lineage-bench.md`); the
+  apparatus is pre-empted (llm-power, tail-shape protocol, showyourwork,
+  POPPER); latest-trusters replicate IHEval / Control Illusion.
+- **Normative backfire (C14)**: HEAVY OVERLAP — KAIROS (arXiv:2508.18321)
+  shows a critical-evaluation prompt worsens peer-pressure robustness on this
+  very model. The declared cross-family screen (E13-X) found the principle's
+  effect +0.037 in Aya and +0.005 in Qwen-7B against llama's +0.09: llama-
+  specific. Closed.
+
+**Standing prohibitions, unchanged:** no lineage-sensitivity claim, no router,
+no dilution, no SESOI change, no claim from any exploratory screen.
+
+## 5-history. Steps 10–12 — DONE 2026-09-01.
 
 **Step 10 — DONE.** `docs/attack_e13.js` ran as workflow `wf_35c74eab-aee`:
 27 agents, 22 candidates, **5 survived refutation**, every one re-derived by
@@ -151,7 +183,7 @@ model. C4 is PRE-EMPTED (behavioural). Full table and search log in
 conjunction) and did **not** survive the attack intact. `docs/CLAIM-E13.md`
 states what is left. No router, no new campaign.
 
-**E14 v1 — preregistered and ABORTED before any confirmatory call
+**E14 v1 — preregistered and ABORTED before any confirmatory call; superseded by §5 (no v2)
 (2026-09-01).** Built to the instruction: a fresh 432-unit / 144-cluster
 corpus (four salted draws of the frozen generator), FIXED_PLAN primary,
 GENERATED replication, a within-response interaction test, checker operating
@@ -186,6 +218,8 @@ support) but that was at ceiling on an easy supersession.
 | `docs/protocols/E10-H3-RETRACTION.md` | the retraction that shaped everything after it |
 | `docs/protocols/E13-CORRECTIONS.md` | the step-10 corrections: three E13 conclusions withdrawn, all verified |
 | `docs/protocols/E14-ready-channel-v1.md` | E14 preregistration, and its §16 abort record with the pilot table |
+| `docs/RESEARCH-LEAD-2026-09-02.md` | the closing memo: what died, what survived, why it stops |
+| `docs/protocols/E12X-qwen14b-ready-screen.md`, `E13X-backfire-screen.md`, `screen_analysis.py` | the two declared exploratory screens and their reader |
 | `lineage_e14.py`, `e14_ready.py`, `test_lineage_e14.py` | E14 corpus, experiment and analysis, 23 gates + 4 fixture tests — built, never run |
 | `docs/CLAIM-E13.md` | what can still be claimed, and what cannot |
 | `docs/attack_e13.js` | the adversarial workflow that found them |

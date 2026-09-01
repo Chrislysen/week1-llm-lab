@@ -295,8 +295,8 @@ pre-empted in whole or in every part.
 After the research-lead pass the count is **thirteen of fourteen** rows
 pre-empted, closed, withdrawn or dead; the fourteenth (C14, the normative
 backfire) is a named phenomenon already shown on this model (KAIROS,
-arXiv:2508.18321); a declared cross-family screen decides only whether a
-short variant note is defensible.
+arXiv:2508.18321), and the declared cross-family screen found it llama-
+specific (Aya +0.037, Qwen-7B +0.005). Closed.
 
 ---
 

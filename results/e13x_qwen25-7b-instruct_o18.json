@@ -1,0 +1,866 @@
+[
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-chain:K2",
+    "instance": "robotics-chain",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "{\"actions\": [\"LOCK_BAY\", \"CALIBRATE_ARM\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-chain:K2",
+    "instance": "robotics-chain",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "{\"actions\": [\"CALIBRATE_ARM\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-chain:K2",
+    "instance": "robotics-chain",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"LOCK_BAY\", \"CALIBRATE_ARM\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-chain:K2",
+    "instance": "robotics-chain",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"CALIBRATE_ARM\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-chain:K2",
+    "instance": "robotics-chain",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"LOCK_BAY\", \"CALIBRATE_ARM\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-chain:K2",
+    "instance": "robotics-chain",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"CALIBRATE_ARM\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-chain:K4",
+    "instance": "robotics-chain",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"SWAP_GRIPPER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-chain:K4",
+    "instance": "robotics-chain",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"SWAP_GRIPPER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-chain:K4",
+    "instance": "robotics-chain",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"HALT_CONVEYOR\", \"SWAP_GRIPPER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-chain:K4",
+    "instance": "robotics-chain",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"HALT_CONVEYOR\", \"SWAP_GRIPPER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-chain:K4",
+    "instance": "robotics-chain",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"HALT_CONVEYOR\", \"SWAP_GRIPPER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-chain:K4",
+    "instance": "robotics-chain",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"HALT_CONVEYOR\", \"SWAP_GRIPPER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-chain:K5",
+    "instance": "robotics-chain",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "{\"actions\": [\"RESUME_LINE\", \"HALT_CONVEYOR\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-chain:K5",
+    "instance": "robotics-chain",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "{\"actions\": [\"RESUME_LINE\", \"HALT_CONVEYOR\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-chain:K5",
+    "instance": "robotics-chain",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"HALT_CONVEYOR\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-chain:K5",
+    "instance": "robotics-chain",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"RESUME_LINE\", \"HALT_CONVEYOR\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-chain:K5",
+    "instance": "robotics-chain",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"HALT_CONVEYOR\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-chain:K5",
+    "instance": "robotics-chain",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"HALT_CONVEYOR\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-fork:K2",
+    "instance": "robotics-fork",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"SWAP_GRIPPER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-fork:K2",
+    "instance": "robotics-fork",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"SWAP_GRIPPER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-fork:K2",
+    "instance": "robotics-fork",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"HALT_CONVEYOR\", \"SWAP_GRIPPER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-fork:K2",
+    "instance": "robotics-fork",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"HALT_CONVEYOR\", \"SWAP_GRIPPER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-fork:K2",
+    "instance": "robotics-fork",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"HALT_CONVEYOR\", \"SWAP_GRIPPER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-fork:K2",
+    "instance": "robotics-fork",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"HALT_CONVEYOR\", \"SWAP_GRIPPER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-fork:K4",
+    "instance": "robotics-fork",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "{\"actions\": [\"SWAP_GRIPPER\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-fork:K4",
+    "instance": "robotics-fork",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "{\"actions\": [\"SWAP_GRIPPER\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-fork:K4",
+    "instance": "robotics-fork",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"SWAP_GRIPPER\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-fork:K4",
+    "instance": "robotics-fork",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"SWAP_GRIPPER\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-fork:K4",
+    "instance": "robotics-fork",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"SWAP_GRIPPER\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-fork:K4",
+    "instance": "robotics-fork",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"SWAP_GRIPPER\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-fork:K5",
+    "instance": "robotics-fork",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "{\"actions\": [\"RESUME_LINE\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-fork:K5",
+    "instance": "robotics-fork",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "{\"actions\": [\"RESUME_LINE\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-fork:K5",
+    "instance": "robotics-fork",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"RESUME_LINE\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-fork:K5",
+    "instance": "robotics-fork",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"RESUME_LINE\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-fork:K5",
+    "instance": "robotics-fork",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"RESUME_LINE\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-fork:K5",
+    "instance": "robotics-fork",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"RESUME_LINE\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-join:K3",
+    "instance": "robotics-join",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "{\"actions\": [\"RESUME_LINE\", \"CALIBRATE_ARM\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-join:K3",
+    "instance": "robotics-join",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "{\"actions\": [\"RESUME_LINE\", \"CALIBRATE_ARM\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-join:K3",
+    "instance": "robotics-join",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 2, \"actions\": [\"RESUME_LINE\", \"CALIBRATE_ARM\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-join:K3",
+    "instance": "robotics-join",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"RESUME_LINE\", \"CALIBRATE_ARM\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-join:K3",
+    "instance": "robotics-join",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 2, \"actions\": [\"RESUME_LINE\", \"CALIBRATE_ARM\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-join:K3",
+    "instance": "robotics-join",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"RESUME_LINE\", \"CALIBRATE_ARM\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-join:K4",
+    "instance": "robotics-join",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "{\"actions\": [\"AUDIT_INVENTORY\", \"CALIBRATE_ARM\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-join:K4",
+    "instance": "robotics-join",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "{\"actions\": [\"AUDIT_INVENTORY\", \"CALIBRATE_ARM\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-join:K4",
+    "instance": "robotics-join",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"AUDIT_INVENTORY\", \"CALIBRATE_ARM\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-join:K4",
+    "instance": "robotics-join",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"AUDIT_INVENTORY\", \"CALIBRATE_ARM\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-join:K4",
+    "instance": "robotics-join",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"AUDIT_INVENTORY\", \"CALIBRATE_ARM\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-join:K4",
+    "instance": "robotics-join",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 4, \"actions\": [\"AUDIT_INVENTORY\", \"CALIBRATE_ARM\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-join:K7",
+    "instance": "robotics-join",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-join:K7",
+    "instance": "robotics-join",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-join:K7",
+    "instance": "robotics-join",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 2, \"actions\": [\"HALT_CONVEYOR\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-join:K7",
+    "instance": "robotics-join",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"HALT_CONVEYOR\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-join:K7",
+    "instance": "robotics-join",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 2, \"actions\": [\"HALT_CONVEYOR\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-join:K7",
+    "instance": "robotics-join",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"HALT_CONVEYOR\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-diamond:K2",
+    "instance": "robotics-diamond",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "{\"actions\": [\"AUDIT_INVENTORY\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-diamond:K2",
+    "instance": "robotics-diamond",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "{\"actions\": [\"AUDIT_INVENTORY\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-diamond:K2",
+    "instance": "robotics-diamond",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 2, \"actions\": [\"AUDIT_INVENTORY\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-diamond:K2",
+    "instance": "robotics-diamond",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"AUDIT_INVENTORY\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-diamond:K2",
+    "instance": "robotics-diamond",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 2, \"actions\": [\"AUDIT_INVENTORY\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-diamond:K2",
+    "instance": "robotics-diamond",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"AUDIT_INVENTORY\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-diamond:K3",
+    "instance": "robotics-diamond",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "{\"actions\": [\"AUDIT_INVENTORY\", \"SWAP_GRIPPER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-diamond:K3",
+    "instance": "robotics-diamond",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "{\"actions\": [\"SWAP_GRIPPER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-diamond:K3",
+    "instance": "robotics-diamond",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 2, \"actions\": [\"AUDIT_INVENTORY\", \"SWAP_GRIPPER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-diamond:K3",
+    "instance": "robotics-diamond",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"AUDIT_INVENTORY\", \"SWAP_GRIPPER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-diamond:K3",
+    "instance": "robotics-diamond",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 2, \"actions\": [\"AUDIT_INVENTORY\", \"SWAP_GRIPPER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-diamond:K3",
+    "instance": "robotics-diamond",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"AUDIT_INVENTORY\", \"SWAP_GRIPPER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-diamond:K4",
+    "instance": "robotics-diamond",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "{\"actions\": [\"CALIBRATE_ARM\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-diamond:K4",
+    "instance": "robotics-diamond",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "{\"actions\": [\"CALIBRATE_ARM\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-diamond:K4",
+    "instance": "robotics-diamond",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 2, \"actions\": [\"RESUME_LINE\", \"CALIBRATE_ARM\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-diamond:K4",
+    "instance": "robotics-diamond",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"RESUME_LINE\", \"CALIBRATE_ARM\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-diamond:K4",
+    "instance": "robotics-diamond",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 2, \"actions\": [\"CALIBRATE_ARM\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-diamond:K4",
+    "instance": "robotics-diamond",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"CALIBRATE_ARM\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-twochain:K2",
+    "instance": "robotics-twochain",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "{\"actions\": [\"AUDIT_INVENTORY\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-twochain:K2",
+    "instance": "robotics-twochain",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "{\"actions\": [\"AUDIT_INVENTORY\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-twochain:K2",
+    "instance": "robotics-twochain",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 2, \"actions\": [\"RESUME_LINE\", \"AUDIT_INVENTORY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-twochain:K2",
+    "instance": "robotics-twochain",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"RESUME_LINE\", \"AUDIT_INVENTORY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-twochain:K2",
+    "instance": "robotics-twochain",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 2, \"actions\": [\"RESUME_LINE\", \"AUDIT_INVENTORY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-twochain:K2",
+    "instance": "robotics-twochain",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"RESUME_LINE\", \"AUDIT_INVENTORY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-twochain:K5",
+    "instance": "robotics-twochain",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"SWAP_GRIPPER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-twochain:K5",
+    "instance": "robotics-twochain",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"SWAP_GRIPPER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-twochain:K5",
+    "instance": "robotics-twochain",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 2, \"actions\": [\"HALT_CONVEYOR\", \"SWAP_GRIPPER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-twochain:K5",
+    "instance": "robotics-twochain",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"HALT_CONVEYOR\", \"SWAP_GRIPPER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-twochain:K5",
+    "instance": "robotics-twochain",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"HALT_CONVEYOR\", \"SWAP_GRIPPER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-twochain:K5",
+    "instance": "robotics-twochain",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"HALT_CONVEYOR\", \"SWAP_GRIPPER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-twochain:K6",
+    "instance": "robotics-twochain",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-twochain:K6",
+    "instance": "robotics-twochain",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-twochain:K6",
+    "instance": "robotics-twochain",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"HALT_CONVEYOR\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-twochain:K6",
+    "instance": "robotics-twochain",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"HALT_CONVEYOR\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-twochain:K6",
+    "instance": "robotics-twochain",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"HALT_CONVEYOR\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-twochain:K6",
+    "instance": "robotics-twochain",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"HALT_CONVEYOR\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-star:K2",
+    "instance": "robotics-star",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "{\"actions\": [\"LOCK_BAY\", \"HALT_CONVEYOR\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-star:K2",
+    "instance": "robotics-star",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "{\"actions\": [\"LOCK_BAY\", \"HALT_CONVEYOR\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-star:K2",
+    "instance": "robotics-star",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"LOCK_BAY\", \"HALT_CONVEYOR\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-star:K2",
+    "instance": "robotics-star",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"LOCK_BAY\", \"HALT_CONVEYOR\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-star:K2",
+    "instance": "robotics-star",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"LOCK_BAY\", \"HALT_CONVEYOR\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-star:K2",
+    "instance": "robotics-star",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"HALT_CONVEYOR\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-star:K3",
+    "instance": "robotics-star",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "{\"actions\": [\"AUDIT_INVENTORY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-star:K3",
+    "instance": "robotics-star",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "{\"actions\": [\"AUDIT_INVENTORY\", \"HALT_CONVEYOR\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-star:K3",
+    "instance": "robotics-star",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 2, \"actions\": [\"AUDIT_INVENTORY\", \"HALT_CONVEYOR\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-star:K3",
+    "instance": "robotics-star",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"AUDIT_INVENTORY\", \"HALT_CONVEYOR\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-star:K3",
+    "instance": "robotics-star",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"AUDIT_INVENTORY\", \"HALT_CONVEYOR\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-star:K3",
+    "instance": "robotics-star",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"AUDIT_INVENTORY\", \"HALT_CONVEYOR\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-star:K4",
+    "instance": "robotics-star",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "{\"actions\": [\"SWAP_GRIPPER\", \"HALT_CONVEYOR\"], \"ready\": false}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-star:K4",
+    "instance": "robotics-star",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "{\"actions\": [\"SWAP_GRIPPER\", \"HALT_CONVEYOR\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-star:K4",
+    "instance": "robotics-star",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"SWAP_GRIPPER\", \"HALT_CONVEYOR\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-star:K4",
+    "instance": "robotics-star",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"SWAP_GRIPPER\", \"HALT_CONVEYOR\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-star:K4",
+    "instance": "robotics-star",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"SWAP_GRIPPER\", \"HALT_CONVEYOR\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:7b-instruct",
+    "unit": "robotics-star:K4",
+    "instance": "robotics-star",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 3, \"actions\": [\"RESUME_LINE\", \"SWAP_GRIPPER\"], \"ready\": true}"
+  }
+]

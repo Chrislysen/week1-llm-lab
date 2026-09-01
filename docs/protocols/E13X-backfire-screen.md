@@ -57,3 +57,32 @@ parse rates; the recognition fields as descriptive only.
 - Otherwise → recorded as **llama-specific**, not pursued.
 
 No SESOI, no p-threshold decision, no claim.
+
+---
+
+## Outcome — 2026-09-02 (exploratory; no claim)
+
+Read with `python screen_analysis.py --e13x <model>`. Parse ≥ 0.991 in every cell; 0 transport retries.
+
+| decider | normative − default | identify − default | **normative − identify** (the principle) |
+|---|---|---|---|
+| llama3.2:3b (E13, re-derived) | +0.1019 (29 vs 7, p 0.0064) | +0.0139 (17 vs 14, p 0.79) | **+0.0880 (26 vs 7, n=216, cluster p=0.0058)** |
+| aya-expanse:8b | +0.0648 (24 vs 10, p 0.07, CI [0.000, +0.125]) | +0.0278 (19 vs 13, p 0.49) | **+0.037** (12 vs 4, p 0.12, CI [0.000, +0.079]) |
+| qwen2.5:7b-instruct | −0.1628 (3 vs 38, p < 0.001) | −0.1667 (4 vs 40, p < 0.001) | **+0.0047** (10 vs 9, p 1.0, CI [−0.042, +0.056]) |
+
+**Reading, per the rule fixed above.** The principle's effect is ≥ +0.05 in
+neither Aya (+0.037) nor Qwen-7B (+0.005), so the 'at least two of three' rule
+cannot be met whatever Qwen-14B would show; **the Qwen-14B run was not made**
+(the rule was already decided, and the decision is recorded here before any
+further call). The backfire is **llama-specific** and, with the prior-art
+verdict (KAIROS on the same model), C14 is closed.
+
+**Observed and not claimed.** The *structured request itself* (`identify`)
+reduces adoption of the unsupported contradiction by 0.17 in Qwen-7B (4 vs
+40 units, both dependence arms) while doing nothing in llama (+0.01) or Aya
+(+0.03); the principle adds nothing on top of it in Qwen-7B. A metacognitive
+prompt that helps one family and not two others is an exploratory
+observation with an obvious reviewer (KAIROS/BenchForm report exactly such
+model-specific prompt effects) and is not pursued.
+
+`ready` was at ceiling (≥ 0.991) in every cell for both deciders, as expected.
