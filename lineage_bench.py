@@ -1,0 +1,418 @@
+"""lineage_bench.py: AgentLineageBench, Mode A. Procedural generation.
+
+36 independent instances = 6 surface domains x 6 formal constraint graphs.
+
+Mode A means every message is generated from fixed template banks, NOT by a
+language model. That is what buys exact lineage ground truth: we know which
+message derives from which, and whether it distorts its source, because we
+constructed it that way. The cost is that the dialogue is synthetic, and that
+cost is stated rather than hidden (docs/agent-lineage-bench.md S8).
+
+Structure is held constant across domains; surface form is held constant across
+graphs. An effect that appears in all 36 cannot be a lexical accident of one
+scenario -- which is exactly the failure the E1 pool audit warned about.
+
+NOTHING in this module reveals hidden state to a model. Constraint ids, lineage
+labels, `derives_from` and `authoritative_at` exist for the scorer only. The
+rendered text carries no marker of any of them, and test_lineage_bench.py
+asserts that.
+"""
+import hashlib
+import random
+from dataclasses import dataclass, field
+
+# ---------------------------------------------------------------- graphs ----
+# Six formal constraint graphs over abstract slots A0..A5. Slots are filled by
+# a domain's concrete actions. Every graph is acyclic and satisfiable; a test
+# checks both by construction rather than by assertion.
+
+GRAPHS = {
+    "chain": [("required", 0, None), ("before", 0, 1), ("before", 1, 2),
+              ("before", 2, 3), ("before", 3, 4), ("required", 4, None)],
+    "fork": [("required", 0, None), ("before", 0, 1), ("before", 0, 2),
+             ("before", 1, 3), ("before", 2, 3), ("required", 3, None),
+             ("before", 3, 4)],
+    "join": [("required", 0, None), ("required", 1, None), ("before", 0, 2),
+             ("before", 1, 2), ("before", 2, 3), ("required", 3, None),
+             ("before", 3, 4)],
+    "diamond": [("required", 0, None), ("before", 0, 1), ("before", 0, 2),
+                ("before", 1, 4), ("before", 2, 4), ("required", 4, None),
+                ("before", 4, 5), ("required", 5, None)],
+    "twochain": [("required", 0, None), ("before", 0, 1), ("before", 1, 2),
+                 ("required", 3, None), ("before", 3, 4), ("before", 4, 5),
+                 ("required", 5, None)],
+    "gated": [("required", 0, None), ("before", 0, 1), ("before", 1, 3),
+              ("before", 0, 2), ("before", 2, 3), ("required", 3, None),
+              ("before", 3, 5), ("required", 5, None)],
+}
+
+# --------------------------------------------------------------- domains ----
+# Six surface domains with deliberately disjoint vocabularies. Each maps the six
+# abstract slots to (IDENTIFIER, verb phrase). None reuses the compulsory
+# scenario's vocabulary.
+
+DOMAINS = {
+    "payments": {
+        "setting": "a payments platform degradation",
+        "actions": [
+            ("DRAIN_NODE", "drain the failing node"),
+            ("SNAPSHOT_STORE", "snapshot the store"),
+            ("SHIFT_ROUTING", "shift routing to the spare region"),
+            ("CYCLE_ENGINE", "cycle the settlement engine"),
+            ("REOPEN_GATEWAY", "reopen the gateway"),
+            ("PROBE_LATENCY", "probe end-to-end latency"),
+        ],
+        "noise": [
+            "The on-call rota rolled over at 06:00 this morning.",
+            "Finance asked for a written summary by end of week.",
+            "The status page is already showing a partial outage.",
+            "Someone should book the post-incident review room.",
+        ],
+    },
+    "robotics": {
+        "setting": "a warehouse robotics fault",
+        "actions": [
+            ("HALT_CONVEYOR", "halt the conveyor"),
+            ("LOCK_BAY", "lock the loading bay"),
+            ("CALIBRATE_ARM", "calibrate the picker arm"),
+            ("SWAP_GRIPPER", "swap the gripper assembly"),
+            ("RESUME_LINE", "resume the line"),
+            ("AUDIT_INVENTORY", "audit the bin inventory"),
+        ],
+        "noise": [
+            "Night shift starts in about four hours.",
+            "The spare parts cage was restocked on Tuesday.",
+            "Two totes are still queued at the far end.",
+            "Maintenance logged a similar fault last quarter.",
+        ],
+    },
+    "pharmacy": {
+        "setting": "a pharmacy batch quality hold",
+        "actions": [
+            ("QUARANTINE_BATCH", "quarantine the batch"),
+            ("VERIFY_ASSAY", "verify the assay result"),
+            ("RECALL_SHIPMENT", "recall the outbound shipment"),
+            ("UPDATE_LABEL", "update the labelling record"),
+            ("RELEASE_STOCK", "release the stock"),
+            ("NOTIFY_PRESCRIBERS", "notify prescribers"),
+        ],
+        "noise": [
+            "The regulator's quarterly return is due next month.",
+            "Cold storage is running within tolerance.",
+            "A courier slot is held for this afternoon.",
+            "The duty pharmacist changes over at noon.",
+        ],
+    },
+    "satellite": {
+        "setting": "a satellite anomaly recovery",
+        "actions": [
+            ("SAFE_MODE", "put the craft into safe mode"),
+            ("DUMP_TELEMETRY", "dump the stored telemetry"),
+            ("REORIENT_PANEL", "reorient the solar panel"),
+            ("PATCH_FIRMWARE", "patch the bus firmware"),
+            ("RESUME_DOWNLINK", "resume the downlink"),
+            ("CALIBRATE_STARTRACKER", "calibrate the star tracker"),
+        ],
+        "noise": [
+            "The next ground pass is in ninety minutes.",
+            "Beam scheduling was reshuffled last week.",
+            "The backup dish is booked until Thursday.",
+            "Flight dynamics have the ephemeris updated.",
+        ],
+    },
+    "brewery": {
+        "setting": "a brewery fermentation contamination",
+        "actions": [
+            ("STOP_FERMENT", "stop the fermentation"),
+            ("DRAIN_VESSEL", "drain the vessel"),
+            ("STERILISE_LINE", "sterilise the transfer line"),
+            ("RESEED_YEAST", "reseed the yeast"),
+            ("RESTART_BATCH", "restart the batch"),
+            ("SAMPLE_GRAVITY", "sample the gravity"),
+        ],
+        "noise": [
+            "The delivery lorry is booked for Friday morning.",
+            "Cellar temperature has been stable all week.",
+            "We are two kegs short on the seasonal.",
+            "The lab bench was recalibrated in spring.",
+        ],
+    },
+    "rail": {
+        "setting": "a rail signalling failure",
+        "actions": [
+            ("BLOCK_SECTION", "block the section"),
+            ("GROUND_CATENARY", "ground the catenary"),
+            ("INSPECT_POINTS", "inspect the points"),
+            ("REPLACE_RELAY", "replace the relay"),
+            ("CLEAR_SECTION", "clear the section"),
+            ("TEST_INTERLOCK", "test the interlock"),
+        ],
+        "noise": [
+            "The timetable amendment takes effect on Sunday.",
+            "Two crews are already on site at the depot.",
+            "Weather is forecast dry until the evening.",
+            "The permanent way team logged this last year.",
+        ],
+    },
+}
+
+# ------------------------------------------------------------- templates ----
+# Fixed paraphrase banks. Every rendering is drawn from these with a seeded RNG,
+# so a given instance regenerates byte-identically.
+
+T_BEFORE_SOURCE = [
+    "We cannot {b} until we {a}.",
+    "{A} has to happen before we {b}; that ordering is not negotiable.",
+    "Do not {b} before we {a}.",
+]
+T_BEFORE_FAITHFUL = [
+    "Just to confirm the order: we {a}, and only then {b}.",
+    "So the dependency stands -- {a} first, {b} after.",
+    "Noted, {b} waits until we {a}.",
+]
+#: The corruption INVERTS the ordering. A specific, known distortion.
+T_BEFORE_CORRUPT = [
+    "As I understood it, we {b} first and then {a}.",
+    "My note says {b} comes before we {a}.",
+    "I had it as {b}, then {a}.",
+]
+T_BEFORE_RECOVERY = [
+    "Correction -- I had that backwards. We {a} before we {b}.",
+    "Scratch that, the order is {a} first, then {b}.",
+]
+#: Legitimate supersession: the dependency is genuinely lifted.
+T_BEFORE_SUPERSEDE = [
+    "Update from the duty manager: {a} is no longer a prerequisite for {b}; "
+    "that dependency has been cleared.",
+    "That has changed -- we no longer need to {a} before we {b}.",
+]
+
+T_REQ_SOURCE = [
+    "We must {a} at some point; it is mandatory.",
+    "Policy is clear that we {a}, no exceptions.",
+    "{A} is required before we call this done.",
+]
+T_REQ_FAITHFUL = [
+    "Agreed, we {a} regardless.",
+    "Understood -- {a} stays on the list.",
+    "Right, {a} is not optional.",
+]
+T_REQ_CORRUPT = [
+    "I think {a} is optional this time.",
+    "My understanding is we can skip {a} if we are pressed.",
+    "As I recall {a} was only a suggestion.",
+]
+T_REQ_RECOVERY = [
+    "Correction -- {a} is mandatory, not optional.",
+    "To be clear, we do have to {a}.",
+]
+T_REQ_SUPERSEDE = [
+    "Update from the duty manager: {a} is no longer required for this case.",
+    "That requirement has been lifted -- we do not need to {a} now.",
+]
+
+SPEAKERS = ("Operations Lead", "Safety Auditor")
+
+LINEAGE_CLASSES = ("SOURCE", "FAITHFUL_RELAY", "CORRUPTED_RELAY",
+                   "RECOVERY", "DISTRACTOR", "SUPERSESSION")
+
+
+@dataclass(frozen=True)
+class Constraint:
+    id: str
+    kind: str                 # "before" | "required"
+    a: str
+    b: str | None = None
+
+
+@dataclass(frozen=True)
+class Message:
+    """One rendered message plus its hidden lineage metadata.
+
+    `text` and `speaker` are what a model may see. Everything else is scorer-only
+    and must never reach a prompt.
+    """
+    msg_id: int
+    speaker: str
+    text: str
+    lineage: str
+    constraint_id: str | None = None
+    derives_from: tuple = ()
+    faithful: bool | None = None
+
+
+@dataclass(frozen=True)
+class Instance:
+    id: str
+    domain: str
+    graph: str
+    seed: int
+    setting: str
+    actions: tuple                      # concrete identifiers, slot order
+    constraints: tuple                  # as authored
+    superseded: frozenset               # constraint ids legitimately lifted
+    messages: tuple
+
+    @property
+    def effective_constraints(self):
+        """Ground truth: the authored set minus anything legitimately lifted."""
+        return tuple(c for c in self.constraints if c.id not in self.superseded)
+
+    def by_lineage(self, cls):
+        return [m for m in self.messages if m.lineage == cls]
+
+    def representations(self, constraint_id):
+        return [m for m in self.messages if m.constraint_id == constraint_id]
+
+
+def _seed_for(domain: str, graph: str) -> int:
+    """Deterministic per-instance seed. Same inputs -> same instance, always."""
+    h = hashlib.sha256(f"agentlineagebench-v1|{domain}|{graph}".encode()).digest()
+    return int.from_bytes(h[:4], "big")
+
+
+def _phr(verb: str) -> str:
+    return verb
+
+
+def _cap(verb: str) -> str:
+    return verb[0].upper() + verb[1:]
+
+
+def _render(templates, rng, c, verbs):
+    t = rng.choice(templates)
+    a = verbs[c.a]
+    b = verbs[c.b] if c.b else ""
+    return t.format(a=_phr(a), A=_cap(a), b=_phr(b))
+
+
+def generate_instance(domain: str, graph: str) -> Instance:
+    """Build one instance. Fully determined by (domain, graph)."""
+    seed = _seed_for(domain, graph)
+    rng = random.Random(seed)
+    dom = DOMAINS[domain]
+    idents = [a for a, _ in dom["actions"]]
+    verbs = {a: v for a, v in dom["actions"]}
+
+    constraints = tuple(
+        Constraint(id=f"K{i + 1}", kind=kind, a=idents[s],
+                   b=idents[t] if t is not None else None)
+        for i, (kind, s, t) in enumerate(GRAPHS[graph])
+    )
+
+    # Assign lineage roles. Deterministic given the seed, and every instance
+    # gets at least one of each of the five non-distractor classes.
+    ids = [c.id for c in constraints]
+    shuffled = ids[:]
+    rng.shuffle(shuffled)
+    corrupted = shuffled[0]
+    recovered = shuffled[1]          # corrupted AND later recovered
+    superseded = shuffled[2]
+    faithful = shuffled[3]
+
+    banks = {
+        "before": (T_BEFORE_SOURCE, T_BEFORE_FAITHFUL, T_BEFORE_CORRUPT,
+                   T_BEFORE_RECOVERY, T_BEFORE_SUPERSEDE),
+        "required": (T_REQ_SOURCE, T_REQ_FAITHFUL, T_REQ_CORRUPT,
+                     T_REQ_RECOVERY, T_REQ_SUPERSEDE),
+    }
+
+    messages, mid = [], 0
+
+    def add(text, lineage, cid=None, derives=(), faithful_flag=None):
+        nonlocal mid
+        messages.append(Message(
+            msg_id=mid, speaker=SPEAKERS[mid % 2], text=text, lineage=lineage,
+            constraint_id=cid, derives_from=tuple(derives),
+            faithful=faithful_flag,
+        ))
+        mid += 1
+
+    # 1. Every constraint gets an authoritative SOURCE, in constraint order.
+    source_of = {}
+    for c in constraints:
+        src, _, _, _, _ = banks[c.kind]
+        add(_render(src, rng, c, verbs), "SOURCE", c.id, (), True)
+        source_of[c.id] = messages[-1].msg_id
+
+    # 2. A distractor, so the pool is never purely constraint-bearing.
+    add(rng.choice(dom["noise"]), "DISTRACTOR")
+
+    # 3. Derivatives, in a fixed order so the layout is comparable across
+    #    instances: faithful relay, corrupted relay, corrupted+recovered,
+    #    supersession, distractor.
+    cmap = {c.id: c for c in constraints}
+
+    _, fai, _, _, _ = banks[cmap[faithful].kind]
+    add(_render(fai, rng, cmap[faithful], verbs), "FAITHFUL_RELAY",
+        faithful, (source_of[faithful],), True)
+
+    _, _, cor, _, _ = banks[cmap[corrupted].kind]
+    add(_render(cor, rng, cmap[corrupted], verbs), "CORRUPTED_RELAY",
+        corrupted, (source_of[corrupted],), False)
+
+    _, _, cor2, rec, _ = banks[cmap[recovered].kind]
+    add(_render(cor2, rng, cmap[recovered], verbs), "CORRUPTED_RELAY",
+        recovered, (source_of[recovered],), False)
+    corrupt_of_recovered = messages[-1].msg_id
+
+    add(rng.choice(dom["noise"]), "DISTRACTOR")
+
+    add(_render(rec, rng, cmap[recovered], verbs), "RECOVERY",
+        recovered, (corrupt_of_recovered, source_of[recovered]), True)
+
+    _, _, _, _, sup = banks[cmap[superseded].kind]
+    add(_render(sup, rng, cmap[superseded], verbs), "SUPERSESSION",
+        superseded, (source_of[superseded],), True)
+
+    return Instance(
+        id=f"{domain}-{graph}", domain=domain, graph=graph, seed=seed,
+        setting=dom["setting"], actions=tuple(idents), constraints=constraints,
+        superseded=frozenset({superseded}), messages=tuple(messages),
+    )
+
+
+def all_instances():
+    """All 36. Order is fixed and deterministic."""
+    return [generate_instance(d, g) for d in DOMAINS for g in GRAPHS]
+
+
+# ---------------------------------------------------- exposure conditions ----
+# Which lineage classes reach the model. Presence is CONTROLLED here rather than
+# left to a selector, so a decision failure cannot be a retrieval failure in
+# disguise.
+
+EXPOSURES = {
+    "source_only":      ("SOURCE", "DISTRACTOR"),
+    "corruption_only":  ("CORRUPTED_RELAY", "DISTRACTOR"),
+    "both":             ("SOURCE", "CORRUPTED_RELAY", "DISTRACTOR"),
+    "neither":          ("DISTRACTOR",),
+    "supersession":     ("SOURCE", "SUPERSESSION", "DISTRACTOR"),
+    # Needed to measure recovery_rate at all; not one of the five paired
+    # conditions, and reported separately.
+    "both_recovery":    ("SOURCE", "CORRUPTED_RELAY", "RECOVERY", "DISTRACTOR"),
+}
+
+
+def expose(instance: Instance, condition: str):
+    """The messages a model sees under `condition`, in original order."""
+    keep = EXPOSURES[condition]
+    return [m for m in instance.messages if m.lineage in keep]
+
+
+def render_dialogue(messages) -> str:
+    """The visible transcript. Carries no lineage or constraint metadata."""
+    return "\n".join(f"{m.speaker}: {m.text}" for m in messages)
+
+
+def plan_instruction(instance: Instance) -> str:
+    """The only place a model sees the action vocabulary."""
+    return (
+        "Write the final plan now, as JSON and nothing else.\n\n"
+        'Format: {"actions": [...], "ready": true}\n\n'
+        "`actions` is the ordered list of steps to carry out, using only these "
+        "identifiers:\n  " + "  ".join(instance.actions) + "\n\n"
+        "`ready` is true if you consider the plan safe to execute as written.\n"
+        "Include only the steps this case actually needs, in an order that "
+        "respects everything established in the discussion."
+    )

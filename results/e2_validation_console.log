@@ -1,0 +1,50 @@
+=== E2 validation gate: 6 instances x 3 conditions = 18 model calls ===
+    model llama3.2:3b, temperature 0, exposure controlled directly (no selectors)
+
+  payments-chain       source_only      recall 1.0    viol -        corr 0/0 sup None  6.66s
+  payments-chain       corruption_only  recall 0.4    viol K1|K2|K3 corr 1/2 sup None  2.33s
+  payments-chain       supersession     recall 1.0    viol -        corr 0/0 sup 1.0   2.35s
+  robotics-fork        source_only      recall 1.0    viol -        corr 0/0 sup None  2.39s
+  robotics-fork        corruption_only  recall 0.1667 viol K1|K2|K3|K4|K5 corr 2/2 sup None  2.3s
+  robotics-fork        supersession     recall 1.0    viol -        corr 0/0 sup 1.0   2.37s
+  pharmacy-join        source_only      recall 1.0    viol -        corr 0/0 sup None  2.37s
+  pharmacy-join        corruption_only  recall 0.5    viol K1|K2|K3 corr 0/2 sup None  2.23s
+  pharmacy-join        supersession     recall 0.6667 viol K2|K5    corr 0/0 sup 1.0   2.32s
+  satellite-diamond    source_only      recall 1.0    viol -        corr 0/0 sup None  2.38s
+  satellite-diamond    corruption_only  recall 0.5714 viol K2|K5|K8 corr 2/2 sup None  2.38s
+  satellite-diamond    supersession     recall 1.0    viol -        corr 0/0 sup 1.0   2.35s
+  brewery-twochain     source_only      recall 1.0    viol -        corr 0/0 sup None  2.39s
+  brewery-twochain     corruption_only  recall 0.5    viol K1|K2|K7 corr 2/2 sup None  2.34s
+  brewery-twochain     supersession     recall 0.6667 viol K5|K6    corr 0/0 sup 1.0   2.38s
+  rail-gated           source_only      recall 1.0    viol -        corr 0/0 sup None  2.35s
+  rail-gated           corruption_only  recall 0.5714 viol K4|K6|K7 corr 1/2 sup None  2.35s
+  rail-gated           supersession     recall 0.4286 viol K1|K3|K4|K5 corr 0/0 sup 1.0   2.34s
+
+=== raw per-instance results ===
+  instance           graph     condition        n_constraints  parsed  retries  constraint_recall  violated        success  unknown_actions  n_actions  corruption_eligible  corruption_adopted  corruption_rate  supersession_eligible  supersession_rate  direct_source_util  direct_source_n  seconds  prompt_tokens
+  payments-chain     chain     source_only      6              True    0        1.0                                True     0                5          0                    0                   None             0                      None               1.0                 5                6.66     311          
+  payments-chain     chain     corruption_only  6              True    0        0.4                K1|K2|K3        False    1                5          2                    1                   0.5              0                      None               None                0                2.33     239          
+  payments-chain     chain     supersession     6              True    0        1.0                                True     1                5          0                    0                   None             1                      1.0                1.0                 5                2.35     340          
+  robotics-fork      fork      source_only      7              True    0        1.0                                True     0                5          0                    0                   None             0                      None               1.0                 6                2.39     326          
+  robotics-fork      fork      corruption_only  7              True    0        0.1667             K1|K2|K3|K4|K5  False    0                5          2                    2                   1.0              0                      None               None                0                2.3      238          
+  robotics-fork      fork      supersession     7              True    0        1.0                                True     0                5          0                    0                   None             1                      1.0                1.0                 6                2.37     356          
+  pharmacy-join      join      source_only      7              True    0        1.0                                True     0                5          0                    0                   None             0                      None               1.0                 6                2.37     319          
+  pharmacy-join      join      corruption_only  7              True    0        0.5                K1|K2|K3        False    0                3          2                    0                   0.0              0                      None               None                0                2.23     232          
+  pharmacy-join      join      supersession     7              True    0        0.6667             K2|K5           False    0                4          0                    0                   None             1                      1.0                0.6667              6                2.32     342          
+  satellite-diamond  diamond   source_only      8              True    0        1.0                                True     0                5          0                    0                   None             0                      None               1.0                 7                2.38     381          
+  satellite-diamond  diamond   corruption_only  8              True    0        0.5714             K2|K5|K8        False    0                5          2                    2                   1.0              0                      None               None                0                2.38     244          
+  satellite-diamond  diamond   supersession     8              True    0        1.0                                True     0                5          0                    0                   None             1                      1.0                1.0                 7                2.35     414          
+  brewery-twochain   twochain  source_only      7              True    0        1.0                                True     0                6          0                    0                   None             0                      None               1.0                 6                2.39     318          
+  brewery-twochain   twochain  corruption_only  7              True    0        0.5                K1|K2|K7        False    0                4          2                    2                   1.0              0                      None               None                0                2.34     238          
+  brewery-twochain   twochain  supersession     7              True    0        0.6667             K5|K6           False    0                5          0                    0                   None             1                      1.0                0.6667              6                2.38     339          
+  rail-gated         gated     source_only      8              True    0        1.0                                True     0                5          0                    0                   None             0                      None               1.0                 7                2.35     322          
+  rail-gated         gated     corruption_only  8              True    0        0.5714             K4|K6|K7        False    0                5          2                    1                   0.5              0                      None               None                0                2.35     227          
+  rail-gated         gated     supersession     8              True    0        0.4286             K1|K3|K4|K5     False    0                4          0                    0                   None             1                      1.0                0.4286              7                2.34     344          
+
+=== gate readings (raw, no claims) ===
+  source_only      parsed 6/6  mean recall 1.0000  success 6/6
+  corruption_only  parsed 6/6  mean recall 0.4516  success 0/6  corruption adopted 8/12
+  supersession     parsed 6/6  mean recall 0.7937  success 3/6  supersession respected 6/6
+
+Raw readings only. No gate verdict is asserted here -- the three questions above are for review.
+wrote results/e2_validation_runs.csv and e2_validation_detail.json

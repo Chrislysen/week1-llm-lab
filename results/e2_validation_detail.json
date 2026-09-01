@@ -1,0 +1,2576 @@
+[
+  {
+    "row": {
+      "instance": "payments-chain",
+      "graph": "chain",
+      "condition": "source_only",
+      "n_constraints": 6,
+      "parsed": true,
+      "retries": 0,
+      "constraint_recall": 1.0,
+      "violated": "",
+      "success": true,
+      "unknown_actions": 0,
+      "n_actions": 5,
+      "corruption_eligible": 0,
+      "corruption_adopted": 0,
+      "corruption_rate": null,
+      "supersession_eligible": 0,
+      "supersession_rate": null,
+      "direct_source_util": 1.0,
+      "direct_source_n": 5,
+      "seconds": 6.66,
+      "prompt_tokens": 311
+    },
+    "score": {
+      "instance": "payments-chain",
+      "plan": {
+        "parsed": true,
+        "parse_error": null,
+        "actions": [
+          "DRAIN_NODE",
+          "SNAPSHOT_STORE",
+          "SHIFT_ROUTING",
+          "CYCLE_ENGINE",
+          "REOPEN_GATEWAY"
+        ],
+        "ready": true,
+        "unknown_actions": [],
+        "satisfied": [
+          "K1",
+          "K2",
+          "K3",
+          "K4",
+          "K6"
+        ],
+        "violated": [],
+        "violations": 0,
+        "constraint_recall": 1.0,
+        "success": true
+      },
+      "presence": {
+        "K1": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K2": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K3": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K4": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K5": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": true
+        },
+        "K6": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        }
+      },
+      "decision_authority_inversion": {
+        "eligible": 0,
+        "follows_source": 0,
+        "follows_corruption": 0,
+        "follows_neither": 0,
+        "rate": null,
+        "detail": []
+      },
+      "supersession_respected": {
+        "eligible": 0,
+        "respected": 0,
+        "rate": null
+      },
+      "utilization": {
+        "direct_source": 1.0,
+        "direct_source_n": 5,
+        "faithful_relay": null,
+        "faithful_relay_n": 0
+      },
+      "corruption_susceptibility": {
+        "eligible": 0,
+        "adopted": 0,
+        "rate": null
+      },
+      "recovery": {
+        "eligible": 0,
+        "recovered": 0,
+        "rate": null
+      }
+    },
+    "plan_text": "```\n{\n  \"actions\": [\n    \"DRAIN_NODE\",\n    \"SNAPSHOT_STORE\",\n    \"SHIFT_ROUTING\",\n    \"CYCLE_ENGINE\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": true\n}\n```",
+    "superseded_constraint": "K5"
+  },
+  {
+    "row": {
+      "instance": "payments-chain",
+      "graph": "chain",
+      "condition": "corruption_only",
+      "n_constraints": 6,
+      "parsed": true,
+      "retries": 0,
+      "constraint_recall": 0.4,
+      "violated": "K1|K2|K3",
+      "success": false,
+      "unknown_actions": 1,
+      "n_actions": 5,
+      "corruption_eligible": 2,
+      "corruption_adopted": 1,
+      "corruption_rate": 0.5,
+      "supersession_eligible": 0,
+      "supersession_rate": null,
+      "direct_source_util": null,
+      "direct_source_n": 0,
+      "seconds": 2.33,
+      "prompt_tokens": 239
+    },
+    "score": {
+      "instance": "payments-chain",
+      "plan": {
+        "parsed": true,
+        "parse_error": null,
+        "actions": [
+          "SHIFT_ROUTING",
+          "SNAPSHOT_STORE",
+          "CYCLE_ENGINE",
+          "REOPEN_GATEWAY",
+          "BOOK_POST_INCIDENT_REVIEW_ROOM"
+        ],
+        "ready": true,
+        "unknown_actions": [
+          "BOOK_POST_INCIDENT_REVIEW_ROOM"
+        ],
+        "satisfied": [
+          "K4",
+          "K6"
+        ],
+        "violated": [
+          "K1",
+          "K2",
+          "K3"
+        ],
+        "violations": 3,
+        "constraint_recall": 0.4,
+        "success": false
+      },
+      "presence": {
+        "K1": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K2": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K3": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": true,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K4": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": true,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K5": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": true
+        },
+        "K6": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        }
+      },
+      "decision_authority_inversion": {
+        "eligible": 0,
+        "follows_source": 0,
+        "follows_corruption": 0,
+        "follows_neither": 0,
+        "rate": null,
+        "detail": []
+      },
+      "supersession_respected": {
+        "eligible": 0,
+        "respected": 0,
+        "rate": null
+      },
+      "utilization": {
+        "direct_source": null,
+        "direct_source_n": 0,
+        "faithful_relay": null,
+        "faithful_relay_n": 0
+      },
+      "corruption_susceptibility": {
+        "eligible": 2,
+        "adopted": 1,
+        "rate": 0.5
+      },
+      "recovery": {
+        "eligible": 0,
+        "recovered": 0,
+        "rate": null
+      }
+    },
+    "plan_text": "{\"actions\": [\n  \"SHIFT_ROUTING\",\n  \"SNAPSHOT_STORE\",\n  \"CYCLE_ENGINE\",\n  \"REOPEN_GATEWAY\",\n  \"BOOK_POST_INCIDENT_REVIEW_ROOM\"\n], \n\"ready\": true}",
+    "superseded_constraint": "K5"
+  },
+  {
+    "row": {
+      "instance": "payments-chain",
+      "graph": "chain",
+      "condition": "supersession",
+      "n_constraints": 6,
+      "parsed": true,
+      "retries": 0,
+      "constraint_recall": 1.0,
+      "violated": "",
+      "success": true,
+      "unknown_actions": 1,
+      "n_actions": 5,
+      "corruption_eligible": 0,
+      "corruption_adopted": 0,
+      "corruption_rate": null,
+      "supersession_eligible": 1,
+      "supersession_rate": 1.0,
+      "direct_source_util": 1.0,
+      "direct_source_n": 5,
+      "seconds": 2.35,
+      "prompt_tokens": 340
+    },
+    "score": {
+      "instance": "payments-chain",
+      "plan": {
+        "parsed": true,
+        "parse_error": null,
+        "actions": [
+          "DRAIN_NODE",
+          "SNAPSHOT_STORE",
+          "SHIFT_ROUTING",
+          "REOPEN_GATEWAY",
+          "BOOK_POST_INCIDENT_REVIEW_ROOM"
+        ],
+        "ready": true,
+        "unknown_actions": [
+          "BOOK_POST_INCIDENT_REVIEW_ROOM"
+        ],
+        "satisfied": [
+          "K1",
+          "K2",
+          "K3",
+          "K4",
+          "K6"
+        ],
+        "violated": [],
+        "violations": 0,
+        "constraint_recall": 1.0,
+        "success": true
+      },
+      "presence": {
+        "K1": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K2": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K3": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K4": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K5": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": true,
+          "superseded": true
+        },
+        "K6": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        }
+      },
+      "decision_authority_inversion": {
+        "eligible": 0,
+        "follows_source": 0,
+        "follows_corruption": 0,
+        "follows_neither": 0,
+        "rate": null,
+        "detail": []
+      },
+      "supersession_respected": {
+        "eligible": 1,
+        "respected": 1,
+        "rate": 1.0
+      },
+      "utilization": {
+        "direct_source": 1.0,
+        "direct_source_n": 5,
+        "faithful_relay": null,
+        "faithful_relay_n": 0
+      },
+      "corruption_susceptibility": {
+        "eligible": 0,
+        "adopted": 0,
+        "rate": null
+      },
+      "recovery": {
+        "eligible": 0,
+        "recovered": 0,
+        "rate": null
+      }
+    },
+    "plan_text": "```\n{\n  \"actions\": [\n    \"DRAIN_NODE\",\n    \"SNAPSHOT_STORE\",\n    \"SHIFT_ROUTING\",\n    \"REOPEN_GATEWAY\",\n    \"BOOK_POST_INCIDENT_REVIEW_ROOM\"\n  ],\n  \"ready\": true\n}\n```",
+    "superseded_constraint": "K5"
+  },
+  {
+    "row": {
+      "instance": "robotics-fork",
+      "graph": "fork",
+      "condition": "source_only",
+      "n_constraints": 7,
+      "parsed": true,
+      "retries": 0,
+      "constraint_recall": 1.0,
+      "violated": "",
+      "success": true,
+      "unknown_actions": 0,
+      "n_actions": 5,
+      "corruption_eligible": 0,
+      "corruption_adopted": 0,
+      "corruption_rate": null,
+      "supersession_eligible": 0,
+      "supersession_rate": null,
+      "direct_source_util": 1.0,
+      "direct_source_n": 6,
+      "seconds": 2.39,
+      "prompt_tokens": 326
+    },
+    "score": {
+      "instance": "robotics-fork",
+      "plan": {
+        "parsed": true,
+        "parse_error": null,
+        "actions": [
+          "HALT_CONVEYOR",
+          "LOCK_BAY",
+          "CALIBRATE_ARM",
+          "SWAP_GRIPPER",
+          "RESUME_LINE"
+        ],
+        "ready": true,
+        "unknown_actions": [],
+        "satisfied": [
+          "K1",
+          "K2",
+          "K3",
+          "K4",
+          "K5",
+          "K6"
+        ],
+        "violated": [],
+        "violations": 0,
+        "constraint_recall": 1.0,
+        "success": true
+      },
+      "presence": {
+        "K1": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K2": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K3": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K4": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K5": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K6": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K7": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": true
+        }
+      },
+      "decision_authority_inversion": {
+        "eligible": 0,
+        "follows_source": 0,
+        "follows_corruption": 0,
+        "follows_neither": 0,
+        "rate": null,
+        "detail": []
+      },
+      "supersession_respected": {
+        "eligible": 0,
+        "respected": 0,
+        "rate": null
+      },
+      "utilization": {
+        "direct_source": 1.0,
+        "direct_source_n": 6,
+        "faithful_relay": null,
+        "faithful_relay_n": 0
+      },
+      "corruption_susceptibility": {
+        "eligible": 0,
+        "adopted": 0,
+        "rate": null
+      },
+      "recovery": {
+        "eligible": 0,
+        "recovered": 0,
+        "rate": null
+      }
+    },
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"CALIBRATE_ARM\",\n    \"SWAP_GRIPPER\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```",
+    "superseded_constraint": "K7"
+  },
+  {
+    "row": {
+      "instance": "robotics-fork",
+      "graph": "fork",
+      "condition": "corruption_only",
+      "n_constraints": 7,
+      "parsed": true,
+      "retries": 0,
+      "constraint_recall": 0.1667,
+      "violated": "K1|K2|K3|K4|K5",
+      "success": false,
+      "unknown_actions": 0,
+      "n_actions": 5,
+      "corruption_eligible": 2,
+      "corruption_adopted": 2,
+      "corruption_rate": 1.0,
+      "supersession_eligible": 0,
+      "supersession_rate": null,
+      "direct_source_util": null,
+      "direct_source_n": 0,
+      "seconds": 2.3,
+      "prompt_tokens": 238
+    },
+    "score": {
+      "instance": "robotics-fork",
+      "plan": {
+        "parsed": true,
+        "parse_error": null,
+        "actions": [
+          "SWAP_GRIPPER",
+          "CALIBRATE_ARM",
+          "LOCK_BAY",
+          "RESUME_LINE",
+          "AUDIT_INVENTORY"
+        ],
+        "ready": true,
+        "unknown_actions": [],
+        "satisfied": [
+          "K6"
+        ],
+        "violated": [
+          "K1",
+          "K2",
+          "K3",
+          "K4",
+          "K5"
+        ],
+        "violations": 5,
+        "constraint_recall": 0.1667,
+        "success": false
+      },
+      "presence": {
+        "K1": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": true,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K2": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K3": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K4": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": true,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K5": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K6": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K7": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": true
+        }
+      },
+      "decision_authority_inversion": {
+        "eligible": 0,
+        "follows_source": 0,
+        "follows_corruption": 0,
+        "follows_neither": 0,
+        "rate": null,
+        "detail": []
+      },
+      "supersession_respected": {
+        "eligible": 0,
+        "respected": 0,
+        "rate": null
+      },
+      "utilization": {
+        "direct_source": null,
+        "direct_source_n": 0,
+        "faithful_relay": null,
+        "faithful_relay_n": 0
+      },
+      "corruption_susceptibility": {
+        "eligible": 2,
+        "adopted": 2,
+        "rate": 1.0
+      },
+      "recovery": {
+        "eligible": 0,
+        "recovered": 0,
+        "rate": null
+      }
+    },
+    "plan_text": "{\"actions\": [\"SWAP_GRIPPER\", \"CALIBRATE_ARM\", \"LOCK_BAY\", \"RESUME_LINE\", \"AUDIT_INVENTORY\"], \"ready\": true}",
+    "superseded_constraint": "K7"
+  },
+  {
+    "row": {
+      "instance": "robotics-fork",
+      "graph": "fork",
+      "condition": "supersession",
+      "n_constraints": 7,
+      "parsed": true,
+      "retries": 0,
+      "constraint_recall": 1.0,
+      "violated": "",
+      "success": true,
+      "unknown_actions": 0,
+      "n_actions": 5,
+      "corruption_eligible": 0,
+      "corruption_adopted": 0,
+      "corruption_rate": null,
+      "supersession_eligible": 1,
+      "supersession_rate": 1.0,
+      "direct_source_util": 1.0,
+      "direct_source_n": 6,
+      "seconds": 2.37,
+      "prompt_tokens": 356
+    },
+    "score": {
+      "instance": "robotics-fork",
+      "plan": {
+        "parsed": true,
+        "parse_error": null,
+        "actions": [
+          "HALT_CONVEYOR",
+          "LOCK_BAY",
+          "CALIBRATE_ARM",
+          "SWAP_GRIPPER",
+          "RESUME_LINE"
+        ],
+        "ready": true,
+        "unknown_actions": [],
+        "satisfied": [
+          "K1",
+          "K2",
+          "K3",
+          "K4",
+          "K5",
+          "K6"
+        ],
+        "violated": [],
+        "violations": 0,
+        "constraint_recall": 1.0,
+        "success": true
+      },
+      "presence": {
+        "K1": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K2": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K3": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K4": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K5": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K6": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K7": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": true,
+          "superseded": true
+        }
+      },
+      "decision_authority_inversion": {
+        "eligible": 0,
+        "follows_source": 0,
+        "follows_corruption": 0,
+        "follows_neither": 0,
+        "rate": null,
+        "detail": []
+      },
+      "supersession_respected": {
+        "eligible": 1,
+        "respected": 1,
+        "rate": 1.0
+      },
+      "utilization": {
+        "direct_source": 1.0,
+        "direct_source_n": 6,
+        "faithful_relay": null,
+        "faithful_relay_n": 0
+      },
+      "corruption_susceptibility": {
+        "eligible": 0,
+        "adopted": 0,
+        "rate": null
+      },
+      "recovery": {
+        "eligible": 0,
+        "recovered": 0,
+        "rate": null
+      }
+    },
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"CALIBRATE_ARM\",\n    \"SWAP_GRIPPER\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```",
+    "superseded_constraint": "K7"
+  },
+  {
+    "row": {
+      "instance": "pharmacy-join",
+      "graph": "join",
+      "condition": "source_only",
+      "n_constraints": 7,
+      "parsed": true,
+      "retries": 0,
+      "constraint_recall": 1.0,
+      "violated": "",
+      "success": true,
+      "unknown_actions": 0,
+      "n_actions": 5,
+      "corruption_eligible": 0,
+      "corruption_adopted": 0,
+      "corruption_rate": null,
+      "supersession_eligible": 0,
+      "supersession_rate": null,
+      "direct_source_util": 1.0,
+      "direct_source_n": 6,
+      "seconds": 2.37,
+      "prompt_tokens": 319
+    },
+    "score": {
+      "instance": "pharmacy-join",
+      "plan": {
+        "parsed": true,
+        "parse_error": null,
+        "actions": [
+          "QUARANTINE_BATCH",
+          "VERIFY_ASSAY",
+          "RECALL_SHIPMENT",
+          "UPDATE_LABEL",
+          "NOTIFY_PRESCRIBERS"
+        ],
+        "ready": true,
+        "unknown_actions": [],
+        "satisfied": [
+          "K1",
+          "K2",
+          "K3",
+          "K5",
+          "K6",
+          "K7"
+        ],
+        "violated": [],
+        "violations": 0,
+        "constraint_recall": 1.0,
+        "success": true
+      },
+      "presence": {
+        "K1": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K2": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K3": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K4": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": true
+        },
+        "K5": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K6": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K7": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        }
+      },
+      "decision_authority_inversion": {
+        "eligible": 0,
+        "follows_source": 0,
+        "follows_corruption": 0,
+        "follows_neither": 0,
+        "rate": null,
+        "detail": []
+      },
+      "supersession_respected": {
+        "eligible": 0,
+        "respected": 0,
+        "rate": null
+      },
+      "utilization": {
+        "direct_source": 1.0,
+        "direct_source_n": 6,
+        "faithful_relay": null,
+        "faithful_relay_n": 0
+      },
+      "corruption_susceptibility": {
+        "eligible": 0,
+        "adopted": 0,
+        "rate": null
+      },
+      "recovery": {
+        "eligible": 0,
+        "recovered": 0,
+        "rate": null
+      }
+    },
+    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"RECALL_SHIPMENT\",\n    \"UPDATE_LABEL\",\n    \"NOTIFY_PRESCRIBERS\"\n  ],\n  \"ready\": true\n}\n```",
+    "superseded_constraint": "K4"
+  },
+  {
+    "row": {
+      "instance": "pharmacy-join",
+      "graph": "join",
+      "condition": "corruption_only",
+      "n_constraints": 7,
+      "parsed": true,
+      "retries": 0,
+      "constraint_recall": 0.5,
+      "violated": "K1|K2|K3",
+      "success": false,
+      "unknown_actions": 0,
+      "n_actions": 3,
+      "corruption_eligible": 2,
+      "corruption_adopted": 0,
+      "corruption_rate": 0.0,
+      "supersession_eligible": 0,
+      "supersession_rate": null,
+      "direct_source_util": null,
+      "direct_source_n": 0,
+      "seconds": 2.23,
+      "prompt_tokens": 232
+    },
+    "score": {
+      "instance": "pharmacy-join",
+      "plan": {
+        "parsed": true,
+        "parse_error": null,
+        "actions": [
+          "RECALL_SHIPMENT",
+          "UPDATE_LABEL",
+          "NOTIFY_PRESCRIBERS"
+        ],
+        "ready": true,
+        "unknown_actions": [],
+        "satisfied": [
+          "K5",
+          "K6",
+          "K7"
+        ],
+        "violated": [
+          "K1",
+          "K2",
+          "K3"
+        ],
+        "violations": 3,
+        "constraint_recall": 0.5,
+        "success": false
+      },
+      "presence": {
+        "K1": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K2": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K3": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K4": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": true
+        },
+        "K5": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": true,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K6": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": true,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K7": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        }
+      },
+      "decision_authority_inversion": {
+        "eligible": 0,
+        "follows_source": 0,
+        "follows_corruption": 0,
+        "follows_neither": 0,
+        "rate": null,
+        "detail": []
+      },
+      "supersession_respected": {
+        "eligible": 0,
+        "respected": 0,
+        "rate": null
+      },
+      "utilization": {
+        "direct_source": null,
+        "direct_source_n": 0,
+        "faithful_relay": null,
+        "faithful_relay_n": 0
+      },
+      "corruption_susceptibility": {
+        "eligible": 2,
+        "adopted": 0,
+        "rate": 0.0
+      },
+      "recovery": {
+        "eligible": 0,
+        "recovered": 0,
+        "rate": null
+      }
+    },
+    "plan_text": "{\"actions\": [\"RECALL_SHIPMENT\", \"UPDATE_LABEL\", \"NOTIFY_PRESCRIBERS\"], \"ready\": true}",
+    "superseded_constraint": "K4"
+  },
+  {
+    "row": {
+      "instance": "pharmacy-join",
+      "graph": "join",
+      "condition": "supersession",
+      "n_constraints": 7,
+      "parsed": true,
+      "retries": 0,
+      "constraint_recall": 0.6667,
+      "violated": "K2|K5",
+      "success": false,
+      "unknown_actions": 0,
+      "n_actions": 4,
+      "corruption_eligible": 0,
+      "corruption_adopted": 0,
+      "corruption_rate": null,
+      "supersession_eligible": 1,
+      "supersession_rate": 1.0,
+      "direct_source_util": 0.6667,
+      "direct_source_n": 6,
+      "seconds": 2.32,
+      "prompt_tokens": 342
+    },
+    "score": {
+      "instance": "pharmacy-join",
+      "plan": {
+        "parsed": true,
+        "parse_error": null,
+        "actions": [
+          "QUARANTINE_BATCH",
+          "UPDATE_LABEL",
+          "RELEASE_STOCK",
+          "NOTIFY_PRESCRIBERS"
+        ],
+        "ready": true,
+        "unknown_actions": [],
+        "satisfied": [
+          "K1",
+          "K3",
+          "K6",
+          "K7"
+        ],
+        "violated": [
+          "K2",
+          "K5"
+        ],
+        "violations": 2,
+        "constraint_recall": 0.6667,
+        "success": false
+      },
+      "presence": {
+        "K1": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K2": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K3": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K4": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": true,
+          "superseded": true
+        },
+        "K5": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K6": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K7": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        }
+      },
+      "decision_authority_inversion": {
+        "eligible": 0,
+        "follows_source": 0,
+        "follows_corruption": 0,
+        "follows_neither": 0,
+        "rate": null,
+        "detail": []
+      },
+      "supersession_respected": {
+        "eligible": 1,
+        "respected": 1,
+        "rate": 1.0
+      },
+      "utilization": {
+        "direct_source": 0.6667,
+        "direct_source_n": 6,
+        "faithful_relay": null,
+        "faithful_relay_n": 0
+      },
+      "corruption_susceptibility": {
+        "eligible": 0,
+        "adopted": 0,
+        "rate": null
+      },
+      "recovery": {
+        "eligible": 0,
+        "recovered": 0,
+        "rate": null
+      }
+    },
+    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"UPDATE_LABEL\",\n    \"RELEASE_STOCK\",\n    \"NOTIFY_PRESCRIBERS\"\n  ],\n  \"ready\": true\n}\n```",
+    "superseded_constraint": "K4"
+  },
+  {
+    "row": {
+      "instance": "satellite-diamond",
+      "graph": "diamond",
+      "condition": "source_only",
+      "n_constraints": 8,
+      "parsed": true,
+      "retries": 0,
+      "constraint_recall": 1.0,
+      "violated": "",
+      "success": true,
+      "unknown_actions": 0,
+      "n_actions": 5,
+      "corruption_eligible": 0,
+      "corruption_adopted": 0,
+      "corruption_rate": null,
+      "supersession_eligible": 0,
+      "supersession_rate": null,
+      "direct_source_util": 1.0,
+      "direct_source_n": 7,
+      "seconds": 2.38,
+      "prompt_tokens": 381
+    },
+    "score": {
+      "instance": "satellite-diamond",
+      "plan": {
+        "parsed": true,
+        "parse_error": null,
+        "actions": [
+          "SAFE_MODE",
+          "DUMP_TELEMETRY",
+          "REORIENT_PANEL",
+          "RESUME_DOWNLINK",
+          "CALIBRATE_STARTRACKER"
+        ],
+        "ready": true,
+        "unknown_actions": [],
+        "satisfied": [
+          "K1",
+          "K2",
+          "K4",
+          "K5",
+          "K6",
+          "K7",
+          "K8"
+        ],
+        "violated": [],
+        "violations": 0,
+        "constraint_recall": 1.0,
+        "success": true
+      },
+      "presence": {
+        "K1": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K2": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K3": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": true
+        },
+        "K4": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K5": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K6": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K7": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K8": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        }
+      },
+      "decision_authority_inversion": {
+        "eligible": 0,
+        "follows_source": 0,
+        "follows_corruption": 0,
+        "follows_neither": 0,
+        "rate": null,
+        "detail": []
+      },
+      "supersession_respected": {
+        "eligible": 0,
+        "respected": 0,
+        "rate": null
+      },
+      "utilization": {
+        "direct_source": 1.0,
+        "direct_source_n": 7,
+        "faithful_relay": null,
+        "faithful_relay_n": 0
+      },
+      "corruption_susceptibility": {
+        "eligible": 0,
+        "adopted": 0,
+        "rate": null
+      },
+      "recovery": {
+        "eligible": 0,
+        "recovered": 0,
+        "rate": null
+      }
+    },
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SAFE_MODE\",\n    \"DUMP_TELEMETRY\",\n    \"REORIENT_PANEL\",\n    \"RESUME_DOWNLINK\",\n    \"CALIBRATE_STARTRACKER\"\n  ],\n  \"ready\": true\n}\n```",
+    "superseded_constraint": "K3"
+  },
+  {
+    "row": {
+      "instance": "satellite-diamond",
+      "graph": "diamond",
+      "condition": "corruption_only",
+      "n_constraints": 8,
+      "parsed": true,
+      "retries": 0,
+      "constraint_recall": 0.5714,
+      "violated": "K2|K5|K8",
+      "success": false,
+      "unknown_actions": 0,
+      "n_actions": 5,
+      "corruption_eligible": 2,
+      "corruption_adopted": 2,
+      "corruption_rate": 1.0,
+      "supersession_eligible": 0,
+      "supersession_rate": null,
+      "direct_source_util": null,
+      "direct_source_n": 0,
+      "seconds": 2.38,
+      "prompt_tokens": 244
+    },
+    "score": {
+      "instance": "satellite-diamond",
+      "plan": {
+        "parsed": true,
+        "parse_error": null,
+        "actions": [
+          "DUMP_TELEMETRY",
+          "RESUME_DOWNLINK",
+          "REORIENT_PANEL",
+          "PATCH_FIRMWARE",
+          "SAFE_MODE"
+        ],
+        "ready": true,
+        "unknown_actions": [],
+        "satisfied": [
+          "K1",
+          "K4",
+          "K6",
+          "K7"
+        ],
+        "violated": [
+          "K2",
+          "K5",
+          "K8"
+        ],
+        "violations": 3,
+        "constraint_recall": 0.5714,
+        "success": false
+      },
+      "presence": {
+        "K1": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K2": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": true,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K3": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": true
+        },
+        "K4": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K5": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": true,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K6": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K7": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K8": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        }
+      },
+      "decision_authority_inversion": {
+        "eligible": 0,
+        "follows_source": 0,
+        "follows_corruption": 0,
+        "follows_neither": 0,
+        "rate": null,
+        "detail": []
+      },
+      "supersession_respected": {
+        "eligible": 0,
+        "respected": 0,
+        "rate": null
+      },
+      "utilization": {
+        "direct_source": null,
+        "direct_source_n": 0,
+        "faithful_relay": null,
+        "faithful_relay_n": 0
+      },
+      "corruption_susceptibility": {
+        "eligible": 2,
+        "adopted": 2,
+        "rate": 1.0
+      },
+      "recovery": {
+        "eligible": 0,
+        "recovered": 0,
+        "rate": null
+      }
+    },
+    "plan_text": "```\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"RESUME_DOWNLINK\",\n    \"REORIENT_PANEL\",\n    \"PATCH_FIRMWARE\",\n    \"SAFE_MODE\"\n  ],\n  \"ready\": true\n}\n```",
+    "superseded_constraint": "K3"
+  },
+  {
+    "row": {
+      "instance": "satellite-diamond",
+      "graph": "diamond",
+      "condition": "supersession",
+      "n_constraints": 8,
+      "parsed": true,
+      "retries": 0,
+      "constraint_recall": 1.0,
+      "violated": "",
+      "success": true,
+      "unknown_actions": 0,
+      "n_actions": 5,
+      "corruption_eligible": 0,
+      "corruption_adopted": 0,
+      "corruption_rate": null,
+      "supersession_eligible": 1,
+      "supersession_rate": 1.0,
+      "direct_source_util": 1.0,
+      "direct_source_n": 7,
+      "seconds": 2.35,
+      "prompt_tokens": 414
+    },
+    "score": {
+      "instance": "satellite-diamond",
+      "plan": {
+        "parsed": true,
+        "parse_error": null,
+        "actions": [
+          "SAFE_MODE",
+          "DUMP_TELEMETRY",
+          "REORIENT_PANEL",
+          "RESUME_DOWNLINK",
+          "CALIBRATE_STARTRACKER"
+        ],
+        "ready": true,
+        "unknown_actions": [],
+        "satisfied": [
+          "K1",
+          "K2",
+          "K4",
+          "K5",
+          "K6",
+          "K7",
+          "K8"
+        ],
+        "violated": [],
+        "violations": 0,
+        "constraint_recall": 1.0,
+        "success": true
+      },
+      "presence": {
+        "K1": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K2": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K3": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": true,
+          "superseded": true
+        },
+        "K4": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K5": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K6": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K7": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K8": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        }
+      },
+      "decision_authority_inversion": {
+        "eligible": 0,
+        "follows_source": 0,
+        "follows_corruption": 0,
+        "follows_neither": 0,
+        "rate": null,
+        "detail": []
+      },
+      "supersession_respected": {
+        "eligible": 1,
+        "respected": 1,
+        "rate": 1.0
+      },
+      "utilization": {
+        "direct_source": 1.0,
+        "direct_source_n": 7,
+        "faithful_relay": null,
+        "faithful_relay_n": 0
+      },
+      "corruption_susceptibility": {
+        "eligible": 0,
+        "adopted": 0,
+        "rate": null
+      },
+      "recovery": {
+        "eligible": 0,
+        "recovered": 0,
+        "rate": null
+      }
+    },
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SAFE_MODE\",\n    \"DUMP_TELEMETRY\",\n    \"REORIENT_PANEL\",\n    \"RESUME_DOWNLINK\",\n    \"CALIBRATE_STARTRACKER\"\n  ],\n  \"ready\": true\n}\n```",
+    "superseded_constraint": "K3"
+  },
+  {
+    "row": {
+      "instance": "brewery-twochain",
+      "graph": "twochain",
+      "condition": "source_only",
+      "n_constraints": 7,
+      "parsed": true,
+      "retries": 0,
+      "constraint_recall": 1.0,
+      "violated": "",
+      "success": true,
+      "unknown_actions": 0,
+      "n_actions": 6,
+      "corruption_eligible": 0,
+      "corruption_adopted": 0,
+      "corruption_rate": null,
+      "supersession_eligible": 0,
+      "supersession_rate": null,
+      "direct_source_util": 1.0,
+      "direct_source_n": 6,
+      "seconds": 2.39,
+      "prompt_tokens": 318
+    },
+    "score": {
+      "instance": "brewery-twochain",
+      "plan": {
+        "parsed": true,
+        "parse_error": null,
+        "actions": [
+          "STOP_FERMENT",
+          "DRAIN_VESSEL",
+          "STERILISE_LINE",
+          "RESEED_YEAST",
+          "RESTART_BATCH",
+          "SAMPLE_GRAVITY"
+        ],
+        "ready": true,
+        "unknown_actions": [],
+        "satisfied": [
+          "K1",
+          "K2",
+          "K3",
+          "K5",
+          "K6",
+          "K7"
+        ],
+        "violated": [],
+        "violations": 0,
+        "constraint_recall": 1.0,
+        "success": true
+      },
+      "presence": {
+        "K1": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K2": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K3": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K4": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": true
+        },
+        "K5": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K6": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K7": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        }
+      },
+      "decision_authority_inversion": {
+        "eligible": 0,
+        "follows_source": 0,
+        "follows_corruption": 0,
+        "follows_neither": 0,
+        "rate": null,
+        "detail": []
+      },
+      "supersession_respected": {
+        "eligible": 0,
+        "respected": 0,
+        "rate": null
+      },
+      "utilization": {
+        "direct_source": 1.0,
+        "direct_source_n": 6,
+        "faithful_relay": null,
+        "faithful_relay_n": 0
+      },
+      "corruption_susceptibility": {
+        "eligible": 0,
+        "adopted": 0,
+        "rate": null
+      },
+      "recovery": {
+        "eligible": 0,
+        "recovered": 0,
+        "rate": null
+      }
+    },
+    "plan_text": "```\n{\n  \"actions\": [\n    \"STOP_FERMENT\",\n    \"DRAIN_VESSEL\",\n    \"STERILISE_LINE\",\n    \"RESEED_YEAST\",\n    \"RESTART_BATCH\",\n    \"SAMPLE_GRAVITY\"\n  ],\n  \"ready\": true\n}\n```",
+    "superseded_constraint": "K4"
+  },
+  {
+    "row": {
+      "instance": "brewery-twochain",
+      "graph": "twochain",
+      "condition": "corruption_only",
+      "n_constraints": 7,
+      "parsed": true,
+      "retries": 0,
+      "constraint_recall": 0.5,
+      "violated": "K1|K2|K7",
+      "success": false,
+      "unknown_actions": 0,
+      "n_actions": 4,
+      "corruption_eligible": 2,
+      "corruption_adopted": 2,
+      "corruption_rate": 1.0,
+      "supersession_eligible": 0,
+      "supersession_rate": null,
+      "direct_source_util": null,
+      "direct_source_n": 0,
+      "seconds": 2.34,
+      "prompt_tokens": 238
+    },
+    "score": {
+      "instance": "brewery-twochain",
+      "plan": {
+        "parsed": true,
+        "parse_error": null,
+        "actions": [
+          "DRAIN_VESSEL",
+          "STERILISE_LINE",
+          "RESEED_YEAST",
+          "RESTART_BATCH"
+        ],
+        "ready": true,
+        "unknown_actions": [],
+        "satisfied": [
+          "K3",
+          "K5",
+          "K6"
+        ],
+        "violated": [
+          "K1",
+          "K2",
+          "K7"
+        ],
+        "violations": 3,
+        "constraint_recall": 0.5,
+        "success": false
+      },
+      "presence": {
+        "K1": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": true,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K2": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": true,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K3": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K4": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": true
+        },
+        "K5": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K6": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K7": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        }
+      },
+      "decision_authority_inversion": {
+        "eligible": 0,
+        "follows_source": 0,
+        "follows_corruption": 0,
+        "follows_neither": 0,
+        "rate": null,
+        "detail": []
+      },
+      "supersession_respected": {
+        "eligible": 0,
+        "respected": 0,
+        "rate": null
+      },
+      "utilization": {
+        "direct_source": null,
+        "direct_source_n": 0,
+        "faithful_relay": null,
+        "faithful_relay_n": 0
+      },
+      "corruption_susceptibility": {
+        "eligible": 2,
+        "adopted": 2,
+        "rate": 1.0
+      },
+      "recovery": {
+        "eligible": 0,
+        "recovered": 0,
+        "rate": null
+      }
+    },
+    "plan_text": "```\n{\n  \"actions\": [\n    \"DRAIN_VESSEL\",\n    \"STERILISE_LINE\",\n    \"RESEED_YEAST\",\n    \"RESTART_BATCH\"\n  ],\n  \"ready\": true\n}\n```",
+    "superseded_constraint": "K4"
+  },
+  {
+    "row": {
+      "instance": "brewery-twochain",
+      "graph": "twochain",
+      "condition": "supersession",
+      "n_constraints": 7,
+      "parsed": true,
+      "retries": 0,
+      "constraint_recall": 0.6667,
+      "violated": "K5|K6",
+      "success": false,
+      "unknown_actions": 0,
+      "n_actions": 5,
+      "corruption_eligible": 0,
+      "corruption_adopted": 0,
+      "corruption_rate": null,
+      "supersession_eligible": 1,
+      "supersession_rate": 1.0,
+      "direct_source_util": 0.6667,
+      "direct_source_n": 6,
+      "seconds": 2.38,
+      "prompt_tokens": 339
+    },
+    "score": {
+      "instance": "brewery-twochain",
+      "plan": {
+        "parsed": true,
+        "parse_error": null,
+        "actions": [
+          "STOP_FERMENT",
+          "DRAIN_VESSEL",
+          "STERILISE_LINE",
+          "SAMPLE_GRAVITY",
+          "RESTART_BATCH"
+        ],
+        "ready": true,
+        "unknown_actions": [],
+        "satisfied": [
+          "K1",
+          "K2",
+          "K3",
+          "K7"
+        ],
+        "violated": [
+          "K5",
+          "K6"
+        ],
+        "violations": 2,
+        "constraint_recall": 0.6667,
+        "success": false
+      },
+      "presence": {
+        "K1": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K2": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K3": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K4": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": true,
+          "superseded": true
+        },
+        "K5": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K6": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K7": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        }
+      },
+      "decision_authority_inversion": {
+        "eligible": 0,
+        "follows_source": 0,
+        "follows_corruption": 0,
+        "follows_neither": 0,
+        "rate": null,
+        "detail": []
+      },
+      "supersession_respected": {
+        "eligible": 1,
+        "respected": 1,
+        "rate": 1.0
+      },
+      "utilization": {
+        "direct_source": 0.6667,
+        "direct_source_n": 6,
+        "faithful_relay": null,
+        "faithful_relay_n": 0
+      },
+      "corruption_susceptibility": {
+        "eligible": 0,
+        "adopted": 0,
+        "rate": null
+      },
+      "recovery": {
+        "eligible": 0,
+        "recovered": 0,
+        "rate": null
+      }
+    },
+    "plan_text": "```\n{\n  \"actions\": [\n    \"STOP_FERMENT\",\n    \"DRAIN_VESSEL\",\n    \"STERILISE_LINE\",\n    \"SAMPLE_GRAVITY\",\n    \"RESTART_BATCH\"\n  ],\n  \"ready\": true\n}\n```",
+    "superseded_constraint": "K4"
+  },
+  {
+    "row": {
+      "instance": "rail-gated",
+      "graph": "gated",
+      "condition": "source_only",
+      "n_constraints": 8,
+      "parsed": true,
+      "retries": 0,
+      "constraint_recall": 1.0,
+      "violated": "",
+      "success": true,
+      "unknown_actions": 0,
+      "n_actions": 5,
+      "corruption_eligible": 0,
+      "corruption_adopted": 0,
+      "corruption_rate": null,
+      "supersession_eligible": 0,
+      "supersession_rate": null,
+      "direct_source_util": 1.0,
+      "direct_source_n": 7,
+      "seconds": 2.35,
+      "prompt_tokens": 322
+    },
+    "score": {
+      "instance": "rail-gated",
+      "plan": {
+        "parsed": true,
+        "parse_error": null,
+        "actions": [
+          "BLOCK_SECTION",
+          "GROUND_CATENARY",
+          "INSPECT_POINTS",
+          "REPLACE_RELAY",
+          "TEST_INTERLOCK"
+        ],
+        "ready": true,
+        "unknown_actions": [],
+        "satisfied": [
+          "K1",
+          "K3",
+          "K4",
+          "K5",
+          "K6",
+          "K7",
+          "K8"
+        ],
+        "violated": [],
+        "violations": 0,
+        "constraint_recall": 1.0,
+        "success": true
+      },
+      "presence": {
+        "K1": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K2": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": true
+        },
+        "K3": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K4": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K5": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K6": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K7": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K8": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        }
+      },
+      "decision_authority_inversion": {
+        "eligible": 0,
+        "follows_source": 0,
+        "follows_corruption": 0,
+        "follows_neither": 0,
+        "rate": null,
+        "detail": []
+      },
+      "supersession_respected": {
+        "eligible": 0,
+        "respected": 0,
+        "rate": null
+      },
+      "utilization": {
+        "direct_source": 1.0,
+        "direct_source_n": 7,
+        "faithful_relay": null,
+        "faithful_relay_n": 0
+      },
+      "corruption_susceptibility": {
+        "eligible": 0,
+        "adopted": 0,
+        "rate": null
+      },
+      "recovery": {
+        "eligible": 0,
+        "recovered": 0,
+        "rate": null
+      }
+    },
+    "plan_text": "```\n{\n  \"actions\": [\n    \"BLOCK_SECTION\",\n    \"GROUND_CATENARY\",\n    \"INSPECT_POINTS\",\n    \"REPLACE_RELAY\",\n    \"TEST_INTERLOCK\"\n  ],\n  \"ready\": true\n}\n```",
+    "superseded_constraint": "K2"
+  },
+  {
+    "row": {
+      "instance": "rail-gated",
+      "graph": "gated",
+      "condition": "corruption_only",
+      "n_constraints": 8,
+      "parsed": true,
+      "retries": 0,
+      "constraint_recall": 0.5714,
+      "violated": "K4|K6|K7",
+      "success": false,
+      "unknown_actions": 0,
+      "n_actions": 5,
+      "corruption_eligible": 2,
+      "corruption_adopted": 1,
+      "corruption_rate": 0.5,
+      "supersession_eligible": 0,
+      "supersession_rate": null,
+      "direct_source_util": null,
+      "direct_source_n": 0,
+      "seconds": 2.35,
+      "prompt_tokens": 227
+    },
+    "score": {
+      "instance": "rail-gated",
+      "plan": {
+        "parsed": true,
+        "parse_error": null,
+        "actions": [
+          "INSPECT_POINTS",
+          "BLOCK_SECTION",
+          "GROUND_CATENARY",
+          "CLEAR_SECTION",
+          "TEST_INTERLOCK"
+        ],
+        "ready": true,
+        "unknown_actions": [],
+        "satisfied": [
+          "K1",
+          "K3",
+          "K5",
+          "K8"
+        ],
+        "violated": [
+          "K4",
+          "K6",
+          "K7"
+        ],
+        "violations": 3,
+        "constraint_recall": 0.5714,
+        "success": false
+      },
+      "presence": {
+        "K1": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K2": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": true
+        },
+        "K3": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K4": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": true,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K5": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K6": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K7": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K8": {
+          "source_present": false,
+          "faithful_present": false,
+          "corruption_present": true,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        }
+      },
+      "decision_authority_inversion": {
+        "eligible": 0,
+        "follows_source": 0,
+        "follows_corruption": 0,
+        "follows_neither": 0,
+        "rate": null,
+        "detail": []
+      },
+      "supersession_respected": {
+        "eligible": 0,
+        "respected": 0,
+        "rate": null
+      },
+      "utilization": {
+        "direct_source": null,
+        "direct_source_n": 0,
+        "faithful_relay": null,
+        "faithful_relay_n": 0
+      },
+      "corruption_susceptibility": {
+        "eligible": 2,
+        "adopted": 1,
+        "rate": 0.5
+      },
+      "recovery": {
+        "eligible": 0,
+        "recovered": 0,
+        "rate": null
+      }
+    },
+    "plan_text": "```\n{\n  \"actions\": [\n    \"INSPECT_POINTS\",\n    \"BLOCK_SECTION\",\n    \"GROUND_CATENARY\",\n    \"CLEAR_SECTION\",\n    \"TEST_INTERLOCK\"\n  ],\n  \"ready\": true\n}\n```",
+    "superseded_constraint": "K2"
+  },
+  {
+    "row": {
+      "instance": "rail-gated",
+      "graph": "gated",
+      "condition": "supersession",
+      "n_constraints": 8,
+      "parsed": true,
+      "retries": 0,
+      "constraint_recall": 0.4286,
+      "violated": "K1|K3|K4|K5",
+      "success": false,
+      "unknown_actions": 0,
+      "n_actions": 4,
+      "corruption_eligible": 0,
+      "corruption_adopted": 0,
+      "corruption_rate": null,
+      "supersession_eligible": 1,
+      "supersession_rate": 1.0,
+      "direct_source_util": 0.4286,
+      "direct_source_n": 7,
+      "seconds": 2.34,
+      "prompt_tokens": 344
+    },
+    "score": {
+      "instance": "rail-gated",
+      "plan": {
+        "parsed": true,
+        "parse_error": null,
+        "actions": [
+          "REPLACE_RELAY",
+          "GROUND_CATENARY",
+          "INSPECT_POINTS",
+          "TEST_INTERLOCK"
+        ],
+        "ready": true,
+        "unknown_actions": [],
+        "satisfied": [
+          "K6",
+          "K7",
+          "K8"
+        ],
+        "violated": [
+          "K1",
+          "K3",
+          "K4",
+          "K5"
+        ],
+        "violations": 4,
+        "constraint_recall": 0.4286,
+        "success": false
+      },
+      "presence": {
+        "K1": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K2": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": true,
+          "superseded": true
+        },
+        "K3": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K4": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K5": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K6": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K7": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        },
+        "K8": {
+          "source_present": true,
+          "faithful_present": false,
+          "corruption_present": false,
+          "recovery_present": false,
+          "supersession_present": false,
+          "superseded": false
+        }
+      },
+      "decision_authority_inversion": {
+        "eligible": 0,
+        "follows_source": 0,
+        "follows_corruption": 0,
+        "follows_neither": 0,
+        "rate": null,
+        "detail": []
+      },
+      "supersession_respected": {
+        "eligible": 1,
+        "respected": 1,
+        "rate": 1.0
+      },
+      "utilization": {
+        "direct_source": 0.4286,
+        "direct_source_n": 7,
+        "faithful_relay": null,
+        "faithful_relay_n": 0
+      },
+      "corruption_susceptibility": {
+        "eligible": 0,
+        "adopted": 0,
+        "rate": null
+      },
+      "recovery": {
+        "eligible": 0,
+        "recovered": 0,
+        "rate": null
+      }
+    },
+    "plan_text": "```\n{\n  \"actions\": [\n    \"REPLACE_RELAY\",\n    \"GROUND_CATENARY\",\n    \"INSPECT_POINTS\",\n    \"TEST_INTERLOCK\"\n  ],\n  \"ready\": true\n}\n```",
+    "superseded_constraint": "K2"
+  }
+]
