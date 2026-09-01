@@ -327,3 +327,62 @@ otherwise.**
    experiment holding relay text fixed and varying only the contradiction's
    framing?
 5. Is anything in §4 already covered by the §8 literature?
+
+---
+
+## 10. Falsification-first campaign (E10–E12) — added after the section above
+
+Run under an explicit brief: *maximise the chance of a defensible contribution,
+and kill the direction fast if the evidence does not support it. A negative
+result is a success if it prevents a false claim.*
+
+**The load-bearing question.** Is the corroboration effect about *evidential
+dependence*? Do k messages tracing to **one** source behave differently from k
+**independent** sources supporting the same proposition, with everything else
+matched?
+
+**How dependence was made real without a lexical giveaway.** Every support
+message attributes to a named basis (`per the vendor runbook`, …) drawn from one
+pool shared by both arms. `same_root` cites one basis k times; `indep_root` cites
+k distinct ones. Which basis is the repeated one **rotates across instances**, so
+no per-message n-gram can separate the arms — a gate asserts it. The arms are
+byte-identical after replacing basis strings.
+
+| exp | n | question | answer |
+|---|---|---|---|
+| E10 | 36 | does dependence matter? | difference **+0.0000** — *reported as a fired kill rule, then* **RETRACTED** |
+| E11 | 36 × k∈{1,2,3} | is E10's null a k=2 saturation artefact? | **no** — dose-response 0.75→0.42→0.28→0.11; but H6 still underpowered |
+| E12 | **108 units, 36 clusters** | resolve it at adequate power | **equivalence-supported null**: +0.0185, CI [−0.037, +0.074] ⊂ ±0.10 |
+
+**Final answer: the model applies no practically meaningful discount to
+correlated evidence — and it is not blind to the correlation.** A preregistered
+non-decision probe shows it reports more distinct documents for the independent
+arm in **27/36** and fewer in **0/36** (p = 1.5e-08). It sees the redundancy and
+prices it at nothing.
+
+**What replicated, and what did not**
+
+- **Corroboration vs length-matched filler**: large, dose-dependent, and
+  significant in **3/3 deciders across 3 distinct families** (Meta, Cohere,
+  Alibaba) — 0-13, 0-19, 0-26 discordant. Every discordant instance in every
+  model points the same way.
+- **Dilution (filler vs nothing)**: large in E9, moderate in E10, **null in E11
+  at all three k and null again in E12**. Withdrawn — it does not replicate.
+
+**The campaign's own biggest error, and how it was caught.** E10's conclusion was
+reported in direct contradiction of its *own preregistered output*: the frozen
+code printed *"H3 IS NOT SUPPORTED AND NOT EQUIVALENCE-SUPPORTED… report it as
+inconclusive at n = 36"* and the commit claimed the kill rule had fired. An
+adversarial agent panel found it and rated it fatal; I verified every element and
+retracted in full. Power at the SESOI was **0.14**, and the equivalence bound was
+*structurally unreachable* — bootstrap bounds jump 0.0833 → 0.1111 around 0.10.
+Same failure mode as the E5 "step function" this repo had already retracted once.
+E12 then earned the conclusion properly. `docs/protocols/E10-H3-RETRACTION.md`.
+
+**Method work remains unauthorised.** The gate requires a dependence effect the
+decider actually uses. There is none — that is now established rather than
+assumed, which is the difference between E10 and E12.
+
+**Blocker B1 still stands.** The adversarial prior-art search never ran (search
+budget exhausted). `docs/novelty_matrix.md` holds seven candidate claims: one
+pre-empted, one invalid, one dead, three unknown, **none novel**.
