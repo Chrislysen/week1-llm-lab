@@ -1,0 +1,64 @@
+=== exposure matrix: 36 instances x 6 conditions = 216 calls ===
+    model llama3.2:3b, temp 0, exposure controlled, no selectors
+
+  [  6/216] payments-chain
+  [ 12/216] payments-fork
+  [ 18/216] payments-join
+  [ 24/216] payments-diamond
+  [ 30/216] payments-twochain
+  [ 36/216] payments-gated
+  [ 42/216] robotics-chain
+  [ 48/216] robotics-fork
+  [ 54/216] robotics-join
+  [ 60/216] robotics-diamond
+  [ 66/216] robotics-twochain
+  [ 72/216] robotics-gated
+  [ 78/216] pharmacy-chain
+  [ 84/216] pharmacy-fork
+  [ 90/216] pharmacy-join
+  [ 96/216] pharmacy-diamond
+  [102/216] pharmacy-twochain
+  [108/216] pharmacy-gated
+  [114/216] satellite-chain
+  [120/216] satellite-fork
+  [126/216] satellite-join
+  [132/216] satellite-diamond
+  [138/216] satellite-twochain
+  [144/216] satellite-gated
+  [150/216] brewery-chain
+  [156/216] brewery-fork
+  [162/216] brewery-join
+  [168/216] brewery-diamond
+  [174/216] brewery-twochain
+  [180/216] brewery-gated
+  [186/216] rail-chain
+  [192/216] rail-fork
+  [198/216] rail-join
+  [204/216] rail-diamond
+  [210/216] rail-twochain
+  [216/216] rail-gated
+
+=== per condition, over 36 instances ===
+  condition        n   parse_rate  mean_recall  success_rate  dai_eligible  dai_follows_source  dai_follows_corruption  dai_follows_neither  dai_rate  corr_rate  corr_n  sup_eligible  rec_eligible  mean_actions
+  source_only      36  1.0         0.806        0.3056        0             0                   0                       0                    None      None       0       0             0             4.94        
+  corruption_only  36  1.0         0.5261       0.0556        0             0                   0                       0                    None      0.6338     71      0             0             4.03        
+  both             36  1.0         0.6788       0.0833        71            40                  31                      0                    0.4366    None       0       0             0             5.11        
+  neither          36  1.0         0.6165       0.0           0             0                   0                       0                    None      None       0       0             0             3.67        
+  supersession     36  1.0         0.7719       0.3056        0             0                   0                       0                    None      None       0       36            0             4.78        
+  both_recovery    36  1.0         0.7349       0.1389        71            52                  19                      0                    0.2676    None       0       0             35            4.86        
+
+=== decision authority inversion, by domain (condition=both) ===
+  domain     follows_source  follows_corruption  follows_neither  inversion_rate
+  brewery    6               6                   0                0.5           
+  payments   6               6                   0                0.5           
+  pharmacy   8               4                   0                0.3333        
+  rail       9               3                   0                0.25          
+  robotics   6               5                   0                0.4545        
+  satellite  5               7                   0                0.5833        
+
+=== corruption_only vs both: does the source rescue the decision? ===
+  corruption_only  corruption adopted 45/71  (0.6338)
+  both             corruption adopted 0/0  (n/a)
+  both_recovery    corruption adopted 0/0  (n/a)   recovery 32/35
+
+wrote results/e2_matrix_runs.csv, e2_matrix_summary.csv, e2_matrix_detail.json

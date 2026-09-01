@@ -18,7 +18,8 @@ from lineage_eval import (check_plan, corrupted_form,
                           corruption_susceptibility, decision_authority_inversion,
                           obeys, presence, recovery_rate,
                           retrieval_authority_inversion, score,
-                          supersession_respected, utilization)
+                          supersession_collateral, supersession_respected,
+                          utilization)
 
 INSTANCES = all_instances()
 
@@ -305,11 +306,39 @@ assert rai["rate"] == 1.0, rai
 only_src = [m.msg_id for m in inst.by_lineage("SOURCE")]
 assert retrieval_authority_inversion(inst, only_src)["rate"] is None
 
-# Supersession: with the override in context, a plan free of the lifted rule
-# must be credited, not penalised.
+# Supersession. The FIRST version of this metric scored "the lifted constraint
+# is not in violated", which was vacuous: superseded ids are excluded from
+# effective_constraints and can never be in violated, so it returned 1.0 for
+# any parsed plan including an empty one. The replacement scores against the
+# PRE-lift rule, so it can actually distinguish outcomes.
 pres = presence(inst, expose(inst, "supersession"))
 sr = supersession_respected(inst, pres, chk)
-assert sr["eligible"] == 1 and sr["rate"] == 1.0, sr
+assert sr["eligible"] == 1, sr
+assert sr["exercised"] + sr["ambiguous"] == sr["eligible"], sr
+
+# NON-VACUITY: an empty plan must not be credited with exercising an override.
+empty = supersession_respected(inst, pres, check_plan(plan_json([]), inst))
+assert empty["exercised"] == 0, (
+    "an empty plan must not count as having used the override -- this is the "
+    "vacuity the first version of the metric had")
+
+# The metric MUST be able to return 1.0, or it is unfalsifiable in the other
+# direction. Build a plan that violates the lifted rule on purpose.
+ann = {c.id: c for c in inst.constraints}[inst.announced_supersession]
+if ann.kind == "before":
+    p2 = topo_order(inst)
+    ia, ib = p2.index(ann.a), p2.index(ann.b)
+    p2[ia], p2[ib] = ann.b, ann.a
+else:
+    p2 = [a for a in topo_order(inst) if a != ann.a]
+used = supersession_respected(inst, pres, check_plan(plan_json(p2), inst))
+assert used["exercised"] == 1 and used["rate"] == 1.0, used
+
+# Collateral damage is only applicable where an override was actually present.
+assert supersession_collateral(inst, pres, chk)["applicable"] is True
+assert supersession_collateral(
+    inst, presence(inst, expose(inst, "source_only")), chk)["applicable"] is False
+
 # And under `source_only` the override is absent, so it is not eligible.
 assert supersession_respected(
     inst, presence(inst, expose(inst, "source_only")), chk)["rate"] is None
