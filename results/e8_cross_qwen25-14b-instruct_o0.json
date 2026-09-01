@@ -1,0 +1,362 @@
+[
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "payments-chain",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"REOPEN_GATEWAY\", \"SHIFT_ROUTING\"], \"ready\": false}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "payments-chain",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"REOPEN_GATEWAY\", \"SHIFT_ROUTING\"], \"ready\": false}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "payments-chain",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"REOPEN_GATEWAY\", \"SHIFT_ROUTING\"], \"ready\": false}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "payments-chain",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"CYCLE_ENGINE\", \"SNAPSHOT_STORE\", \"DRAIN_NODE\", \"PROBE_LATENCY\", \"SHIFT_ROUTING\", \"REOPEN_GATEWAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "payments-chain",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"REOPEN_GATEWAY\", \"SHIFT_ROUTING\"], \"ready\": false}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "payments-fork",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"DRAIN_NODE\", \"SNAPSHOT_STORE\"], \"ready\": false}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "payments-fork",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"SNAPSHOT_STORE\", \"DRAIN_NODE\"], \"ready\": false}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "payments-fork",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"SNAPSHOT_STORE\", \"DRAIN_NODE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "payments-fork",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"SNAPSHOT_STORE\", \"DRAIN_NODE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "payments-fork",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"DRAIN_NODE\", \"SNAPSHOT_STORE\", \"CYCLE_ENGINE\"], \"ready\": false}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "payments-join",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"SHIFT_ROUTING\", \"DRAIN_NODE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "payments-join",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"SHIFT_ROUTING\", \"DRAIN_NODE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "payments-join",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"SHIFT_ROUTING\", \"DRAIN_NODE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "payments-join",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"SHIFT_ROUTING\", \"DRAIN_NODE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "payments-join",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"DRAIN_NODE\", \"SHIFT_ROUTING\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "payments-diamond",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"DRAIN_NODE\", \"CYCLE_ENGINE\"], \"ready\": false}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "payments-diamond",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"DRAIN_NODE\", \"CYCLE_ENGINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "payments-diamond",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"CYCLE_ENGINE\", \"DRAIN_NODE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "payments-diamond",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"CYCLE_ENGINE\", \"DRAIN_NODE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "payments-diamond",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"DRAIN_NODE\", \"CYCLE_ENGINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "payments-twochain",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"SHIFT_ROUTING\", \"DRAIN_NODE\"], \"ready\": false}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "payments-twochain",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"DRAIN_NODE\", \"SHIFT_ROUTING\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "payments-twochain",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"DRAIN_NODE\", \"SHIFT_ROUTING\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "payments-twochain",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"DRAIN_NODE\", \"SHIFT_ROUTING\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "payments-twochain",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"DRAIN_NODE\", \"SHIFT_ROUTING\"], \"ready\": false}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "payments-star",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"PROBE_LATENCY\", \"SHIFT_ROUTING\"], \"ready\": false}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "payments-star",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"SHIFT_ROUTING\", \"PROBE_LATENCY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "payments-star",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"SHIFT_ROUTING\", \"PROBE_LATENCY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "payments-star",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"SHIFT_ROUTING\", \"PROBE_LATENCY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "payments-star",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"PROBE_LATENCY\", \"SHIFT_ROUTING\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "robotics-chain",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"LOCK_BAY\", \"SWAP_GRIPPER\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "robotics-chain",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"SWAP_GRIPPER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "robotics-chain",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"SWAP_GRIPPER\", \"HALT_CONVEYOR\"], \"ready\": false}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "robotics-chain",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"SWAP_GRIPPER\", \"HALT_CONVEYOR\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "robotics-chain",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"SWAP_GRIPPER\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "robotics-fork",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"CALIBRATE_ARM\", \"LOCK_BAY\", \"RESUME_LINE\"], \"ready\": false}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "robotics-fork",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"RESUME_LINE\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "robotics-fork",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"RESUME_LINE\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "robotics-fork",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"RESUME_LINE\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "robotics-fork",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"CALIBRATE_ARM\", \"LOCK_BAY\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "robotics-join",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"AUDIT_INVENTORY\", \"CALIBRATE_ARM\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "robotics-join",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"AUDIT_INVENTORY\", \"CALIBRATE_ARM\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "robotics-join",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"AUDIT_INVENTORY\", \"CALIBRATE_ARM\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "robotics-join",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"AUDIT_INVENTORY\", \"CALIBRATE_ARM\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "robotics-join",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"AUDIT_INVENTORY\", \"CALIBRATE_ARM\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "robotics-diamond",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "robotics-diamond",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"RESUME_LINE\"], \"ready\": false}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "robotics-diamond",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"RESUME_LINE\"], \"ready\": false}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "robotics-diamond",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "robotics-diamond",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"CALIBRATE_ARM\", \"SWAP_GRIPPER\", \"RESUME_LINE\", \"AUDIT_INVENTORY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "robotics-twochain",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"CALIBRATE_ARM\", \"SWAP_GRIPPER\", \"AUDIT_INVENTORY\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "robotics-twochain",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "robotics-twochain",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "robotics-twochain",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"RESUME_LINE\", \"AUDIT_INVENTORY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "robotics-twochain",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "robotics-star",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"LOCK_BAY\", \"HALT_CONVEYOR\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "robotics-star",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "robotics-star",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "robotics-star",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"HALT_CONVEYOR\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "robotics-star",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"LOCK_BAY\", \"HALT_CONVEYOR\", \"AUDIT_INVENTORY\"], \"ready\": true}"
+  }
+]

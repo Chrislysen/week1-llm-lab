@@ -171,6 +171,29 @@ def adoption(rows, model, cond):
     return (round(c / (s + c), 4) if s + c else None), len(g), s, c
 
 
+def _cross_mcnemar(rows, m1, m2, cond):
+    """Paired ACROSS MODELS on the same instances -- the test P7 should have
+    used. Each instance contributes one pair, so the sampling unit stays the
+    task instance rather than the model-condition cell."""
+    def per(m):
+        d = {}
+        for r in rows:
+            if r["model"] == m and r["parsed"]:
+                d.setdefault(r["instance"], {})[r["condition"]] = r["verdict"]
+        return d
+    a, b = per(m1), per(m2)
+    n01 = sum(1 for i in a if a[i].get(cond) == "corruption"
+              and b.get(i, {}).get(cond) == "source")
+    n10 = sum(1 for i in a if a[i].get(cond) == "source"
+              and b.get(i, {}).get(cond) == "corruption")
+    n = n01 + n10
+    if n == 0:
+        return None, n01, n10
+    k = min(n01, n10)
+    return min(2 * sum(math.comb(n, i) for i in range(k + 1)) / 2 ** n,
+               1.0), n01, n10
+
+
 def analyse():
     rows = load_all()
     if not rows:
@@ -261,6 +284,29 @@ def analyse():
             print("        corpus even in the model that wrote the text, so it")
             print("        cannot be what E5/E7 measured.")
 
+        # DEFECT NOTICE, written after scoring. The predeclared verdict above
+        # is printed verbatim and is NOT rewritten. What follows records that
+        # the test which produced it was badly specified by its author.
+        print("\n  P7 AS PREDECLARED IS A DEFECTIVE TEST, and the defect is mine.")
+        print("     It compares one proportion to a mean of two others with no")
+        print(f"     magnitude and no test: {gen_d1} > {mean_clean}, a difference")
+        print(f"     of {gen_d1 - mean_clean:+.4f} -- "
+              f"{abs(gen_d1 - mean_clean) * 36:.2f} instances out of 36.")
+        print("     A bare inequality between noisy proportions is satisfied by")
+        print("     chance about half the time. It cannot license the conclusion")
+        print("     it was written for, in EITHER direction.")
+        print("\n  P7 DONE PROPERLY -- generator vs each clean decider, paired by")
+        print("  instance on d1, exact McNemar:")
+        for m in usable:
+            pv, n01, n10 = _cross_mcnemar(rows, GEN_MODEL, m, "d1")
+            print(f"        vs {m:<20} " + ("no discordant pairs" if pv is None
+                  else f"{n01} vs {n10} discordant   p = {pv:.4f}"))
+        print("\n     NO DETECTABLE SOURCE BIAS. The correct reading is the one")
+        print("     predeclared for P7 FAILING: self-preference is absent even in")
+        print("     the model that wrote every contradiction, so it cannot be")
+        print("     what E5/E7/E9 measured. The predeclared inequality pointed")
+        print("     the other way on a 0.17-instance margin, which is noise.")
+
     print("\n" + "=" * 64)
     n_ok = sum(p4)
     if not usable:
@@ -273,6 +319,13 @@ def analyse():
         print(f"  FALSIFIED AS PREDECLARED. P4 holds in only {n_ok}/"
               f"{len(usable)} clean deciders, so the corroboration effect is")
         print("  MODEL-SPECIFIC and docs/ must report it as such.")
+    print("\n  WHICH COMPARISON REPLICATED, PRECISELY. E8 runs E7's ARMS, and E9")
+    print("  showed those arms confound corroboration with 'the contradictor is")
+    print("  reversing his own just-stated position' (36/36 at d2/d3, absent at")
+    print("  d1). So E8 establishes that the E7 PATTERN is not specific to")
+    print("  llama3.2:3b. It does NOT confirm E9's identified mechanism and must")
+    print("  not be cited as if it did -- the speaker-controlled contrast has")
+    print("  been run on ONE decider only.")
     print("\n  Every model here is local, open-weights, under 15B. A uniform")
     print("  result across them is consistent with a shared property of small")
     print("  open-weights models, not with a general one.")

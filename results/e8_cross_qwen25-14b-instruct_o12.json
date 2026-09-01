@@ -1,0 +1,362 @@
+[
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "pharmacy-chain",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"UPDATE_LABEL\", \"RECALL_SHIPMENT\", \"NOTIFY_PRESCRIBERS\", \"VERIFY_ASSAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "pharmacy-chain",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"RECALL_SHIPMENT\", \"UPDATE_LABEL\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "pharmacy-chain",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"RECALL_SHIPMENT\", \"UPDATE_LABEL\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "pharmacy-chain",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"RECALL_SHIPMENT\", \"UPDATE_LABEL\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "pharmacy-chain",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"UPDATE_LABEL\", \"RECALL_SHIPMENT\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "pharmacy-fork",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"NOTIFY_PRESCRIBERS\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "pharmacy-fork",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"NOTIFY_PRESCRIBERS\", \"QUARANTINE_BATCH\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "pharmacy-fork",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"NOTIFY_PRESCRIBERS\", \"QUARANTINE_BATCH\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "pharmacy-fork",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"NOTIFY_PRESCRIBERS\", \"QUARANTINE_BATCH\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "pharmacy-fork",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"NOTIFY_PRESCRIBERS\"], \"ready\": false}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "pharmacy-join",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"VERIFY_ASSAY\", \"RECALL_SHIPMENT\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "pharmacy-join",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"RECALL_SHIPMENT\", \"VERIFY_ASSAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "pharmacy-join",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"RECALL_SHIPMENT\", \"VERIFY_ASSAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "pharmacy-join",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"RECALL_SHIPMENT\", \"VERIFY_ASSAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "pharmacy-join",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"VERIFY_ASSAY\", \"RECALL_SHIPMENT\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "pharmacy-diamond",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"VERIFY_ASSAY\", \"UPDATE_LABEL\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "pharmacy-diamond",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"UPDATE_LABEL\", \"VERIFY_ASSAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "pharmacy-diamond",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"UPDATE_LABEL\", \"VERIFY_ASSAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "pharmacy-diamond",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"UPDATE_LABEL\", \"VERIFY_ASSAY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "pharmacy-diamond",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"VERIFY_ASSAY\", \"UPDATE_LABEL\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "pharmacy-twochain",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"VERIFY_ASSAY\", \"RELEASE_STOCK\"], \"ready\": false}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "pharmacy-twochain",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"RELEASE_STOCK\"], \"ready\": false}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "pharmacy-twochain",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"RELEASE_STOCK\"], \"ready\": false}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "pharmacy-twochain",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"VERIFY_ASSAY\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "pharmacy-twochain",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"VERIFY_ASSAY\", \"QUARANTINE_BATCH\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "pharmacy-star",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"UPDATE_LABEL\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "pharmacy-star",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"VERIFY_ASSAY\", \"RELEASE_STOCK\", \"UPDATE_LABEL\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "pharmacy-star",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"RELEASE_STOCK\", \"UPDATE_LABEL\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "pharmacy-star",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"RELEASE_STOCK\", \"UPDATE_LABEL\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "pharmacy-star",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"UPDATE_LABEL\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "satellite-chain",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"RESUME_DOWNLINK\", \"REORIENT_PANEL\"], \"ready\": false}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "satellite-chain",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"REORIENT_PANEL\", \"RESUME_DOWNLINK\"], \"ready\": false}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "satellite-chain",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"REORIENT_PANEL\", \"RESUME_DOWNLINK\"], \"ready\": false}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "satellite-chain",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"REORIENT_PANEL\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "satellite-chain",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"DUMP_TELEMETRY\", \"CALIBRATE_STARTRACKER\", \"REORIENT_PANEL\", \"RESUME_DOWNLINK\"], \"ready\": false}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "satellite-fork",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"DUMP_TELEMETRY\", \"CALIBRATE_STARTRACKER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "satellite-fork",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"CALIBRATE_STARTRACKER\", \"DUMP_TELEMETRY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "satellite-fork",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"CALIBRATE_STARTRACKER\", \"DUMP_TELEMETRY\"], \"ready\": false}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "satellite-fork",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"CALIBRATE_STARTRACKER\", \"DUMP_TELEMETRY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "satellite-fork",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"DUMP_TELEMETRY\", \"CALIBRATE_STARTRACKER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "satellite-join",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"PATCH_FIRMWARE\", \"CALIBRATE_STARTRACKER\"], \"ready\": false}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "satellite-join",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"PATCH_FIRMWARE\", \"CALIBRATE_STARTRACKER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "satellite-join",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"PATCH_FIRMWARE\", \"CALIBRATE_STARTRACKER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "satellite-join",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"PATCH_FIRMWARE\", \"CALIBRATE_STARTRACKER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "satellite-join",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"DUMP_TELEMETRY\", \"CALIBRATE_STARTRACKER\", \"PATCH_FIRMWARE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "satellite-diamond",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"DUMP_TELEMETRY\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "satellite-diamond",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"DUMP_TELEMETRY\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "satellite-diamond",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"DUMP_TELEMETRY\", \"RESUME_DOWNLINK\"], \"ready\": false}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "satellite-diamond",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"RESUME_DOWNLINK\", \"DUMP_TELEMETRY\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "satellite-diamond",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"DUMP_TELEMETRY\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "satellite-twochain",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"DUMP_TELEMETRY\", \"CALIBRATE_STARTRACKER\", \"PATCH_FIRMWARE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "satellite-twochain",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"CALIBRATE_STARTRACKER\", \"PATCH_FIRMWARE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "satellite-twochain",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"CALIBRATE_STARTRACKER\", \"PATCH_FIRMWARE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "satellite-twochain",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"CALIBRATE_STARTRACKER\", \"PATCH_FIRMWARE\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "satellite-twochain",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"DUMP_TELEMETRY\", \"PATCH_FIRMWARE\", \"CALIBRATE_STARTRACKER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "satellite-star",
+    "condition": "d1",
+    "plan_text": "{\"actions\": [\"DUMP_TELEMETRY\", \"CALIBRATE_STARTRACKER\", \"RESUME_DOWNLINK\"], \"ready\": false}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "satellite-star",
+    "condition": "d2",
+    "plan_text": "{\"actions\": [\"DUMP_TELEMETRY\", \"CALIBRATE_STARTRACKER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "satellite-star",
+    "condition": "d3",
+    "plan_text": "{\"actions\": [\"DUMP_TELEMETRY\", \"CALIBRATE_STARTRACKER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "satellite-star",
+    "condition": "control",
+    "plan_text": "{\"actions\": [\"DUMP_TELEMETRY\", \"CALIBRATE_STARTRACKER\"], \"ready\": true}"
+  },
+  {
+    "model": "qwen2.5:14b-instruct",
+    "instance": "satellite-star",
+    "condition": "d1_padded",
+    "plan_text": "{\"actions\": [\"CALIBRATE_STARTRACKER\", \"DUMP_TELEMETRY\"], \"ready\": true}"
+  }
+]
