@@ -357,6 +357,27 @@ def analyse(model=DECIDER):
             msg = f"inconclusive (p = {r['p']:.4f}, CI wider than the SESOI)"
         print(f"  {arm:<10}{tag}\n      {msg}")
 
+    # ---- DEFECT NOTICE, written after scoring. The rule above is NOT
+    # rewritten; this records that it conflates two conclusion types.
+    below = [a for a, r in res.items() if r["disc"] < POWERED_DISCORDANCE[0]]
+    if below:
+        print("\n  DEFECT IN THE PREREGISTERED BAND, and it is mine.")
+        print(f"  [{POWERED_DISCORDANCE[0]}, {POWERED_DISCORDANCE[1]}] was "
+              "computed for DIFFERENCE DETECTION. Its LOWER bound exists")
+        print("  because too few discordant pairs cannot reveal a difference.")
+        print("  But for an EQUIVALENCE conclusion low discordance is")
+        print("  FAVOURABLE -- it tightens the CI. Applying a")
+        print("  difference-detection floor to block an equivalence reading is")
+        print(f"  wrong, and it blocked: {', '.join(below)}.")
+        print("\n  Reading those arms on the equivalence criterion instead")
+        print("  (POST-HOC, flagged, and NOT promoted to a primary result):")
+        for a in below:
+            r = res[a]
+            ok = (abs(r["diff"]) < SESOI and r["lo"] > -SESOI and r["hi"] < SESOI)
+            print(f"    {a:<10} diff {r['diff']:+.4f}  CI "
+                  f"[{r['lo']:+.3f},{r['hi']:+.3f}]  "
+                  f"{'equivalence-supported' if ok else 'not equivalent'}")
+
     # ---- secondary family: did the intervention CHANGE the differentiation?
     print("\n=== secondary: intervention vs DEFAULT (Holm over the family) ===")
     base = res.get("default")

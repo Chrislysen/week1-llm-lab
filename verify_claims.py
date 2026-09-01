@@ -703,6 +703,100 @@ else:
     print("  legitimately, and the lineage direction is retired on evidence.")
 
 
+# ----------------------------------------------------------- E13 ----------
+
+print("\n=== E13 recognition -> utilization (re-derived from raw plan text) ===")
+from lineage_e13 import build_prompt as e13_prompt
+from lineage_e13 import corpus_hash as e13_hash
+from lineage_bench import plan_instruction as _pi
+from e13_recognition import _by_unit, differentiation, discordance
+
+E13_CSV = sorted(glob.glob("results/e13_*_o*.csv"))
+if not E13_CSV:
+    skip("E13 artifacts", "not found")
+else:
+    claim("E13 prompt-corpus hash", e13_hash(_pi), "5c23297196241110")
+
+    e13_rows = []
+    for p in E13_CSV:
+        e13_rows.extend(r for r in csv.DictReader(open(p, newline=""))
+                        if r["model"] == "llama3.2:3b")
+    claim("E13 row count (108 units x 10 cells)", len(e13_rows), 1080)
+    claim("E13 parse rate is 1.00 everywhere (no parse-rate confound)",
+          sum(r["parsed"] == "True" for r in e13_rows), 1080)
+
+    # DEFAULT must be byte-identical to E12's prompt -- what makes RQ2 a
+    # replication rather than a near one.
+    u0 = _all_units()[0]
+    from lineage_e12 import exposure as _e12x, render as _e12r
+    pi0 = _pi(by_id[u0["instance"]])
+    claim("E13 default prompt is byte-identical to E12's",
+          e13_prompt(u0, "same_root", "default", pi0)
+          == f"DISCUSSION\n----------\n{_e12r(_e12x(u0, 'same_root'))}\n\n{pi0}",
+          True)
+
+    for arm, d_want, p_want, disc_want in (
+            ("default", 0.0, 1.0, 0.093),
+            ("identify", -0.0093, 1.0, 0.139),
+            ("normative", -0.0741, 0.0564, 0.148),
+            ("sham", -0.037, 0.2946, 0.074),
+            ("gold", 0.0, 1.0, 0.075)):
+        per, dropped = _by_unit(e13_rows, arm)
+        d = differentiation(per)
+        disc, _ = discordance(per)
+        claim(f"E13 {arm} differentiation", round(d["diff"], 4), d_want,
+              tol=0.0005)
+        claim(f"E13 {arm} cluster-permutation p", round(d["p"], 4), p_want,
+              tol=0.01)
+        claim(f"E13 {arm} discordance", round(disc, 3), disc_want, tol=0.002)
+
+    # RQ2: the replication, and it must be equivalence-supported.
+    per, _ = _by_unit(e13_rows, "default")
+    d = differentiation(per)
+    claim("E13 RQ2 DEFAULT replicates E12 as an EQUIVALENCE-SUPPORTED null",
+          abs(d["diff"]) < 0.10 and d["lo"] > -0.10 and d["hi"] < 0.10, True)
+    dd, _ = discordance(per)
+    claim("...and its discordance is INSIDE the powered band [0.08, 0.12]",
+          0.08 <= dd <= 0.12, True)
+
+    # RQ1b: the count discriminates under identify, and NOT under normative.
+    def count_sign(arm):
+        per_c = {}
+        for r in e13_rows:
+            if r["intervention"] == arm and r["recog_count"] != "":
+                try:
+                    per_c.setdefault(r["unit"], {})[r["dependence"]] = int(
+                        r["recog_count"])
+                except ValueError:
+                    pass
+        hi = sum(1 for v in per_c.values()
+                 if len(v) == 2 and v["indep_root"] > v["same_root"])
+        lo = sum(1 for v in per_c.values()
+                 if len(v) == 2 and v["indep_root"] < v["same_root"])
+        n, k = hi + lo, min(hi, lo)
+        return hi, lo, (min(2 * sum(math.comb(n, i)
+                                    for i in range(k + 1)) / 2 ** n, 1.0)
+                        if n else None)
+
+    hi, lo, p = count_sign("identify")
+    claim("E13 identify: reported count discriminates (indep > same)", hi, 49)
+    claim("...against", lo, 2)
+    claim("...sign test p", p < 1e-10, True)
+    hi2, lo2, p2 = count_sign("normative")
+    claim("E13 normative DEGRADES count discrimination", hi2, 36)
+    claim("...against", lo2, 25)
+    claim("...and is no longer significant", p2 > 0.05, True)
+
+    print("\n  E13 REPLICATES E12 EXACTLY on a byte-identical prompt: DEFAULT")
+    print("  differentiation is +0.0000, CI [-0.056,+0.056], discordance 0.093")
+    print("  inside the powered band. No intervention produced")
+    print("  independence-sensitive behaviour -- and GOLD, which hands the model")
+    print("  the correct structure outright, moved it by exactly 0.0000.")
+    print("  identify and normative are INCONCLUSIVE BY THE PREREGISTERED RULE:")
+    print("  both RAISED behavioural discordance past the design's operating")
+    print("  range. That is reported, not reinterpreted.")
+
+
 # ------------------------------------------------------ E6 router facts ----
 
 print("\n=== E6 router: the measurement that killed AnchorRoute ===")

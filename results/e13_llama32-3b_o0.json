@@ -1,0 +1,2882 @@
+[
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-chain:K3",
+    "instance": "payments-chain",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"DRAIN_NODE\",\n    \"SHIFT_ROUTING\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-chain:K3",
+    "instance": "payments-chain",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SHIFT_ROUTING\",\n    \"CYCLE_ENGINE\",\n    \"PROBE_LATENCY\",\n    \"SNAPSHOT_STORE\",\n    \"DRAIN_NODE\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-chain:K3",
+    "instance": "payments-chain",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"CYCLE_ENGINE\", \"DRAIN_NODE\", \"SHIFT_ROUTING\", \"REOPEN_GATEWAY\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-chain:K3",
+    "instance": "payments-chain",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\n  \"same_underlying_source\": false,\n  \"independent_source_count\": 4,\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"DRAIN_NODE\",\n    \"SHIFT_ROUTING\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": false\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-chain:K3",
+    "instance": "payments-chain",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"REOPEN_GATEWAY\", \"SHIFT_ROUTING\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-chain:K3",
+    "instance": "payments-chain",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\n  \"same_underlying_source\": false,\n  \"independent_source_count\": 4,\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"DRAIN_NODE\",\n    \"SHIFT_ROUTING\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": false\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-chain:K3",
+    "instance": "payments-chain",
+    "intervention": "sham",
+    "dependence": "same_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"CYCLE_ENGINE\", \"DRAIN_NODE\", \"REOPEN_GATEWAY\", \"SHIFT_ROUTING\", \"PROBE_LATENCY\", \"SNAPSHOT_STORE\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-chain:K3",
+    "instance": "payments-chain",
+    "intervention": "sham",
+    "dependence": "indep_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"PROBE_LATENCY\", \"SNAPSHOT_STORE\", \"REOPEN_GATEWAY\", \"SHIFT_ROUTING\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-chain:K3",
+    "instance": "payments-chain",
+    "intervention": "gold",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"DRAIN_NODE\",\n    \"SHIFT_ROUTING\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-chain:K3",
+    "instance": "payments-chain",
+    "intervention": "gold",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"DRAIN_NODE\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-chain:K4",
+    "instance": "payments-chain",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"PROBE_LATENCY\",\n    \"SHIFT_ROUTING\",\n    \"SNAPSHOT_STORE\",\n    \"DRAIN_NODE\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-chain:K4",
+    "instance": "payments-chain",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"PROBE_LATENCY\",\n    \"SNAPSHOT_STORE\",\n    \"DRAIN_NODE\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-chain:K4",
+    "instance": "payments-chain",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"PROBE_LATENCY\", \"SNAPSHOT_STORE\", \"REOPEN_GATEWAY\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-chain:K4",
+    "instance": "payments-chain",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"CYCLE_ENGINE\", \"PROBE_LATENCY\", \"SHIFT_ROUTING\", \"SNAPSHOT_STORE\", \"DRAIN_NODE\", \"REOPEN_GATEWAY\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-chain:K4",
+    "instance": "payments-chain",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\n  \"same_underlying_source\": true,\n  \"independent_source_count\": 1,\n  \"actions\": [\n    \"PROBE_LATENCY\",\n    \"SNAPSHOT_STORE\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": true\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-chain:K4",
+    "instance": "payments-chain",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"PROBE_LATENCY\", \"SNAPSHOT_STORE\", \"REOPEN_GATEWAY\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-chain:K4",
+    "instance": "payments-chain",
+    "intervention": "sham",
+    "dependence": "same_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"PROBE_LATENCY\", \"SNAPSHOT_STORE\", \"REOPEN_GATEWAY\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-chain:K4",
+    "instance": "payments-chain",
+    "intervention": "sham",
+    "dependence": "indep_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 13, \"actions\": [\"PROBE_LATENCY\", \"SNAPSHOT_STORE\", \"REOPEN_GATEWAY\", \"SHIFT_ROUTING\", \"CYCLE_ENGINE\", \"DRAIN_NODE\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-chain:K4",
+    "instance": "payments-chain",
+    "intervention": "gold",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"PROBE_LATENCY\",\n    \"SHIFT_ROUTING\",\n    \"SNAPSHOT_STORE\",\n    \"DRAIN_NODE\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-chain:K4",
+    "instance": "payments-chain",
+    "intervention": "gold",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"PROBE_LATENCY\",\n    \"SNAPSHOT_STORE\",\n    \"REOPEN_GATEWAY\",\n    \"DRAIN_NODE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-chain:K5",
+    "instance": "payments-chain",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"DRAIN_NODE\",\n    \"PROBE_LATENCY\",\n    \"SNAPSHOT_STORE\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-chain:K5",
+    "instance": "payments-chain",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"DRAIN_NODE\",\n    \"SHIFT_ROUTING\",\n    \"REOPEN_GATEWAY\",\n    \"SNAPSHOT_STORE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-chain:K5",
+    "instance": "payments-chain",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"PROBE_LATENCY\", \"SNAPSHOT_STORE\", \"REOPEN_GATEWAY\", \"SHIFT_ROUTING\", \"CYCLE_ENGINE\", \"DRAIN_NODE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-chain:K5",
+    "instance": "payments-chain",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 2, \"actions\": [\"CYCLE_ENGINE\", \"DRAIN_NODE\", \"REOPEN_GATEWAY\", \"SHIFT_ROUTING\", \"SNAPSHOT_STORE\", \"PROBE_LATENCY\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-chain:K5",
+    "instance": "payments-chain",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\n  \"same_underlying_source\": true,\n  \"independent_source_count\": 1,\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"DRAIN_NODE\",\n    \"PROBE_LATENCY\",\n    \"SNAPSHOT_STORE\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": true\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-chain:K5",
+    "instance": "payments-chain",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\n  \"same_underlying_source\": true,\n  \"independent_source_count\": 1,\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"DRAIN_NODE\",\n    \"REOPEN_GATEWAY\",\n    \"SHIFT_ROUTING\",\n    \"SNAPSHOT_STORE\",\n    \"PROBE_LATENCY\"\n  ],\n  \"ready\": true\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-chain:K5",
+    "instance": "payments-chain",
+    "intervention": "sham",
+    "dependence": "same_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"PROBE_LATENCY\", \"SNAPSHOT_STORE\", \"REOPEN_GATEWAY\", \"SHIFT_ROUTING\", \"CYCLE_ENGINE\", \"DRAIN_NODE\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-chain:K5",
+    "instance": "payments-chain",
+    "intervention": "sham",
+    "dependence": "indep_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"PROBE_LATENCY\", \"SNAPSHOT_STORE\", \"REOPEN_GATEWAY\", \"SHIFT_ROUTING\", \"CYCLE_ENGINE\", \"DRAIN_NODE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-chain:K5",
+    "instance": "payments-chain",
+    "intervention": "gold",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"DRAIN_NODE\",\n    \"PROBE_LATENCY\",\n    \"SNAPSHOT_STORE\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-chain:K5",
+    "instance": "payments-chain",
+    "intervention": "gold",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"DRAIN_NODE\",\n    \"SHIFT_ROUTING\",\n    \"REOPEN_GATEWAY\",\n    \"SNAPSHOT_STORE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-fork:K2",
+    "instance": "payments-fork",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"PROBE_LATENCY\",\n    \"REOPEN_GATEWAY\",\n    \"SHIFT_ROUTING\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-fork:K2",
+    "instance": "payments-fork",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "{\"actions\": [\n  \"CYCLE_ENGINE\",\n  \"PROBE_LATENCY\",\n  \"REOPEN_GATEWAY\",\n  \"SHIFT_ROUTING\",\n  \"SNAPSHOT_STORE\",\n  \"DRAIN_NODE\"\n], \n\"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-fork:K2",
+    "instance": "payments-fork",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"CYCLE_ENGINE\", \"PROBE_LATENCY\", \"REOPEN_GATEWAY\", \"SHIFT_ROUTING\", \"SNAPSHOT_STORE\", \"DRAIN_NODE\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-fork:K2",
+    "instance": "payments-fork",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 2, \"actions\": [\"CYCLE_ENGINE\", \"PROBE_LATENCY\", \"SNAPSHOT_STORE\", \"SHIFT_ROUTING\", \"DRAIN_NODE\", \"REOPEN_GATEWAY\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-fork:K2",
+    "instance": "payments-fork",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"CYCLE_ENGINE\", \"PROBE_LATENCY\", \"REOPEN_GATEWAY\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-fork:K2",
+    "instance": "payments-fork",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"CYCLE_ENGINE\", \"PROBE_LATENCY\", \"SNAPSHOT_STORE\", \"SHIFT_ROUTING\", \"DRAIN_NODE\", \"REOPEN_GATEWAY\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-fork:K2",
+    "instance": "payments-fork",
+    "intervention": "sham",
+    "dependence": "same_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"CYCLE_ENGINE\", \"PROBE_LATENCY\", \"REOPEN_GATEWAY\", \"SNAPSHOT_STORE\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-fork:K2",
+    "instance": "payments-fork",
+    "intervention": "sham",
+    "dependence": "indep_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"CYCLE_ENGINE\", \"SNAPSHOT_STORE\", \"PROBE_LATENCY\", \"REOPEN_GATEWAY\", \"DRAIN_NODE\", \"SHIFT_ROUTING\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-fork:K2",
+    "instance": "payments-fork",
+    "intervention": "gold",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"PROBE_LATENCY\",\n    \"REOPEN_GATEWAY\",\n    \"SHIFT_ROUTING\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-fork:K2",
+    "instance": "payments-fork",
+    "intervention": "gold",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"PROBE_LATENCY\",\n    \"REOPEN_GATEWAY\",\n    \"SHIFT_ROUTING\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-fork:K4",
+    "instance": "payments-fork",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"PROBE_LATENCY\",\n    \"SNAPSHOT_STORE\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-fork:K4",
+    "instance": "payments-fork",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "{\"actions\": [\"CYCLE_ENGINE\", \"SHIFT_ROUTING\", \"DRAIN_NODE\", \"PROBE_LATENCY\", \"SNAPSHOT_STORE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-fork:K4",
+    "instance": "payments-fork",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"CYCLE_ENGINE\", \"SHIFT_ROUTING\", \"DRAIN_NODE\", \"PROBE_LATENCY\", \"SNAPSHOT_STORE\", \"REOPEN_GATEWAY\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-fork:K4",
+    "instance": "payments-fork",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 4, \"actions\": [\"CYCLE_ENGINE\", \"SHIFT_ROUTING\", \"DRAIN_NODE\", \"PROBE_LATENCY\", \"SNAPSHOT_STORE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-fork:K4",
+    "instance": "payments-fork",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"CYCLE_ENGINE\", \"PROBE_LATENCY\", \"SNAPSHOT_STORE\", \"REOPEN_GATEWAY\", \"DRAIN_NODE\", \"SHIFT_ROUTING\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-fork:K4",
+    "instance": "payments-fork",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 4, \"actions\": [\"CYCLE_ENGINE\", \"SHIFT_ROUTING\", \"DRAIN_NODE\", \"SNAPSHOT_STORE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-fork:K4",
+    "instance": "payments-fork",
+    "intervention": "sham",
+    "dependence": "same_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"CYCLE_ENGINE\", \"SHIFT_ROUTING\", \"SNAPSHOT_STORE\", \"PROBE_LATENCY\", \"REOPEN_GATEWAY\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-fork:K4",
+    "instance": "payments-fork",
+    "intervention": "sham",
+    "dependence": "indep_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"CYCLE_ENGINE\", \"SHIFT_ROUTING\", \"SNAPSHOT_STORE\", \"REOPEN_GATEWAY\", \"PROBE_LATENCY\", \"DRAIN_NODE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-fork:K4",
+    "instance": "payments-fork",
+    "intervention": "gold",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"DRAIN_NODE\",\n    \"PROBE_LATENCY\",\n    \"SNAPSHOT_STORE\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-fork:K4",
+    "instance": "payments-fork",
+    "intervention": "gold",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"DRAIN_NODE\",\n    \"PROBE_LATENCY\",\n    \"SNAPSHOT_STORE\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-fork:K5",
+    "instance": "payments-fork",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"PROBE_LATENCY\",\n    \"SNAPSHOT_STORE\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-fork:K5",
+    "instance": "payments-fork",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"PROBE_LATENCY\",\n    \"SNAPSHOT_STORE\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-fork:K5",
+    "instance": "payments-fork",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"CYCLE_ENGINE\", \"SHIFT_ROUTING\", \"SNAPSHOT_STORE\", \"DRAIN_NODE\", \"REOPEN_GATEWAY\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-fork:K5",
+    "instance": "payments-fork",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\n  \"same_underlying_source\": true,\n  \"independent_source_count\": 1,\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"SNAPSHOT_STORE\",\n    \"PROBE_LATENCY\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": true\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-fork:K5",
+    "instance": "payments-fork",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\n  \"same_underlying_source\": true,\n  \"independent_source_count\": 1,\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"SNAPSHOT_STORE\",\n    \"REOPEN_GATEWAY\",\n    \"DRAIN_NODE\"\n  ],\n  \"ready\": true\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-fork:K5",
+    "instance": "payments-fork",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\n  \"same_underlying_source\": true,\n  \"independent_source_count\": 1,\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"SNAPSHOT_STORE\",\n    \"REOPEN_GATEWAY\",\n    \"DRAIN_NODE\"\n  ],\n  \"ready\": true\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-fork:K5",
+    "instance": "payments-fork",
+    "intervention": "sham",
+    "dependence": "same_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"CYCLE_ENGINE\", \"SHIFT_ROUTING\", \"SNAPSHOT_STORE\", \"PROBE_LATENCY\", \"REOPEN_GATEWAY\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-fork:K5",
+    "instance": "payments-fork",
+    "intervention": "sham",
+    "dependence": "indep_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"CYCLE_ENGINE\", \"SHIFT_ROUTING\", \"SNAPSHOT_STORE\", \"PROBE_LATENCY\", \"REOPEN_GATEWAY\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-fork:K5",
+    "instance": "payments-fork",
+    "intervention": "gold",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"PROBE_LATENCY\",\n    \"SNAPSHOT_STORE\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-fork:K5",
+    "instance": "payments-fork",
+    "intervention": "gold",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"PROBE_LATENCY\",\n    \"SNAPSHOT_STORE\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-join:K4",
+    "instance": "payments-join",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SHIFT_ROUTING\",\n    \"CYCLE_ENGINE\",\n    \"DRAIN_NODE\",\n    \"SNAPSHOT_STORE\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-join:K4",
+    "instance": "payments-join",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SHIFT_ROUTING\",\n    \"CYCLE_ENGINE\",\n    \"PROBE_LATENCY\",\n    \"SNAPSHOT_STORE\",\n    \"DRAIN_NODE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-join:K4",
+    "instance": "payments-join",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"SHIFT_ROUTING\", \"DRAIN_NODE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-join:K4",
+    "instance": "payments-join",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 2, \"actions\": [\"SHIFT_ROUTING\", \"DRAIN_NODE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-join:K4",
+    "instance": "payments-join",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\n  \"same_underlying_source\": false,\n  \"independent_source_count\": 4,\n  \"actions\": [\n    \"SHIFT_ROUTING\",\n    \"CYCLE_ENGINE\",\n    \"DRAIN_NODE\",\n    \"REOPEN_GATEWAY\",\n    \"SNAPSHOT_STORE\"\n  ],\n  \"ready\": false\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-join:K4",
+    "instance": "payments-join",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"SHIFT_ROUTING\", \"DRAIN_NODE\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-join:K4",
+    "instance": "payments-join",
+    "intervention": "sham",
+    "dependence": "same_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 8, \"actions\": [\"SHIFT_ROUTING\", \"DRAIN_NODE\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-join:K4",
+    "instance": "payments-join",
+    "intervention": "sham",
+    "dependence": "indep_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"SHIFT_ROUTING\", \"DRAIN_NODE\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-join:K4",
+    "instance": "payments-join",
+    "intervention": "gold",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SHIFT_ROUTING\",\n    \"CYCLE_ENGINE\",\n    \"DRAIN_NODE\",\n    \"SNAPSHOT_STORE\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-join:K4",
+    "instance": "payments-join",
+    "intervention": "gold",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SHIFT_ROUTING\",\n    \"CYCLE_ENGINE\",\n    \"PROBE_LATENCY\",\n    \"SNAPSHOT_STORE\",\n    \"DRAIN_NODE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-join:K5",
+    "instance": "payments-join",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"REOPEN_GATEWAY\",\n    \"PROBE_LATENCY\",\n    \"DRAIN_NODE\",\n    \"SNAPSHOT_STORE\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-join:K5",
+    "instance": "payments-join",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"REOPEN_GATEWAY\",\n    \"PROBE_LATENCY\",\n    \"DRAIN_NODE\",\n    \"SNAPSHOT_STORE\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-join:K5",
+    "instance": "payments-join",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\n  \"same_underlying_source\": true,\n  \"independent_source_count\": 1,\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"REOPEN_GATEWAY\",\n    \"DRAIN_NODE\",\n    \"SNAPSHOT_STORE\"\n  ],\n  \"ready\": false\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-join:K5",
+    "instance": "payments-join",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 2, \"actions\": [\"CYCLE_ENGINE\", \"DRAIN_NODE\", \"SNAPSHOT_STORE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-join:K5",
+    "instance": "payments-join",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\n  \"same_underlying_source\": false,\n  \"independent_source_count\": 4,\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"REOPEN_GATEWAY\",\n    \"DRAIN_NODE\",\n    \"SNAPSHOT_STORE\"\n  ],\n  \"ready\": false\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-join:K5",
+    "instance": "payments-join",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\n  \"same_underlying_source\": false,\n  \"independent_source_count\": 4,\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"PROBE_LATENCY\",\n    \"SHIFT_ROUTING\",\n    \"REOPEN_GATEWAY\",\n    \"DRAIN_NODE\",\n    \"SNAPSHOT_STORE\"\n  ],\n  \"ready\": false\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-join:K5",
+    "instance": "payments-join",
+    "intervention": "sham",
+    "dependence": "same_root",
+    "plan_text": "{\n  \"mentions_a_clock_time\": false,\n  \"longest_message_word_count\": 8,\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"DRAIN_NODE\",\n    \"SNAPSHOT_STORE\"\n  ],\n  \"ready\": true\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-join:K5",
+    "instance": "payments-join",
+    "intervention": "sham",
+    "dependence": "indep_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"CYCLE_ENGINE\", \"DRAIN_NODE\", \"SNAPSHOT_STORE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-join:K5",
+    "instance": "payments-join",
+    "intervention": "gold",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"REOPEN_GATEWAY\",\n    \"PROBE_LATENCY\",\n    \"DRAIN_NODE\",\n    \"SNAPSHOT_STORE\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-join:K5",
+    "instance": "payments-join",
+    "intervention": "gold",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"REOPEN_GATEWAY\",\n    \"PROBE_LATENCY\",\n    \"DRAIN_NODE\",\n    \"SNAPSHOT_STORE\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-join:K7",
+    "instance": "payments-join",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SNAPSHOT_STORE\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-join:K7",
+    "instance": "payments-join",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"DRAIN_NODE\",\n    \"REOPEN_GATEWAY\",\n    \"SNAPSHOT_STORE\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-join:K7",
+    "instance": "payments-join",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\n  \"same_underlying_source\": true,\n  \"independent_source_count\": 1,\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SNAPSHOT_STORE\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": true\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-join:K7",
+    "instance": "payments-join",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\n  \"same_underlying_source\": true,\n  \"independent_source_count\": 1,\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"DRAIN_NODE\",\n    \"PROBE_LATENCY\",\n    \"SNAPSHOT_STORE\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": false\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-join:K7",
+    "instance": "payments-join",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\n  \"same_underlying_source\": false,\n  \"independent_source_count\": 4,\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SNAPSHOT_STORE\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": false\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-join:K7",
+    "instance": "payments-join",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\n  \"same_underlying_source\": false,\n  \"independent_source_count\": 4,\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"DRAIN_NODE\",\n    \"REOPEN_GATEWAY\",\n    \"PROBE_LATENCY\"\n  ],\n  \"ready\": false\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-join:K7",
+    "instance": "payments-join",
+    "intervention": "sham",
+    "dependence": "same_root",
+    "plan_text": "{\n  \"mentions_a_clock_time\": false,\n  \"longest_message_word_count\": 9,\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SNAPSHOT_STORE\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": true\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-join:K7",
+    "instance": "payments-join",
+    "intervention": "sham",
+    "dependence": "indep_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"CYCLE_ENGINE\", \"DRAIN_NODE\", \"REOPEN_GATEWAY\", \"SNAPSHOT_STORE\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-join:K7",
+    "instance": "payments-join",
+    "intervention": "gold",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SNAPSHOT_STORE\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-join:K7",
+    "instance": "payments-join",
+    "intervention": "gold",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"DRAIN_NODE\",\n    \"PROBE_LATENCY\",\n    \"SNAPSHOT_STORE\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-diamond:K2",
+    "instance": "payments-diamond",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"PROBE_LATENCY\",\n    \"SNAPSHOT_STORE\",\n    \"SHIFT_ROUTING\",\n    \"REOPEN_GATEWAY\",\n    \"DRAIN_NODE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-diamond:K2",
+    "instance": "payments-diamond",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"PROBE_LATENCY\",\n    \"SNAPSHOT_STORE\",\n    \"SHIFT_ROUTING\",\n    \"REOPEN_GATEWAY\",\n    \"DRAIN_NODE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-diamond:K2",
+    "instance": "payments-diamond",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"CYCLE_ENGINE\", \"SNAPSHOT_STORE\", \"PROBE_LATENCY\", \"SHIFT_ROUTING\", \"DRAIN_NODE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-diamond:K2",
+    "instance": "payments-diamond",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 2, \"actions\": [\"CYCLE_ENGINE\", \"SNAPSHOT_STORE\", \"PROBE_LATENCY\", \"SHIFT_ROUTING\", \"DRAIN_NODE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-diamond:K2",
+    "instance": "payments-diamond",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"CYCLE_ENGINE\", \"DRAIN_NODE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-diamond:K2",
+    "instance": "payments-diamond",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 2, \"actions\": [\"CYCLE_ENGINE\", \"DRAIN_NODE\", \"PROBE_LATENCY\", \"SHIFT_ROUTING\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-diamond:K2",
+    "instance": "payments-diamond",
+    "intervention": "sham",
+    "dependence": "same_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"CYCLE_ENGINE\", \"SNAPSHOT_STORE\", \"DRAIN_NODE\", \"PROBE_LATENCY\", \"SHIFT_ROUTING\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-diamond:K2",
+    "instance": "payments-diamond",
+    "intervention": "sham",
+    "dependence": "indep_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"CYCLE_ENGINE\", \"SNAPSHOT_STORE\", \"PROBE_LATENCY\", \"SHIFT_ROUTING\", \"DRAIN_NODE\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-diamond:K2",
+    "instance": "payments-diamond",
+    "intervention": "gold",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"PROBE_LATENCY\",\n    \"SNAPSHOT_STORE\",\n    \"REOPEN_GATEWAY\",\n    \"DRAIN_NODE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-diamond:K2",
+    "instance": "payments-diamond",
+    "intervention": "gold",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"PROBE_LATENCY\",\n    \"SNAPSHOT_STORE\",\n    \"REOPEN_GATEWAY\",\n    \"DRAIN_NODE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-diamond:K3",
+    "instance": "payments-diamond",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"REOPEN_GATEWAY\",\n    \"SNAPSHOT_STORE\",\n    \"DRAIN_NODE\",\n    \"PROBE_LATENCY\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-diamond:K3",
+    "instance": "payments-diamond",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"REOPEN_GATEWAY\",\n    \"SNAPSHOT_STORE\",\n    \"DRAIN_NODE\",\n    \"PROBE_LATENCY\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-diamond:K3",
+    "instance": "payments-diamond",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"CYCLE_ENGINE\", \"SHIFT_ROUTING\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-diamond:K3",
+    "instance": "payments-diamond",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"CYCLE_ENGINE\", \"SHIFT_ROUTING\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-diamond:K3",
+    "instance": "payments-diamond",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"CYCLE_ENGINE\", \"SHIFT_ROUTING\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-diamond:K3",
+    "instance": "payments-diamond",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"CYCLE_ENGINE\", \"SHIFT_ROUTING\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-diamond:K3",
+    "instance": "payments-diamond",
+    "intervention": "sham",
+    "dependence": "same_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"CYCLE_ENGINE\", \"SHIFT_ROUTING\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-diamond:K3",
+    "instance": "payments-diamond",
+    "intervention": "sham",
+    "dependence": "indep_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"CYCLE_ENGINE\", \"SHIFT_ROUTING\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-diamond:K3",
+    "instance": "payments-diamond",
+    "intervention": "gold",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"REOPEN_GATEWAY\",\n    \"SNAPSHOT_STORE\",\n    \"DRAIN_NODE\",\n    \"PROBE_LATENCY\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-diamond:K3",
+    "instance": "payments-diamond",
+    "intervention": "gold",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"REOPEN_GATEWAY\",\n    \"SNAPSHOT_STORE\",\n    \"DRAIN_NODE\",\n    \"PROBE_LATENCY\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-diamond:K4",
+    "instance": "payments-diamond",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"DRAIN_NODE\",\n    \"PROBE_LATENCY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-diamond:K4",
+    "instance": "payments-diamond",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "{\"actions\": [\"DRAIN_NODE\", \"PROBE_LATENCY\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-diamond:K4",
+    "instance": "payments-diamond",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"DRAIN_NODE\", \"PROBE_LATENCY\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-diamond:K4",
+    "instance": "payments-diamond",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"SNAPSHOT_STORE\", \"DRAIN_NODE\", \"PROBE_LATENCY\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-diamond:K4",
+    "instance": "payments-diamond",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"DRAIN_NODE\", \"PROBE_LATENCY\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-diamond:K4",
+    "instance": "payments-diamond",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"DRAIN_NODE\", \"PROBE_LATENCY\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-diamond:K4",
+    "instance": "payments-diamond",
+    "intervention": "sham",
+    "dependence": "same_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"CYCLE_ENGINE\", \"SNAPSHOT_STORE\", \"DRAIN_NODE\", \"PROBE_LATENCY\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-diamond:K4",
+    "instance": "payments-diamond",
+    "intervention": "sham",
+    "dependence": "indep_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 13, \"actions\": [\"SNAPSHOT_STORE\", \"DRAIN_NODE\", \"PROBE_LATENCY\", \"SHIFT_ROUTING\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-diamond:K4",
+    "instance": "payments-diamond",
+    "intervention": "gold",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"DRAIN_NODE\",\n    \"PROBE_LATENCY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-diamond:K4",
+    "instance": "payments-diamond",
+    "intervention": "gold",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"REOPEN_GATEWAY\",\n    \"SNAPSHOT_STORE\",\n    \"DRAIN_NODE\",\n    \"PROBE_LATENCY\",\n    \"SHIFT_ROUTING\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-twochain:K3",
+    "instance": "payments-twochain",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"DRAIN_NODE\",\n    \"PROBE_LATENCY\",\n    \"SNAPSHOT_STORE\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-twochain:K3",
+    "instance": "payments-twochain",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "{\"actions\": [\"PROBE_LATENCY\", \"SHIFT_ROUTING\", \"SNAPSHOT_STORE\", \"CYCLE_ENGINE\", \"REOPEN_GATEWAY\", \"DRAIN_NODE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-twochain:K3",
+    "instance": "payments-twochain",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"DRAIN_NODE\", \"CYCLE_ENGINE\", \"SHIFT_ROUTING\", \"PROBE_LATENCY\", \"SNAPSHOT_STORE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-twochain:K3",
+    "instance": "payments-twochain",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 2, \"actions\": [\"SHIFT_ROUTING\", \"PROBE_LATENCY\", \"SNAPSHOT_STORE\", \"CYCLE_ENGINE\", \"REOPEN_GATEWAY\", \"DRAIN_NODE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-twochain:K3",
+    "instance": "payments-twochain",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"PROBE_LATENCY\", \"SNAPSHOT_STORE\", \"SHIFT_ROUTING\", \"CYCLE_ENGINE\", \"REOPEN_GATEWAY\", \"DRAIN_NODE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-twochain:K3",
+    "instance": "payments-twochain",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"SHIFT_ROUTING\", \"PROBE_LATENCY\", \"SNAPSHOT_STORE\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-twochain:K3",
+    "instance": "payments-twochain",
+    "intervention": "sham",
+    "dependence": "same_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"PROBE_LATENCY\", \"SHIFT_ROUTING\", \"SNAPSHOT_STORE\", \"CYCLE_ENGINE\", \"REOPEN_GATEWAY\", \"DRAIN_NODE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-twochain:K3",
+    "instance": "payments-twochain",
+    "intervention": "sham",
+    "dependence": "indep_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 13, \"actions\": [\"SHIFT_ROUTING\", \"PROBE_LATENCY\", \"SNAPSHOT_STORE\", \"CYCLE_ENGINE\", \"REOPEN_GATEWAY\", \"DRAIN_NODE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-twochain:K3",
+    "instance": "payments-twochain",
+    "intervention": "gold",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"DRAIN_NODE\",\n    \"PROBE_LATENCY\",\n    \"SNAPSHOT_STORE\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-twochain:K3",
+    "instance": "payments-twochain",
+    "intervention": "gold",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"DRAIN_NODE\",\n    \"PROBE_LATENCY\",\n    \"SNAPSHOT_STORE\",\n    \"REOPEN_GATEWAY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-twochain:K5",
+    "instance": "payments-twochain",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"DRAIN_NODE\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-twochain:K5",
+    "instance": "payments-twochain",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"DRAIN_NODE\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-twochain:K5",
+    "instance": "payments-twochain",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"CYCLE_ENGINE\", \"DRAIN_NODE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-twochain:K5",
+    "instance": "payments-twochain",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 3, \"actions\": [\"CYCLE_ENGINE\", \"DRAIN_NODE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-twochain:K5",
+    "instance": "payments-twochain",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"CYCLE_ENGINE\", \"DRAIN_NODE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-twochain:K5",
+    "instance": "payments-twochain",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"CYCLE_ENGINE\", \"DRAIN_NODE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-twochain:K5",
+    "instance": "payments-twochain",
+    "intervention": "sham",
+    "dependence": "same_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"CYCLE_ENGINE\", \"DRAIN_NODE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-twochain:K5",
+    "instance": "payments-twochain",
+    "intervention": "sham",
+    "dependence": "indep_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"CYCLE_ENGINE\", \"DRAIN_NODE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-twochain:K5",
+    "instance": "payments-twochain",
+    "intervention": "gold",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"DRAIN_NODE\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-twochain:K5",
+    "instance": "payments-twochain",
+    "intervention": "gold",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"DRAIN_NODE\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-twochain:K6",
+    "instance": "payments-twochain",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"DRAIN_NODE\",\n    \"SHIFT_ROUTING\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-twochain:K6",
+    "instance": "payments-twochain",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SHIFT_ROUTING\",\n    \"DRAIN_NODE\",\n    \"CYCLE_ENGINE\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-twochain:K6",
+    "instance": "payments-twochain",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"SHIFT_ROUTING\", \"DRAIN_NODE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-twochain:K6",
+    "instance": "payments-twochain",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"SHIFT_ROUTING\", \"DRAIN_NODE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-twochain:K6",
+    "instance": "payments-twochain",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"SHIFT_ROUTING\", \"DRAIN_NODE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-twochain:K6",
+    "instance": "payments-twochain",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"SHIFT_ROUTING\", \"DRAIN_NODE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-twochain:K6",
+    "instance": "payments-twochain",
+    "intervention": "sham",
+    "dependence": "same_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"SHIFT_ROUTING\", \"DRAIN_NODE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-twochain:K6",
+    "instance": "payments-twochain",
+    "intervention": "sham",
+    "dependence": "indep_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"SHIFT_ROUTING\", \"DRAIN_NODE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-twochain:K6",
+    "instance": "payments-twochain",
+    "intervention": "gold",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"DRAIN_NODE\",\n    \"SHIFT_ROUTING\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-twochain:K6",
+    "instance": "payments-twochain",
+    "intervention": "gold",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SHIFT_ROUTING\",\n    \"DRAIN_NODE\",\n    \"CYCLE_ENGINE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-star:K3",
+    "instance": "payments-star",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SHIFT_ROUTING\",\n    \"PROBE_LATENCY\",\n    \"DRAIN_NODE\",\n    \"SNAPSHOT_STORE\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-star:K3",
+    "instance": "payments-star",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SHIFT_ROUTING\",\n    \"PROBE_LATENCY\",\n    \"CYCLE_ENGINE\",\n    \"DRAIN_NODE\",\n    \"SNAPSHOT_STORE\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-star:K3",
+    "instance": "payments-star",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\n  \"same_underlying_source\": true,\n  \"independent_source_count\": 1,\n  \"actions\": [\n    \"SHIFT_ROUTING\",\n    \"PROBE_LATENCY\",\n    \"DRAIN_NODE\",\n    \"SNAPSHOT_STORE\"\n  ],\n  \"ready\": false\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-star:K3",
+    "instance": "payments-star",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\n  \"same_underlying_source\": false,\n  \"independent_source_count\": 4,\n  \"actions\": [\n    \"SHIFT_ROUTING\",\n    \"PROBE_LATENCY\",\n    \"CYCLE_ENGINE\",\n    \"DRAIN_NODE\",\n    \"SNAPSHOT_STORE\"\n  ],\n  \"ready\": false\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-star:K3",
+    "instance": "payments-star",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\n  \"same_underlying_source\": true,\n  \"independent_source_count\": 1,\n  \"actions\": [\n    \"SHIFT_ROUTING\",\n    \"PROBE_LATENCY\",\n    \"DRAIN_NODE\",\n    \"SNAPSHOT_STORE\"\n  ],\n  \"ready\": true\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-star:K3",
+    "instance": "payments-star",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\n  \"same_underlying_source\": false,\n  \"independent_source_count\": 4,\n  \"actions\": [\n    \"SHIFT_ROUTING\",\n    \"CYCLE_ENGINE\",\n    \"PROBE_LATENCY\",\n    \"DRAIN_NODE\"\n  ],\n  \"ready\": false\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-star:K3",
+    "instance": "payments-star",
+    "intervention": "sham",
+    "dependence": "same_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"SHIFT_ROUTING\", \"DRAIN_NODE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-star:K3",
+    "instance": "payments-star",
+    "intervention": "sham",
+    "dependence": "indep_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"SHIFT_ROUTING\", \"DRAIN_NODE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-star:K3",
+    "instance": "payments-star",
+    "intervention": "gold",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SHIFT_ROUTING\",\n    \"PROBE_LATENCY\",\n    \"CYCLE_ENGINE\",\n    \"DRAIN_NODE\",\n    \"SNAPSHOT_STORE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-star:K3",
+    "instance": "payments-star",
+    "intervention": "gold",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SHIFT_ROUTING\",\n    \"PROBE_LATENCY\",\n    \"CYCLE_ENGINE\",\n    \"DRAIN_NODE\",\n    \"SNAPSHOT_STORE\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-star:K4",
+    "instance": "payments-star",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"PROBE_LATENCY\",\n    \"DRAIN_NODE\",\n    \"SNAPSHOT_STORE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-star:K4",
+    "instance": "payments-star",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"PROBE_LATENCY\",\n    \"DRAIN_NODE\",\n    \"SNAPSHOT_STORE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-star:K4",
+    "instance": "payments-star",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"REOPEN_GATEWAY\", \"CYCLE_ENGINE\", \"SHIFT_ROUTING\", \"PROBE_LATENCY\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-star:K4",
+    "instance": "payments-star",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\n  \"same_underlying_source\": true,\n  \"independent_source_count\": 1,\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"PROBE_LATENCY\",\n    \"DRAIN_NODE\",\n    \"SNAPSHOT_STORE\"\n  ],\n  \"ready\": false\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-star:K4",
+    "instance": "payments-star",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"REOPEN_GATEWAY\", \"CYCLE_ENGINE\", \"SHIFT_ROUTING\", \"PROBE_LATENCY\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-star:K4",
+    "instance": "payments-star",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\n  \"same_underlying_source\": true,\n  \"independent_source_count\": 1,\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"PROBE_LATENCY\",\n    \"DRAIN_NODE\",\n    \"SNAPSHOT_STORE\"\n  ],\n  \"ready\": false\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-star:K4",
+    "instance": "payments-star",
+    "intervention": "sham",
+    "dependence": "same_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"REOPEN_GATEWAY\", \"CYCLE_ENGINE\", \"SHIFT_ROUTING\", \"PROBE_LATENCY\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-star:K4",
+    "instance": "payments-star",
+    "intervention": "sham",
+    "dependence": "indep_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"REOPEN_GATEWAY\", \"CYCLE_ENGINE\", \"SHIFT_ROUTING\", \"PROBE_LATENCY\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-star:K4",
+    "instance": "payments-star",
+    "intervention": "gold",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"REOPEN_GATEWAY\",\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"PROBE_LATENCY\",\n    \"DRAIN_NODE\",\n    \"SNAPSHOT_STORE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-star:K4",
+    "instance": "payments-star",
+    "intervention": "gold",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"PROBE_LATENCY\",\n    \"DRAIN_NODE\",\n    \"SNAPSHOT_STORE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-star:K5",
+    "instance": "payments-star",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"PROBE_LATENCY\",\n    \"DRAIN_NODE\",\n    \"SNAPSHOT_STORE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-star:K5",
+    "instance": "payments-star",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"PROBE_LATENCY\",\n    \"DRAIN_NODE\",\n    \"SNAPSHOT_STORE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-star:K5",
+    "instance": "payments-star",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\n  \"same_underlying_source\": true,\n  \"independent_source_count\": 1,\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"PROBE_LATENCY\",\n    \"DRAIN_NODE\",\n    \"SNAPSHOT_STORE\"\n  ],\n  \"ready\": true\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-star:K5",
+    "instance": "payments-star",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 2, \"actions\": [\"CYCLE_ENGINE\", \"SHIFT_ROUTING\", \"PROBE_LATENCY\", \"SNAPSHOT_STORE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-star:K5",
+    "instance": "payments-star",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\n  \"same_underlying_source\": true,\n  \"independent_source_count\": 1,\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"PROBE_LATENCY\",\n    \"DRAIN_NODE\",\n    \"SNAPSHOT_STORE\"\n  ],\n  \"ready\": true\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-star:K5",
+    "instance": "payments-star",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"CYCLE_ENGINE\", \"SHIFT_ROUTING\", \"PROBE_LATENCY\", \"SNAPSHOT_STORE\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-star:K5",
+    "instance": "payments-star",
+    "intervention": "sham",
+    "dependence": "same_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"REOPEN_GATEWAY\", \"SHIFT_ROUTING\", \"CYCLE_ENGINE\", \"PROBE_LATENCY\", \"DRAIN_NODE\", \"SNAPSHOT_STORE\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-star:K5",
+    "instance": "payments-star",
+    "intervention": "sham",
+    "dependence": "indep_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"REOPEN_GATEWAY\", \"SHIFT_ROUTING\", \"CYCLE_ENGINE\", \"PROBE_LATENCY\", \"DRAIN_NODE\", \"SNAPSHOT_STORE\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-star:K5",
+    "instance": "payments-star",
+    "intervention": "gold",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"PROBE_LATENCY\",\n    \"DRAIN_NODE\",\n    \"SNAPSHOT_STORE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "payments-star:K5",
+    "instance": "payments-star",
+    "intervention": "gold",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CYCLE_ENGINE\",\n    \"SHIFT_ROUTING\",\n    \"PROBE_LATENCY\",\n    \"DRAIN_NODE\",\n    \"SNAPSHOT_STORE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-chain:K2",
+    "instance": "robotics-chain",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"LOCK_BAY\",\n    \"CALIBRATE_ARM\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-chain:K2",
+    "instance": "robotics-chain",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"LOCK_BAY\",\n    \"CALIBRATE_ARM\",\n    \"AUDIT_INVENTORY\",\n    \"HALT_CONVEYOR\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-chain:K2",
+    "instance": "robotics-chain",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\n  \"same_underlying_source\": true,\n  \"independent_source_count\": 1,\n  \"actions\": [\n    \"LOCK_BAY\",\n    \"CALIBRATE_ARM\"\n  ],\n  \"ready\": true\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-chain:K2",
+    "instance": "robotics-chain",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"LOCK_BAY\", \"CALIBRATE_ARM\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-chain:K2",
+    "instance": "robotics-chain",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"LOCK_BAY\", \"CALIBRATE_ARM\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-chain:K2",
+    "instance": "robotics-chain",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"LOCK_BAY\", \"CALIBRATE_ARM\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-chain:K2",
+    "instance": "robotics-chain",
+    "intervention": "sham",
+    "dependence": "same_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 7, \"actions\": [\"LOCK_BAY\", \"CALIBRATE_ARM\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-chain:K2",
+    "instance": "robotics-chain",
+    "intervention": "sham",
+    "dependence": "indep_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 7, \"actions\": [\"LOCK_BAY\", \"CALIBRATE_ARM\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-chain:K2",
+    "instance": "robotics-chain",
+    "intervention": "gold",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"LOCK_BAY\",\n    \"CALIBRATE_ARM\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-chain:K2",
+    "instance": "robotics-chain",
+    "intervention": "gold",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"LOCK_BAY\",\n    \"CALIBRATE_ARM\",\n    \"AUDIT_INVENTORY\",\n    \"HALT_CONVEYOR\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-chain:K4",
+    "instance": "robotics-chain",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"SWAP_GRIPPER\",\n    \"LOCK_BAY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-chain:K4",
+    "instance": "robotics-chain",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"SWAP_GRIPPER\",\n    \"LOCK_BAY\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-chain:K4",
+    "instance": "robotics-chain",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\n  \"same_underlying_source\": true,\n  \"independent_source_count\": 1,\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"SWAP_GRIPPER\",\n    \"LOCK_BAY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-chain:K4",
+    "instance": "robotics-chain",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\n  \"same_underlying_source\": false,\n  \"independent_source_count\": 3,\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"SWAP_GRIPPER\",\n    \"LOCK_BAY\",\n    \"AUDIT_INVENTORY\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": false\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-chain:K4",
+    "instance": "robotics-chain",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"HALT_CONVEYOR\", \"SWAP_GRIPPER\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-chain:K4",
+    "instance": "robotics-chain",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\n  \"same_underlying_source\": false,\n  \"independent_source_count\": 4,\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"SWAP_GRIPPER\",\n    \"LOCK_BAY\",\n    \"AUDIT_INVENTORY\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": false\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-chain:K4",
+    "instance": "robotics-chain",
+    "intervention": "sham",
+    "dependence": "same_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 8, \"actions\": [\"HALT_CONVEYOR\", \"SWAP_GRIPPER\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-chain:K4",
+    "instance": "robotics-chain",
+    "intervention": "sham",
+    "dependence": "indep_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 7, \"actions\": [\"HALT_CONVEYOR\", \"SWAP_GRIPPER\", \"LOCK_BAY\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-chain:K4",
+    "instance": "robotics-chain",
+    "intervention": "gold",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"SWAP_GRIPPER\",\n    \"LOCK_BAY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-chain:K4",
+    "instance": "robotics-chain",
+    "intervention": "gold",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"SWAP_GRIPPER\",\n    \"LOCK_BAY\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-chain:K5",
+    "instance": "robotics-chain",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"AUDIT_INVENTORY\",\n    \"CALIBRATE_ARM\",\n    \"SWAP_GRIPPER\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-chain:K5",
+    "instance": "robotics-chain",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"AUDIT_INVENTORY\",\n    \"CALIBRATE_ARM\",\n    \"SWAP_GRIPPER\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-chain:K5",
+    "instance": "robotics-chain",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\n  \"same_underlying_source\": true,\n  \"independent_source_count\": 1,\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"AUDIT_INVENTORY\",\n    \"CALIBRATE_ARM\",\n    \"SWAP_GRIPPER\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": false\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-chain:K5",
+    "instance": "robotics-chain",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\n  \"same_underlying_source\": false,\n  \"independent_source_count\": 3,\n  \"actions\": [\n    \"AUDIT_INVENTORY\",\n    \"CALIBRATE_ARM\",\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": false\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-chain:K5",
+    "instance": "robotics-chain",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 4, \"actions\": [\"HALT_CONVEYOR\", \"LOCK_BAY\", \"AUDIT_INVENTORY\", \"RESUME_LINE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-chain:K5",
+    "instance": "robotics-chain",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\n  \"same_underlying_source\": false,\n  \"independent_source_count\": 2,\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": false\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-chain:K5",
+    "instance": "robotics-chain",
+    "intervention": "sham",
+    "dependence": "same_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 7, \"actions\": [\"LOCK_BAY\", \"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"SWAP_GRIPPER\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-chain:K5",
+    "instance": "robotics-chain",
+    "intervention": "sham",
+    "dependence": "indep_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 7, \"actions\": [\"AUDIT_INVENTORY\", \"HALT_CONVEYOR\", \"LOCK_BAY\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-chain:K5",
+    "instance": "robotics-chain",
+    "intervention": "gold",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"AUDIT_INVENTORY\",\n    \"CALIBRATE_ARM\",\n    \"SWAP_GRIPPER\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-chain:K5",
+    "instance": "robotics-chain",
+    "intervention": "gold",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"AUDIT_INVENTORY\",\n    \"CALIBRATE_ARM\",\n    \"SWAP_GRIPPER\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-fork:K2",
+    "instance": "robotics-fork",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"CALIBRATE_ARM\",\n    \"SWAP_GRIPPER\",\n    \"LOCK_BAY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-fork:K2",
+    "instance": "robotics-fork",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"CALIBRATE_ARM\",\n    \"SWAP_GRIPPER\",\n    \"LOCK_BAY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-fork:K2",
+    "instance": "robotics-fork",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\n  \"same_underlying_source\": false,\n  \"independent_source_count\": 4,\n  \"actions\": [\n    \"CALIBRATE_ARM\",\n    \"AUDIT_INVENTORY\",\n    \"LOCK_BAY\",\n    \"HALT_CONVEYOR\",\n    \"SWAP_GRIPPER\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": false\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-fork:K2",
+    "instance": "robotics-fork",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\n  \"same_underlying_source\": false,\n  \"independent_source_count\": 3,\n  \"actions\": [\n    \"CALIBRATE_ARM\",\n    \"AUDIT_INVENTORY\",\n    \"LOCK_BAY\",\n    \"HALT_CONVEYOR\",\n    \"SWAP_GRIPPER\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": false\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-fork:K2",
+    "instance": "robotics-fork",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 4, \"actions\": [\"CALIBRATE_ARM\", \"AUDIT_INVENTORY\", \"SWAP_GRIPPER\", \"LOCK_BAY\", \"HALT_CONVEYOR\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-fork:K2",
+    "instance": "robotics-fork",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\n  \"same_underlying_source\": false,\n  \"independent_source_count\": 3,\n  \"actions\": [\n    \"CALIBRATE_ARM\",\n    \"AUDIT_INVENTORY\",\n    \"SWAP_GRIPPER\",\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": false\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-fork:K2",
+    "instance": "robotics-fork",
+    "intervention": "sham",
+    "dependence": "same_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 7, \"actions\": [\"LOCK_BAY\", \"AUDIT_INVENTORY\", \"CALIBRATE_ARM\", \"SWAP_GRIPPER\", \"HALT_CONVEYOR\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-fork:K2",
+    "instance": "robotics-fork",
+    "intervention": "sham",
+    "dependence": "indep_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"AUDIT_INVENTORY\", \"CALIBRATE_ARM\", \"LOCK_BAY\", \"HALT_CONVEYOR\", \"SWAP_GRIPPER\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-fork:K2",
+    "instance": "robotics-fork",
+    "intervention": "gold",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"CALIBRATE_ARM\",\n    \"SWAP_GRIPPER\",\n    \"LOCK_BAY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-fork:K2",
+    "instance": "robotics-fork",
+    "intervention": "gold",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"CALIBRATE_ARM\",\n    \"SWAP_GRIPPER\",\n    \"LOCK_BAY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-fork:K4",
+    "instance": "robotics-fork",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\",\n    \"AUDIT_INVENTORY\",\n    \"LOCK_BAY\",\n    \"HALT_CONVEYOR\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-fork:K4",
+    "instance": "robotics-fork",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CALIBRATE_ARM\",\n    \"SWAP_GRIPPER\",\n    \"LOCK_BAY\",\n    \"HALT_CONVEYOR\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-fork:K4",
+    "instance": "robotics-fork",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"CALIBRATE_ARM\", \"SWAP_GRIPPER\", \"LOCK_BAY\", \"HALT_CONVEYOR\", \"RESUME_LINE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-fork:K4",
+    "instance": "robotics-fork",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\n  \"same_underlying_source\": false,\n  \"independent_source_count\": 3,\n  \"actions\": [\n    \"CALIBRATE_ARM\",\n    \"SWAP_GRIPPER\",\n    \"AUDIT_INVENTORY\",\n    \"LOCK_BAY\",\n    \"HALT_CONVEYOR\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": false\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-fork:K4",
+    "instance": "robotics-fork",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"CALIBRATE_ARM\", \"SWAP_GRIPPER\", \"LOCK_BAY\", \"HALT_CONVEYOR\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-fork:K4",
+    "instance": "robotics-fork",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 2, \"actions\": [\"CALIBRATE_ARM\", \"SWAP_GRIPPER\", \"LOCK_BAY\", \"HALT_CONVEYOR\", \"RESUME_LINE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-fork:K4",
+    "instance": "robotics-fork",
+    "intervention": "sham",
+    "dependence": "same_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 8, \"actions\": [\"SWAP_GRIPPER\", \"CALIBRATE_ARM\", \"LOCK_BAY\", \"HALT_CONVEYOR\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-fork:K4",
+    "instance": "robotics-fork",
+    "intervention": "sham",
+    "dependence": "indep_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"SWAP_GRIPPER\", \"CALIBRATE_ARM\", \"LOCK_BAY\", \"HALT_CONVEYOR\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-fork:K4",
+    "instance": "robotics-fork",
+    "intervention": "gold",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\",\n    \"AUDIT_INVENTORY\",\n    \"LOCK_BAY\",\n    \"HALT_CONVEYOR\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-fork:K4",
+    "instance": "robotics-fork",
+    "intervention": "gold",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\",\n    \"AUDIT_INVENTORY\",\n    \"LOCK_BAY\",\n    \"HALT_CONVEYOR\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-fork:K5",
+    "instance": "robotics-fork",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\",\n    \"LOCK_BAY\",\n    \"HALT_CONVEYOR\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-fork:K5",
+    "instance": "robotics-fork",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\",\n    \"LOCK_BAY\",\n    \"HALT_CONVEYOR\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-fork:K5",
+    "instance": "robotics-fork",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\n  \"same_underlying_source\": true,\n  \"independent_source_count\": 1,\n  \"actions\": [\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\",\n    \"LOCK_BAY\",\n    \"HALT_CONVEYOR\"\n  ],\n  \"ready\": false\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-fork:K5",
+    "instance": "robotics-fork",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\n  \"same_underlying_source\": true,\n  \"independent_source_count\": 1,\n  \"actions\": [\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\",\n    \"LOCK_BAY\",\n    \"HALT_CONVEYOR\"\n  ],\n  \"ready\": false\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-fork:K5",
+    "instance": "robotics-fork",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\n  \"same_underlying_source\": false,\n  \"independent_source_count\": 4,\n  \"actions\": [\n    \"CALIBRATE_ARM\",\n    \"AUDIT_INVENTORY\",\n    \"SWAP_GRIPPER\",\n    \"RESUME_LINE\",\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\"\n  ],\n  \"ready\": false\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-fork:K5",
+    "instance": "robotics-fork",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\n  \"same_underlying_source\": true,\n  \"independent_source_count\": 1,\n  \"actions\": [\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\",\n    \"LOCK_BAY\",\n    \"HALT_CONVEYOR\"\n  ],\n  \"ready\": true\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-fork:K5",
+    "instance": "robotics-fork",
+    "intervention": "sham",
+    "dependence": "same_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 7, \"actions\": [\"CALIBRATE_ARM\", \"RESUME_LINE\", \"LOCK_BAY\", \"HALT_CONVEYOR\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-fork:K5",
+    "instance": "robotics-fork",
+    "intervention": "sham",
+    "dependence": "indep_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"CALIBRATE_ARM\", \"RESUME_LINE\", \"LOCK_BAY\", \"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"SWAP_GRIPPER\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-fork:K5",
+    "instance": "robotics-fork",
+    "intervention": "gold",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\",\n    \"LOCK_BAY\",\n    \"HALT_CONVEYOR\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-fork:K5",
+    "instance": "robotics-fork",
+    "intervention": "gold",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\",\n    \"LOCK_BAY\",\n    \"HALT_CONVEYOR\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-join:K3",
+    "instance": "robotics-join",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-join:K3",
+    "instance": "robotics-join",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-join:K3",
+    "instance": "robotics-join",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\n  \"same_underlying_source\": true,\n  \"independent_source_count\": 1,\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": false\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-join:K3",
+    "instance": "robotics-join",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\n  \"same_underlying_source\": true,\n  \"independent_source_count\": 1,\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-join:K3",
+    "instance": "robotics-join",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\n  \"same_underlying_source\": true,\n  \"independent_source_count\": 1,\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"CALIBRATE_ARM\",\n    \"SWAP_GRIPPER\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": false\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-join:K3",
+    "instance": "robotics-join",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\n  \"same_underlying_source\": true,\n  \"independent_source_count\": 1,\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-join:K3",
+    "instance": "robotics-join",
+    "intervention": "sham",
+    "dependence": "same_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"RESUME_LINE\", \"CALIBRATE_ARM\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-join:K3",
+    "instance": "robotics-join",
+    "intervention": "sham",
+    "dependence": "indep_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 7, \"actions\": [\"HALT_CONVEYOR\", \"LOCK_BAY\", \"CALIBRATE_ARM\", \"SWAP_GRIPPER\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-join:K3",
+    "instance": "robotics-join",
+    "intervention": "gold",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-join:K3",
+    "instance": "robotics-join",
+    "intervention": "gold",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"SWAP_GRIPPER\",\n    \"RESUME_LINE\",\n    \"CALIBRATE_ARM\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-join:K4",
+    "instance": "robotics-join",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"AUDIT_INVENTORY\",\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\",\n    \"LOCK_BAY\",\n    \"HALT_CONVEYOR\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-join:K4",
+    "instance": "robotics-join",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"AUDIT_INVENTORY\",\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\",\n    \"LOCK_BAY\",\n    \"HALT_CONVEYOR\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-join:K4",
+    "instance": "robotics-join",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"AUDIT_INVENTORY\", \"CALIBRATE_ARM\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-join:K4",
+    "instance": "robotics-join",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\n  \"same_underlying_source\": true,\n  \"independent_source_count\": 1,\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\",\n    \"LOCK_BAY\"\n  ],\n  \"ready\": true\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-join:K4",
+    "instance": "robotics-join",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"AUDIT_INVENTORY\", \"CALIBRATE_ARM\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-join:K4",
+    "instance": "robotics-join",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 4, \"actions\": [\"AUDIT_INVENTORY\", \"LOCK_BAY\", \"HALT_CONVEYOR\", \"CALIBRATE_ARM\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-join:K4",
+    "instance": "robotics-join",
+    "intervention": "sham",
+    "dependence": "same_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"AUDIT_INVENTORY\", \"LOCK_BAY\", \"HALT_CONVEYOR\", \"CALIBRATE_ARM\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-join:K4",
+    "instance": "robotics-join",
+    "intervention": "sham",
+    "dependence": "indep_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"AUDIT_INVENTORY\", \"LOCK_BAY\", \"HALT_CONVEYOR\", \"CALIBRATE_ARM\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-join:K4",
+    "instance": "robotics-join",
+    "intervention": "gold",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"AUDIT_INVENTORY\",\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\",\n    \"LOCK_BAY\",\n    \"HALT_CONVEYOR\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-join:K4",
+    "instance": "robotics-join",
+    "intervention": "gold",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"AUDIT_INVENTORY\",\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\",\n    \"LOCK_BAY\",\n    \"HALT_CONVEYOR\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-join:K7",
+    "instance": "robotics-join",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"AUDIT_INVENTORY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-join:K7",
+    "instance": "robotics-join",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"LOCK_BAY\",\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-join:K7",
+    "instance": "robotics-join",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\n  \"same_underlying_source\": true,\n  \"independent_source_count\": 1,\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"AUDIT_INVENTORY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": false\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-join:K7",
+    "instance": "robotics-join",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\n  \"same_underlying_source\": true,\n  \"independent_source_count\": 1,\n  \"actions\": [\n    \"CALIBRATE_ARM\",\n    \"SWAP_GRIPPER\",\n    \"LOCK_BAY\",\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": false\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-join:K7",
+    "instance": "robotics-join",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\n  \"same_underlying_source\": false,\n  \"independent_source_count\": 4,\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"AUDIT_INVENTORY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": false\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-join:K7",
+    "instance": "robotics-join",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 2, \"actions\": [\"LOCK_BAY\", \"HALT_CONVEYOR\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-join:K7",
+    "instance": "robotics-join",
+    "intervention": "sham",
+    "dependence": "same_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 7, \"actions\": [\"LOCK_BAY\", \"HALT_CONVEYOR\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-join:K7",
+    "instance": "robotics-join",
+    "intervention": "sham",
+    "dependence": "indep_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 7, \"actions\": [\"SWAP_GRIPPER\", \"LOCK_BAY\", \"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-join:K7",
+    "instance": "robotics-join",
+    "intervention": "gold",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"AUDIT_INVENTORY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-join:K7",
+    "instance": "robotics-join",
+    "intervention": "gold",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"LOCK_BAY\",\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-diamond:K2",
+    "instance": "robotics-diamond",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-diamond:K2",
+    "instance": "robotics-diamond",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-diamond:K2",
+    "instance": "robotics-diamond",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\n  \"same_underlying_source\": true,\n  \"independent_source_count\": 1,\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-diamond:K2",
+    "instance": "robotics-diamond",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"RESUME_LINE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-diamond:K2",
+    "instance": "robotics-diamond",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-diamond:K2",
+    "instance": "robotics-diamond",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\n  \"same_underlying_source\": false,\n  \"independent_source_count\": 2,\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": false\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-diamond:K2",
+    "instance": "robotics-diamond",
+    "intervention": "sham",
+    "dependence": "same_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 7, \"actions\": [\"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"LOCK_BAY\", \"CALIBRATE_ARM\", \"RESUME_LINE\", \"SWAP_GRIPPER\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-diamond:K2",
+    "instance": "robotics-diamond",
+    "intervention": "sham",
+    "dependence": "indep_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-diamond:K2",
+    "instance": "robotics-diamond",
+    "intervention": "gold",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-diamond:K2",
+    "instance": "robotics-diamond",
+    "intervention": "gold",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"CALIBRATE_ARM\",\n    \"SWAP_GRIPPER\",\n    \"LOCK_BAY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-diamond:K3",
+    "instance": "robotics-diamond",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\",\n    \"LOCK_BAY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-diamond:K3",
+    "instance": "robotics-diamond",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\",\n    \"LOCK_BAY\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-diamond:K3",
+    "instance": "robotics-diamond",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 4, \"actions\": [\"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"SWAP_GRIPPER\", \"LOCK_BAY\", \"CALIBRATE_ARM\", \"RESUME_LINE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-diamond:K3",
+    "instance": "robotics-diamond",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\n  \"same_underlying_source\": false,\n  \"independent_source_count\": 4,\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\",\n    \"AUDIT_INVENTORY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": false\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-diamond:K3",
+    "instance": "robotics-diamond",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 2, \"actions\": [\"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"SWAP_GRIPPER\", \"LOCK_BAY\", \"CALIBRATE_ARM\", \"RESUME_LINE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-diamond:K3",
+    "instance": "robotics-diamond",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 2, \"actions\": [\"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"SWAP_GRIPPER\", \"LOCK_BAY\", \"CALIBRATE_ARM\", \"RESUME_LINE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-diamond:K3",
+    "instance": "robotics-diamond",
+    "intervention": "sham",
+    "dependence": "same_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 7, \"actions\": [\"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"SWAP_GRIPPER\", \"LOCK_BAY\", \"CALIBRATE_ARM\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-diamond:K3",
+    "instance": "robotics-diamond",
+    "intervention": "sham",
+    "dependence": "indep_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"SWAP_GRIPPER\", \"LOCK_BAY\", \"CALIBRATE_ARM\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-diamond:K3",
+    "instance": "robotics-diamond",
+    "intervention": "gold",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\",\n    \"LOCK_BAY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-diamond:K3",
+    "instance": "robotics-diamond",
+    "intervention": "gold",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\",\n    \"LOCK_BAY\"\n  ],\n  \"ready\": false\n}\n```\n\nNote: The plan is not ready to execute as written because the Duty Manager suggested swapping the gripper assembly before auditing the bin inventory, which contradicts the other parties' agreements."
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-diamond:K4",
+    "instance": "robotics-diamond",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-diamond:K4",
+    "instance": "robotics-diamond",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-diamond:K4",
+    "instance": "robotics-diamond",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\n  \"same_underlying_source\": true,\n  \"independent_source_count\": 1,\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-diamond:K4",
+    "instance": "robotics-diamond",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"HALT_CONVEYOR\", \"CALIBRATE_ARM\", \"RESUME_LINE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-diamond:K4",
+    "instance": "robotics-diamond",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\n  \"same_underlying_source\": true,\n  \"independent_source_count\": 1,\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-diamond:K4",
+    "instance": "robotics-diamond",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"HALT_CONVEYOR\", \"CALIBRATE_ARM\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-diamond:K4",
+    "instance": "robotics-diamond",
+    "intervention": "sham",
+    "dependence": "same_root",
+    "plan_text": "{\n  \"mentions_a_clock_time\": false,\n  \"longest_message_word_count\": 8,\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-diamond:K4",
+    "instance": "robotics-diamond",
+    "intervention": "sham",
+    "dependence": "indep_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"HALT_CONVEYOR\", \"CALIBRATE_ARM\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-diamond:K4",
+    "instance": "robotics-diamond",
+    "intervention": "gold",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RESUME_LINE\",\n    \"CALIBRATE_ARM\",\n    \"AUDIT_INVENTORY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-diamond:K4",
+    "instance": "robotics-diamond",
+    "intervention": "gold",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-twochain:K2",
+    "instance": "robotics-twochain",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-twochain:K2",
+    "instance": "robotics-twochain",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-twochain:K2",
+    "instance": "robotics-twochain",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\n  \"same_underlying_source\": true,\n  \"independent_source_count\": 1,\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-twochain:K2",
+    "instance": "robotics-twochain",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"HALT_CONVEYOR\", \"CALIBRATE_ARM\", \"RESUME_LINE\", \"AUDIT_INVENTORY\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-twochain:K2",
+    "instance": "robotics-twochain",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\n  \"same_underlying_source\": true,\n  \"independent_source_count\": 1,\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-twochain:K2",
+    "instance": "robotics-twochain",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 4, \"actions\": [\"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"RESUME_LINE\", \"CALIBRATE_ARM\", \"SWAP_GRIPPER\", \"LOCK_BAY\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-twochain:K2",
+    "instance": "robotics-twochain",
+    "intervention": "sham",
+    "dependence": "same_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 7, \"actions\": [\"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-twochain:K2",
+    "instance": "robotics-twochain",
+    "intervention": "sham",
+    "dependence": "indep_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-twochain:K2",
+    "instance": "robotics-twochain",
+    "intervention": "gold",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\",\n    \"AUDIT_INVENTORY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-twochain:K2",
+    "instance": "robotics-twochain",
+    "intervention": "gold",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RESUME_LINE\",\n    \"AUDIT_INVENTORY\"\n  ],\n  \"ready\": false\n}\n```\n\nThis plan follows the established order of resuming the line before auditing the bin inventory, as per the vendor runbook and the site handover notes. However, it does not take into account the conflicting opinions of the Operations Lead, Safety Auditor, and Duty Manager, which is why the \"ready\" field is set to false."
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-twochain:K5",
+    "instance": "robotics-twochain",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"AUDIT_INVENTORY\",\n    \"SWAP_GRIPPER\",\n    \"HALT_CONVEYOR\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-twochain:K5",
+    "instance": "robotics-twochain",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"SWAP_GRIPPER\",\n    \"AUDIT_INVENTORY\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-twochain:K5",
+    "instance": "robotics-twochain",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\n  \"same_underlying_source\": true,\n  \"independent_source_count\": 1,\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"SWAP_GRIPPER\",\n    \"AUDIT_INVENTORY\"\n  ],\n  \"ready\": false\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-twochain:K5",
+    "instance": "robotics-twochain",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 2, \"actions\": [\"HALT_CONVEYOR\", \"SWAP_GRIPPER\", \"AUDIT_INVENTORY\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-twochain:K5",
+    "instance": "robotics-twochain",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"HALT_CONVEYOR\", \"SWAP_GRIPPER\", \"AUDIT_INVENTORY\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-twochain:K5",
+    "instance": "robotics-twochain",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 2, \"actions\": [\"HALT_CONVEYOR\", \"SWAP_GRIPPER\", \"AUDIT_INVENTORY\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-twochain:K5",
+    "instance": "robotics-twochain",
+    "intervention": "sham",
+    "dependence": "same_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 7, \"actions\": [\"HALT_CONVEYOR\", \"SWAP_GRIPPER\", \"AUDIT_INVENTORY\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-twochain:K5",
+    "instance": "robotics-twochain",
+    "intervention": "sham",
+    "dependence": "indep_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 7, \"actions\": [\"HALT_CONVEYOR\", \"SWAP_GRIPPER\", \"AUDIT_INVENTORY\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-twochain:K5",
+    "instance": "robotics-twochain",
+    "intervention": "gold",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"SWAP_GRIPPER\",\n    \"AUDIT_INVENTORY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-twochain:K5",
+    "instance": "robotics-twochain",
+    "intervention": "gold",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"SWAP_GRIPPER\",\n    \"AUDIT_INVENTORY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-twochain:K6",
+    "instance": "robotics-twochain",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-twochain:K6",
+    "instance": "robotics-twochain",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"AUDIT_INVENTORY\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-twochain:K6",
+    "instance": "robotics-twochain",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"HALT_CONVEYOR\", \"LOCK_BAY\", \"CALIBRATE_ARM\", \"RESUME_LINE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-twochain:K6",
+    "instance": "robotics-twochain",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\n  \"same_underlying_source\": false,\n  \"independent_source_count\": 4,\n  \"actions\": [\n    \"CALIBRATE_ARM\",\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"SWAP_GRIPPER\",\n    \"LOCK_BAY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": false\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-twochain:K6",
+    "instance": "robotics-twochain",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"HALT_CONVEYOR\", \"LOCK_BAY\", \"CALIBRATE_ARM\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-twochain:K6",
+    "instance": "robotics-twochain",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 4, \"actions\": [\"LOCK_BAY\", \"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"RESUME_LINE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-twochain:K6",
+    "instance": "robotics-twochain",
+    "intervention": "sham",
+    "dependence": "same_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 7, \"actions\": [\"LOCK_BAY\", \"HALT_CONVEYOR\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-twochain:K6",
+    "instance": "robotics-twochain",
+    "intervention": "sham",
+    "dependence": "indep_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"LOCK_BAY\", \"HALT_CONVEYOR\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-twochain:K6",
+    "instance": "robotics-twochain",
+    "intervention": "gold",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"AUDIT_INVENTORY\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-twochain:K6",
+    "instance": "robotics-twochain",
+    "intervention": "gold",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"AUDIT_INVENTORY\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-star:K2",
+    "instance": "robotics-star",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"AUDIT_INVENTORY\",\n    \"RESUME_LINE\",\n    \"CALIBRATE_ARM\",\n    \"SWAP_GRIPPER\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-star:K2",
+    "instance": "robotics-star",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"AUDIT_INVENTORY\",\n    \"RESUME_LINE\",\n    \"CALIBRATE_ARM\",\n    \"SWAP_GRIPPER\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-star:K2",
+    "instance": "robotics-star",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"LOCK_BAY\", \"RESUME_LINE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-star:K2",
+    "instance": "robotics-star",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\n  \"same_underlying_source\": false,\n  \"independent_source_count\": 4,\n  \"actions\": [\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\",\n    \"AUDIT_INVENTORY\",\n    \"LOCK_BAY\",\n    \"HALT_CONVEYOR\"\n  ],\n  \"ready\": false\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-star:K2",
+    "instance": "robotics-star",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"HALT_CONVEYOR\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-star:K2",
+    "instance": "robotics-star",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\n  \"same_underlying_source\": false,\n  \"independent_source_count\": 4,\n  \"actions\": [\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\",\n    \"AUDIT_INVENTORY\",\n    \"LOCK_BAY\",\n    \"HALT_CONVEYOR\"\n  ],\n  \"ready\": false\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-star:K2",
+    "instance": "robotics-star",
+    "intervention": "sham",
+    "dependence": "same_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 7, \"actions\": [\"HALT_CONVEYOR\", \"LOCK_BAY\", \"AUDIT_INVENTORY\", \"RESUME_LINE\", \"CALIBRATE_ARM\", \"SWAP_GRIPPER\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-star:K2",
+    "instance": "robotics-star",
+    "intervention": "sham",
+    "dependence": "indep_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"HALT_CONVEYOR\", \"LOCK_BAY\", \"AUDIT_INVENTORY\", \"RESUME_LINE\", \"CALIBRATE_ARM\", \"SWAP_GRIPPER\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-star:K2",
+    "instance": "robotics-star",
+    "intervention": "gold",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"AUDIT_INVENTORY\",\n    \"RESUME_LINE\",\n    \"CALIBRATE_ARM\",\n    \"SWAP_GRIPPER\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-star:K2",
+    "instance": "robotics-star",
+    "intervention": "gold",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"LOCK_BAY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-star:K3",
+    "instance": "robotics-star",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\",\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"LOCK_BAY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-star:K3",
+    "instance": "robotics-star",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\",\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-star:K3",
+    "instance": "robotics-star",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"CALIBRATE_ARM\", \"SWAP_GRIPPER\", \"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"LOCK_BAY\", \"RESUME_LINE\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-star:K3",
+    "instance": "robotics-star",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 4, \"actions\": [\"SWAP_GRIPPER\", \"CALIBRATE_ARM\", \"AUDIT_INVENTORY\", \"LOCK_BAY\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-star:K3",
+    "instance": "robotics-star",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 4, \"actions\": [\"AUDIT_INVENTORY\", \"HALT_CONVEYOR\", \"LOCK_BAY\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-star:K3",
+    "instance": "robotics-star",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\n  \"same_underlying_source\": false,\n  \"independent_source_count\": 2,\n  \"actions\": [\n    \"AUDIT_INVENTORY\",\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": false\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-star:K3",
+    "instance": "robotics-star",
+    "intervention": "sham",
+    "dependence": "same_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 7, \"actions\": [\"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"RESUME_LINE\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-star:K3",
+    "instance": "robotics-star",
+    "intervention": "sham",
+    "dependence": "indep_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"SWAP_GRIPPER\", \"CALIBRATE_ARM\", \"AUDIT_INVENTORY\", \"LOCK_BAY\", \"HALT_CONVEYOR\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-star:K3",
+    "instance": "robotics-star",
+    "intervention": "gold",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-star:K3",
+    "instance": "robotics-star",
+    "intervention": "gold",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\",\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-star:K4",
+    "instance": "robotics-star",
+    "intervention": "default",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SWAP_GRIPPER\",\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-star:K4",
+    "instance": "robotics-star",
+    "intervention": "default",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SWAP_GRIPPER\",\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"LOCK_BAY\",\n    \"RESUME_LINE\",\n    \"CALIBRATE_ARM\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-star:K4",
+    "instance": "robotics-star",
+    "intervention": "identify",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": true, \"independent_source_count\": 1, \"actions\": [\"SWAP_GRIPPER\", \"HALT_CONVEYOR\", \"AUDIT_INVENTORY\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-star:K4",
+    "instance": "robotics-star",
+    "intervention": "identify",
+    "dependence": "indep_root",
+    "plan_text": "{\n  \"same_underlying_source\": false,\n  \"independent_source_count\": 3,\n  \"actions\": [\n    \"AUDIT_INVENTORY\",\n    \"CALIBRATE_ARM\",\n    \"SWAP_GRIPPER\",\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": false\n}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-star:K4",
+    "instance": "robotics-star",
+    "intervention": "normative",
+    "dependence": "same_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 4, \"actions\": [\"SWAP_GRIPPER\", \"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"LOCK_BAY\", \"RESUME_LINE\", \"CALIBRATE_ARM\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-star:K4",
+    "instance": "robotics-star",
+    "intervention": "normative",
+    "dependence": "indep_root",
+    "plan_text": "{\"same_underlying_source\": false, \"independent_source_count\": 2, \"actions\": [\"SWAP_GRIPPER\", \"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"LOCK_BAY\", \"RESUME_LINE\", \"CALIBRATE_ARM\"], \"ready\": false}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-star:K4",
+    "instance": "robotics-star",
+    "intervention": "sham",
+    "dependence": "same_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 7, \"actions\": [\"SWAP_GRIPPER\", \"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"RESUME_LINE\", \"CALIBRATE_ARM\", \"LOCK_BAY\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-star:K4",
+    "instance": "robotics-star",
+    "intervention": "sham",
+    "dependence": "indep_root",
+    "plan_text": "{\"mentions_a_clock_time\": false, \"longest_message_word_count\": 9, \"actions\": [\"SWAP_GRIPPER\", \"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"LOCK_BAY\", \"RESUME_LINE\", \"CALIBRATE_ARM\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-star:K4",
+    "instance": "robotics-star",
+    "intervention": "gold",
+    "dependence": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SWAP_GRIPPER\",\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "unit": "robotics-star:K4",
+    "instance": "robotics-star",
+    "intervention": "gold",
+    "dependence": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"AUDIT_INVENTORY\",\n    \"SWAP_GRIPPER\",\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"RESUME_LINE\",\n    \"CALIBRATE_ARM\"\n  ],\n  \"ready\": true\n}\n```"
+  }
+]
