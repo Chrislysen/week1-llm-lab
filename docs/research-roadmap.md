@@ -82,6 +82,7 @@ motivates it. None is started.
 | 7 | **Hostile ablations** | Which parts of the effect survive adversarial attempts to remove it — including a random control and a sabotage arm at every stage? |
 | 8 | **Cross-model generalization** | Does it hold beyond `llama3.2:3b`, or is it a small-model artefact? |
 | 9 | **Independent claim verification** | Every reported number re-derived from raw artifacts by a checker that exits non-zero on drift. |
+| 10 | **Generation-mode validity (Mode B)** | Does the stage-5 effect survive when a *model* writes every relay instead of four templates — or is it a fact about the templates? |
 
 Gate discipline carries over from the compulsory: no stage begins until the
 previous one has a result that justifies it, and a stage that returns a null

@@ -163,6 +163,59 @@ def measure_separability():
     return len(fth), len(cor), sorted(perfect)
 
 
+#: Words per intervening message by which filler may differ from a faithful
+#: link. Beyond this, `d1_padded` and `d3` stop being a length-matched pair.
+MAX_LENGTH_GAP = 1.5
+
+
+def test_padded_control_is_token_matched():
+    """MODE A'S LENGTH CONTROL WAS NEVER ACTUALLY LENGTH-MATCHED.
+
+    `d1_padded` exists to show that what protects a decision is CORROBORATION
+    and not sheer text volume: it holds message count and corruption position at
+    the d3 values while swapping the faithful links for filler. It held the
+    COUNT. It did not hold the LENGTH -- Mode A's filler comes from the domain
+    noise bank and averages 7.6 words against the links' 12.4, so d1_padded
+    carries about nine fewer words than d3.
+
+    That leaves a live alternative reading of E5 which the arm was built to
+    close: d3 simply has more text. The direction is unfavourable to the
+    confound -- d1_padded is SHORTER than d3 and yet shows LESS protection,
+    where a volume account predicts the opposite -- but "the confound points the
+    wrong way" is weaker than "the confound is absent".
+
+    Mode B closes it. Both filler and links are model-written to one length
+    spec, so the pair matches to a fraction of a word. This gate keeps it that
+    way: it is the reason Mode B's P2 is a stricter test than Mode A's, and it
+    was measured and written down BEFORE any decision call was made.
+    """
+    chains = load()
+    L = [len(t.split()) for r in chains.values() for t in r["faithful"]]
+    P = [len(t.split()) for r in chains.values() for t in r["padding"]]
+    gap = abs(sum(P) / len(P) - sum(L) / len(L))
+    assert gap <= MAX_LENGTH_GAP, (
+        f"filler and links differ by {gap:.1f} words/message; d1_padded and d3 "
+        f"are no longer a length-matched pair")
+
+
+def measure_condition_words():
+    """Total words each condition puts in front of the decider, per mode."""
+    from lineage_depth import build_chain as chain_a
+    out = {}
+    for mode, fn in (("A", chain_a), ("B", modeb_chain)):
+        rows = {}
+        for r in load().values():
+            ch = fn(BY_ID[r["instance"]])
+            for name, depth, corrupt in (("d1", 1, True), ("d2", 2, True),
+                                         ("d3", 3, True), ("control", 3, False)):
+                rows.setdefault(name, []).append(
+                    sum(len(m.text.split()) for m in ch.exposure(depth, corrupt)))
+            rows.setdefault("d1_padded", []).append(
+                sum(len(m.text.split()) for m in ch.padded(MAX_DEPTH - 1)))
+        out[mode] = {k: round(sum(v) / len(v), 1) for k, v in rows.items()}
+    return out
+
+
 def measure_drift():
     """How far the chain travels from its source, in content words retained."""
     rows = []
@@ -212,3 +265,16 @@ if __name__ == "__main__":
           f"{measure_drift()}")
     print("            Falling overlap is paraphrase drift. It is what a real")
     print("            relay chain does, and it is why Mode B is worth running.")
+
+    w = measure_condition_words()
+    print("\n  MEASURED  mean words shown to the decider, by condition:")
+    print(f"            {'':<12}" + "".join(f"{c:>11}" for c in w["A"]))
+    for mode in ("A", "B"):
+        print(f"            mode {mode}      "
+              + "".join(f"{v:>11}" for v in w[mode].values()))
+    ga = abs(w["A"]["d1_padded"] - w["A"]["d3"])
+    gb = abs(w["B"]["d1_padded"] - w["B"]["d3"])
+    print(f"            d1_padded vs d3 length gap:  Mode A {ga:.1f} words, "
+          f"Mode B {gb:.1f} words.")
+    print("            That pair is the length control. Mode B matches it; Mode")
+    print("            A did not, which is a limit on E5 and is now on record.")
