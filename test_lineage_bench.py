@@ -11,7 +11,7 @@ Offline. No model calls. Five groups, matching the validation gate:
 """
 import json
 
-from lineage_bench import (DOMAINS, EXPOSURES, GRAPHS, LINEAGE_CLASSES,
+from lineage_bench import (AUTHORITY_RULE, DOMAINS, EXPOSURES, GRAPHS, LINEAGE_CLASSES,
                            all_instances, expose, generate_instance,
                            plan_instruction, render_dialogue)
 from lineage_eval import (check_plan, corrupted_form,
@@ -172,7 +172,10 @@ for inst in INSTANCES:
     cmap = {c.id: c for c in inst.constraints}
     ids = {m.msg_id for m in inst.messages}
     for m in inst.messages:
-        assert m.speaker in ("Operations Lead", "Safety Auditor")
+        # SUPERSESSION is spoken by the Duty Manager: authority is carried
+        # by the speaker, not the wording. Enforced in the n-gram gate.
+        assert m.speaker in ("Operations Lead", "Safety Auditor",
+                             "Duty Manager")
         assert m.text and m.text[-1] in ".!?", (inst.id, m.text)
         low = m.text.lower()          # templates may capitalise a leading verb
         if m.lineage == "DISTRACTOR":
@@ -240,7 +243,11 @@ for inst in INSTANCES:
         # the earlier version checked only the dialogue and the instruction.
         text = (SYSTEM_PROMPT.format(setting=inst.setting) + "\n"
                 + visible + "\n" + plan_instruction(inst))
-        low = text.lower()
+        # The standing authority rule is a DELIBERATE part of the prompt -- org
+        # policy about who may revise a procedure, not part of the hidden key --
+        # and it legitimately contains the word "authoritative". Excise exactly
+        # that text and scan everything else with the full forbidden list.
+        low = text.replace(AUTHORITY_RULE, "").lower()
         for term in FORBIDDEN:
             assert term.lower() not in low, (inst.id, condition, term)
         for c in inst.constraints:
@@ -251,6 +258,55 @@ for inst in INSTANCES:
             assert a in plan_instruction(inst), (inst.id, a)
 
 print("no hidden-state leakage:     OK")
+
+# N-GRAM SEPARABILITY GATE.
+#
+# An adversarial audit found that changed|now classified SUPERSESSION
+# perfectly -- 36/36 hits, 0/468 on every other message -- so a two-word regex
+# scored 1.0000 recall and 36/36 success, identical to optimal, with no
+# authority reasoning at all. The differentiator was recoverable by string
+# matching, which meant it was not a differentiator.
+#
+# Authority now lives in the SPEAKER, not the wording, and this gate makes that
+# checkable rather than asserted: no n-gram up to length 3 may separate a
+# legitimate override from an unauthorised revision of the same kind.
+def _grams(text, n):
+    w = text.lower().replace(".", " ").replace(",", " ").replace("--", " ").split()
+    return {" ".join(w[i:i + n]) for i in range(len(w) - n + 1)}
+
+
+_sup = [m.text for i in INSTANCES for m in i.messages if m.lineage == "SUPERSESSION"]
+_cmap_all = {(i.id, c.id): c for i in INSTANCES for c in i.constraints}
+_cor = [m.text for i in INSTANCES for m in i.messages
+        if m.lineage == "CORRUPTED_RELAY"
+        and _cmap_all[(i.id, m.constraint_id)].kind == "before"]
+assert _sup and _cor, "nothing to compare"
+
+for _n in (1, 2, 3):
+    _sg = [_grams(t, _n) for t in _sup]
+    _cg = [_grams(t, _n) for t in _cor]
+    for _g in set().union(*_sg):
+        _hit_s = sum(_g in x for x in _sg)
+        _hit_c = sum(_g in x for x in _cg)
+        assert not (_hit_s == len(_sg) and _hit_c == 0), (
+            f"the {_n}-gram {_g!r} separates SUPERSESSION from CORRUPTED_RELAY "
+            f"perfectly ({_hit_s}/{len(_sg)} vs {_hit_c}/{len(_cg)}) -- the "
+            "override is detectable by string match, so it is not testing "
+            "authority reasoning")
+
+# The two classes must in fact SHARE wording, not merely fail to be separable.
+assert set(_sup) & set(_cor), "no shared surface form between the two classes"
+
+# And authority must be carried by the speaker instead.
+for inst in INSTANCES:
+    for m in inst.messages:
+        if m.lineage == "SUPERSESSION":
+            assert m.speaker == "Duty Manager", (inst.id, m.speaker)
+        else:
+            assert m.speaker in ("Operations Lead", "Safety Auditor"), (inst.id, m.speaker)
+
+print("n-gram separability gate:  OK")
+
 
 # -- Deterministic regeneration from seed --------------------------------
 

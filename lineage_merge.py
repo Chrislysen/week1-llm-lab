@@ -16,7 +16,7 @@ import statistics
 
 from experiment import show, write_csv
 from lineage_bench import expose, generate_instance
-from lineage_eval import check_plan, presence, score
+from lineage_eval import baseline_scores, check_plan, presence, score
 
 CHUNKS = sorted(glob.glob("results/e2_matrix_detail_c*.json"))
 
@@ -62,6 +62,13 @@ def main():
             "util_src_n": sc["utilization"]["direct_source_n"],
             "util_fai": sc["utilization"]["faithful_relay"],
             "util_fai_n": sc["utilization"]["faithful_relay_n"],
+            "disc_applicable": sc["discrimination"].get("applicable", False),
+            "disc_correct_both": sc["discrimination"].get("correct_both", False),
+            "disc_source_reflex": sc["discrimination"].get("source_reflex", False),
+            "disc_latest_reflex": sc["discrimination"].get("latest_reflex", False),
+            "disc_neither": sc["discrimination"].get("neither", False),
+            "disc_resisted": sc["discrimination"].get("resisted_corruption", False),
+            "disc_exercised": sc["discrimination"].get("exercised_override", False),
         })
 
     write_csv("results/e2_matrix_runs.csv", rows, list(rows[0].keys()))

@@ -29,8 +29,8 @@ import statistics
 
 from budget import Budget
 from experiment import show, write_csv
-from lineage_bench import (expose, generate_instance, plan_instruction,
-                           render_dialogue)
+from lineage_bench import (AUTHORITY_RULE, expose, generate_instance,
+                           plan_instruction, render_dialogue)
 from lineage_eval import check_plan, parse_plan, presence, score
 from llm_client import OllamaClient
 from structured import MAX_ATTEMPTS, ask_structured
@@ -52,8 +52,8 @@ CONDITIONS = ["source_only", "corruption_only", "supersession"]
 
 SYSTEM = (
     "You are an operations engineer. You have just read a short discussion "
-    "between two colleagues about {setting}. Produce the plan they agreed on, "
-    "following everything that was established in the discussion."
+    "about {setting}. Produce the plan they agreed on, following everything "
+    "that was established in the discussion.\n\n" + AUTHORITY_RULE
 )
 
 

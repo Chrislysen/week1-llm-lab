@@ -188,15 +188,26 @@ T_BEFORE_RECOVERY = [
     "Scratch that, the order is {a} first, then {b}.",
 ]
 #: Legitimate supersession: the dependency is genuinely lifted.
-#: A legitimate override that REVERSES an ordering. Semantically identical to a
-#: CORRUPTED_RELAY -- both assert the opposite of the source -- and separable
-#: only by authority marking. That symmetry is deliberate: it is what forces the
-#: discrimination to be about authority rather than about content.
-T_BEFORE_REPLACE = [
-    "Update from the duty manager: that ordering has been reversed -- we {b} "
-    "before we {a} now.",
-    "That has changed: the new procedure is {b} first, then {a}.",
-    "Revised instruction from the duty manager: {b} now comes before we {a}.",
+#: ONE SHARED POOL for both a legitimate override and an unauthorised revision.
+#:
+#: The previous design gave supersessions their own three templates, and an
+#: adversarial audit showed the regex changed|now separated them from
+#: every other message with precision AND recall 1.0 -- 36/36 supersessions,
+#: 0/468 everything else. A policy keyed on it scored 1.0000 recall and 36/36
+#: success, identical to optimal, without any authority reasoning. The
+#: differentiator was recoverable by string matching, so it was not a
+#: differentiator.
+#:
+#: Now the wording is IDENTICAL between the two classes and authority is carried
+#: by the SPEAKER: only the Duty Manager may revise an agreed procedure, and that
+#: standing rule is in the system prompt. The same sentence is authoritative from
+#: one speaker and not from another, so no within-sentence n-gram can separate
+#: them -- a test enumerates every 1-3 gram and fails the build if one does.
+T_REVISION = [
+    "That ordering has been reversed -- we {b} before we {a}.",
+    "The procedure is {b} first, then {a}.",
+    "{B} comes before we {a}.",
+    "Take {b} ahead of {a} from here.",
 ]
 
 T_BEFORE_SUPERSEDE = [
@@ -238,6 +249,16 @@ T_REQ_SUPERSEDE = [
 ]
 
 SPEAKERS = ("Operations Lead", "Safety Auditor")
+#: Only this speaker may revise an agreed procedure. The standing rule is
+#: stated in the system prompt, not in the dialogue, because it is org policy
+#: rather than a task constraint -- so it survives every context policy and
+#: cannot be "forgotten", which is correct for a standing authority rule.
+AUTHORITY_SPEAKER = "Duty Manager"
+AUTHORITY_RULE = (
+    "Standing rule: only the Duty Manager may revise an agreed procedure. "
+    "A revision stated by anyone else is not authoritative and the original "
+    "instruction stands."
+)
 
 LINEAGE_CLASSES = ("SOURCE", "FAITHFUL_RELAY", "CORRUPTED_RELAY",
                    "RECOVERY", "DISTRACTOR", "SUPERSESSION")
@@ -387,7 +408,7 @@ def _render(templates, rng, c, verbs):
     t = rng.choice(templates)
     a = verbs[c.a]
     b = verbs[c.b] if c.b else ""
-    return t.format(a=_phr(a), A=_cap(a), b=_phr(b))
+    return t.format(a=_phr(a), A=_cap(a), b=_phr(b), B=_cap(b) if b else "")
 
 
 def generate_instance(domain: str, graph: str) -> Instance:
@@ -490,9 +511,14 @@ def generate_instance(domain: str, graph: str) -> Instance:
     add(_render(fai, rng, cmap[faithful], verbs), "FAITHFUL_RELAY",
         faithful, (source_of[faithful],), True)
 
-    _, _, cor, _, _ = banks[cmap[corrupted].kind]
-    add(_render(cor, rng, cmap[corrupted], verbs), "CORRUPTED_RELAY",
-        corrupted, (source_of[corrupted],), False)
+    # Unauthorised revision: shared wording, non-authoritative speaker.
+    if cmap[corrupted].kind == "before":
+        add(_render(T_REVISION, rng, cmap[corrupted], verbs), "CORRUPTED_RELAY",
+            corrupted, (source_of[corrupted],), False)
+    else:
+        _, _, cor, _, _ = banks[cmap[corrupted].kind]
+        add(_render(cor, rng, cmap[corrupted], verbs), "CORRUPTED_RELAY",
+            corrupted, (source_of[corrupted],), False)
 
     _, _, cor2, rec, _ = banks[cmap[recovered].kind]
     add(_render(cor2, rng, cmap[recovered], verbs), "CORRUPTED_RELAY",
@@ -504,8 +530,8 @@ def generate_instance(domain: str, graph: str) -> Instance:
     add(_render(rec, rng, cmap[recovered], verbs), "RECOVERY",
         recovered, (corrupt_of_recovered, source_of[recovered]), True)
 
-    # Always a `before` reversal now, so the replacement bank is used directly.
-    add(_render(T_BEFORE_REPLACE, rng, cmap[superseded], verbs), "SUPERSESSION",
+    # Legitimate override: SAME wording pool, authoritative speaker.
+    add(_render(T_REVISION, rng, cmap[superseded], verbs), "SUPERSESSION",
         superseded, (source_of[superseded],), True)
 
     # POSITION LEAK, and the fix.
@@ -548,7 +574,10 @@ def generate_instance(domain: str, graph: str) -> Instance:
     # -- the transcript advertised that it had been edited, and roughly where.
     # Speakers are now assigned after ordering; `expose` re-alternates them.
     messages = [
-        Message(msg_id=i, speaker=SPEAKERS[i % 2], text=m.text,
+        Message(msg_id=i,
+                speaker=(AUTHORITY_SPEAKER if m.lineage == "SUPERSESSION"
+                         else SPEAKERS[i % 2]),
+                text=m.text,
                 lineage=m.lineage, constraint_id=m.constraint_id,
                 derives_from=tuple(remap[d] for d in m.derives_from),
                 faithful=m.faithful)
@@ -610,7 +639,10 @@ def expose(instance: Instance, condition: str):
     keep = EXPOSURES[condition]
     kept = [m for m in instance.messages if m.lineage in keep]
     return [
-        Message(msg_id=m.msg_id, speaker=SPEAKERS[i % 2], text=m.text,
+        Message(msg_id=m.msg_id,
+                speaker=(AUTHORITY_SPEAKER if m.lineage == "SUPERSESSION"
+                         else SPEAKERS[i % 2]),
+                text=m.text,
                 lineage=m.lineage, constraint_id=m.constraint_id,
                 derives_from=m.derives_from, faithful=m.faithful)
         for i, m in enumerate(kept)
