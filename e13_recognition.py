@@ -181,14 +181,27 @@ def load(model=DECIDER):
 
 
 def _by_unit(rows, arm):
-    """{unit: {dependence: verdict}} plus the instance, for one intervention."""
-    out = {}
+    """{unit: {dependence: verdict}} for one intervention, COMPLETE PAIRS ONLY.
+
+    THE COMPLETENESS FILTER IS NOT COSMETIC. Without it, a unit whose SAME arm
+    parsed and whose INDEP arm did not still enters the flip-rate denominator,
+    and `u.get("indep_root")` returns None, which counts as "did not flip". A
+    differential parse failure between the two dependence arms would then read
+    as a behavioural difference -- manufacturing exactly the effect E13 is
+    testing for, in exactly the arms that impose the heaviest output burden.
+
+    Dropped units are counted and reported, never silently discarded.
+    """
+    seen = {}
     for r in rows:
-        if r["intervention"] != arm or r["parsed"] != "True":
+        if r["intervention"] != arm:
             continue
-        out.setdefault(r["unit"], {"instance": r["instance"]})
-        out[r["unit"]][r["dependence"]] = r["verdict"]
-    return out
+        seen.setdefault(r["unit"], {"instance": r["instance"]})
+        if r["parsed"] == "True" and r["verdict"] in ("source", "flip"):
+            seen[r["unit"]][r["dependence"]] = r["verdict"]
+    complete = {u: d for u, d in seen.items()
+                if all(k in d for k in DEPENDENCE)}
+    return complete, len(seen) - len(complete)
 
 
 def discordance(per):
@@ -272,7 +285,7 @@ def analyse(model=DECIDER):
     res, raw = {}, []
     table = []
     for arm, _, diag in INTERVENTIONS:
-        per = _by_unit(rows, arm)
+        per, dropped = _by_unit(rows, arm)
         if not per:
             continue
         d = differentiation(per)
@@ -283,6 +296,7 @@ def analyse(model=DECIDER):
             raw.append(d["p"])
         table.append({
             "intervention": arm, "diagnostic": diag, "n_pairs": n_pairs,
+            "dropped_incomplete": dropped,
             "flip_same": d["flip_same"], "flip_indep": d["flip_indep"],
             "diff": d["diff"], "p": round(d["p"], 4),
             "ci": f"[{d['lo']:+.3f},{d['hi']:+.3f}]",
