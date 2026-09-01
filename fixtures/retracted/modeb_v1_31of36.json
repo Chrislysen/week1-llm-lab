@@ -1,0 +1,3301 @@
+{
+  "gen_model": "qwen2.5:7b-instruct",
+  "verify_model": "qwen2.5:14b-instruct",
+  "chains": [
+    {
+      "instance": "brewery-chain",
+      "constraint": "K3",
+      "faithful": [
+        "Sterilise the transfer line must happen before we restart the batch.",
+        "Ensure the transfer line is sterilised before restarting the batch.",
+        "Make sure to sterilise the transfer line before restarting the batch."
+      ],
+      "corrupted": "Restart the batch must happen before we sterilise the transfer line.",
+      "padding": [
+        "Scheduled lorry delivery for Friday morning as usual.",
+        "Cellar temp has stayed steady all week, no issues there."
+      ],
+      "verify": [
+        {
+          "tag": "L1",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L2",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L3",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "C",
+          "said": "B",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "instance": "brewery-diamond",
+      "constraint": "K7",
+      "faithful": [
+        "Sampling gravity must happen before we restart the batch.",
+        "Sampling gravity must occur before we restart the batch.",
+        "We need to sample gravity before restarting the batch."
+      ],
+      "corrupted": "Restart the batch must happen before we sample the gravity.",
+      "padding": [
+        "The delivery lorry is booked for Friday morning. Confirm receipt of supplies then proceed.",
+        "Cellar temp has stayed steady all week, no drastic changes observed."
+      ],
+      "verify": [
+        {
+          "tag": "L1",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L2",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L3",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "C",
+          "said": "B",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "instance": "brewery-join",
+      "constraint": "K7",
+      "faithful": [
+        "Sampling gravity must occur before draining the vessel.",
+        "Sampling gravity must happen before draining the vessel.",
+        "We need to sample gravity prior to draining the vessel."
+      ],
+      "corrupted": "Draining the vessel must happen before we sample the gravity.",
+      "padding": [
+        "Scheduled lorry for Friday morning to pick up contaminated batch.",
+        "Cellar temp has stayed steady all week, no drastic changes noticed."
+      ],
+      "verify": [
+        {
+          "tag": "L1",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L2",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L3",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "C",
+          "said": "B",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "instance": "brewery-star",
+      "constraint": "K3",
+      "faithful": [
+        "Sterilise the transfer line before reseeding the yeast.",
+        "Make sure to sterilize the transfer line before reseeding the yeast.",
+        "Sterilize the transfer line before reseeding the yeast."
+      ],
+      "corrupted": "Reseeding the yeast must happen before we sterilize the transfer line.",
+      "padding": [
+        "Scheduled lorry delivery for Friday morning as usual.",
+        "Cellar temp has stayed steady all week, no major changes there."
+      ],
+      "verify": [
+        {
+          "tag": "L1",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L2",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L3",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "C",
+          "said": "B",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "instance": "brewery-twochain",
+      "constraint": "K5",
+      "faithful": [
+        "Restart the batch must happen before we sterilise the transfer line.",
+        "We need to restart the batch prior to sterilizing the transfer line.",
+        "We must start the batch again before sterilizing the transfer line."
+      ],
+      "corrupted": "Sterilise the transfer line before we restart the batch.",
+      "padding": [
+        "The delivery lorry is booked for Friday morning, ensure it's clean.",
+        "Cellar temp has stayed steady all week, no issues there."
+      ],
+      "verify": [
+        {
+          "tag": "L1",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L2",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L3",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "C",
+          "said": "B",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "instance": "payments-chain",
+      "constraint": "K3",
+      "faithful": [
+        "Shift routing to the spare region must happen before we reopen the gateway.",
+        "Before reopening the gateway, we need to shift routing to the spare region.",
+        "Shift routing to the spare region must precede gateway restart."
+      ],
+      "corrupted": "Reopen the gateway must happen before we shift routing to the spare region.",
+      "padding": [
+        "Just a reminder, the on-call rota rolled over at 06:00 this morning.",
+        "Noted, will prepare the summary and send it by the end of the week."
+      ],
+      "verify": [
+        {
+          "tag": "L1",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L2",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L3",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "C",
+          "said": "B",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "instance": "payments-diamond",
+      "constraint": "K2",
+      "faithful": [
+        "Cycle the settlement engine before draining the failing node.",
+        "Cycle the settlement engine prior to draining the failing node.",
+        "Before draining the failing node, ensure the settlement engine is cycled."
+      ],
+      "corrupted": "Drain the failing node before we cycle the settlement engine.",
+      "padding": [
+        "Just a reminder, the on-call rota rolled over at 06:00 this morning.",
+        "Noted, will send over the summary to Finance by the end of the week."
+      ],
+      "verify": [
+        {
+          "tag": "L1",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L2",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L3",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "C",
+          "said": "B",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "instance": "payments-fork",
+      "constraint": "K7",
+      "faithful": [
+        "Snapshot the store must happen before we drain the failing node.",
+        "We need to snapshot the store prior to draining the failing node.",
+        "Before draining the failing node, we must snapshot the store."
+      ],
+      "corrupted": "Draining the failing node must happen before we snapshot the store.",
+      "padding": [
+        "Just noticed the on-call rota rolled over at 06:00 this morning.",
+        "Noted, will prepare and send the weekly summary by EOW as requested."
+      ],
+      "verify": [
+        {
+          "tag": "L1",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L2",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L3",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "C",
+          "said": "B",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "instance": "payments-join",
+      "constraint": "K4",
+      "faithful": [
+        "Shift routing to the spare region must happen before we drain the failing node.",
+        "Shift routing to the spare region has to occur before isolating the failing node.",
+        "Before draining the failing node, shift routing to the spare region."
+      ],
+      "corrupted": "To fix the failing node, we must first drain it before shifting routing to the spare region.",
+      "padding": [
+        "Just a reminder, the on-call rota rolled over at 06:00 this morning.",
+        "Noted, will prepare and share a summary of the incident by EOW."
+      ],
+      "verify": [
+        {
+          "tag": "L1",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L2",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L3",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "C",
+          "said": "B",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "instance": "payments-star",
+      "constraint": "K4",
+      "faithful": [
+        "Shift routing to the spare region must happen before we probe end-to-end latency.",
+        "Before testing latency, we must shift routing to the spare region.",
+        "Before latency testing, ensure the spare region handles the traffic."
+      ],
+      "corrupted": "We need to probe end-to-end latency before shifting routing to the spare region.",
+      "padding": [
+        "Just a reminder, the on-call rota rolled over at 06:00 this morning.",
+        "Noted, will prepare and share the summary by EOW as requested."
+      ],
+      "verify": [
+        {
+          "tag": "L1",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L2",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L3",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "C",
+          "said": "B",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "instance": "payments-twochain",
+      "constraint": "K6",
+      "faithful": [
+        "Drain the failing node before shifting routing to the spare region.",
+        "Ensure the failing node is drained prior to routing traffic to the backup region.",
+        "Drain failing node before routing traffic to backup region."
+      ],
+      "corrupted": "Shift routing to the spare region must happen before draining the failing node.",
+      "padding": [
+        "Just a reminder, the on-call rota rolled over at 06:00 this morning.",
+        "Noted, will prepare and share a written summary by EOW as requested by Finance."
+      ],
+      "verify": [
+        {
+          "tag": "L1",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L2",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L3",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "C",
+          "said": "B",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "instance": "pharmacy-chain",
+      "constraint": "K5",
+      "faithful": [
+        "Recall the outbound shipment must happen before we update the labelling record.",
+        "Ensure the shipment is recalled before updating the labelling record.",
+        "Make sure to recall the outbound shipment prior to updating the labelling record."
+      ],
+      "corrupted": "Update the labelling record before we can recall the outbound shipment.",
+      "padding": [
+        "Reminder: The regulator's quarterly return is due next month.",
+        "Cold storage temp is stable and within tolerance."
+      ],
+      "verify": [
+        {
+          "tag": "L1",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L2",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L3",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "C",
+          "said": "B",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "instance": "pharmacy-diamond",
+      "constraint": "K4",
+      "faithful": [
+        "Update the labelling record before verifying the assay result.",
+        "Ensure the label is updated before checking the assay result.",
+        "Make sure to update the label prior to checking the assay result."
+      ],
+      "corrupted": "Verify the assay result before updating the labelling record.",
+      "padding": [
+        "Don't forget the quarterly return to the regulator is due next month.",
+        "Cold storage temp is stable and within tolerance."
+      ],
+      "verify": [
+        {
+          "tag": "L1",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L2",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L3",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "C",
+          "said": "B",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "instance": "pharmacy-join",
+      "constraint": "K7",
+      "faithful": [
+        "Recall the outbound shipment must happen before we can verify the assay result.",
+        "Before verifying the assay result, we need to recall the outbound shipment.",
+        "The outbound shipment needs to be recalled prior to assaying the results."
+      ],
+      "corrupted": "Verify the assay result before we recall the outbound shipment.",
+      "padding": [
+        "Reminder: The regulator's quarterly return is due next month.",
+        "Cold storage temperature remains stable and within range."
+      ],
+      "verify": [
+        {
+          "tag": "L1",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L2",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L3",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "C",
+          "said": "B",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "instance": "pharmacy-star",
+      "constraint": "K5",
+      "faithful": [
+        "Release the stock must happen before we update the labelling record.",
+        "Stock release must occur before updating the labelling record.",
+        "Stock release must precede updating the labelling record."
+      ],
+      "corrupted": "Update the labelling record before we can release the stock.",
+      "padding": [
+        "Don't forget to prepare for the regulator's quarterly return next month.",
+        "Cold storage temp is stable and within the required range."
+      ],
+      "verify": [
+        {
+          "tag": "L1",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L2",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L3",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "C",
+          "said": "B",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "instance": "pharmacy-twochain",
+      "constraint": "K6",
+      "faithful": [
+        "Quarantine the batch must happen before we release the stock.",
+        "Batch must be quarantined before releasing the stock.",
+        "Ensure the batch is quarantined prior to stock release."
+      ],
+      "corrupted": "Stock release must happen before we quarantine the batch.",
+      "padding": [
+        "Reminder: The regulator's quarterly return is due next month.",
+        "Cold storage temp is stable and within tolerance."
+      ],
+      "verify": [
+        {
+          "tag": "L1",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L2",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L3",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "C",
+          "said": "B",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "instance": "rail-chain",
+      "constraint": "K4",
+      "faithful": [
+        "Test the interlock must happen before we inspect the points.",
+        "Ensure the interlock test occurs prior to point inspection.",
+        "Test the interlock must happen before inspecting the points."
+      ],
+      "corrupted": "Inspect the points must happen before testing the interlock.",
+      "padding": [
+        "Amended timetable takes effect this Sunday at 0600.",
+        "Two crews are already on site at the depot."
+      ],
+      "verify": [
+        {
+          "tag": "L1",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L2",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L3",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "C",
+          "said": "B",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "instance": "rail-fork",
+      "constraint": "K3",
+      "faithful": [
+        "Replace the relay must happen before we block the section.",
+        "We must replace the relay prior to blocking the section.",
+        "Replace the relay must happen before blocking the section."
+      ],
+      "corrupted": "Block the section must happen before replacing the relay.",
+      "padding": [
+        "Timetable amendment takes effect on Sunday, please update schedules.",
+        "Two crews are already on site at the depot, ready to investigate."
+      ],
+      "verify": [
+        {
+          "tag": "L1",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L2",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L3",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "C",
+          "said": "B",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "instance": "rail-join",
+      "constraint": "K4",
+      "faithful": [
+        "We must test the interlock before clearing the section.",
+        "Testing the interlock must happen before clearing the section.",
+        "Ensure the interlock test is conducted prior to section clearance."
+      ],
+      "corrupted": "Clear the section must happen before we test the interlock.",
+      "padding": [
+        "Amendment to the timetable takes effect this Sunday as planned.",
+        "Two crews are already on site at the depot."
+      ],
+      "verify": [
+        {
+          "tag": "L1",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L2",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L3",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "C",
+          "said": "B",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "instance": "rail-star",
+      "constraint": "K2",
+      "faithful": [
+        "Clear the section must precede grounding the catenary.",
+        "Clear the section must happen before grounding the catenary.",
+        "Ensure the area is clear prior to grounding the catenary."
+      ],
+      "corrupted": "Ground the catenary must happen before we clear the section.",
+      "padding": [
+        "Amended timetable takes effect on Sunday, please update schedules.",
+        "Two crews are already on site at the depot."
+      ],
+      "verify": [
+        {
+          "tag": "L1",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L2",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L3",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "C",
+          "said": "B",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "instance": "robotics-chain",
+      "constraint": "K4",
+      "faithful": [
+        "Swap the gripper assembly must happen before halting the conveyor.",
+        "Before stopping the conveyor, the gripper assembly needs to be replaced.",
+        "The gripper assembly should be swapped out prior to stopping the conveyor."
+      ],
+      "corrupted": "To stop the conveyor, do it before swapping the gripper assembly.",
+      "padding": [
+        "Night shift starts in 4 hours; will check system then.",
+        "The spare parts cage was restocked on Tuesday."
+      ],
+      "verify": [
+        {
+          "tag": "L1",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L2",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L3",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "C",
+          "said": "B",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "instance": "robotics-diamond",
+      "constraint": "K2",
+      "faithful": [
+        "Audit the bin inventory before resuming the line.",
+        "Before resuming the line, we need to verify the bin inventory.",
+        "We should verify the bin inventory before resuming the line."
+      ],
+      "corrupted": "Resuming the line must happen before we audit the bin inventory.",
+      "padding": [
+        "Night shift starts in 4 hours, let's keep an eye on the system.",
+        "The spare parts cage was restocked on Tuesday."
+      ],
+      "verify": [
+        {
+          "tag": "L1",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L2",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L3",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "C",
+          "said": "B",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "instance": "robotics-fork",
+      "constraint": "K5",
+      "faithful": [
+        "Before locking the loading bay, we must resume the line.",
+        "Resuming the line must happen before locking the loading bay.",
+        "It's crucial to resume the line prior to securing the loading bay."
+      ],
+      "corrupted": "Lock the loading bay before we resume the line.",
+      "padding": [
+        "Night shift starts in 4 hours, will check robot logs then.",
+        "The spare parts cage was restocked on Tuesday."
+      ],
+      "verify": [
+        {
+          "tag": "L1",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L2",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L3",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "C",
+          "said": "B",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "instance": "robotics-join",
+      "constraint": "K4",
+      "faithful": [
+        "Audit the bin inventory must happen before we can calibrate the picker arm.",
+        "We need to update the bin inventory first before we adjust the picker arm.",
+        "We must audit the bin inventory first before calibrating the picker arm."
+      ],
+      "corrupted": "Calibrate the picker arm before we audit the bin inventory.",
+      "padding": [
+        "Night shift starts in 4 hours, let's keep an eye on the system.",
+        "The spare parts cage was restocked on Tuesday."
+      ],
+      "verify": [
+        {
+          "tag": "L1",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L2",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L3",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "C",
+          "said": "B",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "instance": "robotics-star",
+      "constraint": "K2",
+      "faithful": [
+        "Halt the conveyor before we can lock the loading bay.",
+        "Stop the conveyor before locking the loading bay.",
+        "Halt the conveyor before locking the loading bay."
+      ],
+      "corrupted": "Lock the loading bay before halting the conveyor.",
+      "padding": [
+        "Night shift starts in 4 hours, will check robot systems then.",
+        "The spare parts cage was restocked on Tuesday."
+      ],
+      "verify": [
+        {
+          "tag": "L1",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L2",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L3",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "C",
+          "said": "B",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "instance": "robotics-twochain",
+      "constraint": "K2",
+      "faithful": [
+        "We must resume the line before auditing the bin inventory.",
+        "Resuming the line must happen before we audit the bin inventory.",
+        "The line should be resumed prior to auditing the bin inventory."
+      ],
+      "corrupted": "We must audit the bin inventory before resuming the line.",
+      "padding": [
+        "Night shift starts in 4 hours, let's keep an eye on the robotics.",
+        "The spare parts cage was restocked on Tuesday."
+      ],
+      "verify": [
+        {
+          "tag": "L1",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L2",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L3",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "C",
+          "said": "B",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "instance": "satellite-chain",
+      "constraint": "K2",
+      "faithful": [
+        "Reorient the solar panel must happen before we resume the downlink.",
+        "Before resuming the downlink, we need to reorient the solar panel.",
+        "To resume the downlink, first ensure the solar panel is correctly oriented."
+      ],
+      "corrupted": "Resume the downlink must happen before reorienting the solar panel.",
+      "padding": [
+        "Next ground pass is in 90 mins, will monitor closely.",
+        "Last week's beam scheduling change might be relevant; check logs."
+      ],
+      "verify": [
+        {
+          "tag": "L1",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L2",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L3",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "C",
+          "said": "B",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "instance": "satellite-fork",
+      "constraint": "K3",
+      "faithful": [
+        "Calibrate the star tracker must happen before we dump the stored telemetry.",
+        "Before dumping stored telemetry, we need to calibrate the star tracker.",
+        "We must calibrate the star tracker prior to dumping the stored telemetry."
+      ],
+      "corrupted": "Dump the stored telemetry must happen before we calibrate the star tracker.",
+      "padding": [
+        "Next ground pass is in 90 mins, will monitor closely.",
+        "Last week's beam scheduling change might affect current communications patterns."
+      ],
+      "verify": [
+        {
+          "tag": "L1",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L2",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L3",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "C",
+          "said": "B",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "instance": "satellite-join",
+      "constraint": "K4",
+      "faithful": [
+        "Patching the bus firmware must happen before we can calibrate the star tracker.",
+        "We need to update the bus firmware prior to calibrating the star tracker.",
+        "Update the bus firmware before calibrating the star tracker."
+      ],
+      "corrupted": "Calibrate the star tracker before we patch the bus firmware.",
+      "padding": [
+        "Next ground pass is in 90 mins, will monitor closely.",
+        "Last week's beam scheduling change might be affecting our current operations."
+      ],
+      "verify": [
+        {
+          "tag": "L1",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L2",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L3",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "C",
+          "said": "B",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "instance": "satellite-star",
+      "constraint": "K4",
+      "faithful": [
+        "Dump the stored telemetry before calibrating the star tracker.",
+        "Ensure stored telemetry is dumped prior to calibrating the star tracker.",
+        "Before calibrating the star tracker, clear the stored telemetry."
+      ],
+      "corrupted": "Calibrate the star tracker before we dump the stored telemetry.",
+      "padding": [
+        "Next ground pass is in 90 mins, will monitor closely.",
+        "Last week's beam scheduling change might be affecting our current communications pattern."
+      ],
+      "verify": [
+        {
+          "tag": "L1",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L2",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L3",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "C",
+          "said": "B",
+          "ok": true
+        }
+      ]
+    },
+    {
+      "instance": "satellite-twochain",
+      "constraint": "K6",
+      "faithful": [
+        "Calibrate the star tracker before patching the bus firmware.",
+        "Ensure the star tracker is calibrated prior to updating the bus firmware.",
+        "Calibrate the star tracker before updating the bus firmware."
+      ],
+      "corrupted": "Patch the bus firmware before we calibrate the star tracker.",
+      "padding": [
+        "Next ground pass is in 90 mins, will monitor closely.",
+        "Last week's beam scheduling change might affect current communications patterns."
+      ],
+      "verify": [
+        {
+          "tag": "L1",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L2",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "L3",
+          "said": "A",
+          "ok": true
+        },
+        {
+          "tag": "C",
+          "said": "B",
+          "ok": true
+        }
+      ]
+    }
+  ],
+  "attempts": [
+    {
+      "tag": "L1",
+      "attempt": 0,
+      "error": null,
+      "text": "Shift routing to the spare region must happen before we reopen the gateway.",
+      "seconds": 2.55
+    },
+    {
+      "tag": "L2",
+      "attempt": 0,
+      "error": "too close to an earlier message (1.00 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Shift routing to the spare region must happen before we reopen the gateway.",
+      "seconds": 8.23
+    },
+    {
+      "tag": "L2",
+      "attempt": 1,
+      "error": "message does not mention \"shift routing to the spare region\"",
+      "text": "Before reopening the gateway, we need to route traffic to the backup region.",
+      "seconds": 2.32
+    },
+    {
+      "tag": "L2",
+      "attempt": 2,
+      "error": null,
+      "text": "Before reopening the gateway, we need to shift routing to the spare region.",
+      "seconds": 2.37
+    },
+    {
+      "tag": "L3",
+      "attempt": 0,
+      "error": "too close to an earlier message (0.80 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Shift routing to the spare region must happen before reopening the gateway.",
+      "seconds": 8.35
+    },
+    {
+      "tag": "L3",
+      "attempt": 1,
+      "error": "message does not mention \"shift routing to the spare region\"",
+      "text": "We should route traffic to the backup region prior to restarting the gateway.",
+      "seconds": 2.32
+    },
+    {
+      "tag": "L3",
+      "attempt": 2,
+      "error": null,
+      "text": "Shift routing to the spare region must precede gateway restart.",
+      "seconds": 2.36
+    },
+    {
+      "tag": "C",
+      "attempt": 0,
+      "error": null,
+      "text": "Reopen the gateway must happen before we shift routing to the spare region.",
+      "seconds": 8.18
+    },
+    {
+      "tag": "P1",
+      "attempt": 0,
+      "error": null,
+      "text": "Just a reminder, the on-call rota rolled over at 06:00 this morning.",
+      "seconds": 8.22
+    },
+    {
+      "tag": "P2",
+      "attempt": 0,
+      "error": null,
+      "text": "Noted, will prepare the summary and send it by the end of the week.",
+      "seconds": 2.26
+    },
+    {
+      "tag": "L1",
+      "attempt": 0,
+      "error": null,
+      "text": "Snapshot the store must happen before we drain the failing node.",
+      "seconds": 2.3
+    },
+    {
+      "tag": "L2",
+      "attempt": 0,
+      "error": "too close to an earlier message (1.00 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Snapshot the store must happen before we drain the failing node.",
+      "seconds": 8.27
+    },
+    {
+      "tag": "L2",
+      "attempt": 1,
+      "error": null,
+      "text": "We need to snapshot the store prior to draining the failing node.",
+      "seconds": 2.33
+    },
+    {
+      "tag": "L3",
+      "attempt": 0,
+      "error": "too close to an earlier message (0.86 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Snapshot the store prior to draining the failing node.",
+      "seconds": 8.07
+    },
+    {
+      "tag": "L3",
+      "attempt": 1,
+      "error": null,
+      "text": "Before draining the failing node, we must snapshot the store.",
+      "seconds": 2.3
+    },
+    {
+      "tag": "C",
+      "attempt": 0,
+      "error": null,
+      "text": "Draining the failing node must happen before we snapshot the store.",
+      "seconds": 8.15
+    },
+    {
+      "tag": "P1",
+      "attempt": 0,
+      "error": null,
+      "text": "Just noticed the on-call rota rolled over at 06:00 this morning.",
+      "seconds": 8.25
+    },
+    {
+      "tag": "P2",
+      "attempt": 0,
+      "error": null,
+      "text": "Noted, will prepare and send the weekly summary by EOW as requested.",
+      "seconds": 2.27
+    },
+    {
+      "tag": "L1",
+      "attempt": 0,
+      "error": null,
+      "text": "Shift routing to the spare region must happen before we drain the failing node.",
+      "seconds": 2.37
+    },
+    {
+      "tag": "L2",
+      "attempt": 0,
+      "error": "too close to an earlier message (0.82 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Shift routing to the spare region must happen before draining the failing node.",
+      "seconds": 8.16
+    },
+    {
+      "tag": "L2",
+      "attempt": 1,
+      "error": "message does not mention \"shift routing to the spare region\"",
+      "text": "We must route traffic to the backup region prior to isolating the failing node.",
+      "seconds": 2.32
+    },
+    {
+      "tag": "L2",
+      "attempt": 2,
+      "error": null,
+      "text": "Shift routing to the spare region has to occur before isolating the failing node.",
+      "seconds": 2.38
+    },
+    {
+      "tag": "L3",
+      "attempt": 0,
+      "error": "too close to an earlier message (0.82 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Shift routing to the spare region must happen before draining the failing node.",
+      "seconds": 8.25
+    },
+    {
+      "tag": "L3",
+      "attempt": 1,
+      "error": "message does not mention \"shift routing to the spare region\"",
+      "text": "Before isolating the failing node, route traffic to the backup region.",
+      "seconds": 2.32
+    },
+    {
+      "tag": "L3",
+      "attempt": 2,
+      "error": null,
+      "text": "Before draining the failing node, shift routing to the spare region.",
+      "seconds": 2.34
+    },
+    {
+      "tag": "C",
+      "attempt": 0,
+      "error": null,
+      "text": "To fix the failing node, we must first drain it before shifting routing to the spare region.",
+      "seconds": 13.08
+    },
+    {
+      "tag": "P1",
+      "attempt": 0,
+      "error": null,
+      "text": "Just a reminder, the on-call rota rolled over at 06:00 this morning.",
+      "seconds": 8.2
+    },
+    {
+      "tag": "P2",
+      "attempt": 0,
+      "error": null,
+      "text": "Noted, will prepare and share a summary of the incident by EOW.",
+      "seconds": 2.28
+    },
+    {
+      "tag": "L1",
+      "attempt": 0,
+      "error": null,
+      "text": "Cycle the settlement engine before draining the failing node.",
+      "seconds": 2.49
+    },
+    {
+      "tag": "L2",
+      "attempt": 0,
+      "error": "too close to an earlier message (1.00 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Cycle the settlement engine before draining the failing node.",
+      "seconds": 8.2
+    },
+    {
+      "tag": "L2",
+      "attempt": 1,
+      "error": "too close to an earlier message (0.78 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Before draining the failing node, make sure to cycle the settlement engine.",
+      "seconds": 2.3
+    },
+    {
+      "tag": "L2",
+      "attempt": 2,
+      "error": null,
+      "text": "Cycle the settlement engine prior to draining the failing node.",
+      "seconds": 2.32
+    },
+    {
+      "tag": "L3",
+      "attempt": 0,
+      "error": "too close to an earlier message (1.00 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Cycle the settlement engine prior to draining the failing node.",
+      "seconds": 8.16
+    },
+    {
+      "tag": "L3",
+      "attempt": 1,
+      "error": null,
+      "text": "Before draining the failing node, ensure the settlement engine is cycled.",
+      "seconds": 2.34
+    },
+    {
+      "tag": "C",
+      "attempt": 0,
+      "error": null,
+      "text": "Drain the failing node before we cycle the settlement engine.",
+      "seconds": 8.15
+    },
+    {
+      "tag": "P1",
+      "attempt": 0,
+      "error": null,
+      "text": "Just a reminder, the on-call rota rolled over at 06:00 this morning.",
+      "seconds": 8.15
+    },
+    {
+      "tag": "P2",
+      "attempt": 0,
+      "error": null,
+      "text": "Noted, will send over the summary to Finance by the end of the week.",
+      "seconds": 2.25
+    },
+    {
+      "tag": "L1",
+      "attempt": 0,
+      "error": null,
+      "text": "Drain the failing node before shifting routing to the spare region.",
+      "seconds": 2.34
+    },
+    {
+      "tag": "L2",
+      "attempt": 0,
+      "error": "too close to an earlier message (1.00 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Drain failing node before shifting routing to spare region.",
+      "seconds": 8.17
+    },
+    {
+      "tag": "L2",
+      "attempt": 1,
+      "error": null,
+      "text": "Ensure the failing node is drained prior to routing traffic to the backup region.",
+      "seconds": 2.33
+    },
+    {
+      "tag": "L3",
+      "attempt": 0,
+      "error": null,
+      "text": "Drain failing node before routing traffic to backup region.",
+      "seconds": 8.15
+    },
+    {
+      "tag": "C",
+      "attempt": 0,
+      "error": null,
+      "text": "Shift routing to the spare region must happen before draining the failing node.",
+      "seconds": 8.25
+    },
+    {
+      "tag": "P1",
+      "attempt": 0,
+      "error": null,
+      "text": "Just a reminder, the on-call rota rolled over at 06:00 this morning.",
+      "seconds": 8.15
+    },
+    {
+      "tag": "P2",
+      "attempt": 0,
+      "error": null,
+      "text": "Noted, will prepare and share a written summary by EOW as requested by Finance.",
+      "seconds": 2.27
+    },
+    {
+      "tag": "L1",
+      "attempt": 0,
+      "error": null,
+      "text": "Shift routing to the spare region must happen before we probe end-to-end latency.",
+      "seconds": 2.39
+    },
+    {
+      "tag": "L2",
+      "attempt": 0,
+      "error": "too close to an earlier message (1.00 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Shift routing to the spare region must happen before we probe end-to-end latency.",
+      "seconds": 8.2
+    },
+    {
+      "tag": "L2",
+      "attempt": 1,
+      "error": "message does not mention \"shift routing to the spare region\"",
+      "text": "We need to route traffic to the backup region prior to testing latency.",
+      "seconds": 2.35
+    },
+    {
+      "tag": "L2",
+      "attempt": 2,
+      "error": null,
+      "text": "Before testing latency, we must shift routing to the spare region.",
+      "seconds": 2.36
+    },
+    {
+      "tag": "L3",
+      "attempt": 0,
+      "error": "too close to an earlier message (0.82 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Shift routing to the spare region must happen before probing end-to-end latency.",
+      "seconds": 8.19
+    },
+    {
+      "tag": "L3",
+      "attempt": 1,
+      "error": null,
+      "text": "Before latency testing, ensure the spare region handles the traffic.",
+      "seconds": 2.3
+    },
+    {
+      "tag": "C",
+      "attempt": 0,
+      "error": null,
+      "text": "We need to probe end-to-end latency before shifting routing to the spare region.",
+      "seconds": 8.23
+    },
+    {
+      "tag": "P1",
+      "attempt": 0,
+      "error": null,
+      "text": "Just a reminder, the on-call rota rolled over at 06:00 this morning.",
+      "seconds": 8.15
+    },
+    {
+      "tag": "P2",
+      "attempt": 0,
+      "error": null,
+      "text": "Noted, will prepare and share the summary by EOW as requested.",
+      "seconds": 2.23
+    },
+    {
+      "tag": "L1",
+      "attempt": 0,
+      "error": null,
+      "text": "Swap the gripper assembly must happen before halting the conveyor.",
+      "seconds": 2.36
+    },
+    {
+      "tag": "L2",
+      "attempt": 0,
+      "error": "too close to an earlier message (0.78 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Swap the gripper assembly must occur before halting the conveyor.",
+      "seconds": 8.15
+    },
+    {
+      "tag": "L2",
+      "attempt": 1,
+      "error": null,
+      "text": "Before stopping the conveyor, the gripper assembly needs to be replaced.",
+      "seconds": 2.32
+    },
+    {
+      "tag": "L3",
+      "attempt": 0,
+      "error": "too close to an earlier message (0.78 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Replacing the gripper assembly must happen before halting the conveyor.",
+      "seconds": 8.38
+    },
+    {
+      "tag": "L3",
+      "attempt": 1,
+      "error": null,
+      "text": "The gripper assembly should be swapped out prior to stopping the conveyor.",
+      "seconds": 2.37
+    },
+    {
+      "tag": "C",
+      "attempt": 0,
+      "error": null,
+      "text": "To stop the conveyor, do it before swapping the gripper assembly.",
+      "seconds": 8.15
+    },
+    {
+      "tag": "P1",
+      "attempt": 0,
+      "error": null,
+      "text": "Night shift starts in 4 hours; will check system then.",
+      "seconds": 8.05
+    },
+    {
+      "tag": "P2",
+      "attempt": 0,
+      "error": null,
+      "text": "The spare parts cage was restocked on Tuesday.",
+      "seconds": 2.21
+    },
+    {
+      "tag": "L1",
+      "attempt": 0,
+      "error": null,
+      "text": "Before locking the loading bay, we must resume the line.",
+      "seconds": 2.34
+    },
+    {
+      "tag": "L2",
+      "attempt": 0,
+      "error": null,
+      "text": "Resuming the line must happen before locking the loading bay.",
+      "seconds": 8.15
+    },
+    {
+      "tag": "L3",
+      "attempt": 0,
+      "error": "too close to an earlier message (1.00 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Resuming the line must happen before locking the loading bay.",
+      "seconds": 8.17
+    },
+    {
+      "tag": "L3",
+      "attempt": 1,
+      "error": null,
+      "text": "It's crucial to resume the line prior to securing the loading bay.",
+      "seconds": 2.33
+    },
+    {
+      "tag": "C",
+      "attempt": 0,
+      "error": null,
+      "text": "Lock the loading bay before we resume the line.",
+      "seconds": 8.1
+    },
+    {
+      "tag": "P1",
+      "attempt": 0,
+      "error": null,
+      "text": "Night shift starts in 4 hours, will check robot logs then.",
+      "seconds": 8.27
+    },
+    {
+      "tag": "P2",
+      "attempt": 0,
+      "error": null,
+      "text": "The spare parts cage was restocked on Tuesday.",
+      "seconds": 2.21
+    },
+    {
+      "tag": "L1",
+      "attempt": 0,
+      "error": null,
+      "text": "Audit the bin inventory must happen before we can calibrate the picker arm.",
+      "seconds": 2.38
+    },
+    {
+      "tag": "L2",
+      "attempt": 0,
+      "error": "too close to an earlier message (1.00 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Audit the bin inventory must happen before we can calibrate the picker arm.",
+      "seconds": 8.22
+    },
+    {
+      "tag": "L2",
+      "attempt": 1,
+      "error": null,
+      "text": "We need to update the bin inventory first before we adjust the picker arm.",
+      "seconds": 2.31
+    },
+    {
+      "tag": "L3",
+      "attempt": 0,
+      "error": null,
+      "text": "We must audit the bin inventory first before calibrating the picker arm.",
+      "seconds": 8.33
+    },
+    {
+      "tag": "C",
+      "attempt": 0,
+      "error": null,
+      "text": "Calibrate the picker arm before we audit the bin inventory.",
+      "seconds": 8.12
+    },
+    {
+      "tag": "P1",
+      "attempt": 0,
+      "error": null,
+      "text": "Night shift starts in 4 hours, let's keep an eye on the system.",
+      "seconds": 8.16
+    },
+    {
+      "tag": "P2",
+      "attempt": 0,
+      "error": null,
+      "text": "The spare parts cage was restocked on Tuesday.",
+      "seconds": 2.21
+    },
+    {
+      "tag": "L1",
+      "attempt": 0,
+      "error": null,
+      "text": "Audit the bin inventory before resuming the line.",
+      "seconds": 2.29
+    },
+    {
+      "tag": "L2",
+      "attempt": 0,
+      "error": "too close to an earlier message (1.00 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Audit the bin inventory before resuming the line.",
+      "seconds": 8.13
+    },
+    {
+      "tag": "L2",
+      "attempt": 1,
+      "error": null,
+      "text": "Before resuming the line, we need to verify the bin inventory.",
+      "seconds": 2.31
+    },
+    {
+      "tag": "L3",
+      "attempt": 0,
+      "error": "too close to an earlier message (0.86 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Before resuming the line, we must audit the bin inventory.",
+      "seconds": 8.15
+    },
+    {
+      "tag": "L3",
+      "attempt": 1,
+      "error": null,
+      "text": "We should verify the bin inventory before resuming the line.",
+      "seconds": 2.32
+    },
+    {
+      "tag": "C",
+      "attempt": 0,
+      "error": null,
+      "text": "Resuming the line must happen before we audit the bin inventory.",
+      "seconds": 8.19
+    },
+    {
+      "tag": "P1",
+      "attempt": 0,
+      "error": null,
+      "text": "Night shift starts in 4 hours, let's keep an eye on the system.",
+      "seconds": 8.08
+    },
+    {
+      "tag": "P2",
+      "attempt": 0,
+      "error": null,
+      "text": "The spare parts cage was restocked on Tuesday.",
+      "seconds": 2.22
+    },
+    {
+      "tag": "L1",
+      "attempt": 0,
+      "error": null,
+      "text": "We must resume the line before auditing the bin inventory.",
+      "seconds": 2.32
+    },
+    {
+      "tag": "L2",
+      "attempt": 0,
+      "error": null,
+      "text": "Resuming the line must happen before we audit the bin inventory.",
+      "seconds": 8.13
+    },
+    {
+      "tag": "L3",
+      "attempt": 0,
+      "error": "too close to an earlier message (1.00 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Resuming the line must happen before we audit the bin inventory.",
+      "seconds": 8.16
+    },
+    {
+      "tag": "L3",
+      "attempt": 1,
+      "error": null,
+      "text": "The line should be resumed prior to auditing the bin inventory.",
+      "seconds": 2.31
+    },
+    {
+      "tag": "C",
+      "attempt": 0,
+      "error": null,
+      "text": "We must audit the bin inventory before resuming the line.",
+      "seconds": 8.32
+    },
+    {
+      "tag": "P1",
+      "attempt": 0,
+      "error": null,
+      "text": "Night shift starts in 4 hours, let's keep an eye on the robotics.",
+      "seconds": 8.32
+    },
+    {
+      "tag": "P2",
+      "attempt": 0,
+      "error": null,
+      "text": "The spare parts cage was restocked on Tuesday.",
+      "seconds": 2.22
+    },
+    {
+      "tag": "L1",
+      "attempt": 0,
+      "error": null,
+      "text": "Halt the conveyor before we can lock the loading bay.",
+      "seconds": 2.31
+    },
+    {
+      "tag": "L2",
+      "attempt": 0,
+      "error": null,
+      "text": "Stop the conveyor before locking the loading bay.",
+      "seconds": 8.1
+    },
+    {
+      "tag": "L3",
+      "attempt": 0,
+      "error": null,
+      "text": "Halt the conveyor before locking the loading bay.",
+      "seconds": 8.3
+    },
+    {
+      "tag": "C",
+      "attempt": 0,
+      "error": null,
+      "text": "Lock the loading bay before halting the conveyor.",
+      "seconds": 8.16
+    },
+    {
+      "tag": "P1",
+      "attempt": 0,
+      "error": null,
+      "text": "Night shift starts in 4 hours, will check robot systems then.",
+      "seconds": 8.18
+    },
+    {
+      "tag": "P2",
+      "attempt": 0,
+      "error": null,
+      "text": "The spare parts cage was restocked on Tuesday.",
+      "seconds": 2.22
+    },
+    {
+      "tag": "L1",
+      "attempt": 0,
+      "error": null,
+      "text": "Recall the outbound shipment must happen before we update the labelling record.",
+      "seconds": 2.52
+    },
+    {
+      "tag": "L2",
+      "attempt": 0,
+      "error": "too close to an earlier message (1.00 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Recall the outbound shipment must happen before we update the labelling record.",
+      "seconds": 8.37
+    },
+    {
+      "tag": "L2",
+      "attempt": 1,
+      "error": null,
+      "text": "Ensure the shipment is recalled before updating the labelling record.",
+      "seconds": 2.29
+    },
+    {
+      "tag": "L3",
+      "attempt": 0,
+      "error": "too close to an earlier message (0.80 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Recall the outbound shipment must happen before updating the labelling record.",
+      "seconds": 8.29
+    },
+    {
+      "tag": "L3",
+      "attempt": 1,
+      "error": null,
+      "text": "Make sure to recall the outbound shipment prior to updating the labelling record.",
+      "seconds": 2.31
+    },
+    {
+      "tag": "C",
+      "attempt": 0,
+      "error": null,
+      "text": "Update the labelling record before we can recall the outbound shipment.",
+      "seconds": 8.14
+    },
+    {
+      "tag": "P1",
+      "attempt": 0,
+      "error": null,
+      "text": "Reminder: The regulator's quarterly return is due next month.",
+      "seconds": 8.2
+    },
+    {
+      "tag": "P2",
+      "attempt": 0,
+      "error": null,
+      "text": "Cold storage temp is stable and within tolerance.",
+      "seconds": 2.18
+    },
+    {
+      "tag": "L1",
+      "attempt": 0,
+      "error": "message is 6 words, must be 8-45",
+      "text": "Notify prescribers before quarantining the batch.",
+      "seconds": 2.29
+    },
+    {
+      "tag": "L1",
+      "attempt": 1,
+      "error": "message is 6 words, must be 8-45",
+      "text": "Notify prescribers before quarantining the batch.",
+      "seconds": 2.33
+    },
+    {
+      "tag": "L1",
+      "attempt": 2,
+      "error": null,
+      "text": "Prescribers must be notified before quarantining the batch.",
+      "seconds": 2.32
+    },
+    {
+      "tag": "L2",
+      "attempt": 0,
+      "error": "message is 6 words, must be 8-45",
+      "text": "Notify prescribers before quarantining the batch.",
+      "seconds": 8.13
+    },
+    {
+      "tag": "L2",
+      "attempt": 1,
+      "error": "message is 7 words, must be 8-45",
+      "text": "Notify prescribers before we quarantine the batch.",
+      "seconds": 2.31
+    },
+    {
+      "tag": "L2",
+      "attempt": 2,
+      "error": "message is 7 words, must be 8-45",
+      "text": "Notify prescribers prior to quarantining the batch.",
+      "seconds": 2.33
+    },
+    {
+      "tag": "L2",
+      "attempt": 3,
+      "error": "message is 7 words, must be 8-45",
+      "text": "Notify prescribers before taking the batch offline.",
+      "seconds": 2.3
+    },
+    {
+      "tag": "L1",
+      "attempt": 0,
+      "error": null,
+      "text": "Recall the outbound shipment must happen before we can verify the assay result.",
+      "seconds": 2.36
+    },
+    {
+      "tag": "L2",
+      "attempt": 0,
+      "error": "too close to an earlier message (0.90 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Recall the outbound shipment must happen before we verify the assay result.",
+      "seconds": 8.34
+    },
+    {
+      "tag": "L2",
+      "attempt": 1,
+      "error": null,
+      "text": "Before verifying the assay result, we need to recall the outbound shipment.",
+      "seconds": 2.32
+    },
+    {
+      "tag": "L3",
+      "attempt": 0,
+      "error": "too close to an earlier message (0.78 content-word overlap, limit 0.75); reword it substantially",
+      "text": "We must recall the outbound shipment before verifying the assay result.",
+      "seconds": 8.54
+    },
+    {
+      "tag": "L3",
+      "attempt": 1,
+      "error": null,
+      "text": "The outbound shipment needs to be recalled prior to assaying the results.",
+      "seconds": 2.33
+    },
+    {
+      "tag": "C",
+      "attempt": 0,
+      "error": null,
+      "text": "Verify the assay result before we recall the outbound shipment.",
+      "seconds": 8.17
+    },
+    {
+      "tag": "P1",
+      "attempt": 0,
+      "error": null,
+      "text": "Reminder: The regulator's quarterly return is due next month.",
+      "seconds": 8.14
+    },
+    {
+      "tag": "P2",
+      "attempt": 0,
+      "error": "message is 6 words, must be 8-45",
+      "text": "Cold storage temp is within tolerance.",
+      "seconds": 2.2
+    },
+    {
+      "tag": "P2",
+      "attempt": 1,
+      "error": null,
+      "text": "Cold storage temperature remains stable and within range.",
+      "seconds": 2.2
+    },
+    {
+      "tag": "L1",
+      "attempt": 0,
+      "error": "message is 6 words, must be 8-45",
+      "text": "Notify prescribers before quarantining the batch.",
+      "seconds": 7.08
+    },
+    {
+      "tag": "L1",
+      "attempt": 1,
+      "error": "message is 7 words, must be 8-45",
+      "text": "Notify prescribers before we quarantine the batch.",
+      "seconds": 2.29
+    },
+    {
+      "tag": "L1",
+      "attempt": 2,
+      "error": "message is 6 words, must be 8-45",
+      "text": "Notify prescribers; then quarantine the batch.",
+      "seconds": 2.29
+    },
+    {
+      "tag": "L1",
+      "attempt": 3,
+      "error": "message is 6 words, must be 8-45",
+      "text": "Prescribers must be notified before quarantining.",
+      "seconds": 2.31
+    },
+    {
+      "tag": "L1",
+      "attempt": 0,
+      "error": null,
+      "text": "Update the labelling record before verifying the assay result.",
+      "seconds": 2.32
+    },
+    {
+      "tag": "L2",
+      "attempt": 0,
+      "error": "too close to an earlier message (1.00 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Update the labelling record before verifying the assay result.",
+      "seconds": 2.32
+    },
+    {
+      "tag": "L2",
+      "attempt": 1,
+      "error": null,
+      "text": "Ensure the label is updated before checking the assay result.",
+      "seconds": 2.33
+    },
+    {
+      "tag": "L3",
+      "attempt": 0,
+      "error": "too close to an earlier message (1.00 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Update the labelling record before verifying the assay result.",
+      "seconds": 2.32
+    },
+    {
+      "tag": "L3",
+      "attempt": 1,
+      "error": null,
+      "text": "Make sure to update the label prior to checking the assay result.",
+      "seconds": 2.34
+    },
+    {
+      "tag": "C",
+      "attempt": 0,
+      "error": null,
+      "text": "Verify the assay result before updating the labelling record.",
+      "seconds": 2.35
+    },
+    {
+      "tag": "P1",
+      "attempt": 0,
+      "error": null,
+      "text": "Don't forget the quarterly return to the regulator is due next month.",
+      "seconds": 2.25
+    },
+    {
+      "tag": "P2",
+      "attempt": 0,
+      "error": null,
+      "text": "Cold storage temp is stable and within tolerance.",
+      "seconds": 2.24
+    },
+    {
+      "tag": "L1",
+      "attempt": 0,
+      "error": null,
+      "text": "Quarantine the batch must happen before we release the stock.",
+      "seconds": 2.36
+    },
+    {
+      "tag": "L2",
+      "attempt": 0,
+      "error": null,
+      "text": "Batch must be quarantined before releasing the stock.",
+      "seconds": 2.33
+    },
+    {
+      "tag": "L3",
+      "attempt": 0,
+      "error": "message is 7 words, must be 8-45",
+      "text": "Quarantine the batch before releasing the stock.",
+      "seconds": 2.31
+    },
+    {
+      "tag": "L3",
+      "attempt": 1,
+      "error": "too close to an earlier message (1.00 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Batch must be quarantined before releasing the stock.",
+      "seconds": 2.33
+    },
+    {
+      "tag": "L3",
+      "attempt": 2,
+      "error": null,
+      "text": "Ensure the batch is quarantined prior to stock release.",
+      "seconds": 2.31
+    },
+    {
+      "tag": "C",
+      "attempt": 0,
+      "error": null,
+      "text": "Stock release must happen before we quarantine the batch.",
+      "seconds": 2.3
+    },
+    {
+      "tag": "P1",
+      "attempt": 0,
+      "error": null,
+      "text": "Reminder: The regulator's quarterly return is due next month.",
+      "seconds": 2.21
+    },
+    {
+      "tag": "P2",
+      "attempt": 0,
+      "error": null,
+      "text": "Cold storage temp is stable and within tolerance.",
+      "seconds": 2.23
+    },
+    {
+      "tag": "L1",
+      "attempt": 0,
+      "error": null,
+      "text": "Release the stock must happen before we update the labelling record.",
+      "seconds": 2.34
+    },
+    {
+      "tag": "L2",
+      "attempt": 0,
+      "error": null,
+      "text": "Stock release must occur before updating the labelling record.",
+      "seconds": 2.29
+    },
+    {
+      "tag": "L3",
+      "attempt": 0,
+      "error": null,
+      "text": "Stock release must precede updating the labelling record.",
+      "seconds": 2.31
+    },
+    {
+      "tag": "C",
+      "attempt": 0,
+      "error": null,
+      "text": "Update the labelling record before we can release the stock.",
+      "seconds": 2.38
+    },
+    {
+      "tag": "P1",
+      "attempt": 0,
+      "error": null,
+      "text": "Don't forget to prepare for the regulator's quarterly return next month.",
+      "seconds": 2.25
+    },
+    {
+      "tag": "P2",
+      "attempt": 0,
+      "error": null,
+      "text": "Cold storage temp is stable and within the required range.",
+      "seconds": 2.25
+    },
+    {
+      "tag": "L1",
+      "attempt": 0,
+      "error": null,
+      "text": "Reorient the solar panel must happen before we resume the downlink.",
+      "seconds": 2.37
+    },
+    {
+      "tag": "L2",
+      "attempt": 0,
+      "error": "too close to an earlier message (1.00 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Reorient the solar panel must happen before we resume the downlink.",
+      "seconds": 2.38
+    },
+    {
+      "tag": "L2",
+      "attempt": 1,
+      "error": null,
+      "text": "Before resuming the downlink, we need to reorient the solar panel.",
+      "seconds": 2.37
+    },
+    {
+      "tag": "L3",
+      "attempt": 0,
+      "error": "too close to an earlier message (1.00 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Before resuming the downlink, we need to reorient the solar panel.",
+      "seconds": 2.39
+    },
+    {
+      "tag": "L3",
+      "attempt": 1,
+      "error": "too close to an earlier message (0.78 content-word overlap, limit 0.75); reword it substantially",
+      "text": "We must reorient the solar panel before we can resume the downlink.",
+      "seconds": 2.38
+    },
+    {
+      "tag": "L3",
+      "attempt": 2,
+      "error": null,
+      "text": "To resume the downlink, first ensure the solar panel is correctly oriented.",
+      "seconds": 2.32
+    },
+    {
+      "tag": "C",
+      "attempt": 0,
+      "error": null,
+      "text": "Resume the downlink must happen before reorienting the solar panel.",
+      "seconds": 2.36
+    },
+    {
+      "tag": "P1",
+      "attempt": 0,
+      "error": null,
+      "text": "Next ground pass is in 90 mins, will monitor closely.",
+      "seconds": 2.25
+    },
+    {
+      "tag": "P2",
+      "attempt": 0,
+      "error": null,
+      "text": "Last week's beam scheduling change might be relevant; check logs.",
+      "seconds": 2.27
+    },
+    {
+      "tag": "L1",
+      "attempt": 0,
+      "error": null,
+      "text": "Calibrate the star tracker must happen before we dump the stored telemetry.",
+      "seconds": 2.36
+    },
+    {
+      "tag": "L2",
+      "attempt": 0,
+      "error": "too close to an earlier message (1.00 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Calibrate the star tracker must happen before we dump the stored telemetry.",
+      "seconds": 2.35
+    },
+    {
+      "tag": "L2",
+      "attempt": 1,
+      "error": null,
+      "text": "Before dumping stored telemetry, we need to calibrate the star tracker.",
+      "seconds": 2.35
+    },
+    {
+      "tag": "L3",
+      "attempt": 0,
+      "error": "too close to an earlier message (0.88 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Calibrate the star tracker before dumping stored telemetry.",
+      "seconds": 2.33
+    },
+    {
+      "tag": "L3",
+      "attempt": 1,
+      "error": null,
+      "text": "We must calibrate the star tracker prior to dumping the stored telemetry.",
+      "seconds": 2.35
+    },
+    {
+      "tag": "C",
+      "attempt": 0,
+      "error": null,
+      "text": "Dump the stored telemetry must happen before we calibrate the star tracker.",
+      "seconds": 2.37
+    },
+    {
+      "tag": "P1",
+      "attempt": 0,
+      "error": null,
+      "text": "Next ground pass is in 90 mins, will monitor closely.",
+      "seconds": 2.27
+    },
+    {
+      "tag": "P2",
+      "attempt": 0,
+      "error": null,
+      "text": "Last week's beam scheduling change might affect current communications patterns.",
+      "seconds": 2.26
+    },
+    {
+      "tag": "L1",
+      "attempt": 0,
+      "error": null,
+      "text": "Patching the bus firmware must happen before we can calibrate the star tracker.",
+      "seconds": 2.39
+    },
+    {
+      "tag": "L2",
+      "attempt": 0,
+      "error": "too close to an earlier message (1.00 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Patching the bus firmware must happen before we can calibrate the star tracker.",
+      "seconds": 2.4
+    },
+    {
+      "tag": "L2",
+      "attempt": 1,
+      "error": null,
+      "text": "We need to update the bus firmware prior to calibrating the star tracker.",
+      "seconds": 2.39
+    },
+    {
+      "tag": "L3",
+      "attempt": 0,
+      "error": null,
+      "text": "Update the bus firmware before calibrating the star tracker.",
+      "seconds": 2.35
+    },
+    {
+      "tag": "C",
+      "attempt": 0,
+      "error": null,
+      "text": "Calibrate the star tracker before we patch the bus firmware.",
+      "seconds": 2.36
+    },
+    {
+      "tag": "P1",
+      "attempt": 0,
+      "error": null,
+      "text": "Next ground pass is in 90 mins, will monitor closely.",
+      "seconds": 2.27
+    },
+    {
+      "tag": "P2",
+      "attempt": 0,
+      "error": null,
+      "text": "Last week's beam scheduling change might be affecting our current operations.",
+      "seconds": 2.25
+    },
+    {
+      "tag": "L1",
+      "attempt": 0,
+      "error": "message is 7 words, must be 8-45",
+      "text": "Resume the downlink before dumping stored telemetry.",
+      "seconds": 2.32
+    },
+    {
+      "tag": "L1",
+      "attempt": 1,
+      "error": "message is 7 words, must be 8-45",
+      "text": "Before dumping stored telemetry, resume the downlink.",
+      "seconds": 2.3
+    },
+    {
+      "tag": "L1",
+      "attempt": 2,
+      "error": "message is 6 words, must be 8-45",
+      "text": "Resume downlink before dumping stored telemetry.",
+      "seconds": 2.32
+    },
+    {
+      "tag": "L1",
+      "attempt": 3,
+      "error": "message is 7 words, must be 8-45",
+      "text": "Resume downlink before dumping stored telemetry data.",
+      "seconds": 2.3
+    },
+    {
+      "tag": "L1",
+      "attempt": 0,
+      "error": null,
+      "text": "Calibrate the star tracker before patching the bus firmware.",
+      "seconds": 2.35
+    },
+    {
+      "tag": "L2",
+      "attempt": 0,
+      "error": "too close to an earlier message (1.00 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Calibrate the star tracker before patching the bus firmware.",
+      "seconds": 2.34
+    },
+    {
+      "tag": "L2",
+      "attempt": 1,
+      "error": null,
+      "text": "Ensure the star tracker is calibrated prior to updating the bus firmware.",
+      "seconds": 2.33
+    },
+    {
+      "tag": "L3",
+      "attempt": 0,
+      "error": null,
+      "text": "Calibrate the star tracker before updating the bus firmware.",
+      "seconds": 2.33
+    },
+    {
+      "tag": "C",
+      "attempt": 0,
+      "error": null,
+      "text": "Patch the bus firmware before we calibrate the star tracker.",
+      "seconds": 2.34
+    },
+    {
+      "tag": "P1",
+      "attempt": 0,
+      "error": null,
+      "text": "Next ground pass is in 90 mins, will monitor closely.",
+      "seconds": 2.27
+    },
+    {
+      "tag": "P2",
+      "attempt": 0,
+      "error": null,
+      "text": "Last week's beam scheduling change might affect current communications patterns.",
+      "seconds": 2.23
+    },
+    {
+      "tag": "L1",
+      "attempt": 0,
+      "error": null,
+      "text": "Dump the stored telemetry before calibrating the star tracker.",
+      "seconds": 2.35
+    },
+    {
+      "tag": "L2",
+      "attempt": 0,
+      "error": null,
+      "text": "Ensure stored telemetry is dumped prior to calibrating the star tracker.",
+      "seconds": 2.37
+    },
+    {
+      "tag": "L3",
+      "attempt": 0,
+      "error": "too close to an earlier message (0.78 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Make sure to dump stored telemetry before calibrating the star tracker.",
+      "seconds": 2.35
+    },
+    {
+      "tag": "L3",
+      "attempt": 1,
+      "error": null,
+      "text": "Before calibrating the star tracker, clear the stored telemetry.",
+      "seconds": 2.31
+    },
+    {
+      "tag": "C",
+      "attempt": 0,
+      "error": null,
+      "text": "Calibrate the star tracker before we dump the stored telemetry.",
+      "seconds": 2.34
+    },
+    {
+      "tag": "P1",
+      "attempt": 0,
+      "error": null,
+      "text": "Next ground pass is in 90 mins, will monitor closely.",
+      "seconds": 2.29
+    },
+    {
+      "tag": "P2",
+      "attempt": 0,
+      "error": null,
+      "text": "Last week's beam scheduling change might be affecting our current communications pattern.",
+      "seconds": 2.29
+    },
+    {
+      "tag": "L1",
+      "attempt": 0,
+      "error": null,
+      "text": "Sterilise the transfer line must happen before we restart the batch.",
+      "seconds": 2.41
+    },
+    {
+      "tag": "L2",
+      "attempt": 0,
+      "error": "too close to an earlier message (1.00 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Sterilise the transfer line must happen before we restart the batch.",
+      "seconds": 2.35
+    },
+    {
+      "tag": "L2",
+      "attempt": 1,
+      "error": null,
+      "text": "Ensure the transfer line is sterilised before restarting the batch.",
+      "seconds": 2.34
+    },
+    {
+      "tag": "L3",
+      "attempt": 0,
+      "error": null,
+      "text": "Make sure to sterilise the transfer line before restarting the batch.",
+      "seconds": 2.35
+    },
+    {
+      "tag": "C",
+      "attempt": 0,
+      "error": null,
+      "text": "Restart the batch must happen before we sterilise the transfer line.",
+      "seconds": 2.35
+    },
+    {
+      "tag": "P1",
+      "attempt": 0,
+      "error": null,
+      "text": "Scheduled lorry delivery for Friday morning as usual.",
+      "seconds": 2.22
+    },
+    {
+      "tag": "P2",
+      "attempt": 0,
+      "error": null,
+      "text": "Cellar temp has stayed steady all week, no issues there.",
+      "seconds": 2.28
+    },
+    {
+      "tag": "L1",
+      "attempt": 0,
+      "error": "message is 7 words, must be 8-45",
+      "text": "Drain the vessel before reseeding the yeast.",
+      "seconds": 2.32
+    },
+    {
+      "tag": "L1",
+      "attempt": 1,
+      "error": null,
+      "text": "Ensure vessel is drained before reseeding the yeast.",
+      "seconds": 2.28
+    },
+    {
+      "tag": "L2",
+      "attempt": 0,
+      "error": null,
+      "text": "Make sure to drain the vessel before reseeding the yeast.",
+      "seconds": 2.34
+    },
+    {
+      "tag": "L3",
+      "attempt": 0,
+      "error": "message is 7 words, must be 8-45",
+      "text": "Drain the vessel before reseeding the yeast.",
+      "seconds": 2.32
+    },
+    {
+      "tag": "L3",
+      "attempt": 1,
+      "error": "message is 7 words, must be 8-45",
+      "text": "Ensure vessel is drained before reseeding yeast.",
+      "seconds": 2.29
+    },
+    {
+      "tag": "L3",
+      "attempt": 2,
+      "error": "too close to an earlier message (1.00 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Make sure to drain the vessel before reseeding yeast.",
+      "seconds": 2.32
+    },
+    {
+      "tag": "L3",
+      "attempt": 3,
+      "error": null,
+      "text": "Always drain the vessel prior to reseeding the yeast.",
+      "seconds": 2.31
+    },
+    {
+      "tag": "C",
+      "attempt": 0,
+      "error": "message is 6 words, must be 8-45",
+      "text": "Reseed yeast before draining the vessel.",
+      "seconds": 2.29
+    },
+    {
+      "tag": "C",
+      "attempt": 1,
+      "error": "message is 5 words, must be 8-45",
+      "text": "Before draining, reseed the yeast.",
+      "seconds": 2.28
+    },
+    {
+      "tag": "C",
+      "attempt": 2,
+      "error": "message is 5 words, must be 8-45",
+      "text": "Reseed yeast prior to draining.",
+      "seconds": 2.29
+    },
+    {
+      "tag": "C",
+      "attempt": 3,
+      "error": "message is 5 words, must be 8-45",
+      "text": "Reseed yeast before vessel draining.",
+      "seconds": 2.27
+    },
+    {
+      "tag": "L1",
+      "attempt": 0,
+      "error": null,
+      "text": "Sampling gravity must occur before draining the vessel.",
+      "seconds": 2.31
+    },
+    {
+      "tag": "L2",
+      "attempt": 0,
+      "error": null,
+      "text": "Sampling gravity must happen before draining the vessel.",
+      "seconds": 2.29
+    },
+    {
+      "tag": "L3",
+      "attempt": 0,
+      "error": "too close to an earlier message (1.00 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Sampling gravity must occur before draining the vessel.",
+      "seconds": 2.32
+    },
+    {
+      "tag": "L3",
+      "attempt": 1,
+      "error": null,
+      "text": "We need to sample gravity prior to draining the vessel.",
+      "seconds": 2.3
+    },
+    {
+      "tag": "C",
+      "attempt": 0,
+      "error": null,
+      "text": "Draining the vessel must happen before we sample the gravity.",
+      "seconds": 2.33
+    },
+    {
+      "tag": "P1",
+      "attempt": 0,
+      "error": null,
+      "text": "Scheduled lorry for Friday morning to pick up contaminated batch.",
+      "seconds": 2.24
+    },
+    {
+      "tag": "P2",
+      "attempt": 0,
+      "error": null,
+      "text": "Cellar temp has stayed steady all week, no drastic changes noticed.",
+      "seconds": 2.27
+    },
+    {
+      "tag": "L1",
+      "attempt": 0,
+      "error": null,
+      "text": "Sampling gravity must happen before we restart the batch.",
+      "seconds": 2.31
+    },
+    {
+      "tag": "L2",
+      "attempt": 0,
+      "error": null,
+      "text": "Sampling gravity must occur before we restart the batch.",
+      "seconds": 2.28
+    },
+    {
+      "tag": "L3",
+      "attempt": 0,
+      "error": "too close to an earlier message (1.00 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Sampling gravity must happen before we restart the batch.",
+      "seconds": 2.32
+    },
+    {
+      "tag": "L3",
+      "attempt": 1,
+      "error": null,
+      "text": "We need to sample gravity before restarting the batch.",
+      "seconds": 2.27
+    },
+    {
+      "tag": "C",
+      "attempt": 0,
+      "error": null,
+      "text": "Restart the batch must happen before we sample the gravity.",
+      "seconds": 2.31
+    },
+    {
+      "tag": "P1",
+      "attempt": 0,
+      "error": null,
+      "text": "The delivery lorry is booked for Friday morning. Confirm receipt of supplies then proceed.",
+      "seconds": 2.3
+    },
+    {
+      "tag": "P2",
+      "attempt": 0,
+      "error": null,
+      "text": "Cellar temp has stayed steady all week, no drastic changes observed.",
+      "seconds": 2.27
+    },
+    {
+      "tag": "L1",
+      "attempt": 0,
+      "error": null,
+      "text": "Restart the batch must happen before we sterilise the transfer line.",
+      "seconds": 2.31
+    },
+    {
+      "tag": "L2",
+      "attempt": 0,
+      "error": "too close to an earlier message (0.78 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Restart the batch must happen before sterilizing the transfer line.",
+      "seconds": 2.34
+    },
+    {
+      "tag": "L2",
+      "attempt": 1,
+      "error": null,
+      "text": "We need to restart the batch prior to sterilizing the transfer line.",
+      "seconds": 2.31
+    },
+    {
+      "tag": "L3",
+      "attempt": 0,
+      "error": "too close to an earlier message (0.86 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Restart the batch prior to sterilizing the transfer line.",
+      "seconds": 2.31
+    },
+    {
+      "tag": "L3",
+      "attempt": 1,
+      "error": null,
+      "text": "We must start the batch again before sterilizing the transfer line.",
+      "seconds": 2.35
+    },
+    {
+      "tag": "C",
+      "attempt": 0,
+      "error": null,
+      "text": "Sterilise the transfer line before we restart the batch.",
+      "seconds": 2.36
+    },
+    {
+      "tag": "P1",
+      "attempt": 0,
+      "error": null,
+      "text": "The delivery lorry is booked for Friday morning, ensure it's clean.",
+      "seconds": 2.26
+    },
+    {
+      "tag": "P2",
+      "attempt": 0,
+      "error": null,
+      "text": "Cellar temp has stayed steady all week, no issues there.",
+      "seconds": 2.23
+    },
+    {
+      "tag": "L1",
+      "attempt": 0,
+      "error": null,
+      "text": "Sterilise the transfer line before reseeding the yeast.",
+      "seconds": 2.36
+    },
+    {
+      "tag": "L2",
+      "attempt": 0,
+      "error": null,
+      "text": "Make sure to sterilize the transfer line before reseeding the yeast.",
+      "seconds": 2.36
+    },
+    {
+      "tag": "L3",
+      "attempt": 0,
+      "error": null,
+      "text": "Sterilize the transfer line before reseeding the yeast.",
+      "seconds": 2.36
+    },
+    {
+      "tag": "C",
+      "attempt": 0,
+      "error": null,
+      "text": "Reseeding the yeast must happen before we sterilize the transfer line.",
+      "seconds": 2.35
+    },
+    {
+      "tag": "P1",
+      "attempt": 0,
+      "error": null,
+      "text": "Scheduled lorry delivery for Friday morning as usual.",
+      "seconds": 2.23
+    },
+    {
+      "tag": "P2",
+      "attempt": 0,
+      "error": null,
+      "text": "Cellar temp has stayed steady all week, no major changes there.",
+      "seconds": 2.27
+    },
+    {
+      "tag": "L1",
+      "attempt": 0,
+      "error": null,
+      "text": "Test the interlock must happen before we inspect the points.",
+      "seconds": 2.33
+    },
+    {
+      "tag": "L2",
+      "attempt": 0,
+      "error": "too close to an earlier message (1.00 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Test the interlock must happen before we inspect the points.",
+      "seconds": 2.34
+    },
+    {
+      "tag": "L2",
+      "attempt": 1,
+      "error": null,
+      "text": "Ensure the interlock test occurs prior to point inspection.",
+      "seconds": 2.34
+    },
+    {
+      "tag": "L3",
+      "attempt": 0,
+      "error": null,
+      "text": "Test the interlock must happen before inspecting the points.",
+      "seconds": 2.31
+    },
+    {
+      "tag": "C",
+      "attempt": 0,
+      "error": null,
+      "text": "Inspect the points must happen before testing the interlock.",
+      "seconds": 2.32
+    },
+    {
+      "tag": "P1",
+      "attempt": 0,
+      "error": null,
+      "text": "Amended timetable takes effect this Sunday at 0600.",
+      "seconds": 2.25
+    },
+    {
+      "tag": "P2",
+      "attempt": 0,
+      "error": null,
+      "text": "Two crews are already on site at the depot.",
+      "seconds": 2.21
+    },
+    {
+      "tag": "L1",
+      "attempt": 0,
+      "error": null,
+      "text": "Replace the relay must happen before we block the section.",
+      "seconds": 2.32
+    },
+    {
+      "tag": "L2",
+      "attempt": 0,
+      "error": "too close to an earlier message (1.00 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Replace the relay must happen before we block the section.",
+      "seconds": 2.31
+    },
+    {
+      "tag": "L2",
+      "attempt": 1,
+      "error": null,
+      "text": "We must replace the relay prior to blocking the section.",
+      "seconds": 2.31
+    },
+    {
+      "tag": "L3",
+      "attempt": 0,
+      "error": null,
+      "text": "Replace the relay must happen before blocking the section.",
+      "seconds": 2.33
+    },
+    {
+      "tag": "C",
+      "attempt": 0,
+      "error": null,
+      "text": "Block the section must happen before replacing the relay.",
+      "seconds": 2.31
+    },
+    {
+      "tag": "P1",
+      "attempt": 0,
+      "error": null,
+      "text": "Timetable amendment takes effect on Sunday, please update schedules.",
+      "seconds": 2.24
+    },
+    {
+      "tag": "P2",
+      "attempt": 0,
+      "error": null,
+      "text": "Two crews are already on site at the depot, ready to investigate.",
+      "seconds": 2.28
+    },
+    {
+      "tag": "L1",
+      "attempt": 0,
+      "error": null,
+      "text": "We must test the interlock before clearing the section.",
+      "seconds": 2.31
+    },
+    {
+      "tag": "L2",
+      "attempt": 0,
+      "error": null,
+      "text": "Testing the interlock must happen before clearing the section.",
+      "seconds": 2.33
+    },
+    {
+      "tag": "L3",
+      "attempt": 0,
+      "error": "too close to an earlier message (1.00 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Testing the interlock must happen before clearing the section.",
+      "seconds": 2.35
+    },
+    {
+      "tag": "L3",
+      "attempt": 1,
+      "error": null,
+      "text": "Ensure the interlock test is conducted prior to section clearance.",
+      "seconds": 2.33
+    },
+    {
+      "tag": "C",
+      "attempt": 0,
+      "error": null,
+      "text": "Clear the section must happen before we test the interlock.",
+      "seconds": 2.31
+    },
+    {
+      "tag": "P1",
+      "attempt": 0,
+      "error": null,
+      "text": "Amendment to the timetable takes effect this Sunday as planned.",
+      "seconds": 2.22
+    },
+    {
+      "tag": "P2",
+      "attempt": 0,
+      "error": null,
+      "text": "Two crews are already on site at the depot.",
+      "seconds": 2.24
+    },
+    {
+      "tag": "L1",
+      "attempt": 0,
+      "error": "message is 7 words, must be 8-45",
+      "text": "Drain the vessel before reseeding the yeast.",
+      "seconds": 2.48
+    },
+    {
+      "tag": "L1",
+      "attempt": 1,
+      "error": null,
+      "text": "Ensure vessel is drained before reseeding the yeast.",
+      "seconds": 2.29
+    },
+    {
+      "tag": "L2",
+      "attempt": 0,
+      "error": null,
+      "text": "Make sure to drain the vessel before reseeding the yeast.",
+      "seconds": 2.36
+    },
+    {
+      "tag": "L3",
+      "attempt": 0,
+      "error": "message is 7 words, must be 8-45",
+      "text": "Drain the vessel before reseeding the yeast.",
+      "seconds": 2.31
+    },
+    {
+      "tag": "L3",
+      "attempt": 1,
+      "error": "message is 7 words, must be 8-45",
+      "text": "Ensure vessel is drained before reseeding yeast.",
+      "seconds": 2.31
+    },
+    {
+      "tag": "L3",
+      "attempt": 2,
+      "error": "too close to an earlier message (0.86 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Make sure to drain the vessel before reseeding.",
+      "seconds": 2.31
+    },
+    {
+      "tag": "L3",
+      "attempt": 3,
+      "error": null,
+      "text": "Ensure the vessel is drained prior to reseeding.",
+      "seconds": 2.37
+    },
+    {
+      "tag": "C",
+      "attempt": 0,
+      "error": "message is 6 words, must be 8-45",
+      "text": "Reseed yeast before draining the vessel.",
+      "seconds": 2.28
+    },
+    {
+      "tag": "C",
+      "attempt": 1,
+      "error": "message is 7 words, must be 8-45",
+      "text": "Reseed yeast before we drain the vessel.",
+      "seconds": 2.29
+    },
+    {
+      "tag": "C",
+      "attempt": 2,
+      "error": "message is 6 words, must be 8-45",
+      "text": "Reseed yeast before draining the vessel.",
+      "seconds": 2.27
+    },
+    {
+      "tag": "C",
+      "attempt": 3,
+      "error": "message is 6 words, must be 8-45",
+      "text": "Yeast must be reseeded before draining.",
+      "seconds": 2.27
+    },
+    {
+      "tag": "L1",
+      "attempt": 0,
+      "error": "message is 6 words, must be 8-45",
+      "text": "Notify prescribers before quarantining the batch.",
+      "seconds": 8.22
+    },
+    {
+      "tag": "L1",
+      "attempt": 1,
+      "error": "message is 6 words, must be 8-45",
+      "text": "Notify prescribers before quarantining the batch.",
+      "seconds": 2.29
+    },
+    {
+      "tag": "L1",
+      "attempt": 2,
+      "error": null,
+      "text": "Prescribers must be notified before quarantining the batch.",
+      "seconds": 2.34
+    },
+    {
+      "tag": "L2",
+      "attempt": 0,
+      "error": "message is 6 words, must be 8-45",
+      "text": "Notify prescribers before quarantining the batch.",
+      "seconds": 2.32
+    },
+    {
+      "tag": "L2",
+      "attempt": 1,
+      "error": "message is 7 words, must be 8-45",
+      "text": "Notify prescribers prior to quarantining the batch.",
+      "seconds": 2.34
+    },
+    {
+      "tag": "L2",
+      "attempt": 2,
+      "error": null,
+      "text": "Notify prescribers before quarantining the batch to ensure compliance.",
+      "seconds": 2.34
+    },
+    {
+      "tag": "L3",
+      "attempt": 0,
+      "error": "message is 6 words, must be 8-45",
+      "text": "Notify prescribers before quarantining the batch.",
+      "seconds": 2.33
+    },
+    {
+      "tag": "L3",
+      "attempt": 1,
+      "error": null,
+      "text": "Notify prescribers before quarantining the batch to avoid delays.",
+      "seconds": 2.34
+    },
+    {
+      "tag": "C",
+      "attempt": 0,
+      "error": "message is 7 words, must be 8-45",
+      "text": "Quarantine the batch before we notify prescribers.",
+      "seconds": 2.32
+    },
+    {
+      "tag": "C",
+      "attempt": 1,
+      "error": "message is 7 words, must be 8-45",
+      "text": "Must quarantine the batch before notifying prescribers.",
+      "seconds": 2.3
+    },
+    {
+      "tag": "C",
+      "attempt": 2,
+      "error": "message is 6 words, must be 8-45",
+      "text": "Quarantine the batch before notifying prescribers.",
+      "seconds": 2.3
+    },
+    {
+      "tag": "C",
+      "attempt": 3,
+      "error": "message is 7 words, must be 8-45",
+      "text": "Quarantine the batch first, then notify prescribers.",
+      "seconds": 2.34
+    },
+    {
+      "tag": "L1",
+      "attempt": 0,
+      "error": "message is 7 words, must be 8-45",
+      "text": "Resume the downlink before dumping stored telemetry.",
+      "seconds": 2.33
+    },
+    {
+      "tag": "L1",
+      "attempt": 1,
+      "error": "message is 7 words, must be 8-45",
+      "text": "Before dumping stored telemetry, resume the downlink.",
+      "seconds": 2.28
+    },
+    {
+      "tag": "L1",
+      "attempt": 2,
+      "error": "message is 6 words, must be 8-45",
+      "text": "Resume downlink before dumping stored telemetry.",
+      "seconds": 2.31
+    },
+    {
+      "tag": "L1",
+      "attempt": 3,
+      "error": "message is 6 words, must be 8-45",
+      "text": "Resume downlink prior to dumping telemetry.",
+      "seconds": 2.28
+    },
+    {
+      "tag": "L1",
+      "attempt": 0,
+      "error": "message is 7 words, must be 8-45",
+      "text": "Drain the vessel before reseeding the yeast.",
+      "seconds": 2.35
+    },
+    {
+      "tag": "L1",
+      "attempt": 1,
+      "error": null,
+      "text": "Ensure vessel is drained before reseeding the yeast.",
+      "seconds": 2.3
+    },
+    {
+      "tag": "L2",
+      "attempt": 0,
+      "error": null,
+      "text": "Make sure to drain the vessel before reseeding the yeast.",
+      "seconds": 2.32
+    },
+    {
+      "tag": "L3",
+      "attempt": 0,
+      "error": "message is 7 words, must be 8-45",
+      "text": "Drain the vessel before reseeding the yeast.",
+      "seconds": 2.34
+    },
+    {
+      "tag": "L3",
+      "attempt": 1,
+      "error": null,
+      "text": "Ensure the vessel is drained prior to reseeding the yeast.",
+      "seconds": 2.32
+    },
+    {
+      "tag": "C",
+      "attempt": 0,
+      "error": "message is 6 words, must be 8-45",
+      "text": "Reseed yeast before draining the vessel.",
+      "seconds": 2.28
+    },
+    {
+      "tag": "C",
+      "attempt": 1,
+      "error": "message is 7 words, must be 8-45",
+      "text": "Reseed yeast before draining to prevent contamination.",
+      "seconds": 2.25
+    },
+    {
+      "tag": "C",
+      "attempt": 2,
+      "error": "message is 6 words, must be 8-45",
+      "text": "Yeast must be reseeded before draining.",
+      "seconds": 2.31
+    },
+    {
+      "tag": "C",
+      "attempt": 3,
+      "error": "message is 7 words, must be 8-45",
+      "text": "Reseed yeast before draining to avoid contamination.",
+      "seconds": 2.3
+    },
+    {
+      "tag": "L1",
+      "attempt": 0,
+      "error": null,
+      "text": "Block the section must happen before we replace the relay.",
+      "seconds": 2.33
+    },
+    {
+      "tag": "L2",
+      "attempt": 0,
+      "error": "too close to an earlier message (1.00 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Block the section must happen before we replace the relay.",
+      "seconds": 2.31
+    },
+    {
+      "tag": "L2",
+      "attempt": 1,
+      "error": null,
+      "text": "We need to block the section before replacing the relay.",
+      "seconds": 2.31
+    },
+    {
+      "tag": "L3",
+      "attempt": 0,
+      "error": "message is 7 words, must be 8-45",
+      "text": "Block the section before replacing the relay.",
+      "seconds": 2.29
+    },
+    {
+      "tag": "L3",
+      "attempt": 1,
+      "error": "message is 7 words, must be 8-45",
+      "text": "Block the section before replacing the relay.",
+      "seconds": 2.28
+    },
+    {
+      "tag": "L3",
+      "attempt": 2,
+      "error": "message is 7 words, must be 8-45",
+      "text": "Block the section before replacing the relay.",
+      "seconds": 2.31
+    },
+    {
+      "tag": "L3",
+      "attempt": 3,
+      "error": "message is 7 words, must be 8-45",
+      "text": "Block the section before replacing the relay.",
+      "seconds": 2.27
+    },
+    {
+      "tag": "L1",
+      "attempt": 0,
+      "error": null,
+      "text": "To clear the section, we must block it first.",
+      "seconds": 2.34
+    },
+    {
+      "tag": "L2",
+      "attempt": 0,
+      "error": "message is 7 words, must be 8-45",
+      "text": "To clear the section, block it first.",
+      "seconds": 2.3
+    },
+    {
+      "tag": "L2",
+      "attempt": 1,
+      "error": "message is 6 words, must be 8-45",
+      "text": "Block the section before clearing it.",
+      "seconds": 2.27
+    },
+    {
+      "tag": "L2",
+      "attempt": 2,
+      "error": "message is 7 words, must be 8-45",
+      "text": "Must block the section before clearing it.",
+      "seconds": 2.3
+    },
+    {
+      "tag": "L2",
+      "attempt": 3,
+      "error": "message is 7 words, must be 8-45",
+      "text": "To clear the section, block it first.",
+      "seconds": 2.28
+    },
+    {
+      "tag": "L1",
+      "attempt": 0,
+      "error": "message is 7 words, must be 8-45",
+      "text": "Clear the section before grounding the catenary.",
+      "seconds": 2.32
+    },
+    {
+      "tag": "L1",
+      "attempt": 1,
+      "error": null,
+      "text": "Clear the section must precede grounding the catenary.",
+      "seconds": 2.29
+    },
+    {
+      "tag": "L2",
+      "attempt": 0,
+      "error": null,
+      "text": "Clear the section must happen before grounding the catenary.",
+      "seconds": 2.33
+    },
+    {
+      "tag": "L3",
+      "attempt": 0,
+      "error": "too close to an earlier message (1.00 content-word overlap, limit 0.75); reword it substantially",
+      "text": "Clear the section must happen before grounding the catenary.",
+      "seconds": 2.3
+    },
+    {
+      "tag": "L3",
+      "attempt": 1,
+      "error": null,
+      "text": "Ensure the area is clear prior to grounding the catenary.",
+      "seconds": 2.32
+    },
+    {
+      "tag": "C",
+      "attempt": 0,
+      "error": null,
+      "text": "Ground the catenary must happen before we clear the section.",
+      "seconds": 2.36
+    },
+    {
+      "tag": "P1",
+      "attempt": 0,
+      "error": null,
+      "text": "Amended timetable takes effect on Sunday, please update schedules.",
+      "seconds": 2.26
+    },
+    {
+      "tag": "P2",
+      "attempt": 0,
+      "error": null,
+      "text": "Two crews are already on site at the depot.",
+      "seconds": 2.23
+    }
+  ]
+}
