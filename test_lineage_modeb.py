@@ -48,6 +48,16 @@ def test_identical_relays_are_rejected():
     assert _too_similar(s, [s]) is not None
     assert _too_similar("Before reopening, move traffic across to the spare "
                         "site", [s]) is None
+    # Naming the SAME actions is required, so it must not by itself count as
+    # too similar once the action words are excluded from the comparison.
+    acts = ("snapshot the store", "drain the failing node")
+    a = "Snapshot the store must happen before we drain the failing node."
+    b = "Snapshot the store must occur before we drain the failing node."
+    assert _too_similar(b, [a]) is not None          # 0.78 over all content
+    assert _too_similar(b, [a], acts) is None        # 0.50 over framing alone
+    # ...but excluding the action words must NOT make the gate toothless: a
+    # verbatim repeat has identical framing too, and is still caught.
+    assert _too_similar(a, [a], acts) is not None
 
 
 def test_relay_gate_rejects_leaked_identifiers_and_missing_actions():
@@ -61,6 +71,24 @@ def test_relay_gate_rejects_leaked_identifiers_and_missing_actions():
     assert _check_relay("too short", inst, pa, pb)
     assert _check_relay("shift routing to the spare region must happen before "
                         "we reopen the gateway", inst, pa, pb) is None
+
+
+def test_script_mixing_is_rejected():
+    """The real failure text, kept as a regression case.
+
+    Found by the 14B verifier, not by any string check -- qwen2.5 drops into
+    Chinese under temperature sampling and `_mentions` still matched on the
+    surviving ASCII stems.
+    """
+    from lineage_modeb import _script_mixed
+    inst = BY_ID["payments-chain"]
+    verbs = dict(DOMAINS[inst.domain]["actions"])
+    pa, pb = verbs["SHIFT_ROUTING"], verbs["REOPEN_GATEWAY"]
+    bad = "Make sure to restart downlink传输前再执行数据 dump。"
+    assert _script_mixed(bad)
+    assert not _script_mixed("Shift routing to the spare region first.")
+    assert _check_relay(bad, inst, pa, pb)
+    assert _check_filler(bad, inst, pa, pb)
 
 
 def test_filler_gate_rejects_constraint_talk():
@@ -102,7 +130,7 @@ def test_every_admitted_message_passes_its_own_gate():
         seen = [build_chain(inst).source.text]
         for k, t in enumerate(r["faithful"], 1):
             assert _check_relay(t, inst, pa, pb) is None, f"{r['instance']} L{k}"
-            assert _too_similar(t, seen) is None, f"{r['instance']} L{k}"
+            assert _too_similar(t, seen, (pa, pb)) is None,                 f"{r['instance']} L{k}"
             seen.append(t)
         assert _check_relay(r["corrupted"], inst, pa, pb) is None, r["instance"]
         for t in r["padding"]:

@@ -62,12 +62,15 @@ import hashlib
 import json
 import os
 import re
+import time
 from dataclasses import replace
+
+import requests
 
 from budget import Budget
 from lineage_bench import DOMAINS, all_instances
 from lineage_depth import MAX_DEPTH, DepthChain, build_chain
-from llm_client import OllamaClient
+from llm_client import ChatResponse, OllamaClient
 from structured import extract_json_object
 
 GEN_MODEL = "qwen2.5:7b-instruct"
@@ -79,9 +82,65 @@ FIXTURE = "fixtures/modeb.json"
 #: retry would hide cost inside a scored run. This loop is corpus construction:
 #: it runs once, offline, and every attempt is counted and reported. Still
 #: bounded -- rejection is a recorded outcome, never an infinite retry.
-MAX_GEN_ATTEMPTS = 4
+#:
+#: AMENDMENT 2026-09-01, before any Mode B decision call: raised 4 -> 6 and
+#: applied by regenerating the WHOLE corpus, not by retrying only the instances
+#: that failed. Retrying just the failures would spend more effort on exactly
+#: the instances that resisted, which is selection dressed as persistence.
+MAX_GEN_ATTEMPTS = 6
 
-MIN_WORDS, MAX_WORDS = 8, 45
+
+class SeededOllamaClient(OllamaClient):
+    """OllamaClient plus a per-call seed, so retries are reproducible.
+
+    A corpus fixture that cannot be regenerated is a weak link in a project
+    whose whole discipline is frozen, hashed artifacts. Attempt 1 runs at
+    temperature 0 and is already deterministic; attempts 2+ must sample or they
+    would return the same rejected text, and unseeded sampling made the fixture
+    unreproducible in exactly the cases that needed retries.
+
+    llm_client.py is compulsory-baseline scaffolding marked "you don't need to
+    change this file", and the baseline is frozen. So this SUBCLASSES rather
+    than edits: research code extends, it does not reach into the frozen core.
+    """
+
+    def __init__(self, host="http://localhost:11434"):
+        super().__init__(host)
+        self.seed = 0
+
+    def chat(self, model, messages, temperature=0.7):
+        t0 = time.monotonic()
+        resp = requests.post(
+            f"{self.host}/api/chat",
+            json={"model": model, "messages": messages, "stream": False,
+                  "options": {"temperature": temperature, "seed": self.seed}},
+            timeout=300)
+        resp.raise_for_status()
+        data = resp.json()
+        return ChatResponse(
+            text=data["message"]["content"].strip(),
+            prompt_tokens=data.get("prompt_eval_count", 0),
+            completion_tokens=data.get("eval_count", 0),
+            seconds=time.monotonic() - t0)
+
+#: AMENDMENT 2026-09-01, before any decision call. Was 8, and 8 was wrong.
+#: `pharmacy-fork` was dropped after SIX consecutive rejections that were all
+#: this gate, and every rejected message was a good relay:
+#:
+#:     "Notify prescribers before quarantining the batch."      6 words
+#:     "Before quarantining, notify prescribers."               4 words
+#:
+#: Both name the two actions and both state the order correctly. A floor of 8
+#: does not reject bad relays, it rejects TERSE ones -- and terse is what an
+#: operations channel actually contains, which is the register Mode B exists to
+#: reproduce. Selecting for verbosity would have been a systematic bias in the
+#: corpus, introduced by an arbitrary constant nobody had a reason for.
+#:
+#: The floor's real job is refusing degenerate replies ("Yes.", "OK"). Four
+#: words does that. The semantic requirement is carried by `_mentions`, which
+#: demands both action phrases, and by `_too_similar`, which demands distinct
+#: framing -- neither of which a degenerate reply can satisfy.
+MIN_WORDS, MAX_WORDS = 4, 45
 
 _STOP = {"the", "a", "an", "to", "of", "and", "or", "on", "in", "for", "with",
          "at", "by", "we", "it", "is", "be", "that", "this", "all", "from"}
@@ -110,20 +169,45 @@ def _leaks_id(text, instance):
     return any(a in text for a in instance.actions)
 
 
+def _script_mixed(text):
+    """Reject code-switched output. FOUND BY THE VERIFIER, NOT BY A GATE.
+
+    `satellite-diamond` was dropped because the 14B verifier read this L2 and
+    reported the opposite ordering:
+
+        'Make sure to restart downlink传输前再执行数据 dump。'
+
+    Every deterministic gate passed it. `_mentions` matched on the ASCII stems
+    `downl` and `dump`, the length was in range, no identifier leaked, the
+    framing was distinct. qwen2.5 is multilingual and drops into Chinese under
+    temperature sampling, and a mixed-script sentence is not a relay an English
+    operations channel would contain.
+
+    This is the asymmetry the design claims for the verifier, caught actually
+    happening: a model reading one sentence in isolation saw what four string
+    checks could not. The right response is not to be pleased about it -- it is
+    to make the cheap check exist, so the expensive one is spent on judgement
+    rather than on typography.
+    """
+    return any(ord(ch) > 0x24F for ch in text)
+
+
 #: Content-word overlap above which two relays count as the same sentence.
 MAX_OVERLAP = 0.75
 
 
-def _content(text):
-    return {w for w in re.findall(r"[a-z]+", text.lower()) if w not in _STOP}
+def _content(text, ignore=()):
+    drop = set(_STOP) | {w for p in ignore
+                         for w in re.findall(r"[a-z]+", p.lower())}
+    return {w for w in re.findall(r"[a-z]+", text.lower()) if w not in drop}
 
 
-def _overlap(x, y):
-    a, b = _content(x), _content(y)
+def _overlap(x, y, ignore=()):
+    a, b = _content(x, ignore), _content(y, ignore)
     return len(a & b) / len(a | b) if a | b else 1.0
 
 
-def _too_similar(msg, earlier):
+def _too_similar(msg, earlier, ignore=()):
     """THE FIRST PILOT PRODUCED L1 == L2 == L3, VERBATIM, IN EVERY INSTANCE.
 
     At temperature 0, asking a model to restate an already-minimal sentence is a
@@ -137,9 +221,24 @@ def _too_similar(msg, earlier):
     Each link must therefore be a genuine rewording of everything before it.
     That is not a cosmetic requirement: it is what makes the chain a chain of
     restatements rather than a chain of copies.
+
+    `ignore` CARRIES THE TWO ACTION PHRASES, AND WITHOUT IT THIS GATE FIGHTS THE
+    OTHER ONE. `_check_relay` REQUIRES both action phrases in every relay; those
+    phrases are most of the content words in a one-sentence claim; so demanding
+    <= 0.75 overlap on all content words asked the generator to name the same
+    two actions while not reusing the words that name them. The first corpus run
+    shows the collision exactly: 46 of 109 rejections were overlap failures and
+    they piled up at L2 and L3, where rewording room runs out, killing five
+    instances outright.
+
+    Distinctness should apply to HOW THE CLAIM IS FRAMED, not to whether it
+    names the same actions -- it must name the same actions. Excluding the
+    action words measures the framing and leaves the requirement intact.
+    Verbatim repeats are still caught: identical sentences have identical
+    framing too.
     """
     for prev in earlier:
-        ov = _overlap(msg, prev)
+        ov = _overlap(msg, prev, ignore)
         if ov > MAX_OVERLAP:
             return (f"too close to an earlier message ({ov:.2f} content-word "
                     f"overlap, limit {MAX_OVERLAP}); reword it substantially")
@@ -206,6 +305,8 @@ def _check_relay(msg, instance, first_phrase, second_phrase):
     n = len(msg.split())
     if not MIN_WORDS <= n <= MAX_WORDS:
         return f"message is {n} words, must be {MIN_WORDS}-{MAX_WORDS}"
+    if _script_mixed(msg):
+        return "message contains non-Latin characters; write it in English"
     if _leaks_id(msg, instance):
         return "message contains a raw action identifier; use plain words"
     for phrase in (first_phrase, second_phrase):
@@ -218,12 +319,20 @@ def _check_filler(msg, instance, avoid_a, avoid_b):
     n = len(msg.split())
     if not MIN_WORDS <= n <= MAX_WORDS:
         return f"message is {n} words, must be {MIN_WORDS}-{MAX_WORDS}"
+    if _script_mixed(msg):
+        return "message contains non-Latin characters; write it in English"
     if _leaks_id(msg, instance):
         return "message contains a raw action identifier"
     for phrase in (avoid_a, avoid_b):
         if _mentions(msg, phrase):
             return f'message must not mention "{phrase}"'
     return None
+
+
+def _seed(instance, tag, attempt):
+    """A stable seed per (instance, message, attempt). Same input, same corpus."""
+    return int(hashlib.sha256(
+        f"{instance.id}|{tag}|{attempt}".encode()).hexdigest()[:8], 16)
 
 
 def _generate(client, instance, task, fmt, gate, tag, log):
@@ -240,13 +349,15 @@ def _generate(client, instance, task, fmt, gate, tag, log):
         # Attempt 1 is deterministic. Later attempts must actually differ, and
         # at temperature 0 a repeated prompt returns the same rejected text, so
         # retrying without raising it would be a guaranteed-identical no-op.
+        client.seed = _seed(instance, tag, attempt)
         reply = client.chat(GEN_MODEL, messages, 0.0 if attempt == 0 else 0.8)
         budget.record(turns=1, tokens=reply.tokens)
         obj, err = _read(reply.text, ("message",) if fmt is FILLER_FORMAT
                          else ("message", "first_step"))
         if obj is not None:
             err = gate(obj["message"])
-        log.append({"tag": tag, "attempt": attempt, "error": err,
+        log.append({"instance": instance.id, "tag": tag, "attempt": attempt,
+                    "error": err,
                     "text": (obj or {}).get("message", reply.text)[:200],
                     "seconds": round(reply.seconds, 2)})
         if err is None:
@@ -324,7 +435,8 @@ def generate_one(client, instance, log):
             RELAY_TASK.format(parent=parent, first_phrase=pa, second_phrase=pb),
             RELAY_FORMAT,
             lambda m, s=tuple(seen): (_check_relay(m, instance, pa, pb)
-                                      or _too_similar(m, s)), f"L{k}", log)
+                                      or _too_similar(m, s, (pa, pb))),
+            f"L{k}", log)
         if got is None:
             return None
         out["faithful"].append(got["message"])
@@ -475,7 +587,7 @@ def main(offset, limit, report):
         return
 
     window = instances[offset:offset + (limit or len(instances))]
-    client = OllamaClient()
+    client = SeededOllamaClient()
     log = json.load(open(FIXTURE)).get("attempts", []) if os.path.exists(FIXTURE) else []
 
     # --- pass 1: the writer, alone ---------------------------------------
