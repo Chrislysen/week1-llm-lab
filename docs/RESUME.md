@@ -1,9 +1,30 @@
 # RESUME — where the work stands, and exactly what to do next
 
-**Updated 2026-09-02 after the research-lead pass. The programme is closed.**
-Everything is committed. No remote exists. `docs/RESEARCH-LEAD-2026-09-02.md`
-is the closing memo; `docs/novelty_matrix.md` C9–C14 is the verdict table.
-There is no pending decision and nothing queued.
+# RESEARCH PAUSED PENDING EXTERNAL NOVELTY REVIEW
+
+**Paused 2026-09-02 at commit `48c6860`.** Working tree clean, no remote,
+nothing running. Frozen hashes intact; `verify_claims.py` 167 VERIFIED /
+0 MISMATCHED / 4 UNVERIFIABLE; 92 tests; checker self-test 10/10.
+
+**Candidate:** E15-PODT / Provenance-Only Dependence Test.
+
+**Status:** APPARENTLY OPEN FROM ONE DEEP-RESEARCH REVIEW.
+NOT PREREGISTERED. NOT AUTHORIZED. ZERO E15 MODEL CALLS. **Not NOVEL.**
+An independent review (Gemini) is adversarially searching the literature and
+may kill it. Proposal only: `docs/E15-CANDIDATE.md`.
+
+**Do not:** start E15, generate an E15 corpus, preregister it, make model
+calls, modify E1–E14 artifacts, revive E14, build a provenance router, or
+implement the proposed Bayesian task. Wait for the external verdict.
+
+External handoff for a research model: `docs/HANDOFF-EXTERNAL-2026-09-02.md`.
+Closing memo of the last pass: `docs/RESEARCH-LEAD-2026-09-02.md`. Verdict
+table: `docs/novelty_matrix.md` C1–C14.
+
+---
+
+**The research-lead pass (2026-09-01/02) closed the earlier programme.**
+Everything below is its record.
 
 ---
 
