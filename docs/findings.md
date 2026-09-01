@@ -1,7 +1,7 @@
 # Findings — what is established, what is retracted, what is unclaimed
 
 One page, kept current. Every number here re-derives from raw artifacts via
-`python verify_claims.py`, which exits non-zero on drift (currently **95
+`python verify_claims.py`, which exits non-zero on drift (currently **116
 verified, 0 mismatched, 3 unverifiable**).
 
 Read the retraction table first. It is longer than the results table, and that
@@ -9,11 +9,12 @@ ratio is the honest summary of this project.
 
 ---
 
-## 0. The result, as it stands after E11 — read this first
+## 0. The result, as it stands after E12 — read this first
 
-Two experiments (E10, E11) were run under falsification-first preregistration
-after E9. They changed the picture twice, both times against earlier claims of
-mine.
+Three experiments (E10, E11, E12) were run under falsification-first
+preregistration after E9, plus two adversarial agent panels. They changed the
+picture three times, every time against an earlier claim of mine — including one
+full retraction of a conclusion I had already committed.
 
 **What survives, and it is one thing:**
 
@@ -25,35 +26,43 @@ mine.
 
 **What does *not* survive:**
 
-- **Evidential independence: INCONCLUSIVE, not zero.** I first reported this as
-  a fired kill rule. That was wrong and is retracted in full --
-  `docs/protocols/E10-H3-RETRACTION.md`. The point estimate is +0.0000, but the
-  95% CI is [-0.111, +0.111] against a preregistered equivalence bound of 0.10,
-  so my *own* preregistered code returns "inconclusive at n = 36" and I reported
-  the opposite. Simulated power at that SESOI: **0.14**.
-  What survives: the effect is **bounded** at 0.111, and in the same instrument
-  corroboration moves 18-19 of 36 instances while independence moves at most 3.
-  **Far smaller -- not zero.** The lineage direction is *unresolved*, not
-  refuted.
-- **The model does perceive the manipulation.** A preregistered non-decision
-  probe shows it reports more distinct documents for the independent arm in
-  **27/36** and fewer in **0/36** (sign test p = 1.5e-08). That makes the null
-  interesting, but perception evidence cannot narrow a CI on the decision
-  measure -- conflating the two was part of the original error.
+- **Evidential independence: an EQUIVALENCE-SUPPORTED NULL (E12).** The model
+  applies no practically meaningful discount to correlated evidence. 108
+  propositions in 36 instance clusters, with instance-level permutation and
+  bootstrap: difference **+0.0185**, cluster-permutation **p = 0.749**, 95% CI
+  **[-0.037, +0.074]** — entirely inside the preregistered SESOI of 0.10. That
+  is *positive evidence of no meaningful effect*, not a failure to reject.
+  **It took two attempts.** E10 asserted this same conclusion at n = 36, where
+  power at the SESOI was 0.14 and the equivalence branch was structurally
+  unreachable. That claim was retracted in full
+  (`docs/protocols/E10-H3-RETRACTION.md`) after an adversarial panel found my
+  own preregistered code printing *"inconclusive"* while I reported a fired kill
+  rule. E12 earned it properly.
+- **And it is not a perception failure.** A preregistered non-decision probe
+  shows the model reports more distinct documents for the independent arm in
+  **27/36** and fewer in **0/36** (sign test p = 1.5e-08). It *sees* the
+  redundancy and prices it at nothing. (Perception evidence cannot by itself
+  narrow a CI on the decision measure — conflating the two was part of the
+  original error — but with E12's CI established, the two together are
+  informative.)
 - **The dilution/length effect does not replicate.** §1 below reported it as
-  established. E11 finds `bare → filler` null at all three k (p = 1.0, 1.0,
-  0.34). Across three experiments it is large (E9), moderate (E10), then absent
-  (E11). **Withdrawn.** The E9 decomposition "dilution −0.39, corroboration
+  established. Null in E11 at all three k (p = 1.0, 1.0, 0.34), and null again
+  in E12 (p = 0.238). Large in E9, moderate in E10, absent in E11 and E12.
+  **Withdrawn.** The E9 decomposition "dilution −0.39, corroboration
   −0.33" overstated dilution.
 
-One objection to the null *was* tested and killed: E11's dose-response shows the
-instrument had ample room to move (0.75 → 0.11), so the flat independence result
-is not a ceiling artifact. That rules out saturation. It does **not** rule out
-insufficient power, which is the objection that actually landed.
+Both objections to the null were tested and both are now closed. **Saturation**:
+E11's dose-response shows the instrument has ample room to move (0.75 → 0.11), so
+the flat independence result is not a ceiling artifact. **Power**: E12 raised n
+from 36 to 108 clustered units, which is where the equivalence bound became
+reachable at all. Neither objection survives.
 
 **Nothing here is claimed as novel.** See `docs/novelty_matrix.md`: the
-surviving effect (C1) is pre-empted, and the interesting null (C4) cannot be
-assessed because the adversarial prior-art search is blocked.
+surviving positive effect (C1) is pre-empted by the corroboration and
+illusory-truth literature, and the equivalence-supported null (C4) cannot be
+assessed at all because the adversarial prior-art search is blocked (B1). A
+null this clean is exactly the kind of result that is easy to scoop; it stays
+unclaimed until the search runs.
 
 ---
 

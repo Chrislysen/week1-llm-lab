@@ -629,6 +629,80 @@ else:
     print("  the design, not of llama3.2:3b.")
 
 
+# ----------------------------------------------------------- E12 ----------
+# The experiment that earned what E10 asserted.
+
+print("\n=== E12 powered independence (re-derived from raw plan text) ===")
+from lineage_e12 import all_units as _all_units
+from lineage_e12 import corpus_hash as e12_hash
+from e12_powered import (cluster_bootstrap, cluster_permutation,
+                         verdict as e12_verdict)
+
+E12_JSON = sorted(glob.glob("results/e12_*_o*.json"))
+if not E12_JSON:
+    skip("E12 artifacts", "not found")
+else:
+    claim("E12 corpus fixture", e12_hash(), "ecf1f4884fa49270")
+    u_by_id = {u["unit"]: u for u in _all_units()}
+    claim("E12 unit count (108 propositions, not 36)", len(u_by_id), 108)
+    claim("...in 36 instance clusters",
+          len({u["instance"] for u in u_by_id.values()}), 36)
+
+    d12 = []
+    for p in E12_JSON:
+        d12.extend(r for r in json.load(open(p))
+                   if r.get("model") == "llama3.2:3b")
+    per_unit = {}
+    for rec in d12:
+        u = u_by_id.get(rec["unit"])
+        inst = by_id.get(rec["instance"])
+        if u is None or inst is None:
+            continue
+        chk = check_plan(rec["plan_text"], inst)
+        v = e12_verdict(inst, u, chk.actions) if chk.parsed else ""
+        per_unit.setdefault(rec["unit"], {"instance": rec["instance"]})
+        per_unit[rec["unit"]][rec["arm"]] = v
+
+    units12 = list(per_unit.values())
+    clusters = {}
+    for d in units12:
+        clusters.setdefault(d["instance"], []).append(d)
+
+    for arm, want in (("bare", 0.8037), ("filler", 0.7407),
+                      ("same_root", 0.2778), ("indep_root", 0.2963)):
+        s_ = sum(u.get(arm) == "source" for u in units12)
+        f_ = sum(u.get(arm) == "flip" for u in units12)
+        claim(f"E12 {arm} flip rate",
+              round(f_ / (s_ + f_), 4) if s_ + f_ else None, want, tol=0.001)
+
+    p_perm, obs = cluster_permutation(clusters, "same_root", "indep_root")
+    lo, hi = cluster_bootstrap(clusters, "same_root", "indep_root")
+    claim("E12 PRIMARY observed difference", round(obs, 4), 0.0185, tol=0.0005)
+    claim("E12 cluster-permutation p (instance-level swaps)",
+          round(p_perm, 3), 0.749, tol=0.01)
+    claim("E12 cluster-bootstrap CI lower", round(lo, 4), -0.0370, tol=0.005)
+    claim("E12 cluster-bootstrap CI upper", round(hi, 4), 0.0741, tol=0.005)
+    claim("E12 EQUIVALENCE HOLDS: |diff| < SESOI and CI inside +/-0.10",
+          abs(obs) < 0.10 and lo > -0.10 and hi < 0.10, True)
+
+    p_cor, obs_cor = cluster_permutation(clusters, "filler", "same_root")
+    claim("E12 corroboration anchor is large", round(obs_cor, 3), -0.463,
+          tol=0.005)
+    claim("...and significant under clustering", p_cor < 0.001, True)
+
+    p_dil, obs_dil = cluster_permutation(clusters, "bare", "filler")
+    claim("E12 dilution is NULL again (third experiment running)",
+          p_dil > 0.05, True)
+
+    print("\n  E12 EARNS WHAT E10 ASSERTED. At 108 units in 36 clusters, with")
+    print("  instance-level permutation and bootstrap, the independence effect")
+    print("  is +0.0185 with a 95% CI of [-0.037, +0.074] -- entirely inside")
+    print("  the preregistered SESOI of 0.10. That is an EQUIVALENCE-SUPPORTED")
+    print("  null: positive evidence of no practically meaningful discount,")
+    print("  not a failure to reject. The preregistered kill rule now fires")
+    print("  legitimately, and the lineage direction is retired on evidence.")
+
+
 # ------------------------------------------------------ E6 router facts ----
 
 print("\n=== E6 router: the measurement that killed AnchorRoute ===")

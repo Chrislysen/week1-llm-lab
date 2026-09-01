@@ -1,5 +1,15 @@
 # RETRACTION — E10 H3 was reported as a fired kill rule. It was inconclusive.
 
+> **RESOLVED BY E12.** The question this retraction left open has since been
+> answered at adequate power. E12 took three propositions per instance — 108
+> units in 36 clusters — and found the independence effect at **+0.0185** with a
+> cluster-bootstrap 95% CI of **[−0.037, +0.074]**, entirely inside the
+> preregistered SESOI of 0.10 (cluster-permutation p = 0.749). That is an
+> **equivalence-supported null**: the conclusion E10 asserted, now earned.
+> The prediction below — that this benchmark could not supply n = 108 — was
+> **wrong**. It could, by treating each eligible `before` constraint as its own
+> proposition. See `docs/protocols/E12-powered-independence-v1.md`.
+
 **Status: the claim "the model assigns ZERO decision weight to evidential
 dependence" is WITHDRAWN.** Commit `dda7e40` is left in history unaltered; this
 document supersedes its conclusion.
@@ -104,13 +114,13 @@ chosen by me, before scoring.
 
 - Method work stays **unauthorised**: gate B needs a demonstrated
   dependence effect, and there is none. Unchanged.
-- The lineage direction is **not** retired on evidence. It is parked as
-  unresolved, and resolving it needs **n ≈ 108**, which this benchmark's 36
-  formal instances cannot supply without extending the generator.
-- Given `docs/novelty_matrix.md` C3 — the phenomenon is listed as already
-  pre-empted whichever way it resolves — spending 3× the compute to resolve a
-  pre-empted question is poor allocation. Recorded as a judgement call, not as a
-  result.
+- ~~The lineage direction is not retired on evidence.~~ **Superseded: E12
+  retired it on evidence.** The n ≈ 108 this section called for was obtainable
+  after all, from the same 36 instances.
+- ~~Spending 3x the compute to resolve a pre-empted question is poor
+  allocation.~~ **That judgement was wrong too, and cheaply so:** the extra n
+  cost one 432-call run, not three corpora, because the propositions were
+  already sitting in the benchmark.
 - **The corroboration dose-response (E11 H7/H8) is unaffected.** It is
   well-powered (18–0, 19–0), replicated at three levels of k, and is the finding
   worth spending remaining effort on.

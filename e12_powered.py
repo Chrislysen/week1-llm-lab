@@ -48,7 +48,7 @@ from experiment import show, write_csv
 from lineage_bench import all_instances, plan_instruction
 from lineage_e12 import ARMS, N_ARMS, all_units, corpus_hash, exposure, render
 from lineage_eval import check_plan, obeys, parse_plan
-from llm_client import OllamaClient
+from robust_client import RetryingOllamaClient
 from structured import MAX_ATTEMPTS, ask_structured
 
 TEMPERATURE = 0
@@ -88,7 +88,7 @@ def ask(client, model, instance, rec, arm):
 def run(model, offset, limit):
     by_id = {i.id: i for i in all_instances()}
     units = all_units()[offset:None if limit is None else offset + limit]
-    client = OllamaClient()
+    client = RetryingOllamaClient()
     print(f"=== E12 powered independence: {model}, {len(units)} units x "
           f"{N_ARMS} arms, corpus {corpus_hash()} ===\n")
 
@@ -117,7 +117,8 @@ def run(model, offset, limit):
     with open(f"results/e12_{tag}_o{offset}.json", "w") as f:
         json.dump(detail, f, indent=2)
     print(f"\nwrote results/e12_{tag}_o{offset}.csv  "
-          f"(mean {statistics.mean(r['seconds'] for r in rows):.1f}s/call)")
+          f"(mean {statistics.mean(r['seconds'] for r in rows):.1f}s/call, "
+          f"{client.transport_retries} transport retries)")
 
 
 def load(model=DECIDER):
