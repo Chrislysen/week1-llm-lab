@@ -3,10 +3,16 @@
 Protocol: docs/protocols/E13-recognition-utilization-v1.md. Preregistered;
 committed with zero E13 outcomes.
 
-E12 established that the model prices k reports from ONE evidential root exactly
-as it prices k INDEPENDENT roots, while a frozen probe shows it can report the
-difference. E13 asks whether making it state the structure -- or handing it the
-structure, or the normative rule -- makes the recognition govern the decision.
+E12 established that, ON THE ORDERING VERDICT, the model prices k reports from
+ONE evidential root the same as k INDEPENDENT roots, while E10's manipulation
+check shows it can report the difference. E13 asks whether making it state the
+structure -- or handing it the structure, or the normative rule -- makes the
+recognition govern the decision.
+
+CORRECTED 2026-09-01 (docs/protocols/E13-CORRECTIONS.md): the plan JSON has a
+second decision field, `ready`, which neither E12 nor E13 scored. Re-derived
+post-hoc it IS dependence-sensitive in every arm. The ordering null stands; the
+decision-level generalisation of it does not. See the POST-HOC blocks below.
 
 TWO STATES ARE KEPT FOR EVERY DECISION, which is the whole point:
 
@@ -279,39 +285,77 @@ def analyse(model=DECIDER):
     print("  If recognition is weak the problem is PERCEPTUAL, not utilization,")
     print("  and the whole direction narrows -- falsification rule 2.")
 
-    # The count, analysed PAIRED -- the same shape as E12's frozen probe, which
-    # reported 27 vs 0, p = 1.5e-08. The boolean is the predeclared PRIMARY and
-    # stays primary; this is the predeclared SECONDARY, and reporting both is
-    # what lets a disagreement between them be seen rather than chosen between.
-    print("\n=== RQ1b -- does the reported COUNT discriminate, paired by unit? ===")
+    # ---- RQ1b -- POST-HOC. NOT IN THE PREREGISTRATION (412ae08). ----------
+    # Added in 459fc88 at 20:59:49, after results/e13_llama32-3b_o0.csv (36
+    # units, with recog_count) was on disk at 20:57:12, and mislabelled there
+    # as "predeclared". An adversarial panel found both facts;
+    # docs/protocols/E13-CORRECTIONS.md records them. The block is kept because
+    # its numbers are pinned in verify_claims.py, but it is now applied to BOTH
+    # fields symmetrically: the earlier version paired only the count and read
+    # the boolean unpaired, which manufactured a "disagreement" between one
+    # variable scored two ways.
+    print("\n=== RQ1b -- POST-HOC: paired discrimination, BOTH fields ===")
+    print("  (not preregistered; added after the first 36 units existed --")
+    print("   docs/protocols/E13-CORRECTIONS.md section 4)")
     import math as _m
-    disc_tab = []
+
+    def _sign(hi, lo):
+        n, k = hi + lo, min(hi, lo)
+        return (min(2 * sum(_m.comb(n, i) for i in range(k + 1)) / 2 ** n, 1.0)
+                if n else None)
+
+    disc_tab, bool_tab = [], []
     for arm in sorted(RECOGNITION_ARMS):
-        per = {}
+        per, perb = {}, {}
         for r in rows:
-            if r["intervention"] == arm and r["recog_count"] != "":
+            if r["intervention"] != arm:
+                continue
+            if r["recog_count"] != "":
                 try:
                     per.setdefault(r["unit"], {})[r["dependence"]] = int(
                         r["recog_count"])
                 except ValueError:
                     pass
+            if r["recog_bool"] != "":
+                perb.setdefault(r["unit"], {})[r["dependence"]] = (
+                    r["recog_bool"] == "True")
         hi = sum(1 for v in per.values()
                  if len(v) == 2 and v["indep_root"] > v["same_root"])
         lo = sum(1 for v in per.values()
                  if len(v) == 2 and v["indep_root"] < v["same_root"])
-        n, k = hi + lo, min(hi, lo)
-        p = (min(2 * sum(_m.comb(n, i) for i in range(k + 1)) / 2 ** n, 1.0)
-             if n else None)
+        p = _sign(hi, lo)
         disc_tab.append({"intervention": arm, "indep_gt_same": hi,
                          "indep_lt_same": lo,
                          "sign_p": None if p is None else float(f"{p:.4g}")})
+        # The PRIMARY boolean, paired the same way. Correct discrimination is
+        # same=True on SAME_ROOT and same=False on INDEPENDENT_ROOT.
+        bh = sum(1 for v in perb.values()
+                 if len(v) == 2 and v["same_root"] and not v["indep_root"])
+        bl = sum(1 for v in perb.values()
+                 if len(v) == 2 and v["indep_root"] and not v["same_root"])
+        pb = _sign(bh, bl)
+        bool_tab.append({"intervention": arm, "same_T_indep_F": bh,
+                         "same_F_indep_T": bl,
+                         "ties": sum(1 for v in perb.values() if len(v) == 2)
+                         - bh - bl,
+                         "sign_p": None if pb is None else float(f"{pb:.4g}")})
+    print("  count (secondary):")
     show(disc_tab, ["intervention", "indep_gt_same", "indep_lt_same", "sign_p"])
     write_csv("results/e13_count_discrimination.csv", disc_tab,
               ["intervention", "indep_gt_same", "indep_lt_same", "sign_p"])
-    print("  E12's frozen probe, for comparison: 27 vs 0, p = 1.5e-08.")
-    print("  A boolean that says 'same' regardless while the COUNT tracks the")
-    print("  manipulation is a RESPONSE BIAS in the boolean, not an absence of")
-    print("  recognition -- and the two measures must be reported together.")
+    print("  boolean (primary), paired the same way:")
+    show(bool_tab, list(bool_tab[0].keys()))
+    write_csv("results/e13_recognition_paired.csv", bool_tab,
+              list(bool_tab[0].keys()))
+    print("  The two fields are emitted in lockstep within a response and")
+    print("  discriminate, paired, at the same order of magnitude. There is no")
+    print("  'disagreement between measures' and no 'response bias' finding;")
+    print("  that reading set an unpaired accuracy on one field beside a")
+    print("  paired test on the other. What the data show is that roughly")
+    print("  40% of units misrecognise INDEPENDENT_ROOT by EVERY measure")
+    print("  (identify: 42/108 answer same=True AND count=1). Falsification")
+    print("  rule 2 has no threshold and is UNADJUDICATED, not dismissed.")
+    print("  (The 27 vs 0 probe is E10's manipulation check on E10's texts.)")
 
     # ---- RQ2-RQ4: behavioural differentiation per intervention ------------
     print("\n=== behavioural differentiation: flip(SAME) - flip(INDEP) ===")
@@ -436,6 +480,61 @@ def analyse(model=DECIDER):
     print("  If these two columns are equal, the model's own reported structure")
     print("  is NOT connected to what it does -- falsification rule 6, and the")
     print("  strongest form of the dissociation.")
+
+    # ---- POST-HOC, FOUND BY THE ADVERSARIAL PANEL (2026-09-01): `ready`. ----
+    # The plan JSON carries TWO decision outputs: "actions" (ordering) and
+    # "ready" ("true if you consider the plan safe to execute as written").
+    # E12 and E13 preregistered and scored ONLY the ordering verdict; `ready`
+    # was never written to a CSV and never analysed. Re-derived here from the
+    # raw plan text. NOT preregistered and NOT a confirmed result. It is
+    # printed because it contradicts the decision-level generalisation of the
+    # ordering null ("prices one root exactly as it prices k independent
+    # roots"). docs/protocols/E13-CORRECTIONS.md section 3.
+    print("\n=== POST-HOC: the `ready` field, never analysed until the panel ===")
+    print("  ready(SAME) - ready(INDEP); POSITIVE = one root declared 'safe to")
+    print("  execute' MORE often. NOT preregistered; needs its own E14.\n")
+    detail = []
+    for pth in sorted(glob.glob("results/e13_*_o*.json")):
+        with open(pth) as f:
+            detail.extend(json.load(f))
+    ready_tab = []
+    for arm, _, diag in INTERVENTIONS:
+        by = {}
+        for det in detail:
+            if det["model"] != model or det["intervention"] != arm:
+                continue
+            plan, _err = parse_plan(det["plan_text"])
+            u = by.setdefault(det["unit"], {"instance": det["instance"]})
+            if plan is not None:
+                # "flip" encodes ready=True so the ordering machinery can be
+                # reused unchanged: diff = ready(SAME) - ready(INDEP).
+                u[det["dependence"]] = "flip" if plan["ready"] else "source"
+        per = {k: v for k, v in by.items()
+               if all(x in v for x in DEPENDENCE)}
+        if not per:
+            continue
+        d = differentiation(per)
+        sg = sum(u["same_root"] == "flip" and u["indep_root"] == "source"
+                 for u in per.values())
+        ig = sum(u["indep_root"] == "flip" and u["same_root"] == "source"
+                 for u in per.values())
+        ready_tab.append({
+            "intervention": arm, "diagnostic": diag, "n_pairs": len(per),
+            "ready_same": d["flip_same"], "ready_indep": d["flip_indep"],
+            "diff": d["diff"], "paired_same_gt": sg, "paired_indep_gt": ig,
+            "cluster_p": round(d["p"], 4),
+            "ci": f"[{d['lo']:+.3f},{d['hi']:+.3f}]",
+            "lower_ci_above_sesoi": d["lo"] > SESOI})
+    if ready_tab:
+        show(ready_tab, list(ready_tab[0].keys()))
+        write_csv("results/e13_ready_posthoc.csv", ready_tab,
+                  list(ready_tab[0].keys()))
+    print("  Every arm, including byte-identical DEFAULT and the GOLD oracle,")
+    print("  moves this output by ~2x the SESOI, cluster-robust; E12's raw plans")
+    print("  show the same (same_root 60/108 ready vs indep_root 32/108).")
+    print("  The ORDERING null stands as stated. 'Prices one root exactly as k")
+    print("  independent roots' as a claim about THE DECISION does not: it is")
+    print("  contradicted on the other decision field of the same JSON object.")
 
 
 if __name__ == "__main__":

@@ -783,18 +783,103 @@ else:
     claim("...against", lo, 2)
     claim("...sign test p", p < 1e-10, True)
     hi2, lo2, p2 = count_sign("normative")
-    claim("E13 normative DEGRADES count discrimination", hi2, 36)
+    claim("E13 normative: count discrimination (post-hoc paired test; NOT "
+          "'degrades' -- E13-CORRECTIONS section 2)", hi2, 36)
     claim("...against", lo2, 25)
-    claim("...and is no longer significant", p2 > 0.05, True)
+    claim("...within-arm sign p > 0.05 (no between-arm test exists)",
+          p2 > 0.05, True)
 
-    print("\n  E13 REPLICATES E12 EXACTLY on a byte-identical prompt: DEFAULT")
-    print("  differentiation is +0.0000, CI [-0.056,+0.056], discordance 0.093")
-    print("  inside the powered band. No intervention produced")
-    print("  independence-sensitive behaviour -- and GOLD, which hands the model")
-    print("  the correct structure outright, moved it by exactly 0.0000.")
-    print("  identify and normative are INCONCLUSIVE BY THE PREREGISTERED RULE:")
-    print("  both RAISED behavioural discordance past the design's operating")
-    print("  range. That is reported, not reinterpreted.")
+    # CORRECTIONS 2026-09-01 (docs/protocols/E13-CORRECTIONS.md). The count
+    # sign test above is POST-HOC (added 459fc88 after o0.csv existed). The
+    # PRIMARY boolean paired the same way shows the fields do not disagree.
+    def bool_sign(arm):
+        perb = {}
+        for r in e13_rows:
+            if r["intervention"] == arm and r["recog_bool"] != "":
+                perb.setdefault(r["unit"], {})[r["dependence"]] = (
+                    r["recog_bool"] == "True")
+        bh = sum(1 for v in perb.values()
+                 if len(v) == 2 and v["same_root"] and not v["indep_root"])
+        bl = sum(1 for v in perb.values()
+                 if len(v) == 2 and v["indep_root"] and not v["same_root"])
+        return bh, bl
+
+    bh, bl = bool_sign("identify")
+    claim("E13 identify: PRIMARY boolean paired, same=T & indep=F", bh, 40)
+    claim("...reversed", bl, 0)
+    bh2, bl2 = bool_sign("normative")
+    claim("E13 normative: PRIMARY boolean paired, same=T & indep=F", bh2, 34)
+    claim("...reversed", bl2, 4)
+    both_wrong = sum(1 for r in e13_rows
+                     if r["intervention"] == "identify"
+                     and r["dependence"] == "indep_root"
+                     and r["recog_bool"] == "True" and r["recog_count"] == "1")
+    claim("E13 identify INDEP: units misrecognised by BOTH measures "
+          "(same=True and count=1)", both_wrong, 42)
+    claim("E13 identify INDEP: predeclared count_strict, never reported in "
+          "418bab2",
+          round(sum(r["recog_count_score"] == "strict" for r in e13_rows
+                    if r["intervention"] == "identify"
+                    and r["dependence"] == "indep_root") / 108, 3), 0.13)
+
+    # THE `ready` FIELD -- post-hoc, found by the panel, E13-CORRECTIONS
+    # section 3. Re-derived from raw plan text with the same cluster machinery.
+    from lineage_eval import parse_plan as _pp13
+    _det13 = []
+    for pth in sorted(glob.glob("results/e13_*_o*.json")):
+        with open(pth) as f:
+            _det13.extend(json.load(f))
+
+    def ready_pairs(detail, arm_key, arm, same="same_root", indep="indep_root"):
+        by = {}
+        for d in detail:
+            if d.get("model", "llama3.2:3b") != "llama3.2:3b":
+                continue
+            if arm is not None and d[arm_key] != arm:
+                continue
+            plan, _ = _pp13(d["plan_text"])
+            u = by.setdefault(d["unit"], {"instance": d["instance"]})
+            if plan is not None:
+                u[d["dependence" if arm is not None else "arm"]] = (
+                    "flip" if plan["ready"] else "source")
+        return {k: v for k, v in by.items() if same in v and indep in v}
+
+    for arm, want, lo_want in (("default", 0.2315, 0.139),
+                               ("gold", 0.2037, 0.120)):
+        per_r = ready_pairs(_det13, "intervention", arm)
+        rd = differentiation(per_r)
+        claim(f"E13 {arm}: READY(same) - READY(indep), post-hoc",
+              round(rd["diff"], 4), want, tol=0.0005)
+        claim("...cluster-permutation p < 0.001", rd["p"] < 0.001, True)
+        claim("...cluster-bootstrap CI lower bound", round(rd["lo"], 3),
+              lo_want, tol=0.002)
+        claim("...which EXCEEDS the SESOI of 0.10", rd["lo"] > 0.10, True)
+
+    _det12 = []
+    for pth in sorted(glob.glob("results/e12_*_o*.json")):
+        with open(pth) as f:
+            _det12.extend(json.load(f))
+    per_r = ready_pairs(_det12, "arm", None)
+    rd = differentiation(per_r)
+    claim("E12 raw plans: READY(same_root) - READY(indep_root), post-hoc",
+          round(rd["diff"], 4), 0.2593, tol=0.0005)
+    claim("...cluster-permutation p < 0.001", rd["p"] < 0.001, True)
+    claim("E12 same_root plans declared ready",
+          sum(u["same_root"] == "flip" for u in per_r.values()), 60)
+    claim("E12 indep_root plans declared ready",
+          sum(u["indep_root"] == "flip" for u in per_r.values()), 32)
+
+    print("\n  E13 REPLICATES E12 EXACTLY on a byte-identical prompt, ON THE")
+    print("  ORDERING VERDICT: DEFAULT differentiation +0.0000, CI")
+    print("  [-0.056,+0.056], discordance 0.093 inside the powered band. No")
+    print("  intervention moved the ORDERING; GOLD moved it by 0.0000 (and is")
+    print("  INCONCLUSIVE BY RULE, not an 'oracle null'). identify and")
+    print("  normative are INCONCLUSIVE BY THE PREREGISTERED RULE.")
+    print("  CORRECTION 2026-09-01 (docs/protocols/E13-CORRECTIONS.md): the")
+    print("  `ready` field of the same plan IS dependence-sensitive in every")
+    print("  arm (~+0.2, cluster p < 0.001) and in E12. 'Prices one root")
+    print("  exactly as k independent roots' is WITHDRAWN as a decision-level")
+    print("  claim; it survives only for the ordering channel.")
 
 
 # ------------------------------------------------------ E6 router facts ----

@@ -121,3 +121,20 @@ arm name or basis string in any instruction or in the gold note; `normative` =
 `identify` + the principle and nothing else; `sham` burden-matched to within 6
 words and free of evidence vocabulary; prompt lengths recorded; deterministic
 regeneration.
+
+---
+
+## Amendment A1 — 2026-09-01, POST-HOC, written after all outcomes existed
+
+Nothing above is rewritten. An adversarial panel run after scoring found three
+defects, all verified and recorded in `docs/protocols/E13-CORRECTIONS.md`:
+
+1. §1's premise "prices *k* reports from one root exactly as *k* independent
+   roots" holds for the **ordering verdict only**. The plan's second decision
+   field, `ready`, was never scored by E12 or E13 and is dependence-sensitive
+   in every arm (post-hoc; unconfirmed).
+2. The paired count analysis reported for RQ1 was **not** in this
+   preregistration; it was added after the first 36 units were on disk. Rule 2
+   has no threshold and is unadjudicated.
+3. Outcome C ("behaviourally inert") was never declared and must not be:
+   `gold` is INCONCLUSIVE BY RULE on the ordering verdict and moves `ready`.
