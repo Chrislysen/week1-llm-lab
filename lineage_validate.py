@@ -84,7 +84,10 @@ def main():
 
     for domain, graph in GATE:
         inst = generate_instance(domain, graph)
-        cid = next(iter(inst.superseded))
+        # NOT next(iter(inst.superseded)): that is a frozenset, so iteration
+        # order depends on PYTHONHASHSEED and the recorded value could name a
+        # closure member rather than the constraint actually announced.
+        cid = inst.announced_supersession
         for condition in CONDITIONS:
             res = ask(client, inst, condition)
             text = res.accepted_text or res.last_text or ""

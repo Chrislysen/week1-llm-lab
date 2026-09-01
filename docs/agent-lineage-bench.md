@@ -58,6 +58,19 @@ Instances are generated from a grammar, not written by hand, so that they are
 let scenario-specific vocabulary leak into the results — exactly the confound
 that produced the E1 pool-audit surprise.
 
+### 36 instances is a 6 × 6 crossed design, not n = 36
+
+The 36 are every (domain, graph) pair, fully crossed and deterministic: **6
+independent surface draws and 6 independent structures**, not 36 independent
+samples. An effect present in all 36 is consistent with a single domain-axis
+effect, a single graph-axis effect, or both — it is not 36 confirmations.
+
+This is the same error the project already caught and fixed once, in
+`research-design.md` §3b: a single random seed reproduced an identical selection
+pattern on 21 transcripts, which was *n = 1 presented as n = 21*. Any aggregate
+over the 36 must therefore be reported with a per-axis breakdown (by domain and
+by graph) and with dispersion, never as a bare mean over 36.
+
 Each generated instance fixes:
 
 - a **domain skin**: service names, host names, entity nouns, drawn from

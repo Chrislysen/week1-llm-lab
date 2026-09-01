@@ -30,7 +30,7 @@ above the authoritative originals those restatements came from:
 | fusion | 9.48 | 6.75 | **+2.72** |
 | dense | 8.43 | 7.51 | **+0.92** |
 
-and that no selector reaches the chance level of 0.336:
+and that **no selector reaches the chance level of 0.336**:
 
 | | retrieval recall | vs chance |
 |---|---|---|
@@ -40,8 +40,29 @@ and that no selector reaches the chance level of 0.336:
 | dense | 0.3333 | −0.003 (at chance) |
 | oracle | 1.0000 | — |
 
-Relevance and authority have come apart, and relevance is winning. That is the
-phenomenon; everything below is an attempt to measure it properly.
+**Read that table honestly: it is a null.** Not one selector beats random, and
+the best of them merely matches it. An earlier version of this paragraph
+concluded "relevance and authority have come apart, and relevance is winning —
+that is the phenomenon", which converted a no-better-than-chance result into a
+positive claim. That was wrong and is retracted.
+
+What the table supports is narrower and still worth pursuing: relevance-based
+selection carries **no measurable advantage over random selection** at
+recovering task-critical source information here, and two selectors are
+significantly *worse* than random — which is not what a relevance retriever is
+supposed to do. Whether that reflects an authority/relevance dissociation or
+something duller is exactly what the benchmark below has to establish. It is a
+motivating anomaly, not a finding.
+
+**Two E1 results that cut against this programme, recorded because leaving them
+out would be selection.** On the task side, E1's `random` arm had the *highest*
+mean constraint recall of any arm (0.8095, against bm25 0.619, dense 0.7619,
+fusion 0.7619, recency 0.5714) — so the retrieval-side story is not mirrored by
+a task-side story. And stage-2 H1 predicted relevance-based selection would beat
+recency on retrieval recall; on the E1 numbers it does not, for BM25. The
+project applies pre-registration discipline to stage 1 (see research-design.md
+§2, where the unsupported H2 is left standing); it must apply the same discipline
+here.
 
 ---
 

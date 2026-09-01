@@ -21,6 +21,8 @@ from lineage_eval import (check_plan, corrupted_form,
                           supersession_collateral, supersession_respected,
                           utilization)
 
+from lineage_validate import SYSTEM as SYSTEM_PROMPT
+
 INSTANCES = all_instances()
 
 
@@ -242,7 +244,11 @@ FORBIDDEN = (list(LINEAGE_CLASSES)
 for inst in INSTANCES:
     for condition in EXPOSURES:
         visible = render_dialogue(expose(inst, condition))
-        text = visible + "\n" + plan_instruction(inst)
+        # The REAL prompt, system message included. The guard whose whole job is
+        # to keep the key out of the prompt must run over the whole prompt --
+        # the earlier version checked only the dialogue and the instruction.
+        text = (SYSTEM_PROMPT.format(setting=inst.setting) + "\n"
+                + visible + "\n" + plan_instruction(inst))
         low = text.lower()
         for term in FORBIDDEN:
             assert term.lower() not in low, (inst.id, condition, term)
@@ -273,6 +279,18 @@ for x, y in zip(INSTANCES, again):
 seeds = {(i.domain, i.graph): i.seed for i in INSTANCES}
 assert len(set(seeds.values())) == 36, "seed collision"
 
+# CORPUS FIXTURE. In-process determinism proves the function is pure, not
+# that the corpus is STABLE across code edits -- and it has changed twice
+# (supersession closure, then the position/permutation fixes), each time
+# silently invalidating result files that named no corpus. This hash
+# identifies the corpus a result was scored against. If it changes,
+# previously saved numbers are not comparable and must be re-run.
+import hashlib as _h
+CORPUS_HASH = _h.sha256("␟".join(
+    f"{i.id}|{i.announced_supersession}|" + "|".join(
+        f"{m.msg_id}:{m.lineage}:{m.text}" for m in i.messages)
+    for i in INSTANCES).encode()).hexdigest()[:16]
+print(f"corpus fixture:              {CORPUS_HASH}")
 print("deterministic regeneration:  OK")
 
 # -- Metric conditioning -------------------------------------------------

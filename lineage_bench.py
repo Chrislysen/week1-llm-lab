@@ -107,7 +107,7 @@ DOMAINS = {
         ],
     },
     "satellite": {
-        "setting": "a satellite anomaly recovery",
+        "setting": "a satellite bus anomaly",
         "actions": [
             ("SAFE_MODE", "put the craft into safe mode"),
             ("DUMP_TELEMETRY", "dump the stored telemetry"),
@@ -440,6 +440,48 @@ def generate_instance(domain: str, graph: str) -> Instance:
     add(_render(sup, rng, cmap[superseded], verbs), "SUPERSESSION",
         superseded, (source_of[superseded],), True)
 
+    # POSITION LEAK, and the fix.
+    #
+    # The first build emitted messages in a fixed script -- all SOURCEs in
+    # constraint order, then distractor, faithful, corrupt, corrupt, distractor,
+    # recovery, supersession -- with no shuffle anywhere. Lineage class was
+    # therefore a pure function of message index, and only THREE distinct
+    # layouts existed across all 36 instances. "Trust everything before the
+    # first sentence that is not about ordering" was a winning strategy that
+    # involves no authority reasoning, and it was available in `both`, the very
+    # condition decision authority inversion is measured in.
+    #
+    # Sources still precede their own derivatives -- a derivative cannot be
+    # stated before the thing it derives from -- but the ORDER of the
+    # derivative block, and the interleaving of distractors, is now shuffled per
+    # instance subject only to that constraint.
+    n_src = len(constraints)
+    head, tail = messages[:n_src], messages[n_src:]
+    rng.shuffle(tail)
+    # RECOVERY must still follow the corruption it corrects.
+    for _ in range(64):
+        pos = {m.msg_id: i for i, m in enumerate(tail)}
+        bad = [m for m in tail if m.lineage == "RECOVERY"
+               and any(pos.get(d, -1) > pos[m.msg_id] for d in m.derives_from
+                       if d in pos)]
+        if not bad:
+            break
+        rng.shuffle(tail)
+
+    ordered = list(head) + list(tail)
+    remap = {m.msg_id: i for i, m in enumerate(ordered)}
+    # Speaker was index parity, so dropping whole lineage classes in `expose`
+    # left consecutive same-speaker turns exactly where a message was censored
+    # -- the transcript advertised that it had been edited, and roughly where.
+    # Speakers are now assigned after ordering; `expose` re-alternates them.
+    messages = [
+        Message(msg_id=i, speaker=SPEAKERS[i % 2], text=m.text,
+                lineage=m.lineage, constraint_id=m.constraint_id,
+                derives_from=tuple(remap[d] for d in m.derives_from),
+                faithful=m.faithful)
+        for i, m in enumerate(ordered)
+    ]
+
     return Instance(
         id=f"{domain}-{graph}", domain=domain, graph=graph, seed=seed,
         setting=dom["setting"], actions=tuple(idents), constraints=constraints,
@@ -477,9 +519,21 @@ EXPOSURES = {
 
 
 def expose(instance: Instance, condition: str):
-    """The messages a model sees under `condition`, in original order."""
+    """The messages a model sees under `condition`, in original order.
+
+    Speakers are RE-ALTERNATED over the surviving messages. Keeping the original
+    parity would leave consecutive same-speaker turns exactly where a message
+    was censored, so the transcript would advertise that it had been edited and
+    roughly where -- a cue about lineage structure no real participant has.
+    """
     keep = EXPOSURES[condition]
-    return [m for m in instance.messages if m.lineage in keep]
+    kept = [m for m in instance.messages if m.lineage in keep]
+    return [
+        Message(msg_id=m.msg_id, speaker=SPEAKERS[i % 2], text=m.text,
+                lineage=m.lineage, constraint_id=m.constraint_id,
+                derives_from=m.derives_from, faithful=m.faithful)
+        for i, m in enumerate(kept)
+    ]
 
 
 def render_dialogue(messages) -> str:
