@@ -186,8 +186,50 @@ def require(units, clusters, sesoi, disc_rate=0.20, conclusion="both",
     return r
 
 
+def self_test():
+    """FALSIFICATION TESTS. A checker that cannot fail is not a checker.
+
+    Each case has a known right answer that does not depend on this project's
+    data, so the module can be validated independently of any experiment.
+    """
+    cases = []
+
+    # 1. The historical failure it exists to prevent.
+    r = check(36, 36, 0.10, 0.111, "equivalence", reps=400)
+    cases.append(("E10 config must ABORT", not r["ok"]))
+    cases.append(("E10 power must be far below 0.80", r["power_at_sesoi"] < 0.4))
+
+    # 2. A design that is obviously fine must PROCEED.
+    r = check(2000, 500, 0.10, 0.10, "difference", reps=200)
+    cases.append(("large design must PROCEED", r["ok"]))
+
+    # 3. Granularity must fail when the SESOI is finer than the resolution.
+    ok, steps, res = granularity_ok(20, 20, 0.02)
+    cases.append(("SESOI below resolution must fail granularity", not ok))
+    ok, _, _ = granularity_ok(2000, 500, 0.10)
+    cases.append(("coarse SESOI on a fine grid must pass", ok))
+
+    # 4. Power must be monotone in n at fixed discordance.
+    p_small, _ = simulate(36, 36, 0.10, 0.10, 0.10, reps=300)
+    p_big, _ = simulate(216, 72, 0.10, 0.10, 0.10, reps=300)
+    cases.append(("power must rise with n", p_big > p_small))
+
+    # 5. A true zero effect must NOT be called significant more than ~alpha.
+    p_null, _ = simulate(108, 36, 0.0, 0.10, 0.10, reps=400)
+    cases.append(("false-positive rate near alpha", p_null <= 0.12))
+
+    print("=== prospective_design_check self-test ===")
+    bad = 0
+    for name, ok in cases:
+        print(f"  {'ok  ' if ok else 'FAIL'} {name}")
+        bad += not ok
+    print(f"\n  {len(cases) - bad}/{len(cases)} passed")
+    return bad == 0
+
+
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
+    p.add_argument("--self-test", action="store_true")
     p.add_argument("--units", type=int)
     p.add_argument("--clusters", type=int)
     p.add_argument("--sesoi", type=float, default=0.10)
@@ -197,6 +239,9 @@ if __name__ == "__main__":
     p.add_argument("--compare-e10", action="store_true",
                    help="show that this module would have stopped E10")
     a = p.parse_args()
+
+    if a.self_test:
+        raise SystemExit(0 if self_test() else 1)
 
     if a.compare_e10:
         print("=== would this have stopped E10? ===")
