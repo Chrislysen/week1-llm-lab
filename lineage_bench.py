@@ -455,20 +455,25 @@ def generate_instance(domain: str, graph: str) -> Instance:
     # stated before the thing it derives from -- but the ORDER of the
     # derivative block, and the interleaving of distractors, is now shuffled per
     # instance subject only to that constraint.
-    n_src = len(constraints)
-    head, tail = messages[:n_src], messages[n_src:]
-    rng.shuffle(tail)
-    # RECOVERY must still follow the corruption it corrects.
-    for _ in range(64):
-        pos = {m.msg_id: i for i, m in enumerate(tail)}
-        bad = [m for m in tail if m.lineage == "RECOVERY"
-               and any(pos.get(d, -1) > pos[m.msg_id] for d in m.derives_from
-                       if d in pos)]
-        if not bad:
-            break
-        rng.shuffle(tail)
-
-    ordered = list(head) + list(tail)
+    # A first attempt shuffled only the derivative block, leaving every SOURCE
+    # ahead of every derivative -- so position still separated the two classes
+    # perfectly, and a rank-based metric could not tell a content signal from a
+    # position signal. (BM25's mean source rank came out at 9.77 against
+    # recency's 10.0, which is the tell.)
+    #
+    # Randomised topological order over the WHOLE message list instead: a
+    # message becomes eligible once everything it derives from is placed, and
+    # among eligible messages one is drawn uniformly. Source K5 can therefore
+    # appear after a derivative of K1. The only ordering guaranteed is the one
+    # that has to hold -- nothing is stated before what it derives from.
+    remaining = list(messages)
+    placed, ordered = set(), []
+    while remaining:
+        ready = [m for m in remaining if all(d in placed for d in m.derives_from)]
+        pick = ready[rng.randrange(len(ready))]
+        ordered.append(pick)
+        placed.add(pick.msg_id)
+        remaining.remove(pick)
     remap = {m.msg_id: i for i, m in enumerate(ordered)}
     # Speaker was index parity, so dropping whole lineage classes in `expose`
     # left consecutive same-speaker turns exactly where a message was censored

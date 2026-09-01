@@ -159,6 +159,44 @@ def main():
         ggrid.append(cell)
     show(ggrid, list(ggrid[0].keys()))
 
+    # TIE-BREAK DIAGNOSTIC. Reported with every BM25 number, permanently.
+    #
+    # BM25 gives exactly 0.0 to any message sharing no query term, and the
+    # documented tie-break is (-score, -index): higher score, then MORE RECENT.
+    # So on a mostly-tied score vector BM25 DEGENERATES TO RECENCY, and its
+    # inversion rate stops being evidence about content.
+    #
+    # That is what is happening here. The query is the plan instruction, which
+    # names actions by identifier (DRAIN_NODE -> one token "drain_node"), while
+    # the dialogue uses verb phrases ("drain the failing node"). The two share
+    # almost no vocabulary.
+    print("\n=== BM25 tie-break diagnostic ===")
+    from context import BM25Budget as _BM
+    zero = tot = ident = 0
+    agree = pairs = 0
+    for inst in instances:
+        q = plan_instruction(inst)
+        docs = [m["content"] for m in as_messages(inst)]
+        s = _BM(W).scores(docs, q)
+        zero += sum(1 for x in s if x == 0.0)
+        tot += len(s)
+        rr = ranked_ids(RecencyBudget(W), inst, q)
+        bb = ranked_ids(_BM(W), inst, q)
+        ident += (rr == bb)
+        ri = {m: i for i, m in enumerate(rr)}
+        bi = {m: i for i, m in enumerate(bb)}
+        ids = list(ri)
+        for x in range(len(ids)):
+            for y in range(x + 1, len(ids)):
+                a, c = ids[x], ids[y]
+                agree += (ri[a] < ri[c]) == (bi[a] < bi[c])
+                pairs += 1
+    print(f"  messages scoring exactly 0.0      {zero}/{tot} ({zero / tot:.1%})")
+    print(f"  BM25 ranking identical to recency {ident}/{len(instances)} instances")
+    print(f"  pairwise order agreement          {agree / pairs:.1%}")
+    print("  -> BM25's inversion rate is largely the recency tie-break, NOT a")
+    print("     content signal. Do not read it as independent evidence.")
+
     print("\nwrote results/e2_retrieval_runs.csv, e2_retrieval_summary.csv")
 
 

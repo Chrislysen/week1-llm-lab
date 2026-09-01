@@ -1,0 +1,38 @@
+=== retrieval authority inversion, 36 instances ===
+    ranking-based, eligible source/derived pairs only, offline
+
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|##########| 103/103 [00:00<00:00, 4225.61it/s]
+=== per selector, over 36 instances ===
+  selector    n_instances  mean_inversion_rate  instances_fully_inverted  instances_never_inverted  total_eligible_pairs  mean_rank_source  mean_rank_derived  gap_derived_minus_source
+  recency     36           1.0                  36                        0                         108                   7.97              4.51               -3.46                   
+  bm25        36           0.9722               33                        0                         108                   8.06              4.51               -3.55                   
+  dense       36           0.3981               0                         6                         108                   5.1               5.7                0.6                     
+  fusion      36           0.4815               1                         4                         108                   5.85              5.27               -0.58                   
+  random_x20  36           0.538                0                         0                         108                   None              None               None                    
+
+=== inversion rate by domain (rows) x selector (cols) ===
+  domain     recency  bm25   dense  fusion  random_x20
+  brewery    1.0      1.0    0.333  0.556   0.6       
+  payments   1.0      1.0    0.444  0.444   0.525     
+  pharmacy   1.0      1.0    0.333  0.444   0.528     
+  rail       1.0      1.0    0.389  0.444   0.536     
+  robotics   1.0      1.0    0.444  0.556   0.533     
+  satellite  1.0      0.833  0.444  0.444   0.506     
+
+=== inversion rate by graph ===
+  graph     recency  bm25   dense  fusion  random_x20
+  chain     1.0      0.944  0.333  0.444   0.517     
+  diamond   1.0      0.944  0.389  0.5     0.503     
+  fork      1.0      1.0    0.389  0.444   0.558     
+  join      1.0      0.944  0.5    0.611   0.575     
+  star      1.0      1.0    0.444  0.5     0.531     
+  twochain  1.0      1.0    0.333  0.389   0.544     
+
+=== BM25 tie-break diagnostic ===
+  messages scoring exactly 0.0      449/504 (89.1%)
+  BM25 ranking identical to recency 12/36 instances
+  pairwise order agreement          93.7%
+  -> BM25's inversion rate is largely the recency tie-break, NOT a
+     content signal. Do not read it as independent evidence.
+
+wrote results/e2_retrieval_runs.csv, e2_retrieval_summary.csv
