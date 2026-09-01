@@ -377,6 +377,92 @@ else:
     print("  attributed all of it to one.")
 
 
+# ----------------------------------------------------------- E10 -----------
+# The experiment that fired its own kill rule.
+
+print("\n=== E10 lineage independence (re-derived from raw plan text) ===")
+from lineage_e10 import ARMS as E10_ARMS, all_e10 as _all_e10
+from lineage_e10 import corpus_hash as e10_hash
+from e10_independence import mcnemar as e10_mcnemar, verdict as e10_verdict
+
+E10_JSON = sorted(glob.glob("results/e10_*_o*.json"))
+if not E10_JSON:
+    skip("E10 artifacts", "not found")
+else:
+    claim("E10 corpus fixture", e10_hash(), "00947dde8eb0520b")
+    claim("E10 arm count (deleting an arm must be a failure)", len(E10_ARMS), 9)
+
+    d10 = []
+    for p in E10_JSON:
+        d10.extend(json.load(open(p)))
+    by_id = {i.id: i for i in INSTANCES}
+    e10_by_id = {e.instance_id: e for e in _all_e10()}
+    per10, by10 = {}, {}
+    for rec in d10:
+        inst = by_id.get(rec["instance"])
+        e = e10_by_id.get(rec["instance"])
+        if inst is None or e is None:
+            continue
+        chk = check_plan(rec["plan_text"], inst)
+        v = e10_verdict(inst, e, rec["arm"], chk.actions) if chk.parsed else ""
+        per10.setdefault(rec["instance"], {})[rec["arm"]] = v
+        by10.setdefault(rec["arm"], []).append(v)
+
+    for arm, want in (("bare", 0.7222), ("filler", 0.5), ("same_root", 0.25),
+                      ("indep_root", 0.25), ("same_root_nospk", 0.1944),
+                      ("indep_root_nospk", 0.5556), ("bare_super", 1.0),
+                      ("same_root_super", 1.0), ("indep_root_super", 0.9722)):
+        vs = by10.get(arm, [])
+        s_ = sum(v == "source" for v in vs)
+        f_ = sum(v == "flip" for v in vs)
+        claim(f"E10 {arm} flip rate",
+              round(f_ / (s_ + f_), 4) if s_ + f_ else None, want, tol=0.001)
+
+    p3 = e10_mcnemar(per10, "same_root", "indep_root")[0]
+    claim("E10 H3 (PRIMARY) p-value -- the null that fired the kill rule",
+          round(p3, 4) if p3 is not None else None, 1.0)
+    claim("E10 H3 paired difference is exactly zero",
+          round((lambda a, b: b - a)(
+              sum(v == "flip" for v in by10["same_root"]) / 36,
+              sum(v == "flip" for v in by10["indep_root"]) / 36), 4), 0.0)
+
+    for a, b, want in (("bare", "filler", 0.0078),
+                       ("filler", "same_root", 0.0225),
+                       ("same_root", "same_root_nospk", 0.625),
+                       ("indep_root", "indep_root_nospk", 0.0009766),
+                       ("bare_super", "same_root_super", None)):
+        got = e10_mcnemar(per10, a, b)[0]
+        if want is None:
+            claim(f"E10 {a} vs {b}: no discordant pairs (H5b, no hysteresis)",
+                  got is None, True)
+        else:
+            claim(f"E10 McNemar {a} vs {b}",
+                  None if got is None else round(got / want, 2), 1.0, tol=0.02)
+
+    # The manipulation check is what makes the H3 null interpretable.
+    if os.path.exists("results/e10_manip_check.csv"):
+        mc = list(csv.DictReader(open("results/e10_manip_check.csv", newline="")))
+        pair = {}
+        for r in mc:
+            pair.setdefault(r["instance"], {})[r["arm"]] = r["reported"]
+        hi = sum(1 for v in pair.values()
+                 if v.get("indep_root", "").isdigit()
+                 and v.get("same_root", "").isdigit()
+                 and int(v["indep_root"]) > int(v["same_root"]))
+        lo = sum(1 for v in pair.values()
+                 if v.get("indep_root", "").isdigit()
+                 and v.get("same_root", "").isdigit()
+                 and int(v["indep_root"]) < int(v["same_root"]))
+        claim("manipulation check: reports MORE roots for indep_root", hi, 27)
+        claim("manipulation check: never reports fewer", lo, 0)
+
+    print("\n  NOTE: E10's H3 is EXACTLY zero (0.25 vs 0.25, p = 1.0) while the")
+    print("  same model, on the same corpus, distinguishes one evidential root")
+    print("  from three at p = 1.5e-08. It SEES the dependence and assigns it")
+    print("  ZERO decision weight. The preregistered kill rule fires: the effect")
+    print("  is assertion multiplicity, not evidential lineage.")
+
+
 # ------------------------------------------------------ E6 router facts ----
 
 print("\n=== E6 router: the measurement that killed AnchorRoute ===")

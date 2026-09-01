@@ -1,0 +1,650 @@
+[
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-chain",
+    "arm": "bare",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"NOTIFY_PRESCRIBERS\", \"UPDATE_LABEL\", \"VERIFY_ASSAY\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-chain",
+    "arm": "filler",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"UPDATE_LABEL\",\n    \"VERIFY_ASSAY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-chain",
+    "arm": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"UPDATE_LABEL\",\n    \"VERIFY_ASSAY\",\n    \"RECALL_SHIPMENT\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-chain",
+    "arm": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"UPDATE_LABEL\",\n    \"VERIFY_ASSAY\",\n    \"RECALL_SHIPMENT\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-chain",
+    "arm": "same_root_nospk",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"RECALL_SHIPMENT\",\n    \"RELEASE_STOCK\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-chain",
+    "arm": "indep_root_nospk",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"RECALL_SHIPMENT\",\n    \"RELEASE_STOCK\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-chain",
+    "arm": "bare_super",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"NOTIFY_PRESCRIBERS\", \"UPDATE_LABEL\", \"VERIFY_ASSAY\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-chain",
+    "arm": "same_root_super",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"UPDATE_LABEL\",\n    \"VERIFY_ASSAY\",\n    \"RECALL_SHIPMENT\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-chain",
+    "arm": "indep_root_super",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"UPDATE_LABEL\",\n    \"VERIFY_ASSAY\",\n    \"RECALL_SHIPMENT\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-fork",
+    "arm": "bare",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"NOTIFY_PRESCRIBERS\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-fork",
+    "arm": "filler",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"NOTIFY_PRESCRIBERS\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-fork",
+    "arm": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"QUARANTINE_BATCH\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-fork",
+    "arm": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"QUARANTINE_BATCH\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-fork",
+    "arm": "same_root_nospk",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"QUARANTINE_BATCH\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-fork",
+    "arm": "indep_root_nospk",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"UPDATE_LABEL\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-fork",
+    "arm": "bare_super",
+    "plan_text": "{\"actions\": [\"QUARANTINE_BATCH\", \"NOTIFY_PRESCRIBERS\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-fork",
+    "arm": "same_root_super",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"UPDATE_LABEL\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-fork",
+    "arm": "indep_root_super",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"UPDATE_LABEL\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-join",
+    "arm": "bare",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"UPDATE_LABEL\",\n    \"RELEASE_STOCK\",\n    \"NOTIFY_PRESCRIBERS\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-join",
+    "arm": "filler",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"UPDATE_LABEL\",\n    \"RELEASE_STOCK\",\n    \"NOTIFY_PRESCRIBERS\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-join",
+    "arm": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"UPDATE_LABEL\",\n    \"RELEASE_STOCK\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-join",
+    "arm": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"UPDATE_LABEL\",\n    \"RELEASE_STOCK\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-join",
+    "arm": "same_root_nospk",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"UPDATE_LABEL\",\n    \"RELEASE_STOCK\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-join",
+    "arm": "indep_root_nospk",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"UPDATE_LABEL\",\n    \"RELEASE_STOCK\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-join",
+    "arm": "bare_super",
+    "plan_text": "{\"actions\": [\"UPDATE_LABEL\", \"RELEASE_STOCK\", \"NOTIFY_PRESCRIBERS\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-join",
+    "arm": "same_root_super",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"UPDATE_LABEL\",\n    \"RELEASE_STOCK\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-join",
+    "arm": "indep_root_super",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"UPDATE_LABEL\",\n    \"RELEASE_STOCK\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-diamond",
+    "arm": "bare",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"QUARANTINE_BATCH\",\n    \"UPDATE_LABEL\",\n    \"VERIFY_ASSAY\",\n    \"RELEASE_STOCK\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-diamond",
+    "arm": "filler",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"UPDATE_LABEL\",\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"RELEASE_STOCK\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-diamond",
+    "arm": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"UPDATE_LABEL\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"RELEASE_STOCK\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-diamond",
+    "arm": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"UPDATE_LABEL\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"RELEASE_STOCK\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-diamond",
+    "arm": "same_root_nospk",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"RECALL_SHIPMENT\",\n    \"QUARANTINE_BATCH\",\n    \"RELEASE_STOCK\",\n    \"UPDATE_LABEL\",\n    \"VERIFY_ASSAY\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-diamond",
+    "arm": "indep_root_nospk",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"QUARANTINE_BATCH\",\n    \"UPDATE_LABEL\",\n    \"VERIFY_ASSAY\",\n    \"RELEASE_STOCK\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-diamond",
+    "arm": "bare_super",
+    "plan_text": "{\"actions\": [\"NOTIFY_PRESCRIBERS\", \"UPDATE_LABEL\", \"VERIFY_ASSAY\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-diamond",
+    "arm": "same_root_super",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"UPDATE_LABEL\",\n    \"QUARANTINE_BATCH\",\n    \"RECALL_SHIPMENT\",\n    \"VERIFY_ASSAY\",\n    \"RELEASE_STOCK\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-diamond",
+    "arm": "indep_root_super",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"QUARANTINE_BATCH\",\n    \"UPDATE_LABEL\",\n    \"VERIFY_ASSAY\",\n    \"RELEASE_STOCK\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-twochain",
+    "arm": "bare",
+    "plan_text": "{\"actions\": [\"NOTIFY_PRESCRIBERS\", \"QUARANTINE_BATCH\", \"VERIFY_ASSAY\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-twochain",
+    "arm": "filler",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"RECALL_SHIPMENT\",\n    \"VERIFY_ASSAY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-twochain",
+    "arm": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"RECALL_SHIPMENT\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-twochain",
+    "arm": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"RECALL_SHIPMENT\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-twochain",
+    "arm": "same_root_nospk",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"NOTIFY_PRESCRIBERS\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-twochain",
+    "arm": "indep_root_nospk",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"RECALL_SHIPMENT\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-twochain",
+    "arm": "bare_super",
+    "plan_text": "{\"actions\": [\"NOTIFY_PRESCRIBERS\", \"QUARANTINE_BATCH\", \"VERIFY_ASSAY\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-twochain",
+    "arm": "same_root_super",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"RECALL_SHIPMENT\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-twochain",
+    "arm": "indep_root_super",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"RECALL_SHIPMENT\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-star",
+    "arm": "bare",
+    "plan_text": "{\"actions\": [\"NOTIFY_PRESCRIBERS\", \"RECALL_SHIPMENT\", \"RELEASE_STOCK\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-star",
+    "arm": "filler",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"RELEASE_STOCK\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-star",
+    "arm": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"RELEASE_STOCK\",\n    \"UPDATE_LABEL\",\n    \"NOTIFY_PRESCRIBERS\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-star",
+    "arm": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"RELEASE_STOCK\",\n    \"UPDATE_LABEL\",\n    \"NOTIFY_PRESCRIBERS\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-star",
+    "arm": "same_root_nospk",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"UPDATE_LABEL\",\n    \"RELEASE_STOCK\",\n    \"NOTIFY_PRESCRIBERS\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-star",
+    "arm": "indep_root_nospk",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"UPDATE_LABEL\",\n    \"RELEASE_STOCK\",\n    \"NOTIFY_PRESCRIBERS\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-star",
+    "arm": "bare_super",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"RECALL_SHIPMENT\",\n    \"RELEASE_STOCK\",\n    \"UPDATE_LABEL\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-star",
+    "arm": "same_root_super",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"RECALL_SHIPMENT\",\n    \"RELEASE_STOCK\",\n    \"UPDATE_LABEL\",\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "pharmacy-star",
+    "arm": "indep_root_super",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"NOTIFY_PRESCRIBERS\",\n    \"RECALL_SHIPMENT\",\n    \"RELEASE_STOCK\",\n    \"UPDATE_LABEL\",\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-chain",
+    "arm": "bare",
+    "plan_text": "{\"actions\": [\"RESUME_DOWNLINK\", \"REORIENT_PANEL\", \"SAFE_MODE\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-chain",
+    "arm": "filler",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RESUME_DOWNLINK\",\n    \"REORIENT_PANEL\",\n    \"SAFE_MODE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-chain",
+    "arm": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"REORIENT_PANEL\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-chain",
+    "arm": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"REORIENT_PANEL\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-chain",
+    "arm": "same_root_nospk",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"REORIENT_PANEL\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-chain",
+    "arm": "indep_root_nospk",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"REORIENT_PANEL\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-chain",
+    "arm": "bare_super",
+    "plan_text": "{\"actions\": [\"RESUME_DOWNLINK\", \"PATCH_FIRMWARE\", \"REORIENT_PANEL\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-chain",
+    "arm": "same_root_super",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RESUME_DOWNLINK\",\n    \"REORIENT_PANEL\",\n    \"PATCH_FIRMWARE\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-chain",
+    "arm": "indep_root_super",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RESUME_DOWNLINK\",\n    \"REORIENT_PANEL\",\n    \"PATCH_FIRMWARE\",\n    \"SAFE_MODE\",\n    \"CALIBRATE_STARTRACKER\",\n    \"DUMP_TELEMETRY\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-fork",
+    "arm": "bare",
+    "plan_text": "{\"actions\": [\"RESUME_DOWNLINK\", \"CALIBRATE_STARTRACKER\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-fork",
+    "arm": "filler",
+    "plan_text": "{\"actions\": [\"RESUME_DOWNLINK\", \"DUMP_TELEMETRY\", \"CALIBRATE_STARTRACKER\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-fork",
+    "arm": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RESUME_DOWNLINK\",\n    \"CALIBRATE_STARTRACKER\",\n    \"DUMP_TELEMETRY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-fork",
+    "arm": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RESUME_DOWNLINK\",\n    \"CALIBRATE_STARTRACKER\",\n    \"DUMP_TELEMETRY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-fork",
+    "arm": "same_root_nospk",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RESUME_DOWNLINK\",\n    \"CALIBRATE_STARTRACKER\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-fork",
+    "arm": "indep_root_nospk",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RESUME_DOWNLINK\",\n    \"DUMP_TELEMETRY\",\n    \"CALIBRATE_STARTRACKER\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-fork",
+    "arm": "bare_super",
+    "plan_text": "{\"actions\": [\"RESUME_DOWNLINK\", \"PATCH_FIRMWARE\", \"REORIENT_PANEL\", \"CALIBRATE_STARTRACKER\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-fork",
+    "arm": "same_root_super",
+    "plan_text": "{\"actions\": [\"RESUME_DOWNLINK\", \"CALIBRATE_STARTRACKER\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-fork",
+    "arm": "indep_root_super",
+    "plan_text": "{\"actions\": [\"RESUME_DOWNLINK\", \"CALIBRATE_STARTRACKER\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-join",
+    "arm": "bare",
+    "plan_text": "{\"actions\": [\"PATCH_FIRMWARE\", \"CALIBRATE_STARTRACKER\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-join",
+    "arm": "filler",
+    "plan_text": "{\"actions\": [\"DUMP_TELEMETRY\", \"RESUME_DOWNLINK\", \"PATCH_FIRMWARE\", \"CALIBRATE_STARTRACKER\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-join",
+    "arm": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"PATCH_FIRMWARE\",\n    \"CALIBRATE_STARTRACKER\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-join",
+    "arm": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"PATCH_FIRMWARE\",\n    \"CALIBRATE_STARTRACKER\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-join",
+    "arm": "same_root_nospk",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"PATCH_FIRMWARE\",\n    \"CALIBRATE_STARTRACKER\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-join",
+    "arm": "indep_root_nospk",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"PATCH_FIRMWARE\",\n    \"CALIBRATE_STARTRACKER\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-join",
+    "arm": "bare_super",
+    "plan_text": "{\"actions\": [\"CALIBRATE_STARTRACKER\", \"PATCH_FIRMWARE\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-join",
+    "arm": "same_root_super",
+    "plan_text": "{\"actions\": [\"CALIBRATE_STARTRACKER\", \"PATCH_FIRMWARE\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-join",
+    "arm": "indep_root_super",
+    "plan_text": "{\"actions\": [\"PATCH_FIRMWARE\", \"CALIBRATE_STARTRACKER\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-diamond",
+    "arm": "bare",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SAFE_MODE\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-diamond",
+    "arm": "filler",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RESUME_DOWNLINK\",\n    \"SAFE_MODE\",\n    \"DUMP_TELEMETRY\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-diamond",
+    "arm": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RESUME_DOWNLINK\",\n    \"SAFE_MODE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-diamond",
+    "arm": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RESUME_DOWNLINK\",\n    \"DUMP_TELEMETRY\",\n    \"SAFE_MODE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-diamond",
+    "arm": "same_root_nospk",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RESUME_DOWNLINK\",\n    \"DUMP_TELEMETRY\",\n    \"SAFE_MODE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-diamond",
+    "arm": "indep_root_nospk",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RESUME_DOWNLINK\",\n    \"DUMP_TELEMETRY\",\n    \"SAFE_MODE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-diamond",
+    "arm": "bare_super",
+    "plan_text": "{\"actions\": [\"SAFE_MODE\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-diamond",
+    "arm": "same_root_super",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SAFE_MODE\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-diamond",
+    "arm": "indep_root_super",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"SAFE_MODE\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-twochain",
+    "arm": "bare",
+    "plan_text": "{\"actions\": [\"DUMP_TELEMETRY\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-twochain",
+    "arm": "filler",
+    "plan_text": "{\"actions\": [\"DUMP_TELEMETRY\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-twochain",
+    "arm": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"RESUME_DOWNLINK\",\n    \"DUMP_TELEMETRY\",\n    \"REORIENT_PANEL\",\n    \"PATCH_FIRMWARE\",\n    \"SAFE_MODE\",\n    \"CALIBRATE_STARTRACKER\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-twochain",
+    "arm": "indep_root",
+    "plan_text": "{\"actions\": [\"RESUME_DOWNLINK\", \"REORIENT_PANEL\", \"PATCH_FIRMWARE\", \"DUMP_TELEMETRY\", \"SAFE_MODE\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-twochain",
+    "arm": "same_root_nospk",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-twochain",
+    "arm": "indep_root_nospk",
+    "plan_text": "{\"actions\": [\"DUMP_TELEMETRY\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-twochain",
+    "arm": "bare_super",
+    "plan_text": "{\"actions\": [\"DUMP_TELEMETRY\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-twochain",
+    "arm": "same_root_super",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-twochain",
+    "arm": "indep_root_super",
+    "plan_text": "{\"actions\": [\"DUMP_TELEMETRY\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-star",
+    "arm": "bare",
+    "plan_text": "{\"actions\": [\"REORIENT_PANEL\", \"DUMP_TELEMETRY\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-star",
+    "arm": "filler",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"REORIENT_PANEL\",\n    \"SAFE_MODE\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-star",
+    "arm": "same_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"REORIENT_PANEL\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-star",
+    "arm": "indep_root",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"REORIENT_PANEL\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-star",
+    "arm": "same_root_nospk",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"REORIENT_PANEL\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-star",
+    "arm": "indep_root_nospk",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"REORIENT_PANEL\",\n    \"DUMP_TELEMETRY\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-star",
+    "arm": "bare_super",
+    "plan_text": "{\"actions\": [\"REORIENT_PANEL\", \"DUMP_TELEMETRY\", \"RESUME_DOWNLINK\"], \"ready\": true}"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-star",
+    "arm": "same_root_super",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"REORIENT_PANEL\",\n    \"DUMP_TELEMETRY\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": false\n}\n```"
+  },
+  {
+    "model": "llama3.2:3b",
+    "instance": "satellite-star",
+    "arm": "indep_root_super",
+    "plan_text": "```\n{\n  \"actions\": [\n    \"REORIENT_PANEL\",\n    \"DUMP_TELEMETRY\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": false\n}\n```"
+  }
+]
