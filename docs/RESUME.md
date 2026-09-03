@@ -1,5 +1,41 @@
 # RESUME — where the work stands, and exactly what to do next
 
+# PROGRAMME REOPENED — 2026-09-03 (candidate search complete; lead: S-O)
+
+The author reopened the search for a new programme on 2026-09-03 with the
+explicit aim of a novel result. The closed programme is tagged
+`research-closed-v1` (pushed); everything below that heading stands.
+
+Eight candidates went through the adversarial prior-art gate in one day:
+the author's four (compression, representation, budget-by-role,
+reasoning-mode deciders) and a scout's four (deontic flattening, zombie
+constraints, retraction-as-repetition, plus two parked). Every one has every
+component published. Two carry a component nobody has run:
+
+- **S-O zombie constraints — LEAD.** A constraint explicitly rejected in the
+  dialogue and never replaced stays binding for small models above the
+  never-stated base rate, and a word-budgeted retrieval policy makes it worse
+  because the proposal turn is retrieved and the content-poor rejection turn
+  is not. The mechanism half is checkable from the retrieval log with zero
+  model calls. Verdict: behavioural OPEN (NARROW), mechanism OPEN.
+- **S-E retraction-as-repetition — runner-up.** OPEN (NARROW), tightly
+  surrounded (arXiv:2608.25553, Aug 2026).
+
+Full table, closest papers and the decision: `docs/E16-CANDIDATES.md`.
+Search caveat recorded there: the last four gates ran without web search.
+
+**State:** zero E16 model calls. No preregistration. Frozen hashes intact
+(re-verified 2026-09-03: 167 / 0 / 4). `C:\Users\chris\week1-sandbox` (a
+stale pre-git copy, contents in commit 3770dfe) is still on disk; deleting it
+was blocked by the tool sandbox and is left to the author.
+
+**Next:** `docs/protocols/E16-zombie-screen.md` declared with zero outcomes;
+corpus module + tests; offline retrieval preflight (no calls); stage 1
+(~48–100 calls, qwen2.5:3b + qwen2.5:14b, full context); stage 2 only if
+stage 1 survives its kill rule.
+
+---
+
 # RESEARCH CLOSED — 2026-09-02
 
 **E15-PODT: RETIRED** by the independent Gemini literature review (no model
