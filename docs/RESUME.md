@@ -1,5 +1,61 @@
 # RESUME — where the work stands, and exactly what to do next
 
+# S-O RETIRED — web-search re-gate, 2026-09-05
+
+The 2026-09-03 prior-art gate for S-O ran **without web search**; that caveat
+was recorded at the time. It was re-run with web search on 2026-09-05, after
+stage 1 was read. It returns a **worse** verdict than the one that authorised
+the screen. Full record: the RE-GATE section at the foot of
+`docs/E16-CANDIDATES.md`.
+
+- **Behavioural half: CLOSED (HEAVY OVERLAP).** arXiv:2608.12599, *Dead text
+  or binding clause?* (Zhu, 12 Aug 2026) — multi-turn dialogue, users revoke
+  constraints, models keep enacting withdrawn requirements ("behavioural
+  relapse" / revocation inertia); relapse at an **8B** operating point climbs
+  **0.011 → 0.403** with constraint load **while stronger models sit at
+  floor**. That is S-O predictions (1) and (2), published three weeks before
+  this screen was designed.
+- **Mechanism half: downgraded OPEN → NARROW.** Surrounded by
+  arXiv:2606.22528 (*Governance Decay*, compaction silently drops constraints
+  the agent obeys while visible; ConstraintRot compares present / compacted /
+  absent / pinned — the exposure-conditional read S-O claimed as novel),
+  arXiv:2608.11242 (*Lost in Compaction*, compactors retain 17 % of session
+  constraints) and arXiv:2604.20911 (*Security-Recall Divergence*,
+  prohibitions decay while requirements persist, on a content-richness
+  account).
+- **Citation fix:** arXiv:2604.24512 is titled *Beyond the Attention Stability
+  Boundary: Agentic Self-Synthesizing Reasoning Protocols*; "Attention Latch"
+  is the failure mode inside it, not the title. It also contains a
+  recency-based retrieval tier, so "no retrieval policy" was already too
+  strong. Second label error after the arXiv:2601.03746 one; neither changes a
+  verdict.
+
+**Decision: S-O is retired.** Behavioural half closed by prior art and
+unsupported by stage 1; mechanism half narrow, surrounded, and unmeasurable
+without a fresh corpus that breaks E1–E14 comparability. Cost: 288 model
+calls, no claim. The gate worked.
+
+**Limits:** abstract-level only, no full text read; six load-bearing arXiv IDs
+confirmed by fetching their abstract pages; the ConstraintRot
+"survives → 0 %, dropped → 38 %" figure is from search synthesis and is
+**unverified**; the previously cleared benchmark list was not re-checked. No
+model calls were made for the re-gate.
+
+**Next — nothing is queued, author's call.**
+
+1. **S-E (runner-up) — re-gate with web search FIRST.** Its 2026-09-03 verdict
+   carries the same no-web-search caveat, and its closest paper
+   (arXiv:2608.25553) is in the same August-2026 cluster this pass surfaced.
+   Do not spend calls on S-E before that.
+2. The negative-results / reproducibility write-up
+   (`docs/RESEARCH-LEAD-2026-09-02.md` §8–9), no model calls.
+3. Stop the programme again.
+
+Do not run E16 stage 2. Do not weaken E16's declared gates. The 14B arm is
+now pointless for anything but Reading A's descriptive size contrast.
+
+---
+
 # E16 SCREEN READ — S-O NOT PURSUED — 2026-09-05
 
 Stage 1 ran on 2026-09-03 for two of the three eligible deciders

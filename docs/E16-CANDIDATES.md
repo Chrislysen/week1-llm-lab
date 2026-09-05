@@ -1,6 +1,10 @@
 # E16 candidates — programme reopened 2026-09-03
 
-**Status: CANDIDATE SEARCH COMPLETE (2026-09-03). Lead candidate S-O
+**Status (2026-09-05): S-O RETIRED — screened (NOT PURSUED) and then closed
+by a web-search re-gate; see the RE-GATE section at the foot of this file.
+S-E is the runner-up and is NOT cleared: re-gate it with web search first.**
+
+*(superseded header)* **Status: CANDIDATE SEARCH COMPLETE (2026-09-03). Lead candidate S-O
 selected for an exploratory screen. No candidate is preregistered. Zero E16
 model calls. Nothing here is a claim.**
 
@@ -185,3 +189,132 @@ nobody has run, and both are cheap and stage-gated on the existing instrument:
 Next artifact: `docs/protocols/E16-zombie-screen.md`, an exploratory screen
 declared with zero outcomes, plus its corpus module and tests; then the
 offline retrieval preflight; then stage 1.
+
+
+---
+
+# RE-GATE WITH WEB SEARCH — 2026-09-05 — S-O RETIRED
+
+The 2026-09-03 gates for S-A / S-O / S-E ran **without web search** (budget
+exhausted; arXiv export API, OpenAlex, Crossref and direct fetches only). That
+caveat is recorded above and made the verdicts provisional. The gate was
+re-run for **S-O** on 2026-09-05 with web search, after stage 1 had been read.
+
+**It returns a worse verdict than the one that authorised the screen.**
+
+## Verdict change
+
+| half | 2026-09-03 (no web search) | 2026-09-05 (web search) |
+|---|---|---|
+| behavioural | PARTIAL → **OPEN (NARROW)** | **CLOSED — HEAVY OVERLAP** |
+| retrieval mechanism | **OPEN** | **NARROW** — surrounded on three sides |
+
+## What closed the behavioural half
+
+**arXiv:2608.12599** — *Dead text or binding clause? Measuring and restoring
+constraint influence in black-box LLM dialogues* (Haoyuan Zhu, 12 Aug 2026).
+Multi-turn dialogue in which users **revoke** constraints; models keep
+enacting withdrawn requirements, "occasionally beneath comments asserting
+their removal". The paper names the failure **behavioural relapse / revocation
+inertia**. Reported: relapse at an **8B operating point climbs 0.011 → 0.403**
+as constraint load grows, **while stronger models sit at floor**, under
+matched token and attempt budgets.
+
+That is S-O prediction (1) *and* prediction (2) — the carried-over rejected
+constraint, and the shrinking of the excess with model size — published in
+dialogue, on a small model, three weeks before this screen was designed.
+
+Not a literal duplicate: its comparison condition is a *no-ledger
+verifier-retry baseline*, which is a system baseline rather than a
+never-mentioned base rate, and the abstract does not say whether revocations
+are replaced or left standing. Those residues are not enough to carry a
+behavioural claim.
+
+## What surrounds the mechanism half
+
+- **arXiv:2606.22528** — *Governance Decay: How Context Compaction Silently
+  Erases Safety Constraints in Long-Horizon LLM Agents* (Shiyang Chen,
+  21 Jun 2026, rev. 27 Jun). In-context governance constraints an agent obeys
+  **while visible** are silently removed by compaction / summarization /
+  eviction, and the agent then performs the prohibited action. ConstraintRot
+  compares the same trigger with the policy **present, compacted, absent and
+  pinned**; 1,323 episodes, seven model families; violation 0 % → 30 % (59 %
+  worst case). Constraint Pinning restores 0 %.
+  *This is the exposure-conditional read S-O proposed as its novel move.*
+- **arXiv:2608.11242** — *Lost in Compaction: Evaluating Side-Constraint Loss
+  under Context Compaction* (Wang, Zhang, Lee, Yang, 31 Jul 2026). Session
+  Constraints are silently dropped by compaction; the COMPINT suite finds
+  current compactors **retain only 17 % of injected SCs**, most performing
+  worse than no compaction at all.
+- **arXiv:2604.20911** — *Omission Constraints Decay While Commission
+  Constraints Persist in Long-Context LLM Agents* (Yeran Gamage, 22 Apr 2026).
+  **Security-Recall Divergence**: prohibition-type constraints decay under
+  context pressure while requirement-type constraints persist; 12 models,
+  8 providers; omission compliance 73 % at turn 5 → 33 % at turn 16, commission
+  at 100 %; "schema semantic content accounts for 62-100 % of the dilution
+  effect". *A content-richness account of exactly the negative-vs-positive
+  asymmetry S-O rests on* — applied to dilution rather than to retrieval.
+
+The sentence in the 2026-09-03 table — "no published work links a retrieval
+policy to over-compliance via a per-turn retrieval log" — **is no longer
+defensible as written.** The defensible residue is narrower: no published work
+links a *word-budgeted scoring* retrieval policy (BM25 / dense / fusion /
+recency) to over-compliance with a *cancelled* constraint, read off a per-turn
+selection log. Two things distinguish it and neither is large:
+
+1. The dropped item is a **second speaker's rejection of a proposal**, not a
+   standing operator policy. The behavioural sign is inverted — over-compliance
+   with a cancelled action, rather than violation of a live prohibition.
+2. The policy is a scoring retrieval budget with a logged selection, not an
+   LLM compactor; the offline preflight predicts orphaning **before any model
+   call** (dense-35 orphans 86.5 % of rejections, recency-35 orphans 0 %).
+
+## Citation housekeeping
+
+**arXiv:2604.24512 is not titled *Attention Latch*.** Its title is *Beyond the
+Attention Stability Boundary: Agentic Self-Synthesizing Reasoning Protocols*
+(Dahlia Shehata, Ming Li, University of Waterloo, 27 Apr 2026); "Attention
+Latch" is the failure mode named inside it. The content cited above stands
+verbatim ("causing agents to remain anchored to obsolete constraints despite
+explicit contradictory instructions"). It evaluates GPT 5.4, Gemini 3.1 Pro,
+Claude Sonnet 4.6 and DeepSeek V3.2 on MultiWOZ 2.2 across 9K trajectories, in
+three tiers **including a shallow recency-based retrieval pilot** — so
+"no retrieval policy" was already too strong for the closest paper.
+
+This is the second such correction, after the arXiv:2601.03746 / "illusory
+truth" label noted above. Both are label errors, not verdict errors.
+
+**arXiv:2603.19997** (*When Contextual Inference Fails: Cancelability in
+Interactive Instruction Following*, Bila, Naszádi, Mayn, Monz) surfaced on the
+word "cancelability" and **does not fire**: it is Gricean cancelability of
+implicature in a block-building task, not constraint retraction.
+
+## Decision
+
+**S-O is RETIRED.** The behavioural half is closed by prior art and was in any
+case unsupported by stage 1 (`rejected - never` negative in both deciders); the
+mechanism half is narrow, surrounded, and would need the redesign already
+described in `docs/protocols/E16-zombie-screen.md` — a fresh corpus without an
+enumerated action menu, breaking comparability with E1-E14 — to be measurable
+at all. Screen plus re-gate cost 288 model calls and no claim; that is the
+gate working, not a loss.
+
+**S-E is NOT cleared by this pass.** Its 2026-09-03 verdict has the same
+no-web-search caveat, and its closest paper (arXiv:2608.25553, Aug 2026) sits
+in the same August-2026 cluster as arXiv:2608.12599 and arXiv:2608.11242 found
+here. Re-gate S-E with web search before spending anything on it.
+
+## Limits of this pass — read before relying on it
+
+- Every verdict here is **abstract-level**. No full text was read. A full-text
+  read could move any of these either way.
+- Load-bearing IDs (2604.24512, 2606.22528, 2604.20911, 2603.19997, 2608.12599,
+  2608.11242) were each confirmed by fetching the arXiv abstract page. The
+  ConstraintRot detail "constraint survives the summary → 0 % violation,
+  dropped → 38 %" came from **search synthesis, not from the fetched
+  abstract**, and is unverified.
+- The previously cleared benchmark list (Multi-IF, StructFlowBench, MT-Eval,
+  SysBench, MultiChallenge, MT-Bench-101, CFBench, PrefEval, PersonaMem) was
+  **not** re-checked this pass, nor were MeetingProbe, RefuteBench 2.0 or
+  AgentChangeBench re-verified.
+- No model calls were made for this re-gate.
