@@ -1,5 +1,58 @@
 # RESUME — where the work stands, and exactly what to do next
 
+# E16 SCREEN READ — S-O NOT PURSUED — 2026-09-05
+
+Stage 1 ran on 2026-09-03 for two of the three eligible deciders
+(`llama3.2:3b`, `qwen2.5:3b-instruct`; `--policy full`, 288 calls). The
+session that ran them was lost before they were read or committed; they were
+read on 2026-09-05 and are committed now. Full record and every number:
+the **Outcome** section of `docs/protocols/E16-zombie-screen.md`.
+
+**Decision: candidate S-O is NOT PURSUED by this screen.** Both deciders fail
+the stage-1 `never <= 0.50` base-rate gate (0.646 and 0.510), so neither is
+carried to stage 2, and Reading B needs the effect in at least two carried
+deciders. No declared rule was altered. No claim, no equivalence conclusion.
+
+**Reading A is negative**, not merely inconclusive: `rejected - never` is
+-0.469 (llama, p 0.0000) and -0.073 (qwen-3b, p 0.358). Prediction (1) is not
+supported at full context; the direction is the opposite one.
+
+**Why the gate failed — the reusable lesson.** The frozen plan instruction
+enumerates the whole 6-identifier action vocabulary in the prompt, so a
+never-mentioned action is still an offered menu item. Menu chance is
+|plan|/|vocab| = 0.705 (llama) and 0.592 (qwen-3b); the observed `never`
+rates sit just *below* it. The base-rate gate was near-unreachable before the
+first call, and `rejected - never` was measured against a saturated baseline.
+Against that same chance line the deciders clearly *obey* rejections
+(`accepted - rejected` +0.823 / +0.542) — so the retrieval half,
+prediction (3), is **untested rather than refuted**.
+
+**`qwen2.5:14b-instruct` was NOT run.** Started 2026-09-05, stopped by the
+author before any output; no partial artifact exists. It cannot change the
+decision — at most one decider could ever be carried. It would add only the
+descriptive size contrast in Reading A.
+
+**State:** 288 E16 decider calls, all stage 1, all recorded. Nothing frozen
+touched (`verify_claims.py` 167 / 0 / 4; 113 tests over 15 suites, both
+re-run 2026-09-05). No preregistration exists and none is owed.
+`C:\Users\chris\week1-sandbox` (stale pre-git copy, contents in commit
+3770dfe) is still on disk; deleting it is left to the author.
+
+**Next — nothing is queued.** Three options, author's call:
+
+1. Run the 14B arm for descriptive completeness of Reading A only (144 calls;
+   changes no decision).
+2. Redesign the screen without the enumerated vocabulary in the plan
+   instruction. This breaks comparability with E1–E14 and is a **new** screen:
+   fresh preregistration, fresh prior-art gate **with web search** (the
+   2026-09-03 gate ran without it), prospective power check.
+3. Drop S-O and go to the runner-up S-E, or to the negative-results write-up
+   named in `docs/RESEARCH-LEAD-2026-09-02.md` §8.
+
+Do not start stage 2. Do not weaken the stage-1 gates.
+
+---
+
 # PROGRAMME REOPENED — 2026-09-03 (candidate search complete; lead: S-O)
 
 The author reopened the search for a new programme on 2026-09-03 with the
@@ -24,12 +77,15 @@ component published. Two carry a component nobody has run:
 Full table, closest papers and the decision: `docs/E16-CANDIDATES.md`.
 Search caveat recorded there: the last four gates ran without web search.
 
-**State:** zero E16 model calls. No preregistration. Frozen hashes intact
+*(State and Next below are superseded by the 2026-09-05 section at the top of
+this file: stage 1 has since run for two deciders and S-O is NOT PURSUED.)*
+
+**State (as of 2026-09-03):** zero E16 model calls. No preregistration. Frozen hashes intact
 (re-verified 2026-09-03: 167 / 0 / 4). `C:\Users\chris\week1-sandbox` (a
 stale pre-git copy, contents in commit 3770dfe) is still on disk; deleting it
 was blocked by the tool sandbox and is left to the author.
 
-**Next:** `docs/protocols/E16-zombie-screen.md` declared with zero outcomes;
+**Next (as of 2026-09-03):** `docs/protocols/E16-zombie-screen.md` declared with zero outcomes;
 corpus module + tests; offline retrieval preflight (no calls); stage 1
 (~48–100 calls, qwen2.5:3b + qwen2.5:14b, full context); stage 2 only if
 stage 1 survives its kill rule.

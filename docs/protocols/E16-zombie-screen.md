@@ -121,4 +121,105 @@ equivalence conclusion and none will be drawn from it.
 
 ## Outcome
 
-*Pending. Zero decider outcomes at the time of this commit.*
+**Stage 1, partial (2 of 3 deciders), run 2026-09-03, read 2026-09-05.
+Decision: NOT PURSUED. Exploratory; nothing here is a claim.**
+
+Run: `--policy full --offset 0`, 144 dialogues x 384 unit rows per decider,
+temperature 0, corpus hash `70f136a47f5779c8` asserted at start.
+`qwen2.5:14b-instruct` was **not run** (see "The 14B arm" below).
+
+### Include rate per status
+
+| decider | parse | accepted | proposed | rejected | never |
+|---|---|---|---|---|---|
+| llama3.2:3b | 1.000 | 96/96 = 1.000 | 95/96 = 0.990 | 17/96 = **0.177** | 62/96 = **0.646** |
+| qwen2.5:3b-instruct | 1.000 | 94/96 = 0.979 | 95/96 = 0.990 | 42/96 = **0.438** | 49/96 = **0.510** |
+
+### Paired contrasts (mean, cluster p, 95 % CI)
+
+`p = 0.0000` is the reader's output at 20 000 sign-flip reps, i.e. p < 1/20 000.
+
+| contrast | llama3.2:3b | qwen2.5:3b-instruct |
+|---|---|---|
+| rejected - never | -0.469, p 0.0000, [-0.589, -0.340] | -0.073, p 0.358, [-0.196, +0.054] |
+| rejected - proposed | -0.813, p 0.0000, [-0.888, -0.731] | -0.552, p 0.0000, [-0.656, -0.443] |
+| accepted - rejected | +0.823, p 0.0000, [+0.747, +0.895] | +0.542, p 0.0000, [+0.432, +0.656] |
+| proposed - never | +0.344, p 0.0000, [+0.221, +0.468] | +0.479, p 0.0000, [+0.389, +0.570] |
+| accepted - never | +0.354, p 0.0000, [+0.239, +0.474] | +0.469, p 0.0000, [+0.374, +0.568] |
+
+### Stage-1 gates
+
+| gate | threshold | llama3.2:3b | qwen2.5:3b-instruct |
+|---|---|---|---|
+| parse rate | >= 0.95 | 1.000 PASS | 1.000 PASS |
+| accepted include | >= 0.80 | 1.000 PASS | 0.979 PASS |
+| never include | <= 0.50 | 0.646 **FAIL** | 0.510 **FAIL** (49/96, by one unit) |
+| accepted - rejected | >= +0.10 | +0.823 PASS | +0.542 PASS |
+
+Both deciders fail the base-rate gate and are **not carried to stage 2**.
+
+### Reading A (full-context zombie)
+
+`rejected - never` is negative for both deciders: strongly so for llama3.2:3b
+(-0.469) and a null for qwen2.5:3b-instruct (-0.073, p 0.358). Prediction (1)
+of candidate S-O -- a rejected constraint carried above the never-stated base
+rate -- is **not supported at full context** in either decider. The direction
+is the opposite one. Descriptive only, as declared.
+
+### Why the base-rate gate failed -- a fault in this screen, not a result
+
+Diagnostic computed after the fact and **not** part of the declared reader;
+`e16_analysis.py` was not modified. The frozen plan instruction, reused here
+for comparability with E1-E14, *enumerates the whole action vocabulary in the
+prompt* (6 identifiers per instance, all 36 instances). A never-mentioned
+action is therefore still an offered menu item, and the floor under the
+"never" rate is roughly |plan| / |vocab|:
+
+| decider | mean \|plan\| | \|vocab\| | menu chance | observed never |
+|---|---|---|---|---|
+| llama3.2:3b | 4.23 | 6 | 0.705 | 0.646 |
+| qwen2.5:3b-instruct | 3.55 | 6 | 0.592 | 0.510 |
+
+The observed `never` rate sits just *below* menu chance in both deciders. The
+`never <= 0.50` gate was set as though "never mentioned" bought substantial
+exclusion; given this prompt it buys almost none, and the gate was close to
+unreachable before the first call. The gate is doing its job -- it is telling
+us `rejected - never` was measured against a near-saturated baseline and is
+not interpretable as a zombie rate.
+
+Against the same chance line the deciders **obey rejections**: `rejected` is
+0.177 vs 0.705 chance (llama) and 0.438 vs 0.592 (qwen-3b), and
+`accepted - rejected` is +0.823 / +0.542. That is the precondition the
+orphaning mechanism needs in order to have something to break -- so the
+retrieval half, prediction (3), is untested rather than refuted.
+
+### The 14B arm
+
+`qwen2.5:14b-instruct` stage 1 was started on 2026-09-05 and stopped by the
+author before any output was written; no partial artifact exists. It is not
+needed for the decision. Reading B requires the effect in **at least two of
+the carried deciders**; two of the three eligible deciders have already failed
+a stage-1 gate, so at most one decider can be carried and the pursuit rule is
+unsatisfiable whatever the 14B does. The arm would add descriptive
+completeness to Reading A (the size contrast) and nothing else.
+
+### Decision
+
+**Stage 2 is not run. Candidate S-O is recorded as NOT PURSUED by this
+screen.** The declared rules were not altered to rescue it, and no equivalence
+or absence conclusion is drawn (the design cannot support one: power 0.56).
+
+What this screen does *not* establish: that zombie constraints do not exist.
+It establishes that *this* corpus cannot measure them, because its
+never-stated baseline is a menu-selection rate. Any redesign would have to
+remove the enumerated vocabulary from the plan instruction -- which breaks
+comparability with E1-E14 and would need a fresh preregistration, a fresh
+prior-art gate with web search (the 2026-09-03 gate ran without it), and a
+prospective power check. That is a new screen, not a continuation of this one.
+
+### Files produced
+
+`results/e16_llama32-3b_full_o0.csv/.json`,
+`results/e16_qwen25-3b-instruct_full_o0.csv/.json`. Frozen artifacts
+untouched: `verify_claims.py` 167 verified / 0 mismatched / 4 unverifiable,
+113 tests over 15 suites, both re-run 2026-09-05.
