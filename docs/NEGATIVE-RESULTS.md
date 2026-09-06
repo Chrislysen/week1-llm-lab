@@ -10,6 +10,9 @@ Written 2026-09-06. Everything below re-derives via `python verify_claims.py`
 (**167 verified / 0 mismatched / 4 unverifiable**) and `pytest` (**135 tests,
 17 suites**). The frozen corpus hashes are asserted at the start of every run.
 
+A formatted, shareable rendering of this document is published (privately) at
+https://claude.ai/code/artifact/9b5e4251-3899-4f91-a444-ff3ae4b8a835 — it is a rendering only; this file is the record.
+
 ---
 
 ## 1. What survives

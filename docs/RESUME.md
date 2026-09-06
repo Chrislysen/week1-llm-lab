@@ -53,10 +53,13 @@ dominates scale" and "small model beats larger across families" established.
 
 ## Next — nothing is queued
 
-1. **The negative-results write-up** (`docs/RESEARCH-LEAD-2026-09-02.md`
-   §8–9). It now has substantially more material: 13 gated candidates, the
-   API-vs-web-search gate failure, the instrument characterisation, and a
-   replication with a length control.
+1. ~~The negative-results write-up~~ — **WRITTEN 2026-09-06**:
+   `docs/NEGATIVE-RESULTS.md`, the artifact `RESEARCH-LEAD-2026-09-02.md` §9
+   named as the only remaining step. Every figure re-verified against artifacts
+   before commit. A formatted rendering is published privately at
+   https://claude.ai/code/artifact/9b5e4251-3899-4f91-a444-ff3ae4b8a835 (rendering only; the markdown file is the record).
+   What remains is the author's call on whether any of it is submitted
+   anywhere, and in what form.
 2. **More replication.** E18 worked because it inverted the novelty risk. Open
    targets: arXiv:2608.12599's constraint-load half (needs a corpus that varies
    load), arXiv:2606.24077's entrainment-decreases-with-size (needs logprobs,
