@@ -576,3 +576,80 @@ Both candidates of the 2026-09-03 reopening are closed by prior art, and each
 was closed by a paper the original gate could not see because it had no web
 search. Nothing is queued. The recommended artifact remains the
 negative-results write-up (`docs/RESEARCH-LEAD-2026-09-02.md` §8-9).
+
+
+---
+
+# MEASUREMENT CANDIDATES N-1/N-2/N-3 — GATED 2026-09-06 — none clears
+
+After both behavioural candidates died, the search moved from *behaviour* to
+*measurement*, on the reasoning that the behavioural space (small model,
+multi-turn dialogue, constraint) is the most heavily worked area of 2026 and
+this repository's real asset is a frozen, verified instrument. Three
+candidates were formed from the menu diagnostic's own data and gated with web
+search **before any model call**.
+
+| candidate | claim | verdict |
+|---|---|---|
+| **N-1** | constraint-adherence rates are pinned to menu chance \|plan\|/\|action space\|, so a benchmark's pass/fail verdict flips with action-space size | **SURROUNDED** — core unfound, every component published |
+| **N-2** | the sign of an explicit-rejection effect flips with action-space size | unfound, but evidence is one decider, +0.062, post-hoc, unpermuted |
+| **N-3** | reported model-size effects in constraint adherence are output-length artefacts | **PRE-EMPTED** |
+
+## N-3 is pre-empted
+
+**arXiv:2608.17183** *Benchmarking the Benchmarks: Evaluating Automated Safety
+Benchmarks for Small Language Models* (Shaik, Li, Luo, 17 Aug 2026), 26
+open-source SLMs: ambiguity rate "increases with lexical density, output
+perplexity, and output length", named a **capability-safety confound that
+mixes model capability with apparent safety**. And **LabSafety Bench**
+(arXiv:2410.14182) already ran the decisive experiment — more verbose models
+generate more candidate hazards and so match ground truth more often, and
+**when output constraints were applied the performance inversion disappeared**.
+That is N-3's mechanism and N-3's control, published.
+
+## N-1 is surrounded
+
+Nothing found states the claim. Everything it is built from is published:
+
+- **numerator** — the verbosity confound above;
+- **denominator** — tool-catalog size degrades selection and shifts scores
+  (practitioner literature; τ-bench uses 13–15 APIs, and the recommended
+  protocol is already "small-catalog baseline, grow the catalog, realistic
+  semantic distractors, stable cases" — which is this diagnostic's design);
+- **genre** — benchmark-validity audits are active: **arXiv:2607.02577**
+  (*Benchmarking the Benchmarks: A Validity Audit of Tool-Calling Evaluation*,
+  18.5 % evaluator-human misalignment, an 18.9-point spread across identical
+  reruns "large enough to flip leaderboard conclusions") and
+  **arXiv:2605.10448** (*Can Agent Benchmarks Support Their Scores?*).
+- **adjacent, does not fire** — BiasBusters arXiv:2510.00307 is *which* tool is
+  chosen (position/metadata), not how many; arXiv:2406.11634's "base-rate
+  effect" is MMLU answer-label priors; arXiv:2608.24569 (*When "Must" Becomes
+  "Maybe"*) varies compression, not action-space size; arXiv:2604.28031
+  (*Models Recall What They Violate*) is a recall/adherence dissociation with
+  no chance baseline and no option-set scaling.
+
+**By this repository's own bar — "every component published, the combination
+unrun" is not novelty — N-1 does not clear.** That is the bar that killed
+E16-A–D, S-A, S-B, S-L, S-O and S-E. It is not moved for a candidate generated
+in-house.
+
+## The one component that was NOT found
+
+**Elasticity.** \|plan\| is *endogenous* to \|vocab\|: doubling the menu from
+6 to 12 identifiers cut per-item chance by only ~22 % (qwen 0.592 → 0.455) and
+~21 % (llama 0.705 → 0.559), not 50 %, because the model lengthens its plan in
+response (×1.54, ×1.59). The consequence is that **the obvious remedy —
+normalise the rate by action-space size — does not work**, because the
+numerator moves with the denominator. No source in this pass states that.
+
+Evidence for it is currently three menu sizes and two deciders (plus one
+14B point at \|vocab\| = 6), all from one corpus, with \|plan\| never
+controlled. That is not enough to carry it, and the honest next step is not to
+write it up but to **establish it or kill it**: a pinned-length dose-response
+(`docs/protocols/E17-menu-law.md`), which is also the follow-up the menu
+diagnostic already named. If pinning \|plan\| by instruction restores clean
+1/\|vocab\| scaling, the mechanism is causal and the elasticity claim has a
+basis; if it does not, the whole line dies and that is recorded.
+
+**No candidate is preregistered. No claim exists. Zero model calls were made
+for this gate.**
