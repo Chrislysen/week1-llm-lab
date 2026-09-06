@@ -2,7 +2,9 @@
 
 **Status (2026-09-05): S-O RETIRED — screened (NOT PURSUED) and then closed
 by a web-search re-gate; see the RE-GATE section at the foot of this file.
-S-E is the runner-up and is NOT cleared: re-gate it with web search first.**
+S-E was re-gated on 2026-09-06 and is ALSO recommended for retirement (its
+mechanism dissociation is published). The reopened programme has no live
+candidate; see the two RE-GATE sections at the foot of this file.**
 
 *(superseded header)* **Status: CANDIDATE SEARCH COMPLETE (2026-09-03). Lead candidate S-O
 selected for an exploratory screen. No candidate is preregistered. Zero E16
@@ -318,3 +320,117 @@ here. Re-gate S-E with web search before spending anything on it.
   **not** re-checked this pass, nor were MeetingProbe, RefuteBench 2.0 or
   AgentChangeBench re-verified.
 - No model calls were made for this re-gate.
+
+
+---
+
+# RE-GATE WITH WEB SEARCH — S-E — 2026-09-06 — RETIRE RECOMMENDED
+
+Run after S-O was retired, for the same reason: the 2026-09-03 verdict
+(**OPEN (NARROW)**, "tightly surrounded") came from a gate with no web search.
+
+**S-E's claim.** A high-overlap **same-root retraction** moves a 3B decider
+*less* than a content-matched **independent-root contradiction**, and the
+deficit is driven by **lexical overlap**, not **source deference**.
+
+## Verdict change
+
+| half | 2026-09-03 (no web search) | 2026-09-06 (web search) |
+|---|---|---|
+| mechanism (overlap, not source deference) | part of **OPEN (NARROW)** | **CLOSED — the dissociation is published** |
+| behavioural (same-root vs independent-root at 3B) | **OPEN (NARROW)** | **NARROW residue**, a recombination of published parts |
+
+## The three papers that close the mechanism
+
+- **arXiv:2601.03746** — *Whose Facts Win? LLM Source Preferences under
+  Knowledge Conflicts* (Schuster, Gautam, Markert; 7 Jan 2026, rev. 17 Apr).
+  13 open-weight LLMs, synthetic sources, tightly controlled. LLMs prefer
+  institutionally-corroborated sources, **"however, these source preferences
+  can be reversed by simply repeating information from less credible
+  sources"** — plus a mitigation reducing repetition bias by 79.2 %.
+  **This is S-E's dissociation.** Repetition overriding source credibility,
+  with source under experimental control, already published on 13 models.
+  *This repository has cited this paper since the C9-C14 pass* — in
+  `docs/novelty_matrix.md` row C1, under the loose label "illusory truth",
+  corrected on 2026-09-03 to "repetition (Whose Facts Win)". The S-E gate did
+  not connect its own citation to S-E's mechanism.
+- **arXiv:2606.05976** — *The Self-Correction Illusion: Role Relabeling Gates
+  Explicit Error Flagging in Large Language Models* (Chen, Su, Lin, Li,
+  Chiang; 4 Jun 2026, rev. 31 Jul). Keeps the erroneous claim
+  **byte-identical** and varies **only the chat-template message role**
+  (`<thought>` / user / tool / `<memory>`); relabelling to an external role
+  raises explicit correction by **23-93 percentage points**, significant in
+  10 of 12 model-domain settings, from 70B-class down to smaller families.
+  S-E wanted to argue the effect is *not* source deference. Source deference,
+  content held byte-identical, is now a large and well-identified published
+  effect. S-E would have to beat this, not merely gesture past it.
+- **arXiv:2606.24077** — *Sentence-Level Contextual Entrainment in Large
+  Language Models* (Liu, Chu; 23 Jun 2026). 26 LLMs, seven families.
+  Sentences present in the prompt — **"even if they are counterfactual
+  statements"** — significantly raise their own probability at inference;
+  **"as the model size increases, contextual entrainment gradually
+  decreases"**; the effect is carried by **2-4 % of attention heads**, and
+  ablating them mitigates it without hurting performance.
+  That is S-E's proposed mechanism, S-E's prediction (2), and a causal
+  localisation S-E cannot reach, all published.
+
+## What the 2026-09-03 verdict got right
+
+- **arXiv:2608.25553** confirmed, and its scope confirmed as recorded. Full
+  title *When Stale Constraints Go Unchecked: Budgeted Verification Failures
+  in Inherited Agent Memory* (Kazuki Nakayashiki). It is inherited agent
+  memory under a two-record verification budget, with supersession by a newer
+  authoritative record; stale-consistent decisions in **77.3 / 74.7 / 74.7 %**
+  across a primary run, a fresh-wording replication and a held-out domain.
+  No independent-source arm, no lexical manipulation, as recorded. It does
+  **not** close S-E on its own.
+- **"No LLM-subject continued-influence-effect paper exists on arXiv"** —
+  survives this pass. Web search returns human-subject CIE work and LLM
+  misinformation-susceptibility work, but no CIE study with LLMs as subjects.
+
+## Newly surfaced, partial
+
+- **arXiv:2606.01637** — *Easier to Mislead Than to Correct: Harmful and
+  Beneficial Revision in LLM Conformity* (Qu, Fu, Hu; 1 Jun 2026). Four
+  open-weight LLMs, seven QA datasets; manipulates **consensus structure and
+  authority labels**; peer agreement makes it far easier to mislead a correct
+  model than to correct a wrong one, and authority labels move the model
+  regardless of correctness. Adjacent on the source/authority axis; no
+  same-root-vs-independent-root retraction, no overlap manipulation.
+
+## Recommendation — the author's call, not the gate's
+
+**Retire S-E.** What remains is the behavioural pairing itself: a same-root
+retraction against a content-matched independent-root contradiction, in a
+two-speaker dialogue, on 3B deciders, on the frozen clusters. Nobody has run
+exactly that. But every component is published — repetition-beats-source
+(2601.03746), source-gates-correction (2606.05976), overlap-raises-probability
+with a size gradient and head-level cause (2606.24077) — and "every component
+published, the combination unrun" is the bar this programme set for itself and
+has now failed to clear eight times out of eight.
+
+**With S-O retired and S-E recommended for retirement, the 2026-09-03
+reopening has no live candidate.** S-A, S-B, S-L and E16-C were parked for
+weaker reasons and carry the same no-web-search caveat; none was rated better
+than these two. The honest next artifact is the negative-results write-up in
+`docs/RESEARCH-LEAD-2026-09-02.md` §8-9.
+
+## Housekeeping
+
+`docs/novelty_matrix.md` row C1 cites arXiv:2601.03746 for a different claim.
+Its finding is now **also** the pre-emption for S-E's mechanism; the row
+should say so. Not changed here — it is a frozen-adjacent doc and the edit is
+the author's.
+
+Minor: arXiv:2606.05976's v1 title appears as *The Self-Correction Illusion:
+LLMs Correct Others but Not Themselves*; the current abs page reads *Role
+Relabeling Gates Explicit Error Flagging in Large Language Models*. Same
+paper, retitled between versions.
+
+## Limits of this pass
+
+Same as the S-O re-gate and no better. **Abstract-level only, no full text.**
+Load-bearing IDs (2601.03746, 2606.05976, 2606.24077, 2608.25553, 2606.01637)
+each confirmed by fetching the arXiv abstract page. The remaining IDs from the
+2026-09-03 S-E row (2604.00892, 2506.08184, 2606.27472, 2609.01852,
+2607.12893) were **not** re-verified this pass. No model calls were made.

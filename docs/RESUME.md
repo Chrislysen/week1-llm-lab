@@ -1,5 +1,54 @@
 # RESUME — where the work stands, and exactly what to do next
 
+# S-E RETIRE RECOMMENDED — no live candidate — 2026-09-06
+
+S-E was re-gated with web search on 2026-09-06, same reason as S-O. Full
+record: the second RE-GATE section at the foot of `docs/E16-CANDIDATES.md`.
+
+**Its mechanism half is closed — the dissociation S-E was built on is
+published.** S-E claimed the retraction deficit is driven by lexical overlap,
+*not* source deference. Both sides of that are already in the literature:
+
+- **arXiv:2601.03746** *Whose Facts Win?* (Schuster, Gautam, Markert) — 13
+  open-weight LLMs; source preferences "can be reversed by simply repeating
+  information from less credible sources". That is repetition-beats-source,
+  with source controlled. **This repository already cites this paper** in
+  `docs/novelty_matrix.md` C1 for a different claim; the S-E gate did not
+  connect its own citation to S-E.
+- **arXiv:2606.05976** *Self-Correction Illusion / Role Relabeling Gates
+  Explicit Error Flagging* (Chen et al.) — erroneous claim held
+  **byte-identical**, only the message role varied; correction rate moves
+  **23–95 pp**. Source deference is a large, well-identified published effect,
+  not a strawman S-E can wave past.
+- **arXiv:2606.24077** *Sentence-Level Contextual Entrainment* (Liu, Chu) —
+  26 LLMs; prompt sentences, even counterfactual ones, raise their own
+  probability; entrainment **decreases with model size**; carried by 2–4 % of
+  attention heads. S-E's mechanism, S-E's prediction (2), and a causal
+  localisation S-E cannot reach.
+
+The 2026-09-03 verdict got two things right: arXiv:2608.25553 is scoped as
+recorded (inherited agent memory, two-record verification budget,
+stale-consistent 77.3/74.7/74.7 %) and does not close S-E alone; and no
+LLM-subject continued-influence-effect paper exists on arXiv.
+
+**Consequence: the 2026-09-03 reopening has no live candidate.** S-O retired,
+S-E recommended for retirement, and S-A / S-B / S-L / E16-C were parked for
+weaker reasons under the same no-web-search caveat.
+
+**Recommended next artifact: the negative-results / reproducibility write-up**
+(`docs/RESEARCH-LEAD-2026-09-02.md` §8–9). No model calls.
+
+**Not done on my own authority:** retiring S-E, closing the programme, and
+editing `docs/novelty_matrix.md` C1 to note it now also pre-empts S-E. Those
+are the author's calls. The gate verdict above is recorded; the decision is
+not taken.
+
+**Limits:** abstract-level only, no full text read; five load-bearing IDs
+confirmed by fetching arXiv abstract pages; five IDs from the 2026-09-03 S-E
+row not re-verified. No model calls.
+
+---
+
 # S-O RETIRED — web-search re-gate, 2026-09-05
 
 The 2026-09-03 prior-art gate for S-O ran **without web search**; that caveat
