@@ -13,6 +13,7 @@ Run:  python e17_analysis.py --model qwen2.5:3b-instruct
 """
 import argparse
 import csv
+import glob
 import math
 import os
 import random
@@ -48,10 +49,12 @@ def path_for(model, vocab, length):
 
 def load(model, vocab, length):
     path, v = path_for(model, vocab, length)
-    if not os.path.exists(path):
+    # chunked runs write _o0, _o48, ... ; concatenate them all
+    paths = sorted(glob.glob(path.replace("_o0.csv", "_o*.csv")))
+    if not paths:
         return None
     rows = []
-    for r in csv.DictReader(open(path, newline="")):
+    for r in (row for pth in paths for row in csv.DictReader(open(pth, newline=""))):
         rows.append({"instance": r["instance"], "rotation": r["rotation"],
                      "status": r["status"], "parsed": r["parsed"] == "True",
                      "included": r["included"] == "True",
