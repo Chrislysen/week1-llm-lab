@@ -434,3 +434,77 @@ Load-bearing IDs (2601.03746, 2606.05976, 2606.24077, 2608.25553, 2606.01637)
 each confirmed by fetching the arXiv abstract page. The remaining IDs from the
 2026-09-03 S-E row (2604.00892, 2506.08184, 2606.27472, 2609.01852,
 2607.12893) were **not** re-verified this pass. No model calls were made.
+
+
+---
+
+# CITATION AUDIT — 2026-09-06 — the 2026-09-03 gate's sources, checked
+
+Two label errors had already turned up (arXiv:2601.03746 "illusory truth",
+arXiv:2604.24512 "Attention Latch"). Both re-gates recorded, as a limit, that
+the remaining IDs in the S-O and S-E rows were never re-verified. They have
+now been checked — eight of them, by fetching the arXiv page.
+
+| cited as | ID | verdict |
+|---|---|---|
+| *MeetingProbe* | 2608.20392 | **label wrong, substance right** |
+| RefuteBench 2.0 | 2502.18308 | confirmed, including "forgetting direction only" |
+| AgentChangeBench | 2510.18170 | title/authors confirmed; "additive, no cancellation" **unverified** |
+| InterruptBench | 2604.00892 | retraction arm confirmed; **"frontier only" is WRONG** |
+| PI-LLM | 2506.08184 | confirmed |
+| *Supersede* | 2606.27472 | confirmed |
+| *Memory Trust Gap* | 2609.01852 | confirmed |
+| MemOps | 2607.12893 | confirmed |
+
+## The one that matters — InterruptBench
+
+**arXiv:2604.00892** is *When Users Change Their Mind: Evaluating
+Interruptible Agents in Long-Horizon Web Navigation* (Henry Peng Zou and 18
+co-authors, 1 Apr 2026). It builds InterruptBench from WebArena-Lite with
+**"three realistic interruption types, including addition, revision, and
+retraction"**, and evaluates **"six strong LLM backbones"**.
+
+The S-E row recorded it as "same-user retraction arm, **frontier only**". The
+retraction arm is right; *frontier only* is not — the evaluation is not
+restricted to frontier or closed models. The 2026-09-03 gate therefore
+**understated** how close this paper sits to S-E. It is a further reason to
+retire S-E, not a lesser one.
+
+## The one that looked worse than it is
+
+**arXiv:2608.20392** is *Evaluation-as-Search: Adaptive Discovery of Grounding
+Failures in Meeting Assistants* (Khairy, Hosseinkashi, Gopal, Cutler, 30 Jun
+2026), not "MeetingProbe". Its **abstract does not contain** the figure this
+repository attributed to it, and on an abstract-level check the citation
+looked invented. It is not. The full text carries it in Table 9, Appendix H:
+**"Overstated decision finality — 141 — 13.4 %"**, defined as presenting
+"an outcome as explicitly decided or agreed upon when the transcript shows
+only tentative discussion or unresolved deliberation", one of eight
+grounding-error categories. The substance recorded on 2026-09-03 is correct.
+
+*This is a caution about the two re-gates above, which were abstract-level.
+An abstract-level check can make a sound citation look unsound. Nothing in
+those verdicts rested on a missing figure, but the limit is real.*
+
+## Also noted
+
+**arXiv:2609.01852** (*The Memory Trust Gap*, Hu & Ramachandran, 1 Sep 2026)
+tests **Qwen3 0.6B–8B** and finds smaller models rely on stale facts while
+**larger models fail catastrophically** once stale content carries
+contemporary markers — "removing a label amplifies over-trust at every size,
+and a recency feature fools the larger models harder". Any future design in
+this space that assumes an effect simply "shrinks with size" should read this
+first; the size relation is conditional, not monotone.
+
+## Standing
+
+Of eight sources checked: six clean, one label-only error, one substantive
+mischaracterisation, one characterisation still unverified. Adding the two
+already known, the 2026-09-03 gate carries **three label errors and one
+substantive error across its citations** — its *identifiers and substance are
+largely sound*; what failed was its **verdicts**, for want of web search. Those
+are separate failures and the record should not conflate them.
+
+Not corrected in place: `docs/novelty_matrix.md` and the 2026-09-03 verdict
+table above are left as written, with these corrections appended. Editing the
+originals is the author's call.
