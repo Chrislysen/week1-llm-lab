@@ -81,3 +81,94 @@ the templates differ in wording, and this design cannot rule that out.
 ## Outcome
 
 *Pending. Zero E23 extractions at the time of this commit.*
+
+---
+
+## Outcome
+
+**Run 2026-09-06. Verdict on the declared rule: PARTIAL for Qwen2.5-0.5B —
+but the informative result is the pattern across the two models, which points
+away from "present but unread".**
+
+| model | rejected vs **proposed** (verdict) | rejected vs accepted | rejected vs **never** (presence) | behavioural verdict effect |
+|---|---|---|---|---|
+| Qwen2.5-0.5B-Instruct | **0.6393** (L2) | 0.6555 (L19) | **0.9978** (L16) | **+0.069 nats** |
+| Qwen3.5-4B | **0.9998** (L16) | 0.9992 (L16) | **1.0000** (L12) | **+0.652 nats** |
+
+### Read rule applied
+
+Qwen2.5-0.5B's decisive AUROC is **0.639** — above the 0.60 "ABSENT" line and
+below the 0.75 "PRESENT BUT UNREAD" line. **PARTIAL**, recorded as partial. No
+fourth reading is invented.
+
+Qwen3.5-4B was declared a **positive control**, and it passes: 0.9998 with a
+large behavioural effect. The pipeline can find a verdict representation when
+one is there.
+
+### What the pattern shows: a correspondence, not a gap
+
+Within the same activations at the same site, the 0.5B decodes **presence at
+0.998** and the **verdict at 0.639**. So the weak verdict AUROC is not a probe
+or pipeline failure — the identical probe on the identical vectors reads
+presence essentially perfectly.
+
+And across the two models, representation and behaviour move **together**:
+
+    verdict AUROC   0.639  ->  0.9998
+    verdict effect  +0.069 -> +0.652 nats
+
+This is the **opposite** of the knowledge-action gap that arXiv:2603.18353
+measures in clinical triage (probes 98.2 % AUROC against 45.1 % output
+sensitivity, a 53-point gap). Here there is **no gap to exploit**: the small
+model's output ignores the verdict because the verdict is barely encoded, not
+because it is encoded and unread.
+
+### Why that is worth knowing
+
+arXiv:2608.23651 established behaviourally that for small models "the failed
+call's surface form accounts for 83 % of the damage, while the semantic
+contribution of marking it failed is small", but a behavioural decomposition
+cannot say **why** the semantic contribution is small. These two candidate
+explanations have opposite practical consequences:
+
+- *present but unread* → addressable at decoding time, by reading the existing
+  representation out;
+- *barely represented* → **not** addressable that way; the information is not
+  there to read.
+
+On this instrument the evidence favours the second. **Decoding-time or
+steering-style fixes for revocation inertia should not be expected to work at
+this scale**, which is a concrete negative prediction that follows from the
+measurement.
+
+### The confound I declared in advance, and how it fares
+
+I stated before extraction that AUROC on `rejected vs proposed` could reflect
+**surface features of the differing reply templates** rather than a verdict
+representation. That confound is not excluded, and it is the main threat here.
+
+It is, however, weakened by the within-model comparison: both templates are
+equally present in context for both models, and the 0.5B reads *presence* from
+the same vectors at 0.998 while reading *verdict* at 0.639. Pure surface
+availability would not produce that split. It is not eliminated, because the
+presence cue sits at the scored identifier's own position while the verdict cue
+sits in a different message, so the two differ in retrieval difficulty as well
+as in kind.
+
+### Limits
+
+Two models, one corpus, one probe site, one prompt position. Best-layer
+selection is a multiple comparison over 25 and 33 layers — the full per-layer
+curves are in the result files, and for the 0.5B the peak (0.639 at L2) is
+barely above the final layer (0.619), so there is no sharp localised signal to
+over-read. A probe finding information does not show the model *could* use it.
+The two models differ in family and architecture as well as scale, so this is
+**not** a scale claim.
+
+**No novelty is asserted.** A-1 was gated SURROUNDED before this ran and that
+verdict is unchanged.
+
+### Files
+
+`results/e23_probe_Qwen2.5-0.5B-Instruct.json`,
+`results/e23_probe_Qwen3.5-4B.json`.
