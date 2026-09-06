@@ -41,10 +41,14 @@ N_RANDOM = 10
 
 
 def unit_prompt(tok, inst, dia):
-    body = (f"DISCUSSION\n----------\n{render(dia)}\n\n{plan_instruction(inst)}")
-    return build_prompt(tok, inst.setting, "") .replace(
-        "DISCUSSION\n----------\n\n\n" + "Write one sentence about this incident.",
-        body) + PREFIX
+    """The frozen E16 plan prompt, chat-templated, prefilled up to the first
+    action identifier so the scored tokens are exactly that identifier."""
+    msgs = [{"role": "system", "content": SYSTEM.format(setting=inst.setting)},
+            {"role": "user",
+             "content": f"DISCUSSION\n----------\n{render(dia)}\n\n"
+                        f"{plan_instruction(inst)}"}]
+    return tok.apply_chat_template(
+        msgs, tokenize=False, add_generation_prompt=True) + PREFIX
 
 
 def measure(model, tok, ds):
