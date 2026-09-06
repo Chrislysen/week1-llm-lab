@@ -196,4 +196,86 @@ under test is only that *mix changes ranking*, not that verbosity causes it.
 
 ## E24-B Outcome
 
-*Pending. Zero E24-B generations at the time of this commit.*
+**Run 2026-09-07. The declared rule returns REORDER DEMONSTRATED — and the rule
+was underpowered. The reorder is NOT established, and the threshold I set is the
+reason. Read both halves of this section.**
+
+Five models, natural length, the same balanced 48-item block (3 tasks x 16
+constraints, 24 inclusion / 24 exclusion) for every model.
+
+| model | mean words | inclusion | exclusion |
+|---|---|---|---|
+| gemma4:e4b | **144.6** | **0.958** | **0.917** |
+| aya-expanse:8b | 86.3 | 0.917 | 0.958 |
+| llama3.2:3b | 78.2 | 0.917 | 1.000 |
+| qwen2.5:3b-instruct | 69.1 | 0.750 | 0.958 |
+| qwen2.5:7b-instruct | 59.1 | 0.875 | 0.958 |
+
+**The predicted trade-off is visible in the point estimates.** The most verbose
+model (gemma, 144.6 words) has the **highest** inclusion and the **lowest**
+exclusion. The least verbose (qwen2.5:7b, 59.1 words) has high exclusion and
+mediocre inclusion. Verbosity spread is real — 59 to 145 words — so the validity
+check passes.
+
+### Aggregate by mix, and the apparent reorder
+
+| model | 25:75 | 50:50 | 75:25 |
+|---|---|---|---|
+| gemma4:e4b | 0.9271 | 0.9375 | **0.9479** |
+| aya-expanse:8b | 0.9479 | 0.9375 | 0.9271 |
+| llama3.2:3b | **0.9792** | **0.9583** | 0.9375 |
+| qwen2.5:7b-instruct | 0.9375 | 0.9167 | 0.8958 |
+| qwen2.5:3b-instruct | 0.9062 | 0.8542 | 0.8021 |
+
+    rank at 25:75   llama > aya > qwen7b > gemma > qwen3b
+    rank at 75:25   gemma > llama > aya > qwen7b > qwen3b
+
+gemma moves from **4th to 1st** on constraint mix alone. Five pairwise swaps
+clear the declared 0.02 margin.
+
+### Why that verdict must not be relied on
+
+Each rate rests on **n = 24**. At p ≈ 0.92–0.96 the standard error is
+0.041–0.056, so the 95 % half-width is **0.080–0.132**. The observed swap
+margins are **0.0104 to 0.0521** — comfortably *inside* sampling noise.
+
+**The declared rule fired because I set its threshold at 0.02 on point estimates
+without a power analysis.** That threshold was wrong for this n. The rule's
+output is recorded as declared, and the honest reading is:
+
+> **The reorder is consistent with the point estimates and with the mechanism
+> E24 established, and it is NOT statistically demonstrated here.**
+
+This repository retracted a conclusion once before for exactly this — asserting
+a result from a design whose power was never checked
+(`docs/protocols/E10-H3-RETRACTION.md`). Recording the verdict without this
+paragraph would repeat it.
+
+### What stands, and what a real test needs
+
+**Stands (from E24, well powered):** inclusion and exclusion constraints move in
+opposite directions with response length — DiD 0.500 and 0.604, n = 48 per cell,
+two models. That mechanism is solid.
+
+**Stands (from E24-B, descriptive):** the verbosity trade-off appears across five
+models in the predicted direction, with a real 2.4x verbosity spread.
+
+**Does not stand:** that constraint mix reorders models. To establish it needs
+roughly **400+ items per constraint type per model** to bring the half-width
+below the observed 0.01–0.05 margins, and ideally models whose scores differ by
+more than noise to begin with.
+
+### Limits
+
+Sixteen hand-written constraints, three tasks, five models, one natural-length
+condition, temperature 0. **Not IFEval's items; no claim about its published
+numbers.** Natural verbosity is confounded with every other difference between
+these models — the mechanism from E24 is what licenses the verbosity reading,
+not this design. `llama3.2:3b` scores 1.000 on exclusion, a ceiling that makes
+its comparisons one-sided.
+
+**No novelty is asserted.** T-2 remains NARROW.
+
+### Files
+
+`results/e24b_{llama32-3b,qwen25-3b-instruct,qwen25-7b-instruct,aya-expanse-8b,gemma4-e4b}_o0.csv`.
