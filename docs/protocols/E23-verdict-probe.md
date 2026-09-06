@@ -298,3 +298,44 @@ mechanism and a reversed practical prediction for a two-week-old paper.
 ### Files
 
 `results/e23_probe_{Qwen2.5-0.5B-Instruct,Qwen3.5-0.8B,Qwen2.5-1.5B-Instruct,Qwen3.5-4B}.json`.
+
+---
+
+# E23-C — does the probe bind the verdict to the ACTION? DECLARED, zero outcomes
+
+E23-B named the reply-template surface confound as its most pressing threat: a
+probe separating `rejected` from `proposed` at 0.86–0.94 AUROC might be reading
+**features of the reply templates present in the dialogue** rather than a verdict
+bound to the action being scored.
+
+**The control needs no new corpus.** E16's rotations put units of different
+statuses inside the *same* dialogue: **60 dialogues contain both a rejected and
+a proposed unit** (60 also hold rejected+accepted). In those, the context is
+byte-identical — both an acceptance-shaped and a rejection-shaped reply are
+present — and the only difference is **which action identifier is scored**.
+
+- If the probe reads *"this dialogue contains a rejection"*, it cannot separate
+  two units inside one dialogue, and within-dialogue paired accuracy is chance.
+- If it reads *"THIS action was rejected"*, it separates them.
+
+**Measure.** Out-of-fold probe predictions at the best layer (selected exactly
+as in E23), then, over dialogues holding both classes, whether the mean
+predicted score for the `rejected` unit exceeds that for the comparison unit.
+Wilson 95 % CI on the paired proportion.
+
+**Read rule, fixed before the run.**
+
+- **ACTION-BOUND** if within-dialogue paired accuracy ≥ **0.70** with a 95 % CI
+  excluding 0.50, in **both** gap models (Qwen3.5-0.8B, Qwen2.5-1.5B).
+- **CONTEXT ARTEFACT** if the CI includes 0.50 in either gap model — E23-B's
+  AUROC would then reflect context-level template features, the located
+  knowledge-action gap would be **unsupported**, and E23-B's reversed practical
+  prediction would be withdrawn.
+- **MIXED** otherwise, recorded as mixed.
+
+**A CONTEXT ARTEFACT outcome would retract the main result of E23-B.** That is
+the point of running it.
+
+## E23-C Outcome
+
+*Pending. Zero E23-C runs at the time of this commit.*
