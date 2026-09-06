@@ -816,3 +816,30 @@ Entrainment*), which was recorded on 2026-09-06 as blocked for exactly this
 reason. Replication is the one strategy that has produced a positive result
 here (E18), and a **failed** replication would be a genuine finding rather than
 a recombination — prior art cannot pre-empt a test of prior art.
+
+### Correction to the L-1 entry, same day
+
+The L-1 section above ends by saying that `logprobs` being available "unblocks
+the replication of arXiv:2606.24077". **That was premature and is wrong as
+stated.** Ollama exposes logprobs for *generated* tokens only:
+
+- `num_predict: 0` does not suppress generation — the probe returned 49
+  generated tokens — so there is **no echo/scoring mode**, and arbitrary text
+  cannot be scored.
+- Token-by-token forced decoding through `top_logprobs` is unreliable: after the
+  prefix "The settlement engine was", the target token `cycled` is **absent from
+  the top 20**. Targets would be missed exactly where the comparison is most
+  sensitive, biasing the measurement.
+
+What is genuinely available on this stack is a **single-token forced choice**
+(~99.8 % of mass on the two answer tokens), and nothing longer.
+
+The replication is nevertheless feasible **by a different route**: `torch`
+2.11.0+cu128, `transformers` 5.9.0 and `accelerate` 1.14.0 are installed with
+CUDA on an RTX 5080, and the HuggingFace cache already holds
+**Qwen2.5-Instruct at 0.5B, 1.5B and 7B** — a within-family ladder spanning 14×,
+with no download required. Exact teacher-forced scoring of a given sentence is
+straightforward there, which is arXiv:2606.24077's actual measure.
+
+The claim in the L-1 commit message stands corrected: it is the *HF runtime*,
+not ollama's logprobs, that unblocks it.
