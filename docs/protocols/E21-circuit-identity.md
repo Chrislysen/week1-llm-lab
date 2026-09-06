@@ -59,3 +59,70 @@ than forced into the rule above.
 ## Files
 
 `e21_circuit_identity.py`; output `results/e21_circuit.json`.
+
+---
+
+## Outcome
+
+**Run 2026-09-06. Verdict: DISSOCIATED CIRCUITS.** The entrainment heads do
+**not** carry revocation inertia. H-1's hypothesis is false in this model.
+
+Baseline |INERTIA| = 0.160 > 0.05, so the declared VOID condition did not fire —
+there was a real baseline effect available to reduce.
+
+| condition | accepted | proposed | rejected | never | **INERTIA** | **OBEDIENCE** | MENTION |
+|---|---|---|---|---|---|---|---|
+| baseline | −0.981 | −1.032 | −1.101 | −1.261 | **+0.1599** | +0.2794 | +0.2290 |
+| entrainment heads ablated | −2.359 | −2.381 | −2.407 | −2.597 | **+0.1892** | +0.2372 | +0.2153 |
+
+### Read rule applied
+
+Condition (a) required INERTIA to fall by ≥ 30 %. It **rose**, +0.160 → +0.189.
+(a) fails, so the verdict is **DISSOCIATED CIRCUITS** and (b) and (c) are not
+reached. The ablated value also sits comfortably inside the random-control
+range (INERTIA +0.016 to +0.894 across 10 random 10-head sets), which is
+independent confirmation of no specific effect.
+
+### What the ablation actually did
+
+It moved the **level**, not the **structure**. Every status dropped by roughly
+1.35–1.4 nats (accepted −0.98 → −2.36, never −1.26 → −2.60), while all three
+contrasts stayed nearly fixed (INERTIA +0.16 → +0.19, OBEDIENCE +0.28 → +0.24,
+MENTION +0.23 → +0.22).
+
+So the entrainment circuit governs **how strongly the model favours any
+identifier that appeared in context**, and not **how it discriminates a
+rejected constraint from an unmentioned one**. Those are separable, and
+ablating the first leaves the second intact.
+
+### Why this is worth recording
+
+The transfer was clean: heads selected purely by their effect on sentence
+entrainment, on instances the test never saw, applied to a different quantity.
+E20 showed that same set causally carries entrainment — 41.6 % reduction, past
+the random p95. The identical set does nothing to revocation inertia. **One
+circuit, confirmed for one phenomenon, demonstrably not responsible for the
+other.**
+
+That constrains where the mechanism of arXiv:2608.12599's revocation inertia
+can live: not in the entrainment heads of arXiv:2606.24077. A future search for
+it has to start somewhere else.
+
+### Limits
+
+One model, one corpus, one head set of one size, zero-ablation only. INERTIA is
+measured at first-plan position in logit space, which is a proxy for E16's
+behavioural "included anywhere" and can come apart from it. A null under
+zero-ablation does not exclude the heads contributing under a different
+intervention (mean-patching, resample-ablation, steering). The baseline INERTIA
+of +0.16 nats is small in absolute terms, so this is a weak-signal regime and
+the dissociation should be read as "not detectably shared here" rather than
+"provably distinct".
+
+**No novelty is claimed.** H-1 was gated SURROUNDED before this ran and that
+verdict is unchanged; this is a negative mechanistic result on a fresh
+instrument.
+
+### Files
+
+`results/e21_circuit.json`.
