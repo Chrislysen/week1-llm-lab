@@ -256,3 +256,40 @@ Two background runs of the `llama3.2:3b narrow` arm were killed mid-flight by
 the task runner (at 100/144 and 93/144); no partial artifact was written
 either time. The arm completed in the foreground. Nothing was lost and no
 result in this file comes from a partial run.
+
+
+---
+
+### Within-arm check — never-unit vs authored distractor. EXPLORATORY, zero new calls
+
+In the `wide` arm the never-status unit and the six authored distractors are
+**both unmentioned in the dialogue**. If "never" carries no content signal,
+the two should be picked at the same rate. Computed from data already
+collected; not declared in advance.
+
+| decider | per-distractor | never-unit | never ÷ distractor | rejected | rejected ÷ distractor |
+|---|---|---|---|---|---|
+| llama3.2:3b | 0.520 | 0.490 | **0.94** | 0.260 | **0.50** |
+| qwen2.5:3b-instruct | 0.326 | 0.469 | **1.44** | 0.531 | **1.63** |
+
+The deciders come apart, and not in a way any earlier reading showed:
+
+- **llama3.2:3b** treats a never-mentioned *required constraint* exactly like a
+  never-mentioned *invented distractor* (0.490 vs 0.520). Its `never` rate
+  carries essentially no content signal. But it puts a rejected action at
+  **half** the unmentioned baseline — genuine, strong suppression.
+- **qwen2.5:3b-instruct** includes a **rejected** action *more often than an
+  unmentioned one* (0.531 vs 0.326, ratio 1.63). Against this baseline it is
+  not suppressing rejection at all; what mostly drives its inclusion is
+  whether the action belongs to the instance's own six.
+
+**Confound, and it is a real one.** The distractors are authored by me and may
+simply be less plausible than the benchmark's own actions, which would depress
+their rate for content reasons and inflate both ratios. That cannot be
+separated here. Two things limit the damage: llama's ratio of 0.94 shows the
+distractors are genuinely competitive rather than obviously fake, and llama
+used 3.12 of 6 per plan. For qwen (1.88 of 6) the 1.44 gap may be plausibility
+rather than content signal, and no weight should be put on it.
+
+Nothing here is a claim, and none of it bears on S-O, which is retired on
+prior-art grounds.
