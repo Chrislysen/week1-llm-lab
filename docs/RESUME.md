@@ -1,5 +1,48 @@
 # RESUME — where the work stands, and exactly what to do next
 
+# LATER ON 2026-09-06 — 15 candidates closed; E19 found something and then killed it
+
+**Still no novelty.** Two further candidates gated and closed (M-1 meta-science,
+B-1 bounding, L-1 latent), taking the count to **15 gated, 15 closed** across
+six framings. Then a replication line that produced a real result and then
+retracted it under its own follow-up.
+
+- **E19** (`docs/protocols/E19-entrainment.md`) replicated arXiv:2606.24077 by
+  exact teacher-forced scoring on HF (torch 2.11 + transformers 5.9, RTX 5080;
+  Qwen2.5-Instruct 0.5B/1.5B/7B already cached, no download).
+  **Existence replicates decisively** — Δ > 0, CIs excluding zero, 144/144
+  dialogues positive, in every model tested. **Scale appeared to FAIL** on the
+  paper's raw measure: +3.368 → +2.962 → **+3.584**, the 7B highest.
+- **E19-B** added a second cached family (Qwen3.5-0.8B/4B) and a third measure,
+  and **weakened E19 to the point of withdrawal.** Four of five
+  measure × ladder combinations replicate the scale claim; the sole failure is
+  the paper's raw log difference in one ladder, produced by Qwen2.5-7B's
+  unusually low baseline (`absent` −7.30 vs −4.30/−4.32/−4.37/−5.23). A raw log
+  difference inflates when the baseline falls.
+- **Withdrawn as stated:** E19's post-hoc claim that "the direction of the
+  answer is not determined by the data alone". True of M1 vs M2 on one ladder,
+  false everywhere else tested.
+
+**What survives:** arXiv:2606.24077 replicates on this instrument — existence
+without qualification, scale under every measure but the fragile one. Plus a
+narrow methodological note: raw per-token log-probability differences are
+fragile to between-model baseline shifts, and the measures immune to that agree
+with the published direction.
+
+**Runtime facts worth keeping.** Ollama exposes logprobs for *generated* tokens
+only — `num_predict: 0` still generates, and forced decoding through
+`top_logprobs` misses targets outside top-k. Exact scoring needs HF. The HF
+cache holds real weights for Qwen2.5-Instruct 0.5B/1.5B/7B and Qwen3.5-0.8B/4B.
+7B needs `device_map="auto"` with a ~13 GiB cap; a direct bf16 load segfaults a
+16 GB card.
+
+**Next:** unchanged. Nothing is queued. `docs/NEGATIVE-RESULTS.md` exists and is
+the honest deliverable. Replication remains the only strategy that has produced
+positive results (E18, E19), and neither is novel.
+
+---
+
+
 # CURRENT STATE — 2026-09-06 (late) — 13 candidates gated, 13 closed
 
 **No novelty was found.** Thirteen candidates went through the prior-art gate
