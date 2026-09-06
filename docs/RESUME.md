@@ -1,160 +1,107 @@
 # RESUME — where the work stands, and exactly what to do next
 
-# S-E RETIRE RECOMMENDED — no live candidate — 2026-09-06
+# CURRENT STATE — 2026-09-06 — reopening closed, nothing queued
 
-S-E was re-gated with web search on 2026-09-06, same reason as S-O. Full
-record: the second RE-GATE section at the foot of `docs/E16-CANDIDATES.md`.
+The 2026-09-03 reopening produced two candidates. **Both are now closed by
+prior art.** E16's screen ran in full and was not pursued. Nothing is queued
+and no claim exists. Frozen state intact throughout: `verify_claims.py`
+**167 / 0 / 4**, **124 tests**, E16 corpus hash `70f136a47f5779c8`.
 
-**Its mechanism half is closed — the dissociation S-E was built on is
-published.** S-E claimed the retraction deficit is driven by lexical overlap,
-*not* source deference. Both sides of that are already in the literature:
+## 1. E16 screen — COMPLETE, NOT PURSUED
 
-- **arXiv:2601.03746** *Whose Facts Win?* (Schuster, Gautam, Markert) — 13
-  open-weight LLMs; source preferences "can be reversed by simply repeating
-  information from less credible sources". That is repetition-beats-source,
-  with source controlled. **This repository already cites this paper** in
-  `docs/novelty_matrix.md` C1 for a different claim; the S-E gate did not
-  connect its own citation to S-E.
-- **arXiv:2606.05976** *Self-Correction Illusion / Role Relabeling Gates
-  Explicit Error Flagging* (Chen et al.) — erroneous claim held
-  **byte-identical**, only the message role varied; correction rate moves
-  **23–93 pp**. Source deference is a large, well-identified published effect,
-  not a strawman S-E can wave past.
-- **arXiv:2606.24077** *Sentence-Level Contextual Entrainment* (Liu, Chu) —
-  26 LLMs; prompt sentences, even counterfactual ones, raise their own
-  probability; entrainment **decreases with model size**; carried by 2–4 % of
-  attention heads. S-E's mechanism, S-E's prediction (2), and a causal
-  localisation S-E cannot reach.
+Stage 1 ran as declared: **432 calls, three deciders**, full context, temp 0.
 
-The 2026-09-03 verdict got two things right: arXiv:2608.25553 is scoped as
-recorded (inherited agent memory, two-record verification budget,
-stale-consistent 77.3/74.7/74.7 %) and does not close S-E alone; and no
-LLM-subject continued-influence-effect paper exists on arXiv.
+| decider | parse | accepted | rejected | never | gate | rejected − never |
+|---|---|---|---|---|---|---|
+| llama3.2:3b | 1.000 | 1.000 | 0.177 | 0.646 | FAIL | −0.469 |
+| qwen2.5:3b-instruct | 1.000 | 0.979 | 0.438 | 0.510 | FAIL | −0.073 |
+| qwen2.5:14b-instruct | 1.000 | 1.000 | 0.062 | 0.385 | **PASS** | −0.323 |
 
-**Consequence: the 2026-09-03 reopening has no live candidate.** S-O retired,
-S-E recommended for retirement, and S-A / S-B / S-L / E16-C were parked for
-weaker reasons under the same no-web-search caveat.
+Only the 14B is carried. Reading B needs the effect in **two** carried
+deciders, so the pursuit rule is unsatisfiable — stage 2 not run. Reading A is
+**negative in every decider**: there is no zombie excess anywhere, and within
+the qwen family the larger model suppresses a rejected constraint *more*.
+Record: Outcome section of `docs/protocols/E16-zombie-screen.md`.
 
-**Recommended next artifact: the negative-results / reproducibility write-up**
-(`docs/RESEARCH-LEAD-2026-09-02.md` §8–9). No model calls.
+## 2. Both candidates closed by prior art — the gate that was never run
 
-**Not done on my own authority:** retiring S-E, closing the programme, and
-editing `docs/novelty_matrix.md` C1 to note it now also pre-empts S-E. Those
-are the author's calls. The gate verdict above is recorded; the decision is
-not taken.
+The 2026-09-03 prior-art gates ran **without web search**. Re-run with it:
 
-**Limits:** abstract-level only, no full text read; five load-bearing IDs
-confirmed by fetching arXiv abstract pages; five IDs from the 2026-09-03 S-E
-row not re-verified. No model calls.
+- **S-O — RETIRED.** Behavioural half closed by **arXiv:2608.12599** (*Dead
+  text or binding clause?*, Zhu, Aug 2026): dialogue revocation, models keep
+  enacting withdrawn requirements, relapse at **8B** climbs 0.011 → 0.403
+  while stronger models sit at floor — S-O's predictions (1) and (2), three
+  weeks before the screen was designed. Mechanism half downgraded OPEN →
+  NARROW, surrounded by arXiv:2606.22528, 2608.11242, 2604.20911.
+- **S-E — RETIREMENT RECOMMENDED (not taken).** Mechanism closed by
+  arXiv:2601.03746 + 2606.05976 + 2606.24077. Behavioural half then closed too
+  by **arXiv:2607.05545** (*Most LLM Conformity Needs No Speaker*), which names
+  S-E's confound verbatim, runs the no-source condition on six open-weight
+  LLMs, and includes the paraphrase arm that was S-E's remaining novelty.
 
----
+Record: two RE-GATE sections plus the ADDENDUM in `docs/E16-CANDIDATES.md`.
 
-# S-O RETIRED — web-search re-gate, 2026-09-05
+## 3. Citation audit — eight sources checked
 
-The 2026-09-03 prior-art gate for S-O ran **without web search**; that caveat
-was recorded at the time. It was re-run with web search on 2026-09-05, after
-stage 1 was read. It returns a **worse** verdict than the one that authorised
-the screen. Full record: the RE-GATE section at the foot of
-`docs/E16-CANDIDATES.md`.
+Six clean. One label-only error (arXiv:2608.20392 is not "MeetingProbe", but
+its 13.4 % figure is real — Table 9, App. H; the abstract merely lacks it).
+One **substantive** error: **InterruptBench (arXiv:2604.00892) is not
+"frontier only"** — six open backbones with a retraction arm, so the gate
+understated its closeness to S-E. One unverified characterisation corrected
+(AgentChangeBench shifts are sequential *replacement*, not "additive").
 
-- **Behavioural half: CLOSED (HEAVY OVERLAP).** arXiv:2608.12599, *Dead text
-  or binding clause?* (Zhu, 12 Aug 2026) — multi-turn dialogue, users revoke
-  constraints, models keep enacting withdrawn requirements ("behavioural
-  relapse" / revocation inertia); relapse at an **8B** operating point climbs
-  **0.011 → 0.403** with constraint load **while stronger models sit at
-  floor**. That is S-O predictions (1) and (2), published three weeks before
-  this screen was designed.
-- **Mechanism half: downgraded OPEN → NARROW.** Surrounded by
-  arXiv:2606.22528 (*Governance Decay*, compaction silently drops constraints
-  the agent obeys while visible; ConstraintRot compares present / compacted /
-  absent / pinned — the exposure-conditional read S-O claimed as novel),
-  arXiv:2608.11242 (*Lost in Compaction*, compactors retain 17 % of session
-  constraints) and arXiv:2604.20911 (*Security-Recall Divergence*,
-  prohibitions decay while requirements persist, on a content-richness
-  account).
-- **Citation fix:** arXiv:2604.24512 is titled *Beyond the Attention Stability
-  Boundary: Agentic Self-Synthesizing Reasoning Protocols*; "Attention Latch"
-  is the failure mode inside it, not the title. It also contains a
-  recency-based retrieval tier, so "no retrieval policy" was already too
-  strong. Second label error after the arXiv:2601.03746 one; neither changes a
-  verdict.
+Net: the 2026-09-03 gate's **identifiers and substance are largely sound**;
+what failed was its **verdicts**, for want of web search. Do not conflate them.
 
-**Decision: S-O is retired.** Behavioural half closed by prior art and
-unsupported by stage 1; mechanism half narrow, surrounded, and unmeasurable
-without a fresh corpus that breaks E1–E14 comparability. Cost: 288 model
-calls, no claim. The gate worked.
+## 4. Menu diagnostic — declared, run, UNINFORMATIVE by its own rule
 
-**Limits:** abstract-level only, no full text read; six load-bearing arXiv IDs
-confirmed by fetching their abstract pages; the ConstraintRot
-"survives → 0 %, dropped → 38 %" figure is from search synthesis and is
-**unverified**; the previously cleared benchmark list was not re-checked. No
-model calls were made for the re-gate.
+Tested the 2026-09-05 lesson about E16's `never` gate. Six arms, 720 calls,
+vocabulary 2.75 / 6 / 12. **Verdict UNINFORMATIVE in both deciders**: mean
+|plan| grew ×1.54 and ×1.59 against a declared ×1.25 ceiling, so the 1/|vocab|
+arithmetic *both* hypotheses assumed does not hold. The clause existed to stop
+over-reading and it fired.
 
-**Next — nothing is queued, author's call.**
+- The lesson's **arithmetic form was wrong** and is corrected: |plan| is not a
+  constant, so halving the vocabulary does not halve the rate.
+- Its **practical conclusion stands and strengthens**: the base rate cannot be
+  recovered from this plan instruction by choosing a vocabulary size, because
+  plan length compensates.
+- **The corollary that matters.** Applying E16's own gates to the wide arm,
+  **both 3B deciders fail all four at |vocab| = 6 and pass all four at
+  |vocab| = 12.** The gate that ended the screen was measuring a prompt
+  parameter nobody varied. `rejected − never` also moves (qwen −0.073 →
+  **+0.062**, a sign flip). **This does not revive S-O** — prior art closes it
+  independently of any gate — and the flip is one decider, post-hoc,
+  unpermuted. Recorded because concealing it would be worse.
 
-1. **S-E (runner-up) — re-gate with web search FIRST.** Its 2026-09-03 verdict
-   carries the same no-web-search caveat, and its closest paper
-   (arXiv:2608.25553) is in the same August-2026 cluster this pass surfaced.
-   Do not spend calls on S-E before that.
-2. The negative-results / reproducibility write-up
-   (`docs/RESEARCH-LEAD-2026-09-02.md` §8–9), no model calls.
-3. Stop the programme again.
+Record: Outcome section of `docs/protocols/E16-menu-diagnostic.md`.
 
-Do not run E16 stage 2. Do not weaken E16's declared gates. The 14B arm is
-now pointless for anything but Reading A's descriptive size contrast.
+## 5. Not done on my own authority
 
----
+Retiring S-E; declaring the programme closed; editing `docs/novelty_matrix.md`
+C1 to note it now also pre-empts S-E; editing the 2026-09-03 verdict table in
+place. Verdicts are recorded and corrections appended; the decisions are the
+author's.
 
-# E16 SCREEN READ — S-O NOT PURSUED — 2026-09-05
+## 6. Next — nothing is queued
 
-Stage 1 ran on 2026-09-03 for two of the three eligible deciders
-(`llama3.2:3b`, `qwen2.5:3b-instruct`; `--policy full`, 288 calls). The
-session that ran them was lost before they were read or committed; they were
-read on 2026-09-05 and are committed now. Full record and every number:
-the **Outcome** section of `docs/protocols/E16-zombie-screen.md`.
+1. **The negative-results write-up** (`docs/RESEARCH-LEAD-2026-09-02.md`
+   §8–9), no model calls. The E16 episode is fresh material for it: a
+   candidate screened, its gate shown to be an artefact of a prompt parameter,
+   and the candidate then killed by papers an API-only search could not see.
+2. **A prompt-sensitivity design that fixes |plan| explicitly** — the obvious
+   follow-up the diagnostic points at. New prompt, new declaration; not run.
+3. **Stop the programme again.**
 
-**Decision: candidate S-O is NOT PURSUED by this screen.** Both deciders fail
-the stage-1 `never <= 0.50` base-rate gate (0.646 and 0.510), so neither is
-carried to stage 2, and Reading B needs the effect in at least two carried
-deciders. No declared rule was altered. No claim, no equivalence conclusion.
+Do not run E16 stage 2. Do not weaken E16's declared gates. Do not authorise
+anything on a no-web-search prior-art verdict.
 
-**Reading A is negative**, not merely inconclusive: `rejected - never` is
--0.469 (llama, p 0.0000) and -0.073 (qwen-3b, p 0.358). Prediction (1) is not
-supported at full context; the direction is the opposite one.
+## 7. Standing caveat on both re-gates
 
-**Why the gate failed — the reusable lesson.** The frozen plan instruction
-enumerates the whole 6-identifier action vocabulary in the prompt, so a
-never-mentioned action is still an offered menu item. Menu chance is
-|plan|/|vocab| = 0.705 (llama) and 0.592 (qwen-3b); the observed `never`
-rates sit just *below* it. The base-rate gate was near-unreachable before the
-first call, and `rejected - never` was measured against a saturated baseline.
-Against that same chance line the deciders clearly *obey* rejections
-(`accepted - rejected` +0.823 / +0.542) — so the retrieval half,
-prediction (3), is **untested rather than refuted**.
-
-**`qwen2.5:14b-instruct` was NOT run.** Started 2026-09-05, stopped by the
-author before any output; no partial artifact exists. It cannot change the
-decision — at most one decider could ever be carried. It would add only the
-descriptive size contrast in Reading A.
-
-**State:** 288 E16 decider calls, all stage 1, all recorded. Nothing frozen
-touched (`verify_claims.py` 167 / 0 / 4; 113 tests over 15 suites, both
-re-run 2026-09-05). No preregistration exists and none is owed.
-`C:\Users\chris\week1-sandbox` (stale pre-git copy, contents in commit
-3770dfe) is still on disk; deleting it is left to the author.
-
-**Next — nothing is queued.** Three options, author's call:
-
-1. Run the 14B arm for descriptive completeness of Reading A only (144 calls;
-   changes no decision).
-2. Redesign the screen without the enumerated vocabulary in the plan
-   instruction. This breaks comparability with E1–E14 and is a **new** screen:
-   fresh preregistration, fresh prior-art gate **with web search** (the
-   2026-09-03 gate ran without it), prospective power check.
-3. Drop S-O and go to the runner-up S-E, or to the negative-results write-up
-   named in `docs/RESEARCH-LEAD-2026-09-02.md` §8.
-
-Do not start stage 2. Do not weaken the stage-1 gates.
+**Abstract-level only, no full text read.** Load-bearing IDs were each
+confirmed by fetching the arXiv abstract page; the arXiv:2608.20392 case above
+shows an abstract-level check can make a sound citation look unsound. The
+previously cleared benchmark list was not re-checked.
 
 ---
 
