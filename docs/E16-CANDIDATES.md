@@ -508,3 +508,71 @@ are separate failures and the record should not conflate them.
 Not corrected in place: `docs/novelty_matrix.md` and the 2026-09-03 verdict
 table above are left as written, with these corrections appended. Editing the
 originals is the author's call.
+
+
+---
+
+# ADDENDUM — 2026-09-06 — S-E's behavioural half closes too
+
+The citation audit above turned up a paper the S-E re-gate had not reached.
+It is the closest thing in the literature to S-E, and it closes the half the
+re-gate had left as a "narrow residue".
+
+**arXiv:2607.05545** — *Most LLM Conformity Needs No Speaker: Measuring the
+Speaker-Free Floor in Peer-Pressure Benchmarks* (Yibo Hu, Jiaming Qu,
+6 Jul 2026; same group as arXiv:2606.01637).
+
+It states S-E's confound in S-E's own terms:
+
+> "standard conformity prompts mix two cues at once, the presence of a speaker
+> and the repeated wrong answer itself. Existing benchmarks vary these cues
+> together, so they cannot tell how much of the revision actually depends on
+> the speaker."
+
+and then resolves it with the design S-E was going to build:
+
+- a **no-source condition** — the same asserted answer with the explicit
+  speaker removed — across **six open-weight LLMs** and seven datasets;
+- that condition alone produces harmful revision in **66.5 %** of initially
+  correct cases against **10.3 %** under a plain re-ask;
+- **"the effect also remains when the repeated answer is paraphrased"** — a
+  lexical-overlap manipulation, which the 2026-09-03 row listed as the thing
+  S-E still needed ("needs an overlap manipulation (hi / lo)");
+- source framing **modulates** the floor rather than producing it: "Source
+  attribution still matters, but it should be measured as an increment above
+  this speaker-free floor."
+
+Its stated methodological lesson is S-E's hypothesis: *"without this step,
+benchmarks may mistake repeated text for social influence."*
+
+**S-E is therefore closed on both halves, not one.** What is left is the
+framing alone — a two-speaker incident dialogue, a retraction of a proposed
+constraint, 3B deciders on the frozen clusters. The content-matched
+same-source-versus-independent-source contrast that was S-E's remaining
+distinctness is subsumed by the speaker-free-floor design, done on open
+weights with a paraphrase arm.
+
+| S-E half | 2026-09-03 | 2026-09-06 re-gate | this addendum |
+|---|---|---|---|
+| mechanism | OPEN (NARROW) | CLOSED | CLOSED |
+| behavioural | OPEN (NARROW) | NARROW residue | **CLOSED** |
+
+## Correction carried over from the audit
+
+**arXiv:2510.18170 (AgentChangeBench)** was recorded on 2026-09-03 as
+"additive shifts, no cancellation". The full text shows goal shifts are
+**sequential replacement** — `goals: [g1, g2, ... g{k+1}]`, one active goal at
+a time, each superseding the last — evaluated on GPT-4o, Claude-3.7-Sonnet and
+Gemini-2.5-Flash, with Qwen2.5-14B-Instruct in a single-run appendix.
+
+"Additive" is wrong. The operative distinction for S-O nevertheless survives:
+AgentChangeBench always supplies a **successor** goal, whereas S-O's case was a
+constraint **rejected and never replaced**. Wrong word, right conclusion — and
+S-O is retired regardless.
+
+## Standing after the addendum
+
+Both candidates of the 2026-09-03 reopening are closed by prior art, and each
+was closed by a paper the original gate could not see because it had no web
+search. Nothing is queued. The recommended artifact remains the
+negative-results write-up (`docs/RESEARCH-LEAD-2026-09-02.md` §8-9).
