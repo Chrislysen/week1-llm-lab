@@ -88,11 +88,12 @@ def score_sentence(model, tok, prompt_text, sentence):
     return lp.gather(-1, tgt.unsqueeze(-1)).squeeze(-1).mean().item(), s_ids.shape[1]
 
 
-def run(model_id, limit, offset):
+def run(model_id, limit, offset, device_map="cuda", max_memory=None):
     assert corpus_hash() == CORPUS_HASH, "E16 corpus disturbed"
     tok = AutoTokenizer.from_pretrained(model_id)
     model = AutoModelForCausalLM.from_pretrained(
-        model_id, dtype=torch.bfloat16, device_map="cuda", low_cpu_mem_usage=True)
+        model_id, dtype=torch.bfloat16, device_map=device_map,
+        max_memory=max_memory, low_cpu_mem_usage=True)
     model.eval()
     ds = all_dialogues()[offset:None if limit is None else offset + limit]
     print(f"=== E19 entrainment: {model_id}, {len(ds)} dialogues ===\n")
@@ -128,5 +129,8 @@ if __name__ == "__main__":
     ap.add_argument("--model", required=True)
     ap.add_argument("--limit", type=int, default=None)
     ap.add_argument("--offset", type=int, default=0)
+    ap.add_argument("--device-map", default="cuda")
+    ap.add_argument("--gpu-gb", type=float, default=None)
     a = ap.parse_args()
-    run(a.model, a.limit, a.offset)
+    mm = {0: f"{a.gpu_gb}GiB", "cpu": "48GiB"} if a.gpu_gb else None
+    run(a.model, a.limit, a.offset, a.device_map, mm)

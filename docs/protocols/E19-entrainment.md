@@ -107,7 +107,74 @@ E1–E18 changes.
 
 ## Outcome
 
-*Pending. Zero E19 scoring passes at the time of this commit.*
+**Run 2026-09-06. EXISTENCE REPLICATES. SCALE FAILS.** 864 scoring passes,
+144 dialogues x 2 conditions x 3 sizes, corpus hash asserted.
+
+| Qwen2.5-Instruct | mean Δ | 95 % CI (instance-clustered) | median | Δ > 0 | mean \|S\| | present | absent |
+|---|---|---|---|---|---|---|---|
+| 0.5B | **+3.3678** | [+3.1769, +3.5518] | +3.6384 | 144/144 | 15.5 | −0.9345 | −4.3023 |
+| 1.5B | **+2.9617** | [+2.7611, +3.1575] | +3.0763 | 144/144 | 15.5 | −1.3579 | −4.3196 |
+| 7B | **+3.5838** | [+3.3613, +3.7954] | +3.6392 | 144/144 | 15.5 | −3.7123 | −7.2961 |
+
+### Read rule applied
+
+- **EXISTENCE REPLICATES.** Δ > 0 with the CI excluding zero in all three
+  models, and positive in **144/144 dialogues in every model**. A sentence
+  present in the prompt raises its own probability, decisively, at every size
+  tested.
+- **SCALE FAILS.** The sequence is **+3.368 → +2.962 → +3.584**: not monotone
+  decreasing, and the 0.5B–7B gap is **−0.216**, i.e. the *largest* model shows
+  the *most* entrainment. The declared rule required monotone decrease and a
+  gap above +0.10.
+
+**The pre-declared insensitivity clause does not apply.** It required all three
+models above 3 nats/token with a small spread; 1.5B is 2.96 and the spread is
+0.62 nats — six times the decision threshold. More importantly, a copying
+ceiling compresses values *toward each other*; it does not produce a
+**reversal**. The failure is directional, not a compression artefact.
+
+### A confound in this result, against its own conclusion
+
+The Δ measure is a raw difference of two per-token means, and **both baselines
+move with model size**. For the 7B, `present` is −3.71 and `absent` is −7.30,
+against −0.93 / −4.30 for the 0.5B. The 7B simply assigns much lower
+probability to this sentence in *both* conditions; its larger Δ is produced by
+an `absent` score that falls further than its `present` score.
+
+Whether that counts as "more entrainment" depends on a normalisation the
+original measure does not make — and arXiv:2606.24077 uses the same raw
+per-token mean difference, so this replication is faithful to the published
+measure. But a scale comparison of raw differences across models with different
+baseline likelihoods is **not clean**, and this caveat cuts against the
+conclusion drawn here, not for it. It is recorded because it weakens the
+result.
+
+### What this does and does not show
+
+It **bounds** rather than refutes. arXiv:2606.24077's scale claim is a trend
+across **26 models from seven families** on two datasets. E19 is **three models
+from one family** on one incident-dialogue corpus, in a high-overlap regime
+where the target sentence appears verbatim. A within-family non-monotonicity
+does not falsify a cross-family trend; it shows the trend does not hold here.
+
+Consistent with E18-B, which found on this same instrument that between-family
+variation exceeded within-family scale variation for a different measure: on
+this benchmark, **scale is repeatedly not the controlling variable.**
+
+The attention-head claim (2–4 % of heads carry the effect) is untested.
+
+### Runtime note
+
+The 7B was scored with `device_map="auto"` and a 13 GiB GPU cap, spilling some
+layers to CPU — 15.2 GB of bf16 weights segfaulted a 16 GB card on a direct
+load. Weights are exact bf16 in both cases; offload changes placement, not
+numerics. Quantised weights were deliberately **not** used, because int8 would
+have introduced a quantisation difference into precisely the scale comparison
+under test.
+
+### Files
+
+`results/e19_Qwen2.5-{0.5B,1.5B,7B}-Instruct_o0.csv`. Nothing in E1–E18 changed.
 
 ### Sensitivity note — added after a 3-dialogue smoke test, before the full run
 
