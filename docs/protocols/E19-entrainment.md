@@ -108,3 +108,21 @@ E1–E18 changes.
 ## Outcome
 
 *Pending. Zero E19 scoring passes at the time of this commit.*
+
+### Sensitivity note — added after a 3-dialogue smoke test, before the full run
+
+A 3-dialogue smoke test on Qwen2.5-0.5B-Instruct returned mean Δ = **+4.52
+nats/token** (present −1.27, absent −5.79, 3/3 positive). That is a very large
+effect, and it is large for a structural reason: **S appears verbatim in the
+PRESENT prompt**, so scoring it as a continuation is close to a copying task.
+
+This is disclosed now, before the full run, because it bears on the **scale**
+half. If all three models sit near a copying ceiling, Δ will be compressed and
+the 0.10 nats/token gap may fail to appear **for reasons of design
+insensitivity rather than evidence about scale**. Should SCALE FAIL with all
+three models showing large Δ (> 3 nats/token) and a small spread, it will be
+reported as **an insensitive test, not as evidence against arXiv:2606.24077.**
+
+The read rule above is **not changed**. This note only fixes, in advance, how a
+null on the scale half is to be interpreted — so that interpretation cannot be
+chosen after the numbers are seen.
