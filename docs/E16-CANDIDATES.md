@@ -891,3 +891,74 @@ stands regardless of how it comes out.
 **Sixteen candidates gated, sixteen closed**, across seven framings:
 behavioural (8), measurement (3), meta-science (1), bounding (1),
 latent/mechanistic (1), circuit-identity (1). Zero model calls for this gate.
+
+---
+
+# THESIS V-1 — GATED 2026-09-06 — SURROUNDED, but it reinterprets E21
+
+Constructed from this session's own measurements rather than from published
+components, which is why it was worth gating.
+
+**Thesis (V-1).** *Presence* and *verdict* are separate channels. Small models
+have the first without the second, so "revocation inertia" is not a model
+failing to **update** a verdict — it is a model that never had a verdict
+channel to update.
+
+Converging evidence assembled from this session, same models, same corpus,
+same measurement framework:
+
+| model | entrainment Δ (presence) | verdict effect (proposed − rejected) |
+|---|---|---|
+| Qwen2.5-0.5B | +3.368 | +0.069 |
+| Qwen3.5-0.8B | +3.397 | −0.058 |
+| Qwen2.5-1.5B | +2.962 | +0.121 |
+| Qwen3.5-4B | +3.126 | **+0.652** |
+
+Presence is **flat** across a 8× range (spread 0.44 nats); verdict is
+**emergent** (near zero, then 0.652). E21 adds the causal half: ablating the
+presence circuit leaves every verdict contrast intact.
+
+**Verdict: SURROUNDED.**
+
+- **arXiv:2608.23651** — *Feedback That Backfires: Why Small Language Model
+  Agents Repeat the Call They Just Watched Fail* (Esmail Gumaan, 24 Aug 2026).
+  Instruction-tuned models **135M–1.7B**, six checkpoints, four families.
+  Recording a failed tool call **increases** repetition, 0.06 → 0.54. And it
+  decomposes the cause exactly as V-1 does, with counterfactual failure /
+  success / neutral messages: **"the failed call's surface form accounts for
+  83 % of the damage, while the semantic contribution of marking it failed is
+  small."** That is presence-dominates-verdict, published, with a cleaner
+  decomposition than this thesis offers.
+- The scale half is covered by **arXiv:2608.12599** ("stronger models sit at
+  floor"), replicated here as E18.
+- Adjacent: **arXiv:2507.11878** (*LLMs Encode Harmfulness and Refusal
+  Separately*) is the same two-separable-channels shape in the safety setting;
+  **arXiv:2210.02526** (Kim, Yu, Ettinger) finds PLM dialogue-response
+  sensitivity dominated by "superficial factors that outweigh principled
+  discourse constraints".
+
+V-1 = presence-dominates-verdict (2608.23651) + verdict-improves-with-scale
+(2608.12599). A conjunction, and therefore not novelty by this repository's
+standard. **Seventeen candidates gated, seventeen closed.**
+
+## What the gate changed, and this is the useful part
+
+arXiv:2608.23651 establishes its 83 %/small decomposition **behaviourally**,
+by counterfactual message content, on models 135M–1.7B, with **no scale
+comparison and no mechanistic analysis**.
+
+This session independently supplies both of the things it lacks:
+
+1. **Circuit-level corroboration (E21).** The heads that causally carry
+   presence — confirmed by ablation in E20, 41.6 % reduction past the random
+   p95 — carry **none** of the verdict discrimination. Ablating them shifted
+   every status by ~1.35 nats while leaving INERTIA, OBEDIENCE and MENTION
+   nearly fixed. That is their surface/semantic split, found causally in the
+   weights by a different method.
+2. **A scale profile (E22 probe).** Their range stops at 1.7B. The verdict
+   effect here is ~0 through 1.5B and **+0.652** at 4B, while presence stays
+   flat — locating where the channel they found missing begins to appear.
+
+Neither is novelty. Both are **corroboration of a two-week-old paper by an
+independent method**, which is the same category as E20's contribution to
+arXiv:2606.24077, and is worth more than another closed candidate.
