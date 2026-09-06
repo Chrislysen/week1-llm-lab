@@ -18,7 +18,7 @@ published.** S-E claimed the retraction deficit is driven by lexical overlap,
 - **arXiv:2606.05976** *Self-Correction Illusion / Role Relabeling Gates
   Explicit Error Flagging* (Chen et al.) — erroneous claim held
   **byte-identical**, only the message role varied; correction rate moves
-  **23–95 pp**. Source deference is a large, well-identified published effect,
+  **23–93 pp**. Source deference is a large, well-identified published effect,
   not a strawman S-E can wave past.
 - **arXiv:2606.24077** *Sentence-Level Contextual Entrainment* (Liu, Chu) —
   26 LLMs; prompt sentences, even counterfactual ones, raise their own
