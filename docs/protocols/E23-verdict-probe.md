@@ -172,3 +172,42 @@ verdict is unchanged.
 
 `results/e23_probe_Qwen2.5-0.5B-Instruct.json`,
 `results/e23_probe_Qwen3.5-4B.json`.
+
+---
+
+# E23-B — does the correspondence hold across a curve? DECLARED, zero outcomes
+
+E23 rested on **two** models that differ in family and architecture as well as
+scale, so "representation tracks behaviour" was a suggestive pair, not a curve.
+E23-B fills it in.
+
+**Models.** Qwen2.5-Instruct **0.5B / 1.5B / 7B** and Qwen3.5 **0.8B / 4B** —
+two within-family ladders, so scale is separable from family for the first time
+in this line.
+
+**The two quantities**, both already defined and both measured on the same
+corpus: probe AUROC on `rejected vs proposed` (representation) and the
+behavioural verdict effect `proposed − rejected` in nats (behaviour).
+
+**Read rule, fixed before the new runs.**
+
+- **CORRESPONDENCE HOLDS** if across the five models the two quantities are
+  monotonically related (Spearman ρ ≥ 0.80) **and** within the three-point
+  Qwen2.5 ladder they move in the same direction.
+- **CORRESPONDENCE FAILS** if any model shows a genuine **gap** — probe AUROC
+  ≥ 0.85 together with a behavioural verdict effect < 0.15 nats. That model
+  would be a knowledge-action gap of the kind arXiv:2603.18353 reports, and
+  would overturn E23's conclusion for this phenomenon.
+- **INCONCLUSIVE** otherwise, recorded as such.
+
+A CORRESPONDENCE FAILS outcome is the more interesting one and is actively
+sought: it would mean the information *is* present and unread in some model,
+and that decoding-time repair is worth trying after all.
+
+**Limits.** Five models, two families, one corpus, one probe site. Spearman on
+n = 5 is weak; the within-family direction check carries most of the weight.
+The reply-template surface confound from E23 applies unchanged.
+
+## E23-B Outcome
+
+*Pending. Zero E23-B runs at the time of this commit.*
