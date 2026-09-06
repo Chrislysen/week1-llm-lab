@@ -243,3 +243,56 @@ published and replicated decisively here. What is recorded is a
 models from one family, in a high-overlap regime — a narrow finding that would
 need a fresh adversarial gate, more families and more normalisations before it
 could be called anything more.
+
+---
+
+# E19-B — is the measure-dependence general? DECLARED with zero outcomes, 2026-09-06
+
+E19 found that arXiv:2606.24077's scale claim fails on its own measure and
+holds on a normalised version of the same numbers. **That was three models from
+one family and one normalisation.** E19-B asks whether the flip is a general
+property or an artefact of that particular pair.
+
+**Additions, no downloads.** `Qwen3.5-0.8B` and `Qwen3.5-4B` are already in the
+HF cache — a second, later-generation ladder. Five models total across two
+families. All five are re-scored so every measure is computed from one run.
+
+**Three measures, all from the same passes.**
+
+| measure | definition | status |
+|---|---|---|
+| **M1 raw** | mean_t log p(s_t \| present) − mean_t log p(s_t \| absent) | the paper's |
+| **M2 headroom** | M1 ÷ \|mean_t log p(s_t \| absent)\| | E19's post-hoc normaliser |
+| **M3 linear** | mean_t p(s_t \| present) − mean_t p(s_t \| absent) | new; probability space, not log space |
+
+M3 is added because M1 and M2 are both log-space and could share a bias; a
+linear-space difference is bounded in [−1, 1] and cannot be inflated by a very
+low baseline the way a log difference can.
+
+**Read rule, fixed before the first pass.**
+
+- **MEASURE-DEPENDENCE GENERALISES** if, within the Qwen3.5 ladder
+  (0.8B → 4B), at least two of M1/M2/M3 **disagree in the sign** of the change
+  with size — i.e. the same data says entrainment rises under one measure and
+  falls under another, in a family independent of the one that produced the
+  original flip.
+- **MEASURE-DEPENDENCE IS SPECIFIC** if all three measures agree in sign in the
+  Qwen3.5 ladder. The E19 flip would then be a property of the Qwen2.5 ladder,
+  not of the measurement, and would be reported as such — weakening E19's
+  conclusion.
+- The Qwen2.5 ladder is re-reported under all three measures for completeness.
+  With only two points, Qwen3.5 supports a **sign**, never a monotone trend, and
+  no monotonicity will be claimed from it.
+
+**Validity.** Corpus hash asserted. Identical prompts, filler, instruction and
+seed as E19. Any model whose scoring differs from E19's recorded values on the
+overlapping cells invalidates the re-run and will be reported.
+
+**Limits.** Two families, five models, one corpus, one high-overlap regime,
+three measures out of many possible. A sign flip between measures shows the
+answer is measure-determined **here**; it does not establish which measure is
+correct, and none of the three is argued to be.
+
+## E19-B Outcome
+
+*Pending. Zero E19-B passes at the time of this commit.*

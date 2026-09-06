@@ -54,7 +54,8 @@ FILLER = "The incident channel has been quiet for the last few minutes."
 INSTRUCTION = "Write one sentence about this incident."
 
 COLUMNS = ["model", "instance", "rotation", "constraint", "n_tokens",
-           "score_present", "score_absent", "delta"]
+           "score_present", "score_absent", "delta",
+           "prob_present", "prob_absent", "prob_delta"]
 
 
 def target_and_variants(d):
@@ -85,7 +86,8 @@ def score_sentence(model, tok, prompt_text, sentence):
     start = p_ids.shape[1]
     lp = torch.log_softmax(logits[0, start - 1:-1], dim=-1)
     tgt = ids[0, start:]
-    return lp.gather(-1, tgt.unsqueeze(-1)).squeeze(-1).mean().item(), s_ids.shape[1]
+    per_tok = lp.gather(-1, tgt.unsqueeze(-1)).squeeze(-1)
+    return (per_tok.mean().item(), per_tok.exp().mean().item(), s_ids.shape[1])
 
 
 def run(model_id, limit, offset, device_map="cuda", max_memory=None):
@@ -101,12 +103,14 @@ def run(model_id, limit, offset, device_map="cuda", max_memory=None):
     for i, d in enumerate(ds, 1):
         S, present, absent, kid = target_and_variants(d)
         setting = d["instance"].setting
-        sp, n = score_sentence(model, tok, build_prompt(tok, setting, present), S)
-        sa, _ = score_sentence(model, tok, build_prompt(tok, setting, absent), S)
+        sp, pp, n = score_sentence(model, tok, build_prompt(tok, setting, present), S)
+        sa, pa, _ = score_sentence(model, tok, build_prompt(tok, setting, absent), S)
         rows.append({"model": model_id, "instance": d["instance"].id,
                      "rotation": d["rotation"], "constraint": kid, "n_tokens": n,
                      "score_present": round(sp, 6), "score_absent": round(sa, 6),
-                     "delta": round(sp - sa, 6)})
+                     "delta": round(sp - sa, 6),
+                     "prob_present": round(pp, 8), "prob_absent": round(pa, 8),
+                     "prob_delta": round(pp - pa, 8)})
         if i % 24 == 0 or i == len(ds):
             md = statistics.mean(r["delta"] for r in rows)
             print(f"  [{i:3}/{len(ds)}]  running mean delta = {md:+.4f}")
