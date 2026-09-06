@@ -124,6 +124,11 @@ equivalence conclusion and none will be drawn from it.
 **Stage 1, partial (2 of 3 deciders), run 2026-09-03, read 2026-09-05.
 Decision: NOT PURSUED. Exploratory; nothing here is a claim.**
 
+*(Stage 1 was COMPLETED on 2026-09-06 — the third decider was run. See
+"Stage 1 COMPLETED" at the foot of this section. The decision is unchanged.
+The paragraph below headed "The 14B arm" describes the state on 2026-09-05
+and is superseded by it.)*
+
 Run: `--policy full --offset 0`, 144 dialogues x 384 unit rows per decider,
 temperature 0, corpus hash `70f136a47f5779c8` asserted at start.
 `qwen2.5:14b-instruct` was **not run** (see "The 14B arm" below).
@@ -195,6 +200,8 @@ retrieval half, prediction (3), is untested rather than refuted.
 
 ### The 14B arm
 
+*(Superseded 2026-09-06: the arm was run. See "Stage 1 COMPLETED" below.)*
+
 `qwen2.5:14b-instruct` stage 1 was started on 2026-09-05 and stopped by the
 author before any output was written; no partial artifact exists. It is not
 needed for the decision. Reading B requires the effect in **at least two of
@@ -223,3 +230,83 @@ prospective power check. That is a new screen, not a continuation of this one.
 `results/e16_qwen25-3b-instruct_full_o0.csv/.json`. Frozen artifacts
 untouched: `verify_claims.py` 167 verified / 0 mismatched / 4 unverifiable,
 113 tests over 15 suites, both re-run 2026-09-05.
+
+
+---
+
+### Stage 1 COMPLETED — the 14B arm, 2026-09-06
+
+The third declared decider was run to complete the record. 144 dialogues,
+384 units, full context, temperature 0, corpus hash asserted, run in two
+chunks (`--offset 0 --limit 36`, `--offset 36 --limit 108`) which the reader
+concatenates. **The decision is unchanged: NOT PURSUED.**
+
+Stage 1 is now 432 calls over three deciders, exactly as declared.
+
+#### Include rate per status
+
+| decider | parse | accepted | proposed | rejected | never | gate |
+|---|---|---|---|---|---|---|
+| llama3.2:3b | 1.000 | 1.000 | 0.990 | 0.177 | **0.646** | FAIL |
+| qwen2.5:3b-instruct | 1.000 | 0.979 | 0.990 | 0.438 | **0.510** | FAIL |
+| **qwen2.5:14b-instruct** | 1.000 | 1.000 | 1.000 | 0.062 | **0.385** | **PASS** |
+
+`qwen2.5:14b-instruct` is the **only decider of the three to pass all four
+stage-1 gates**: parse 1.000, accepted 1.000, never 0.385 ≤ 0.50, and
+`accepted − rejected` +0.9375 ≥ +0.10.
+
+#### Contrasts, qwen2.5:14b-instruct
+
+| contrast | diff | cluster p | 95 % CI |
+|---|---|---|---|
+| rejected − never | **−0.3229** | 0.0000 | [−0.420, −0.223] |
+| rejected − proposed | −0.9375 | 0.0000 | [−0.979, −0.887] |
+| accepted − rejected | +0.9375 | 0.0000 | [+0.887, +0.979] |
+| proposed − never | +0.6146 | 0.0000 | [+0.516, +0.720] |
+| accepted − never | +0.6146 | 0.0000 | [+0.516, +0.720] |
+
+#### Reading A, complete — the declared size question
+
+`rejected − never`, all three deciders: llama3.2:3b **−0.469**,
+qwen2.5:3b-instruct **−0.073**, qwen2.5:14b-instruct **−0.323**.
+
+There is **no zombie excess in any decider**; every one is negative. The
+declared question — whether the 3B excess exceeds the 14B excess — is
+therefore vacuous: there is no excess to compare. Within the qwen family, the
+declared size contrast runs *against* the candidate: the 14B suppresses a
+rejected constraint **more** than the 3B (−0.323 vs −0.073), and includes it
+almost never (0.062). Larger is more obedient to the rejection here, which is
+the direction the published literature reports (arXiv:2608.12599: "stronger
+models sit at floor").
+
+#### The pursuit rule, now settled on data rather than inference
+
+Reading B requires the retrieval effect in **at least two of the carried
+deciders**. Exactly **one** decider is carried. The rule is unsatisfiable, so
+**stage 2 is not run and the candidate is not pursued** — the conclusion
+recorded on 2026-09-05 by inference, now confirmed by the arm itself.
+
+#### Cross-check against the menu diagnostic — post-hoc, not preregistered
+
+The 14B's low `never` rate is not better base-rate discrimination; it is a
+shorter plan. Mean |plan| is **2.70** against a 6-identifier menu, so menu
+chance is **0.450** and `never`/chance = **0.856** — inside the [0.84, 1.03]
+band the menu diagnostic found across its six arms, on a model that was not
+in that diagnostic and at a scale it did not cover. A seventh point, and the
+same relation. Still post-hoc, still not a finding.
+
+This also means the 14B *passes* the never gate for the same reason the 3B
+deciders would have passed it at a 12-identifier menu: the gate tracks
+|plan| / |vocab|, not the model's reasoning about unmentioned actions.
+
+#### What does not change
+
+S-O remains **retired** on prior-art grounds (`docs/E16-CANDIDATES.md`,
+both RE-GATE sections and the ADDENDUM). Nothing in this arm bears on that,
+and nothing here is a claim.
+
+#### Files
+
+`results/e16_qwen25-14b-instruct_full_o0.csv/.json` (dialogues 0–35),
+`results/e16_qwen25-14b-instruct_full_o36.csv/.json` (36–143). Frozen state
+re-verified: `verify_claims.py` 167 / 0 / 4; 124 tests.
