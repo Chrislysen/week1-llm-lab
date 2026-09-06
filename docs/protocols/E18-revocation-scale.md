@@ -214,4 +214,71 @@ requires a fresh adversarial web-search gate on the bounding result itself.
 
 ## E18-B Outcome
 
-*Pending. Zero E18-B calls at the time of this commit.*
+**Run 2026-09-06. Verdict: FAMILY DOMINATES.** Six models, five families,
+3B–14B, all at \|vocab\| = 6 with plan length pinned at 4. Parse rate 1.000 in
+every cell; mean \|plan\| 3.99–4.03 in every cell; no cell void.
+
+| model | size | **`rejected`** | 95 % CI | `never` | \|plan\| |
+|---|---|---|---|---|---|
+| gemma4:e4b | ~4B | **0.094** | [0.033, 0.155] | 0.583 | 4.00 |
+| llama3.2:3b | 3B | **0.219** | [0.134, 0.309] | 0.562 | 3.99 |
+| qwen2.5:3b-instruct | 3B | **0.542** | [0.421, 0.656] | 0.573 | 4.00 |
+| qwen2.5:7b-instruct | 7B | **0.250** | [0.162, 0.341] | 0.573 | 4.00 |
+| aya-expanse:8b | 8B | **0.219** | [0.141, 0.295] | 0.552 | 4.03 |
+| qwen2.5:14b-instruct | 14B | **0.135** | [0.074, 0.200] | 0.656 | 4.00 |
+
+### Read rule applied
+
+Spread within the 3–4B band: **0.542 − 0.094 = 0.448**, against the qwen
+within-family 3B→14B spread of **0.407**. 0.448 ≥ 0.407 → **FAMILY DOMINATES**.
+
+At one scale band, three families differ by **more** than one family differs
+across a 4.7× parameter range. The CIs for the band extremes are disjoint
+(gemma [0.033, 0.155] vs qwen-3B [0.421, 0.656]), so the band spread is not a
+sampling artefact.
+
+### The single most striking fact
+
+**`gemma4:e4b`, the smallest model in the set, has the lowest revocation
+inertia of all six — 0.094 — lower than `qwen2.5:14b-instruct` at 0.135 and
+five times lower than `qwen2.5:3b-instruct` at the same scale.** Ordered by
+parameter count the series is 0.094, 0.219, 0.542, 0.250, 0.219, 0.135: there
+is no monotone relation with scale across families.
+
+### What this does to the claim under test
+
+E18 replicated arXiv:2608.12599's scale direction **within** the qwen2.5
+family, and that stands. E18-B bounds it: capability is **not** the controlling
+variable across families. "Stronger models sit at floor" holds as a
+within-family regularity here and fails as a general rule — a ~4B model sits at
+the floor while a 3B model from another family sits five times above it.
+
+This **bounds** a published claim on an independent instrument. It does not
+contradict the paper, whose within-family and within-benchmark result is not
+in question.
+
+### The control holds throughout
+
+`never` is flat across all six models (0.552–0.656) while `rejected` varies
+5.8×. With plan length pinned, whatever differs between these models is
+specific to handling an explicit rejection, not a general difference in how
+much they put in a plan. That is the same control E18 established, now across
+five families.
+
+### Limits
+
+One corpus, one pinned length, one menu size, one operationalisation of
+revocation. Family and training data are confounded with everything else that
+differs between these models — "family" here is a label for that bundle, not a
+mechanism. `qwen3:14b` was not run. No mechanism is proposed and none is
+implied.
+
+**No novelty is asserted.** "Family matters more than scale" is a common
+observation in benchmark work, and this repository's own E13-X already found a
+normative-backfire effect to be llama-specific. Any move toward a claim needs a
+fresh adversarial web-search gate on the bounding result itself.
+
+### Files
+
+`results/e17_{gemma4-e4b,aya-expanse-8b}_v6_pin4_o*.csv/.json` plus the four
+cells already held.
