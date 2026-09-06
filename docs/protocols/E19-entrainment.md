@@ -193,3 +193,53 @@ reported as **an insensitive test, not as evidence against arXiv:2606.24077.**
 The read rule above is **not changed**. This note only fixes, in advance, how a
 null on the scale half is to be interpreted — so that interpretation cannot be
 chosen after the numbers are seen.
+
+### POST-HOC — the direction is normalisation-dependent
+
+**Not declared in advance. Computed from the same 864 scoring passes after the
+declared read rule had been applied and recorded, prompted by the baseline
+confound noted above.**
+
+The confound was tested rather than merely disclaimed. Dividing each dialogue's
+Δ by the magnitude of its own `absent` score — how much of the available
+headroom the context closes — gives:
+
+| Qwen2.5-Instruct | raw Δ *(the paper's measure)* | Δ ÷ \|absent\| |
+|---|---|---|
+| 0.5B | +3.3678 [+3.177, +3.552] | **0.7737** [0.758, 0.788] |
+| 1.5B | +2.9617 [+2.761, +3.158] | **0.6699** [0.652, 0.687] |
+| 7B | +3.5838 [+3.361, +3.795] | **0.4806** [0.463, 0.497] |
+| | **+3.368 → +2.962 → +3.584** — non-monotone | **0.774 → 0.670 → 0.481** — monotone, CIs disjoint |
+
+**Same data. Opposite conclusions.** On the published measure the scale claim
+fails here; on a normalised version of the identical numbers it holds cleanly,
+with tight non-overlapping CIs and a monotone decrease across the whole 14×
+range.
+
+**What this means, stated carefully.**
+
+- The declared verdict **stands as recorded**: on arXiv:2606.24077's own
+  measure — a raw per-token mean log-probability difference — the scale claim
+  **does not replicate on this corpus**. That was decided by a rule fixed
+  before the first pass and is not revised.
+- The normalised analysis is **post-hoc and is one choice among several**
+  (dividing by the absent baseline). Others are possible and were not tried.
+  It is not evidence that the paper is right; it is evidence that **the
+  direction of the answer is not determined by the data alone.**
+- The defensible statement is therefore narrow and about measurement:
+  **on this instrument, whether entrainment decreases with scale depends on a
+  normalisation the measure does not specify.** Raw differences across models
+  with different baseline likelihoods conflate "how much context helps" with
+  "how unlikely the sentence was to begin with".
+
+This is the same shape as E17's finding about menu size, and as E18-B's about
+family versus scale: a published directional claim turning on a free parameter
+of the measurement rather than on the models. Three times now, on this
+instrument, **the measurement decided the answer.**
+
+No novelty is asserted for the entrainment phenomenon itself, which is
+published and replicated decisively here. What is recorded is a
+**measure-sensitivity result about a specific published scale claim**, on three
+models from one family, in a high-overlap regime — a narrow finding that would
+need a fresh adversarial gate, more families and more normalisations before it
+could be called anything more.
