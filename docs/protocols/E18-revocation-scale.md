@@ -171,3 +171,47 @@ S-O stays retired.
 `results/e17_qwen25-7b-instruct_v6_pin4_o0.csv/.json`,
 `results/e17_qwen25-14b-instruct_v6_pin4_o{0,72}.csv/.json`. The 3B and 14B
 `free` cells are E16 stage 1, unmodified; the 3B `pin4` cell is E17.
+
+---
+
+# E18-B — EXTENSION, declared 2026-09-06 with zero outcomes
+
+E18 tested three scales in **one** family. This extension asks a different
+question, so it is declared separately before any call.
+
+**Question.** Is the scale effect large relative to *between-family* variation
+at fixed scale? Existing data already shows a gap the scale story does not
+predict: at 3B, `rejected` under `pin4` is **0.219 (llama3.2:3b)** versus
+**0.542 (qwen2.5:3b-instruct)** — a 2.5× family difference at identical scale
+and identical plan length.
+
+**Why it matters.** arXiv:2608.12599 reports relapse falling with capability
+("stronger models sit at floor"). If between-family spread at one scale is
+comparable to, or larger than, the within-family spread across a 4.7× parameter
+range, then capability is not the controlling variable and the rule is weaker
+than it reads. This **bounds** a published claim; it does not contradict it.
+
+**Design.** `pin4`, \|vocab\| = 6, corpus and runner unchanged. Adds
+`aya-expanse:8b`, `gemma4:e4b` and `qwen3:14b` to the four cells already held
+(llama3.2:3b, qwen2.5:3b/7b/14b-instruct). Five families, ~3B–14B.
+
+**Read rule, fixed before the first call.**
+
+- **SCALE DOMINATES** if the spread of `rejected` across families within one
+  scale band (3–4B: llama3.2:3b, qwen2.5:3b, gemma4:e4b) is **less than half**
+  the qwen within-family 3B→14B spread of 0.407.
+- **FAMILY DOMINATES** if that within-band spread is **≥ 0.407**, i.e. at one
+  scale the families differ by at least as much as 3B differs from 14B.
+- Anything between is **MIXED** and is recorded as mixed.
+
+**Validity.** Parse ≥ 0.95 and `pin4` mean \|plan\| in [3.4, 4.6] per cell, or
+the cell is void and is reported void. `qwen3:14b` is a reasoning model and may
+emit thinking tokens that break the frozen validator — a void cell there is an
+expected and acceptable outcome, not a reason to change the parser.
+
+**No novelty is asserted by this extension either.** Any move toward a claim
+requires a fresh adversarial web-search gate on the bounding result itself.
+
+## E18-B Outcome
+
+*Pending. Zero E18-B calls at the time of this commit.*
