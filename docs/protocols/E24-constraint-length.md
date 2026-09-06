@@ -155,3 +155,45 @@ demonstration of it.
 
 `results/e24_llama32-3b_o{0,144}.csv`,
 `results/e24_qwen25-7b-instruct_o{0,216}.csv`.
+
+---
+
+# E24-B — can constraint mix REORDER models? DECLARED, zero outcomes
+
+E24 confirmed the type-by-length interaction but **did not** demonstrate the
+consequence that matters: that a benchmark's inclusion:exclusion mix can change
+which model looks better. Its two models sat too close together, and both were
+run at *instructed* lengths, which suppresses exactly the natural-verbosity
+differences the mechanism feeds on.
+
+**Design.** Drop the length instruction entirely — each model writes at its own
+natural length. Same 16 constraints, same 6 tasks, temperature 0, 96 generations
+per model. Five models spanning families and sizes, chosen for expected spread
+in verbosity: `llama3.2:3b`, `qwen2.5:3b-instruct`, `qwen2.5:7b-instruct`,
+`gemma4:e4b`, `aya-expanse:8b`.
+
+**Read rule, fixed before the first generation.**
+
+Compute each model's inclusion rate and exclusion rate, then the aggregate a
+benchmark would report at inclusion:exclusion mixes of **25:75, 50:50, 75:25**.
+
+- **REORDER DEMONSTRATED** if at least one pair of models **swaps rank** between
+  any two of the three mixes.
+- **NO REORDER** if the ordering of all five models is identical at all three
+  mixes — the mechanism is real (E24) but does not bite on ranking at this
+  spread, and that is reported as a negative.
+- Any reorder must involve models whose aggregate scores differ by more than
+  0.02 at one of the mixes, so that a swap on near-identical scores is not
+  counted.
+
+**Validity.** Natural word counts must actually differ across models, or there
+is no verbosity spread to exploit and the test is uninformative — reported as
+such.
+
+**Limits.** Same 16 hand-written constraints, not IFEval's items. Natural length
+is confounded with everything else that differs between these models; the claim
+under test is only that *mix changes ranking*, not that verbosity causes it.
+
+## E24-B Outcome
+
+*Pending. Zero E24-B generations at the time of this commit.*

@@ -34,6 +34,8 @@ from experiment import write_csv
 from robust_client import RetryingOllamaClient
 
 LENGTHS = {"short": 40, "medium": 120, "long": 300}
+#: E24-B: no length instruction at all -- the model writes at its natural length
+NATURAL = {"natural": None}
 
 #: six neutral base tasks, no overlap with the E16 corpus
 TASKS = [
@@ -93,14 +95,15 @@ def build_prompt(task, instruction, target):
             f"Write approximately {target} words. Reply with the answer only.")
 
 
-def run(model, offset, limit):
+def run(model, offset, limit, natural=False):
     client = RetryingOllamaClient()
-    combos = [(ln, t, c) for ln in LENGTHS for t in TASKS for c in CONSTRAINTS]
+    grid = NATURAL if natural else LENGTHS
+    combos = [(ln, t, c) for ln in grid for t in TASKS for c in CONSTRAINTS]
     combos = combos[offset:None if limit is None else offset + limit]
     print(f"=== E24 {model} | {len(combos)} generations ===\n")
     rows = []
     for i, (ln, task, (cid, kind, instr, verify)) in enumerate(combos, 1):
-        target = LENGTHS[ln]
+        target = (NATURAL if natural else LENGTHS)[ln]
         msgs = [{"role": "user", "content": build_prompt(task, instr, target)}]
         text = client.chat(model=model, messages=msgs, temperature=0).text or ""
         rows.append({"model": model, "length": ln, "target_words": target,
@@ -109,10 +112,12 @@ def run(model, offset, limit):
                      "satisfied": bool(verify(text))})
         if i % 48 == 0 or i == len(combos):
             print(f"  [{i:4}/{len(combos)}]")
-    stem = f"results/e24_{model.replace('.','').replace(':','-')}_o{offset}"
+    tagp = "e24b" if natural else "e24"
+    stem = f"results/{tagp}_{model.replace(chr(46),chr(0+0) and chr(46) or chr(46))}"
+    stem = f"results/{tagp}_" + model.replace(".","").replace(":","-") + f"_o{offset}"
     write_csv(stem + ".csv", rows, COLUMNS)
     print(f"\n  wrote {stem}.csv")
-    for ln in LENGTHS:
+    for ln in (NATURAL if natural else LENGTHS):
         for kind in ("inclusion", "exclusion"):
             rs = [r for r in rows if r["length"] == ln and r["kind"] == kind]
             if rs:
@@ -126,5 +131,6 @@ if __name__ == "__main__":
     ap.add_argument("--model", required=True)
     ap.add_argument("--offset", type=int, default=0)
     ap.add_argument("--limit", type=int, default=None)
+    ap.add_argument("--natural", action="store_true")
     a = ap.parse_args()
-    run(a.model, a.offset, a.limit)
+    run(a.model, a.offset, a.limit, a.natural)
