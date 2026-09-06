@@ -126,3 +126,69 @@ instrument.
 ### Files
 
 `results/e21_circuit.json`.
+
+---
+
+# E22 — the follow-up search for a rejection circuit: NOT RUN, underpowered
+
+E21's dissociation implies *something other than the entrainment heads* carries
+the rejected-vs-unmentioned discrimination. The obvious next move is to search
+for it. **That search was designed, power-checked, and abandoned before any
+sweep.** Recorded because a design that dies on a power check is a result.
+
+## Design-selection measurement (descriptive, HELD-OUT instances 18–35)
+
+Which model discriminates a rejected constraint most strongly, and is it
+sweepable? Contrasts of first-plan-position action-identifier log-probability:
+
+| model | INERTIA (rej−never) | **REJECTION EFFECT (prop−rej)** | OBEDIENCE (acc−never) |
+|---|---|---|---|
+| Qwen2.5-0.5B-Instruct | +0.160 | +0.069 | +0.279 |
+| Qwen3.5-0.8B | +0.426 | −0.058 | +0.437 |
+| Qwen2.5-1.5B-Instruct | +0.181 | +0.121 | +0.409 |
+| Qwen3.5-4B | **−0.117** | **+0.652** | +0.687 |
+
+`REJECTION EFFECT` controls for mention — `proposed` is mentioned with no
+verdict, `rejected` is mentioned and refused — so it isolates the rejection.
+
+**Qwen3.5-4B is the only model that scores a rejected action *below* a
+never-mentioned one.** The smaller models place it *above*: latent revocation
+inertia. The 4B suppresses. Its rejection effect is ~9× the 0.5B's.
+
+**But the strong-signal models are not sweepable here.** Qwen3.5-4B is a
+multimodal, hybrid-attention config (`vision_config`, and transformers warns
+about `flash-linear-attention`), so the uniform `o_proj`-slice head ablation
+validated in E20 does not cleanly apply. Qwen2.5-7B needs CPU offload, making a
+784-head sweep hours long. Only Qwen2.5-0.5B and 1.5B are fast and
+architecturally standard — and those are exactly the models with the weakest
+rejection effect.
+
+## Power check on the only viable substrate (Qwen2.5-1.5B, 336 heads)
+
+Baseline rejection effect **+0.1212**. Eight random 10-head ablations:
+
+    +0.1305  +0.0138  +0.0485  +0.1265  +0.0572  +0.0695  +0.0829  +0.1073
+
+Noise **sd = 0.0405 nats**; signal-to-noise **3.0**. And random ablation is not
+neutral — it *already* removes 30–90 % of the effect (mean change −0.043, worst
+−0.107). A head set that drove the effect to zero would sit barely outside that
+random tail.
+
+## Decision: NOT RUN
+
+A 336-head sweep at 3σ against a control distribution that already eats most of
+the effect cannot separate a real circuit from the tail. **This repository has
+made exactly that mistake before** — E10 asserted a conclusion at power 0.14
+with a structurally unreachable equivalence branch, and it was retracted in
+full (`docs/protocols/E10-H3-RETRACTION.md`). Running the sweep and reading
+whatever emerged would repeat it.
+
+What would make the search viable: a model with both a large rejection effect
+and a standard attention stack (Qwen2.5-3B or -7B with enough VRAM to sweep),
+or a corpus manipulation that amplifies the contrast. Neither is available on
+this machine tonight.
+
+**The descriptive table above is a real observation and is not a claim.** Four
+models, two families, and the largest is architecturally different from the
+rest, so "scale" is confounded with architecture and nothing about a scale
+trend is asserted.
