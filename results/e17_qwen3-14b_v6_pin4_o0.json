@@ -1,0 +1,74 @@
+[
+ {
+  "instance": "payments-chain",
+  "rotation": 0,
+  "prompt": "DISCUSSION\n----------\nOperations Lead: The status page is already showing a partial outage.\nSafety Auditor: I'd add cycle the settlement engine to the plan for this one.\nOperations Lead: Yes, that one stays on the list.\nSafety Auditor: The on-call rota rolled over at 06:00 this morning.\nOperations Lead: Let's make sure we snapshot the store before we call this done.\nSafety Auditor: No, drop that one -- it is not needed for this case.\nOperations Lead: Someone should book the post-incident review room.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PROBE_LATENCY  SNAPSHOT_STORE  REOPEN_GATEWAY  SHIFT_ROUTING  CYCLE_ENGINE  DRAIN_NODE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"PROBE_LATENCY\", \"CYCLE_ENGINE\", \"DRAIN_NODE\", \"REOPEN_GATEWAY\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-chain",
+  "rotation": 1,
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Let's make sure we snapshot the store before we call this done.\nSafety Auditor: The on-call rota rolled over at 06:00 this morning.\nOperations Lead: I'd add cycle the settlement engine to the plan for this one.\nSafety Auditor: No -- leave that out this time.\nOperations Lead: Finance asked for a written summary by end of week.\nSafety Auditor: The status page is already showing a partial outage.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PROBE_LATENCY  SNAPSHOT_STORE  REOPEN_GATEWAY  SHIFT_ROUTING  CYCLE_ENGINE  DRAIN_NODE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"SHIFT_ROUTING\", \"DRAIN_NODE\", \"REOPEN_GATEWAY\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-chain",
+  "rotation": 2,
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Someone should book the post-incident review room.\nSafety Auditor: I'd add cycle the settlement engine to the plan for this one.\nOperations Lead: The status page is already showing a partial outage.\nSafety Auditor: The on-call rota rolled over at 06:00 this morning.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PROBE_LATENCY  SNAPSHOT_STORE  REOPEN_GATEWAY  SHIFT_ROUTING  CYCLE_ENGINE  DRAIN_NODE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"PROBE_LATENCY\", \"SHIFT_ROUTING\", \"CYCLE_ENGINE\", \"REOPEN_GATEWAY\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-chain",
+  "rotation": 3,
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Let's make sure we snapshot the store before we call this done.\nSafety Auditor: Agreed, keep that in.\nOperations Lead: The status page is already showing a partial outage.\nSafety Auditor: Finance asked for a written summary by end of week.\nOperations Lead: The on-call rota rolled over at 06:00 this morning.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PROBE_LATENCY  SNAPSHOT_STORE  REOPEN_GATEWAY  SHIFT_ROUTING  CYCLE_ENGINE  DRAIN_NODE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"DRAIN_NODE\", \"CYCLE_ENGINE\", \"SHIFT_ROUTING\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-fork",
+  "rotation": 0,
+  "prompt": "DISCUSSION\n----------\nOperations Lead: The status page is already showing a partial outage.\nSafety Auditor: I'd add reopen the gateway to the plan for this one.\nOperations Lead: Agreed, keep that in.\nSafety Auditor: Someone should book the post-incident review room.\nOperations Lead: Let's make sure we snapshot the store before we call this done.\nSafety Auditor: Let's not; that one is not needed here.\nOperations Lead: Finance asked for a written summary by end of week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  DRAIN_NODE  SHIFT_ROUTING  SNAPSHOT_STORE  PROBE_LATENCY  REOPEN_GATEWAY  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"DRAIN_NODE\", \"SHIFT_ROUTING\", \"PROBE_LATENCY\", \"REOPEN_GATEWAY\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-fork",
+  "rotation": 1,
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Let's make sure we snapshot the store before we call this done.\nSafety Auditor: The on-call rota rolled over at 06:00 this morning.\nOperations Lead: I'd add reopen the gateway to the plan for this one.\nSafety Auditor: No -- leave that out this time.\nOperations Lead: Someone should book the post-incident review room.\nSafety Auditor: Finance asked for a written summary by end of week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  DRAIN_NODE  SHIFT_ROUTING  SNAPSHOT_STORE  PROBE_LATENCY  REOPEN_GATEWAY  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"DRAIN_NODE\", \"PROBE_LATENCY\", \"CYCLE_ENGINE\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-fork",
+  "rotation": 2,
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Finance asked for a written summary by end of week.\nSafety Auditor: I'd add reopen the gateway to the plan for this one.\nOperations Lead: Someone should book the post-incident review room.\nSafety Auditor: The status page is already showing a partial outage.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  DRAIN_NODE  SHIFT_ROUTING  SNAPSHOT_STORE  PROBE_LATENCY  REOPEN_GATEWAY  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"PROBE_LATENCY\", \"SHIFT_ROUTING\", \"SNAPSHOT_STORE\", \"REOPEN_GATEWAY\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-fork",
+  "rotation": 3,
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Let's make sure we snapshot the store before we call this done.\nSafety Auditor: Agreed, keep that in.\nOperations Lead: Finance asked for a written summary by end of week.\nSafety Auditor: The status page is already showing a partial outage.\nOperations Lead: The on-call rota rolled over at 06:00 this morning.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  DRAIN_NODE  SHIFT_ROUTING  SNAPSHOT_STORE  PROBE_LATENCY  REOPEN_GATEWAY  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"PROBE_LATENCY\", \"SHIFT_ROUTING\", \"REOPEN_GATEWAY\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-join",
+  "rotation": 0,
+  "prompt": "DISCUSSION\n----------\nOperations Lead: I'd add snapshot the store to the plan for this one.\nSafety Auditor: The status page is already showing a partial outage.\nOperations Lead: The on-call rota rolled over at 06:00 this morning.\nSafety Auditor: Let's make sure we shift routing to the spare region before we call this done.\nOperations Lead: No, drop that one -- it is not needed for this case.\nSafety Auditor: I'd add cycle the settlement engine to the plan for this one.\nOperations Lead: Agreed, keep that in.\nSafety Auditor: Someone should book the post-incident review room.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SHIFT_ROUTING  REOPEN_GATEWAY  DRAIN_NODE  PROBE_LATENCY  SNAPSHOT_STORE  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"CYCLE_ENGINE\", \"PROBE_LATENCY\", \"DRAIN_NODE\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-join",
+  "rotation": 1,
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Let's make sure we shift routing to the spare region before we call this done.\nSafety Auditor: Finance asked for a written summary by end of week.\nOperations Lead: I'd add cycle the settlement engine to the plan for this one.\nSafety Auditor: Let's not; that one is not needed here.\nOperations Lead: The on-call rota rolled over at 06:00 this morning.\nSafety Auditor: The status page is already showing a partial outage.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SHIFT_ROUTING  REOPEN_GATEWAY  DRAIN_NODE  PROBE_LATENCY  SNAPSHOT_STORE  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SHIFT_ROUTING\", \"SNAPSHOT_STORE\", \"PROBE_LATENCY\", \"REOPEN_GATEWAY\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-join",
+  "rotation": 2,
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Someone should book the post-incident review room.\nSafety Auditor: I'd add cycle the settlement engine to the plan for this one.\nOperations Lead: The on-call rota rolled over at 06:00 this morning.\nSafety Auditor: I'd add snapshot the store to the plan for this one.\nOperations Lead: Yes, that one stays on the list.\nSafety Auditor: The status page is already showing a partial outage.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SHIFT_ROUTING  REOPEN_GATEWAY  DRAIN_NODE  PROBE_LATENCY  SNAPSHOT_STORE  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SHIFT_ROUTING\", \"PROBE_LATENCY\", \"CYCLE_ENGINE\", \"SNAPSHOT_STORE\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-join",
+  "rotation": 3,
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Someone should book the post-incident review room.\nSafety Auditor: The on-call rota rolled over at 06:00 this morning.\nOperations Lead: Let's make sure we shift routing to the spare region before we call this done.\nSafety Auditor: Agreed, keep that in.\nOperations Lead: I'd add snapshot the store to the plan for this one.\nSafety Auditor: Let's not; that one is not needed here.\nOperations Lead: The status page is already showing a partial outage.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SHIFT_ROUTING  REOPEN_GATEWAY  DRAIN_NODE  PROBE_LATENCY  SNAPSHOT_STORE  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SHIFT_ROUTING\", \"REOPEN_GATEWAY\", \"DRAIN_NODE\", \"PROBE_LATENCY\"], \"ready\": true}"
+ }
+]

@@ -282,3 +282,24 @@ fresh adversarial web-search gate on the bounding result itself.
 
 `results/e17_{gemma4-e4b,aya-expanse-8b}_v6_pin4_o*.csv/.json` plus the four
 cells already held.
+
+### E18-B addendum — `qwen3:14b` NOT COMPLETED
+
+The declared design named `qwen3:14b` as a sixth family. It was attempted and
+**abandoned**, and the cell is reported as not run.
+
+A 12-dialogue pilot parsed cleanly (parse 1.000, mean |plan| 4.00) and gave
+`rejected` **0.000 over 7 units** — suggestive against `qwen2.5:14b-instruct`'s
+0.135 at the same scale, and interesting because `qwen3:14b` is a reasoning
+model. **n = 7 is far too small to report and nothing is concluded from it.**
+
+The arm was abandoned on cost, not on results: `qwen3:14b` runs at ~36 s per
+dialogue (~86 minutes for a full arm) with high variance — a 12-dialogue chunk
+that took 7m11s on one attempt exceeded the 10-minute harness limit on the
+next. Completing it would have taken roughly a dozen sequential foreground
+runs for a cell that cannot change the E18-B verdict, which the 3–4B band had
+already determined.
+
+The reasoning-vs-non-reasoning comparison at fixed scale is a genuinely
+separate question and would need its own declaration, its own gate, and a
+runner that tolerates long generations.
