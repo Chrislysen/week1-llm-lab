@@ -101,4 +101,73 @@ Reuses `e16_zombie_screen.py` (free) and `e17_menu_law.py` (pin4). Outputs
 
 ## Outcome
 
-*Pending. Zero E18 calls at the time of this commit.*
+**Run 2026-09-06. Verdict: REPLICATES.** Revocation inertia falls monotonically
+with scale in the length-controlled ladder, and the 3B–14B gap is far above the
+declared 0.10 threshold. Parse rate 1.000 in all six cells; `pin4` mean |plan|
+exactly 4.00 in all three.
+
+### The two ladders, \|vocab\| = 6, qwen2.5 family
+
+| arm | size | mean \|plan\| | **`rejected`** | 95 % CI | `never` | `accepted` |
+|---|---|---|---|---|---|---|
+| `free` | 3B | 3.59 | **0.438** | [0.333, 0.543] | 0.510 | 0.979 |
+| `free` | 7B | 2.28 | **0.062** | [0.020, 0.112] | 0.229 | 0.969 |
+| `free` | 14B | 2.71 | **0.062** | [0.021, 0.108] | 0.385 | 1.000 |
+| `pin4` | 3B | 4.00 | **0.542** | [0.421, 0.656] | 0.573 | 0.969 |
+| `pin4` | 7B | 4.00 | **0.250** | [0.162, 0.341] | 0.573 | 0.990 |
+| `pin4` | 14B | 4.00 | **0.135** | [0.074, 0.200] | 0.656 | 1.000 |
+
+### Read rule applied
+
+`pin4` ladder: **0.542 → 0.250 → 0.135**, monotone decreasing, 3B–14B gap
+**0.407** ≥ 0.10 → **REPLICATES**. The 3B–7B separation is clean (CIs
+disjoint); the 7B–14B separation is suggestive only (CIs overlap on
+[0.162, 0.200]) and is not claimed as established.
+
+The `free` ladder agrees in direction — 0.438 → 0.062 → 0.062 — but **7B and
+14B are tied at floor**.
+
+### The two ladders agree in direction and differ in resolution
+
+This is worth recording because the study was designed to catch exactly this.
+Under free length the two larger models are indistinguishable at 0.062: the
+naive comparison hits a floor and loses the gradient. Pinning plan length at 4
+forces each model to commit four identifiers and **separates them, 0.250 vs
+0.135**.
+
+The confound the design was built against is visible in the `free` column:
+mean |plan| is **3.59 / 2.28 / 2.71**, *non-monotonic* in scale, and the `free`
+`never` rate tracks it (0.510 / 0.229 / 0.385) rather than tracking scale —
+exactly the menu-chance behaviour E17 documented. With |plan| pinned, `never`
+flattens to 0.573 / 0.573 / 0.656. So the length confound is real and
+measurable on this instrument; here it did not reverse the scale conclusion,
+but it did erase the 7B–14B difference.
+
+### The effect is specific to revocation, not general inclusion
+
+`never` is **identical at 0.573 for 3B and 7B** under `pin4` while `rejected`
+more than halves (0.542 → 0.250). Whatever changes with scale is not a
+general shift in how much the model puts in a plan; it is specific to a
+constraint that was explicitly rejected. That is the control the claim needs,
+and it holds.
+
+### What this does and does not show
+
+It supports the *direction* of arXiv:2608.12599's scale finding — "stronger
+models sit at floor" — on an independent instrument, an independent corpus and
+a different operationalisation, with plan length controlled.
+
+It does **not** test that paper's constraint-load half, which this corpus
+cannot vary. It is three scales in one family on one corpus; the 7B–14B step
+is not established. And it asserts **no novelty whatsoever**: the hypothesis is
+someone else's, published, and was the paper that retired S-O. The contribution
+is the replication and the length control, nothing more.
+
+S-O stays retired.
+
+### Files
+
+`results/e16_qwen25-7b-instruct_full_o0.csv/.json`,
+`results/e17_qwen25-7b-instruct_v6_pin4_o0.csv/.json`,
+`results/e17_qwen25-14b-instruct_v6_pin4_o{0,72}.csv/.json`. The 3B and 14B
+`free` cells are E16 stage 1, unmodified; the 3B `pin4` cell is E17.
