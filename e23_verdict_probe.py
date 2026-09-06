@@ -30,7 +30,9 @@ GroupKFold by instance (36 groups), so no dialogue from a training instance
 appears in test. AUROC per layer; the reported figure is the best layer.
 """
 import argparse
+import glob
 import json
+import os
 
 import numpy as np
 import torch
@@ -39,7 +41,7 @@ from sklearn.metrics import roc_auc_score
 from sklearn.model_selection import GroupKFold
 from sklearn.preprocessing import StandardScaler
 
-from e20_heads import load
+from transformers import AutoModelForCausalLM, AutoTokenizer
 from e21_circuit_identity import PREFIX, unit_prompt
 from lineage_e16 import all_dialogues, corpus_hash
 
@@ -82,12 +84,41 @@ def probe(X, y, g, a, b):
     return out
 
 
-def main(model_id):
+def load2(model_id, gpu_gb):
+    tok = AutoTokenizer.from_pretrained(model_id)
+    kw = dict(dtype=torch.bfloat16, low_cpu_mem_usage=True)
+    if gpu_gb:
+        kw.update(device_map="auto", max_memory={0: f"{gpu_gb}GiB", "cpu": "48GiB"})
+    else:
+        kw.update(device_map="cuda")
+    return tok, AutoModelForCausalLM.from_pretrained(model_id, **kw).eval()
+
+
+def main(model_id, limit=None, offset=0, gpu_gb=None):
     assert corpus_hash() == HASH
-    tok, model = load(model_id)
-    ds = all_dialogues()
-    print(f"=== E23 {model_id} | extracting {sum(len(d['units']) for d in ds)} units ===")
-    X, y, g = extract(model, tok, ds)
+    tag = model_id.split("/")[-1]
+    ds_all = all_dialogues()
+    if limit is not None:
+        tok, model = load2(model_id, gpu_gb)
+        sub = ds_all[offset:offset + limit]
+        print(f"=== E23 {model_id} | chunk o{offset} n={len(sub)} ===")
+        Xc, yc, gc = extract(model, tok, sub)
+        np.savez(f"results/e23_act_{tag}_o{offset}.npz", X=Xc, y=yc, g=gc)
+        print(f"  saved chunk {Xc.shape}")
+        return
+    parts = sorted(glob.glob(f"results/e23_act_{tag}_o*.npz"))
+    if parts:
+        Xs, ys, gs = [], [], []
+        for f in parts:
+            dd = np.load(f, allow_pickle=True)
+            Xs.append(dd["X"]); ys.append(dd["y"]); gs.append(dd["g"])
+        X, y, g = np.concatenate(Xs), np.concatenate(ys), np.concatenate(gs)
+        print(f"=== E23 {model_id} | {len(parts)} cached chunks, {X.shape[0]} units ===")
+    else:
+        tok, model = load2(model_id, gpu_gb)
+        print(f"=== E23 {model_id} | extracting "
+              f"{sum(len(d['units']) for d in ds_all)} units ===")
+        X, y, g = extract(model, tok, ds_all)
     print(f"  activations {X.shape}  (units, layers, hidden)\n")
     res = {}
     for a, b in PAIRS:
@@ -106,5 +137,8 @@ def main(model_id):
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", default="Qwen/Qwen2.5-0.5B-Instruct")
+    ap.add_argument("--limit", type=int, default=None)
+    ap.add_argument("--offset", type=int, default=0)
+    ap.add_argument("--gpu-gb", type=float, default=None)
     a = ap.parse_args()
-    main(a.model)
+    main(a.model, a.limit, a.offset, a.gpu_gb)

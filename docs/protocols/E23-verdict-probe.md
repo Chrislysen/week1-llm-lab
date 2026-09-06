@@ -210,4 +210,91 @@ The reply-template surface confound from E23 applies unchanged.
 
 ## E23-B Outcome
 
-*Pending. Zero E23-B runs at the time of this commit.*
+**Run 2026-09-06. Verdict: CORRESPONDENCE FAILS. Two models show a genuine
+knowledge-action gap, and E23's conclusion is corrected.**
+
+| model | **verdict AUROC** (rej vs prop) | presence AUROC (rej vs never) | **behavioural verdict effect** | gap? |
+|---|---|---|---|---|
+| Qwen2.5-0.5B-Instruct | 0.6393 | 0.9978 | +0.069 | — |
+| Qwen3.5-0.8B | **0.8630** | 0.9992 | **−0.058** | **YES** |
+| Qwen2.5-1.5B-Instruct | **0.9353** | 1.0000 | **+0.121** | **YES** |
+| Qwen3.5-4B | 0.9998 | 1.0000 | +0.652 | — |
+
+Gap = probe AUROC ≥ 0.85 with behavioural verdict effect < 0.15 nats, as
+declared. Spearman(AUROC, behaviour) = 0.800, p = 0.200 on n = 4 — the HOLDS
+branch is not reached and would not have been convincing at this n anyway; the
+**FAILS** branch fires on the gap models and does not depend on Spearman.
+
+### The correction to E23
+
+E23 concluded, from two models, that the verdict is *barely represented* rather
+than *present but unread*, and drew the practical inference that decoding-time
+repair should not be expected to work. **With the curve filled in, that is
+wrong.** It was an artefact of having sampled only the two endpoints: 0.5B
+(low AUROC, low behaviour) and 4B (high, high). The two intermediate models
+sit exactly where E23 assumed nothing was.
+
+### What the four models actually show
+
+**Presence is fully represented at every scale** — AUROC 0.998, 0.999, 1.000,
+1.000. It never varies. Whatever changes with scale, it is not whether the
+model encodes that an action was mentioned.
+
+**Verdict representation saturates far earlier than verdict behaviour:**
+
+    verdict AUROC    0.639  ->  0.863  ->  0.935  ->  0.9998
+    behaviour (nats) +0.069 -> -0.058  -> +0.121  -> +0.652
+
+By 1.5B the verdict is **93.5 % decodable** while the output distribution moves
+it only **+0.121 nats**. Qwen3.5-0.8B is starker: **86.3 % decodable** with a
+behavioural effect of **−0.058** — the information is there and the output
+does not use it at all.
+
+**So there is a scale window in which the verdict is present and unread.** That
+is a knowledge-action gap of exactly the kind arXiv:2603.18353 reports in
+clinical triage (98.2 % AUROC against 45.1 % output sensitivity), now observed
+for dialogue verdicts, and located: it opens once representation saturates and
+closes when behaviour catches up.
+
+### Why this matters for arXiv:2608.23651
+
+That paper tests models of **135M–1.7B** and finds "the failed call's surface
+form accounts for 83 % of the damage, while the semantic contribution of marking
+it failed is small". **Its entire range sits inside the gap window measured
+here.** Its finding is about *behaviour*, and the natural reading — that the
+semantics are not computed — is the reading E23 initially took and E23-B
+overturns. On this instrument the semantics *are* computed in that range; they
+are not used.
+
+That reverses the practical prediction. **Decoding-time or steering repair is
+worth trying in the 0.8B–1.5B window**, because the verdict is 86–94 %
+linearly decodable while the output ignores it. E23's opposite prediction is
+withdrawn.
+
+### Limits
+
+Four models, two families, one corpus, one probe site; no 7B point, so the
+Qwen2.5 ladder has two points rather than three and the declared within-family
+check is weaker than intended. Extraction for Qwen2.5-7B-Instruct segfaulted at
+a 13 GiB cap and ran at 9 GiB but at roughly 12 s per unit — about a dozen
+sequential foreground runs — and was abandoned on cost once the FAILS branch was
+already determined by two models.
+
+The **reply-template surface confound declared in E23 still applies and is now
+more pressing**, because the claim rests on high AUROC: the probe may be reading
+the differing wording of acceptance and rejection replies rather than a verdict
+representation. Against that, presence AUROC is ~1.0 in every model while
+verdict AUROC varies from 0.64 to 1.00, so the probe is not simply reading
+"something differs in context" — but a template-driven account is not excluded
+and would need a paraphrase-matched corpus to rule out.
+
+Spearman on n = 4 is not evidence. The gap classification depends on thresholds
+I chose in advance; both gap models sit clearly inside them, but 0.8630 is near
+the 0.85 line.
+
+**No novelty is asserted.** A-1 remains SURROUNDED. What this adds is a located
+mechanism and a reversed practical prediction for a two-week-old paper.
+
+### Files
+
+`results/e23_probe_{Qwen2.5-0.5B-Instruct,Qwen3.5-0.8B,Qwen2.5-1.5B-Instruct,Qwen3.5-4B}.json`.
