@@ -295,4 +295,76 @@ correct, and none of the three is argued to be.
 
 ## E19-B Outcome
 
-*Pending. Zero E19-B passes at the time of this commit.*
+**Run 2026-09-06. Verdict: MEASURE-DEPENDENCE IS SPECIFIC — the declared
+outcome that WEAKENS E19. Five models, two families, 1 440 scoring passes.**
+
+Validity check passed: re-scoring reproduced E19's recorded values exactly
+(0.5B +3.3678, 1.5B +2.9617, 7B +3.5838).
+
+| ladder | size | M1 raw *(the paper's)* | M2 headroom | M3 linear |
+|---|---|---|---|---|
+| Qwen2.5 | 0.5B | +3.3678 [+3.177,+3.552] | 0.7737 [0.758,0.788] | +0.4988 [+0.471,+0.524] |
+| Qwen2.5 | 1.5B | +2.9617 [+2.761,+3.158] | 0.6699 [0.652,0.687] | +0.4232 [+0.396,+0.450] |
+| Qwen2.5 | 7B | **+3.5838** [+3.361,+3.795] | 0.4806 [0.463,0.497] | +0.3385 [+0.320,+0.357] |
+| Qwen3.5 | 0.8B | +3.3965 [+3.189,+3.602] | 0.7675 [0.754,0.780] | +0.5291 [+0.504,+0.554] |
+| Qwen3.5 | 4B | +3.1260 [+2.969,+3.272] | 0.5910 [0.574,0.606] | +0.4898 [+0.467,+0.512] |
+
+### Read rule applied
+
+In the Qwen3.5 ladder all three measures move the **same** way with size —
+M1 −0.271, M2 −0.176, M3 −0.039, all DOWN. The rule required at least two
+measures to disagree in sign for the dependence to generalise. They agree.
+**MEASURE-DEPENDENCE IS SPECIFIC to the Qwen2.5 ladder.**
+
+### This substantially weakens E19, and that is the finding
+
+Across the five measure × ladder combinations, **four replicate the scale
+claim**:
+
+| | M1 raw | M2 headroom | M3 linear |
+|---|---|---|---|
+| Qwen2.5 (3 points) | **not monotone** | monotone ↓ | monotone ↓ |
+| Qwen3.5 (2 points) | ↓ | ↓ | ↓ |
+
+The single failure is **M1 in the Qwen2.5 ladder**, and it is produced by one
+model: Qwen2.5-7B-Instruct, whose baseline is far lower than the rest
+(`absent` −7.30 against −4.30 / −4.32 / −4.37 / −5.23). A raw log difference
+grows when the baseline falls, so that one model inflates M1 and nothing else.
+
+**E19's headline verdict — "SCALE FAILS" — therefore stands only on the
+paper's own measure, in one ladder, on the strength of one model's baseline.**
+It was reported as a bounding rather than a refutation, which was right, but
+E19-B shows it is narrower still: **arXiv:2606.24077's scale claim replicates
+on this instrument** under two of three measures in one family and all three in
+the other.
+
+The claim in the E19 post-hoc section — that "the direction of the answer is
+not determined by the data alone" — is **withdrawn as stated**. It is true of
+M1 versus M2 on the Qwen2.5 ladder and false everywhere else tested. What
+survives is much smaller and purely methodological:
+
+> A raw per-token log-probability difference is fragile to baseline shifts
+> between models. Where one model assigns much lower probability to the target
+> in both conditions, its raw Δ is inflated, and a scale comparison built on
+> raw Δ can inherit that inflation. Two of the three measures here are immune
+> to it and both agree with the published direction.
+
+### What survives from E19 and E19-B together
+
+- **Contextual entrainment exists, decisively** — mean Δ > 0 with CIs excluding
+  zero in **all five models**, positive in **144/144 dialogues in every one**.
+  arXiv:2606.24077's existence claim replicates without qualification here.
+- **Its scale claim also replicates**, under every measure except the one
+  fragile case above.
+- **No novelty.** The attempt to find a measure-dependence result did not
+  survive its own follow-up. This is recorded as a closed line.
+
+### Limits
+
+Two families, five models, one corpus, one high-overlap regime, three measures.
+Qwen3.5 has two points and supports a sign only — no monotone trend is claimed
+from it. The attention-head claim remains untested.
+
+### Files
+
+`results/e19_{Qwen2.5-0.5B-Instruct,Qwen2.5-1.5B-Instruct,Qwen2.5-7B-Instruct,Qwen3.5-0.8B,Qwen3.5-4B}_o0.csv`.
