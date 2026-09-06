@@ -653,3 +653,54 @@ basis; if it does not, the whole line dies and that is recorded.
 
 **No candidate is preregistered. No claim exists. Zero model calls were made
 for this gate.**
+
+
+---
+
+# META-SCIENCE CANDIDATE M-1 — GATED 2026-09-06 — PRE-EMPTED
+
+After the behavioural space (8 candidates) and the measurement space (3) both
+closed, one asset remained that is not about language models at all: **this
+repository has measured data about its own novelty search.** The same
+candidates went through two gate configurations, and the API-only gate
+returned **2/2 false OPEN** verdicts that web search overturned within a day,
+while a citation audit of eight of its sources found its *identifiers and
+substance largely sound*. That is a dissociation between retrieval competence
+and novelty judgment.
+
+**Claim (M-1).** An LLM-run prior-art gate without web search produces false
+OPEN verdicts at high rate while its citation retrieval stays sound.
+
+**Verdict: PRE-EMPTED on the headline.**
+
+- **arXiv:2606.12071** — *On the Limits of LLM-as-Judge for Scientific Novelty
+  Assessment* (Sinhahajari, Majumder, Poria, 10 Jun 2026). "LLM judges
+  consistently rate model-generated RQs as highly novel, producing a **novelty
+  mirage**; in comparative evaluations, this preference becomes even stronger.
+  Domain experts, however, reach the opposite conclusion." LLM novelty
+  judgments producing false-novel verdicts is exactly this, published.
+- The **AI-Scientist critique line** already documents the mechanism: novelty
+  is checked by querying the Semantic Scholar API for up to 10 keyword-matched
+  results, and **"if such a decision is not reached, the idea is automatically
+  considered novel"** — a documented default-to-novel failure. See
+  arXiv:2502.14297 (evaluation of Sakana's AI Scientist), arXiv:2506.22026
+  (*Literature-Grounded Novelty Assessment of Scientific Ideas*), and
+  arXiv:2503.01508, whose Relative Neighbor Density algorithm is proposed
+  because it is "more reliable than LLM-based judgments".
+
+**The residue, and why it is not claimable here.** arXiv:2606.12071 does *not*
+run a with/without-retrieval ablation, and does not separate retrieval quality
+from judgment quality. That specific dissociation was not found in this pass.
+But this repository cannot claim it either: the evidence is **two candidates,
+re-gated days apart, under different budgets, by different processes, with no
+control and no ground-truth set.** That is an anecdote, not an ablation. A real
+version would need a labelled candidate set with known publication status and a
+controlled tool-access manipulation — a different project.
+
+## Standing after M-1
+
+**Twelve candidates gated, twelve closed.** Eight behavioural (E16-A–D, S-A,
+S-B, S-L, plus S-O and S-E retired after screening), three measurement
+(N-1/N-2/N-3), one meta-science (M-1). Every one had every component published.
+
+Zero model calls were made for this gate.
