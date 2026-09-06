@@ -96,3 +96,17 @@ def test_every_arm_lists_all_its_identifiers():
                 text = plan_instruction(vocabulary(i, n), L)
                 for a in vocabulary(i, n):
                     assert a in text
+
+
+def test_reused_free_cells_are_prompt_identical_across_studies():
+    """E17's reader does not re-run free/6 and free/12; it reads them from
+    E16 stage 1 and the E16 menu diagnostic's wide arm. That is only valid if
+    the three modules build the same instruction for those cells."""
+    from e16_menu_diagnostic import menu_plan_instruction
+    from e16_menu_diagnostic import vocabulary as v16
+    for i in INSTANCES:
+        assert (plan_instruction(vocabulary(i, 6), "free")
+                == menu_plan_instruction(i, v16(i, "base"))
+                == lineage_bench.plan_instruction(i))
+        assert (plan_instruction(vocabulary(i, 12), "free")
+                == menu_plan_instruction(i, v16(i, "wide")))
