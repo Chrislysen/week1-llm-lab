@@ -248,7 +248,9 @@ treatment) and the `never` action's own inclusion is a component of \|plan\|;
 conditioning on it is post-treatment conditioning on a collider and will
 manufacture an effect in either direction. The only clean fix pins plan length
 **in the instruction** ("exactly N actions"), which is a different instrument
-and needs its own declaration. The `narrow` arm is degenerate by construction (\|plan\| is
+and needs its own declaration.
+
+The `narrow` arm is degenerate by construction (\|plan\| is
 capped by \|vocab\|) and carries a direction only. The post-hoc relation is
 fitted to six points from two models and must not be quoted as a law. No
 claim about models, about zombie constraints, or about retrieval follows.
