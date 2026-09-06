@@ -843,3 +843,51 @@ straightforward there, which is arXiv:2606.24077's actual measure.
 
 The claim in the L-1 commit message stands corrected: it is the *HF runtime*,
 not ollama's logprobs, that unblocks it.
+
+---
+
+# CIRCUIT CANDIDATE H-1 — GATED 2026-09-06 — SURROUNDED (run anyway, as E21)
+
+E20 causally confirmed that ~3 % of attention heads carry contextual
+entrainment in Qwen2.5-0.5B. That infrastructure makes a new question cheap:
+
+**Claim (H-1).** The heads carrying contextual entrainment are the *same* heads
+carrying a rejected constraint's persistence. Ablating the entrainment set
+should reduce revocation inertia while leaving obedience to accepted
+constraints intact.
+
+**Verdict: SURROUNDED**, on the bar that closed the previous fifteen.
+
+- **arXiv:2506.13734** (PASTA, *Instruction Following by Principled Boosting
+  Attention*) already selects a **subset of heads** and reweights attention away
+  from tokens outside the instruction span, framing instruction-following as
+  "rule-based competition between instruction rules and context-derived rules,
+  with attention mediating which rules dominate" — head-level intervention that
+  makes it harder for context to override an instruction.
+- Head-intervention work already reports the selective signature this test
+  would look for: interventions that "reduce harmful compliance while leaving
+  benign behavior near baseline".
+- **arXiv:2606.29960** (IHDec) covers multi-turn instruction hierarchies
+  mechanistically, naming *Role-Influence Inversion* — later, lower-priority
+  turns overriding superior directives through recency bias.
+- Copy-suppression (arXiv:2310.04625) and induction/repetition-head control
+  (arXiv:2507.07810) supply the circuit vocabulary.
+
+Every component is published: entrainment heads (2606.24077, replicated here as
+E20), head-ablation-improves-instruction-adherence (2506.13734), and revocation
+inertia (2608.12599, replicated here as E18). **The combination is unrun, which
+is not novelty by this repository's standard.**
+
+**It is run anyway, as E21**, because the *identity* question — are two
+separately-identified circuits the same circuit? — is a distinct empirical
+claim rather than a conjunction, it is causal, it costs about twenty minutes on
+infrastructure already validated, and **either answer is informative**: shared
+circuit, or a dissociation. It is declared and read as a mechanistic result on
+a fresh instrument, **not as a breakthrough**, and the gate verdict above
+stands regardless of how it comes out.
+
+## Standing after H-1
+
+**Sixteen candidates gated, sixteen closed**, across seven framings:
+behavioural (8), measurement (3), meta-science (1), bounding (1),
+latent/mechanistic (1), circuit-identity (1). Zero model calls for this gate.
