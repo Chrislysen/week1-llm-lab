@@ -338,4 +338,70 @@ the point of running it.
 
 ## E23-C Outcome
 
-*Pending. Zero E23-C runs at the time of this commit.*
+**Run 2026-09-06. Verdict: ACTION-BOUND. E23-B's result survives its own
+strongest control.**
+
+`rejected vs proposed`, best layer selected exactly as in E23:
+
+| model | grouped-CV AUROC | **within-dialogue paired** | 95 % CI | behavioural effect | gap? |
+|---|---|---|---|---|---|
+| Qwen2.5-0.5B-Instruct | 0.6393 | 0.600 (36/60) | [0.474, 0.714] | +0.069 | — |
+| Qwen3.5-0.8B | 0.8630 | **0.800** (48/60) | [0.682, 0.882] | −0.058 | **GAP** |
+| Qwen2.5-1.5B-Instruct | 0.9353 | **0.883** (53/60) | [0.778, 0.942] | +0.121 | **GAP** |
+| Qwen3.5-4B | 0.9998 | **1.000** (60/60) | [0.940, 1.000] | +0.652 | — |
+
+`rejected vs accepted` gives 0.533 / 0.900 / 0.900 / 1.000 on the same measure.
+
+### Read rule applied
+
+Both gap models exceed the 0.70 threshold with CIs excluding 0.50 —
+**ACTION-BOUND**. The context-artefact branch does not fire, so E23-B's located
+knowledge-action gap stands and its reversed practical prediction is **not**
+withdrawn.
+
+### Why this control is strong
+
+In these 60 dialogues the context is **byte-identical** for the two compared
+units. Both an acceptance-shaped and a rejection-shaped reply are present in
+every one of them. The only thing that differs is which action identifier the
+activation is taken at. A probe reading template surface features, reply
+wording, or "there is a rejection in this dialogue" scores chance here by
+construction. Qwen2.5-1.5B scores **0.883**.
+
+### The 0.5B is a natural negative control, and it behaves like one
+
+Its AUROC was the weakest (0.639) and its paired accuracy is **0.600 with a CI
+that includes chance** — and on `rejected vs accepted`, 0.533, squarely at
+chance. So the small model's weak verdict AUROC is genuinely weak *binding*,
+not a strong representation that the probe failed to reach. That is the reading
+E23 originally wanted and could not justify, now supported by a control it did
+not have.
+
+### The picture across all four models
+
+    verdict AUROC        0.639   0.863   0.935   1.000
+    action-bound paired  0.600   0.800   0.883   1.000
+    behaviour (nats)    +0.069  -0.058  +0.121  +0.652
+
+Representation and **binding** rise together and saturate early. Behaviour does
+not follow until 4B. The gap between what is bound and what is used is widest
+at 0.8B–1.5B, where the verdict is 80–88 % action-bound and the output moves by
+−0.058 to +0.121 nats.
+
+### What remains unaddressed
+
+The control rules out context-level and template-level artefacts. It does **not**
+rule out that the binding is carried by *position* — the rejection reply sits
+adjacent to its proposal, so a probe could bind by proximity rather than by
+verdict content. Distinguishing those needs a corpus with non-adjacent replies,
+which E16 deliberately does not have (its replies always immediately follow
+their proposal, by design, so that stage-2 retrieval could orphan them).
+
+Still four models, two families, one corpus, one probe site. Best-layer
+selection remains a multiple comparison. No 7B point.
+
+**No novelty is asserted.** A-1 remains SURROUNDED.
+
+### Files
+
+`results/e23c_binding_{Qwen2.5-0.5B-Instruct,Qwen3.5-0.8B,Qwen2.5-1.5B-Instruct,Qwen3.5-4B}.json`.
