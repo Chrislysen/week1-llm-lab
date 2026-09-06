@@ -704,3 +704,52 @@ S-B, S-L, plus S-O and S-E retired after screening), three measurement
 (N-1/N-2/N-3), one meta-science (M-1). Every one had every component published.
 
 Zero model calls were made for this gate.
+
+---
+
+# BOUNDING CANDIDATE B-1 — GATED 2026-09-06 — PRE-EMPTED
+
+E18-B produced a clean result: with plan length pinned, between-family spread
+in revocation inertia at 3–4B (**0.448**) exceeds the qwen within-family
+3B→14B spread (**0.407**), and `gemma4:e4b` — the smallest model tested — has
+the lowest relapse of all six, below `qwen2.5:14b-instruct`. Gated before any
+claim.
+
+**Claim (B-1).** Capability is not the controlling variable for revocation
+inertia: between-family variation at fixed scale exceeds within-family
+variation across a 4.7× parameter range, so capability-ordered rules
+("stronger models sit at floor") do not generalise across families.
+
+**Verdict: PRE-EMPTED.**
+
+- **arXiv:2608.17183** (*Benchmarking the Benchmarks*, 26 open-source SLMs):
+  "performance does not follow a consistent trend with model size. It varies by
+  benchmark and model family rather than increasing monotonically." It also
+  documents **inverse scaling within families** — ShieldGemma-2B (62.4 %) over
+  ShieldGemma-9B (54.7 %), LlamaGuard-3-1B (59.9 %) over LlamaGuard-3-8B
+  (48.4 %).
+- Safety-guard benchmarking reports **Qwen Guard (4B)** at the highest recall
+  while **Llama Guard (12B)** and **GPT-OSS Safeguard (20B)** miss up to 75 % of
+  unsafe content, concluding **model size does not correlate with safety
+  detection performance** — the same "small model beats much larger model
+  across families" shape as the gemma-vs-qwen-14B result here.
+- Scaling-law work reports that **"model family dominates among fixed effects,
+  with gains substantially larger than those associated with a log-unit
+  increase in size"**, and **arXiv:2605.18732** finds systematic family offsets
+  from the cross-family trend (Llama above, Gemma and Qwen below).
+
+E18-B is a clean instance of a documented pattern, on a new instrument and a
+new behaviour. That is worth having as a **replication and boundary test** —
+which is exactly what E18/E18-B are declared as — and it is **not novelty**.
+
+## Standing after B-1
+
+**Thirteen candidates gated, thirteen closed.** Eight behavioural, three
+measurement, one meta-science, one bounding. Zero model calls were made for
+this gate.
+
+What the programme has produced that is real: two candidates retired on prior
+art, one screen completed as declared, an instrument characterised (E16
+diagnostic, E17), a published claim **replicated** with a length control (E18),
+and that claim **bounded** across families (E18-B). None of it is a discovery
+and none of it is presented as one.
