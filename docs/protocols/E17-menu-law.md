@@ -200,7 +200,27 @@ was chosen once and never varied — the exponent may itself depend on it.
 
 `results/e17_{qwen25-3b-instruct,llama32-3b}_v{6,12,24}_pin4_o0.csv/.json`.
 `free`/6 and `free`/12 are read from E16 stage 1 and the E16 menu diagnostic
-(prompt identity enforced by `test_e17_menu_law.py`). `free`/24 is running at
-the time of this commit and bears only on condition (a), which the E16
-diagnostic already established (|plan| rises 3.59 → 5.56 for qwen and
-4.25 → 6.71 for llama as |vocab| goes 6 → 12).
+(prompt identity enforced by `test_e17_menu_law.py`). `free`/24 is **PARTIAL (96 of 144 dialogues, qwen only)** and is reported as
+partial.
+
+### Condition (a), and an unplanned finding: the elasticity saturates
+
+| qwen2.5:3b-instruct, `free` | \|vocab\| 6 | 12 | 24 (96 dialogues) |
+|---|---|---|---|
+| mean \|plan\| | 3.59 | 5.56 | **5.75** |
+| growth | — | **+55 %** | **+3 %** |
+| chance | 0.598 | 0.463 | 0.240 |
+| `never` | 0.510 | 0.469 | 0.250 |
+
+Condition (a) holds — \|plan\| rises monotonically — but **it saturates**. The
+plan lengthens sharply when the menu goes 6 → 12 and then almost stops. That
+was not predicted and it cuts against the elasticity story at the top end: the
+endogeneity of \|plan\| is a mid-range effect, not an unbounded one. Recorded
+because it weakens the line, not because it helps it.
+
+Why `free`/24 is partial: at 24 identifiers the free-length cell generates very
+long outputs and three separate runs exceeded the harness's limits (the arm was
+reaped twice in the background and once in the foreground). Diagnostics show
+**zero validation retries in 256 parsed rows**, so the cost is generation
+length, not a retry loop. The cell bears only on condition (a), which the
+96 completed dialogues settle, so it was not pursued further.
