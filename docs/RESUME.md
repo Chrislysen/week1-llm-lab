@@ -1,5 +1,74 @@
 # RESUME — where the work stands, and exactly what to do next
 
+# CURRENT STATE — 2026-09-06 (late) — 13 candidates gated, 13 closed
+
+**No novelty was found.** Thirteen candidates went through the prior-art gate
+across two days — eight behavioural, three measurement, one meta-science, one
+bounding — and every one had every component already published. The search is
+recorded in `docs/E16-CANDIDATES.md` (two RE-GATE sections, an ADDENDUM, a
+CITATION AUDIT, and the N/M/B candidate gates).
+
+Frozen state intact throughout: `verify_claims.py` **167 / 0 / 4**, **135
+tests**, E16 corpus hash `70f136a47f5779c8`. Nothing frozen was touched.
+
+## What was actually produced, and it is real
+
+1. **S-O and S-E retired on prior art** (arXiv:2608.12599, arXiv:2607.05545).
+   Both had been rated OPEN by a gate that ran without web search.
+2. **E16 stage 1 completed as declared** — 432 calls, three deciders,
+   NOT PURSUED. Only qwen2.5:14b-instruct passes the gates.
+3. **The instrument characterised.** E16 menu diagnostic (UNINFORMATIVE by its
+   own rule) and **E17** (`docs/protocols/E17-menu-law.md`): with plan length
+   pinned, `never ∝ chance^0.60–0.65`; the E16 gate flips between 6 and 24
+   identifiers; the elasticity **saturates** (+55 % then +3 %). Verdict
+   AMBIGUOUS; closed as a novelty candidate because it is a classical IIA /
+   choice-set-size effect.
+4. **A published claim REPLICATED with a length control (E18).** Revocation
+   inertia falls with scale in qwen2.5: **0.542 → 0.250 → 0.135** (3B/7B/14B,
+   plan pinned at 4). Under free length 7B and 14B are tied at floor — the
+   naive comparison loses the gradient.
+5. **That claim BOUNDED across families (E18-B).** Six models, five families:
+   the 3–4B band spread (**0.448**) exceeds the within-family 3B→14B spread
+   (**0.407**), and **gemma4:e4b (~4B) has the lowest relapse of all six**,
+   below qwen2.5:14b. `never` stays flat (0.552–0.656) across every model, so
+   the difference is specific to rejection handling.
+
+Items 4 and 5 are the only positive results of the programme, and **both are
+someone else's hypothesis**. Neither is novel — B-1's gate found "family
+dominates scale" and "small model beats larger across families" established.
+
+## The reusable lessons
+
+- **A prior-art gate without web search is not a gate.** 2/2 candidates rated
+  OPEN by an API-only gate were killed by web search within a day. A citation
+  audit of eight of its sources found identifiers and substance largely sound —
+  the failure was in the **verdicts**, not the retrieval.
+- **This instrument's rates are set by the prompt's action menu.** Any
+  adherence rate it reports is roughly `0.9 × |plan| / |vocab|`, and both terms
+  are free parameters. Never compare rates across menu sizes; never set a
+  fixed-threshold gate without fixing both.
+- **Pin plan length before comparing models.** It is one added sentence,
+  compliance is ~100 %, and it changes conclusions: it separated 7B from 14B
+  where free length had them tied at floor.
+
+## Next — nothing is queued
+
+1. **The negative-results write-up** (`docs/RESEARCH-LEAD-2026-09-02.md`
+   §8–9). It now has substantially more material: 13 gated candidates, the
+   API-vs-web-search gate failure, the instrument characterisation, and a
+   replication with a length control.
+2. **More replication.** E18 worked because it inverted the novelty risk. Open
+   targets: arXiv:2608.12599's constraint-load half (needs a corpus that varies
+   load), arXiv:2606.24077's entrainment-decreases-with-size (needs logprobs,
+   which the current ollama client does not expose).
+3. **Stop.**
+
+Do not authorise anything on a no-web-search prior-art verdict. Do not compare
+adherence rates across different action-space sizes.
+
+---
+
+
 # CURRENT STATE — 2026-09-06 — reopening closed, nothing queued
 
 The 2026-09-03 reopening produced two candidates. **Both are now closed by
