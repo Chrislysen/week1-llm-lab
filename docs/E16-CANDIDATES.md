@@ -753,3 +753,66 @@ art, one screen completed as declared, an instrument characterised (E16
 diagnostic, E17), a published claim **replicated** with a length control (E18),
 and that claim **bounded** across families (E18-B). None of it is a discovery
 and none of it is presented as one.
+
+---
+
+# LATENT CANDIDATE L-1 — GATED 2026-09-06 — PRE-EMPTED
+
+After the behavioural, measurement, meta-science and bounding spaces all closed,
+the next structural move was to change the *level of measurement*: every
+candidate so far was behavioural, and so is the literature that killed them —
+arXiv:2608.12599 is explicitly "black-box LLM dialogues". Ollama 0.33.3 exposes
+`logprobs` / `top_logprobs`, so an open-weights white-box measure is available
+here that black-box work structurally cannot take.
+
+**Claim (L-1).** A constraint explicitly rejected in dialogue remains elevated
+in the model's output distribution relative to a never-mentioned constraint,
+even when it is correctly excluded from the plan — a latent/behavioural
+dissociation.
+
+**Feasibility: confirmed** before gating, and it is real. A single-token forced
+choice ("Does the plan need X? Answer Y or N") returns ~99.8 % of probability
+mass on Y/N tokens and discriminates by status on a first look
+(accepted P(Y) = 0.236 vs rejected 0.014 on one dialogue). Assistant-prefill
+plus `top_logprobs` also works, though first-token→identifier mapping is messy.
+**No study was run; the probe was exercised on two units and then stopped.**
+
+**Verdict: PRE-EMPTED.**
+
+- **arXiv:2606.08044** — *When Behavioral Safety Evaluation Fails: A
+  Representation-Level Perspective* (Jiang, Gjølbye, Zhang, Koyejo; 6 Jun 2026,
+  rev. 4 Aug). Constructs **dissociated models that pass all static behavioural
+  audits** while harmful compliance **remains encoded in representations** —
+  they name it the **audit gap**; bounded latent attacks elicit compliance on
+  54–86 % of prompts against 3–48 % for the bases. Tested on **Gemma 2 2B,
+  Llama 3.2 3B and Qwen 2.5 3B** — the exact scale class of this repository.
+  That is the latent/behavioural dissociation, published, at this scale.
+- **arXiv:2605.03052** — *How Language Models Process Negation* (Zhou, Zhou,
+  Jia, May; 4 May 2026, rev. 29 May). Mechanistic account on Mistral-7B and
+  Llama-3.1-8B: models possess internal components that process negation
+  correctly, late-layer attention promotes shortcuts, and negation is handled by
+  **both** a concept-suppression mechanism and a constructive representation of
+  the negative phrase. That is the mechanism L-1 proposed to infer from logits.
+- **arXiv:2511.12381** — *Don't Think of the White Bear: Ironic Negation in
+  Transformer Models Under Cognitive Load* — the ironic-rebound framing.
+- **arXiv:2605.13737** — *Senses Wide Shut: A Representation-Action Gap in
+  Omnimodal LLMs* — the representation-action gap by name.
+
+The residue is pragmatic **dialogue rejection** rather than syntactic negation
+or safety refusal, probed through the output distribution rather than by latent
+attack or attention ablation. That is a recombination of published components —
+the same shape that closed the previous thirteen — and it does not clear this
+repository's bar.
+
+## Standing after L-1
+
+**Fourteen candidates gated, fourteen closed**, now across five distinct
+framings: behavioural (8), measurement (3), meta-science (1), bounding (1),
+latent/mechanistic (1). Zero model calls were spent on any of the gates.
+
+**What this changes going forward:** `logprobs` are available on this stack.
+That unblocks the replication of arXiv:2606.24077 (*Sentence-Level Contextual
+Entrainment*), which was recorded on 2026-09-06 as blocked for exactly this
+reason. Replication is the one strategy that has produced a positive result
+here (E18), and a **failed** replication would be a genuine finding rather than
+a recombination — prior art cannot pre-empt a test of prior art.
