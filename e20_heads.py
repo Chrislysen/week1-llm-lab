@@ -101,7 +101,7 @@ def run_sweep(model_id, l0, l1, n_sub):
     print(f"\n  wrote {path}  (baseline {base:+.6f})")
 
 
-def run_heldout(model_id, sweep_glob):
+def run_heldout(model_id, sweep_glob, n_random, rand_start, do_main):
     import glob
     assert corpus_hash() == CORPUS_HASH
     rows = []
@@ -119,28 +119,48 @@ def run_heldout(model_id, sweep_glob):
     nl = model.config.num_hidden_layers
     ds = all_dialogues()[HELDOUT]
 
-    d0, a0 = mean_delta(model, tok, ds)
-    print(f"  baseline        delta {d0:+.4f}   score_absent {a0:+.4f}")
+    if do_main:
+        d0, a0 = mean_delta(model, tok, ds)
+        print(f"  baseline        delta {d0:+.4f}   score_absent {a0:+.4f}")
+        hs = ablate(model, top, hd)
+        dk, ak = mean_delta(model, tok, ds)
+        for x in hs:
+            x.remove()
+        red = (d0 - dk) / d0
+        print(f"  top-{TOP_K} ablated  delta {dk:+.4f}   score_absent {ak:+.4f}"
+              f"   reduction {red:.3f}")
+        json.dump({"d0": d0, "a0": a0, "dk": dk, "ak": ak, "red": red,
+                   "top": top, "n_heads": len(rows)},
+                  open("results/e20_main.json", "w"), indent=1)
+    main = json.load(open("results/e20_main.json"))
+    d0, a0, dk, ak, red = main["d0"], main["a0"], main["dk"], main["ak"], main["red"]
 
-    hs = ablate(model, top, hd)
-    dk, ak = mean_delta(model, tok, ds)
-    for x in hs:
-        x.remove()
-    red = (d0 - dk) / d0
-    print(f"  top-{TOP_K} ablated  delta {dk:+.4f}   score_absent {ak:+.4f}"
-          f"   reduction {red:.3f}")
-
+    # controls: the full 20-set sequence is fixed by SEED; chunks take a slice
     rng = random.Random(SEED)
     all_heads = [(l, h) for l in range(nl) for h in range(nh)]
-    ctrl = []
-    for i in range(N_RANDOM):
-        pick = rng.sample(all_heads, TOP_K)
-        hs = ablate(model, pick, hd)
+    picks = [rng.sample(all_heads, TOP_K) for _ in range(N_RANDOM)]
+    import os
+    seen = {}
+    if os.path.exists("results/e20_controls.csv"):
+        for r in csv.DictReader(open("results/e20_controls.csv", newline="")):
+            seen[int(r["i"])] = float(r["reduction"])
+    for i in range(rand_start, min(rand_start + n_random, N_RANDOM)):
+        if i in seen:
+            continue
+        hs = ablate(model, picks[i], hd)
         d, _ = mean_delta(model, tok, ds)
         for x in hs:
             x.remove()
-        ctrl.append((d0 - d) / d0)
-        print(f"  random {i + 1:2}/{N_RANDOM}  reduction {ctrl[-1]:+.3f}")
+        seen[i] = (d0 - d) / d0
+        print(f"  random {i + 1:2}/{N_RANDOM}  reduction {seen[i]:+.3f}")
+    with open("results/e20_controls.csv", "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f); w.writerow(["i", "reduction"])
+        for i in sorted(seen): w.writerow([i, round(seen[i], 6)])
+    ctrl = [seen[i] for i in sorted(seen)]
+    if len(ctrl) < N_RANDOM:
+        print(f"\n  {len(ctrl)}/{N_RANDOM} controls done; "
+              f"rerun with a later --rand-start")
+        return
 
     ctrl_sorted = sorted(ctrl)
     p95 = ctrl_sorted[int(0.95 * (len(ctrl_sorted) - 1))]
@@ -178,8 +198,11 @@ if __name__ == "__main__":
     ap.add_argument("--l1", type=int, default=23)
     ap.add_argument("--n-sub", type=int, default=12)
     ap.add_argument("--sweep-glob", default="results/e20_sweep_L*.csv")
+    ap.add_argument("--n-random", type=int, default=20)
+    ap.add_argument("--rand-start", type=int, default=0)
+    ap.add_argument("--no-main", action="store_true")
     a = ap.parse_args()
     if a.mode == "sweep":
         run_sweep(a.model, a.l0, a.l1, a.n_sub)
     else:
-        run_heldout(a.model, a.sweep_glob)
+        run_heldout(a.model, a.sweep_glob, a.n_random, a.rand_start, not a.no_main)
