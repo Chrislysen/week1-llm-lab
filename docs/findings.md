@@ -1,8 +1,8 @@
 # Findings — what is established, what is retracted, what is unclaimed
 
 One page, kept current. Every number here re-derives from raw artifacts via
-`python verify_claims.py`, which exits non-zero on drift (currently **161
-verified, 0 mismatched, 3 unverifiable**).
+`python verify_claims.py`, which exits non-zero on drift (currently **167
+verified, 0 mismatched, 4 unverifiable**).
 
 Read the retraction table first. It is longer than the results table, and that
 ratio is the honest summary of this project.
