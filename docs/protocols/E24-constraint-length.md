@@ -279,3 +279,28 @@ its comparisons one-sided.
 ### Files
 
 `results/e24b_{llama32-3b,qwen25-3b-instruct,qwen25-7b-instruct,aya-expanse-8b,gemma4-e4b}_o0.csv`.
+
+### Diagnosis — why the reorder cannot be resolved by adding items
+
+Per-constraint satisfaction pooled over all five models at natural length:
+
+| ceiling (≥0.95) | informative |
+|---|---|
+| `exc_kw_the` 1.000, `exc_kw_very` 1.000, `exc_kw_you` 1.000, `exc_no_digits` 1.000, `exc_no_question` 1.000, `exc_no_semicolon` 1.000 | `exc_kw_can` 0.944, `exc_letter_z` 0.722, and **all 8 inclusion constraints** (0.778–0.944) |
+
+**6 of 8 exclusion constraints are at 1.000.** The models never spontaneously
+write "very", "important", "you", digits, question marks or semicolons on these
+six tasks, so those constraints are satisfied for free and carry no signal. The
+whole exclusion side therefore sits pinned near 1.0, compressing the very
+differences the reorder test needs — and E24's measured "exclusion falls with
+length" rests on the two constraints that are not at ceiling.
+
+**So more items would not fix this.** With six of eight exclusion constraints
+structurally uninformative, increasing n shrinks the error bars around a
+compressed range without widening the range. The fix is a **harder exclusion
+set**: forbid words the task actively elicits — for *"explain how a bicycle gear
+system works"*, forbid `gear`, `wheel`, `chain` — so that satisfaction sits mid-
+range where verbosity can actually move it.
+
+That is a corpus redesign, not a longer run, and it is the concrete
+specification for a properly powered version of this test.
