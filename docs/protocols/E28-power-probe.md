@@ -232,8 +232,30 @@ All 8 instances re-run with `order="bf"`. 64 further calls.
 **My prediction was refuted in direction.** I predicted reversing the order would
 *reduce* the measured saving, because the always-first arm (`full`) would be the
 inflated one. The saving **rose** (+560.5 → +686.2), and mean `full` cost rose
-when `full` ran *second* (3444 → 3535). Whatever the effect is, it inflates the
-arm in the **second** position, not the first.
+when `full` ran *second* (3444 → 3535).
+
+**Correction (external review, 2026-09-08).** I then wrote that the effect
+"inflates the arm in the **second** position, not the first." **That overclaims a
+mechanism from a non-significant estimate and is withdrawn.** The 95 % interval
+on the order shift is
+
+    125.8 ± t(.025,7) × 232.377/√8 = 125.8 ± 2.3646 × 82.158 = **[−68.5, +320.1] tokens**
+
+which contains zero. The observed *direction* is reportable; **systematic
+second-position inflation is not established.** Two further points, both from
+review and both correct:
+
+- Under a common additive position-effect model, the difference between the two
+  order-specific savings is **twice** the per-run position effect, so the implied
+  per-run effect is ≈ **62.9 tokens** (CI [−34.2, +160.0]), not 125.8.
+- Arm order in this probe coincides with **collection period** — the `bf` cohort
+  was run later, in separate processes, on a later date. Order and session are
+  therefore themselves confounded here, so even the direction should be treated
+  as cohort-bound.
+
+What survives is the design fact, which needs no significance test: **ARM H did
+not control order.** The confounding is documented; its magnitude and mechanism
+remain unresolved.
 
 **The declared read rule fires — and the rule is too crude to support it.**
 |shift| = 125.8 ≥ 50, so by the letter: CONTAMINATED. But the within-instance
@@ -260,6 +282,14 @@ order**, recording request position.
 The POWERED verdict is robust to the confound — averaging the two orders
 *reduces* SD_H and improves sensitivity. The **effect size** reported in the
 first pass was contaminated; the **power verdict** was not.
+
+**The improved MDE is design-conditional, and I reported it without saying so.**
+SD_H = 182.6 is the spread of an **order-averaged** outcome. Obtaining both
+orders costs **4 runs = 32 model calls per instance**, double the original
+design. A future study observing **one randomised pair per instance** does *not*
+inherit 182.6 and must plan against the single-order figure (229.5) or a
+justified variance model. Quoting 4.65 % as the sensitivity of a cheaper design
+would be wrong. Corrected after external review.
 
 ### What this result does and does not license
 
@@ -323,6 +353,38 @@ pilot". It is: **state concretely what the proposed algorithm does beyond
 CPE-style search with a substituted objective, REVISE-style recovery, and tuned
 static isolation — and if that cannot be stated and tested, retire the
 breakthrough framing** while keeping the engineering and feasibility record.
+
+### TERMINAL STATE — the direction is closed on novelty (2026-09-08)
+
+External review specified the method concretely and then **withdrew its own
+recommendation**. The specification decomposes without remainder:
+
+| proposed component | what already supplies it |
+|---|---|
+| improve communication policies from rollouts | adapted CPE-style prompt search with a revision-cost objective |
+| identify invalidated work, selectively recompute | REVISE-style recovery |
+| limit exposure before corrections | tuned static isolation, selective reads, delayed joins |
+
+No additional search mechanism, guarantee, or demonstrated empirical advantage
+was specified. The proposal's own payment-workflow example is achievable with
+static decomposition plus selective recovery, so it illustrates the engineering
+benefit without distinguishing a learned method.
+
+**Decision: do not build the recovery backend and do not run the 96-trajectory
+screening design on this rationale.** Reopening would require a concrete
+additional mechanism or a precisely scoped empirical claim, with its
+closest-prior-work comparison and a falsifiable advantage over the adapted
+optimiser and recovery baselines.
+
+This closes the direction, **not** the wider research question.
+
+**Implementation prerequisite, for the record.** Three of the four screening arms
+require provenance over model calls and a selective-recovery backend that
+`DialogueEngine` does not have (it has agents, budgets, `manage_context`, and
+supersession in `lineage_*`). The 96-trajectory figure counted evaluation
+trajectories only and understated that build. Correct ordering was: novelty
+decision first, backend build only if warranted. The novelty decision came back
+negative, so the build is not warranted.
 
 ### Defensible conclusion
 

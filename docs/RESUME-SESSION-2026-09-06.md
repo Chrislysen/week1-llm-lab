@@ -172,6 +172,21 @@ upper bound of ≈ 22.1 %.
 > not establish novelty, the power of a different recovery contrast, preservation
 > of task quality, or freedom from all statistical risks.**
 
+**Outcome of the direction (2026-09-08): CLOSED on novelty.** External review
+specified the method concretely and withdrew its own recommendation: the
+specification decomposes into adapted CPE-style prompt search, REVISE-style
+selective recovery, and tuned static isolation, with no additional search
+mechanism, guarantee, or demonstrated advantage. The recovery backend is not
+built and is not warranted on this rationale. **Tally: 22 candidates gated, 21
+closed**; E27 remains the single NARROW-OPEN result.
+
+Two further corrections after review: the order shift's 95 % interval is
+[-68.5, +320.1] tokens, so the observed *direction* is reportable but systematic
+second-position inflation is **not** established (and order coincides with
+collection period here); and SD_H = 182.6 belongs to the **order-averaged**
+design at 32 calls/instance, so a one-randomised-pair design cannot inherit the
+4.65 % figure.
+
 The binding risk is novelty and it is not statistical: CPE (arXiv:2606.14314)
 already performs rollout-driven communication-prompt optimisation with training
 and validation gates, so the next decision — taken **before** any further large
