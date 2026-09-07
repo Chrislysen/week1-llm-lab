@@ -36,6 +36,13 @@ from robust_client import RetryingOllamaClient
 INCLUSION = {"keywords:existence", "keywords:frequency",
              "length_constraints:number_words"}
 EXCLUSION = {"keywords:forbidden_words", "punctuation:no_comma"}
+#: Runaway guard. Small models loop forever on some IFEval prompts (e.g. the
+#: all-caps song-lyric item, key 1132, which consumed 515s before being killed).
+#: 1500 tokens is ~1100 words -- far above any legitimate IFEval response, whose
+#: longest length constraint is "at least 500 words". Responses hitting the cap
+#: are counted and reported.
+RUNAWAY_CAP = 1500
+
 COLUMNS = ["model", "key", "instruction_id", "kind", "n_words", "satisfied"]
 
 
@@ -94,7 +101,7 @@ def run(model, offset, limit):
     for i, (key, prompt, items) in enumerate(ts, 1):
         text = client.chat(model=model,
                            messages=[{"role": "user", "content": prompt}],
-                           temperature=0).text or ""
+                           temperature=0, num_predict=RUNAWAY_CAP).text or ""
         nw = len(text.split())
         for iid, kind, verify in items:
             rows.append({"model": model, "key": key, "instruction_id": iid,

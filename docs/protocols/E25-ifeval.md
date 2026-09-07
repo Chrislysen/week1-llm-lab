@@ -64,46 +64,82 @@ comparable to published IFEval numbers — only the between-type contrast is use
 
 ---
 
-## Outcome — INCOMPLETE. Harness built and validated; the cross-model run did not fit.
+## Outcome — COMPLETED. Verdict: NOT CONFIRMED. This corrects E24's practical claim.
 
-**Run attempted 2026-09-07. One model completed. The declared read rule needs
-≥ 4 models and is NOT evaluated. No verdict is claimed.**
+**Run 2026-09-07. Five models, the same first 45 IFEval prompts, identical
+runaway cap. 30 inclusion and 25 exclusion observations per model.**
 
-### What was established
+### The blocker, and the fix
 
-The harness works and the classification is faithful. **215 of IFEval's 541
-prompts** carry an analysable instruction, giving **104 inclusion** and **144
-exclusion** observations — roughly 6× the exclusion n of the hand-written
-E24-C set, on the benchmark's real items.
+The first attempt stalled repeatedly. Timing each prompt found a single
+pathological item — key 1132, *"write the lyrics to a hit song ... in all
+capital letters"* — on which small models loop indefinitely, consuming 515 s
+before being killed. A **runaway guard** of `num_predict = 1500` (~1100 words,
+far above IFEval's longest "at least 500 words" constraint) removed it. Added to
+`robust_client.chat` as an **opt-in parameter defaulting to None**, so every
+earlier experiment's behaviour is byte-unchanged; 135 tests still pass.
+`llama3.2:3b` was re-run under the cap for comparability (306.0 words against
+311.7 uncapped — it never hit the cap).
 
-`llama3.2:3b`, first 45 prompts (30 inclusion / 25 exclusion observations):
+### Results on IFEval's real items
 
-| kind | n | satisfied | mean response |
+| model | mean words | inclusion | exclusion |
 |---|---|---|---|
-| inclusion | 30 | 0.967 | 311.7 words |
-| exclusion | 25 | 0.960 | |
+| llama3.2:3b | 306.0 | 0.967 ±0.064 | 0.960 ±0.077 |
+| gemma4:e4b | 302.9 | 0.933 ±0.089 | 1.000 ±0.000 |
+| aya-expanse:8b | 275.8 | 0.767 ±0.151 | 0.640 ±0.188 |
+| qwen2.5:7b-instruct | 232.6 | 0.633 ±0.172 | 0.920 ±0.106 |
+| qwen2.5:3b-instruct | 224.3 | 0.567 ±0.177 | 0.680 ±0.183 |
 
-A single model cannot test a cross-model correlation, so **nothing is concluded
-from this.**
+    Spearman(words, inclusion) = +1.000  p = 0.000   predicted POSITIVE  ✓
+    Spearman(words, exclusion) = +0.600  p = 0.285   predicted NEGATIVE  ✗
 
-### Why it stopped
+**NOT CONFIRMED**, by the rule fixed before the first generation.
 
-IFEval prompts frequently request 300–500 word responses, and many analysed
-prompts also carry `combination:repeat_prompt`, which multiplies output length
-further. Generation exceeded the runner's 10-minute ceiling at 45, 45, 24 and 24
-prompts on successive attempts across two models. Completing all five models at
-215 prompts would need roughly a hundred sequential chunked runs.
+### What this means — a correction to E24's practical claim
 
-**This is a wall-clock limit, not a design fault.** `e25_ifeval.py` is
-committed, the dataset is cached, the verifiers are written, and the run is
-resumable with `--offset` / `--limit`.
+The inclusion half is as strong as it could be: a **perfect rank correlation**
+between how much a model writes and how often it satisfies inclusion
+constraints, on the benchmark's own items.
 
-### What this does and does not do to E24
+The exclusion half fails, and the reason is instructive. **On real items,
+verbosity and capability are positively correlated**: the models that write more
+are also simply better, so they beat the length penalty on exclusion constraints
+rather than succumbing to it. The mechanism E24 established — real, large, and
+within-model under *manipulated* length — is **swamped between models** by
+capability differences.
 
-It does **not** weaken E24. That result — inclusion and exclusion moving in
-opposite directions under *manipulated* length, DiD 0.500 and 0.604 at n = 48
-per cell — stands on its own manipulated-length evidence.
+So the practical concern is **narrower than E24-C implied**:
 
-It leaves the standing objection **open**: the mechanism has not yet been shown
-on a real benchmark's items. That remains the single most valuable next step,
-and it is now a matter of compute time rather than design.
+> The type-by-length confound bites where response length varies for reasons
+> other than capability — length-instructed items, verbosity tuning, decoding
+> settings, prompt-format changes. It does **not** distort ordinary model
+> rankings on IFEval, because there the more verbose models are also the more
+> capable ones.
+
+That is a correction to my own framing, produced by the first test of it on real
+benchmark data.
+
+### Secondary: mix does move rank, within noise
+
+    25:75   gemma(0.983) > llama(0.962) > qwen7b(0.848) > aya(0.672) > qwen3b(0.652)
+    75:25   llama(0.965) > gemma(0.950) > aya(0.735)    > qwen7b(0.705) > qwen3b(0.595)
+
+gemma and llama swap, and aya passes qwen7b. Both margins are far inside the
+confidence intervals above, so nothing is claimed from them — the same
+limitation E24-C recorded.
+
+### Limits
+
+45 of 215 analysable prompts, so n = 30/25 per model; the intervals are wide
+(±0.06 to ±0.19). Verifiers reimplement IFEval's semantics from its `kwargs`
+and are not its official harness, so absolute rates are not comparable to
+published IFEval numbers — only the between-type contrast is used, which is what
+the design needs. Length is natural, not manipulated, which is the point of the
+test and also its main confound. `gemma4:e4b` is at ceiling (1.000) on exclusion.
+
+**No novelty is asserted.** T-2 remains NARROW.
+
+### Files
+
+`results/e25_{llama32-3b,qwen25-3b-instruct,qwen25-7b-instruct,gemma4-e4b,aya-expanse-8b}_o0.csv`.

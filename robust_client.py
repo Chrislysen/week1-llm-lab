@@ -33,8 +33,10 @@ class RetryingOllamaClient(OllamaClient):
         self.transport_retries = 0
         self.seed = None
 
-    def chat(self, model, messages, temperature=0.7):
+    def chat(self, model, messages, temperature=0.7, num_predict=None):
         options = {"temperature": temperature}
+        if num_predict is not None:          # runaway guard, opt-in only
+            options["num_predict"] = num_predict
         if self.seed is not None:
             options["seed"] = self.seed
         last = None
