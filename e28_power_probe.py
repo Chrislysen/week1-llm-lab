@@ -105,11 +105,24 @@ def run_one(client, turns, seed_note, policy=None):
     return eng.run()
 
 
-def paired_diff(client, turns, words, seed_note):
-    """Cost(full) - Cost(budgeted) for one instance. Positive = budgeting saves."""
-    full = run_one(client, turns, seed_note, policy=None)
+def paired_diff(client, turns, words, seed_note, order="fb"):
+    """Cost(full) - Cost(budgeted) for one instance. Positive = budgeting saves.
+
+    ORDER IS AN EXPERIMENTAL FACTOR, not an implementation detail. E28 as first
+    run always executed `full` first, so arm was perfectly confounded with
+    request position within the pair. Both cost deviations observed in E28-D
+    moved the FULL arm while the budgeted arm held constant -- exactly the
+    signature a first-request effect would leave on whichever arm goes first.
+    Same-process pairing controls process identity and gives no protection at
+    all against this. `order="bf"` counterbalances it.
+    """
     b = Binding(RecencyBudget(words))
-    budgeted = run_one(client, turns, seed_note, policy=b)
+    if order == "fb":
+        full = run_one(client, turns, seed_note, policy=None)
+        budgeted = run_one(client, turns, seed_note, policy=b)
+    else:
+        budgeted = run_one(client, turns, seed_note, policy=b)
+        full = run_one(client, turns, seed_note, policy=None)
     cf, cb = cost_of(full), cost_of(budgeted)
     return cf, cb, cf - cb, b.bound, b.calls
 
@@ -119,7 +132,7 @@ def paired_diff(client, turns, words, seed_note):
 T_FACTOR_N12 = 2.201 + 0.876
 
 
-def collect(arm, start, n, turns, words, jsonl):
+def collect(arm, start, n, turns, words, jsonl, order="fb"):
     """Run a CHUNK and append rows to `jsonl`.
 
     Chunked and appended incrementally because long model runs in this repo have
@@ -130,12 +143,12 @@ def collect(arm, start, n, turns, words, jsonl):
     client = RetryingOllamaClient()
     seeds = SEEDS[start:start + n] if arm == "h" else [SEEDS[0]] * n
     print(f"=== E28 ARM {arm.upper()} | items {start}..{start + n - 1} | "
-          f"turns={turns} words={words} ===")
+          f"turns={turns} words={words} order={order} ===")
     with open(jsonl, "a") as fh:
         for k, seed in enumerate(seeds):
             idx = start + k
-            cf, cb, d, bound, calls = paired_diff(client, turns, words, seed)
-            row = {"arm": arm, "idx": idx, "seed": seed[:46], "cost_full": cf,
+            cf, cb, d, bound, calls = paired_diff(client, turns, words, seed, order)
+            row = {"arm": arm, "idx": idx, "order": order, "seed": seed[:46], "cost_full": cf,
                    "cost_budgeted": cb, "diff": d,
                    "rel": d / cf if cf else 0.0,
                    "policy_bound": bound, "policy_calls": calls,
@@ -213,9 +226,10 @@ if __name__ == "__main__":
     ap.add_argument("--words", type=int, default=120)
     ap.add_argument("--jsonl", default="results/e28_power_probe.jsonl")
     ap.add_argument("--out", default="results/e28_power_probe.json")
+    ap.add_argument("--order", choices=["fb", "bf"], default="fb")
     ap.add_argument("--summarize", action="store_true")
     a = ap.parse_args()
     if a.summarize:
         summarize(a.jsonl, a.out)
     else:
-        collect(a.arm, a.start, a.n, a.turns, a.words, a.jsonl)
+        collect(a.arm, a.start, a.n, a.turns, a.words, a.jsonl, a.order)

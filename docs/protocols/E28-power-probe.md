@@ -232,6 +232,44 @@ non-statistical:
 Spending the next block of work on more instances would buy precision that is
 already surplus, against a prior-art problem that no amount of it addresses.
 
+## E28-C — arm order was confounded with request position
+
+**Declared before running. Raised by external review (Astra, 2026-09-07) and
+confirmed against the source before accepting it.**
+
+`paired_diff` as first written executed `full` unconditionally first and
+`budgeted` second. **Arm is therefore perfectly confounded with request position
+within every pair.** Same-process pairing — which I offered as the remedy to the
+E28-D anomaly — controls process identity and provides **no protection whatever**
+against an order effect. My earlier claim that ARM H "is not exposed to it" was
+wrong: ARM H is exposed to precisely this.
+
+The existing evidence is consistent with an order effect and I did not notice it:
+**both** deviations in E28-D moved the **full** arm (3373, 3363 against a stable
+3057) while the budgeted arm held at 2888. The arm that deviated is the arm that
+always ran first.
+
+**Test.** Re-run all 8 ARM H instances with `order="bf"` (budgeted first). Order
+becomes a within-instance factor; every instance contributes one `fb` and one
+`bf` paired difference.
+
+**Prediction.** If a first-request effect inflates whichever arm runs first, then
+reversing the order inflates *budgeted* instead of *full*, and the measured
+saving **falls**. Under no order effect, per-instance differences are unchanged.
+
+**Read rule.** Let Δ_fb and Δ_bf be the per-instance paired differences.
+
+- **|mean(Δ_fb) − mean(Δ_bf)| < 50 tokens** (≈ 1.5 % of run cost, well under
+  SD_H = 229.5) → no material order effect; E28's point estimate stands as
+  reported.
+- **≥ 50 tokens** → the 16.3 % saving is **contaminated by arm order**, E28's
+  effect size must be re-reported as the counterbalanced mean, and every future
+  cost comparison must counterbalance or randomise arm order.
+
+The MDE verdict depends on SD_H, not on the mean, so it is robust to a shift in
+the mean; but a contaminated mean would still misstate the effect this instrument
+measures.
+
 ## What this does not test
 
 Revision, recovery, provenance, policy search, or task quality. Cost only.
