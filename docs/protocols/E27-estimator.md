@@ -165,3 +165,39 @@ agreeing 5/5 while `pca` fails 5/5 is a strong hint about which to distrust.
 
 `results/e27_estimator_Qwen2.5-1.5B-Instruct_L18.json`,
 `results/e27_estimator_Qwen3.5-0.8B_L13.json`.
+
+---
+
+# E27-B — at scale. DECLARED with zero runs.
+
+E27's confirmation rested on single measurements at **one layer per model**.
+Three things could still explain it: a lucky layer, a lucky set of contrastive
+pairs, or noise in an unrepeated delta. E27-B removes all three.
+
+- **Layer sweep** — several layers per model.
+- **Bootstrap** — resample the 8 contrastive pairs with replacement, refit every
+  estimator on each resample, report a 95 % interval. This is the correct error
+  bar: the measurement is deterministic (temperature 0, one forward pass), so all
+  sampling variability lives in *which pairs estimated the direction*.
+- **Six concepts** — adding `politeness`, `technicality`, `tense`.
+
+**Stricter verdict than E27.** A cell counts as BEATS only if the **bootstrap
+lower bound** exceeds the largest random-control |delta|, not the point estimate.
+
+## Read rule, fixed before the first run
+
+Over all informative cells (those where at least one estimator beats):
+
+- **CONFIRMED AT SCALE** if estimators disagree in **≥ 50 %** of informative
+  cells, across at least two layers and two models.
+- **WEAKENED** if disagreement falls below 25 % — E27's result would then be
+  specific to its layer or pair sample.
+- **PARTIAL** between.
+
+Cells where no estimator beats are **uninformative** and excluded, as in E27.
+
+## Limits
+
+The same six concepts and single probe-token readouts. Bootstrap resamples
+directions but not the probe or the concept set, so it bounds pair-sampling
+noise only. α is fixed per model.
