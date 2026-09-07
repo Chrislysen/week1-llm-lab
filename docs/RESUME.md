@@ -1,5 +1,69 @@
 # RESUME — where the work stands, and exactly what to do next
 
+# 2026-09-07 — the benchmark-composition line (E24), the best result of the sprint
+
+**Method change that finally paid.** For eighteen candidates the loop was
+"generate a hypothesis, ask whether it has been done" — and it always had.
+Reading the field's own artifacts instead (the survey's GitHub list, IFBench's
+repo, IFEval's constraint taxonomy) produced a live question in twenty minutes.
+
+**Two facts established by reading, not guessing.** The survey's own list of
+**12 multi-turn benchmarks** contains *no* discussion of evaluation confounds,
+normalisation or measurement validity. IFEval scores **inclusion and exclusion
+constraints in one aggregate** — `include keywords` and `keyword frequency` sit
+in the same Keywords family as `forbidden words`.
+
+## E24 — the mechanism. CONFIRMED, well powered.
+
+Inclusion and exclusion constraints move in **opposite** directions with
+response length. Length pinned by instruction at 40/120/300 words, 16 verifiable
+constraints, n = 48 per cell:
+
+| model | inclusion short→long | exclusion short→long | DiD |
+|---|---|---|---|
+| llama3.2:3b | +0.354 | −0.146 | **0.500** |
+| qwen2.5:7b-instruct | +0.479 | −0.125 | **0.604** |
+
+Against a 0.15 threshold fixed in advance. **This is the solid result.**
+
+## E24-B — reorder at natural length. RULE FIRED, RULE WAS WRONG.
+
+Five models, natural verbosity. The declared rule returned REORDER DEMONSTRATED,
+but its 0.02 threshold was set with **no power analysis**: swap margins were
+0.010–0.052 against 95 % half-widths of 0.080–0.132. Recorded, and not relied on.
+Diagnosis: **6 of 8 exclusion constraints were at 1.000** — models never
+spontaneously write "very", "you", digits, semicolons — so the exclusion side was
+pinned at ceiling and more items could not have fixed it.
+
+## E24-C — the fix, and a split answer
+
+Forbidding words each task *actively elicits* lifted the ceiling (exclusion now
+spans **0.333–1.000**).
+
+- **DEMONSTRATED:** a model's reported score changes by **0.30** on the same
+  constraint pool — qwen2.5:3b scores **0.484 ±0.142** exclusion-heavy and
+  **0.786 ±0.070** inclusion-heavy, CIs non-overlapping. Between-model spread
+  changes **2.5×** (0.479 → 0.188).
+- **NOT DEMONSTRATED:** reorder. Under a proper interval test there are **zero**
+  significant swaps. E24-B's apparent reorder is **superseded**.
+
+**The defensible claim:** benchmark composition materially changes absolute
+scores and between-model gaps; it was not shown to change ordering.
+
+## Standing
+
+**Eighteen candidates gated, eighteen closed.** T-2 is NARROW, not open —
+cross-benchmark aggregation sensitivity is published (arXiv:2608.30044, ATLAS).
+What this line supplies is the **type-by-length mechanism** and a direct
+demonstration, which were not found.
+
+**Next, concretely:** run it on **IFEval's actual items** (the constraints here
+are hand-written), and raise exclusion n above 24 — the score-shift result leans
+heavily on one model's collapse with a ±0.189 interval.
+
+---
+
+
 # LATER ON 2026-09-06 — 15 candidates closed; E19 found something and then killed it
 
 **Still no novelty.** Two further candidates gated and closed (M-1 meta-science,
