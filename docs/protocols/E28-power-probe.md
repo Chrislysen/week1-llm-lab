@@ -287,9 +287,11 @@ first pass was contaminated; the **power verdict** was not.
 SD_H = 182.6 is the spread of an **order-averaged** outcome. Obtaining both
 orders costs **4 runs = 32 model calls per instance**, double the original
 design. A future study observing **one randomised pair per instance** does *not*
-inherit 182.6 and must plan against the single-order figure (229.5) or a
-justified variance model. Quoting 4.65 % as the sensitivity of a cheaper design
-would be wrong. Corrected after external review.
+inherit 182.6. Quoting 4.65 % as the sensitivity of a cheaper design would be
+wrong. Nor is 229.5 the right substitute: it was itself measured under
+**full-first scheduling**, so it is an explicitly **provisional planning proxy**,
+not an established variance for a randomised-order design. No further variance
+experiment is warranted for a closed direction. Corrected after external review.
 
 ### What this result does and does not license
 
