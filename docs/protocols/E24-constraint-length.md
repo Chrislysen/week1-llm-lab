@@ -304,3 +304,71 @@ range where verbosity can actually move it.
 
 That is a corpus redesign, not a longer run, and it is the concrete
 specification for a properly powered version of this test.
+
+---
+
+## E24-C Outcome — the fix worked, and the honest answer is split
+
+**Run 2026-09-07. Score-shift DEMONSTRATED and significant. Reorder NOT
+demonstrated.** Five models, natural length, 48 inclusion + 24 hard-exclusion
+items each. The hard exclusions lifted the ceiling exactly as intended.
+
+| model | mean words | inclusion | exclusion |
+|---|---|---|---|
+| gemma4:e4b | 204.4 | 0.979 ±0.040 | 0.958 ±0.080 |
+| llama3.2:3b | 154.2 | 0.979 ±0.040 | 0.958 ±0.080 |
+| aya-expanse:8b | 86.4 | 0.854 ±0.100 | **1.000** ±0.000 |
+| qwen2.5:3b-instruct | 112.1 | 0.938 ±0.068 | **0.333** ±0.189 |
+| qwen2.5:7b-instruct | 70.5 | 0.875 ±0.094 | 0.917 ±0.111 |
+
+The ceiling is gone: exclusion now ranges **0.333 to 1.000** against E24-B's
+0.917–1.000. Forbidding task-elicited words was the right fix — though note it
+bit *one* model catastrophically rather than spreading all five.
+
+### Aggregate by mix
+
+| model | 25:75 | 50:50 | 75:25 |
+|---|---|---|---|
+| gemma4:e4b | 0.964 ±0.061 | 0.969 ±0.045 | 0.974 ±0.036 |
+| llama3.2:3b | 0.964 ±0.061 | 0.969 ±0.045 | 0.974 ±0.036 |
+| aya-expanse:8b | 0.964 ±0.025 | 0.927 ±0.050 | 0.891 ±0.075 |
+| qwen2.5:7b-instruct | 0.906 ±0.086 | 0.896 ±0.072 | 0.885 ±0.075 |
+| **qwen2.5:3b-instruct** | **0.484 ±0.142** | 0.635 ±0.100 | **0.786 ±0.070** |
+
+### What is demonstrated
+
+**A model's reported score changes by 0.30 on the same constraint pool.**
+qwen2.5:3b-instruct scores **0.484** under an exclusion-heavy mix and **0.786**
+under an inclusion-heavy one. The confidence intervals **do not overlap**. Same
+model, same constraints, same responses — only the weighting differs.
+
+**The apparent gap between models changes 2.5×.** Best-minus-worst spread is
+**0.479** at 25:75 and **0.188** at 75:25. A benchmark author choosing the mix
+is choosing how far apart the field looks.
+
+### What is NOT demonstrated
+
+**No significant reorder.** aya-expanse ranks 1st at 25:75 and 3rd at 50:50 and
+75:25, but every margin involved sits inside the confidence intervals. Under the
+stricter test applied here — sign change *and* the larger gap excluding zero —
+**zero significant swaps** were found. E24-B's apparent reorder does not survive
+a proper interval treatment, and this supersedes it.
+
+So the claim narrows to what the data carries: **composition materially changes
+absolute scores and between-model gaps; it was not shown to change the
+ordering.**
+
+### Limits
+
+Five models, 72 items each, one natural-length condition, temperature 0. Hand-written constraints,
+**not IFEval's items**. The score-shift result rests heavily on one model's
+exclusion collapse (qwen2.5:3b at 0.333, n = 24, ±0.189) — a wide interval, and
+the effect would be far weaker without it. Exclusion n = 24 throughout is thin.
+`aya-expanse:8b` is at ceiling (1.000) on exclusion, and gemma and llama are
+numerically identical, both of which limit what the ranking test could resolve.
+
+**No novelty is asserted.** T-2 remains NARROW.
+
+### Files
+
+`results/e24c_{gemma4-e4b,llama32-3b,qwen25-3b-instruct,qwen25-7b-instruct,aya-expanse-8b}_o0.csv`.
