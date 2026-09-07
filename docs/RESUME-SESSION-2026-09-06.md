@@ -9,6 +9,12 @@ original to this work (E27/E27-B), three successful replications of other
 people's published claims, and four predictions of my own that I refuted myself.
 **No breakthrough. No novel discovery about how language models work.**
 
+**Update 2026-09-08:** adds E28, a declared feasibility probe for a proposed
+agent-communication cost study (section 3b). It passed its declared rule for the
+cost contrast it tested and established nothing about novelty, recovery
+effectiveness, or preservation of task quality. Three of its first-pass
+conclusions were withdrawn after external review.
+
 ---
 
 ## 1. The one original result — E27 / E27-B
@@ -122,6 +128,55 @@ p = 0.125, and formulated *after* the first check failed, which I flagged as a
 forking-path hazard before reporting it).
 
 ---
+
+## 3b. E28 — a declared feasibility probe (added 2026-09-08)
+
+E28 was a declared feasibility probe for measuring paired token-cost differences
+on `llama3.2:3b`, run against the existing `DialogueEngine` before building
+anything. The run used **212 model calls** (plus 64 more for E28-C) and returned
+**POWERED** under its declared rule: mean saving 560.5 tokens (16.3 %) and an
+estimated **MDE of 203.9 tokens (5.9 %) at 12 instances**. Counterbalanced over
+arm order, that becomes **+623.4 tokens (17.9 %)** with **MDE 162.2 tokens
+(4.6 %)**.
+
+The intervention was **mechanical context truncation**. It did not test learned
+communication or recovery quality. **Two of three quantitative predictions
+failed** (SD ratio 0.67 against a predicted <0.3; mean saving 16.3 % against a
+predicted 20–40 %). **E28-D** refuted a first-process-call prediction and
+exposed a **non-exhaustive read rule** — neither declared branch covered the
+outcome. **E28-C**, prompted by external review, found that arm order had been
+**confounded with request position** (`full` ran first in every pair);
+counterbalancing refuted my predicted *direction* and moved the point estimate by
+~126 tokens, though at n=8 that shift is not distinguishable from zero
+(t = 1.53, p ≈ 0.17) — a bare threshold with no uncertainty treatment, the same
+error E24-B already recorded in this repo. Repeated runs showed an unexplained
+process-associated cost pattern, motivating process blocking and randomised arm
+order.
+
+**Three claims from the first write-up were withdrawn** after external review:
+the "five-fold margin" against REVISE (which compares *model-call* reductions,
+not tokens under truncation — an invalid cross-quantity comparison); the
+assertion that this contrast's SD_H is a *lower bound* on a recovery study's
+(asserted, not argued — it is an optimistic planning proxy); and the claim that
+the unlearning bound of 2609.04875 closes the direction a priori (it bounds
+worst-case *exact reconstruction* over transitions, not decoded tokens, and does
+not preclude changing prospective exposure).
+
+E28 also does not address **power for task quality**: zero additional-failure
+events across 12 independent task pairs still permits a one-sided exact 95 %
+upper bound of ≈ 22.1 %.
+
+> **E28 establishes provisional feasibility for its tested cost contrast. It does
+> not establish novelty, the power of a different recovery contrast, preservation
+> of task quality, or freedom from all statistical risks.**
+
+The binding risk is novelty and it is not statistical: CPE (arXiv:2606.14314)
+already performs rollout-driven communication-prompt optimisation with training
+and validation gates, so the next decision — taken **before** any further large
+inference run — is to state concretely what the proposed algorithm does beyond
+CPE-style search with a substituted objective, REVISE-style recovery, and tuned
+static isolation. If that cannot be specified and tested, the breakthrough
+framing is retired and the engineering and feasibility record kept.
 
 ## 4. Negative and null results worth recording
 

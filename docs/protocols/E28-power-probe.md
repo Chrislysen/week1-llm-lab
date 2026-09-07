@@ -196,41 +196,138 @@ What the data actually show, over ten runs of instance 0:
 So the deviation is **intermittent and unexplained**, not a warm-up law. Its
 practical consequence is nonetheless concrete and does not depend on the cause:
 
-> **Cost is exactly reproducible within a process and occasionally shifts across
-> processes.** Any agent-cost comparison must therefore run the arms it compares
-> **inside the same process**, or randomise arms across processes. Splitting arms
-> by process — the natural way to chunk a long run, and what this probe did —
-> silently confounds the comparison with process identity.
+> **In the processes observed, repeated runs were cost-identical, and the
+> occasional shifts coincided with process starts.** Any agent-cost comparison
+> should therefore block on process/server lifecycle **and** randomise or
+> counterbalance arm order, recording request position and defining any warm-up
+> exclusion in advance.
 
-That requirement is a finding about measuring agent cost, which is the substrate
-the entire AgentCom proposal rests on. Note that this probe's own ARM H ran both
-arms of each pair inside one process, so its paired differences are not exposed
-to it.
+Stated that way deliberately: with 10 runs and an unexplained cause, this is an
+observed pattern, **not** a universal determinism law, and it should not be
+promoted into one.
+
+**Correction (E28-C).** I originally added here that ARM H "ran both arms of each
+pair inside one process, so its paired differences are not exposed to it."
+**That was wrong.** Same-process pairing controls process identity and gives no
+protection against *order*, and ARM H ran `full` first every time. See E28-C
+below, which tests it.
+
+### E28-C OUTCOME — prediction refuted in direction; rule fires but is underpowered
+
+All 8 instances re-run with `order="bf"`. 64 further calls.
+
+| instance | Δ(full-first) | Δ(budgeted-first) | shift |
+|---|---|---|---|
+| h0 | +560 | +799 | +239 |
+| h1 | +536 | +683 | +147 |
+| h2 | +607 | +604 | −3 |
+| h3 | +1013 | +663 | **−350** |
+| h4 | +671 | +1108 | **+437** |
+| h5 | +483 | +683 | +200 |
+| h6 | +222 | +479 | +257 |
+| h7 | +392 | +471 | +79 |
+| **mean** | **+560.5** | **+686.2** | **+125.8** |
+
+**My prediction was refuted in direction.** I predicted reversing the order would
+*reduce* the measured saving, because the always-first arm (`full`) would be the
+inflated one. The saving **rose** (+560.5 → +686.2), and mean `full` cost rose
+when `full` ran *second* (3444 → 3535). Whatever the effect is, it inflates the
+arm in the **second** position, not the first.
+
+**The declared read rule fires — and the rule is too crude to support it.**
+|shift| = 125.8 ≥ 50, so by the letter: CONTAMINATED. But the within-instance
+order effect is mean +125.8 with SD 232.4 at n=8, giving **t = 1.53, p ≈ 0.17**.
+The order effect is **not statistically distinguishable from zero.** My threshold
+was a bare cut on a point estimate with no uncertainty treatment — the identical
+error E24-B recorded, where a 0.02 threshold was set with no power analysis
+against half-widths several times larger. I repeated it. Recorded.
+
+The defensible statement is therefore: **the point estimate moved by ~126 tokens
+(23 % of the effect), in the opposite direction to my prediction, and n = 8
+cannot establish whether that is real.** The prescription is unchanged either
+way, and is Astra's: block on process and **counterbalance or randomise arm
+order**, recording request position.
+
+**Re-reported effect size, counterbalanced over both orders:**
+
+| quantity | full-first only (as first reported) | counterbalanced |
+|---|---|---|
+| mean saving | +560.5 tok = 16.3 % | **+623.4 tok = 17.9 %** |
+| SD_H | 229.5 | **182.6** |
+| **MDE at n=12** | 203.9 tok = 5.9 % | **162.2 tok = 4.6 %** |
+
+The POWERED verdict is robust to the confound — averaging the two orders
+*reduces* SD_H and improves sensitivity. The **effect size** reported in the
+first pass was contaminated; the **power verdict** was not.
 
 ### What this result does and does not license
 
 Per the asymmetry declared in advance: **POWERED is necessary, not sufficient.**
-The contrast measured here is mechanical context truncation, so SD_H is a lower
-bound on what a real recovery study faces. This result **fails to kill** the
-proposal on power; it does not validate it.
+This result **fails to kill** the proposal on power; it does not validate it.
 
-The operative consequence is a redirection. **Statistical power on cost is not
-the AgentCom proposal's binding risk** — at 5.9 % MDE there is roughly a
-five-fold margin, so the pilot could absorb several times this heterogeneity and
-still resolve. The binding risks are the ones already identified and are all
-non-statistical:
+**Three claims from my first write-up were overstated and are withdrawn.**
+Raised in external review (Astra, 2026-09-07), checked against the sources, and
+accepted:
 
-1. **CPE (arXiv:2606.14314)** already performs prompt-level communication-policy
-   optimisation with a held-out monotonic-improvement gate, leaving AgentCom's
-   residual novelty as *only* the revision-cost objective.
-2. **Forgetting Without Restarting (2609.04875)** bounds the achievable
-   contribution a priori: exact unlearning needs ≥ T−τ+1 recomputed transitions
-   and the post-target suffix is irreducibly tainted.
-3. **Corpus burn** — the E16 dialogues have been used across nine studies and are
-   development material, not a valid confirmatory test set.
+1. **The "five-fold margin" against REVISE was not a valid power argument.**
+   REVISE reports *model-call* reductions (40.6–56.0 % vs full restart,
+   31.3–43.6 % vs suffix recomputation; separately 13.26 % fewer
+   revision-to-completion tokens in its serving experiment). E28's 4.6 % is
+   *tokens* under *mechanical truncation*, a different quantity against a
+   different denominator. Dividing one by the other is meaningless. **Withdrawn.**
+   What E28 actually establishes is the instrument's sensitivity *for its own
+   contrast*; the target effect for AgentCom is an **increment over strong
+   recovery and tuned-static baselines**, which could be far smaller than any
+   headline REVISE figure and is currently unknown.
 
-Spending the next block of work on more instances would buy precision that is
-already surplus, against a prior-art problem that no amount of it addresses.
+2. **"SD_H here is a lower bound on a recovery study's SD" was asserted, not
+   argued.** A mechanically simpler contrast having smaller between-instance
+   spread is plausible, not a theorem; establishing it needs an argument about
+   the actual quantities and their covariance, which I did not give. Correct
+   status: **an optimistic planning proxy.** It follows that "precision is
+   already surplus" is also **withdrawn** — an n=8 estimate of a *different*
+   contrast cannot establish surplus precision for the future study.
+
+3. **The unlearning bound does not close the direction.** Corollary 1 of
+   2609.04875 is a *worst-case* bound on **exact reconstruction**, given a
+   specified operation set (read a stored trajectory/metadata, invoke the
+   transition function), and it counts **transitions, not decoded tokens**. It
+   says nothing against changing *prospective* information exposure so the
+   costly state is never created. Behaving correctly under a new requirement and
+   exactly reconstructing a never-observed state are different targets.
+   **Withdrawn** as an a-priori bound on the achievable contribution; it remains
+   a question to investigate.
+
+**A statistical risk E28 does not touch.** Power for a *cost* contrast says
+nothing about power to show *preserved task quality*. Illustratively: zero
+additional-failure events across 12 independent task pairs still permits a
+one-sided exact 95 % upper bound of 1 − 0.05^(1/12) ≈ **22.1 %** on the
+probability of such an event. That is a Bernoulli illustration, not a sample-size
+prescription — but it shows a quality gate needs its own estimand, tolerance and
+power analysis, declared before the design is fixed. E28 provides none of that.
+
+**What remains the binding risk: novelty, and it is not statistical.** CPE
+(arXiv:2606.14314) already performs rollout-driven communication-prompt
+optimisation with training and validation gates. Substituting a revision-cost
+reward into that optimiser is an *adaptation* unless a further contribution is
+demonstrated, so the comparison set must include **CPE-style search carrying the
+same revision objective and the same recovery backend**, alongside tuned static
+isolation. Corpus burn stands separately: the E16 dialogues have informed nine
+studies and are development material; fresh seeds from a fixed generator supply
+new instances but do not by themselves establish transfer to unseen task
+structure.
+
+**The decision this probe supports** is therefore *not* "run the 96-trajectory
+pilot". It is: **state concretely what the proposed algorithm does beyond
+CPE-style search with a substituted objective, REVISE-style recovery, and tuned
+static isolation — and if that cannot be stated and tested, retire the
+breakthrough framing** while keeping the engineering and feasibility record.
+
+### Defensible conclusion
+
+> The declared feasibility rule passed for the tested cost contrast. **Novelty,
+> recovery effectiveness, and preservation of task quality remain
+> unestablished.**
 
 ## E28-C — arm order was confounded with request position
 
