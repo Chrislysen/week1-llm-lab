@@ -143,3 +143,81 @@ test and also its main confound. `gemma4:e4b` is at ceiling (1.000) on exclusion
 ### Files
 
 `results/e25_{llama32-3b,qwen25-3b-instruct,qwen25-7b-instruct,gemma4-e4b,aya-expanse-8b}_o0.csv`.
+
+---
+
+## E25 FULL RUN — all 215 prompts, five models
+
+The 45-prompt result above is superseded. Every model was run on all 215
+analysable prompts: **104 inclusion and 144 exclusion observations each**, 1 075
+generations total.
+
+| model | mean words | inclusion | exclusion |
+|---|---|---|---|
+| gemma4:e4b | 266.9 | 0.942 ±0.045 | 0.924 ±0.043 |
+| llama3.2:3b | 263.3 | 0.837 ±0.071 | 0.806 ±0.065 |
+| qwen2.5:3b-instruct | 250.5 | 0.625 ±0.093 | 0.674 ±0.077 |
+| aya-expanse:8b | 238.0 | 0.683 ±0.089 | 0.611 ±0.080 |
+| qwen2.5:7b-instruct | 203.5 | 0.692 ±0.089 | 0.861 ±0.056 |
+
+### The declared between-model rule: still NOT CONFIRMED, and now clearly so
+
+    Spearman(words, inclusion) = +0.600  p = 0.285   [predicted POSITIVE]
+    Spearman(words, exclusion) = +0.400  p = 0.505   [predicted NEGATIVE]
+
+The +1.000 inclusion correlation reported at n = 45 was **small-sample luck**; it
+falls to +0.600 and is not significant. Neither correlation is. **NOT
+CONFIRMED**, and the E25 conclusion recorded earlier — that between-model
+comparisons are dominated by capability rather than length — stands and is
+strengthened.
+
+### POST-HOC — the within-model, per-type analysis, and it is the real result
+
+**Not declared in advance.** Computed after the between-model rule was applied
+and recorded. Within each model separately — so model capability is held
+completely fixed — Spearman(response words, satisfied), by IFEval instruction
+type:
+
+| IFEval instruction | type | aya | gemma | llama | qwen3b | qwen7b |
+|---|---|---|---|---|---|---|
+| `keywords:existence` | **pure inclusion** | +0.053 | +0.062 | **+0.328\*** | +0.119 | **+0.452\*** |
+| `keywords:forbidden_words` | **pure exclusion** | −0.120 | −0.008 | −0.118 | −0.239 | −0.209 |
+| `punctuation:no_comma` | **pure exclusion** | **−0.334\*** | const | **−0.281\*** | **−0.394\*** | **−0.338\*** |
+| `keywords:frequency` | *mixed relations* | +0.191 | −0.156 | −0.108 | +0.057 | +0.184 |
+| `length_constraints:number_words` | *mixed relations* | +0.017 | −0.195 | +0.005 | 0.000 | −0.208 |
+
+`*` = p < 0.05. One `no_comma` cell is constant (gemma never used a comma).
+
+**All 14 pure-type cells point the predicted way** — 5/5 positive for inclusion,
+9/9 negative for exclusion. Two-sided sign test **p = 1.2 × 10⁻⁴**. Four of the
+five `no_comma` cells are individually significant.
+
+**And the internal check passes.** The two *mixed-relation* types — which pool
+"at least" and "less than" items, so the mechanism predicts they should cancel —
+sit at **zero** (10 cells, signs split, none significant). The classification is
+doing real work rather than reflecting a generic length artefact.
+
+### What this establishes, stated precisely
+
+On **IFEval's own items**, **within a model** (so capability is held fixed),
+**response length predicts constraint satisfaction, with the sign set by
+constraint type**. That is E24's mechanism, reproduced on real benchmark data,
+by a method that cannot be explained by between-model capability differences.
+
+What it does **not** establish is the between-model claim: verbose models do not
+score worse on exclusion constraints overall, because verbosity and capability
+are positively correlated in practice. The confound is real at the item level and
+does not translate into a ranking distortion.
+
+### Limits
+
+Post-hoc. Five models, one benchmark, verifiers reimplementing IFEval's semantics
+rather than its official harness. Response length is natural, not manipulated —
+within a model it still co-varies with what the prompt asked for, and prompts
+requesting long answers may differ systematically from prompts requesting short
+ones in ways beyond length. A `num_predict = 1500` runaway guard was applied
+uniformly. `keywords:frequency` and `length_constraints:number_words` were left
+pooled rather than split by relation; splitting them is the obvious next
+refinement and would sharpen the internal check.
+
+**No novelty is asserted.** T-2 remains NARROW.
