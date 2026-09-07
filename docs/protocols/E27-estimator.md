@@ -278,3 +278,39 @@ is itself a reminder that most steering attempts in this setup do nothing.
 ### Files
 
 `results/e27b_Qwen2.5-1.5B-Instruct.json`, `results/e27b_Qwen3.5-0.8B.json`.
+
+
+---
+
+## CLOSED 2026-09-08 — originality claim retired, gate found faulty
+
+**Im & Li, arXiv:2502.02716** (v2, 9 Jan 2026) compares the same four estimator
+families under tighter controls than E27 used:
+
+- **MoD** (= `dim`), **PoD** = PCA of differences (= `pca`), **PoE** = PCA of
+  embeddings (**the control E27 declared as its most important untested gap**),
+  **CoE** = classifier on embeddings (= `logistic`).
+- Layer and extraction location controlled by ablation (layer 13, residual
+  stream); **steering multiplier selected per method on validation**, reported on
+  a held-out test set.
+- **Theorem 3.1**: the mean of differences minimises the steering objective.
+- Both PCA variants perform worst, with a mechanism E27 never gave: the
+  highest-variance direction is nearly orthogonal to the behaviour direction
+  (§3.1, Fig 2).
+
+E27's fixed-α-across-estimators design is **weaker** than this on a confound the
+prior work explicitly handles: magnitudes differ by method, which is why they
+tune the multiplier per method. Verdicts straddling one fixed threshold largely
+restate that known magnitude ordering.
+
+**Status: controlled replication, not an original result.** Replication value is
+real but modest (different models, layers, concepts; bootstrap CIs over pairs).
+
+**The planned concatenated-PCA (PoE) run is CANCELLED** — the literature already
+answers it.
+
+**Gate failure, recorded.** The E27 gate searched my own phrasing ("does
+estimator choice flip nulls?") rather than the field's phrasing ("which steering
+method should be used and why?"), and an earlier audit marked this very citation
+"unverifiable" when one search finds it. A false negative was treated as evidence
+of absence, on the citation most damaging to my own claim.

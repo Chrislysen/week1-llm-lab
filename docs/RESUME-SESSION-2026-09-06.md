@@ -4,10 +4,17 @@
 run) through E27-B. Written for external review. Every number below is
 re-derivable from committed artifacts; every claim is labelled with its status.
 
-**Headline, stated plainly:** one confirmed methodological result that is
-original to this work (E27/E27-B), three successful replications of other
-people's published claims, and four predictions of my own that I refuted myself.
-**No breakthrough. No novel discovery about how language models work.**
+**Headline, stated plainly:** four successful replications of other people's
+published claims, and four predictions of my own that I refuted myself.
+**No breakthrough. No novel discovery about how language models work, and — as
+of 2026-09-08 — no original result either.**
+
+**Correction 2026-09-08:** this resume previously claimed E27/E27-B as "the one
+original result". That claim is **retired**. Im & Li (arXiv:2502.02716) already
+compare the same four estimators under tighter controls, prove mean-of-
+differences optimal, and run the very control E27 called its most important gap.
+E27 is now recorded as a controlled replication (§1). My earlier prior-art gate
+missed this paper; the failure is analysed in §1.
 
 **Update 2026-09-08:** adds E28, a declared feasibility probe for a proposed
 agent-communication cost study (section 3b). It passed its declared rule for the
@@ -67,18 +74,86 @@ E27 tested whether that generalised; E27-B tested it at scale.
 Report the estimator. Run more than one. **Do not use paired-difference PCA** —
 0/36 successes with a wrong-signed mean effect in 21/36.
 
-### Prior-art status: NARROW-OPEN, not open
+### Prior-art status: CLOSED (corrected 2026-09-08). Originality claim RETIRED.
 
-- Estimators (MD / PCA / LR) are compared **descriptively** in method surveys —
-  how they are computed, not whether they flip verdicts.
-- **arXiv:2608.08159** (Wu, Zhao & Chen, Aug 2026) audits steering measurement
-  confounds across 17 models and flips a null — auditing units, readout metric,
-  operating point, layer, neuron selection. **The estimator is not among them.**
-- **arXiv:2505.22637** (Braun et al.) studies steering unreliability and
-  **explicitly does not compare estimators**.
+**The statement previously here — that estimators are compared only
+"descriptively" in method surveys — was false.** It is withdrawn.
 
-Two papers that would naturally have covered it did not. This is best described
-as **the missing entry in an existing audit**, not a new research direction.
+**Im & Li, "A Unified Understanding and Evaluation of Steering Methods"
+(arXiv:2502.02716; v2 9 Jan 2026)** compares exactly E27's estimators, and the
+control E27 named as its most important open gap:
+
+| Im & Li §2 | E27 equivalent |
+|---|---|
+| **MoD** — mean of differences, eq (3) | `dim` |
+| **PoD** — PCA *of differences*, eq (4) | `pca` |
+| **PoE** — PCA *of embeddings*, eq (5) | **the "concatenated PCA" control E27 listed as untested** |
+| **CoE** — classifier on embeddings, eq (6) | `logistic` |
+
+They control layer and extraction location (layer 13, residual stream, chosen by
+ablation), **select the steering multiplier per method on a validation set** from
+{0.5,…,3} and report on a held-out test set, prove in **Theorem 3.1** that the
+mean of differences is the objective-minimising steering vector, and show both
+PCA variants perform worst — with a mechanism E27 never supplied: the
+highest-variance direction is *nearly orthogonal* to the behaviour direction
+(§3.1, Fig 2, Tables 1–3).
+
+**Scoring E27's claims against this:**
+
+| E27 claim | status |
+|---|---|
+| estimator choice changes steering effectiveness | **established in prior work**, empirically *and* theoretically |
+| PCA can miss the useful steering direction | **established**, with a mechanism and a visualisation |
+| "do not use paired-difference PCA" | = their PoD result, already published |
+| concatenated-PCA is the important untested control | **already run** — their PoE. Not a gap in the literature |
+| estimators flip *binary verdicts* under E27's random-control rule | narrow, and see below |
+
+**Why even the narrow residual does not carry an originality claim.** E27 applied
+a **fixed α across all estimators** and a hard threshold against random controls.
+Im & Li establish that the methods differ substantially in effect *magnitude*,
+and tune the multiplier per method **precisely because** magnitude is
+method-dependent (they note the classifier's vector scale is "substantially
+shorter"). Given known unequal magnitudes and one un-tuned operating point,
+verdicts straddling a fixed threshold is close to arithmetically expected — it
+largely restates the established magnitude ordering rather than adding a
+phenomenon. E27's fixed-α design is therefore **weaker than the prior work's**,
+on a confound that prior work explicitly handles.
+
+**Conclusion: E27 is retained as a controlled replication, not an original
+result.** Its replication value is real but modest: it independently reproduces
+the MoD-positive / PCA-negative ordering on two Qwen models, three layers and six
+concepts, with bootstrap CIs over contrastive pairs — different models and
+concepts from Im & Li's Llama-2-7b-chat + Anthropic behaviour datasets.
+
+**The planned concatenated-PCA run is cancelled.** Its declared purpose was to
+test the most actionable claim; the literature already answers it, so running it
+would replicate a replication.
+
+### Why the prior-art gate failed — the transferable lesson
+
+This is the part worth keeping. The gate did not fail for lack of searching; it
+failed twice, in two different ways:
+
+1. **The search was shaped to confirm.** E27's gate asked, in effect, "has anyone
+   shown estimator choice *flips nulls*?" — my own framing, phrased in my own
+   vocabulary. Im & Li's paper answers the more basic question "which steering
+   method should be used and why?" and calls the estimators MoD / PoD / PoE /
+   CoE. A search for my phrasing does not surface their phrasing. **A prior-art
+   gate must search the field's vocabulary for the underlying question, not the
+   author's vocabulary for the specific claim.**
+
+2. **I marked the decisive citation "unverifiable" and moved on.** An earlier
+   audit in this session checked eight citations from an external review and
+   flagged two as unconfirmable — one of which was "Im and Li". It is a real,
+   indexed arXiv paper that a single search finds. I recorded a **false negative
+   as though it were evidence of absence**, and it sat in the "why other
+   directions rank lower" table — exactly where a competing claim would most
+   damage my own. **An unverified citation is an open task, not a closed one**,
+   and the ones that would hurt most deserve the most effort, not the least.
+
+The cost: E27 was carried as "the one original result" through a full external
+review cycle on the strength of a gate that had already been contradicted by a
+paper I had been handed a pointer to and failed to find.
 
 ### Limits (the honest list)
 
@@ -179,8 +254,8 @@ specified the method concretely and withdrew its own recommendation: the
 specification decomposes into adapted CPE-style prompt search, REVISE-style
 selective recovery, and tuned static isolation, with no additional search
 mechanism, guarantee, or demonstrated advantage. The recovery backend is not
-built and is not warranted on this rationale. **Tally: 22 candidates gated, 21
-closed**; E27 remains the single NARROW-OPEN result.
+built and is not warranted on this rationale. **Tally at the time: 22 candidates
+gated, 21 closed.** (E27, then the last one open, closed on 2026-09-08 — see §1.)
 
 Two further corrections after review: the order shift's 95 % interval is
 [-68.5, +320.1] tokens, so the observed *direction* is reportable but systematic
@@ -207,7 +282,9 @@ framing is retired and the engineering and feasibility record kept.
 - **E24-B** — the declared read rule returned REORDER DEMONSTRATED and **the rule
   was wrong**: its 0.02 threshold was set with no power analysis, against 95 %
   half-widths of 0.080–0.132. Recorded, not relied on.
-- **21 candidate hypotheses were gated against the literature; 20 closed.**
+- **22 candidate hypotheses were gated against the literature; all 22 now
+  closed.** E27, the last one standing, closed on 2026-09-08 when its prior-art
+  gate was found to have missed arXiv:2502.02716.
   Framings tried: behavioural (8), measurement (3), meta-science (1), bounding
   (1), latent/mechanistic (1), circuit-identity (1), thesis-level (1), and others.
   Every closed one had all its components already published.
