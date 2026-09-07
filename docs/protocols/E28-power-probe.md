@@ -143,6 +143,95 @@ treated as the near-threshold warning it appears to be.
 Either way this is a finding about **measurement of agent cost**, which is the
 substrate the whole AgentCom proposal rests on.
 
+## OUTCOME
+
+Run 2026-09-07. 8 instances + 9 repeats = **212 model calls**, `llama3.2:3b`,
+`turns=8`, `words=120`. Precondition **PASSED**: the budget bound in 49/96
+`manage_context` calls.
+
+### Declared verdict: POWERED
+
+| quantity | value |
+|---|---|
+| mean paired difference | **+560.5 tokens (+16.3 % of run cost)** |
+| SD_H (heterogeneity, n=8) | 229.5 tokens |
+| SD_R (run noise, declared n=4) | 153.0 → ratio 0.67 |
+| SD_R (run noise, pooled n=9) | **102.0 → ratio 0.44** |
+| mean full-protocol cost | 3 444 tokens/instance |
+| **MDE at n=12** | **203.9 tokens = 5.9 % of run cost** |
+
+5.9 % ≪ 31 %, so **a 12-instance paired design resolves a REVISE-scale effect
+with a wide margin.** Heterogeneity dominates run noise, and the secondary
+threshold (0.7) is not crossed on either sample — comfortably so once pooled.
+
+### Predictions scored
+
+1. **SD_R/SD_H < 0.3** — **wrong on the declared sample** (0.67), right in
+   direction only after pooling (0.44). Recorded as missed.
+2. **Mean paired difference 20–40 %** — **wrong**; the true value is 16.3 %,
+   below my stated band.
+3. **MDE < 31 %, POWERED** — **correct**, and by a far larger margin than I
+   expected.
+
+Two of three predictions missed. The one that decided the build was right.
+
+### E28-D: prediction disconfirmed, and the read rule was incomplete
+
+A fresh process produced **five bit-identical runs including the first**
+(3057/2888 throughout), so "the first call in a process is high" is **refuted**.
+
+But the alternative branch of my read rule — "spread appears among later runs
+too" — is *also* false: later runs show **zero** spread. The declared read rule
+had two branches and the observed outcome fell in neither. **The rule was
+incomplete.** Recorded as such, in the same spirit as E24-B, where a declared
+read rule returned a verdict and the rule itself was wrong.
+
+What the data actually show, over ten runs of instance 0:
+
+- **8 of 10 runs returned exactly (3057, 2888)** — cost is *bit-reproducible*.
+- **2 deviated**: h00 (3373, 2813) and r00 (3363, 2888).
+- Both deviants were first-in-process — **but r10 was also first-in-process and
+  did not deviate**, so first-call does not explain it.
+
+So the deviation is **intermittent and unexplained**, not a warm-up law. Its
+practical consequence is nonetheless concrete and does not depend on the cause:
+
+> **Cost is exactly reproducible within a process and occasionally shifts across
+> processes.** Any agent-cost comparison must therefore run the arms it compares
+> **inside the same process**, or randomise arms across processes. Splitting arms
+> by process — the natural way to chunk a long run, and what this probe did —
+> silently confounds the comparison with process identity.
+
+That requirement is a finding about measuring agent cost, which is the substrate
+the entire AgentCom proposal rests on. Note that this probe's own ARM H ran both
+arms of each pair inside one process, so its paired differences are not exposed
+to it.
+
+### What this result does and does not license
+
+Per the asymmetry declared in advance: **POWERED is necessary, not sufficient.**
+The contrast measured here is mechanical context truncation, so SD_H is a lower
+bound on what a real recovery study faces. This result **fails to kill** the
+proposal on power; it does not validate it.
+
+The operative consequence is a redirection. **Statistical power on cost is not
+the AgentCom proposal's binding risk** — at 5.9 % MDE there is roughly a
+five-fold margin, so the pilot could absorb several times this heterogeneity and
+still resolve. The binding risks are the ones already identified and are all
+non-statistical:
+
+1. **CPE (arXiv:2606.14314)** already performs prompt-level communication-policy
+   optimisation with a held-out monotonic-improvement gate, leaving AgentCom's
+   residual novelty as *only* the revision-cost objective.
+2. **Forgetting Without Restarting (2609.04875)** bounds the achievable
+   contribution a priori: exact unlearning needs ≥ T−τ+1 recomputed transitions
+   and the post-target suffix is irreducibly tainted.
+3. **Corpus burn** — the E16 dialogues have been used across nine studies and are
+   development material, not a valid confirmatory test set.
+
+Spending the next block of work on more instances would buy precision that is
+already surplus, against a prior-art problem that no amount of it addresses.
+
 ## What this does not test
 
 Revision, recovery, provenance, policy search, or task quality. Cost only.
