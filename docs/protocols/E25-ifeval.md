@@ -221,3 +221,40 @@ pooled rather than split by relation; splitting them is the obvious next
 refinement and would sharpen the internal check.
 
 **No novelty is asserted.** T-2 remains NARROW.
+
+### POST-HOC refinement — split by relation. IT FAILS, and it weakens my own internal check.
+
+The obvious sharpening: `keywords:frequency` and `length_constraints:number_words`
+each contain both an *at least* form (inclusion-like) and a *less than* form
+(exclusion-like). If the mechanism drives the pattern, splitting by IFEval's own
+`relation` field should make the same instruction type separate into opposite
+signs.
+
+| instruction [relation] | predicted | n | aya | gemma | llama | qwen3b | qwen7b |
+|---|---|---|---|---|---|---|---|
+| `keywords:frequency` [at least] | + | 29 | +0.316 | **−0.390\*** | −0.326 | +0.165 | +0.311 |
+| `keywords:frequency` [less than] | − | 13 | −0.122 | +0.387 | +0.292 | −0.171 | −0.171 |
+| `number_words` [at least] | + | 32 | +0.157 | −0.322 | −0.163 | **+0.580\*** | +0.183 |
+| `number_words` [less than] | − | 20 | +0.355 | −0.130 | +0.076 | −0.294 | −0.231 |
+
+**12 of 20 cells match the prediction. Chance is 10 of 20.** The split does not
+work.
+
+**This weakens the "internal check passes" claim made above**, and that claim is
+hereby qualified. I argued the mixed types sit at zero *because* their two
+relations cancel. The relation-split shows the sub-groups do **not** reliably run
+in opposite directions, so the zero is better explained as weak and noisy effects
+than as cancellation. The internal validation is therefore **much weaker than I
+presented it**, and the sentence "the classification is doing real work rather
+than reflecting a generic length artefact" is not supported by this test.
+
+In mitigation, and stated without leaning on it: the per-cell n here is 13–32
+against 39–66 for the pure types, so this refinement is materially underpowered
+and a null is what an underpowered test most often returns. That is an
+explanation, not a defence — the check was proposed as a validation, it was run,
+and it did not validate.
+
+**What survives unchanged:** the pure-type result — 14/14 cells in the predicted
+direction, sign test p = 1.2 × 10⁻⁴, four individually significant `no_comma`
+cells. That rests on the three unambiguous constraint types and does not depend
+on the mixed-type argument at all.
