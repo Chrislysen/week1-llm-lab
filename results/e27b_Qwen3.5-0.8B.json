@@ -1,0 +1,661 @@
+{
+ "model": "Qwen/Qwen3.5-0.8B",
+ "alpha": 5.0,
+ "reps": 20,
+ "results": {
+  "8": {
+   "sentiment": {
+    "baseline": 0.6875,
+    "random_absmax": 8.1171875,
+    "est": {
+     "dim": {
+      "mean": 11.204003858566285,
+      "lo": 8.7940425157547,
+      "hi": 13.144140624999999,
+      "beats": true
+     },
+     "logistic": {
+      "mean": 5.40971691608429,
+      "lo": 2.53828125,
+      "hi": 7.854565930366516,
+      "beats": false
+     },
+     "pca": {
+      "mean": 2.891632056236267,
+      "lo": -5.583203125,
+      "hi": 10.223438000679016,
+      "beats": false
+     },
+     "lda": {
+      "mean": 7.321160864830017,
+      "lo": 4.9267578125,
+      "hi": 10.437988781929015,
+      "beats": false
+     }
+    },
+    "verdicts": {
+     "dim": true,
+     "logistic": false,
+     "pca": false,
+     "lda": false
+    }
+   },
+   "formality": {
+    "baseline": 2.90625,
+    "random_absmax": 4.359375,
+    "est": {
+     "dim": {
+      "mean": 7.6769530296325685,
+      "lo": 3.29873046875,
+      "hi": 12.197655797004694,
+      "beats": false
+     },
+     "logistic": {
+      "mean": 5.49228515625,
+      "lo": 3.7563476085662844,
+      "hi": 7.024987292289734,
+      "beats": false
+     },
+     "pca": {
+      "mean": 0.058203268051147464,
+      "lo": -9.4033198595047,
+      "hi": 6.1373042345046995,
+      "beats": false
+     },
+     "lda": {
+      "mean": 6.997656154632568,
+      "lo": 4.8298828125,
+      "hi": 10.768358922004698,
+      "beats": true
+     }
+    },
+    "verdicts": {
+     "dim": false,
+     "logistic": false,
+     "pca": false,
+     "lda": true
+    }
+   },
+   "certainty": {
+    "baseline": 4.5625,
+    "random_absmax": 11.03125,
+    "est": {
+     "dim": {
+      "mean": -0.22119140625,
+      "lo": -1.2306636095046997,
+      "hi": 0.6309077501296997,
+      "beats": false
+     },
+     "logistic": {
+      "mean": 2.2184571027755737,
+      "lo": -0.25039017200469965,
+      "hi": 4.025390172004699,
+      "beats": false
+     },
+     "pca": {
+      "mean": -3.9374999523162844,
+      "lo": -5.31875,
+      "hi": 0.34062545299529956,
+      "beats": false
+     },
+     "lda": {
+      "mean": 0.0671905517578125,
+      "lo": -2.772802734375,
+      "hi": 1.8336914062499996,
+      "beats": false
+     }
+    },
+    "verdicts": {
+     "dim": false,
+     "logistic": false,
+     "pca": false,
+     "lda": false
+    }
+   },
+   "politeness": {
+    "baseline": -0.9375004768371582,
+    "random_absmax": 3.124999523162842,
+    "est": {
+     "dim": {
+      "mean": 0.20000047683715821,
+      "lo": -2.1460932731628417,
+      "hi": 1.6953129768371578,
+      "beats": false
+     },
+     "logistic": {
+      "mean": 0.9609380245208741,
+      "lo": -1.3804680466651917,
+      "hi": 2.7578132033348077,
+      "beats": false
+     },
+     "pca": {
+      "mean": -0.3369624137878418,
+      "lo": -3.231688976287842,
+      "hi": 2.1460942268371577,
+      "beats": false
+     },
+     "lda": {
+      "mean": 0.6640630245208741,
+      "lo": -1.6824213981628418,
+      "hi": 3.2218754768371562,
+      "beats": false
+     }
+    },
+    "verdicts": {
+     "dim": false,
+     "logistic": false,
+     "pca": false,
+     "lda": false
+    }
+   },
+   "technicality": {
+    "baseline": -2.34375,
+    "random_absmax": 4.53125,
+    "est": {
+     "dim": {
+      "mean": 3.459527540206909,
+      "lo": 0.9476562500000001,
+      "hi": 5.690820312499999,
+      "beats": false
+     },
+     "logistic": {
+      "mean": 1.6223509788513184,
+      "lo": 0.475177001953125,
+      "hi": 2.8343749999999996,
+      "beats": false
+     },
+     "pca": {
+      "mean": 0.17833242416381836,
+      "lo": -5.78978271484375,
+      "hi": 3.06328125,
+      "beats": false
+     },
+     "lda": {
+      "mean": 2.4238280773162844,
+      "lo": 0.5650390625,
+      "hi": 4.3374999999999995,
+      "beats": false
+     }
+    },
+    "verdicts": {
+     "dim": false,
+     "logistic": false,
+     "pca": false,
+     "lda": false
+    }
+   },
+   "tense": {
+    "baseline": 2.0,
+    "random_absmax": 8.90625,
+    "est": {
+     "dim": {
+      "mean": -0.12045893669128419,
+      "lo": -4.307177734375,
+      "hi": 3.8882812976837156,
+      "beats": false
+     },
+     "logistic": {
+      "mean": 1.2603027820587158,
+      "lo": -1.7257812499999998,
+      "hi": 3.8099609375,
+      "beats": false
+     },
+     "pca": {
+      "mean": -0.7671875,
+      "lo": -7.92421875,
+      "hi": 3.795312047004698,
+      "beats": false
+     },
+     "lda": {
+      "mean": -0.05129392147064209,
+      "lo": -3.7875117540359495,
+      "hi": 3.8515622735023496,
+      "beats": false
+     }
+    },
+    "verdicts": {
+     "dim": false,
+     "logistic": false,
+     "pca": false,
+     "lda": false
+    }
+   }
+  },
+  "13": {
+   "sentiment": {
+    "baseline": 0.6875,
+    "random_absmax": 3.9375,
+    "est": {
+     "dim": {
+      "mean": 12.947012329101563,
+      "lo": 10.2806640625,
+      "hi": 16.10234375,
+      "beats": true
+     },
+     "logistic": {
+      "mean": 6.7468749523162845,
+      "lo": 4.13749977350235,
+      "hi": 10.806640625,
+      "beats": true
+     },
+     "pca": {
+      "mean": 3.7199220180511476,
+      "lo": -2.721875,
+      "hi": 10.300244641304015,
+      "beats": false
+     },
+     "lda": {
+      "mean": 9.429080128669739,
+      "lo": 7.002881062030792,
+      "hi": 12.053172302246093,
+      "beats": true
+     }
+    },
+    "verdicts": {
+     "dim": true,
+     "logistic": true,
+     "pca": false,
+     "lda": true
+    }
+   },
+   "formality": {
+    "baseline": 2.90625,
+    "random_absmax": 4.1328125,
+    "est": {
+     "dim": {
+      "mean": 7.424219036102295,
+      "lo": 4.598828625679016,
+      "hi": 10.730469250679015,
+      "beats": true
+     },
+     "logistic": {
+      "mean": 5.067968940734863,
+      "lo": 3.1751953125,
+      "hi": 7.131249499320983,
+      "beats": false
+     },
+     "pca": {
+      "mean": -2.548632860183716,
+      "lo": -9.3953125,
+      "hi": 2.841016077995299,
+      "beats": false
+     },
+     "lda": {
+      "mean": 9.397265529632568,
+      "lo": 6.5044917345046995,
+      "hi": 11.598436999320983,
+      "beats": true
+     }
+    },
+    "verdicts": {
+     "dim": true,
+     "logistic": false,
+     "pca": false,
+     "lda": true
+    }
+   },
+   "certainty": {
+    "baseline": 4.5625,
+    "random_absmax": 8.59375,
+    "est": {
+     "dim": {
+      "mean": 1.0352540969848634,
+      "lo": -1.051806640625,
+      "hi": 3.529688453674314,
+      "beats": false
+     },
+     "logistic": {
+      "mean": 6.371386623382568,
+      "lo": 2.3299315929412843,
+      "hi": 8.73671875,
+      "beats": false
+     },
+     "pca": {
+      "mean": -3.535546875,
+      "lo": -6.21875,
+      "hi": 2.390039062499999,
+      "beats": false
+     },
+     "lda": {
+      "mean": 2.2769532680511473,
+      "lo": -1.487109375,
+      "hi": 5.101171374320982,
+      "beats": false
+     }
+    },
+    "verdicts": {
+     "dim": false,
+     "logistic": false,
+     "pca": false,
+     "lda": false
+    }
+   },
+   "politeness": {
+    "baseline": -0.9375004768371582,
+    "random_absmax": 4.499999523162842,
+    "est": {
+     "dim": {
+      "mean": 1.0507817268371582,
+      "lo": -1.2531245231628416,
+      "hi": 3.108203601837158,
+      "beats": false
+     },
+     "logistic": {
+      "mean": 1.2968754768371582,
+      "lo": -0.6195307731628418,
+      "hi": 4.859375476837157,
+      "beats": false
+     },
+     "pca": {
+      "mean": 0.8426275253295898,
+      "lo": -3.1807612419128417,
+      "hi": 3.2790292501449585,
+      "beats": false
+     },
+     "lda": {
+      "mean": 2.362500476837158,
+      "lo": 0.0742192268371582,
+      "hi": 4.359375476837158,
+      "beats": false
+     }
+    },
+    "verdicts": {
+     "dim": false,
+     "logistic": false,
+     "pca": false,
+     "lda": false
+    }
+   },
+   "technicality": {
+    "baseline": -2.34375,
+    "random_absmax": 5.2109375,
+    "est": {
+     "dim": {
+      "mean": 5.953014850616455,
+      "lo": 3.7330078125,
+      "hi": 7.7746088743209825,
+      "beats": false
+     },
+     "logistic": {
+      "mean": 4.478906154632568,
+      "lo": 2.72109375,
+      "hi": 6.193359374999999,
+      "beats": false
+     },
+     "pca": {
+      "mean": 1.3445433616638183,
+      "lo": -2.861328125,
+      "hi": 4.982519483566284,
+      "beats": false
+     },
+     "lda": {
+      "mean": 5.390327501296997,
+      "lo": 2.252734375,
+      "hi": 7.957080078124999,
+      "beats": false
+     }
+    },
+    "verdicts": {
+     "dim": false,
+     "logistic": false,
+     "pca": false,
+     "lda": false
+    }
+   },
+   "tense": {
+    "baseline": 2.0,
+    "random_absmax": 4.96875,
+    "est": {
+     "dim": {
+      "mean": 0.4533690929412842,
+      "lo": -3.371875,
+      "hi": 3.4542236328124996,
+      "beats": false
+     },
+     "logistic": {
+      "mean": 1.449609375,
+      "lo": -2.7406249999999996,
+      "hi": 4.5056640625,
+      "beats": false
+     },
+     "pca": {
+      "mean": 2.180041551589966,
+      "lo": -7.9296870470047,
+      "hi": 7.999022483825683,
+      "beats": false
+     },
+     "lda": {
+      "mean": -1.189453125,
+      "lo": -4.378125,
+      "hi": 0.7716796874999985,
+      "beats": false
+     }
+    },
+    "verdicts": {
+     "dim": false,
+     "logistic": false,
+     "pca": false,
+     "lda": false
+    }
+   }
+  },
+  "18": {
+   "sentiment": {
+    "baseline": 0.6875,
+    "random_absmax": 3.3125,
+    "est": {
+     "dim": {
+      "mean": 13.204473972320557,
+      "lo": 12.270215344429015,
+      "hi": 14.270928955078125,
+      "beats": true
+     },
+     "logistic": {
+      "mean": 5.61093761920929,
+      "lo": 5.013281726837159,
+      "hi": 6.39140625,
+      "beats": true
+     },
+     "pca": {
+      "mean": 1.996875,
+      "lo": -0.17031249999999998,
+      "hi": 5.105469226837155,
+      "beats": false
+     },
+     "lda": {
+      "mean": 12.829306030273438,
+      "lo": 11.5477543592453,
+      "hi": 14.72747905254364,
+      "beats": true
+     }
+    },
+    "verdicts": {
+     "dim": true,
+     "logistic": true,
+     "pca": false,
+     "lda": true
+    }
+   },
+   "formality": {
+    "baseline": 2.90625,
+    "random_absmax": 3.6875,
+    "est": {
+     "dim": {
+      "mean": 7.223339939117432,
+      "lo": 4.4633794069290165,
+      "hi": 9.209375500679014,
+      "beats": true
+     },
+     "logistic": {
+      "mean": 3.7336668968200684,
+      "lo": 2.6980844497680665,
+      "hi": 4.954149937629699,
+      "beats": false
+     },
+     "pca": {
+      "mean": 1.1237789630889892,
+      "lo": -3.539013671875,
+      "hi": 6.015819358825683,
+      "beats": false
+     },
+     "lda": {
+      "mean": 8.810156202316284,
+      "lo": 7.154687547683716,
+      "hi": 10.282031202316283,
+      "beats": true
+     }
+    },
+    "verdicts": {
+     "dim": true,
+     "logistic": false,
+     "pca": false,
+     "lda": true
+    }
+   },
+   "certainty": {
+    "baseline": 4.5625,
+    "random_absmax": 2.5,
+    "est": {
+     "dim": {
+      "mean": 7.604248046875,
+      "lo": 6.7750244140625,
+      "hi": 8.307421875,
+      "beats": true
+     },
+     "logistic": {
+      "mean": 5.5608397960662845,
+      "lo": 4.9515625,
+      "hi": 6.096435546875,
+      "beats": true
+     },
+     "pca": {
+      "mean": -0.5734374523162842,
+      "lo": -3.196875,
+      "hi": 1.9109374999999997,
+      "beats": false
+     },
+     "lda": {
+      "mean": 7.7749998569488525,
+      "lo": 6.976171875,
+      "hi": 9.073436999320982,
+      "beats": true
+     }
+    },
+    "verdicts": {
+     "dim": true,
+     "logistic": true,
+     "pca": false,
+     "lda": true
+    }
+   },
+   "politeness": {
+    "baseline": -0.9375004768371582,
+    "random_absmax": 2.5000009536743164,
+    "est": {
+     "dim": {
+      "mean": 2.9046879768371583,
+      "lo": 1.1320317268371582,
+      "hi": 4.031250476837158,
+      "beats": false
+     },
+     "logistic": {
+      "mean": 2.379688000679016,
+      "lo": 0.6187504768371582,
+      "hi": 4.417187976837157,
+      "beats": false
+     },
+     "pca": {
+      "mean": 0.596875524520874,
+      "lo": -1.3187495231628419,
+      "hi": 3.192969226837157,
+      "beats": false
+     },
+     "lda": {
+      "mean": 3.0062504768371583,
+      "lo": 2.1351567268371583,
+      "hi": 3.971875476837158,
+      "beats": false
+     }
+    },
+    "verdicts": {
+     "dim": false,
+     "logistic": false,
+     "pca": false,
+     "lda": false
+    }
+   },
+   "technicality": {
+    "baseline": -2.34375,
+    "random_absmax": 4.12890625,
+    "est": {
+     "dim": {
+      "mean": 2.8984375,
+      "lo": 1.96875,
+      "hi": 3.8648437499999995,
+      "beats": false
+     },
+     "logistic": {
+      "mean": 1.728125,
+      "lo": 0.6484375,
+      "hi": 2.8171874999999997,
+      "beats": false
+     },
+     "pca": {
+      "mean": 0.7340331077575684,
+      "lo": -1.5431645154953002,
+      "hi": 2.2859374999999997,
+      "beats": false
+     },
+     "lda": {
+      "mean": 2.978125,
+      "lo": 0.87265625,
+      "hi": 4.931249999999999,
+      "beats": false
+     }
+    },
+    "verdicts": {
+     "dim": false,
+     "logistic": false,
+     "pca": false,
+     "lda": false
+    }
+   },
+   "tense": {
+    "baseline": 2.0,
+    "random_absmax": 1.5,
+    "est": {
+     "dim": {
+      "mean": 4.362890696525573,
+      "lo": 1.640625,
+      "hi": 6.6328120470047,
+      "beats": true
+     },
+     "logistic": {
+      "mean": 4.3765625,
+      "lo": 3.82421897649765,
+      "hi": 5.223437499999999,
+      "beats": true
+     },
+     "pca": {
+      "mean": 3.3648438692092895,
+      "lo": -1.9140625,
+      "hi": 6.930079078674316,
+      "beats": false
+     },
+     "lda": {
+      "mean": 5.013281154632568,
+      "lo": 1.3390625,
+      "hi": 7.0,
+      "beats": false
+     }
+    },
+    "verdicts": {
+     "dim": true,
+     "logistic": true,
+     "pca": false,
+     "lda": false
+    }
+   }
+  }
+ }
+}

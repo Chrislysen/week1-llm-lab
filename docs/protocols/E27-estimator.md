@@ -201,3 +201,80 @@ Cells where no estimator beats are **uninformative** and excluded, as in E27.
 The same six concepts and single probe-token readouts. Bootstrap resamples
 directions but not the probe or the concept set, so it bounds pair-sampling
 noise only. α is fixed per model.
+
+## E27-B Outcome
+
+**Run 2026-09-07. Verdict: CONFIRMED AT SCALE.** Two models × three layers ×
+six concepts = **36 cells**. Of the **20 informative** cells, **20 disagree —
+100 %**, against a declared threshold of 50 %, using the *stricter*
+bootstrap-lower-bound test.
+
+| estimator | beats controls | rate | negative mean |
+|---|---|---|---|
+| `lda` (whitened mean difference) | 18 / 36 | 50 % | 3 / 36 |
+| `dim` (mean difference) | 17 / 36 | 47 % | 2 / 36 |
+| `logistic` (probe weight) | 10 / 36 | 28 % | 3 / 36 |
+| **`pca`** (top PC of paired diffs) | **0 / 36** | **0 %** | **21 / 36** |
+
+### What survives the three alternative explanations
+
+E27 could have been a lucky layer, a lucky pair sample, or unrepeated-measurement
+noise. All three are now excluded:
+
+- **Layer** — disagreement occurs at every layer tested in both models
+  (L12/18/24 and L8/13/18).
+- **Pair sample** — each delta is a 20-fold bootstrap over the contrastive
+  pairs, and a cell counts as BEATS only if its **lower bound** clears the
+  largest random control.
+- **Concept** — six concepts, and disagreement appears in every informative one.
+
+### The result
+
+**Whether a steering experiment reports success or failure is determined by the
+direction estimator, in 100 % of informative cells.** Same model, same layer,
+same α, same contrastive data, same readout, same random controls — only the
+orientation of a unit-norm vector differs.
+
+**And `pca` on paired differences is not a weak estimator, it is a broken one.**
+Zero successes in 36 cells, with a *negative* mean effect in 21 of them: it
+steers against the concept more often than with it. Any paper using it and
+reporting a null would be reporting a property of its estimator, not of the
+model.
+
+`dim` and `lda` agree closely (17 and 18 of 36) and are the only two that
+behave. `logistic` — the choice that produced E26's original null — succeeds
+barely half as often.
+
+### Why this matters
+
+E26's null was real under `logistic` and vanished under `dim`. E27 showed that
+was not a one-off; E27-B shows it is the norm. Published steering **negatives**
+are therefore under-determined unless the estimator is stated, and preferably
+more than one is run.
+
+**arXiv:2608.08159** audits five analytical choices in steering — units, readout,
+operating point, layer, neuron selection — and flips a null by correcting them.
+The direction estimator is not among the five. **arXiv:2505.22637** studies
+steering unreliability and explicitly does not compare estimators. On this
+evidence the estimator belongs in that audit, and it is the largest single lever
+found: it changes the verdict in every informative cell tested.
+
+### Limits
+
+Two models from one vendor family lineage (Qwen2.5 and Qwen3.5), three layers
+each, six concepts, eight contrastive pairs and one probe-token pair per concept.
+The bootstrap resamples pairs but not concepts or probes, so it bounds
+pair-sampling noise only. α is fixed per model and was chosen for proportionality
+to residual norm, not tuned per concept. `pca` is the paired-difference variant;
+PCA over concatenated activations is a different common recipe and is untested —
+that is the single most important gap, since the negative result about PCA is the
+most actionable claim here. Random controls are isotropic Gaussian.
+
+Sixteen of 36 cells were uninformative — no estimator beat the controls — which
+is itself a reminder that most steering attempts in this setup do nothing.
+
+**Still not asserted as novel.** The gate rated the core NARROW-OPEN.
+
+### Files
+
+`results/e27b_Qwen2.5-1.5B-Instruct.json`, `results/e27b_Qwen3.5-0.8B.json`.
