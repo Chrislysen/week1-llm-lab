@@ -1,7 +1,8 @@
 # E28 audit note — every reported number recomputed from raw run records
 
 Sources: `results/e28_power_probe.jsonl` (12 rows), `results/e28d_warmup.jsonl` (5), `results/e28c_order.jsonl` (8).
-Model `llama3.2:3b`, turns=8, recency budget=120 words. Total model calls: 400.
+Model `llama3.2:3b`, turns=8, recency budget=120 words. Model calls in these logged rows: 25 pairs x 16 = **400**. The 16-call smoke
+run was not written to JSONL, giving **416** overall (see Correction below).
 
 ## ARM H, full-first (the first-pass figures)
 
