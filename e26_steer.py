@@ -75,15 +75,23 @@ def collect(model, tok, ds, layer):
     return np.stack(X), np.array(y)
 
 
-def verdict_direction(model, tok, layer):
-    """Unit-norm logistic weight for rejected-vs-proposed, fitted on SEARCH."""
+def verdict_direction(model, tok, layer, method="logistic"):
+    """Unit-norm verdict direction for rejected-vs-proposed, fitted on SEARCH.
+
+    method="logistic"  logistic-regression weight (E26's original choice)
+    method="dim"       difference-in-means, the CAA/ActAdd standard
+    """
     X, y = collect(model, tok, all_dialogues()[SEARCH], layer)
     m = (y == "rejected") | (y == "proposed")
-    sc = StandardScaler().fit(X[m])
-    clf = LogisticRegression(max_iter=2000, random_state=SEED)
-    clf.fit(sc.transform(X[m]), (y[m] == "rejected").astype(int))
-    w = clf.coef_[0] / sc.scale_
-    return w / np.linalg.norm(w)
+    if method == "dim":
+        w = X[y == "rejected"].mean(0) - X[y == "proposed"].mean(0)
+    else:
+        sc = StandardScaler().fit(X[m])
+        clf = LogisticRegression(max_iter=2000, random_state=SEED)
+        clf.fit(sc.transform(X[m]), (y[m] == "rejected").astype(int))
+        w = clf.coef_[0] / sc.scale_
+    return w / np.linalg.norm(w), float(np.linalg.norm(
+        X[y == "rejected"].mean(0) - X[y == "proposed"].mean(0)))
 
 
 def steer_hook(vec, alpha):
@@ -110,14 +118,15 @@ def effect(m):
     return m["proposed"] - m["rejected"]
 
 
-def main(mid, alphas, n_random):
+def main(mid, alphas, n_random, method):
     assert corpus_hash() == HASH
     layer = BEST_LAYER[mid]
     tok, model = load(mid)
     ds = all_dialogues()[HELDOUT]
     print(f"=== E26 {mid} | steering layer {layer} | HELD-OUT n={len(ds)} ===\n")
 
-    w = verdict_direction(model, tok, layer)
+    w, dim_norm = verdict_direction(model, tok, layer, method)
+    print(f"  direction method={method}   ||mean(rej)-mean(prop)|| = {dim_norm:.3f}")
     hidden = w.shape[0]
     wt = torch.tensor(w)
     mod = layer_module(model, layer)
@@ -150,7 +159,8 @@ def main(mid, alphas, n_random):
         print(f"  random {i+1}/{n_random} a={a}  verdict effect {effect(m):+.4f}   "
               f"delta {effect(m)-e0:+.4f}")
     out["random"][str(a)] = rs
-    tag = mid.split("/")[-1]
+    tag = mid.split("/")[-1] + ("_dim" if method == "dim" else "")
+    out["method"] = method
     json.dump(out, open(f"results/e26_steer_{tag}.json", "w"), indent=1)
     print(f"\n  wrote results/e26_steer_{tag}.json")
 
@@ -160,5 +170,6 @@ if __name__ == "__main__":
     ap.add_argument("--model", default="Qwen/Qwen2.5-1.5B-Instruct")
     ap.add_argument("--alphas", type=float, nargs="+", default=[2.0, 5.0])
     ap.add_argument("--n-random", type=int, default=4)
+    ap.add_argument("--method", default="logistic", choices=["logistic","dim"])
     a = ap.parse_args()
-    main(a.model, a.alphas, a.n_random)
+    main(a.model, a.alphas, a.n_random, a.method)

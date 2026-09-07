@@ -152,3 +152,90 @@ are untested. What is shown is that the obvious intervention, the one my own
 prediction named, does not work.
 
 **No novelty is asserted.**
+
+---
+
+## E26-B — the null was partly a METHOD ARTEFACT. Revised verdict: PARTIAL.
+
+**Run 2026-09-07.** E26 used **logistic-regression weights** as the steering
+vector. The steering literature's standard is **difference-in-means**
+(CAA / ActAdd). Testing the standard method before concluding that steering
+fails is what I should have done first, and it changes the answer.
+
+### Qwen2.5-1.5B-Instruct (layer 18), baseline verdict effect +0.1212
+
+| α | delta | `accepted` damage | |
+|---|---|---|---|
+| −20 | **+0.1091** | +0.082 | ok |
+| −30 | **+0.1134** | +0.133 | ok |
+| +20 | −0.0482 | +0.191 | ok |
+| +30 | −0.0545 | +0.272 | ok |
+| random ×5 @30 | −0.116, −0.069, −0.064, −0.053, **+0.068** | — | — |
+| −60 | −0.4089 | **+4.524** | **DAMAGED** |
+| +60 | +0.3409 | **+3.881** | **DAMAGED** |
+
+**Within the undamaged range the recovery is real and specific:** +0.1134,
+larger than **all five** random directions (max +0.0679), correctly signed
+(+α degrades, −α recovers), and monotone across α = 20 → 30. Against **+0.0535**
+for the logistic vector, which sat inside the random range. **The method more
+than doubled the effect and moved it from indistinguishable to distinguishable.**
+
+**But the declared +0.15 threshold is still not met.** It is reachable only at
+α = 60, where the model collapses — every status drops to ≈ −4.5 to −5.9 and
+`accepted` degrades by **3.9 nats**, far past the declared 1.0 limit. That cell
+is **VOID**, exactly as the protocol required, and it is the same disruption
+arXiv:2603.18353 reports.
+
+Note also the **sign inversion** between α = 30 and α = 60 (+α flips from −0.055
+to +0.341). Non-monotonic, sign-flipping behaviour at large α is the signature of
+pushing activations off-manifold, and is a second reason the α = 60 numbers carry
+no weight.
+
+### Qwen3.5-0.8B (layer 13), baseline verdict effect −0.0583
+
+Every intervention — ±20, ±30, and all five random directions — moves the effect
+by the same **+0.052 to +0.058**. **NON-SPECIFIC**, identically to the logistic
+run. Its baseline effect is already negative, so there is no channel to amplify;
+any perturbation simply pulls the effect toward zero.
+
+### Revised verdict
+
+| | logistic (E26) | difference-in-means (E26-B) |
+|---|---|---|
+| Qwen2.5-1.5B | FAILS (+0.054, inside random) | **PARTIAL** (+0.113, beats all random, correctly signed, undamaged) |
+| Qwen3.5-0.8B | FAILS / non-specific | **NON-SPECIFIC** (unchanged) |
+
+**E26's headline "STEERING FAILS in both models" is revised to: steering
+partially recovers the verdict in Qwen2.5-1.5B and does nothing in
+Qwen3.5-0.8B, and the recovery does not reach the declared threshold without
+breaking the model.**
+
+### What this does to my withdrawn prediction
+
+E26 withdrew my E23 prediction that decoding-time repair "IS worth trying".
+E26-B **partially reinstates it, in a much weaker form**:
+
+> In Qwen2.5-1.5B the verdict channel is steerable — a difference-in-means
+> direction recovers ~0.11 nats of verdict sensitivity, beyond every random
+> control, without damaging the model. That is real but **sub-threshold**, and it
+> does not generalise to Qwen3.5-0.8B. Recovering enough to matter requires
+> perturbations that destroy the model.
+
+So arXiv:2603.18353's negative is **qualified rather than replicated**: the gap
+is *slightly* actionable here, and not usefully so.
+
+### The methodological lesson, which is the durable part
+
+**A steering null is only as good as the direction-extraction method.** The same
+probe, the same layer, the same data, the same measurement — one standard method
+change moved the result from "indistinguishable from random" to "beats every
+random control". Any paper reporting that steering fails to close a
+knowledge-action gap should report which estimator it used, and preferably more
+than one.
+
+### Limits
+
+One additional method, two models, one layer each. α grid {2, 10, 20, 30, 60,
+120} is a multiple comparison and the reported best is selected from it. Random
+controls at α = 30 only. Steering is applied at every token position; per-position
+steering is untested.
