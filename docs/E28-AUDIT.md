@@ -69,3 +69,48 @@ Every other reported figure reproduced exactly from the raw records.
 Recomputation confirms arithmetic, not design. It does not address that the
 contrast is mechanical truncation rather than learned recovery, that n=8 is a
 small pilot, that task quality is untested, or that novelty is unresolved.
+
+## Addendum (2026-09-08) — closing two audit limits raised in external review
+
+**1. The 3489.5 denominator IS reconstructible.** The E28-C table above omitted
+the cost columns and showed only savings, which is why an external check could
+not rebuild it. The reverse-order costs are:
+
+| inst | cost_full | cost_budgeted | diff |
+|---|---|---|---|
+| h0 | 3605 | 2806 | +799 |
+| h1 | 3619 | 2936 | +683 |
+| h2 | 3669 | 3065 | +604 |
+| h3 | 3551 | 2888 | +663 |
+| h4 | 3942 | 2834 | +1108 |
+| h5 | 3342 | 2659 | +683 |
+| h6 | 3268 | 2789 | +479 |
+| h7 | 3281 | 2810 | +471 |
+
+reverse-order full-cost sum = 28277, mean = 28277/8 = **3534.625**
+denominator = (3444.375 + 3534.625)/2 = **3489.5** exactly.
+
+So 17.86 % is the order-averaged saving over the mean of the two cohorts'
+full-arm costs. Note this is the mean of two *cohort* means, and the cohorts
+differ in collection period as well as order.
+
+**2. Record hashes, so a checker verifies the records rather than my
+transcription.** SHA-256 (first 32 hex) of the raw JSONL:
+
+| file | sha256 (truncated) | bytes |
+|---|---|---|
+| `results/e28_power_probe.jsonl` | `bc8a87243c0816bf8d3383d56f6c35af` | 2747 |
+| `results/e28d_warmup.jsonl` | `29ce54be5cc0b39bb28ca485c80385f0` | 1150 |
+| `results/e28c_order.jsonl` | `69aacfb2dcc0fa20d2a6ee32cab079bd` | 1947 |
+
+**3. On the MDE multiplier.** 3.077 was **fixed in the read rule before any
+run**, so the reported MDEs correctly apply the pre-declared factor. Carrying
+full-precision quantiles instead (sum 3.076515) gives 203.827 and 162.189 — a
+difference with no decision consequence, and using it now would mean changing a
+declared constant after seeing the outcome.
+
+**Limit that remains open and cannot be closed from here.** The 16 smoke-run
+calls were never written to JSONL. They exist only in the session transcript.
+The 400 logged calls are evidenced by the row records above; the 16 are reported
+execution only, and that asymmetry should stay visible in any citation of the
+416 figure.
