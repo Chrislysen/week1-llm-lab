@@ -11,8 +11,8 @@ of 2026-09-08 — no original result either.**
 
 **Correction 2026-09-08:** this resume previously claimed E27/E27-B as "the one
 original result". That claim is **retired**. Im & Li (arXiv:2502.02716) already
-compare the same four estimators under tighter controls, prove mean-of-
-differences optimal, and run the very control E27 called its most important gap.
+compare three of E27's four estimators plus the very control E27 called its most
+important gap, under tighter controls.
 E27 is now recorded as a controlled replication (§1). My earlier prior-art gate
 missed this paper; the failure is analysed in §1.
 
@@ -24,7 +24,7 @@ conclusions were withdrawn after external review.
 
 ---
 
-## 1. The one original result — E27 / E27-B
+## 1. E27 / E27-B — originality retired, retained as replication
 
 ### Claim
 
@@ -89,14 +89,19 @@ control E27 named as its most important open gap:
 | **PoD** — PCA *of differences*, eq (4) | `pca` |
 | **PoE** — PCA *of embeddings*, eq (5) | **the "concatenated PCA" control E27 listed as untested** |
 | **CoE** — classifier on embeddings, eq (6) | `logistic` |
+| *(no counterpart)* | `lda` — **not** among their four methods |
 
 They control layer and extraction location (layer 13, residual stream, chosen by
 ablation), **select the steering multiplier per method on a validation set** from
-{0.5,…,3} and report on a held-out test set, prove in **Theorem 3.1** that the
-mean of differences is the objective-minimising steering vector, and show both
-PCA variants perform worst — with a mechanism E27 never supplied: the
-highest-variance direction is *nearly orthogonal* to the behaviour direction
-(§3.1, Fig 2, Tables 1–3).
+{0.5,…,3} and report on a held-out test set, and show both PCA variants perform
+worst — with a mechanism E27 never supplied: the highest-variance direction is
+*nearly orthogonal* to the behaviour direction (§3.1, Fig 2, Tables 1–3).
+
+**Theorem 3.1, stated at its actual scope:** the mean of differences minimises
+E‖h₊ − h₋ − v‖², the expected squared error between the steered negative
+embedding and its paired positive embedding. That is an *embedding-matching*
+objective. It is **not** a claim of universal optimality for generated behaviour,
+and should not be cited as one.
 
 **Scoring E27's claims against this:**
 
@@ -108,16 +113,24 @@ highest-variance direction is *nearly orthogonal* to the behaviour direction
 | concatenated-PCA is the important untested control | **already run** — their PoE. Not a gap in the literature |
 | estimators flip *binary verdicts* under E27's random-control rule | narrow, and see below |
 
-**Why even the narrow residual does not carry an originality claim.** E27 applied
-a **fixed α across all estimators** and a hard threshold against random controls.
-Im & Li establish that the methods differ substantially in effect *magnitude*,
-and tune the multiplier per method **precisely because** magnitude is
-method-dependent (they note the classifier's vector scale is "substantially
-shorter"). Given known unequal magnitudes and one un-tuned operating point,
-verdicts straddling a fixed threshold is close to arithmetically expected — it
-largely restates the established magnitude ordering rather than adding a
-phenomenon. E27's fixed-α design is therefore **weaker than the prior work's**,
-on a confound that prior work explicitly handles.
+**Why even the narrow residual does not carry an originality claim.** Simply:
+**no substantive contribution behind it was ever specified.** A different binary
+read rule, applied at one operating point, is not by itself new knowledge, and I
+never stated what it would establish that Im & Li do not.
+
+**A wrong version of this argument, withdrawn 2026-09-08.** I first wrote that
+E27's fixed α was confounded with per-method vector *magnitude*, citing Im & Li's
+per-method multiplier tuning. **That is false for E27.** `direction()`
+(`e27_estimator.py:135`) returns a **unit-norm** vector and `steer_hook`
+(`:141`) adds `alpha * vec`, so every estimator — and every random control — was
+applied at perturbation norm exactly |α|. Im & Li's scale issue belongs to their
+*un-normalised* setting; importing it here was exactly the error of carrying a
+prior work's confound across a design difference.
+
+**The valid limitation is different and weaker:** a single fixed strength tests
+direction choice *at that operating point* and leaves each estimator's **best
+achievable** performance unestablished. That is a scope limit on what E27
+measured, not a confound in what it measured.
 
 **Conclusion: E27 is retained as a controlled replication, not an original
 result.** Its replication value is real but modest: it independently reproduces
@@ -126,8 +139,10 @@ concepts, with bootstrap CIs over contrastive pairs — different models and
 concepts from Im & Li's Llama-2-7b-chat + Anthropic behaviour datasets.
 
 **The planned concatenated-PCA run is cancelled.** Its declared purpose was to
-test the most actionable claim; the literature already answers it, so running it
-would replicate a replication.
+support an originality claim that no longer stands. Stated precisely: prior work
+does **not** supply the unobserved PoE outcome on E27's particular models,
+layers and concepts. Cancelling is a decision about contribution and further
+expenditure — **not** a derivation of the unrun result.
 
 ### Why the prior-art gate failed — the transferable lesson
 

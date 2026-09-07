@@ -298,16 +298,32 @@ families under tighter controls than E27 used:
   highest-variance direction is nearly orthogonal to the behaviour direction
   (§3.1, Fig 2).
 
-E27's fixed-α-across-estimators design is **weaker** than this on a confound the
-prior work explicitly handles: magnitudes differ by method, which is why they
-tune the multiplier per method. Verdicts straddling one fixed threshold largely
-restate that known magnitude ordering.
+E27's `lda` has **no counterpart** among their four methods; that gap supplies no
+demonstrated contribution on its own.
+
+**Theorem 3.1 at its actual scope:** MoD minimises E‖h₊ − h₋ − v‖², an
+*embedding-matching* MSE — not universal optimality for generated behaviour.
+
+**Correction (2026-09-08).** I first closed E27 partly on the argument that its
+fixed α was confounded with per-method vector magnitude. **That is false here:**
+`direction()` returns unit-norm (`e27_estimator.py:135`) and `steer_hook` adds
+`alpha * vec` (`:141`), so every estimator and every random control was applied
+at perturbation norm exactly |α|. Im & Li's scale issue belongs to their
+un-normalised setting; importing it across that design difference was itself the
+error their revised gate's regression table names. **Withdrawn.**
+
+The valid limitation is narrower: one fixed strength tests direction choice *at
+that operating point* and leaves each estimator's best achievable performance
+unestablished. Closure rests on the substantial prior-work overlap plus the
+absence of any specified substantive residual — not on a magnitude confound.
 
 **Status: controlled replication, not an original result.** Replication value is
 real but modest (different models, layers, concepts; bootstrap CIs over pairs).
 
-**The planned concatenated-PCA (PoE) run is CANCELLED** — the literature already
-answers it.
+**The planned concatenated-PCA (PoE) run is CANCELLED** — its novelty rationale
+is gone. Prior work does not supply the unobserved PoE outcome on E27's own
+models and concepts; this is a decision about expenditure, not a derivation of
+that result.
 
 **Gate failure, recorded.** The E27 gate searched my own phrasing ("does
 estimator choice flip nulls?") rather than the field's phrasing ("which steering
