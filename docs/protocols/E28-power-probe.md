@@ -145,7 +145,8 @@ substrate the whole AgentCom proposal rests on.
 
 ## OUTCOME
 
-Run 2026-09-07. 8 instances + 9 repeats = **212 model calls**, `llama3.2:3b`,
+Run 2026-09-07. 8 instances + 4 repeats = **192 model calls** (each pair is
+2 runs x 8 turns = 16 calls), `llama3.2:3b`,
 `turns=8`, `words=120`. Precondition **PASSED**: the budget bound in 49/96
 `manage_context` calls.
 

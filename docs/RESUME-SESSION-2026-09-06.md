@@ -133,7 +133,9 @@ forking-path hazard before reporting it).
 
 E28 was a declared feasibility probe for measuring paired token-cost differences
 on `llama3.2:3b`, run against the existing `DialogueEngine` before building
-anything. The run used **212 model calls** (plus 64 more for E28-C) and returned
+anything. Each pair is 2 runs x 8 turns = 16 model calls, so the declared run
+used **192 calls** (8 instances + 4 repeats), with 80 more for E28-D, 128 for
+E28-C and 16 for the smoke run: **416 total**. It returned
 **POWERED** under its declared rule: mean saving 560.5 tokens (16.3 %) and an
 estimated **MDE of 203.9 tokens (5.9 %) at 12 instances**. Counterbalanced over
 arm order, that becomes **+623.4 tokens (17.9 %)** with **MDE 162.2 tokens
