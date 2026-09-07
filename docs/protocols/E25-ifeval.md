@@ -258,3 +258,48 @@ and it did not validate.
 direction, sign test p = 1.2 × 10⁻⁴, four individually significant `no_comma`
 cells. That rests on the three unambiguous constraint types and does not depend
 on the mixed-type argument at all.
+
+### POST-HOC, and formulated AFTER the previous check failed — the hazard gradient
+
+**Forking-path warning, stated first.** This prediction was formulated *after*
+the relation-split check returned a null. Proposing a second test once the first
+fails is exactly how a garden of forking paths is grown, and this result should
+be read with that discount. It is recorded because suppressing it after
+recording the failure would be selective.
+
+The mechanism implies a **gradient within the exclusion class**. Both
+`punctuation:no_comma` and `keywords:forbidden_words` are pure exclusion
+constraints, but their per-token violation hazard differs sharply: *any*
+additional clause risks a comma, whereas only one specific word violates a
+forbidden-word constraint. So the negative correlation with length should be
+**stronger for `no_comma`**.
+
+| model | `no_comma` | `forbidden_words` | \|comma\| > \|forbidden\| |
+|---|---|---|---|
+| aya-expanse:8b | −0.334 | −0.120 | yes |
+| llama3.2:3b | −0.281 | −0.118 | yes |
+| qwen2.5:3b-instruct | −0.394 | −0.239 | yes |
+| qwen2.5:7b-instruct | −0.338 | −0.209 | yes |
+| gemma4:e4b | constant | −0.008 | n/a |
+
+**4 of 4, but the sign test on n = 4 gives p = 0.125 — not significant.**
+Suggestive only, and it does not rescue the internal validation that the
+relation-split failed to provide.
+
+---
+
+## E25 — final standing
+
+**Established (declared rule, between models): NOT CONFIRMED.** Verbosity does
+not predict exclusion performance across models, because verbosity and
+capability are positively correlated. Ordinary IFEval rankings are not distorted.
+
+**Established (post-hoc, within model, pure constraint types): the mechanism is
+real on real items.** 14/14 cells in the predicted direction, sign test
+p = 1.2 × 10⁻⁴, four individually significant `no_comma` cells, with model
+capability held completely fixed.
+
+**Not established:** the two internal validations attempted — the relation split
+(failed, 12/20 against chance 10/20) and the hazard gradient (4/4 but p = 0.125,
+and formulated after the first failed). The pure-type result stands on its own
+and does not depend on either.
