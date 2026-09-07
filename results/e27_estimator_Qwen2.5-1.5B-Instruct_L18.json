@@ -1,0 +1,103 @@
+{
+ "model": "Qwen/Qwen2.5-1.5B-Instruct",
+ "layer": 18,
+ "alpha": 20.0,
+ "results": {
+  "sentiment": {
+   "baseline": 0.375,
+   "random": [
+    -0.375,
+    -0.5,
+    0.625,
+    -0.25,
+    0.125,
+    -0.375,
+    0.25,
+    0.25
+   ],
+   "random_absmax": 0.625,
+   "estimators": {
+    "dim": {
+     "delta": 5.875000476837158,
+     "beats_random": true
+    },
+    "logistic": {
+     "delta": 2.8125,
+     "beats_random": true
+    },
+    "pca": {
+     "delta": -1.375,
+     "beats_random": false
+    },
+    "lda": {
+     "delta": 5.25,
+     "beats_random": true
+    }
+   }
+  },
+  "formality": {
+   "baseline": 0.5,
+   "random": [
+    -0.125,
+    -0.09375,
+    0.71875,
+    0.5625,
+    -0.25,
+    0.15625,
+    -1.25,
+    -0.3125
+   ],
+   "random_absmax": 1.25,
+   "estimators": {
+    "dim": {
+     "delta": 4.937499046325684,
+     "beats_random": true
+    },
+    "logistic": {
+     "delta": 1.1875,
+     "beats_random": false
+    },
+    "pca": {
+     "delta": 0.3125,
+     "beats_random": false
+    },
+    "lda": {
+     "delta": 5.031249046325684,
+     "beats_random": true
+    }
+   }
+  },
+  "certainty": {
+   "baseline": 3.875,
+   "random": [
+    0.9999995231628418,
+    0.7500004768371582,
+    0.0625004768371582,
+    -0.1875,
+    -0.9375,
+    -0.4375,
+    -0.625,
+    0.8125
+   ],
+   "random_absmax": 0.9999995231628418,
+   "estimators": {
+    "dim": {
+     "delta": 3.8125,
+     "beats_random": true
+    },
+    "logistic": {
+     "delta": 2.9375,
+     "beats_random": true
+    },
+    "pca": {
+     "delta": 0.0,
+     "beats_random": false
+    },
+    "lda": {
+     "delta": 3.875,
+     "beats_random": true
+    }
+   }
+  }
+ }
+}
