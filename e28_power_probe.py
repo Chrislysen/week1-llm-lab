@@ -66,9 +66,33 @@ def cost_of(transcript):
     return sum(e.prompt_tokens + e.completion_tokens for e in transcript)
 
 
+class Binding:
+    """Counts how often the context policy actually DROPPED something.
+
+    PRECONDITION, not a metric. A paired difference of zero has two very
+    different causes: the policy engaged and saved nothing, or the policy never
+    engaged at all because the budget never bound. The second is no treatment,
+    and reporting it as a null would be a false negative. The smoke run at
+    turns=2 hit exactly this -- 120 words never bound on a 1-message history.
+    """
+
+    def __init__(self, policy):
+        self.policy = policy
+        self.calls = 0
+        self.bound = 0
+
+    def __call__(self, messages):
+        out = self.policy.select(messages)
+        self.calls += 1
+        last = getattr(self.policy, "_last", None)
+        if last and last.get("n_selected", 0) < last.get("n_candidates", 0):
+            self.bound += 1
+        return out
+
+
 def run_one(client, turns, seed_note, policy=None):
     """One dialogue, opened by a seeded situation statement."""
-    manage = (lambda m: policy.select(m)) if policy is not None else None
+    manage = policy if policy is not None else None
     eng = DialogueEngine(
         agents=[AGENT_A, AGENT_B], client=client,
         budget=Budget(max_turns=turns, max_tokens=200_000, max_seconds=900),
@@ -84,9 +108,10 @@ def run_one(client, turns, seed_note, policy=None):
 def paired_diff(client, turns, words, seed_note):
     """Cost(full) - Cost(budgeted) for one instance. Positive = budgeting saves."""
     full = run_one(client, turns, seed_note, policy=None)
-    budgeted = run_one(client, turns, seed_note, policy=RecencyBudget(words))
+    b = Binding(RecencyBudget(words))
+    budgeted = run_one(client, turns, seed_note, policy=b)
     cf, cb = cost_of(full), cost_of(budgeted)
-    return cf, cb, cf - cb
+    return cf, cb, cf - cb, b.bound, b.calls
 
 
 #: paired t-test, two-sided alpha=.05, power=.80: MDE = (t_a + t_b) * SD/sqrt(n)
@@ -100,21 +125,34 @@ def main(n, repeats, turns, words, out):
           f"| turns={turns} | recency budget={words} words ===\n")
 
     print("  ARM H -- heterogeneity across instances")
-    rows = []
+    rows, bound_total, call_total = [], 0, 0
     for i, seed in enumerate(SEEDS[:n], 1):
-        cf, cb, d = paired_diff(client, turns, words, seed)
+        cf, cb, d, bound, calls = paired_diff(client, turns, words, seed)
+        bound_total += bound
+        call_total += calls
         rows.append({"instance": i, "seed": seed[:46], "cost_full": cf,
                      "cost_budgeted": cb, "diff": d,
-                     "rel": d / cf if cf else 0.0})
+                     "rel": d / cf if cf else 0.0,
+                     "policy_bound": bound, "policy_calls": calls})
         print(f"    [{i:2}/{n}] full {cf:6}  budgeted {cb:6}  diff {d:+6}  "
-              f"rel {100 * d / max(cf, 1):+6.1f}%")
+              f"rel {100 * d / max(cf, 1):+6.1f}%   bound {bound}/{calls}")
 
     print(f"\n  ARM R -- run noise, instance 1 repeated {repeats}x")
     reps = []
     for r in range(1, repeats + 1):
-        cf, cb, d = paired_diff(client, turns, words, SEEDS[0])
+        cf, cb, d, bound, calls = paired_diff(client, turns, words, SEEDS[0])
         reps.append(d)
-        print(f"    [{r}/{repeats}] full {cf:6}  budgeted {cb:6}  diff {d:+6}")
+        print(f"    [{r}/{repeats}] full {cf:6}  budgeted {cb:6}  diff {d:+6}"
+              f"   bound {bound}/{calls}")
+
+    if bound_total == 0:
+        print("\n  PRECONDITION FAILED: the context budget never bound in any "
+              "run.\n  There was no treatment to measure, so no verdict is "
+              "reported.\n  Raise --turns or lower --words and re-declare.")
+        json.dump({"precondition": "FAILED", "reason": "policy never bound",
+                   "arm_h": rows, "turns": turns, "words": words},
+                  open(out, "w"), indent=1)
+        return
 
     d = [r["diff"] for r in rows]
     mean_d, sd_h = statistics.mean(d), statistics.stdev(d)
@@ -143,7 +181,9 @@ def main(n, repeats, turns, words, out):
         need = (T_FACTOR_N12 * sd_h / (0.31 * base)) ** 2
         print(f"    instances needed for a 31% effect: {need:.0f}")
 
-    json.dump({"arm_h": rows, "arm_r": reps, "turns": turns, "words": words,
+    json.dump({"precondition": "PASSED", "policy_bound": bound_total,
+               "policy_calls": call_total,
+               "arm_h": rows, "arm_r": reps, "turns": turns, "words": words,
                "mean_diff": mean_d, "sd_heterogeneity": sd_h, "sd_run_noise": sd_r,
                "mean_full_cost": base, "mde_tokens": mde, "mde_pct": mde_pct,
                "verdict": verdict}, open(out, "w"), indent=1)

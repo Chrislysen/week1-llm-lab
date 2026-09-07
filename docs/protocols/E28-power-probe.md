@@ -50,6 +50,30 @@ study counts. Contrast is full transcript vs `RecencyBudget(120 words)`.
 not the E16 dialogue corpus, which has now been used across nine studies
 (E16–E23, E26) and is development material, not a valid confirmatory test set.
 
+## Amendment — binding precondition (added before any outcome-bearing run)
+
+A smoke run at `--turns 2` returned a paired difference of **exactly zero on
+every instance**. The cause was not "budgeting saves nothing": with a one-message
+history, a 120-word budget **never bound**, so there was no treatment at all.
+Reporting that as a null would have been a false negative.
+
+The probe therefore now counts, per run, how many `manage_context` calls actually
+dropped a message, and **reports no verdict at all if the budget never bound**.
+This mirrors E16's UNINFORMATIVE escape hatch, which fired when its precondition
+failed.
+
+Run configuration is fixed at **`--turns 8 --words 120`**, chosen so the budget
+binds for most turns. This is a **precondition calibration, not outcome tuning**:
+it was set from the smoke run's *binding count*, before any cost difference was
+read, and it applies identically to both protocols. The same correction is
+recorded in `context.py` for the current-message separation amendment.
+
+That smoke run also established, at zero cost, that **`temperature=0` is exactly
+deterministic on this instrument** — the repeated instance returned 467 tokens
+twice, identically. Prediction 1 is therefore already close to settled; ARM R
+now serves as confirmation at the real turn count rather than as an open
+question.
+
 ## Predictions (fixed before running)
 
 1. **SD_R / SD_H < 0.3** — at temperature 0 the runs are near-deterministic, so
