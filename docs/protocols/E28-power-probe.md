@@ -112,6 +112,37 @@ not validate the proposal; it only fails to kill it. UNDERPOWERED, by contrast,
 contrast, the harder one is hopeless. This asymmetry is stated now so a
 favourable result cannot be reported later as a green light.
 
+## E28-D — follow-up diagnostic: is the run noise a first-call artifact?
+
+**Declared before running, with E28's own outcome already known. Flagged as a
+forking-path hazard**, exactly as E25's hazard-gradient check was: this test was
+formulated *after* seeing ARM R, so it is confirmatory only for its own narrow
+prediction and cannot be used to revise E28's declared verdict.
+
+**What prompted it.** ARM R returned paired differences of **475, 169, 169,
+169**. Three of four are *bit-identical*; the outlier is the **first call in the
+process**. The budgeted arm returned 2888 tokens on all four runs but **2813 for
+the same instance in the earlier ARM H process** — so the cross-process shift
+moves both arms, while within a process the runs are exactly reproducible.
+`SD_R` is therefore not smooth stochastic noise, and a single SD summarising it
+is misleading regardless of which side of 0.7 it falls on.
+
+**Hypothesis.** Cost is deterministic *within* a process and shifts *between*
+processes — a first-call/warm-up effect (KV-cache or load state), not decoder
+stochasticity.
+
+**Prediction.** In a fresh process, the first paired difference again exceeds
+the subsequent ones, and the subsequent ones are identical to each other.
+
+**Read rule.** If confirmed, the run noise is a **process-boundary artifact**,
+and the correct remedy is a discarded warm-up call before measurement — *not*
+repeats per instance, and *not* more instances. If disconfirmed (spread appears
+among later runs too), SD_R is genuine stochasticity and the 0.67 ratio must be
+treated as the near-threshold warning it appears to be.
+
+Either way this is a finding about **measurement of agent cost**, which is the
+substrate the whole AgentCom proposal rests on.
+
 ## What this does not test
 
 Revision, recovery, provenance, policy search, or task quality. Cost only.

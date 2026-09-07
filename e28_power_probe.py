@@ -119,31 +119,45 @@ def paired_diff(client, turns, words, seed_note):
 T_FACTOR_N12 = 2.201 + 0.876
 
 
-def main(n, repeats, turns, words, out):
+def collect(arm, start, n, turns, words, jsonl):
+    """Run a CHUNK and append rows to `jsonl`.
+
+    Chunked and appended incrementally because long model runs in this repo have
+    twice been lost to reaped background tasks (~190 calls). Foreground chunks
+    that append as they go survive interruption; a killed chunk costs only its
+    own rows.
+    """
     client = RetryingOllamaClient()
-    print(f"=== E28 power probe | ARM H: {n} instances | ARM R: {repeats} repeats "
-          f"| turns={turns} | recency budget={words} words ===\n")
+    seeds = SEEDS[start:start + n] if arm == "h" else [SEEDS[0]] * n
+    print(f"=== E28 ARM {arm.upper()} | items {start}..{start + n - 1} | "
+          f"turns={turns} words={words} ===")
+    with open(jsonl, "a") as fh:
+        for k, seed in enumerate(seeds):
+            idx = start + k
+            cf, cb, d, bound, calls = paired_diff(client, turns, words, seed)
+            row = {"arm": arm, "idx": idx, "seed": seed[:46], "cost_full": cf,
+                   "cost_budgeted": cb, "diff": d,
+                   "rel": d / cf if cf else 0.0,
+                   "policy_bound": bound, "policy_calls": calls,
+                   "turns": turns, "words": words}
+            fh.write(json.dumps(row) + "\n")
+            fh.flush()
+            print(f"  [{arm}{idx:02}] full {cf:6}  budgeted {cb:6}  diff {d:+6}  "
+                  f"rel {100 * d / max(cf, 1):+6.1f}%   bound {bound}/{calls}")
 
-    print("  ARM H -- heterogeneity across instances")
-    rows, bound_total, call_total = [], 0, 0
-    for i, seed in enumerate(SEEDS[:n], 1):
-        cf, cb, d, bound, calls = paired_diff(client, turns, words, seed)
-        bound_total += bound
-        call_total += calls
-        rows.append({"instance": i, "seed": seed[:46], "cost_full": cf,
-                     "cost_budgeted": cb, "diff": d,
-                     "rel": d / cf if cf else 0.0,
-                     "policy_bound": bound, "policy_calls": calls})
-        print(f"    [{i:2}/{n}] full {cf:6}  budgeted {cb:6}  diff {d:+6}  "
-              f"rel {100 * d / max(cf, 1):+6.1f}%   bound {bound}/{calls}")
 
-    print(f"\n  ARM R -- run noise, instance 1 repeated {repeats}x")
-    reps = []
-    for r in range(1, repeats + 1):
-        cf, cb, d, bound, calls = paired_diff(client, turns, words, SEEDS[0])
-        reps.append(d)
-        print(f"    [{r}/{repeats}] full {cf:6}  budgeted {cb:6}  diff {d:+6}"
-              f"   bound {bound}/{calls}")
+def summarize(jsonl, out):
+    recs = [json.loads(l) for l in open(jsonl) if l.strip()]
+    rows = [r for r in recs if r["arm"] == "h"]
+    reps = [r["diff"] for r in recs if r["arm"] == "r"]
+    bound_total = sum(r["policy_bound"] for r in recs)
+    call_total = sum(r["policy_calls"] for r in recs)
+    n, repeats = len(rows), len(reps)
+    turns = rows[0]["turns"] if rows else 0
+    words = rows[0]["words"] if rows else 0
+    print(f"=== E28 summary | ARM H n={n} | ARM R n={repeats} | "
+          f"turns={turns} words={words} ===")
+    print(f"  policy bound in {bound_total}/{call_total} manage_context calls")
 
     if bound_total == 0:
         print("\n  PRECONDITION FAILED: the context budget never bound in any "
@@ -192,10 +206,16 @@ def main(n, repeats, turns, words, out):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("--n", type=int, default=8)
-    ap.add_argument("--repeats", type=int, default=4)
-    ap.add_argument("--turns", type=int, default=6)
+    ap.add_argument("--arm", choices=["h", "r"], help="run a chunk of this arm")
+    ap.add_argument("--start", type=int, default=0)
+    ap.add_argument("--n", type=int, default=2)
+    ap.add_argument("--turns", type=int, default=8)
     ap.add_argument("--words", type=int, default=120)
+    ap.add_argument("--jsonl", default="results/e28_power_probe.jsonl")
     ap.add_argument("--out", default="results/e28_power_probe.json")
+    ap.add_argument("--summarize", action="store_true")
     a = ap.parse_args()
-    main(a.n, a.repeats, a.turns, a.words, a.out)
+    if a.summarize:
+        summarize(a.jsonl, a.out)
+    else:
+        collect(a.arm, a.start, a.n, a.turns, a.words, a.jsonl)
