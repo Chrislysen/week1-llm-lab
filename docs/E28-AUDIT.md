@@ -114,3 +114,42 @@ calls were never written to JSONL. They exist only in the session transcript.
 The 400 logged calls are evidenced by the row records above; the 16 are reported
 execution only, and that asymmetry should stay visible in any citation of the
 416 figure.
+
+## Verification completed externally (2026-09-08)
+
+An external reviewer (Astra) was supplied the raw JSONL bytes and independently
+confirmed: all three full LF-normalised SHA-256 digests match; parsed records
+reproduce every statistic in this note; every stored `diff` matches its cost
+subtraction and every `rel` its per-row ratio; the 49/96 binding-precondition
+count sums correctly; and 25 pair records imply 400 calls.
+
+Full digests, both line-ending forms (a chat paste normalises CRLF -> LF, so the
+LF column is what an external checker will hash):
+
+| file | CRLF sha256 | LF sha256 | bytes CRLF / LF |
+|---|---|---|---|
+| `results/e28_power_probe.jsonl` | `bc8a87243c0816bf8d3383d56f6c35af983fb7707e6670481efddc80527e785d` | `e7df4c0dd03ba3de32f8869f639de2967f23dc6637e896299efb069b1f93767d` | 2747 / 2735 |
+| `results/e28d_warmup.jsonl` | `29ce54be5cc0b39bb28ca485c80385f079006af8c6e42047afc828ffc98f8c8d` | `1e943bf16fde130c610ee74fe6d9ea13c157cf937c8cdaee4ba7d5a07b8276d9` | 1150 / 1145 |
+| `results/e28c_order.jsonl` | `69aacfb2dcc0fa20d2a6ee32cab079bd4d3fba27c2e433c8d99611345d628e2a` | `bfa3643732b44dc20ce795836b5ea4c1fb0615d7ed4778dc186ae11a63219a3d` | 1947 / 1939 |
+
+### Two inferences of mine that the records do NOT support
+
+When handing over the rows I glossed two observations more strongly than they
+warrant. Corrected here so a later reader does not repeat it:
+
+- **The absent `order` field** in `e28_power_probe.jsonl` establishes only that
+  the metadata was not recorded. **Full-first scheduling is established by the
+  code and the implementation report, not by the field's absence.**
+- **The gap in ARM R indices (0-3, then 10-14)** is consistent with the E28-D
+  process boundary but **does not by itself prove one**. It is a naming choice in
+  the invocation, not a logged process identifier.
+
+### What verification does and does not establish
+
+Matching supplied bytes against supplied hashes establishes **file identity and
+internal arithmetic**. It does **not** independently establish that the model
+requests were actually executed, nor the timing of the protocol declaration
+relative to the runs. Those rest on the git history and on this session's record.
+The 16 smoke-run calls remain unlogged and reported-only; the 400 figure is what
+the records evidence. This asymmetry is permanent and should travel with any
+citation of 416.
