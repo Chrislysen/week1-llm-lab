@@ -57,8 +57,12 @@ nothing there.
 - **Both discordant pairs come from the same fixture.** The unit of independence
   is the fixture, so this is **one fixture of four**, not two independent wins.
   An exact sign test on 2 discordant pairs gives p = 0.5 even before that
-  dependence is accounted for. **Nothing here is statistically distinguishable
-  from noise.**
+  dependence is accounted for. **The comparison does not distinguish the observed
+  difference from noise** — which is not the same as showing it *was* noise.
+  With two discordant pairs this design has almost no power either way, so the
+  result is uninformative about the removal effect rather than evidence against
+  it. *(Narrowed 2026-09-08; an earlier draft said "nothing here is statistically
+  distinguishable from noise", which reads as a null finding.)*
 - **Clean was never worse.** That is the direction, on 4 development fixtures.
 - **Removal changes content, length and position together.** Any difference
   concerns **the removal intervention as a whole** and does **not** isolate a
@@ -71,23 +75,31 @@ nothing there.
 
 ## What it does establish
 
-**The fixture family is solvable by this receiver.** Fixture 3 under clean
-evidence went 4/4 with the choice tracking the facts. So the construction, the
-scoring, the response contract and the prompt are not the blocker, and PSQ's
-0/8 was not an artefact of an unsolvable task.
+**Observed success on ONE quartet.** Fixture 3 under clean evidence went 4/4
+with the choice tracking the facts. That is an existence proof for *that
+quartet*: its construction, scoring, response contract and prompt admit a correct
+run. *(Narrowed 2026-09-08. An earlier draft said "the fixture family is
+solvable by this receiver"; one quartet does **not** validate the other seven
+fixtures, whose constructions differ in domain, wording, label map and display
+order.)*
 
-**But three of four fixtures showed a fixed choice even with clean evidence.**
-Removing the noise was not sufficient there.
+**Three of four fixtures showed a fixed choice even with clean evidence.**
+Removing the noise was not sufficient there — and this does **not** isolate
+receiver capability as the remaining cause. Fixture-specific wording, option
+content, label mapping and display order all still vary and remain uncontrolled
+candidate explanations.
 
 ## Recommendation
 
 **Yes — qualifying one stronger receiver is worth it, and it is the cheapest
 remaining discriminator.** The reasoning:
 
-- The task is now demonstrably solvable in this exact setup (fixture 3, clean),
-  so a further failure could no longer be blamed on fixture construction.
-- The remaining explanation for 3/4 fixtures is receiver capability, and that is
-  directly testable with a single small qualification arm.
+- One quartet is demonstrably solvable in this exact setup (fixture 3, clean),
+  so a blanket "the fixtures are impossible" explanation is ruled out — though
+  the other seven remain individually unvalidated.
+- Receiver capability is **one** candidate explanation for the fixed choices, not
+  the established one, and it is the cheapest of the candidates to test with a
+  single small qualification arm.
 - Everything downstream — any subset study, any selector comparison — needs a
   receiver whose decisions move with the messages. Without one there is nothing
   to select for, and no amount of fixture work supplies it.
