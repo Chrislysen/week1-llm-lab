@@ -11,7 +11,8 @@ any model behaves this way, and not a novelty claim.
 """
 import pytest
 
-from agentcom_bundle import (MAX_CANDIDATES, Candidate, QuadraticUtility,
+from agentcom_bundle import (MAX_CANDIDATES, Candidate,
+                             CoefficientProvenance, QuadraticUtility,
                              SnapshotPolicy, additive_estimate,
                              anchored_expansion, conditional_greedy,
                              exact_select, max_residual, render_bundle,
@@ -87,10 +88,21 @@ def test_optimal_sets_need_not_be_nested_in_budget():
 # --- guards ---------------------------------------------------------------
 
 
-def test_selector_refuses_an_outcome_oracle():
-    """A controller that could read the answer table is not a controller."""
+def test_selector_rejects_a_callable_which_restricts_but_does_not_isolate():
+    """The type guard RESTRICTS the interface; it does not prove isolation.
+
+    Rejecting a callable cannot tell whether the supplied coefficients were
+    themselves fitted on evaluation outcomes. That is a pipeline property, so it
+    is recorded as CoefficientProvenance data and audited -- not inferred here.
+    """
     with pytest.raises(TypeError):
         select_bundle(IDS, 2, lambda s: 1.0, unit_cost(IDS))
+    leaky = CoefficientProvenance(source="fitted", training_scope="dev+eval",
+                                  saw_evaluation_outcomes=True)
+    clean = CoefficientProvenance(source="authored", training_scope="none",
+                                  saw_evaluation_outcomes=False)
+    # Both pass the type guard; only provenance distinguishes them.
+    assert leaky.saw_evaluation_outcomes and not clean.saw_evaluation_outcomes
 
 
 def test_budget_is_respected_including_zero_and_negative_utility():
@@ -155,6 +167,7 @@ def test_snapshot_policy_is_a_pass_through_by_default():
     assert out == msgs                       # unchanged content and order
     assert len(p.snapshots) == 1
     assert p.snapshots[0]["subset"] == []
+    assert p.snapshots[0]["budget_unit"] == "rendered_words"
     assert p.calls and p.calls[0]["dropped"] == 0
 
 

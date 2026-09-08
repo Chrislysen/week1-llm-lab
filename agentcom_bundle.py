@@ -87,24 +87,60 @@ class DecisionPoint:
 
 @dataclass(frozen=True)
 class SubsetOutcome:
-    """The scored result of replaying one decision point with one subset."""
+    """One decision point replayed under one subset.
+
+    BUDGET UNITS. `rendered_words` is the budget unit and is known before any
+    call. `prompt_tokens` / `completion_tokens` are the model's own counts and
+    are a DIFFERENT quantity -- words are not tokens and the two are not
+    interconvertible. Both are recorded so the proxy can be audited.
+
+    EXECUTION-DEPENDENT FIELDS DEFAULT TO None and stay None until a call has
+    actually been made. A populated-looking record that was never executed is
+    the failure mode this guards against.
+    """
     dp_id: str
     subset: tuple
-    rendered_cost: int
-    prompt_tokens: int
-    completion_tokens: int
-    seconds: float
-    response: str
-    score: float
+    rendered_words: int
     scorer: str
+    prompt_tokens: int | None = None
+    completion_tokens: int | None = None
+    seconds: float | None = None
+    response: str | None = None
+    score: float | None = None
+    executed: bool = False
     extra: dict = field(default_factory=dict)
+    schema_version: str = SCHEMA_VERSION
+
+    def __post_init__(self):
+        if not self.executed and any(v is not None for v in (
+                self.prompt_tokens, self.completion_tokens, self.seconds,
+                self.response, self.score)):
+            raise ValueError("execution fields set while executed=False")
+
+    def to_dict(self):
+        return asdict(self)
+
+
+@dataclass(frozen=True)
+class CoefficientProvenance:
+    """Where a `QuadraticUtility`'s numbers came from, and what they saw.
+
+    Recorded because a type signature cannot establish outcome isolation (see
+    `select_bundle`). Isolation is a property of the PIPELINE that produced the
+    coefficients, so it has to be asserted as data and audited, not inferred
+    from the interface.
+    """
+    source: str                       # "authored" | "fitted" | "expansion"
+    training_scope: str               # which tasks/splits the fit could see
+    saw_evaluation_outcomes: bool     # True disqualifies a held-out claim
+    notes: str = ""
     schema_version: str = SCHEMA_VERSION
 
     def to_dict(self):
         return asdict(self)
 
 
-# --- budget accounting ----------------------------------------------------
+# --- budget accounting: the unit is RENDERED WORDS, not tokens ------------
 
 
 def render_bundle(candidates, subset) -> str:
@@ -117,12 +153,17 @@ def render_bundle(candidates, subset) -> str:
 
 
 def serialised_cost(candidates, subset) -> int:
-    """Budget charge for `subset`: the rendered bundle, overhead included."""
+    """Budget charge for `subset`, in RENDERED WORDS (`context.words`).
+
+    Counts the bundle as actually delivered: header and separators included.
+    Words are the budget unit; model tokens are recorded separately and are a
+    different quantity.
+    """
     return words(render_bundle(candidates, subset))
 
 
 def additive_estimate(candidates, subset) -> int:
-    """Sum of standalone message lengths. PRELIMINARY ONLY.
+    """Sum of standalone message lengths, in RENDERED WORDS. PRELIMINARY ONLY.
 
     Kept so the gap against `serialised_cost` is visible rather than assumed
     away: the header and separators are real budget the additive figure misses.
@@ -211,10 +252,14 @@ def exact_select(ids, budget, utility, cost_of):
 
 
 def select_bundle(ids, budget, estimate, cost_of):
-    """Deployment-shaped selection: coefficients only, never an outcome oracle.
+    """Deployment-shaped selection: takes coefficients, not a utility callable.
 
-    Deliberately cannot accept a utility callable -- a controller that could
-    would be reading the answer table it is supposed to predict.
+    SCOPE OF THIS GUARD, STATED HONESTLY. Rejecting a callable **restricts the
+    interface**; it does **not** prove outcome isolation. Nothing here can tell
+    whether the supplied coefficients were themselves fitted on evaluation
+    outcomes -- that is a property of the pipeline upstream, not of this
+    signature. Record `CoefficientProvenance` alongside any coefficients and
+    audit it; keep evaluation outcomes out of whatever produced them.
     """
     if not isinstance(estimate, QuadraticUtility):
         raise TypeError("select_bundle takes predicted coefficients, not an oracle")
@@ -299,8 +344,9 @@ class SnapshotPolicy(ContextPolicy):
             "schema_version": SCHEMA_VERSION,
             "n_messages": len(messages),
             "subset": sorted(subset),
-            "rendered_cost": serialised_cost(self.candidates, subset),
-            "additive_estimate": additive_estimate(self.candidates, subset),
+            "budget_unit": "rendered_words",
+            "rendered_words": serialised_cost(self.candidates, subset),
+            "additive_estimate_words": additive_estimate(self.candidates, subset),
             "messages": [dict(m) for m in messages],
         })
         if not subset:

@@ -1,0 +1,627 @@
+{
+ "schema_version": "agentcom-bundle/1",
+ "status": "FIXTURES PREPARED, ZERO MODEL CALLS, NOT AUTHORISED TO RUN",
+ "budget_unit": "rendered_words",
+ "token_note": "model prompt/completion tokens are a different quantity; unpopulated until calls occur",
+ "study_salt": "phaseb-v1",
+ "qualification_salt": "phaseb-qual-v1",
+ "model": "llama3.2:3b",
+ "decoding": {
+  "temperature": 0.0,
+  "num_predict": 300
+ },
+ "scorer": "lineage_eval.check_plan/authored-constraints",
+ "independence": {
+  "unit_of_independence": "task",
+  "n_independent_study_tasks": 8,
+  "recipient_contexts_per_task": 2,
+  "note": "the 2 recipient contexts are NESTED observations on one task; they are not independent tasks"
+ },
+ "counts": {
+  "study_tasks": 8,
+  "qualification_tasks": 8,
+  "candidates_per_task": 4,
+  "subsets_per_context": 16,
+  "subset_calls": 256,
+  "qualification_calls": 16
+ },
+ "ceiling": {
+  "qualification": 16,
+  "subset": 256,
+  "reserve": 16,
+  "total": 288
+ },
+ "ceiling_check": {
+  "planned_subset_calls": 256,
+  "planned_qualification_calls": 16,
+  "planned_total": 272,
+  "reserve": 16,
+  "within_ceiling": true,
+  "note": "retries and failures consume the ceiling; there are no unlogged calls"
+ },
+ "tasks": [
+  {
+   "task_id": "payments-join~phaseb-v1",
+   "domain": "payments",
+   "graph": "join",
+   "shared_context_ids": [
+    "K1",
+    "K2",
+    "K3"
+   ],
+   "candidates": [
+    {
+     "cid": "A",
+     "text": "Do not shift routing to the spare region before we snapshot the store.",
+     "source_id": "K4",
+     "version": "authored"
+    },
+    {
+     "cid": "B",
+     "text": "Shift routing to the spare region has to happen before we reopen the gateway; that ordering is not negotiable.",
+     "source_id": "K5",
+     "version": "authored"
+    },
+    {
+     "cid": "C",
+     "text": "Reopen the gateway is required before we call this done.",
+     "source_id": "K6",
+     "version": "authored"
+    },
+    {
+     "cid": "D",
+     "text": "Do not drain the failing node before we reopen the gateway.",
+     "source_id": "K7",
+     "version": "authored"
+    }
+   ],
+   "variants": {
+    "knows_A": [
+     "K1",
+     "K2",
+     "K3",
+     "K4"
+    ],
+    "knows_B": [
+     "K1",
+     "K2",
+     "K3",
+     "K5"
+    ]
+   },
+   "n_constraints": 7,
+   "reference_plan": [
+    "PROBE_LATENCY",
+    "CYCLE_ENGINE",
+    "SNAPSHOT_STORE",
+    "SHIFT_ROUTING",
+    "REOPEN_GATEWAY",
+    "DRAIN_NODE"
+   ]
+  },
+  {
+   "task_id": "robotics-star~phaseb-v1",
+   "domain": "robotics",
+   "graph": "star",
+   "shared_context_ids": [
+    "K1",
+    "K2",
+    "K3"
+   ],
+   "candidates": [
+    {
+     "cid": "A",
+     "text": "We cannot resume the line until we audit the bin inventory.",
+     "source_id": "K4",
+     "version": "authored"
+    },
+    {
+     "cid": "B",
+     "text": "Audit the bin inventory has to happen before we halt the conveyor; that ordering is not negotiable.",
+     "source_id": "K5",
+     "version": "authored"
+    },
+    {
+     "cid": "C",
+     "text": "Policy is clear that we swap the gripper assembly, no exceptions.",
+     "source_id": "K6",
+     "version": "authored"
+    },
+    {
+     "cid": "D",
+     "text": "Halt the conveyor is required before we call this done.",
+     "source_id": "K7",
+     "version": "authored"
+    }
+   ],
+   "variants": {
+    "knows_A": [
+     "K1",
+     "K2",
+     "K3",
+     "K4"
+    ],
+    "knows_B": [
+     "K1",
+     "K2",
+     "K3",
+     "K5"
+    ]
+   },
+   "n_constraints": 7,
+   "reference_plan": [
+    "CALIBRATE_ARM",
+    "AUDIT_INVENTORY",
+    "LOCK_BAY",
+    "RESUME_LINE",
+    "HALT_CONVEYOR",
+    "SWAP_GRIPPER"
+   ]
+  },
+  {
+   "task_id": "pharmacy-fork~phaseb-v1",
+   "domain": "pharmacy",
+   "graph": "fork",
+   "shared_context_ids": [
+    "K1",
+    "K2",
+    "K3"
+   ],
+   "candidates": [
+    {
+     "cid": "A",
+     "text": "Notify prescribers has to happen before we recall the outbound shipment; that ordering is not negotiable.",
+     "source_id": "K4",
+     "version": "authored"
+    },
+    {
+     "cid": "B",
+     "text": "We cannot recall the outbound shipment until we release the stock.",
+     "source_id": "K5",
+     "version": "authored"
+    },
+    {
+     "cid": "C",
+     "text": "Recall the outbound shipment is required before we call this done.",
+     "source_id": "K6",
+     "version": "authored"
+    },
+    {
+     "cid": "D",
+     "text": "We cannot quarantine the batch until we recall the outbound shipment.",
+     "source_id": "K7",
+     "version": "authored"
+    }
+   ],
+   "variants": {
+    "knows_A": [
+     "K1",
+     "K2",
+     "K3",
+     "K4"
+    ],
+    "knows_B": [
+     "K1",
+     "K2",
+     "K3",
+     "K5"
+    ]
+   },
+   "n_constraints": 7,
+   "reference_plan": [
+    "VERIFY_ASSAY",
+    "UPDATE_LABEL",
+    "RELEASE_STOCK",
+    "NOTIFY_PRESCRIBERS",
+    "RECALL_SHIPMENT",
+    "QUARANTINE_BATCH"
+   ]
+  },
+  {
+   "task_id": "satellite-twochain~phaseb-v1",
+   "domain": "satellite",
+   "graph": "twochain",
+   "shared_context_ids": [
+    "K1",
+    "K2",
+    "K3"
+   ],
+   "candidates": [
+    {
+     "cid": "A",
+     "text": "Policy is clear that we patch the bus firmware, no exceptions.",
+     "source_id": "K4",
+     "version": "authored"
+    },
+    {
+     "cid": "B",
+     "text": "We cannot put the craft into safe mode until we patch the bus firmware.",
+     "source_id": "K5",
+     "version": "authored"
+    },
+    {
+     "cid": "C",
+     "text": "Put the craft into safe mode has to happen before we calibrate the star tracker; that ordering is not negotiable.",
+     "source_id": "K6",
+     "version": "authored"
+    },
+    {
+     "cid": "D",
+     "text": "Calibrate the star tracker is required before we call this done.",
+     "source_id": "K7",
+     "version": "authored"
+    }
+   ],
+   "variants": {
+    "knows_A": [
+     "K1",
+     "K2",
+     "K3",
+     "K4"
+    ],
+    "knows_B": [
+     "K1",
+     "K2",
+     "K3",
+     "K5"
+    ]
+   },
+   "n_constraints": 7,
+   "reference_plan": [
+    "PATCH_FIRMWARE",
+    "REORIENT_PANEL",
+    "DUMP_TELEMETRY",
+    "RESUME_DOWNLINK",
+    "SAFE_MODE",
+    "CALIBRATE_STARTRACKER"
+   ]
+  },
+  {
+   "task_id": "brewery-diamond~phaseb-v1",
+   "domain": "brewery",
+   "graph": "diamond",
+   "shared_context_ids": [
+    "K1",
+    "K2",
+    "K3",
+    "K4"
+   ],
+   "candidates": [
+    {
+     "cid": "A",
+     "text": "Sterilise the transfer line has to happen before we restart the batch; that ordering is not negotiable.",
+     "source_id": "K5",
+     "version": "authored"
+    },
+    {
+     "cid": "B",
+     "text": "We must restart the batch at some point; it is mandatory.",
+     "source_id": "K6",
+     "version": "authored"
+    },
+    {
+     "cid": "C",
+     "text": "We cannot reseed the yeast until we restart the batch.",
+     "source_id": "K7",
+     "version": "authored"
+    },
+    {
+     "cid": "D",
+     "text": "Policy is clear that we reseed the yeast, no exceptions.",
+     "source_id": "K8",
+     "version": "authored"
+    }
+   ],
+   "variants": {
+    "knows_A": [
+     "K1",
+     "K2",
+     "K3",
+     "K4",
+     "K5"
+    ],
+    "knows_B": [
+     "K1",
+     "K2",
+     "K3",
+     "K4",
+     "K6"
+    ]
+   },
+   "n_constraints": 8,
+   "reference_plan": [
+    "SAMPLE_GRAVITY",
+    "DRAIN_VESSEL",
+    "STERILISE_LINE",
+    "STOP_FERMENT",
+    "RESTART_BATCH",
+    "RESEED_YEAST"
+   ]
+  },
+  {
+   "task_id": "rail-chain~phaseb-v1",
+   "domain": "rail",
+   "graph": "chain",
+   "shared_context_ids": [
+    "K1",
+    "K2"
+   ],
+   "candidates": [
+    {
+     "cid": "A",
+     "text": "Block the section has to happen before we ground the catenary; that ordering is not negotiable.",
+     "source_id": "K3",
+     "version": "authored"
+    },
+    {
+     "cid": "B",
+     "text": "Do not inspect the points before we ground the catenary.",
+     "source_id": "K4",
+     "version": "authored"
+    },
+    {
+     "cid": "C",
+     "text": "Inspect the points has to happen before we clear the section; that ordering is not negotiable.",
+     "source_id": "K5",
+     "version": "authored"
+    },
+    {
+     "cid": "D",
+     "text": "We must clear the section at some point; it is mandatory.",
+     "source_id": "K6",
+     "version": "authored"
+    }
+   ],
+   "variants": {
+    "knows_A": [
+     "K1",
+     "K2",
+     "K3"
+    ],
+    "knows_B": [
+     "K1",
+     "K2",
+     "K4"
+    ]
+   },
+   "n_constraints": 6,
+   "reference_plan": [
+    "TEST_INTERLOCK",
+    "BLOCK_SECTION",
+    "GROUND_CATENARY",
+    "REPLACE_RELAY",
+    "INSPECT_POINTS",
+    "CLEAR_SECTION"
+   ]
+  },
+  {
+   "task_id": "payments-star~phaseb-v1",
+   "domain": "payments",
+   "graph": "star",
+   "shared_context_ids": [
+    "K1",
+    "K2",
+    "K3"
+   ],
+   "candidates": [
+    {
+     "cid": "A",
+     "text": "Drain the failing node has to happen before we snapshot the store; that ordering is not negotiable.",
+     "source_id": "K4",
+     "version": "authored"
+    },
+    {
+     "cid": "B",
+     "text": "Drain the failing node has to happen before we reopen the gateway; that ordering is not negotiable.",
+     "source_id": "K5",
+     "version": "authored"
+    },
+    {
+     "cid": "C",
+     "text": "We must shift routing to the spare region at some point; it is mandatory.",
+     "source_id": "K6",
+     "version": "authored"
+    },
+    {
+     "cid": "D",
+     "text": "We must reopen the gateway at some point; it is mandatory.",
+     "source_id": "K7",
+     "version": "authored"
+    }
+   ],
+   "variants": {
+    "knows_A": [
+     "K1",
+     "K2",
+     "K3",
+     "K4"
+    ],
+    "knows_B": [
+     "K1",
+     "K2",
+     "K3",
+     "K5"
+    ]
+   },
+   "n_constraints": 7,
+   "reference_plan": [
+    "PROBE_LATENCY",
+    "DRAIN_NODE",
+    "CYCLE_ENGINE",
+    "REOPEN_GATEWAY",
+    "SNAPSHOT_STORE",
+    "SHIFT_ROUTING"
+   ]
+  },
+  {
+   "task_id": "robotics-join~phaseb-v1",
+   "domain": "robotics",
+   "graph": "join",
+   "shared_context_ids": [
+    "K1",
+    "K2",
+    "K3"
+   ],
+   "candidates": [
+    {
+     "cid": "A",
+     "text": "We cannot swap the gripper assembly until we audit the bin inventory.",
+     "source_id": "K4",
+     "version": "authored"
+    },
+    {
+     "cid": "B",
+     "text": "Do not calibrate the picker arm before we swap the gripper assembly.",
+     "source_id": "K5",
+     "version": "authored"
+    },
+    {
+     "cid": "C",
+     "text": "Policy is clear that we calibrate the picker arm, no exceptions.",
+     "source_id": "K6",
+     "version": "authored"
+    },
+    {
+     "cid": "D",
+     "text": "Calibrate the picker arm has to happen before we lock the loading bay; that ordering is not negotiable.",
+     "source_id": "K7",
+     "version": "authored"
+    }
+   ],
+   "variants": {
+    "knows_A": [
+     "K1",
+     "K2",
+     "K3",
+     "K4"
+    ],
+    "knows_B": [
+     "K1",
+     "K2",
+     "K3",
+     "K5"
+    ]
+   },
+   "n_constraints": 7,
+   "reference_plan": [
+    "HALT_CONVEYOR",
+    "RESUME_LINE",
+    "AUDIT_INVENTORY",
+    "SWAP_GRIPPER",
+    "CALIBRATE_ARM",
+    "LOCK_BAY"
+   ]
+  }
+ ],
+ "qualification_tasks": [
+  {
+   "task_id": "pharmacy-twochain~phaseb-qual-v1",
+   "domain": "pharmacy",
+   "graph": "twochain",
+   "reference_plan": [
+    "RECALL_SHIPMENT",
+    "QUARANTINE_BATCH",
+    "RELEASE_STOCK",
+    "VERIFY_ASSAY",
+    "UPDATE_LABEL",
+    "NOTIFY_PRESCRIBERS"
+   ]
+  },
+  {
+   "task_id": "satellite-fork~phaseb-qual-v1",
+   "domain": "satellite",
+   "graph": "fork",
+   "reference_plan": [
+    "SAFE_MODE",
+    "CALIBRATE_STARTRACKER",
+    "RESUME_DOWNLINK",
+    "DUMP_TELEMETRY",
+    "PATCH_FIRMWARE",
+    "REORIENT_PANEL"
+   ]
+  },
+  {
+   "task_id": "brewery-chain~phaseb-qual-v1",
+   "domain": "brewery",
+   "graph": "chain",
+   "reference_plan": [
+    "STERILISE_LINE",
+    "SAMPLE_GRAVITY",
+    "DRAIN_VESSEL",
+    "RESEED_YEAST",
+    "RESTART_BATCH",
+    "STOP_FERMENT"
+   ]
+  },
+  {
+   "task_id": "rail-diamond~phaseb-qual-v1",
+   "domain": "rail",
+   "graph": "diamond",
+   "reference_plan": [
+    "GROUND_CATENARY",
+    "CLEAR_SECTION",
+    "TEST_INTERLOCK",
+    "INSPECT_POINTS",
+    "BLOCK_SECTION",
+    "REPLACE_RELAY"
+   ]
+  },
+  {
+   "task_id": "payments-fork~phaseb-qual-v1",
+   "domain": "payments",
+   "graph": "fork",
+   "reference_plan": [
+    "REOPEN_GATEWAY",
+    "DRAIN_NODE",
+    "SNAPSHOT_STORE",
+    "PROBE_LATENCY",
+    "CYCLE_ENGINE",
+    "SHIFT_ROUTING"
+   ]
+  },
+  {
+   "task_id": "robotics-chain~phaseb-qual-v1",
+   "domain": "robotics",
+   "graph": "chain",
+   "reference_plan": [
+    "HALT_CONVEYOR",
+    "RESUME_LINE",
+    "CALIBRATE_ARM",
+    "LOCK_BAY",
+    "AUDIT_INVENTORY",
+    "SWAP_GRIPPER"
+   ]
+  },
+  {
+   "task_id": "pharmacy-star~phaseb-qual-v1",
+   "domain": "pharmacy",
+   "graph": "star",
+   "reference_plan": [
+    "VERIFY_ASSAY",
+    "UPDATE_LABEL",
+    "NOTIFY_PRESCRIBERS",
+    "RELEASE_STOCK",
+    "QUARANTINE_BATCH",
+    "RECALL_SHIPMENT"
+   ]
+  },
+  {
+   "task_id": "satellite-join~phaseb-qual-v1",
+   "domain": "satellite",
+   "graph": "join",
+   "reference_plan": [
+    "CALIBRATE_STARTRACKER",
+    "PATCH_FIRMWARE",
+    "REORIENT_PANEL",
+    "RESUME_DOWNLINK",
+    "DUMP_TELEMETRY",
+    "SAFE_MODE"
+   ]
+  }
+ ],
+ "validation": {
+  "checks": 192,
+  "failed": 0,
+  "note": "fixture validity only; says nothing about whether any model can solve these tasks"
+ }
+}
