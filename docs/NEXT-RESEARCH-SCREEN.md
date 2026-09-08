@@ -11,9 +11,8 @@ as decided; nothing here reopens them.
 **Outcome of pass 1: no candidate reached "candidate for testing." C2 was
 UNRESOLVED and the recommended next action was bounded retrieval.**
 
-**Outcome of pass 2 (2026-09-08, zero model calls): C2's stated mechanism is
-REFUTED by a deterministic trace of the real selector. C2 is RETIRED. No model
-experiment is recommended. See §5.**
+**Outcome of pass 2 (2026-09-08, zero model calls): C2 is retired because no distinctive selection mechanism or substantive original contribution has been established. The downstream behavioural interaction remains untested. No model
+experiment is recommended. See §§4–8.**
 
 ---
 
@@ -141,20 +140,32 @@ ECHO vs NEUTRAL isolates semantics with position and length held fixed. NEUTRAL 
 ABSENT isolates ordinary displacement from adding any text. Policies exercised:
 `RecencyBudget` and `BM25Budget` (pure numpy, no inference).
 
-### Finding 1 — the stated mechanism is false: nothing is re-dated
+### Finding 1 — the original message is not re-dated; the restated content still occupies a newer position
 
 `RecencyBudget.priority` is `range(len(rest)-1, -1, -1)` — **positional over
-messages**. A restatement creates a *new* message; it does not move, re-rank, or
-re-date the original proposal or its retraction. There is no re-dating operation
-in the selector for a restatement to exploit.
+messages**. A restatement creates a *new* message: the original proposal and its
+retraction keep their positions and are not re-ranked, so there is no re-dating
+**of the original message**.
 
-### Finding 2 — under recency, ECHO and NEUTRAL select identically
+Stated precisely, because the pass-1 claim was looser than this: the *content* of
+the obsolete proposal does newly appear at a later position, and can therefore be
+retained when the original message is not. What is refuted is re-dating of the
+original message, not the existence of newer stale content.
+
+### Finding 2 — under recency, ECHO and NEUTRAL select the same *positions* — not the same *inputs*
 
 Identical `selected_ids` at **every** budget tested (W = 20/30/40/50/60). At W=40
-both give `ids=[3,4,5]`, `words_history=38`. The selector does not treat the stale
-restatement specially **at all**; only the retained *text* differs.
+both give `ids=[3,4,5]`, `words_history=38`. In the tested cases the selector
+gives the stale restatement **no priority advantage** over length-matched neutral
+text.
 
-### Finding 3 — what actually drops the retraction is ordinary displacement
+**Identical indices are not identical inputs.** In the ECHO arm the retained slot
+carries stale content; in the NEUTRAL arm it does not. The two arms therefore
+deliver *different* model inputs while selecting the same positions, so this
+finding constrains the **selection** claim only and says nothing about downstream
+behaviour.
+
+### Finding 3 — in the tested cases the retraction is dropped by ordinary displacement
 
 NEUTRAL vs ABSENT under recency:
 
@@ -183,9 +194,12 @@ match the query term "plan"; the proposal is 11 words against the retraction's 1
 and greedy fill prefers the cheaper one. So a relevance-scored budget can keep a
 proposal while dropping its own retraction **with no restatement present at all**.
 
-**Not promoted.** It is n=1 on a single authored history, it depends on the
-retraction being longer than the proposal, and it is a variant of **C1, which is
-COVERED**. Recorded so it is not re-derived; it would need its own gate pass.
+**Not promoted, and scoped to this fixture.** The observation holds for **this
+authored history at these budgets** and nowhere else: n=1, dependent on the
+retraction being longer than the proposal and on both matching the query term
+"plan". No claim is made that relevance-scored budgets generally rank retractions
+below proposals. It is also a variant of **C1, which is COVERED**. Recorded so it
+is not re-derived; it would need its own gate pass.
 
 Also noted: at W=50 BM25 selects the variant slot in both conditions but for
 *different reasons* — ECHO on relevance ("plan"), NEUTRAL on the documented
@@ -195,20 +209,23 @@ coincidental, not evidence of equal treatment.
 ### Infrastructure dependency, reported rather than assumed
 
 `DenseBudget` / `FusionBudget` require `all-MiniLM-L6-v2` embedding inference
-(`retrieval.py:127`). **Not run this pass.** Whether a dense scorer treats an echo
-differently from a length-matched neutral is **untested**, and is the one place a
-semantic effect could still hide.
+(`retrieval.py:127`). **Not run this pass, and this gap is not a reason to
+continue.** Whether a dense scorer treats an echo differently from a length-matched
+neutral is simply **untested**; an untested arm is not a pending lead, and C2 is
+retired on the absence of an established contribution rather than on the tested
+arms alone.
 
 ## 5. PASS 2 — the three claims, separated
 
 | claim | status after this pass |
 |---|---|
-| **(a) deterministic selection failure** — the selector keeps the superseded proposal and drops its retraction *because of* the restatement | **REFUTED for recency and BM25.** ECHO and NEUTRAL select identically; the retraction is dropped by displacement, which any equal-length filler reproduces. Untested for dense/fusion. |
-| **(b) additional model error conditional on an authored stale restatement** | **Untested, and now selector-independent.** Because selection is identical, this is a pure model-behaviour question: does echo text raise the stale-action rate versus length-matched neutral text? That sits close to E18 revocation inertia and STALE's Implicit Conflict, and needs its own gate pass. |
+| **(a) deterministic selection failure** — the selector keeps the superseded proposal and drops its retraction *because of* the restatement | **No distinctive selection mechanism established in the tested cases.** ECHO and NEUTRAL select the same positions; the retraction is dropped by displacement, which any equal-length filler reproduces. Untested for dense/fusion. |
+| **(b) additional model error conditional on an authored stale restatement** | **Untested.** Selecting the same positions does not equalise the inputs — the ECHO arm carries stale content into the model and the NEUTRAL arm does not — so an **echo × compression interaction remains open as an empirical question**. It sits close to E18 revocation inertia and STALE's Implicit Conflict, and would need its own gate pass rather than a resumption of C2. |
 | **(c) how often agents spontaneously produce such a restatement** | **Untested and unaddressable by the proposed design.** The finalisation-only experiment authors the restatement, so it cannot estimate a spontaneous rate. That needs free-running dialogue on new instances. |
 
-Claim (a) was the load-bearing one — it is what made C2 multi-agent-specific and
-distinct from single-agent compression work. It is gone.
+Claim (a) was the load-bearing one — it is what would have made C2
+multi-agent-specific and distinct from single-agent compression work. It is not
+established.
 
 ## 6. PASS 2 — the estimand, repaired (recorded, not authorised)
 
@@ -223,9 +240,11 @@ echo text, measured on the same instance under full history, and (ii) the harm o
 budgeting alone, measured with the length-matched control. Both differences
 require matched controls and same-instance full-history outcomes.
 
-**What it leaves unresolved.** It does **not** identify the mechanism — Findings
-2 and 3 show selection is identical between echo and control under recency, so a
-nonzero interaction could not be a selection effect. It does not estimate the
+**What it leaves unresolved.** It does **not** identify the mechanism. Findings 2
+and 3 show the same positions are selected in the tested cases, so a nonzero
+interaction would be evidence about the *content* delivered rather than about
+priority ordering — it would not, by itself, distinguish those. It does not
+estimate the
 spontaneous restatement rate, does not establish external validity beyond the
 authored instances, and cannot attribute a null to E18.
 
@@ -279,44 +298,50 @@ Conditional on C2's coverage being resolved first.
 
 ## 8. Decision (pass 2, supersedes pass 1)
 
-**C2 is RETIRED. No model experiment is recommended. No generator was built and
-no finalisation experiment was run.**
+**C2 is retired because no distinctive selection mechanism or substantive original contribution has been established. The downstream behavioural interaction remains untested. No model experiment is
+recommended. No generator was built and no finalisation experiment was run.**
 
-**What retired it — a specific finding, not a search result.** C2's load-bearing
-claim was that a partner's restatement *re-dates* superseded content so that
-recency-ordered selection keeps the obsolete proposal and drops its retraction.
-The real selector does not work that way. `RecencyBudget.priority` is positional
-over messages, so a restatement adds a new message and re-dates nothing; and
-ECHO versus a length-matched NEUTRAL produces **identical `selected_ids` at every
-budget tested**. What drops the retraction is **ordinary displacement** — any
-equal-length message at that position does it. Source attribution changes nothing
-because the deployed selector never sees it.
+**What the trace established, at its actual scope.** C2's load-bearing claim was
+a *distinctive selection mechanism*: that a partner's restatement causes
+recency-ordered selection to keep the obsolete proposal and drop its retraction.
+In the tested cases it does not. `RecencyBudget.priority` is positional, so the
+original message is never re-dated; ECHO and a length-matched NEUTRAL select the
+**same positions** at every budget tested; and the retraction is dropped by
+**ordinary displacement**, which any equal-length message reproduces. Source
+attribution cannot matter, because the deployed selector never receives it.
 
-This is the outcome the pass was for: a zero-model-call check killed the
-mechanism before a generator was built or ~150 calls were spent.
+**What the trace did not establish.** Identical positions are not identical
+inputs: the ECHO arm delivers stale content to the model and the NEUTRAL arm does
+not, and restated content occupies a newer position even though the original
+message is untouched. **The downstream echo × compression behavioural interaction
+is untested.** C2 is retired for want of an established contribution — not on a
+demonstration that no downstream effect exists.
 
-**Specific blockers, if anyone revisits this.**
+This is still the outcome the pass was for: a zero-model-call check removed the
+distinctive mechanism before a generator was built or ~150 calls were spent.
 
-1. **Mechanism.** The selector-level claim is refuted for recency and BM25.
-   Dense/fusion are untested and need `all-MiniLM-L6-v2` inference — the only
-   place a semantic effect could still hide, and the narrowest remaining opening.
-2. **Residual claim (b)** — whether echo *text* raises model error versus
-   length-matched neutral text — survives only as a **model-behaviour** question
-   with no selector story, adjacent to E18 and to STALE's Implicit Conflict. It
-   needs its own gate pass, not a resumption of C2.
-3. **Claim (c)** — spontaneous restatement rate — remains unaddressable by any
-   finalisation-only design and requires free-running dialogue on new instances.
+**If anyone revisits this, revisit it as a new candidate, not as C2.**
+
+1. The remaining question is **behavioural**, not selectional: does stale content
+   surviving compression raise error relative to length-matched neutral content?
+   That is adjacent to E18 and to STALE's Implicit Conflict and needs its own gate
+   pass.
+2. `DenseBudget` / `FusionBudget` are **untested** (they need
+   `all-MiniLM-L6-v2` inference). Recorded as a gap, **not** as a reason to
+   continue.
+3. Claim (c), the spontaneous restatement rate, remains unaddressable by any
+   finalisation-only design.
 
 **Prior-art standing, unchanged by the retirement.** DelibTrace, MemStrata and Zep
-were read at the specified sections and **none states C2's claim**; C2 did not
-die of prior art. Recording this so the file is not later misread as "covered".
-MemStrata's bi-temporal supersession is a *candidate solution class* operating on
-extracted triples, and is **not** evidence that our raw-message restatement case
-is handled.
+were read at the specified sections and **none states C2's claim**; C2 did not die
+of prior art. Recorded so this file is not later misread as "covered". MemStrata's
+bi-temporal supersession is a *candidate solution class* over extracted triples,
+and is **not** evidence that our raw-message restatement case is handled.
 
-**Standing observation, deliberately not promoted.** BM25 at a tight budget kept
-the proposal and dropped its retraction **with no restatement present** — a
-length-and-greedy-fill artifact, n=1, and a variant of C1 which is COVERED.
+**Standing observation, deliberately not promoted.** BM25 at W=20 on this fixture
+kept the proposal and dropped its retraction **with no restatement present** — a
+length-and-greedy-fill artifact, n=1, scoped to this authored history and these
+budgets, and a variant of C1 which is COVERED.
 
 **Ledger unchanged: 22 gated, 22 closed, zero established original results.** E27
 remains a controlled replication; E28 remains closed. Nothing here reopens either.
