@@ -90,3 +90,52 @@ def test_prompt_supplies_no_answer_and_delivers_only_the_subset(fam):
     assert "correct" not in empty.lower()
     one = render_prompt(fx, "knows_neither", frozenset({"A"}))
     assert facts["A"] in one and facts["B"] not in one
+
+
+# --- quartet construction (PSQ) -------------------------------------------
+
+
+def test_quartet_holds_everything_fixed_except_fact_orientation():
+    from plansel_fixtures import quartets
+    for q in quartets(8):
+        assert len({tuple(o.label for o in f.options) for f in q}) == 1
+        assert len({tuple(o.sequence for o in f.options) for f in q}) == 1
+        assert len({f.actions for f in q}) == 1
+        assert len({(f.candidates[2], f.candidates[3]) for f in q}) == 1
+        # the fact messages DO change, consistently with the constraints
+        assert len({(f.candidates[0], f.candidates[1]) for f in q}) == 4
+        assert len({f.constraints for f in q}) == 4
+
+
+def test_each_quartet_has_four_different_correct_options_and_positions():
+    from plansel_fixtures import LABELS, quartets
+    for q in quartets(8):
+        assert sorted(f.correct_label for f in q) == sorted(LABELS)
+        assert sorted(f.correct_position for f in q) == [1, 2, 3, 4]
+
+
+def test_no_answer_is_revealed_by_ids_or_prompts():
+    from plansel_fixtures import CIDS, quartets, render_prompt
+    for q in quartets(8):
+        for f in q:
+            assert f.correct_label not in f.fid
+            p = render_prompt(f, "knows_neither", frozenset(CIDS))
+            lines = [l.strip() for l in p.split("\n") if l.strip().startswith("P")]
+            assert len(lines) == 4
+            assert len({len(l.split(":")[0]) for l in lines}) == 1
+            assert "correct" not in p.lower()
+
+
+def test_all_32_cases_score_correctly():
+    import json as _json
+    from plansel_fixtures import quartets, score_option
+    for q in quartets(8):
+        for f in q:
+            good = score_option(_json.dumps({"option": f.correct_label,
+                                             "ready": True}), f)
+            assert good["success"] and good["violated"] == []
+            for o in f.options:
+                if o.label != f.correct_label:
+                    bad = score_option(_json.dumps({"option": o.label,
+                                                    "ready": True}), f)
+                    assert not bad["success"] and bad["violated"]

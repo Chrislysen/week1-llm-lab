@@ -215,3 +215,74 @@ def score_option(text, fx):
     return {"parsed": True, "option": label, "sequence": list(seq),
             "ready": obj["ready"], "satisfied": sat, "violated": vio,
             "success": not vio and obj["ready"]}
+
+
+# --- QUARTETS: one fixture, four assignments of the two ordering facts -----
+#
+# Within a quartet the option->label mapping, the display order, the action
+# descriptions and the unrelated (distractor) text are held FIXED. Only the two
+# fact orientations change, and they change consistently everywhere they appear:
+# in the delivered message text and in the constraints used for scoring.
+#
+# Because the label map and display order are bijections held fixed, the four
+# assignments necessarily make four DIFFERENT options correct, at four different
+# display positions. That is a built-in control, verified rather than assumed.
+
+ASSIGNMENTS = ((True, True), (True, False), (False, True), (False, False))
+
+
+def _perm_for(seed, k=4):
+    """Deterministic permutation of range(k) from an integer seed."""
+    import hashlib
+    items = list(range(k))
+    out = []
+    h = int(hashlib.sha256(str(seed).encode()).hexdigest(), 16)
+    while items:
+        h, j = divmod(h, len(items))
+        out.append(items.pop(j))
+    return out
+
+
+def build_quartet(i, domain=None):
+    """The 4 assignment variants of fixture `i`, sharing everything else."""
+    domain = domain or DOMAIN_CYCLE[i % len(DOMAIN_CYCLE)]
+    dom = lb.DOMAINS[domain]
+    acts = tuple(dom["actions"][:4])
+    ids = tuple(a[0] for a in acts)
+    phr = dict(acts)
+    p1, p2 = (ids[0], ids[1]), (ids[2], ids[3])
+
+    seqs = [tuple(_order(p1, f1)) + tuple(_order(p2, f2))
+            for f1, f2 in ASSIGNMENTS]
+    # label map and display order drawn from INDEPENDENT seeds, fixed per fixture
+    lab_perm = _perm_for(("label", i))
+    dis_perm = _perm_for(("display", i))
+    labels_for = {seqs[j]: LABELS[lab_perm[j]] for j in range(4)}
+    opts_canonical = [Option(labels_for[s], s) for s in seqs]
+    shown = tuple(opts_canonical[j] for j in dis_perm)
+
+    noise = list(dom["noise"])
+    out = []
+    for a, (fwd1, fwd2) in enumerate(ASSIGNMENTS):
+        c1 = Constraint(id="F1", kind="before", a=_order(p1, fwd1)[0],
+                        b=_order(p1, fwd1)[1])
+        c2 = Constraint(id="F2", kind="before", a=_order(p2, fwd2)[0],
+                        b=_order(p2, fwd2)[1])
+        correct_seq = tuple(_order(p1, fwd1)) + tuple(_order(p2, fwd2))
+        correct = labels_for[correct_seq]
+        cands = (("A", f"Do not {phr[c1.b]} before we {phr[c1.a]}."),
+                 ("B", f"We cannot {phr[c2.b]} until we {phr[c2.a]}."),
+                 ("C", noise[i % len(noise)]),
+                 ("D", noise[(i + 1) % len(noise)]))
+        out.append(PlanSelFixture(
+            fid=f"{domain}-plansel-{i}-a{a}~{FAMILY_SALT}", domain=domain,
+            setting=dom["setting"], actions=acts, constraints=(c1, c2),
+            options=shown, correct_label=correct,
+            correct_position=[o.label for o in shown].index(correct) + 1,
+            candidates=cands,
+            variants={"knows_neither": (), "knows_first_fact": ("F1",)}))
+    return out
+
+
+def quartets(n=8):
+    return [build_quartet(i) for i in range(n)]
