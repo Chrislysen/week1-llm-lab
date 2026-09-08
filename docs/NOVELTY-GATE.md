@@ -79,9 +79,28 @@ terminology, or difference from differing terminology.
 - For a theorem, **retain its objective and assumptions** when translating its
   conclusion. (Im & Li's Theorem 3.1 minimises an embedding-matching MSE — it is
   not universal behavioural optimality.)
-- **Do not import a prior work's confounds or guarantees across a design
-  difference.** This is the error that produced E27's first, wrong closure
-  argument.
+- **Precondition check — applies symmetrically to OPENING and CLOSING a
+  direction.** Before any imported result, confound, bound, theorem, or effect
+  size is used as an argument — *for* novelty or *against* it — do all three:
+  1. **Identify its assumptions** (normalisation, tuning regime, objective,
+     data, units, operating point, model class).
+  2. **Verify each holds in our implementation**, by inspecting our code or
+     data, not by analogy.
+  3. **State the conclusion actually supported** once the non-holding
+     assumptions are struck out.
+
+  An argument that fails this check is withdrawn regardless of which direction it
+  points. Closing a direction on an inapplicable confound is the same error as
+  opening one on an inapplicable guarantee, and it is *easier* to miss, because
+  the conclusion feels appropriately modest.
+
+  > Both errors happened here. E27's first closure argument imported Im & Li's
+  > per-method magnitude confound into a design that normalises every direction
+  > to unit norm at identical α — the confound could not apply
+  > (`e27_estimator.py:135`, `:141`). Earlier, the unlearning bound of
+  > arXiv:2609.04875 was cited as bounding AgentCom's achievable contribution
+  > when it bounds worst-case *exact reconstruction* over transitions, not
+  > decoded tokens, under a specific operation set.
 
 A different name, threshold, model, dataset, or unit does not by itself
 establish a contribution. Conversely, an omitted baseline or imperfect experiment
