@@ -113,6 +113,13 @@ class SubsetOutcome:
     rendered_input: str | None = None        # the literal delivered prompt
     attempt: int = 1                         # retries consume the ceiling
     failure: str | None = None
+    #: TRAINING-ONLY supervision (2026-09-08). Recorded because the scorer
+    #: already exposes it: PlanCheck.satisfied / .violated are per-constraint.
+    #: The DEPLOYED selector chooses on predicted overall task success under the
+    #: rendered budget and must never read these. See
+    #: agentcom_analysis.TRAINING_ONLY_FIELDS.
+    check_vector: dict | None = None         # per-check pass/fail; None if unparsed
+    failure_mode: str | None = None          # success|violation|refusal|unparsed
     prompt_tokens: int | None = None
     completion_tokens: int | None = None
     seconds: float | None = None

@@ -119,3 +119,90 @@ def test_positive_success_scale_interaction_can_vanish_under_a_link():
         feas = tuple(m for m in range(4) if bin(m).count("1") <= budget)
         assert (best_feasible(lambda m: p[m], feas)
                 == best_feasible(lambda m: lp[m], feas))
+
+
+# --- check-level supervision: training only, and its trap -----------------
+
+
+def test_scorer_already_exposes_check_level_labels_and_failure_kind():
+    """No recovery from raw text is needed: PlanCheck is per-constraint."""
+    import json
+
+    import lineage_bench as lb
+    import lineage_eval as le
+    from agentcom_analysis import check_vector, failure_mode
+
+    inst = lb.generate_instance("payments", "join", salt="phaseb-v1")
+    cids = [c.id for c in inst.constraints]
+    ref = ["PROBE_LATENCY", "CYCLE_ENGINE", "SNAPSHOT_STORE", "SHIFT_ROUTING",
+           "REOPEN_GATEWAY", "DRAIN_NODE"]
+    ok = le.check_plan(json.dumps({"actions": ref, "ready": True}), inst,
+                       constraints=inst.constraints)
+    assert failure_mode(ok) == "success"
+    assert check_vector(ok, cids) == {c: True for c in cids}
+
+    rev = le.check_plan(json.dumps({"actions": list(reversed(ref)), "ready": True}),
+                        inst, constraints=inst.constraints)
+    assert failure_mode(rev) == "violation"
+    v = check_vector(rev, cids)
+    assert any(v.values()) and not all(v.values())   # a genuine near-miss
+
+    refused = le.check_plan(json.dumps({"actions": ref, "ready": False}), inst,
+                            constraints=inst.constraints)
+    assert failure_mode(refused) == "refusal"        # all checks pass, refused
+    assert check_vector(refused, cids) == {c: True for c in cids}
+
+    unparsed = le.check_plan("I refuse.", inst, constraints=inst.constraints)
+    assert failure_mode(unparsed) == "unparsed"
+    assert check_vector(unparsed, cids) is None      # absent, not all-false
+
+    # "failure" collapses three distinguishable states.
+    assert len({failure_mode(x) for x in (rev, refused, unparsed)}) == 3
+
+
+def test_marginals_and_check_counts_both_fail_to_determine_all_pass():
+    """Why a direct success objective is kept as the selection target."""
+    from agentcom_analysis import all_pass_is_not_determined_by_marginals
+    a = {(True, True): F(3, 4), (False, False): F(1, 4)}
+    b = {(True, True): F(1, 2), (True, False): F(1, 4), (False, True): F(1, 4)}
+    ra = all_pass_is_not_determined_by_marginals(a)
+    rb = all_pass_is_not_determined_by_marginals(b)
+    assert ra["marginals"] == rb["marginals"] == [F(3, 4), F(3, 4)]
+    assert ra["expected_checks_passed"] == rb["expected_checks_passed"] == F(3, 2)
+    assert ra["all_pass"] == F(3, 4) and rb["all_pass"] == F(1, 2)
+    # identical marginals AND identical expected checks-passed, different objective
+    assert ra["all_pass"] != rb["all_pass"]
+
+
+def test_training_only_fields_are_named_and_absent_from_the_selection_path():
+    import inspect
+
+    from agentcom_analysis import TRAINING_ONLY_FIELDS
+    from agentcom_bundle import select_bundle
+    src = inspect.getsource(select_bundle)
+    for field in TRAINING_ONLY_FIELDS:
+        assert field not in src, f"selection path must not read {field}"
+
+
+# --- questions a complete subset table can answer -------------------------
+
+
+def test_multiplicity_and_non_monotonicity_are_measurable():
+    from agentcom_analysis import (smaller_succeeds_when_full_pool_fails,
+                                   working_bundle_multiplicity)
+    n = 3
+    feas = tuple(range(1 << n))
+    # two distinct minimal winners -> "the" sufficient set is not well defined
+    succ = {m: (m & 0b011) == 0b011 or (m & 0b101) == 0b101 for m in feas}
+    out = working_bundle_multiplicity(succ, feas)
+    assert out["n_minimal_successful"] == 2
+
+    # full pool fails while a proper subset succeeds: the case a mining
+    # procedure that discards full-pool failures would throw away
+    succ2 = {m: bin(m).count("1") == 2 for m in feas}
+    nm = smaller_succeeds_when_full_pool_fails(succ2, n)
+    assert nm["applicable"] and nm["full_pool_succeeds"] is False
+    assert len(nm["witnesses"]) == 3
+
+    succ3 = {m: m == (1 << n) - 1 for m in feas}
+    assert smaller_succeeds_when_full_pool_fails(succ3, n)["witnesses"] == []

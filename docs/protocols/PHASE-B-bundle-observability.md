@@ -321,3 +321,75 @@ The 288-call ceiling, the fixtures, the schedule, Amendment 1's thresholds Q, S
 and H, and the qualification gate on separate fixtures. Phase B still establishes
 observability only, authorises no Phase C, and the ledger stays 22 gated,
 22 closed.
+
+---
+
+## AMENDMENT 3 — check-level supervision as training signal (2026-09-08)
+
+**Recorded BEFORE any outcome exists. Still zero model calls.** No Phase B call
+has been made, so this is not post-hoc and the original read rules and
+thresholds Q, S, H, D stand unchanged. **Phase B itself is unchanged**: same
+fixtures, same schedule, same 288-call ceiling, same primary outcome.
+
+### What was checked, not assumed
+
+The proposal asked whether the existing scorer exposes check-level distinctions
+or whether they must be recovered from saved outputs. **It already exposes
+them.** `lineage_eval.PlanCheck.satisfied` / `.violated` are per-constraint, so
+the check vector is read directly and no text recovery is needed. Four states
+that a bare "failure" label collapses are separable today:
+
+| state | meaning |
+|---|---|
+| `success` | every check passes and the plan is offered as ready |
+| `violation` | a scoreable plan breaking at least one check |
+| `refusal` | every check passes but `ready` is false |
+| `unparsed` | no scoreable action; **check vector is absent, not all-false** |
+
+The violation/refusal split is not hypothetical: B1 measured **16 of 18 invalid
+plans emitted silently as `ready=true`, and only 2 self-flagged.**
+
+### Recording change (additive, `agentcom-bundle/1`)
+
+`SubsetOutcome` gains two **optional, training-only** fields: `check_vector` and
+`failure_mode`. Both default to `None`. `check_vector` is `None` — not a row of
+zeros — when the output did not parse, because "no scoreable action" and "every
+check failed" are different states.
+
+**Deployment boundary.** The selector chooses on **predicted overall task
+success under the rendered budget**. Check outcomes are training information
+only. The boundary is named in `agentcom_analysis.TRAINING_ONLY_FIELDS` and
+enforced by a test asserting the selection path's source reads none of them —
+auditable rather than asserted.
+
+### Why the selection objective does not change
+
+Two authored two-check distributions with **identical marginals and identical
+expected checks-passed** (3/2 each) have all-pass rates of **3/4 and 1/2**.
+So neither multiplying per-check marginals nor rewarding more passed checks
+recovers the objective. **The direct task-success objective is retained**, and
+check prediction is strictly auxiliary.
+
+### Two table analyses specified now, to run when outputs exist
+
+Prompted by Context-Picker, which mines one sufficient set by repeated removal
+and **discards examples where the initial candidate set fails**. Both are
+**questions**, not expected outcomes:
+
+1. `working_bundle_multiplicity` — if several *minimal* bundles succeed, "the"
+   sufficient set is not well defined and coverage-of-one-set is lossy.
+2. `smaller_succeeds_when_full_pool_fails` — if a proper subset succeeds where
+   the full pool fails, discarding full-pool failures is not neutral, and more
+   evidence is not monotonically better.
+
+These reuse the Phase B executions and **require no additional calls**. They are
+descriptive, in-table, and **cannot demonstrate transfer or authorise Phase C**.
+
+### Standing
+
+The auxiliary objective alone establishes **no novelty** — CodeRL+ already
+learns from failed-execution information and ContextRL already combines a task
+objective with answer-conditioned context discrimination. What would be
+substantive is a **measured reduction in execution cost to learn reliable
+selection on unseen task families**, which is a Phase C question with its own
+fresh data, estimand and margin. Ledger stays 22 gated, 22 closed.

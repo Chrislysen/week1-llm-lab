@@ -26,7 +26,10 @@ from fractions import Fraction
 from itertools import combinations
 from math import comb
 
-__all__ = ["index_map", "mask_of", "names_of", "anchored_fit", "global_fit",
+__all__ = ["TRAINING_ONLY_FIELDS", "check_vector", "failure_mode",
+           "all_pass_is_not_determined_by_marginals",
+           "working_bundle_multiplicity", "smaller_succeeds_when_full_pool_fails",
+           "index_map", "mask_of", "names_of", "anchored_fit", "global_fit",
            "evaluate", "max_reconstruction_error", "best_feasible",
            "estimator_comparison", "anchored_variance", "global_fit_variance",
            "context_headroom", "additive_can_encode_any_known_target"]
@@ -191,3 +194,100 @@ def additive_can_encode_any_known_target(target, n, feasible):
     """
     w = {1 << i: Fraction(1 if target >> i & 1 else -1) for i in range(n)}
     return best_feasible(lambda m: evaluate(w, m), feasible) == target
+
+
+# --- check-level supervision (TRAINING ONLY) ------------------------------
+
+#: Fields that are TRAINING information only. The deployed selector chooses on
+#: predicted overall task success under the rendered budget and never reads
+#: these. Kept as a named list so the boundary is auditable rather than assumed.
+TRAINING_ONLY_FIELDS = ("check_vector", "failure_mode", "constraint_recall")
+
+
+def check_vector(plan_check, constraint_ids):
+    """Per-check pass/fail from an existing `PlanCheck`. TRAINING ONLY.
+
+    The scorer already exposes this: `satisfied` / `violated` are per-constraint,
+    so no recovery from raw text is needed. An unparsed output has no check
+    vector at all -- that is a distinct state, not a row of zeros, so it returns
+    None rather than pretending every check failed.
+    """
+    if not plan_check.parsed:
+        return None
+    sat = set(plan_check.satisfied)
+    return {cid: (cid in sat) for cid in constraint_ids}
+
+
+def failure_mode(plan_check):
+    """Which KIND of failure, not merely that one occurred. TRAINING ONLY.
+
+    'failure' collapses four states this instrument can already separate:
+      success   -- every check passes and the plan is offered as ready
+      unparsed  -- no scoreable action was produced
+      violation -- a scoreable plan that breaks at least one check
+      refusal   -- every check passes but `ready` is false
+    B1 measured the last two as very different behaviours (16/18 invalid plans
+    were emitted silently as ready=true; 2/18 were self-flagged).
+    """
+    if not plan_check.parsed:
+        return "unparsed"
+    if plan_check.violated:
+        return "violation"
+    if not plan_check.ready:
+        return "refusal"
+    return "success"
+
+
+def all_pass_is_not_determined_by_marginals(joint):
+    """Diagnostic: two check distributions with equal marginals, unequal joint.
+
+    `joint` maps outcome-tuples of booleans to probabilities. Returns the
+    marginals, the all-pass probability and the expected number of checks passed.
+
+    The authored pair in the tests has IDENTICAL marginals AND identical expected
+    checks-passed, yet different all-pass rates -- so neither multiplying
+    marginals nor rewarding more passed checks recovers the selection objective.
+    Keep a direct success objective.
+    """
+    k = len(next(iter(joint)))
+    marginals = [sum((p for o, p in joint.items() if o[i]), Fraction(0))
+                 for i in range(k)]
+    all_pass = sum((p for o, p in joint.items() if all(o)), Fraction(0))
+    expected = sum((p * sum(o) for o, p in joint.items()), Fraction(0))
+    return {"marginals": marginals, "all_pass": all_pass,
+            "expected_checks_passed": expected}
+
+
+# --- questions a COMPLETE subset table can answer -------------------------
+
+
+def working_bundle_multiplicity(success, feasible):
+    """How many feasible bundles succeed, and which succeed minimally.
+
+    A minimal successful bundle has no successful proper subset that is also
+    feasible. Relevant because Context-Picker mines ONE sufficient set by
+    repeated removal; if several distinct bundles work, 'the' sufficient set is
+    not well defined and coverage-of-one-set is a lossy training target.
+    """
+    winners = [m for m in feasible if success[m]]
+    minimal = [m for m in winners
+               if not any(w != m and (w & m) == w and success[w] for w in winners)]
+    return {"n_feasible": len(feasible), "n_successful": len(winners),
+            "n_minimal_successful": len(minimal), "minimal_masks": minimal}
+
+
+def smaller_succeeds_when_full_pool_fails(success, n, feasible=None):
+    """Does some proper subset succeed where the FULL pool fails?
+
+    Exactly the case Context-Picker's mining discards. If it occurs, dropping
+    those instances is not a neutral preprocessing step, and more evidence is not
+    monotonically better.
+    """
+    full = (1 << n) - 1
+    if feasible is None:
+        feasible = tuple(range(1 << n))
+    if full not in success or success[full]:
+        return {"applicable": full in success and not success[full],
+                "full_pool_succeeds": success.get(full), "witnesses": []}
+    wit = [m for m in feasible if m != full and (m & full) == m and success[m]]
+    return {"applicable": True, "full_pool_succeeds": False, "witnesses": wit}

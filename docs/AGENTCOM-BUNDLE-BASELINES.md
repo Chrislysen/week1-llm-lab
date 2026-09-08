@@ -92,3 +92,86 @@ stand-ins: **RepoShapley** (verified-coalition distillation), **ProxySPEX**
   expected *apparent* gain is **301/4096 ≈ 7.35 %** at **zero** true gain. More
   tasks do not remove this selection bias.
 - **Do not read unconstrained fitted scores outside [0, 1] as probabilities.**
+
+---
+
+## Addendum 2026-09-08 — check-level supervision, and one more competitor
+
+### The proposed extension
+
+Predict overall task success from recipient context and bundle; **during
+training only**, also predict which executable checks the resulting action
+satisfies. **At deployment, select on predicted task success under the existing
+rendered budget.** Hidden checks and their outcomes stay training information.
+
+This is a hypothesis about **learning efficiency**. Richer feedback does **not**
+automatically identify which message caused a failure.
+
+**The instrument already supports it.** `lineage_eval.PlanCheck` exposes
+`satisfied` / `violated` per constraint, so no recovery from raw text is needed,
+and it separates four states that a bare "failure" label collapses:
+
+| state | meaning |
+|---|---|
+| `success` | every check passes, plan offered as ready |
+| `violation` | scoreable plan, at least one check broken |
+| `refusal` | every check passes, but `ready` is false |
+| `unparsed` | no scoreable action produced (**no check vector at all** — absent, not all-false) |
+
+B1 measured the violation/refusal split as very different behaviour: **16 of 18
+invalid plans were emitted silently as `ready=true`; only 2 were self-flagged.**
+
+### The trap, verified exactly — and it is sharper than stated
+
+Two authored two-check distributions:
+
+| | P(check 1) | P(check 2) | **P(all pass)** | E[checks passed] |
+|---|---|---|---|---|
+| Bundle A | 3/4 | 3/4 | **3/4** | 3/2 |
+| Bundle B | 3/4 | 3/4 | **1/2** | 3/2 |
+
+Identical marginals **and identical expected checks-passed**, different
+objective. So **neither multiplying marginals nor rewarding more passed checks
+recovers the selection target.** Keep a direct success objective. (Test:
+`test_marginals_and_check_counts_both_fail_to_determine_all_pass`.)
+
+### Competitors added
+
+| source | sections | what it establishes | consequence |
+|---|---|---|---|
+| **CodeRL+** | §3.2 | Uses execution information from **failed** programs as an auxiliary learning task. | Learning from richer execution signal is **already established**. Our question is only whether it helps *this* selection problem and its transfer efficiency. |
+| **ContextRL** | §2 | Combines a main task objective with **answer-conditioned context discrimination**. | Auxiliary contextual supervision is established. The auxiliary objective alone establishes **no novelty**. |
+| **Context-Picker** | §§3.2–3.3 | Mines a sufficient evidence set by **repeated removal**, trains against coverage of that set; **discards examples where the initial candidate set fails**. | A close selection competitor. Its mining makes two questions sharp for our complete tables — see below. |
+| **OptiSet** (retained, weight raised) | §§3.2–3.3 | Learns **preferences across multiple candidate sets**, not just the winner. | Comparing only against imitation of one chosen bundle would miss this. Keep it as a strong comparator. |
+
+### Two questions our complete tables can answer that a mining procedure cannot
+
+Context-Picker's mining assumes a well-defined sufficient set and drops
+full-pool failures. Both assumptions are checkable here, and are **questions, not
+assumed outcomes**:
+
+1. **Do several distinct bundles work?** If there are multiple *minimal*
+   successful bundles, "the" sufficient set is not well defined, and
+   coverage-of-one-set is a lossy training target.
+2. **Does a smaller bundle succeed when the full pool fails?** If so, discarding
+   full-pool failures is not neutral preprocessing, and more evidence is not
+   monotonically better.
+
+Implemented as `working_bundle_multiplicity` and
+`smaller_succeeds_when_full_pool_fails`. **They are specified now and will be run
+on Phase B outputs when those exist** — no outcomes are available yet.
+
+### The learning comparison, separated
+
+| | overall success feedback | success **+** executable check feedback |
+|---|---|---|
+| **interaction model** | current approach | **proposed extension** |
+| **strong general set model** | representation comparator | **equally informed comparator** |
+
+Every cell gets the **same training executions** and the **same permitted
+recipient information**. That is what separates a gain due to the interaction
+representation from one due to richer supervision, or their combination.
+
+**What would make this substantive:** a measured reduction in the execution cost
+needed to learn reliable selection **on unseen task families**. The auxiliary
+objective on its own would not.
