@@ -1,0 +1,547 @@
+{
+ "purpose": "independent semantic inspection of the delivered task",
+ "model_calls_made_by_this_export": 0,
+ "provenance_key": {
+  "CAPTURED": "read verbatim from results/qwq_calls.jsonl",
+  "RECONSTRUCTED": "rebuilt from deterministic code; not logged at run time"
+ },
+ "system_message": null,
+ "system_message_note": "There is NO system message. The entire task is a single user message. RECONSTRUCTED from the runner, which builds [{'role':'user','content':prompt}].",
+ "response_format_example": "Choose the one candidate plan that respects everything you know.\n\nAnswer as JSON and nothing else: {\"option\": \"P?\", \"ready\": true}\n\n`option` is the identifier of the plan you choose.\n`ready` is true if you consider that plan safe to execute as written.",
+ "response_format_note": "CAPTURED: this exact text is the tail of every rendered_input. It is the only schema or format example the receiver is given.",
+ "fixtures": [
+  {
+   "fixture_index": 0,
+   "domain": "payments",
+   "pattern": "INVARIANT: same label on all four assignments",
+   "option_to_sequence_mapping_RECONSTRUCTED": {
+    "P3": [
+     "SNAPSHOT_STORE",
+     "DRAIN_NODE",
+     "SHIFT_ROUTING",
+     "CYCLE_ENGINE"
+    ],
+    "P1": [
+     "DRAIN_NODE",
+     "SNAPSHOT_STORE",
+     "CYCLE_ENGINE",
+     "SHIFT_ROUTING"
+    ],
+    "P4": [
+     "DRAIN_NODE",
+     "SNAPSHOT_STORE",
+     "SHIFT_ROUTING",
+     "CYCLE_ENGINE"
+    ],
+    "P2": [
+     "SNAPSHOT_STORE",
+     "DRAIN_NODE",
+     "CYCLE_ENGINE",
+     "SHIFT_ROUTING"
+    ]
+   },
+   "display_order_RECONSTRUCTED": [
+    "P3",
+    "P1",
+    "P4",
+    "P2"
+   ],
+   "action_identifier_to_phrase_RECONSTRUCTED": {
+    "DRAIN_NODE": "drain the failing node",
+    "SNAPSHOT_STORE": "snapshot the store",
+    "SHIFT_ROUTING": "shift routing to the spare region",
+    "CYCLE_ENGINE": "cycle the settlement engine"
+   },
+   "calls": [
+    {
+     "assignment": 0,
+     "process_block_CAPTURED": "qwq:block0:payments",
+     "process_position_CAPTURED": 2,
+     "request_envelope_RECONSTRUCTED": {
+      "model": "qwen3:14b",
+      "messages": [
+       {
+        "role": "user",
+        "content": "Setting: a payments platform degradation\n\nWhat you already know:\n- (nothing beyond the plans below)\n\nCandidate plans:\n  P3: SNAPSHOT_STORE -> DRAIN_NODE -> SHIFT_ROUTING -> CYCLE_ENGINE\n  P1: DRAIN_NODE -> SNAPSHOT_STORE -> CYCLE_ENGINE -> SHIFT_ROUTING\n  P4: DRAIN_NODE -> SNAPSHOT_STORE -> SHIFT_ROUTING -> CYCLE_ENGINE\n  P2: SNAPSHOT_STORE -> DRAIN_NODE -> CYCLE_ENGINE -> SHIFT_ROUTING\n\nMessages from your teammates:\n\nDo not snapshot the store before we drain the failing node.\n\nWe cannot cycle the settlement engine until we shift routing to the spare region.\n\nChoose the one candidate plan that respects everything you know.\n\nAnswer as JSON and nothing else: {\"option\": \"P?\", \"ready\": true}\n\n`option` is the identifier of the plan you choose.\n`ready` is true if you consider that plan safe to execute as written."
+       }
+      ],
+      "stream": false,
+      "think": false,
+      "options": {
+       "temperature": 0.7,
+       "top_p": 0.8,
+       "top_k": 20,
+       "min_p": 0,
+       "seed": 0,
+       "num_predict": 300
+      }
+     },
+     "message_content_CAPTURED": "Setting: a payments platform degradation\n\nWhat you already know:\n- (nothing beyond the plans below)\n\nCandidate plans:\n  P3: SNAPSHOT_STORE -> DRAIN_NODE -> SHIFT_ROUTING -> CYCLE_ENGINE\n  P1: DRAIN_NODE -> SNAPSHOT_STORE -> CYCLE_ENGINE -> SHIFT_ROUTING\n  P4: DRAIN_NODE -> SNAPSHOT_STORE -> SHIFT_ROUTING -> CYCLE_ENGINE\n  P2: SNAPSHOT_STORE -> DRAIN_NODE -> CYCLE_ENGINE -> SHIFT_ROUTING\n\nMessages from your teammates:\n\nDo not snapshot the store before we drain the failing node.\n\nWe cannot cycle the settlement engine until we shift routing to the spare region.\n\nChoose the one candidate plan that respects everything you know.\n\nAnswer as JSON and nothing else: {\"option\": \"P?\", \"ready\": true}\n\n`option` is the identifier of the plan you choose.\n`ready` is true if you consider that plan safe to execute as written.",
+     "raw_response_CAPTURED": "{\"option\": \"P4\", \"ready\": true}",
+     "thinking_field_CAPTURED": null,
+     "done_reason_CAPTURED": "stop",
+     "truncated_CAPTURED": false,
+     "prompt_tokens_CAPTURED": 208,
+     "completion_tokens_CAPTURED": 13,
+     "seconds_CAPTURED": 2.324,
+     "decoded_choice_CAPTURED": "P4",
+     "gold_constraints_RECONSTRUCTED": [
+      {
+       "id": "F1",
+       "kind": "before",
+       "before": "DRAIN_NODE",
+       "then": "SNAPSHOT_STORE"
+      },
+      {
+       "id": "F2",
+       "kind": "before",
+       "before": "SHIFT_ROUTING",
+       "then": "CYCLE_ENGINE"
+      }
+     ],
+     "correct_label_RECONSTRUCTED": "P4",
+     "executable_score_CAPTURED": {
+      "parsed": true,
+      "ready": true,
+      "violated": [],
+      "success": true
+     }
+    },
+    {
+     "assignment": 1,
+     "process_block_CAPTURED": "qwq:block0:payments",
+     "process_position_CAPTURED": 3,
+     "request_envelope_RECONSTRUCTED": {
+      "model": "qwen3:14b",
+      "messages": [
+       {
+        "role": "user",
+        "content": "Setting: a payments platform degradation\n\nWhat you already know:\n- (nothing beyond the plans below)\n\nCandidate plans:\n  P3: SNAPSHOT_STORE -> DRAIN_NODE -> SHIFT_ROUTING -> CYCLE_ENGINE\n  P1: DRAIN_NODE -> SNAPSHOT_STORE -> CYCLE_ENGINE -> SHIFT_ROUTING\n  P4: DRAIN_NODE -> SNAPSHOT_STORE -> SHIFT_ROUTING -> CYCLE_ENGINE\n  P2: SNAPSHOT_STORE -> DRAIN_NODE -> CYCLE_ENGINE -> SHIFT_ROUTING\n\nMessages from your teammates:\n\nDo not snapshot the store before we drain the failing node.\n\nWe cannot shift routing to the spare region until we cycle the settlement engine.\n\nChoose the one candidate plan that respects everything you know.\n\nAnswer as JSON and nothing else: {\"option\": \"P?\", \"ready\": true}\n\n`option` is the identifier of the plan you choose.\n`ready` is true if you consider that plan safe to execute as written."
+       }
+      ],
+      "stream": false,
+      "think": false,
+      "options": {
+       "temperature": 0.7,
+       "top_p": 0.8,
+       "top_k": 20,
+       "min_p": 0,
+       "seed": 0,
+       "num_predict": 300
+      }
+     },
+     "message_content_CAPTURED": "Setting: a payments platform degradation\n\nWhat you already know:\n- (nothing beyond the plans below)\n\nCandidate plans:\n  P3: SNAPSHOT_STORE -> DRAIN_NODE -> SHIFT_ROUTING -> CYCLE_ENGINE\n  P1: DRAIN_NODE -> SNAPSHOT_STORE -> CYCLE_ENGINE -> SHIFT_ROUTING\n  P4: DRAIN_NODE -> SNAPSHOT_STORE -> SHIFT_ROUTING -> CYCLE_ENGINE\n  P2: SNAPSHOT_STORE -> DRAIN_NODE -> CYCLE_ENGINE -> SHIFT_ROUTING\n\nMessages from your teammates:\n\nDo not snapshot the store before we drain the failing node.\n\nWe cannot shift routing to the spare region until we cycle the settlement engine.\n\nChoose the one candidate plan that respects everything you know.\n\nAnswer as JSON and nothing else: {\"option\": \"P?\", \"ready\": true}\n\n`option` is the identifier of the plan you choose.\n`ready` is true if you consider that plan safe to execute as written.",
+     "raw_response_CAPTURED": "{\"option\": \"P4\", \"ready\": true}",
+     "thinking_field_CAPTURED": null,
+     "done_reason_CAPTURED": "stop",
+     "truncated_CAPTURED": false,
+     "prompt_tokens_CAPTURED": 208,
+     "completion_tokens_CAPTURED": 13,
+     "seconds_CAPTURED": 2.301,
+     "decoded_choice_CAPTURED": "P4",
+     "gold_constraints_RECONSTRUCTED": [
+      {
+       "id": "F1",
+       "kind": "before",
+       "before": "DRAIN_NODE",
+       "then": "SNAPSHOT_STORE"
+      },
+      {
+       "id": "F2",
+       "kind": "before",
+       "before": "CYCLE_ENGINE",
+       "then": "SHIFT_ROUTING"
+      }
+     ],
+     "correct_label_RECONSTRUCTED": "P1",
+     "executable_score_CAPTURED": {
+      "parsed": true,
+      "ready": true,
+      "violated": [
+       "F2"
+      ],
+      "success": false
+     }
+    },
+    {
+     "assignment": 2,
+     "process_block_CAPTURED": "qwq:block0:payments",
+     "process_position_CAPTURED": 1,
+     "request_envelope_RECONSTRUCTED": {
+      "model": "qwen3:14b",
+      "messages": [
+       {
+        "role": "user",
+        "content": "Setting: a payments platform degradation\n\nWhat you already know:\n- (nothing beyond the plans below)\n\nCandidate plans:\n  P3: SNAPSHOT_STORE -> DRAIN_NODE -> SHIFT_ROUTING -> CYCLE_ENGINE\n  P1: DRAIN_NODE -> SNAPSHOT_STORE -> CYCLE_ENGINE -> SHIFT_ROUTING\n  P4: DRAIN_NODE -> SNAPSHOT_STORE -> SHIFT_ROUTING -> CYCLE_ENGINE\n  P2: SNAPSHOT_STORE -> DRAIN_NODE -> CYCLE_ENGINE -> SHIFT_ROUTING\n\nMessages from your teammates:\n\nDo not drain the failing node before we snapshot the store.\n\nWe cannot cycle the settlement engine until we shift routing to the spare region.\n\nChoose the one candidate plan that respects everything you know.\n\nAnswer as JSON and nothing else: {\"option\": \"P?\", \"ready\": true}\n\n`option` is the identifier of the plan you choose.\n`ready` is true if you consider that plan safe to execute as written."
+       }
+      ],
+      "stream": false,
+      "think": false,
+      "options": {
+       "temperature": 0.7,
+       "top_p": 0.8,
+       "top_k": 20,
+       "min_p": 0,
+       "seed": 0,
+       "num_predict": 300
+      }
+     },
+     "message_content_CAPTURED": "Setting: a payments platform degradation\n\nWhat you already know:\n- (nothing beyond the plans below)\n\nCandidate plans:\n  P3: SNAPSHOT_STORE -> DRAIN_NODE -> SHIFT_ROUTING -> CYCLE_ENGINE\n  P1: DRAIN_NODE -> SNAPSHOT_STORE -> CYCLE_ENGINE -> SHIFT_ROUTING\n  P4: DRAIN_NODE -> SNAPSHOT_STORE -> SHIFT_ROUTING -> CYCLE_ENGINE\n  P2: SNAPSHOT_STORE -> DRAIN_NODE -> CYCLE_ENGINE -> SHIFT_ROUTING\n\nMessages from your teammates:\n\nDo not drain the failing node before we snapshot the store.\n\nWe cannot cycle the settlement engine until we shift routing to the spare region.\n\nChoose the one candidate plan that respects everything you know.\n\nAnswer as JSON and nothing else: {\"option\": \"P?\", \"ready\": true}\n\n`option` is the identifier of the plan you choose.\n`ready` is true if you consider that plan safe to execute as written.",
+     "raw_response_CAPTURED": "{\"option\": \"P4\", \"ready\": true}",
+     "thinking_field_CAPTURED": null,
+     "done_reason_CAPTURED": "stop",
+     "truncated_CAPTURED": false,
+     "prompt_tokens_CAPTURED": 208,
+     "completion_tokens_CAPTURED": 13,
+     "seconds_CAPTURED": 12.687,
+     "decoded_choice_CAPTURED": "P4",
+     "gold_constraints_RECONSTRUCTED": [
+      {
+       "id": "F1",
+       "kind": "before",
+       "before": "SNAPSHOT_STORE",
+       "then": "DRAIN_NODE"
+      },
+      {
+       "id": "F2",
+       "kind": "before",
+       "before": "SHIFT_ROUTING",
+       "then": "CYCLE_ENGINE"
+      }
+     ],
+     "correct_label_RECONSTRUCTED": "P3",
+     "executable_score_CAPTURED": {
+      "parsed": true,
+      "ready": true,
+      "violated": [
+       "F1"
+      ],
+      "success": false
+     }
+    },
+    {
+     "assignment": 3,
+     "process_block_CAPTURED": "qwq:block0:payments",
+     "process_position_CAPTURED": 4,
+     "request_envelope_RECONSTRUCTED": {
+      "model": "qwen3:14b",
+      "messages": [
+       {
+        "role": "user",
+        "content": "Setting: a payments platform degradation\n\nWhat you already know:\n- (nothing beyond the plans below)\n\nCandidate plans:\n  P3: SNAPSHOT_STORE -> DRAIN_NODE -> SHIFT_ROUTING -> CYCLE_ENGINE\n  P1: DRAIN_NODE -> SNAPSHOT_STORE -> CYCLE_ENGINE -> SHIFT_ROUTING\n  P4: DRAIN_NODE -> SNAPSHOT_STORE -> SHIFT_ROUTING -> CYCLE_ENGINE\n  P2: SNAPSHOT_STORE -> DRAIN_NODE -> CYCLE_ENGINE -> SHIFT_ROUTING\n\nMessages from your teammates:\n\nDo not drain the failing node before we snapshot the store.\n\nWe cannot shift routing to the spare region until we cycle the settlement engine.\n\nChoose the one candidate plan that respects everything you know.\n\nAnswer as JSON and nothing else: {\"option\": \"P?\", \"ready\": true}\n\n`option` is the identifier of the plan you choose.\n`ready` is true if you consider that plan safe to execute as written."
+       }
+      ],
+      "stream": false,
+      "think": false,
+      "options": {
+       "temperature": 0.7,
+       "top_p": 0.8,
+       "top_k": 20,
+       "min_p": 0,
+       "seed": 0,
+       "num_predict": 300
+      }
+     },
+     "message_content_CAPTURED": "Setting: a payments platform degradation\n\nWhat you already know:\n- (nothing beyond the plans below)\n\nCandidate plans:\n  P3: SNAPSHOT_STORE -> DRAIN_NODE -> SHIFT_ROUTING -> CYCLE_ENGINE\n  P1: DRAIN_NODE -> SNAPSHOT_STORE -> CYCLE_ENGINE -> SHIFT_ROUTING\n  P4: DRAIN_NODE -> SNAPSHOT_STORE -> SHIFT_ROUTING -> CYCLE_ENGINE\n  P2: SNAPSHOT_STORE -> DRAIN_NODE -> CYCLE_ENGINE -> SHIFT_ROUTING\n\nMessages from your teammates:\n\nDo not drain the failing node before we snapshot the store.\n\nWe cannot shift routing to the spare region until we cycle the settlement engine.\n\nChoose the one candidate plan that respects everything you know.\n\nAnswer as JSON and nothing else: {\"option\": \"P?\", \"ready\": true}\n\n`option` is the identifier of the plan you choose.\n`ready` is true if you consider that plan safe to execute as written.",
+     "raw_response_CAPTURED": "{\"option\": \"P4\", \"ready\": true}",
+     "thinking_field_CAPTURED": null,
+     "done_reason_CAPTURED": "stop",
+     "truncated_CAPTURED": false,
+     "prompt_tokens_CAPTURED": 208,
+     "completion_tokens_CAPTURED": 13,
+     "seconds_CAPTURED": 2.3,
+     "decoded_choice_CAPTURED": "P4",
+     "gold_constraints_RECONSTRUCTED": [
+      {
+       "id": "F1",
+       "kind": "before",
+       "before": "SNAPSHOT_STORE",
+       "then": "DRAIN_NODE"
+      },
+      {
+       "id": "F2",
+       "kind": "before",
+       "before": "CYCLE_ENGINE",
+       "then": "SHIFT_ROUTING"
+      }
+     ],
+     "correct_label_RECONSTRUCTED": "P2",
+     "executable_score_CAPTURED": {
+      "parsed": true,
+      "ready": true,
+      "violated": [
+       "F1",
+       "F2"
+      ],
+      "success": false
+     }
+    }
+   ]
+  },
+  {
+   "fixture_index": 1,
+   "domain": "robotics",
+   "pattern": "VARYING: label changed across assignments",
+   "option_to_sequence_mapping_RECONSTRUCTED": {
+    "P1": [
+     "LOCK_BAY",
+     "HALT_CONVEYOR",
+     "CALIBRATE_ARM",
+     "SWAP_GRIPPER"
+    ],
+    "P4": [
+     "HALT_CONVEYOR",
+     "LOCK_BAY",
+     "SWAP_GRIPPER",
+     "CALIBRATE_ARM"
+    ],
+    "P2": [
+     "HALT_CONVEYOR",
+     "LOCK_BAY",
+     "CALIBRATE_ARM",
+     "SWAP_GRIPPER"
+    ],
+    "P3": [
+     "LOCK_BAY",
+     "HALT_CONVEYOR",
+     "SWAP_GRIPPER",
+     "CALIBRATE_ARM"
+    ]
+   },
+   "display_order_RECONSTRUCTED": [
+    "P1",
+    "P4",
+    "P2",
+    "P3"
+   ],
+   "action_identifier_to_phrase_RECONSTRUCTED": {
+    "HALT_CONVEYOR": "halt the conveyor",
+    "LOCK_BAY": "lock the loading bay",
+    "CALIBRATE_ARM": "calibrate the picker arm",
+    "SWAP_GRIPPER": "swap the gripper assembly"
+   },
+   "calls": [
+    {
+     "assignment": 0,
+     "process_block_CAPTURED": "qwq:block1:robotics",
+     "process_position_CAPTURED": 2,
+     "request_envelope_RECONSTRUCTED": {
+      "model": "qwen3:14b",
+      "messages": [
+       {
+        "role": "user",
+        "content": "Setting: a warehouse robotics fault\n\nWhat you already know:\n- (nothing beyond the plans below)\n\nCandidate plans:\n  P1: LOCK_BAY -> HALT_CONVEYOR -> CALIBRATE_ARM -> SWAP_GRIPPER\n  P4: HALT_CONVEYOR -> LOCK_BAY -> SWAP_GRIPPER -> CALIBRATE_ARM\n  P2: HALT_CONVEYOR -> LOCK_BAY -> CALIBRATE_ARM -> SWAP_GRIPPER\n  P3: LOCK_BAY -> HALT_CONVEYOR -> SWAP_GRIPPER -> CALIBRATE_ARM\n\nMessages from your teammates:\n\nDo not lock the loading bay before we halt the conveyor.\n\nWe cannot swap the gripper assembly until we calibrate the picker arm.\n\nChoose the one candidate plan that respects everything you know.\n\nAnswer as JSON and nothing else: {\"option\": \"P?\", \"ready\": true}\n\n`option` is the identifier of the plan you choose.\n`ready` is true if you consider that plan safe to execute as written."
+       }
+      ],
+      "stream": false,
+      "think": false,
+      "options": {
+       "temperature": 0.7,
+       "top_p": 0.8,
+       "top_k": 20,
+       "min_p": 0,
+       "seed": 0,
+       "num_predict": 300
+      }
+     },
+     "message_content_CAPTURED": "Setting: a warehouse robotics fault\n\nWhat you already know:\n- (nothing beyond the plans below)\n\nCandidate plans:\n  P1: LOCK_BAY -> HALT_CONVEYOR -> CALIBRATE_ARM -> SWAP_GRIPPER\n  P4: HALT_CONVEYOR -> LOCK_BAY -> SWAP_GRIPPER -> CALIBRATE_ARM\n  P2: HALT_CONVEYOR -> LOCK_BAY -> CALIBRATE_ARM -> SWAP_GRIPPER\n  P3: LOCK_BAY -> HALT_CONVEYOR -> SWAP_GRIPPER -> CALIBRATE_ARM\n\nMessages from your teammates:\n\nDo not lock the loading bay before we halt the conveyor.\n\nWe cannot swap the gripper assembly until we calibrate the picker arm.\n\nChoose the one candidate plan that respects everything you know.\n\nAnswer as JSON and nothing else: {\"option\": \"P?\", \"ready\": true}\n\n`option` is the identifier of the plan you choose.\n`ready` is true if you consider that plan safe to execute as written.",
+     "raw_response_CAPTURED": "{\"option\": \"P2\", \"ready\": true}",
+     "thinking_field_CAPTURED": null,
+     "done_reason_CAPTURED": "stop",
+     "truncated_CAPTURED": false,
+     "prompt_tokens_CAPTURED": 232,
+     "completion_tokens_CAPTURED": 13,
+     "seconds_CAPTURED": 2.291,
+     "decoded_choice_CAPTURED": "P2",
+     "gold_constraints_RECONSTRUCTED": [
+      {
+       "id": "F1",
+       "kind": "before",
+       "before": "HALT_CONVEYOR",
+       "then": "LOCK_BAY"
+      },
+      {
+       "id": "F2",
+       "kind": "before",
+       "before": "CALIBRATE_ARM",
+       "then": "SWAP_GRIPPER"
+      }
+     ],
+     "correct_label_RECONSTRUCTED": "P2",
+     "executable_score_CAPTURED": {
+      "parsed": true,
+      "ready": true,
+      "violated": [],
+      "success": true
+     }
+    },
+    {
+     "assignment": 1,
+     "process_block_CAPTURED": "qwq:block1:robotics",
+     "process_position_CAPTURED": 4,
+     "request_envelope_RECONSTRUCTED": {
+      "model": "qwen3:14b",
+      "messages": [
+       {
+        "role": "user",
+        "content": "Setting: a warehouse robotics fault\n\nWhat you already know:\n- (nothing beyond the plans below)\n\nCandidate plans:\n  P1: LOCK_BAY -> HALT_CONVEYOR -> CALIBRATE_ARM -> SWAP_GRIPPER\n  P4: HALT_CONVEYOR -> LOCK_BAY -> SWAP_GRIPPER -> CALIBRATE_ARM\n  P2: HALT_CONVEYOR -> LOCK_BAY -> CALIBRATE_ARM -> SWAP_GRIPPER\n  P3: LOCK_BAY -> HALT_CONVEYOR -> SWAP_GRIPPER -> CALIBRATE_ARM\n\nMessages from your teammates:\n\nDo not lock the loading bay before we halt the conveyor.\n\nWe cannot calibrate the picker arm until we swap the gripper assembly.\n\nChoose the one candidate plan that respects everything you know.\n\nAnswer as JSON and nothing else: {\"option\": \"P?\", \"ready\": true}\n\n`option` is the identifier of the plan you choose.\n`ready` is true if you consider that plan safe to execute as written."
+       }
+      ],
+      "stream": false,
+      "think": false,
+      "options": {
+       "temperature": 0.7,
+       "top_p": 0.8,
+       "top_k": 20,
+       "min_p": 0,
+       "seed": 0,
+       "num_predict": 300
+      }
+     },
+     "message_content_CAPTURED": "Setting: a warehouse robotics fault\n\nWhat you already know:\n- (nothing beyond the plans below)\n\nCandidate plans:\n  P1: LOCK_BAY -> HALT_CONVEYOR -> CALIBRATE_ARM -> SWAP_GRIPPER\n  P4: HALT_CONVEYOR -> LOCK_BAY -> SWAP_GRIPPER -> CALIBRATE_ARM\n  P2: HALT_CONVEYOR -> LOCK_BAY -> CALIBRATE_ARM -> SWAP_GRIPPER\n  P3: LOCK_BAY -> HALT_CONVEYOR -> SWAP_GRIPPER -> CALIBRATE_ARM\n\nMessages from your teammates:\n\nDo not lock the loading bay before we halt the conveyor.\n\nWe cannot calibrate the picker arm until we swap the gripper assembly.\n\nChoose the one candidate plan that respects everything you know.\n\nAnswer as JSON and nothing else: {\"option\": \"P?\", \"ready\": true}\n\n`option` is the identifier of the plan you choose.\n`ready` is true if you consider that plan safe to execute as written.",
+     "raw_response_CAPTURED": "{\"option\": \"P4\", \"ready\": true}",
+     "thinking_field_CAPTURED": null,
+     "done_reason_CAPTURED": "stop",
+     "truncated_CAPTURED": false,
+     "prompt_tokens_CAPTURED": 232,
+     "completion_tokens_CAPTURED": 13,
+     "seconds_CAPTURED": 2.295,
+     "decoded_choice_CAPTURED": "P4",
+     "gold_constraints_RECONSTRUCTED": [
+      {
+       "id": "F1",
+       "kind": "before",
+       "before": "HALT_CONVEYOR",
+       "then": "LOCK_BAY"
+      },
+      {
+       "id": "F2",
+       "kind": "before",
+       "before": "SWAP_GRIPPER",
+       "then": "CALIBRATE_ARM"
+      }
+     ],
+     "correct_label_RECONSTRUCTED": "P4",
+     "executable_score_CAPTURED": {
+      "parsed": true,
+      "ready": true,
+      "violated": [],
+      "success": true
+     }
+    },
+    {
+     "assignment": 2,
+     "process_block_CAPTURED": "qwq:block1:robotics",
+     "process_position_CAPTURED": 3,
+     "request_envelope_RECONSTRUCTED": {
+      "model": "qwen3:14b",
+      "messages": [
+       {
+        "role": "user",
+        "content": "Setting: a warehouse robotics fault\n\nWhat you already know:\n- (nothing beyond the plans below)\n\nCandidate plans:\n  P1: LOCK_BAY -> HALT_CONVEYOR -> CALIBRATE_ARM -> SWAP_GRIPPER\n  P4: HALT_CONVEYOR -> LOCK_BAY -> SWAP_GRIPPER -> CALIBRATE_ARM\n  P2: HALT_CONVEYOR -> LOCK_BAY -> CALIBRATE_ARM -> SWAP_GRIPPER\n  P3: LOCK_BAY -> HALT_CONVEYOR -> SWAP_GRIPPER -> CALIBRATE_ARM\n\nMessages from your teammates:\n\nDo not halt the conveyor before we lock the loading bay.\n\nWe cannot swap the gripper assembly until we calibrate the picker arm.\n\nChoose the one candidate plan that respects everything you know.\n\nAnswer as JSON and nothing else: {\"option\": \"P?\", \"ready\": true}\n\n`option` is the identifier of the plan you choose.\n`ready` is true if you consider that plan safe to execute as written."
+       }
+      ],
+      "stream": false,
+      "think": false,
+      "options": {
+       "temperature": 0.7,
+       "top_p": 0.8,
+       "top_k": 20,
+       "min_p": 0,
+       "seed": 0,
+       "num_predict": 300
+      }
+     },
+     "message_content_CAPTURED": "Setting: a warehouse robotics fault\n\nWhat you already know:\n- (nothing beyond the plans below)\n\nCandidate plans:\n  P1: LOCK_BAY -> HALT_CONVEYOR -> CALIBRATE_ARM -> SWAP_GRIPPER\n  P4: HALT_CONVEYOR -> LOCK_BAY -> SWAP_GRIPPER -> CALIBRATE_ARM\n  P2: HALT_CONVEYOR -> LOCK_BAY -> CALIBRATE_ARM -> SWAP_GRIPPER\n  P3: LOCK_BAY -> HALT_CONVEYOR -> SWAP_GRIPPER -> CALIBRATE_ARM\n\nMessages from your teammates:\n\nDo not halt the conveyor before we lock the loading bay.\n\nWe cannot swap the gripper assembly until we calibrate the picker arm.\n\nChoose the one candidate plan that respects everything you know.\n\nAnswer as JSON and nothing else: {\"option\": \"P?\", \"ready\": true}\n\n`option` is the identifier of the plan you choose.\n`ready` is true if you consider that plan safe to execute as written.",
+     "raw_response_CAPTURED": "{\"option\": \"P2\", \"ready\": true}",
+     "thinking_field_CAPTURED": null,
+     "done_reason_CAPTURED": "stop",
+     "truncated_CAPTURED": false,
+     "prompt_tokens_CAPTURED": 232,
+     "completion_tokens_CAPTURED": 13,
+     "seconds_CAPTURED": 2.3,
+     "decoded_choice_CAPTURED": "P2",
+     "gold_constraints_RECONSTRUCTED": [
+      {
+       "id": "F1",
+       "kind": "before",
+       "before": "LOCK_BAY",
+       "then": "HALT_CONVEYOR"
+      },
+      {
+       "id": "F2",
+       "kind": "before",
+       "before": "CALIBRATE_ARM",
+       "then": "SWAP_GRIPPER"
+      }
+     ],
+     "correct_label_RECONSTRUCTED": "P1",
+     "executable_score_CAPTURED": {
+      "parsed": true,
+      "ready": true,
+      "violated": [
+       "F1"
+      ],
+      "success": false
+     }
+    },
+    {
+     "assignment": 3,
+     "process_block_CAPTURED": "qwq:block1:robotics",
+     "process_position_CAPTURED": 1,
+     "request_envelope_RECONSTRUCTED": {
+      "model": "qwen3:14b",
+      "messages": [
+       {
+        "role": "user",
+        "content": "Setting: a warehouse robotics fault\n\nWhat you already know:\n- (nothing beyond the plans below)\n\nCandidate plans:\n  P1: LOCK_BAY -> HALT_CONVEYOR -> CALIBRATE_ARM -> SWAP_GRIPPER\n  P4: HALT_CONVEYOR -> LOCK_BAY -> SWAP_GRIPPER -> CALIBRATE_ARM\n  P2: HALT_CONVEYOR -> LOCK_BAY -> CALIBRATE_ARM -> SWAP_GRIPPER\n  P3: LOCK_BAY -> HALT_CONVEYOR -> SWAP_GRIPPER -> CALIBRATE_ARM\n\nMessages from your teammates:\n\nDo not halt the conveyor before we lock the loading bay.\n\nWe cannot calibrate the picker arm until we swap the gripper assembly.\n\nChoose the one candidate plan that respects everything you know.\n\nAnswer as JSON and nothing else: {\"option\": \"P?\", \"ready\": true}\n\n`option` is the identifier of the plan you choose.\n`ready` is true if you consider that plan safe to execute as written."
+       }
+      ],
+      "stream": false,
+      "think": false,
+      "options": {
+       "temperature": 0.7,
+       "top_p": 0.8,
+       "top_k": 20,
+       "min_p": 0,
+       "seed": 0,
+       "num_predict": 300
+      }
+     },
+     "message_content_CAPTURED": "Setting: a warehouse robotics fault\n\nWhat you already know:\n- (nothing beyond the plans below)\n\nCandidate plans:\n  P1: LOCK_BAY -> HALT_CONVEYOR -> CALIBRATE_ARM -> SWAP_GRIPPER\n  P4: HALT_CONVEYOR -> LOCK_BAY -> SWAP_GRIPPER -> CALIBRATE_ARM\n  P2: HALT_CONVEYOR -> LOCK_BAY -> CALIBRATE_ARM -> SWAP_GRIPPER\n  P3: LOCK_BAY -> HALT_CONVEYOR -> SWAP_GRIPPER -> CALIBRATE_ARM\n\nMessages from your teammates:\n\nDo not halt the conveyor before we lock the loading bay.\n\nWe cannot calibrate the picker arm until we swap the gripper assembly.\n\nChoose the one candidate plan that respects everything you know.\n\nAnswer as JSON and nothing else: {\"option\": \"P?\", \"ready\": true}\n\n`option` is the identifier of the plan you choose.\n`ready` is true if you consider that plan safe to execute as written.",
+     "raw_response_CAPTURED": "{\"option\": \"P4\", \"ready\": true}",
+     "thinking_field_CAPTURED": null,
+     "done_reason_CAPTURED": "stop",
+     "truncated_CAPTURED": false,
+     "prompt_tokens_CAPTURED": 232,
+     "completion_tokens_CAPTURED": 13,
+     "seconds_CAPTURED": 2.418,
+     "decoded_choice_CAPTURED": "P4",
+     "gold_constraints_RECONSTRUCTED": [
+      {
+       "id": "F1",
+       "kind": "before",
+       "before": "LOCK_BAY",
+       "then": "HALT_CONVEYOR"
+      },
+      {
+       "id": "F2",
+       "kind": "before",
+       "before": "SWAP_GRIPPER",
+       "then": "CALIBRATE_ARM"
+      }
+     ],
+     "correct_label_RECONSTRUCTED": "P3",
+     "executable_score_CAPTURED": {
+      "parsed": true,
+      "ready": true,
+      "violated": [
+       "F1"
+      ],
+      "success": false
+     }
+    }
+   ]
+  }
+ ]
+}

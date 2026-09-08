@@ -49,16 +49,28 @@ Malformed output, refusal and truncation contributed nothing to the failure.
 **Quartet scores: 1, 2, 2, 2, 1, 1, 1, 1. Fixtures at 4/4: 0/8.**
 Total **11/32 = 0.344** (a fixed-choice responder scores exactly 8/32 = 0.250).
 
-## The one substantive change from the previous configuration
+## The one observable change from the previous configuration
 
-**In 4 of 8 quartets the decoded choice varied with the fact assignment**
-(distinct labels per quartet: 1, 2, 2, 2, 1, 1, 1, 2). Within a quartet the only
-thing that changes is the two fact sentences, so this is **observed conditioning
-on the delivered messages** — the thing that was absent before, where 7 of 8
-quartets were invariant.
+**In 4 of 8 quartets the decoded label varied across the four fact assignments**
+(distinct labels per quartet: 1, 2, 2, 2, 1, 1, 1, 2).
 
-But it is **partial and never sufficient**: no quartet reached 4/4, and the
-varying quartets alternated between two labels rather than tracking all four.
+**Narrowed (2026-09-09).** That is a statement about **observed label variation
+under two simultaneously changed things: the facts AND stochastic decoding.**
+This run used `temperature 0.7, top_p 0.8, top_k 20`, so sampling is stochastic;
+a fixed `seed 0` does not make outcomes comparable across *different* prompts,
+because the sampling path depends on the prompt. **Variation across a quartet is
+therefore not attributable to conditioning on the messages** — it is equally
+consistent with sampling noise, and this design cannot separate the two. An
+earlier draft called it "observed conditioning on the delivered messages"; that
+is **withdrawn**.
+
+Note the asymmetry with the earlier runs: PSQ and PSD used `temperature 0.0`, so
+their *invariance* was observed under near-deterministic decoding. Invariance
+there and variation here are **not** on comparable footing, and the pair should
+not be read as a change in conditioning.
+
+Either way it is **partial and never sufficient**: no quartet reached 4/4, and
+the varying quartets alternated between two labels rather than tracking all four.
 
 **This is a configuration comparison, not a model-size effect.** Model,
 quantization, sampling settings, thinking mode and runtime all differ at once
@@ -71,9 +83,10 @@ configuration is shown to be better on that comparison.**
 ## What this establishes, and what it does not
 
 **Establishes.** On these 8 development fixtures, with clean evidence and this
-fully recorded configuration: well-formed output throughout, **partial observed
-conditioning on the delivered facts in half the quartets**, and **no fixture
-answering all four assignments correctly**.
+fully recorded configuration: well-formed output throughout, **decoded labels
+that varied across assignments in half the quartets** (under changed facts *and*
+stochastic decoding together — see above), and **no fixture answering all four
+assignments correctly**.
 
 **Does not establish.**
 
@@ -92,10 +105,16 @@ No subset-observation stage is prepared and no recipient-aware baseline is
 specified — the protocol made both conditional on passing.
 
 What is now known across three runs: the receiver task admits clean, well-formed
-responses; conditioning on the delivered messages is **present but partial** in
-the stronger configuration; and no configuration tested reaches the reliability a
-subset study would need, since a study of *which bundle helps* needs decisions
-that track the bundle on more than half of cases.
+responses, and **no configuration tested reached our declared ≥6/8 rule**.
+
+**Narrowed (2026-09-09).** The ≥6/8 threshold is **our operational feasibility
+rule for this programme** — a choice about what we were willing to build on. It
+is **not** a necessary condition for selection studies in general: other designs
+could tolerate noisier receivers through repetition, paired contrasts, aggregate
+estimands or larger samples. An earlier draft said no configuration "reaches the
+reliability a subset study would need", which asserts a general requirement;
+that is **withdrawn**. What is supported is that no tested configuration met
+*our* rule.
 
 ## Standing
 
