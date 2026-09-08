@@ -64,7 +64,20 @@ prompt. This is the concrete demonstration of the protocol's warning.
 **Position control.** With order counterbalanced: position 1 → 2/8 success,
 position 2 → 1/8, position 3 → 3/8. Arm effects are not confounded with position.
 
-## Main observation: task structure dominates architecture
+## Main observation: variation is at the INSTANCE level
+
+> **Corrected 2026-09-08** (`docs/B1-GRAPH-SHAPE-ASSESSMENT.md`). This section
+> originally read "task structure dominates architecture". That is withdrawn on
+> two counts. The per-shape denominators below are **arm runs on 1-2 instances**,
+> not independent instances -- three arms on one instance share its wording,
+> identifiers and description order, so they are correlated, not replicates; and
+> shape is perfectly confounded with domain for four of the six shapes. The
+> largest **within**-shape gap (diamond: 0.33 vs 2.33 mean violations) is nearly
+> the entire **between**-shape range (0.00 to 2.33). Supported statement: *most
+> observed variation sits at the instance level; neither an architecture effect
+> nor a shape effect is identified.* Absence of a demonstrated architecture
+> difference is not evidence of architectural equivalence. The table below is
+> retained as the raw record.
 
 | graph | n | success | mean violations | mean recall |
 |---|---|---|---|---|
