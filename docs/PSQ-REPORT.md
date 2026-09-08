@@ -35,11 +35,23 @@ fixture: **8 units**, scored 1,1,1,2,1,1,1,1.
 ## The repair worked for what it was for — and the failure moved
 
 **The generation burden is gone.** 32/32 parsed, 32/32 `ready=true`, zero
-malformed outputs, zero unknown identifiers. Phase B's ordering-violation failure
-mode does not appear, because the receiver no longer assembles a sequence.
+malformed outputs, zero unknown identifiers.
 
-**The receiver's choice does not respond to the delivered facts.** In **7 of 8
-quartets it returned the identical label for all four assignments.** Verified at
+**Corrected (2026-09-08).** An earlier draft said Phase B's ordering-violation
+mode "does not appear". That is wrong: a wrongly selected plan **is** a
+constraint violation — its sequence violates F1 and/or F2 exactly as a
+mis-ordered constructed plan would, and `score_option` records those violations.
+What disappeared is the requirement to **generate** the sequence, not the
+violation itself.
+
+**The decoded choice did not change with the delivered facts.** In **7 of 8
+quartets the receiver returned the identical label for all four assignments.**
+
+**Narrowed (2026-09-08).** Unchanged decoded labels bound the **observed output**;
+they do **not** establish a complete absence of conditioning. The facts could
+shift the distribution without moving the arg-max, and this design records only
+the decoded label. An earlier draft's "does not respond to the delivered facts"
+is withdrawn in favour of the observational statement. Verified at
 zero cost that within a quartet the *only* prompt differences are the two fact
 lines — the option block is byte-identical, and every within-quartet diff is a
 fact sentence:
@@ -50,17 +62,23 @@ fact sentence:
 ```
 
 Those two sentences are exactly what determines the answer. The chosen label
-does vary *across* fixtures (P3 ×14, P2 ×12, P1 ×4, P4 ×2), so the response is
-driven by something held constant within a quartet — options, action names,
-distractors — and **not** by the message content the task turns on.
+does vary *across* fixtures (P3 ×14, P2 ×12, P1 ×4, P4 ×2), so the decoded output
+tracks something held constant within a quartet — options, action names,
+distractors — while showing **no observed variation** with the message content
+the task turns on.
 
 ## What this establishes, and what it does not
 
 **Establishes.** On these 8 plan-selection fixtures, with this receiver
 (`llama3.2:3b`, `temperature 0.0`, single call, full pool delivered): choices
-were well-formed, and were **near-invariant to the two ordering facts** that
-determine the correct option. Observed success 9/32, near the 0.25 a
+were well-formed, and the **decoded label was unchanged across the four fact
+assignments in 7 of 8 quartets**. Observed success 9/32, near the 0.25 a
 message-ignoring responder would obtain.
+
+**PSQ did not test message REMOVAL.** Every one of the 32 calls delivered the
+**full pool**; which messages were present never varied. So PSQ says nothing
+about whether removing messages changes performance, and nothing about
+message-selection of any kind.
 
 **Does not establish.**
 
@@ -70,21 +88,24 @@ message-ignoring responder would obtain.
 - Not a position law. Chosen options sat at display positions 4, 2 and 3 and
   never at 1, but the choice is constant within a quartet, so these are **8
   fixture-level observations, not 32** — far too few for a position claim.
-- Not message-selection **headroom**, not **transfer**, not **novelty**.
+- Not message-selection **headroom** — message presence was never varied.
+- Not **transfer**, not **novelty**.
 - Not a statement about larger receivers, which this allocation excludes.
 
 ## Consequence for the research target
 
 The target — transferable recipient-conditioned bundle selection at lower
 execution cost — **presupposes that the receiver's decision responds to which
-messages it receives.** On this instrument that premise is not satisfied: the
-decision was near-invariant to the facts under a manipulation that changed the
-correct answer every time.
+messages it receives.** On this instrument no such response was observed: the
+decoded choice did not change under a manipulation that changed the correct
+answer every time.
 
 That is the more useful negative. Phase B said the receiver could not *construct*
-a valid plan; PSQ says that when construction is removed entirely, it still does
-not *condition on the delivered messages*. A subset study measures which bundles
-help — which is not measurable while the choice barely moves with the bundle.
+a valid plan; PSQ adds that with construction removed entirely, the decoded
+choice still showed no observed variation with the delivered facts. A subset
+study measures which bundles help, which is hard to read while the observed
+choice does not move with the bundle. Whether it moves at all under *removal*
+is untested here — see the PSD diagnostic.
 
 **No subset study is prepared.** The protocol's instruction to prepare one was
 conditional on passing, and it did not pass.
