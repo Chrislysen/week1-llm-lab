@@ -131,14 +131,15 @@ class Runner:
         return finals, agg
 
 
-def main(n, out_calls, out_outcomes, salt, budget):
-    insts = [lb.generate_instance(d, g, salt=salt) for d, g in COMBOS[:n]]
+def main(n, out_calls, out_outcomes, salt, budget, start=0):
+    sel = COMBOS[start:start + n]
+    insts = [lb.generate_instance(d, g, salt=salt) for d, g in sel]
     client = RetryingOllamaClient()
     spent = 0
     with open(out_calls, "a", encoding="utf-8") as lc, \
             open(out_outcomes, "a", encoding="utf-8") as lo:
         for k, inst in enumerate(insts):
-            order = ORDERS[k % len(ORDERS)]
+            order = ORDERS[(start + k) % len(ORDERS)]
             run = Runner(client, inst, lc)
             print(f"[{k+1}/{len(insts)}] {inst.id}  order={'>'.join(order)}")
             for arm in order:
@@ -165,9 +166,10 @@ def main(n, out_calls, out_outcomes, salt, budget):
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--n", type=int, default=8)
+    ap.add_argument("--start", type=int, default=0)
     ap.add_argument("--salt", default=SALT)
     ap.add_argument("--budget", type=int, default=120)
     ap.add_argument("--calls", default="results/b1_calls.jsonl")
     ap.add_argument("--outcomes", default="results/b1_outcomes.jsonl")
     a = ap.parse_args()
-    main(a.n, a.calls, a.outcomes, a.salt, a.budget)
+    main(a.n, a.calls, a.outcomes, a.salt, a.budget, a.start)
