@@ -69,8 +69,15 @@ def test_negative_interaction_is_handled_by_recomputed_greedy_too():
     assert sorted(bundle) == ["A", "C"]
 
 
-def test_degree_two_MISSES_a_third_order_requirement():
-    """The declared limitation, kept as a test so it cannot be quietly dropped."""
+def test_ANCHORED_degree_two_misses_a_third_order_requirement():
+    """The declared limitation, kept so it cannot be quietly dropped.
+
+    SCOPE, made explicit (addendum, 2026-09-08): this tests the ANCHORED
+    estimator -- `anchored_expansion`, which reads only the empty set, singletons
+    and pairs. It is NOT a verdict on the degree-2 class. On this same authored
+    table a uniform least-squares degree-2 projection selects A+B+C with zero
+    regret; see `test_agentcom_analysis.py`. Assertions below are unchanged.
+    """
     ids = ("A", "B", "C", "D")
     u = lambda s: 0.8 * ({"A", "B", "C"} <= set(s)) + 0.2 * ("D" in s)
     greedy, bundle, oracle, resid = expand_and_select(ids, 3, u)

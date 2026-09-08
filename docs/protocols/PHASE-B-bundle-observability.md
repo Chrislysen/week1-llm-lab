@@ -165,9 +165,10 @@ ceiling. There are no unlogged calls.**
    subsets, at least one succeeds and at least one fails. PASS if **≥ 8 of 16**
    decision points are informative. If < 8/16, subsets do not differentiate on
    this family and the direction stops here.
-4. **Degree-2 adequacy (D).** Per decision point, fit `anchored_expansion` to
-   that point's own 16-outcome table, then at every budget level compare the
-   degree-2 argmax subset against the exact table's argmax. **If the degree-2
+4. **Degree-2 adequacy (D).** Per decision point, fit the **global
+   least-squares** degree-2 projection (Amendment 2 changes this from the
+   anchored fit) to that point's own 16-outcome table, then at every budget level
+   compare the degree-2 argmax subset against the exact table's argmax. **If the degree-2
    pick has strictly lower true score in > 1/3 of (decision point, budget)
    cells, the representation is inadequate on this family — stop this
    representation.** This is an **in-sample, single-realisation diagnostic**; it
@@ -217,3 +218,106 @@ passing all four authorises nothing beyond writing up Phase B.
 - **Scoring key visibility.** Constraints neither pre-known nor delivered can
   still be satisfied by chance; the by-chance rate is not separately estimated
   and bounds how sharply subset effects can be read.
+
+---
+
+## AMENDMENT 2 — estimator diagnostics and recording, from the research addendum (2026-09-08)
+
+**Recorded BEFORE any outcome exists. Still zero model calls.** No Phase B call
+has been made, so nothing here is post-hoc and the original read rules stand
+unchanged. Had outcomes existed, these would have been marked post-hoc and
+carried to fresh confirmation instead.
+
+### A correction to how the triple-failure result is read
+
+The declared limitation — degree-2 selection missing a third-order requirement —
+is a failure **of the anchored estimator**, not of the degree-2 class.
+
+On the *same* authored table `V(S) = 0.8·1{A,B,C ⊆ S} + 0.2·1{D ∈ S}` at budget 3
+(verified exactly, `test_agentcom_analysis.py`):
+
+| estimator | selected | true value | decision regret | max reconstruction error |
+|---|---|---|---|---|
+| anchored degree-2 (11 of 16 cells) | **D** | 0.2 | **0.6** | **0.8** |
+| global least-squares degree-2 (all 16 cells) | **A+B+C** | 0.8 | **0** | 0.1 |
+
+The residual is uniformly 1/10, so **exact quadratic reconstruction is
+impossible here while the correct budgeted decision remains available.**
+
+- The existing test **keeps its assertions unchanged** and is renamed
+  `test_ANCHORED_degree_two_misses_a_third_order_requirement`, documenting its
+  scope.
+- A **separate** global-fit diagnostic is added (`agentcom_analysis.py`), with
+  the normal equations verified exactly in the monomial basis so a basis
+  conversion error cannot pass silently.
+- **Reconstruction error and decision regret are reported separately.** A large
+  anchored residual is **not** on its own grounds to trigger stop rule **D**.
+
+**Stop rule D is amended accordingly, before outcomes:** D is evaluated on the
+**global least-squares** fit, not the anchored one, and reports regret and
+reconstruction error separately. The anchored figure is retained as a secondary
+diagnostic. Everything D produces is **in-sample and exploratory**.
+
+### Cautions that bound what any Phase B table can mean
+
+- **Any single already-known feasible target is additively encodable** (+1 to
+  members, −1 to non-members) — so interaction evidence must be about
+  learnability and generalisation, never about expressibility at a fixed cell.
+  A direct budget-conditioned set selector is therefore a required comparator.
+- **Observed adaptation gain is optimistic.** Exact null: identical contexts, six
+  equally good actions, one Bernoulli(½) observation each → expected *apparent*
+  gain **301/4096 ≈ 7.35 %** with **zero** true gain. One-decode maxima and
+  in-table policy fits cannot establish held-out value; more tasks do not remove
+  this bias.
+- **Interaction claims are scale-dependent.** Probability-scale synergy of 0.2
+  becomes exactly zero on the log scale, with identical choices under a hard
+  budget. Positive success-scale interaction refutes no comparator that uses a
+  monotone link over a submodular latent score.
+- **Changing interaction coefficients ≠ valuable recipient adaptation.** Context
+  headroom is zero when contexts share an optimal bundle. Feasible sets must be
+  matched across contexts before a difference is attributed to recipient state.
+- **Conditional noise arithmetic** (independent equal-variance cell noise, correct
+  quadratic mean — *neither established for a receiver*): the anchored prediction
+  has variance 7σ² at k=3 and 31σ² at k=4; the global fitted mean has 11σ²/16 per
+  cell at n=4. The anchored form reads 11 of 16 cells, the global fit all 16, and
+  Phase B collects all 16 regardless. This is a reason to **compare procedures**,
+  not a measured improvement.
+
+### Recording requirements (additive extension within `agentcom-bundle/1`)
+
+`SubsetOutcome` gains **optional** fields, all defaulting to `None`, so existing
+records stay readable and no consumer breaks: `task_family_id`,
+`recipient_context_id`, `process_block`, `request_position` (execution order),
+`inclusion_order` (canonical serialisation order, recorded **separately** from
+execution order), `rendered_input` (the literal delivered prompt), `attempt`
+(retries consume the ceiling), `failure`.
+
+**Preserve all 16 subset outcomes per recipient context** together with literal
+prompts, candidate/source/version identifiers, rendered word budget,
+model/decoding settings, collection block, request position, output, executable
+score, failure/retry record, and measured input/output tokens when available.
+**Unavailable fields stay explicitly unavailable** — never imputed.
+
+Serialisation is deterministic and canonical (`render_bundle` orders by candidate
+id). Randomised collection order controls **request-position** effects; it does
+**not** establish invariance to **message order**. Message-order robustness is a
+later test, and permutations are **not** independent tasks.
+
+No gold correctness labels or hidden tests may enter selector or receiver prompts.
+
+### Baseline specification updated
+
+`docs/AGENTCOM-BUNDLE-BASELINES.md` adds **Optimal Skill Selection**
+(arXiv:2608.19993), **CASE** (ICML 2025) and **OptiSet**, plus GenICL/SetR,
+targeted active learning, transductive linear bandits and SPO/decision-focused
+learning — alongside the carried-forward RepoShapley, ProxySPEX and semantic
+QUBO. **Neither quadratic selection nor active subset exploration is itself new.**
+The research target is transferable recipient-conditioned selection at lower
+labelling cost, and it is unestablished.
+
+### Unchanged by this amendment
+
+The 288-call ceiling, the fixtures, the schedule, Amendment 1's thresholds Q, S
+and H, and the qualification gate on separate fixtures. Phase B still establishes
+observability only, authorises no Phase C, and the ledger stays 22 gated,
+22 closed.

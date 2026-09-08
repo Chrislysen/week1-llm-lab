@@ -102,6 +102,17 @@ class SubsetOutcome:
     subset: tuple
     rendered_words: int
     scorer: str
+    #: Additive extension within agentcom-bundle/1 (2026-09-08). Every field
+    #: below is OPTIONAL and defaults to None, so /1 records stay readable and
+    #: no existing consumer breaks. Unavailable stays explicitly unavailable.
+    task_family_id: str | None = None
+    recipient_context_id: str | None = None
+    process_block: str | None = None
+    request_position: int | None = None      # execution order
+    inclusion_order: tuple | None = None     # canonical serialisation order
+    rendered_input: str | None = None        # the literal delivered prompt
+    attempt: int = 1                         # retries consume the ceiling
+    failure: str | None = None
     prompt_tokens: int | None = None
     completion_tokens: int | None = None
     seconds: float | None = None
