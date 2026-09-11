@@ -190,6 +190,51 @@
   table.snap tr.is-rejected-block td { background: var(--zombie-soft); }
   .lv-err { color: var(--zombie); font-size: 13px; font-family: var(--mono); }
 
+  /* ---- replay panel ---- */
+  .rp-grid { display: grid; grid-template-columns: 1.15fr 1fr 1fr; gap: 18px; }
+  @media (max-width: 1000px) { .rp-grid { grid-template-columns: 1fr; } }
+  .rp-lines .turn { opacity: .3; transition: opacity .25s ease, background .25s ease; }
+  .rp-lines .turn.shown { opacity: 1; }
+  .rp-lines .turn.current { outline: 2px solid var(--proposed); outline-offset: -2px; }
+  .rp-store { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; align-content: start; min-height: 120px; }
+  .rp-store li { font-family: var(--mono); font-size: 12.5px; line-height: 1.4; padding: 7px 10px; border: 1px solid var(--line); border-radius: 4px; background: var(--surface-2); transition: background .35s ease, border-color .35s ease, opacity .6s ease, transform .35s ease; white-space: pre-wrap; }
+  .rp-store li.added { border-color: var(--ok); background: var(--ok-soft); }
+  .rp-store li.zombie { border-color: var(--zombie); }
+  .rp-store li.removed { opacity: 0; transform: translateX(10px); text-decoration: line-through; color: var(--zombie); }
+  .rp-store li.empty { color: var(--muted); border-style: dashed; }
+  .rp-out { min-height: 84px; max-height: 190px; }
+  .rp-decider { display: grid; gap: 8px; align-content: start; }
+  .rp-tally { display: grid; gap: 10px; border-top: 1px solid var(--line); padding-top: 14px; }
+  .bars { display: grid; gap: 8px; }
+  .bar { display: grid; grid-template-columns: 96px 1fr 260px; align-items: center; gap: 12px; font-size: 13.5px; }
+  @media (max-width: 700px) { .bar { grid-template-columns: 80px 1fr; } .bar .val { grid-column: 2; } }
+  .bar .track { position: relative; height: 22px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 3px; overflow: hidden; }
+  .bar .fill { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: var(--zombie); transition: width .5s ease; }
+  .bar.neutral .fill { background: var(--never); }
+  .bar .ghost { position: absolute; top: -1px; bottom: -1px; width: 3px; background: var(--ink); opacity: .75; }
+  .bar .val { font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
+  .rp-log { font-family: var(--mono); font-size: 12px; color: var(--muted); display: grid; gap: 2px; max-height: 110px; overflow: auto; }
+  .rp-log span b { color: var(--zombie); font-weight: 500; }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(200, 70, 27, .55); } 100% { box-shadow: 0 0 0 12px rgba(200, 70, 27, 0); } }
+  .chip.z.pulse { animation: pulse 1s ease-out 2; }
+  @media (prefers-reduced-motion: reduce) { .chip.z.pulse { animation: none; } .rp-store li, .bar .fill, .rp-lines .turn { transition: none; } }
+
+  /* ---- mechanism strip ---- */
+  .mech { display: grid; gap: 10px; }
+  .mech-grid { display: grid; grid-template-columns: 150px repeat(3, minmax(0, 1fr)) 96px; gap: 6px 10px; align-items: stretch; font-size: 13px; min-width: 760px; }
+  .mech-grid .hd { font-family: var(--display); font-weight: 600; font-size: 12px; letter-spacing: .03em; text-transform: uppercase; color: var(--muted); padding-bottom: 4px; border-bottom: 1px solid var(--line); }
+  .mech-grid .cell { display: flex; flex-wrap: wrap; gap: 4px; align-content: flex-start; padding: 6px; border: 1px solid var(--line); border-radius: 4px; background: var(--surface-2); min-height: 54px; }
+  .mech-grid .rowlab { font-weight: 600; font-family: var(--display); font-size: 13px; padding: 6px 0; display: grid; align-content: start; line-height: 1.25; }
+  .mech-grid .rowlab span { font-family: var(--mono); font-weight: 400; font-size: 11px; color: var(--muted); }
+  .mech-grid .rate { font-family: var(--mono); font-size: 20px; display: flex; align-items: center; justify-content: flex-end; padding-right: 4px; font-variant-numeric: tabular-nums; }
+  .mech-grid .rate.hi { color: var(--zombie); font-weight: 500; }
+  .mch { font-family: var(--mono); font-size: 11px; padding: 3px 6px; border-radius: 3px; border: 1px solid var(--line-strong); background: var(--surface); }
+  .mch.p { border-color: var(--proposed); color: var(--proposed); }
+  .mch.r { border-color: var(--ok); color: var(--ok); }
+  .mch.m { border-color: var(--zombie); color: var(--zombie); }
+  .mch.gone { text-decoration: line-through; color: var(--muted); border-style: dashed; }
+  .mch.none { color: var(--muted); border-style: dashed; }
+
   .prov { display: grid; gap: 8px; font-size: 14.5px; }
   .prov li { margin: 0 0 4px; }
   footer { color: var(--muted); font-size: 13px; font-family: var(--mono); }
@@ -259,6 +304,10 @@
       <span class="status pending" id="e29status"><i></i><span>E29 · not declared · not run</span></span>
     </div>
     <p>The runs above give every model the raw transcript. Deployed agents do not work that way: a memory layer sits between the conversation and the decision, and each popular design does something different with a step that was proposed and then rejected. The rows below are read from each system's source, not inferred.</p>
+    <div class="mech" id="mech" hidden>
+      <div class="eyebrow" id="mech-title">how one rejected step travels through each design</div>
+      <div class="table-wrap"><div class="mech-grid" id="mech-grid"></div></div>
+    </div>
     <div class="table-wrap">
       <table class="design">
         <thead><tr>
@@ -310,6 +359,45 @@
     </div>
     <div class="callout" id="e29pending">
       <p><b>The question E29 asks.</b> Does a partner's later restatement of a rejected step raise the relapse rate by an amount that depends on the memory design, measured as a difference-in-differences against the full-context arm above? The rows above will be filled in with measured rates only after the declared protocol has run.</p>
+    </div>
+  </section>
+
+  <section class="panel" id="replay" hidden aria-labelledby="h-replay">
+    <div class="panel-head">
+      <h2 id="h-replay">Watch it happen</h2>
+      <span class="status" id="rp-state"><i></i><span>idle</span></span>
+    </div>
+    <p>Press <b>Play</b>. The conversation plays out line by line on the left; the memory store for the chosen design updates in the middle as each line lands, so you can see the rejection consumed, kept, or merged. Then the decider is called on your local model with the tokens streaming in, and the tally at the bottom fills up against the recorded rates. Both arms of every dialogue are played, restated first, in the experiment's order.</p>
+    <div class="controls">
+      <label class="muted" for="rp-design">Design</label>
+      <select id="rp-design"><option value="delete">write-time delete</option><option value="full">full context</option><option value="addonly">add-only</option><option value="wiki">merge-in-place page</option></select>
+      <label class="muted" for="rp-model">Model</label><select id="rp-model"></select>
+      <label class="muted" for="rp-speed">Pace</label>
+      <select id="rp-speed"><option value="700">unhurried</option><option value="340" selected>normal</option><option value="90">quick</option></select>
+      <button id="rp-play" type="button">Play</button>
+      <button id="rp-stop" type="button" disabled>Stop</button>
+      <button id="rp-reset" type="button">Reset tally</button>
+      <span class="lv-err" id="rp-err"></span>
+    </div>
+    <div class="rp-grid">
+      <div>
+        <div class="eyebrow" id="rp-title">dialogue</div>
+        <div class="transcript rp-lines" id="rp-lines" role="list"></div>
+      </div>
+      <div>
+        <div class="eyebrow" id="rp-store-title">memory store</div>
+        <ul class="rp-store" id="rp-store"></ul>
+      </div>
+      <div class="rp-decider">
+        <div class="eyebrow">decider, streaming</div>
+        <pre class="ctx rp-out" id="rp-out"></pre>
+        <div class="plans" id="rp-plan"></div>
+      </div>
+    </div>
+    <div class="rp-tally">
+      <div class="eyebrow">live tally · rejected step back in the plan · the dark tick is the recorded rate for this design and model</div>
+      <div class="bars" id="rp-bars"></div>
+      <div class="rp-log" id="rp-log"></div>
     </div>
   </section>
 
@@ -516,6 +604,32 @@
   svg.appendChild(s('path', { d: 'M' + lx + ' ' + (ly - 6) + ' L' + (lx + 6) + ' ' + ly + ' L' + lx + ' ' + (ly + 6) + ' L' + (lx - 6) + ' ' + ly + ' Z', 'class': 'acc' }));
   svg.appendChild(s('text', { x: lx + 12, y: ly + 4, 'class': 'm' }, 'accepted'));
 
+  /* ---- mechanism strip: one rejected step through four designs, rates measured ---- */
+  if (D.e29 && D.e29.length) {
+    var M = D.e29[0], mg = document.getElementById('mech-grid'), phrase = 'snapshot the store';
+    document.getElementById('mech').hidden = false;
+    document.getElementById('mech-title').textContent = 'how one rejected step travels through each design · relapse rates are ' + M.model + ', restated arm, measured over ' + M.n_complete + ' dialogues';
+    ['design', 'after the proposal', 'after the rejection', 'after a partner restates it', 'relapse'].forEach(function (h) { mg.appendChild(el('div', 'hd', h)); });
+    function mc(cls, t) { return el('span', 'mch ' + cls, t); }
+    function cell(chips) { var c = el('div', 'cell'); chips.forEach(function (x) { c.appendChild(x); }); return c; }
+    var rowsM = [
+      ['full', 'Full raw context', 'the transcript itself',
+        [mc('p', 'A: let’s ' + phrase)], [mc('p', 'A: let’s ' + phrase), mc('r', 'B: no, drop that one')], [mc('p', 'A: let’s ' + phrase), mc('r', 'B: no, drop that one'), mc('m', 'A: for the record, I did raise it')]],
+      ['delete', 'Write-time delete', 'Mem0 paper pipeline',
+        [mc('p', 'A proposed to ' + phrase)], [mc('p gone', 'A proposed to ' + phrase), mc('none', 'DELETE, nothing stored')], [mc('m', 'A noted that ' + phrase + ' had been raised earlier')]],
+      ['addonly', 'Add-only, no recency', 'Mem0 OSS v3',
+        [mc('p', 'A proposed to ' + phrase)], [mc('p', 'A proposed to ' + phrase), mc('r', 'B rejected the proposal')], [mc('p', 'A proposed to ' + phrase), mc('r', 'B rejected the proposal'), mc('m', 'A noted it had been raised earlier')]],
+      ['wiki', 'Merge-in-place page', 'LLM-wiki pattern',
+        [mc('p', 'page: proposed by A')], [mc('p', 'page: proposed by A'), mc('r', 'rejected by B')], [mc('p', 'page: proposed by A'), mc('r', 'rejected by B'), mc('m', 'noted again by A')]]
+    ];
+    rowsM.forEach(function (r) {
+      var lab = el('div', 'rowlab'); lab.appendChild(document.createTextNode(r[1])); lab.appendChild(el('br')); lab.appendChild(el('span', null, r[2])); mg.appendChild(lab);
+      mg.appendChild(cell(r[3])); mg.appendChild(cell(r[4])); mg.appendChild(cell(r[5]));
+      var p = M.p[r[0] + '|restated'];
+      mg.appendChild(el('div', 'rate' + (p >= 0.5 ? ' hi' : ''), p.toFixed(2)));
+    });
+  }
+
   /* ---- E29 results, if present ---- */
   if (D.e29 && D.e29.length) {
     document.getElementById('e29block').hidden = false;
@@ -654,6 +768,141 @@
         prev = store;
       });
     }
+    /* ---- replay: play a dialogue, watch the store, stream the decider, fill the tally ---- */
+    var RP = document.getElementById('replay'); RP.hidden = false;
+    var rd = document.getElementById('rp-design'), rm = document.getElementById('rp-model'), rs = document.getElementById('rp-speed');
+    var rplay = document.getElementById('rp-play'), rstop = document.getElementById('rp-stop'), rreset = document.getElementById('rp-reset'), rerr = document.getElementById('rp-err');
+    var rstate = document.getElementById('rp-state');
+    choices.forEach(function (m) {
+      var ok = installed.indexOf(m) >= 0;
+      var o = el('option', null, m + (ok ? '' : ' (not installed)')); o.value = m; o.disabled = !ok; rm.appendChild(o);
+    });
+    var tally = { restated: [0, 0], neutral: [0, 0] }, running = false, cursor = 0;
+    function setRState(txt, cls) { rstate.className = 'status ' + (cls || ''); rstate.lastChild.textContent = txt; }
+    function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+    function recordFor(model) { var rec = null; (D.e29 || []).forEach(function (E) { if (E.model === model) rec = E; }); return rec; }
+    function renderBars() {
+      var X = rd.value, rec = recordFor(rm.value), bars = document.getElementById('rp-bars'); bars.innerHTML = '';
+      ['restated', 'neutral'].forEach(function (arm) {
+        var k = tally[arm][0], n = tally[arm][1], p = n ? k / n : 0;
+        var b = el('div', 'bar ' + arm);
+        b.appendChild(el('span', null, arm));
+        var track = el('div', 'track'); var fill = el('div', 'fill'); fill.style.width = (p * 100).toFixed(1) + '%'; track.appendChild(fill);
+        if (rec) { var g = el('div', 'ghost'); g.style.left = 'calc(' + (rec.p[X + '|' + arm] * 100).toFixed(1) + '% - 1px)'; g.title = 'recorded ' + rec.p[X + '|' + arm].toFixed(3); track.appendChild(g); }
+        b.appendChild(track);
+        b.appendChild(el('span', 'val', (n ? k + '/' + n + ' = ' + p.toFixed(2) : 'no runs yet') + (rec ? ' · recorded ' + rec.p[X + '|' + arm].toFixed(2) + ' over 96' : '')));
+        bars.appendChild(b);
+      });
+    }
+    function rlog(html) { var lg = document.getElementById('rp-log'); var s = el('span'); s.innerHTML = html; lg.insertBefore(s, lg.firstChild); while (lg.children.length > 30) lg.removeChild(lg.lastChild); }
+    function showLines(lines, d) {
+      var t = document.getElementById('rp-lines'); t.innerHTML = ''; var rows = [];
+      lines.forEach(function (line, idx) {
+        var row = el('div', 'turn'); row.setAttribute('role', 'listitem');
+        var tagText = 'noise', tagCls = 'noise', blockCls = 'is-noise';
+        var st = null; d.units.forEach(function (u) { if (u.constraint === line.cid) st = u.status; });
+        if (line.tag === 'proposal') { tagText = 'proposal · ' + line.cid; tagCls = 'prop'; blockCls = st === 'rejected' ? 'is-rejected-block' : st === 'accepted' ? 'is-accepted-block' : 'is-proposed-block'; }
+        else if (line.tag === 'reply') { tagText = (st === 'rejected' ? 'rejected' : 'accepted') + ' · ' + line.cid; tagCls = st === 'rejected' ? 'rej' : 'acc'; blockCls = st === 'rejected' ? 'is-rejected-block' : 'is-accepted-block'; }
+        else if (line.tag === 'restate') { tagText = 'restated · ' + line.cid; tagCls = 'rej'; blockCls = 'is-rejected-block'; }
+        else if (line.tag === 'neutral') { tagText = 'neutral line'; tagCls = 'noise'; blockCls = 'is-noise'; }
+        row.className = 'turn ' + blockCls;
+        row.appendChild(el('span', 'idx', String(idx + 1)));
+        var body = el('div'); body.appendChild(el('span', 'who', line.speaker)); body.appendChild(el('span', 'txt', line.text)); row.appendChild(body);
+        row.appendChild(el('span', 'tag ' + tagCls, tagText));
+        t.appendChild(row); rows.push(row);
+      });
+      return rows;
+    }
+    function renderStore(items, X, phrase, prev) {
+      var ul = document.getElementById('rp-store'); ul.innerHTML = '';
+      document.getElementById('rp-store-title').textContent = { full: 'what the decider will see: the transcript so far', delete: 'memory store · write-time delete', addonly: 'memory store · add-only', wiki: 'wiki pages · merged in place' }[X];
+      if (!items.length) ul.appendChild(el('li', 'empty', 'nothing stored yet'));
+      items.forEach(function (it) {
+        var cls = [];
+        if (prev.indexOf(it) < 0) cls.push('added');
+        if (it.toLowerCase().indexOf(phrase.toLowerCase()) >= 0) cls.push('zombie');
+        ul.appendChild(el('li', cls.join(' '), it));
+      });
+      prev.forEach(function (it) {
+        if (items.indexOf(it) < 0) {
+          var li = el('li', 'zombie', it); ul.appendChild(li);
+          setTimeout(function () { li.classList.add('removed'); }, 40);
+          setTimeout(function () { if (li.parentNode) li.parentNode.removeChild(li); }, 1400);
+        }
+      });
+    }
+    function streamDecider(i, arm, X, model, outEl) {
+      return fetch('/api/stream', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ i: i, arm: arm, design: X, model: model }) })
+        .then(async function (r) {
+          if (!r.ok) { return r.json(); }
+          var reader = r.body.getReader(), dec = new TextDecoder(), buf = '', fin = null;
+          while (true) {
+            var chunk = await reader.read(); if (chunk.done) break;
+            buf += dec.decode(chunk.value, { stream: true });
+            var parts = buf.split('\n\n'); buf = parts.pop();
+            parts.forEach(function (p) {
+              if (p.indexOf('data: ') === 0) { var ev = JSON.parse(p.slice(6)); if (ev.t) outEl.textContent += ev.t; if (ev.done) fin = ev; }
+            });
+          }
+          return fin || { error: 'the stream ended without a result' };
+        });
+    }
+    async function playOne(i, arm) {
+      var X = rd.value, model = rm.value, d = D.e29_dialogues[i];
+      document.getElementById('rp-title').textContent = d.instance + ' · rotation ' + d.rotation + ' · ' + arm + ' arm · rejected step: ' + d.phrase;
+      var tl = await fetch('/api/timeline?i=' + i + '&arm=' + arm).then(function (r) { return r.json(); });
+      if (tl.error) throw new Error(tl.error);
+      var rows = showLines(tl.lines, d);
+      document.getElementById('rp-store').innerHTML = '';
+      document.getElementById('rp-out').textContent = ''; document.getElementById('rp-plan').innerHTML = '';
+      var prev = [];
+      for (var k = 0; k < tl.lines.length && running; k++) {
+        rows.forEach(function (r) { r.classList.remove('current'); }); rows[k].classList.add('shown'); rows[k].classList.add('current');
+        renderStore(tl.stores[X][k], X, d.phrase, prev); prev = tl.stores[X][k];
+        await sleep(+rs.value);
+      }
+      if (!running) return;
+      rows.forEach(function (r) { r.classList.remove('current'); });
+      setRState('deciding with ' + model + '…', 'pending');
+      var res = await streamDecider(i, arm, X, model, document.getElementById('rp-out'));
+      if (res.error && !res.plan) { throw new Error(res.error); }
+      var row = planRow(d, model, 'live · ' + res.seconds + ' s · ' + (res.prompt_tokens || '?') + ' prompt tokens', res.plan, true);
+      var recPlan = safePlan((d.recorded[arm][X] || {})[model]);
+      var same = recPlan && res.plan && JSON.stringify(recPlan.actions) === JSON.stringify(res.plan.actions);
+      row.querySelector('.m').appendChild(el('em', same ? null : 'diff', recPlan ? (same ? 'identical to the record' : 'differs from the record') : 'no record for this model'));
+      document.getElementById('rp-plan').appendChild(row);
+      var carries = !!(res.plan && res.plan.actions.indexOf(d.rejected_action) >= 0);
+      if (carries) row.querySelectorAll('.chip.z').forEach(function (c) { c.classList.add('pulse'); });
+      if (res.plan) { tally[arm][1] += 1; if (carries) tally[arm][0] += 1; }
+      renderBars();
+      rlog((carries ? '<b>carries</b>' : 'drops') + ' the rejected step · ' + d.instance + ' r' + d.rotation + ' · ' + arm + ' · ' + X + ' · ' + model + ' · ' + res.seconds + ' s' + (recPlan ? (same ? ' · = record' : ' · ≠ record') : ''));
+      await sleep(Math.max(400, +rs.value * 2));
+    }
+    async function rloop() {
+      running = true; rplay.disabled = true; rstop.disabled = false; rerr.textContent = '';
+      try {
+        while (running) {
+          var i = cursor % D.e29_dialogues.length;
+          for (var a = 0; a < 2 && running; a++) {
+            var arm = ['restated', 'neutral'][a];
+            setRState('dialogue ' + (i + 1) + ' of ' + D.e29_dialogues.length + ' · ' + arm + ' arm', 'measured');
+            await playOne(i, arm);
+          }
+          cursor += 1;
+        }
+      } catch (e) { rerr.textContent = String(e.message || e); }
+      running = false; rplay.disabled = !lrunEnabled(); rstop.disabled = true; setRState('idle', '');
+    }
+    function lrunEnabled() { return !lrun.disabled; }
+    rplay.addEventListener('click', rloop);
+    rstop.addEventListener('click', function () { running = false; setRState('stopping after this step…', 'pending'); });
+    rreset.addEventListener('click', function () { tally = { restated: [0, 0], neutral: [0, 0] }; cursor = 0; renderBars(); document.getElementById('rp-log').innerHTML = ''; });
+    rd.addEventListener('change', function () { tally = { restated: [0, 0], neutral: [0, 0] }; renderBars(); });
+    rm.addEventListener('change', renderBars);
+    renderBars();
+    rplay.disabled = true;
+    fetch('/api/health').then(function (r) { return r.json(); }).then(function (h) { rplay.disabled = !h.ollama; }).catch(function () {});
+
     lp.addEventListener('change', renderLive); la.addEventListener('change', renderLive); ld.addEventListener('change', renderLive);
     lrun.addEventListener('click', function () {
       var d = D.e29_dialogues[parseInt(lp.value, 10)], arm = la.value, X = ld.value, model = lm.value;

@@ -229,6 +229,27 @@ def render_transcript(dialogue):
     return "\n".join(f"{s}: {t}" for s, t, _ in dialogue)
 
 
+def store_timeline(design, instance, dialogue):
+    """For each line k, the rendered store after lines[:k+1], as a list of
+    strings (facts, pages, or transcript lines). Used by the X-ray replay;
+    it recomputes the same store functions on each prefix, so it cannot
+    drift from what the decider is given."""
+    out = []
+    for k in range(1, len(dialogue) + 1):
+        part = dialogue[:k]
+        if design == "full":
+            out.append([f"{s}: {t}" for s, t, _ in part])
+        elif design == "delete":
+            out.append(store_delete(instance, part)[0])
+        elif design == "addonly":
+            out.append(store_addonly(instance, part)[0])
+        elif design == "wiki":
+            out.append(store_wiki(instance, part)[0])
+        else:
+            raise ValueError(design)
+    return out
+
+
 def context_block(design, instance, dialogue):
     """The block that replaces E17's DISCUSSION block for each design."""
     if design == "full":
