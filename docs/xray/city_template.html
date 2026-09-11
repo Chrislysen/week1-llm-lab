@@ -272,7 +272,7 @@
     var keyL = new T.DirectionalLight(0xBFD5EE, 0.28); keyL.position.set(-9, 18, 9); scene.add(keyL);
     var rimL = new T.DirectionalLight(0x5F92D8, 0.22); rimL.position.set(10, 8, -14); scene.add(rimL);
     var composer = null, bloom = null;
-    try { if (T.EffectComposer && T.UnrealBloomPass) { composer = new T.EffectComposer(renderer); composer.addPass(new T.RenderPass(scene, camera)); bloom = new T.UnrealBloomPass(new T.Vector2(900, 540), 0.28, 0.0, 0.96); composer.addPass(bloom); } } catch (e) { composer = null; }
+    try { if (T.EffectComposer && T.UnrealBloomPass) { composer = new T.EffectComposer(renderer); composer.addPass(new T.RenderPass(scene, camera)); bloom = new T.UnrealBloomPass(new T.Vector2(900, 540), 0.32, 0.25, 0.88); composer.addPass(bloom); } } catch (e) { composer = null; }
     var groundTex = (function () {
       var c = document.createElement('canvas'); c.width = c.height = 1024; var g = c.getContext('2d');
       var rg = g.createRadialGradient(512, 500, 8, 512, 500, 150); rg.addColorStop(0, '#0B1526'); rg.addColorStop(0.45, '#060B14'); rg.addColorStop(1, '#02040A');
@@ -298,6 +298,7 @@
     /* hero district */
     var hero = new T.Group(); scene.add(hero);
     var towers = {}, order = [], labelEls = {}, comets = [], flashes = [], planObjs = [], column = null, ring = null, rejRing = null, rejected = null;
+    window.__city = { get towers() { return towers; }, scene: scene, renderer: renderer, tick: function () { frame(); } };
     var pad = new T.Mesh(new T.CylinderGeometry(0.62, 0.62, 0.08, 40), new T.MeshStandardMaterial({ color: 0x0F1A28, emissive: 0x13233A, emissiveIntensity: 0.6 })); pad.position.set(-3.8, 0.05, 3.1); scene.add(pad);
     var padLbl = el('div', 'lbl agent', 'aside'); padLbl.style.opacity = '.6'; labels.appendChild(padLbl);
     var ROLES = { 'Operations Lead': { color: '#7FA3E6', hex: PAL.agentA, role: 'proposes steps and keeps the plan', x: -8.8, z: 1.4 },
@@ -431,7 +432,7 @@
       have.forEach(function (l, i) { if (used.indexOf(i) < 0) { if (animate) { l.dying = performance.now(); flashes.push({ lamp: l }); tw.glow = 1.2; tw.mesh.material.emissive.setHex(PAL.rejected); } else { scene.remove(l.mesh); scene.remove(l.halo); } } });
       tw.lamps = keep; keep.forEach(function (l, i) { l.targetY = tw.h + 0.24 + i * 0.32; if (!animate) l.mesh.position.y = l.targetY; });
       var lit = keep.length > 0, lc = lit ? PAL[keep[keep.length - 1].kind] : null;
-      tw.base = lit ? lc : 0x07101C; tw.baseI = lit ? 0.06 : 0.35; tw.capBase = lit ? lc : 0x16304F; tw.capI = lit ? 0.9 : 0.4; tw.edges.material.color.setHex(lit ? lc : 0x2A4B72);
+      tw.base = lit ? lc : 0x07101C; tw.baseI = lit ? 0.014 : 0.35; tw.capBase = lit ? lc : 0x16304F; tw.capI = lit ? 0.55 : 0.4; tw.edges.material.color.setHex(lit ? lc : 0x2A4B72);
       labelEls[action].classList.toggle('lit', lit);
     }
     function setDeciding(on) {
@@ -447,7 +448,7 @@
       if (!on) { if (column) { scene.remove(column); column = null; } if (ring) { scene.remove(ring); ring = null; } if (beam) { scene.remove(beam); beam = null; }
         op.base = 0.35; op.baseL = 0.2; op.label.classList.remove('speaking'); op.label.querySelector('.role').textContent = ROLES['Operator'].role; camDistGoal = 19.5; camHGoal = 9.0; }
     }
-    function clearPlan() { planAnim = null; clearList(planObjs); order.forEach(function (a) { var tw = towers[a]; tw.badge.className = 'n'; tw.badge.textContent = ''; var lit = tw.lamps.length > 0, lc = lit ? PAL[tw.lamps[tw.lamps.length - 1].kind] : null; tw.base = lit ? lc : 0x07101C; tw.baseI = lit ? 0.06 : 0.35; tw.capBase = lit ? lc : 0x16304F; tw.capI = lit ? 0.9 : 0.4; tw.edges.material.color.setHex(lit ? lc : 0x2A4B72); }); }
+    function clearPlan() { planAnim = null; clearList(planObjs); order.forEach(function (a) { var tw = towers[a]; tw.badge.className = 'n'; tw.badge.textContent = ''; var lit = tw.lamps.length > 0, lc = lit ? PAL[tw.lamps[tw.lamps.length - 1].kind] : null; tw.base = lit ? lc : 0x07101C; tw.baseI = lit ? 0.014 : 0.35; tw.capBase = lit ? lc : 0x16304F; tw.capI = lit ? 0.55 : 0.4; tw.edges.material.color.setHex(lit ? lc : 0x2A4B72); }); }
     var planAnim = null;
     function showPlan(actions, carries) {
       clearPlan(); var pts = [], steps = [];
@@ -467,7 +468,7 @@
       var tw = st.tw, a = st.a;
       var sp = new T.Mesh(new T.SphereGeometry(0.16, 12, 12), new T.MeshBasicMaterial({ color: color })); sp.position.set(tw.x, tw.h + 0.9 + tw.lamps.length * 0.36, tw.z); scene.add(sp); planObjs.push(sp);
       tw.badge.textContent = String(st.i + 1); tw.badge.className = 'n on' + (a === rejected ? ' rej' : '');
-      tw.capBase = a === rejected ? PAL.mention : PAL.path; tw.capI = a === rejected ? 1.8 : 1.0; tw.edges.material.color.setHex(a === rejected ? PAL.mention : PAL.path); tw.base = a === rejected ? PAL.mention : 0x07101C; tw.baseI = a === rejected ? 0.2 : 0.35;
+      tw.capBase = a === rejected ? PAL.mention : PAL.path; tw.capI = a === rejected ? 1.0 : 0.6; tw.edges.material.color.setHex(a === rejected ? PAL.mention : PAL.path); tw.base = a === rejected ? PAL.mention : 0x07101C; tw.baseI = a === rejected ? 0.05 : 0.35;
       if (a === rejected) { flashes.push({ tower: tw, start: performance.now() }); var beam = new T.Mesh(new T.CylinderGeometry(0.5, 0.5, 14, 24, 1, true), new T.MeshBasicMaterial({ color: PAL.mention, transparent: true, opacity: 0.35, side: T.DoubleSide, blending: T.AdditiveBlending, depthWrite: false })); beam.position.set(tw.x, 7, tw.z); scene.add(beam); planObjs.push(beam); flashes.push({ beam: beam, start: performance.now() }); }
     }
     function zombie(action) {
@@ -477,17 +478,17 @@
       tw.glow = 1.6; tw.mesh.material.emissive.setHex(PAL.mention);
       if (labelEls[action]) { labelEls[action].classList.remove('flash'); void labelEls[action].offsetWidth; labelEls[action].classList.add('flash'); }
     }
-    var W = 0, Hh = 0, orbit = 0, t0 = performance.now(), visible = true, rafPending = false, camDist = 22.5, camDistGoal = 19.5, camH = 10.5, camHGoal = 9.0;
+    var W = 0, Hh = 0, orbit = 0, t0 = performance.now(), lastNow = t0, visible = true, rafPending = false, camDist = 22.5, camDistGoal = 19.5, camH = 10.5, camHGoal = 9.0;
     function resize() {
       var w = host.clientWidth || 800, h = host.clientHeight || 500, pr = renderer.getPixelRatio();
       if (w !== W || h !== Hh) { W = w; Hh = h; renderer.setSize(w, h, false); if (composer) composer.setSize(w, h); if (bloom) bloom.setSize(w, h); camera.aspect = w / h; camera.updateProjectionMatrix(); }
     }
     function place(elm, v, dy) { var p = v.clone().project(camera); var x = (p.x + 1) / 2 * W, y = (1 - p.y) / 2 * Hh + (dy || 0); elm.style.left = x + 'px'; elm.style.top = y + 'px'; elm.style.display = p.z < 1 ? '' : 'none'; }
     function frame() {
-      var now = performance.now(), t = (now - t0) / 1000;
+      var now = performance.now(), t = (now - t0) / 1000, dt = Math.min(0.05, Math.max(0.001, (now - lastNow) / 1000)), k60 = dt * 60; lastNow = now;
       resize();
       if (!reduced) orbit = Math.sin(t * 0.12) * 0.09;
-      camDist += (camDistGoal - camDist) * 0.03; camH += (camHGoal - camH) * 0.03;
+      var camK = Math.min(1, 0.03 * k60); camDist += (camDistGoal - camDist) * camK; camH += (camHGoal - camH) * camK;
       camera.position.set(Math.sin(orbit) * camDist, camH, Math.cos(orbit) * camDist + 1.0); camera.lookAt(0, 1.2, -0.9);
       comets = comets.filter(function (c) {
         var L = c.legs[c.leg], k = Math.min(1, (now - c.start) / L.dur), e = k < 0.5 ? 2 * k * k : -1 + (4 - 2 * k) * k;
@@ -501,13 +502,13 @@
       });
       thread.markers.forEach(function (m, i) { var sc = m.cur ? 1 + 0.25 * Math.abs(Math.sin(t * 5)) : 1; m.mesh.scale.set(sc, sc, sc); var hs = 0.9 * (m.cur ? 1.3 + 0.2 * Math.abs(Math.sin(t * 5)) : 1); m.halo.scale.set(hs, hs, 1); place(m.badge, new T.Vector3(m.x, LANE.y + 0.55, m.z), 0); });
       order.forEach(function (a) {
-        var tw = towers[a]; tw.glow = Math.max(0, tw.glow - 0.05); if (tw.glow <= 0) tw.mesh.material.emissive.setHex(tw.base); tw.mesh.material.emissiveIntensity = tw.baseI + tw.glow * 0.25;
-        tw.cap.material.emissive.setHex(tw.capBase); tw.cap.material.emissiveIntensity = tw.capI + tw.glow;
+        var tw = towers[a]; tw.glow = Math.max(0, tw.glow - 3.0 * dt); if (tw.glow <= 0) tw.mesh.material.emissive.setHex(tw.base); tw.mesh.material.emissiveIntensity = tw.baseI + tw.glow * 0.12;
+        tw.cap.material.emissive.setHex(tw.capBase); tw.cap.material.emissiveIntensity = tw.capI + tw.glow * 0.6;
         if (tw.rise < 1) { var rr = reduced ? 1 : Math.min(1, Math.max(0, (now - tw.riseAt) / 750)); tw.rise = rr; var ey = 1 - Math.pow(1 - rr, 3); tw.mesh.scale.y = Math.max(0.01, ey); tw.edges.scale.y = Math.max(0.01, ey); tw.cap.position.y = tw.h * ey + 0.05; }
-        tw.lamps.forEach(function (l) { var s = Math.min(1, (now - l.born) / (reduced ? 1 : 280)); l.mesh.scale.set(s, s, s); l.mesh.position.y += ((l.targetY || tw.h) - l.mesh.position.y) * 0.22; if (l.halo) { l.halo.position.copy(l.mesh.position); l.halo.scale.set(1.1 * s, 1.1 * s, 1); } });
+        tw.lamps.forEach(function (l) { var s = Math.min(1, (now - l.born) / (reduced ? 1 : 280)); l.mesh.scale.set(s, s, s); l.mesh.position.y += ((l.targetY || tw.h) - l.mesh.position.y) * Math.min(1, 0.22 * k60); if (l.halo) { l.halo.position.copy(l.mesh.position); l.halo.scale.set(1.1 * s, 1.1 * s, 1); } });
         place(labelEls[a], new T.Vector3(tw.x, tw.h * tw.mesh.scale.y + 0.5 + tw.lamps.length * 0.36, tw.z), -6);
       });
-      Object.keys(agents).forEach(function (n) { var ag = agents[n]; ag.glow = Math.max(0, ag.glow - 0.02); var hs = ag.haloSize * (1 + 0.45 * ag.glow) * (ag.dec ? (0.7 + 0.3 * Math.min(1, ag.base)) : 1); ag.halo.scale.set(hs, hs, 1); ag.halo.material.opacity = ag.dec ? 0.35 + 0.5 * Math.min(1, ag.base) : 0.75 + 0.25 * Math.min(1, ag.glow); ag.light.intensity = ag.baseL + ag.glow * 0.8;
+      Object.keys(agents).forEach(function (n) { var ag = agents[n]; ag.glow = Math.max(0, ag.glow - 1.2 * dt); var hs = ag.haloSize * (1 + 0.45 * ag.glow) * (ag.dec ? (0.7 + 0.3 * Math.min(1, ag.base)) : 1); ag.halo.scale.set(hs, hs, 1); ag.halo.material.opacity = ag.dec ? 0.35 + 0.5 * Math.min(1, ag.base) : 0.75 + 0.25 * Math.min(1, ag.glow); ag.light.intensity = ag.baseL + ag.glow * 0.8;
         place(ag.label, ag.mesh.position, 26);
         var bp = (bubbleAt && ag.bubble.classList.contains('show')) ? new T.Vector3(bubbleAt.x, LANE.y + 0.9, bubbleAt.z) : new T.Vector3(ag.mesh.position.x, ag.mesh.position.y + 0.9, ag.mesh.position.z);
         place(ag.bubble, bp, 0); });
@@ -521,14 +522,14 @@
       }
       flashes = flashes.filter(function (f) {
         if (f.burst) { var bb = (now - f.start) / 1300; var sc = 1 + bb * 5; f.burst.scale.set(sc, sc, sc); f.burst.material.opacity = 0.9 * (1 - bb); if (bb >= 1) { scene.remove(f.burst); return false; } return true; }
-        if (f.lamp) { var d = (now - f.lamp.dying) / 750; f.lamp.mesh.material.opacity = Math.max(0, 1 - d); f.lamp.mesh.position.y -= 0.025; if (f.lamp.halo) { f.lamp.halo.material.opacity = 0.7 * Math.max(0, 1 - d); f.lamp.halo.position.copy(f.lamp.mesh.position); } if (d >= 1) { scene.remove(f.lamp.mesh); if (f.lamp.halo) scene.remove(f.lamp.halo); return false; } return true; }
+        if (f.lamp) { var d = (now - f.lamp.dying) / 750; f.lamp.mesh.material.opacity = Math.max(0, 1 - d); f.lamp.mesh.position.y -= 1.5 * dt; if (f.lamp.halo) { f.lamp.halo.material.opacity = 0.7 * Math.max(0, 1 - d); f.lamp.halo.position.copy(f.lamp.mesh.position); } if (d >= 1) { scene.remove(f.lamp.mesh); if (f.lamp.halo) scene.remove(f.lamp.halo); return false; } return true; }
         if (f.beam) { var b = (now - f.start) / 2600; f.beam.material.opacity = 0.35 * Math.max(0, 1 - b); return b < 1; }
-        var k2 = (now - f.start) / 2800; f.tower.capI = 1.4 + 1.4 * Math.abs(Math.sin(k2 * Math.PI * 4)); if (k2 >= 1) f.tower.capI = 2.2; return k2 < 1;
+        var k2 = (now - f.start) / 2800; f.tower.capI = 0.8 + 0.8 * Math.abs(Math.sin(k2 * Math.PI * 4)); if (k2 >= 1) f.tower.capI = 1.2; return k2 < 1;
       });
       if (column) column.material.opacity = 0.07 + 0.06 * (0.5 + 0.5 * Math.sin(t * 5));
       if (ring) { var r = ((now - ring.userData.start) % 1600) / 1600, sc = 1 + r * 12; ring.scale.set(sc, sc, sc); ring.material.opacity = 0.8 * (1 - r); }
       if (rejRing) rejRing.material.opacity = 0.65 + 0.3 * (0.5 + 0.5 * Math.sin(t * 3));
-      var pa = pGeo.attributes.position.array; for (var i = 1; i < pa.length; i += 3) { pa[i] += 0.004; if (pa[i] > 15) pa[i] = 0.5; } pGeo.attributes.position.needsUpdate = true;
+      var pa = pGeo.attributes.position.array; for (var i = 1; i < pa.length; i += 3) { pa[i] += 0.24 * dt; if (pa[i] > 15) pa[i] = 0.5; } pGeo.attributes.position.needsUpdate = true;
       if (composer) composer.render(); else renderer.render(scene, camera);
       rafPending = false; kick();
     }
