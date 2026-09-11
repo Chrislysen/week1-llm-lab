@@ -56,6 +56,20 @@ def _json(pattern):
     return out
 
 
+def _plan(text):
+    """The recorded output as a plan object, or None if it does not parse."""
+    if not isinstance(text, str):
+        return None
+    a, b = text.find("{"), text.rfind("}")
+    if a < 0 or b < a:
+        return None
+    try:
+        o = json.loads(text[a:b + 1])
+    except json.JSONDecodeError:
+        return None
+    return o if isinstance(o, dict) and isinstance(o.get("actions"), list) else None
+
+
 def e18_ladder():
     """E17/E18 pin4 cells: per-unit inclusion and per-dialogue plans, six models."""
     units = defaultdict(dict)
@@ -91,7 +105,7 @@ def e18_ladder():
         dias.append({"instance": inst.id, "domain": inst.domain, "graph": inst.graph, "rotation": rot,
                      "verbs": dict(DOMAINS[inst.domain]["actions"]),
                      "turns": [{"speaker": s, "text": t, "tag": tag[0], "cid": tag[1]} for s, t, tag in d["dialogue"]],
-                     "units": us, "plans": {m: outputs[(inst.id, rot)][m] for m in MODELS}})
+                     "units": us, "plans": {m: _plan(outputs[(inst.id, rot)][m]) for m in MODELS}})
 
     def split_score(dd):
         s = 0

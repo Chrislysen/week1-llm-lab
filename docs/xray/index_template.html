@@ -527,15 +527,16 @@
     plans.innerHTML = '';
     var rejectedActions = d.units.filter(function (u) { return u.status === 'rejected'; }).map(function (u) { return u.action; });
     MODELS.forEach(function (m) {
-      var plan = d.plans[m] || {};
-      var actions = plan.actions || [];
+      var plan = d.plans[m] || null;
+      var actions = plan ? plan.actions : [];
       var row = el('div', 'plan-row');
       var mm = el('div', 'm');
       mm.appendChild(el('b', null, m));
-      mm.appendChild(el('span', null, D.agg[m].size + ' · ready ' + (plan.ready === undefined ? '?' : String(plan.ready))));
+      mm.appendChild(el('span', null, D.agg[m].size + (plan ? ' · ready ' + String(plan.ready) : ' · output did not parse')));
       row.appendChild(mm);
       var chips = el('div', 'chips');
       var carries = false;
+      if (!plan) chips.appendChild(el('span', 'muted', 'no parsed plan'));
       actions.forEach(function (a) {
         var known = Object.prototype.hasOwnProperty.call(d.verbs, a);
         var st = known ? actionStatus(d, a) : 'invented';
