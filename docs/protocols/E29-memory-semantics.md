@@ -1,0 +1,215 @@
+# E29 — does a partner's restatement of a rejected step raise enactment by an amount that depends on the memory design?
+
+**Declared 2026-09-11 with zero E29 model calls.** Gated under
+`docs/NOVELTY-GATE.md` the same day (§0 below). **Decision: CANDIDATE FOR
+TESTING with a NARROW residual.** That licenses this experiment; it is not a
+novelty claim and not a prediction of success. Ledger going in: 22 gated, 22
+closed.
+
+Corpus `lineage_e29.py`, hash **`187a426616f26598`** on top of the E16 corpus
+`70f136a47f5779c8`. Runner `e29_memory_semantics.py`. Read rule
+`e29_analysis.py`. Tests `test_lineage_e29.py` (10, all passing).
+
+---
+
+## 0. Prior-art gate (run first, 2026-09-11)
+
+### 0.1 The construct, before any search
+
+**Objects.** A two-agent dialogue in which a step is *proposed* and then
+*explicitly rejected* in the next line and never replaced (E16's `rejected`
+status); a later single line by the original proposer that *restates* the
+step as a mention, or a length-matched *neutral* line; a *memory design* that
+turns the dialogue into what the decider sees; a decider that writes a
+four-step plan from a six-identifier menu; a deterministic scorer that reads
+whether the rejected step is in the plan.
+
+**Operations.** Four designs, three of them the write/read semantics of shipped
+systems, read from their source:
+
+| design | write time | read time | source read |
+|---|---|---|---|
+| `full` | none | raw transcript | E17/E18 |
+| `delete` | facts extracted; an LLM chooses ADD/UPDATE/DELETE/NONE per fact against retrieved memories; a contradiction **DELETEs** the old fact and the DELETE example stores nothing new; no tombstone; the update prompt sees only live memories | live facts | Mem0 paper arXiv:2504.19413; `mem0/configs/prompts.py` `DEFAULT_UPDATE_MEMORY_PROMPT` (fetched 2026-09-11) |
+| `addonly` | every extracted fact ADDed; no UPDATE/DELETE exists; agent utterances stored "with equal weight" | similarity only, no recency weighting; `attributed_to` stored but unused; temporal features raise in OSS | Mem0 OSS v3 (April 2026): `mem0/memory/main.py` "V3 PHASED BATCH PIPELINE", migration doc, v3 blog |
+| `wiki` | one page per entity, "merge old + new instead of clobbering"; contradictions become review items for a human, never resolved in the page | the page | nashsu/llm_wiki `src/lib/ingest.ts`, `page-merge.ts`; Karpathy's LLM-wiki gist |
+
+**Estimand.** For design X, Δ_X = P(rejected step in plan | restated, X) −
+P(… | neutral, X); the contrast of interest is **DiD_X = Δ_X − Δ_full**.
+
+**Intervention.** One inserted line, restated vs neutral, differing only in its
+referent (same speaker, position, word count). **Fixed-intervention** comparison:
+nothing is tuned per design.
+
+**Assumptions, stated.** (1) Stage 1 uses **oracle extraction**: each store is
+rendered from the scorer's tags by a fixed template, so it is the design's
+semantic ideal, not an extractor's output. (2) The decider's response to the
+store is the quantity measured, not the store's fidelity. (3) The `delete`
+arm assumes the DELETE fires; arXiv:2606.15903 App. P reports that Mem0's LLM
+router in practice "prioritises link-and-keep over delete-old", so a real
+router pushes `delete` toward `addonly`. That is a stage-2 question.
+
+### 0.2 Vocabulary map
+
+| our term | the field's terms searched |
+|---|---|
+| rejected proposal, zombie constraint | revoked / retracted / superseded instruction, knowledge update, memory invalidation, stale memory, forgetting, unlearning, obsolete plan |
+| partner restatement | echo, recap, re-mention, re-assertion, restated stale note, elicitation probe, memory contagion, write-back amplification, manufactured corroboration, memory majority |
+| memory design | write-time vs read-time conflict resolution, ADD/UPDATE/DELETE router, append-only / add-only store, tombstone, soft vs hard delete, merge-in-place, control-plane placement, bi-temporal ledger, state memory |
+| plan enactment | downstream action, executable plan, provider pick, tool-call parameters, implicit policy adaptation, constraint drift |
+
+### 0.3 Leads resolved — full text read, sections cited
+
+| paper | read | rejection in dialogue | partner restatement | design contrast | executable action | small local decider | verdict |
+|---|---|---|---|---|---|---|---|
+| **2609.04875** Forgetting Without Restarting | full PDF | no: operator/user *revocation event* | no: same-agent *introspection probe* re-licenses (0.87–1.00, Elicitation §) | B0–B9 forget mechanisms; B1 memory-delete leaves transcript; no add-only / merge / memory-only channel | yes: provider pick, Table 3, **B1 = B0 = 1.00** act on revoked preference | Llama-3.1-8B, Qwen2.5-7B, Mistral-7B | **PARTIAL** |
+| **2608.08236** LatticeMind | full PDF | no: simultaneous incompatible claims | yes, of stale notes, not of a rejected proposal, no with/without contrast (A.4–A.5) | Concat / LLM-Merge / LLM-Merge-Inc / StateMemory (§4.5, Table 2); no delete, no full context | token-checked answers; planning benchmarks only for aggregation | no: Qwen3-Max; 14B only as learned operator | **PARTIAL** |
+| **2605.06527** STALE | full HTML | **excluded by construction**, Axiom 2 §3.2 | no: single user | plain full context vs LightMem/Zep/LiCoMemory/A-mem/mem-0 on one backbone (§4.1, Table 2) | IPA, LLM-judged free text | no | **PARTIAL** |
+| **2606.15903** Control-Plane Placement | full HTML+PDF | no: API `supersede/release/purge` calls | no | 13 configs incl. add-only (MemPalace, `infer=False`), tombstone (Lethe), router (Mem0 `infer=True`); **no full-context arm** | no: top-10 retrieval blob | no: embeddings + API judges | **PARTIAL** |
+| **2604.20006** Memora / FAMA | full HTML | yes: user-expressed deletions | **deliberately excluded** (App. B.5) | full-context LLMs vs six memory agents as black boxes | no: text answers, 3 LLM judges | 32B only | **PARTIAL** |
+| **2606.24322** TMA-NM | full HTML | no | echo via trusted tool, adversarial content | authorization classes on one store | consequential-action rate | no | PARTIAL (echo half) |
+| **2606.27472** Supersede | full PDF | no: value updates | no: off-topic distractors | full context vs one bounded rewrite memory | no: QA | Qwen2.5-3B (9.0 → 16.7 % after GRPO) | does not cover |
+| **2605.10481** Constraint Drift | full HTML | no | no | none varied; replay of privacy traces | leakage admit/block | no | does not cover |
+| **2608.19701** CAMA | full HTML | no | write-back amplification, unmanipulated | none | QA | no | does not cover |
+| **2606.01435** Freshness recipe | full HTML | no | no | append-only + serial recency vs LLM freshness | QA | no | does not cover |
+| **2609.03340** PlanFence | HTML | version drift, not rejection | no | validation policies over one store | deterministic | no | does not cover |
+| **2607.02579** GovMem | HTML | no | motivational only; pilot unrun | promotion policies | precision/recall | no | does not cover |
+
+**Abstract-level only (coverage limit, recorded):** 2607.12893 MemOps,
+2606.10677 Infini Memory, 2605.12978 Useful Memories Become Faulty, 2606.26511
+MemStrata, 2507.05257 MemoryAgentBench FactConsolidation, 2602.16313
+MemoryArena. All are single-agent, QA or task-score, with no restatement
+manipulation by their abstracts; they occupy the *design-contrast* component,
+which is conceded as occupied regardless.
+
+Search log: 19 field-vocabulary queries by the gate agents plus 9 in this
+session, 2026-09-11; queries and returns recorded in the session transcript
+and summarised in the table above.
+
+### 0.4 Comparison against the strongest prior work
+
+| proposed contribution | closest prior result + section | same mechanism, estimand, assumptions? | substantive difference | what would test that difference |
+|---|---|---|---|---|
+| A partner's content-bearing restatement of a dialogue-rejected step raises plan enactment by a design-dependent amount | 2609.04875, Table 3 (B1 = B0 = 1.00) and Elicitation § (introspection probe re-licenses 0.87–1.00, condition-dependent) | No. Their revocation is an operator event, the re-mention is a same-agent recall probe carrying no content, the transcript stays in context under B1, and there is no neutral-line control or DiD | rejection arises *in dialogue*; the restatement is a *partner's* content-bearing line; the decider sees the memory artifact *only*; add-only and merge designs; length-matched neutral control; DiD | exactly this experiment |
+| Add-only vs merge-page vs hard-delete under a stale restatement | LatticeMind §4.5 (Concat < LLM-Merge < StateMemory under late stale notes) | Partly: their stale notes are not a rejected proposal, the increment is never isolated, no delete arm, no full context, frontier model | delete arm; full-context reference; isolated increment; 3B–7B deciders; plan scorer | this experiment |
+| Memory-design changes whether a superseded item survives to the decision | 2606.15903 (retrieval blob), STALE Table 2, Memora | Same direction of question, different layer (retrieval vs action) and no dialogue | action-level, dialogue-sourced | this experiment |
+
+### 0.5 Residual, and how it fails
+
+> The closest work establishes that deleting a memory record while the
+> transcript persists does not stop action on a revoked preference, that a
+> same-agent recall probe re-licenses a suppressed value in a
+> mechanism-dependent way, and that late stale notes in a shared store hurt
+> concatenation more than status-aware memory. This candidate would
+> additionally establish whether a **partner's content-bearing restatement** of
+> a step **rejected in dialogue** raises plan enactment by an amount that
+> **depends on the memory design** the decider reads through (hard-delete,
+> add-only, merge-page, full context), as a difference-in-differences against
+> a length-matched neutral line, on small local deciders with a deterministic
+> plan scorer, which matters because these are the three designs actually
+> shipped and Mem0 moved from the first to the second in April 2026 citing lost
+> context, with no published measurement of the supersession cost.
+
+> The claimed additional contribution would be unsupported if every DiD_X lies
+> inside the SESOI band: then the restatement effect is E18 revocation inertia
+> plus known corroboration effects, and the memory design does not modulate
+> it. It would also be unsupported, as *novelty*, if a paper is found that
+> manipulates a partner restatement of a dialogue-rejected item across
+> memory designs; the coverage limit in §0.3 names the papers not read in full.
+
+**Decision: CANDIDATE FOR TESTING.** Residual NARROW. Two corrections to the
+candidate as first phrased, forced by reading: Lethe (2606.15903) is a tombstone
+design, not a hard-deleter; and the paper-pipeline router under-deletes in
+practice (App. P), so the `delete` arm is the design's *semantic ideal*.
+
+---
+
+## 1. Design
+
+**Corpus.** The 96 E16 dialogues that carry a `rejected` slot, each in two
+arms that differ in exactly one line spoken by the original proposer, as late
+as speaker alternation allows, with the dialogue still ending on noise:
+
+    restated   For the record, I did raise {action phrase} earlier in this discussion.
+    neutral    For the record, I did raise {neutral referent of equal word count} earlier in this discussion.
+
+39 of 96 dialogues need the domain's fourth noise line appended to keep the
+proposer's turn; both arms share that structure. Tests enforce: one-line
+difference, same speaker, same word count, base lines byte-identical to E16.
+
+**Stores (oracle extraction), one fact per line by fixed template.**
+`delete`: ADD on proposal/noise/restate/neutral; UPDATE the proposal on
+acceptance; on rejection DELETE the proposal and store nothing. `addonly`: every
+fact, insertion order. `wiki`: a page per action with chronological bullets,
+plus a discussion-log page. `full`: the transcript. The tests assert, for every
+dialogue: under `delete`/neutral no trace of the rejected step; under
+`delete`/restated exactly one mention and no rejection; under `addonly` proposal
++ rejection (+ restatement); under `wiki` proposal and rejection bullets on one
+page.
+
+**Decider prompt.** E10's system prompt, unchanged. The user block is the
+design's context block followed by E17's frozen `pin4` plan instruction at
+|vocab| = 6. The block header differs by design (DISCUSSION / MEMORY NOTES FROM
+THE DISCUSSION / WIKI PAGES BUILT FROM THE DISCUSSION); the DiD compares arms
+*within* a design, so the header is constant within every contrast.
+
+**Deciders.** `llama3.2:3b` (the course model) first; `qwen2.5:7b-instruct`
+second if the first completes. Temperature 0. Eight cells per dialogue run in
+one process block in fixed order (designs inside arms).
+
+**Allocation.** 96 × 2 × 4 = **768 scheduled calls per decider**, plus parse
+retries per `ask_structured` and transport retries per `RetryingOllamaClient`,
+both recorded per row. Chunked with `--offset/--limit` per the runtime note in
+memory; each chunk writes its own `results/e29_<model>_o<offset>.csv/.json`.
+
+## 2. Predictions, fixed before the first call
+
+From the store semantics and E18's `pin4` rates for `llama3.2:3b`
+(`never` 0.562, `proposed` 0.990, `rejected` 0.219):
+
+- **P1.** Δ_delete is large and positive. Under `delete`/neutral the store holds
+  nothing about the step, so inclusion ≈ the `never` rate; under
+  `delete`/restated it holds a bare mention with no rejection, so inclusion ≈
+  the `proposed` rate. Predicted Δ_delete ≈ +0.4.
+- **P2.** DiD_delete ≥ 0.15.
+- **P3.** Δ_full is small: the rejection is visible in every full-context arm.
+- **P4.** 0 ≤ DiD_addonly < DiD_delete: the restatement adds a copy of the stale
+  step but the rejection copy is present.
+- **P5.** DiD_wiki ≈ DiD_addonly: same content, grouped by entity. A gap in
+  either direction is reported as an observation, not a claim.
+- **P6 (control).** Under `delete`/neutral the rejected step's inclusion is
+  within ±0.10 of that cell's `never` rate.
+
+## 3. Read rule, fixed before the first call
+
+Unit of independence: the dialogue (96). Paired bootstrap over dialogues,
+seed 0, B = 2000, percentile 95 % intervals. Implemented in `e29_analysis.py`.
+
+- **DESIGN-DEPENDENT** if, for at least one design X ≠ full, |DiD_X| ≥ 0.15
+  and its interval excludes 0.
+- **NULL** if every |DiD_X| < 0.05 and every interval lies within [−0.15, +0.15].
+- **PARTIAL** otherwise; reported as partial, never upgraded.
+
+**Validity.** A cell is VOID if parse rate < 0.95 or mean |plan| outside
+[3.9, 4.1]. A VOID `full` cell voids the verdict.
+
+**Power, stated.** At n = 96 paired dialogues the interval half-width for a
+DiD is roughly 0.10–0.14. The P1/P2 prediction (~0.4) is far above it; effects
+in the 0.05–0.15 band will land PARTIAL and are **not** to be read as absent.
+
+## 4. What cannot follow
+
+- Nothing about real extractors: the stores are semantic ideals. A real-extractor
+  stage needs its own declaration.
+- Nothing about the Mem0 or llm_wiki *products*: their semantics are
+  re-implemented from source, their code is not run.
+- No model-size claim from one or two deciders.
+- No novelty claim beyond §0.5's residual, and none at all if the coverage limit
+  in §0.3 is closed by a paper not yet read.
+
+## 5. Files
+
+`lineage_e29.py`, `test_lineage_e29.py`, `e29_memory_semantics.py`,
+`e29_analysis.py`; outputs `results/e29_<model>_o*.csv/.json` and
+`results/e29_<model>_summary.json`. Outcome section to be appended below this
+line after the run, never edited above it.
