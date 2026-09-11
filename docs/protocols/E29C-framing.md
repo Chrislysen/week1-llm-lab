@@ -101,10 +101,6 @@ full-context decider reads an authorship claim; an ANY-MENTION result says late
 mentions of rejected steps are protective under full context. Neither is a
 memory-design result and neither is claimed as novel.
 
-## 5. Outcome
-
-_(empty at declaration)_
-
 ## 5. Outcome — run 2026-09-11, the same evening, after `5adc257`
 
 384 calls per decider in three foreground chunks of 32 dialogues

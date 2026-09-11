@@ -149,6 +149,28 @@ def e29b_note():
             f"mostly never entered the store at all, and a later restatement entered it as a fresh fact.")
 
 
+def e29c_note():
+    """E29-C: the follow-up on the negative full-context restatement effect."""
+    parts = []
+    for slug_, name in (("llama32-3b", "llama3.2:3b"), ("qwen25-7b-instruct", "qwen2.5:7b-instruct")):
+        b = os.path.join(HERE, "results", f"e29c_{slug_}_summary.json")
+        if not os.path.exists(b):
+            continue
+        e = json.load(open(b, encoding="utf-8"))
+        v = e["verdict"].split(" ")[0]
+        parts.append(f"{name}: for-the-record {e['delta_ftr']:+.3f} [{e['ci_ftr'][0]:+.3f}, {e['ci_ftr'][1]:+.3f}], "
+                     f"plain mention {e['delta_plain']:+.3f} [{e['ci_plain'][0]:+.3f}, {e['ci_plain'][1]:+.3f}], "
+                     f"difference {e['diff']:+.3f} [{e['ci_diff'][0]:+.3f}, {e['ci_diff'][1]:+.3f}] — {v}")
+    if not parts:
+        return ""
+    return ("A second follow-up, E29-C, asked why the restatement lowers enactment under full raw context. "
+            "It re-ran the two E29 lines beside a plain late mention with no authorship claim "
+            "(\"Just to note it, X came up earlier in this discussion\"), 96 dialogues, four arms, both deciders. "
+            + " · ".join(parts) + ". On the course model the protection is the \"for the record, I did raise it\" register, "
+            "which sends the decider back to the rejection; a plain mention does nothing. "
+            "The stores never saw that register; they saw a fact.")
+
+
 def e29_dialogues():
     """The 96 E29 dialogues: turns per arm, the context block per design, and
     every recorded decider output, keyed by model."""
@@ -213,7 +235,7 @@ def build_data(live=False, live_models=None):
     agg, dias, showcase = e18_ladder()
     return {"corpus_hash": corpus_hash(), "e29_hash": e29_hash(), "models": MODELS, "agg": agg,
             "dialogues": dias, "showcase": showcase, "e29": e29_summaries(), "city": city_districts(dias),
-            "e29_caveat": E29_CAVEAT, "e29b_note": e29b_note(),
+            "e29_caveat": E29_CAVEAT, "e29b_note": e29b_note(), "e29c_note": e29c_note(),
             "e29_dialogues": e29_dialogues(), "e29_models": E29_MODELS, "e29b": e29b_snapshots(),
             "live": {"models": live_models or []} if live else None}
 
