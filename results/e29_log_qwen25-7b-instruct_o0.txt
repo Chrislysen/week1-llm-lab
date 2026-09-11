@@ -1,0 +1,143 @@
+=== E29 memory semantics: qwen2.5:7b-instruct, 16 dialogues x 2 arms x 4 designs = 128 calls ===
+
+  [ 1/16] payments-chain       r0 restated full    n=4  7.106s
+  [ 1/16] payments-chain       r0 restated delete  n=4  2.409s
+  [ 1/16] payments-chain       r0 restated addonly n=4  2.436s
+  [ 1/16] payments-chain       r0 restated wiki    n=4  2.426s
+  [ 1/16] payments-chain       r0 neutral  full    n=4  2.46s
+  [ 1/16] payments-chain       r0 neutral  delete  n=4  2.434s
+  [ 1/16] payments-chain       r0 neutral  addonly n=4  2.46s
+  [ 1/16] payments-chain       r0 neutral  wiki    n=4  2.419s
+  [ 2/16] payments-chain       r1 restated full    n=4  2.453s
+  [ 2/16] payments-chain       r1 restated delete  n=4  2.457s
+  [ 2/16] payments-chain       r1 restated addonly n=4  2.477s
+  [ 2/16] payments-chain       r1 restated wiki    n=4  2.45s
+  [ 2/16] payments-chain       r1 neutral  full    n=4  2.455s
+  [ 2/16] payments-chain       r1 neutral  delete  n=4  2.465s
+  [ 2/16] payments-chain       r1 neutral  addonly n=4  2.462s
+  [ 2/16] payments-chain       r1 neutral  wiki    n=4  2.427s
+  [ 3/16] payments-fork        r0 restated full    n=4  2.477s
+  [ 3/16] payments-fork        r0 restated delete  n=4  2.515s
+  [ 3/16] payments-fork        r0 restated addonly n=4  2.463s
+  [ 3/16] payments-fork        r0 restated wiki    n=4  2.452s
+  [ 3/16] payments-fork        r0 neutral  full    n=4  2.447s
+  [ 3/16] payments-fork        r0 neutral  delete  n=4  2.446s
+  [ 3/16] payments-fork        r0 neutral  addonly n=4  2.435s
+  [ 3/16] payments-fork        r0 neutral  wiki    n=4  2.459s
+  [ 4/16] payments-fork        r1 restated full    n=4  2.512s
+  [ 4/16] payments-fork        r1 restated delete  n=4  2.506s
+  [ 4/16] payments-fork        r1 restated addonly n=4  2.426s
+  [ 4/16] payments-fork        r1 restated wiki    n=4  2.472s
+  [ 4/16] payments-fork        r1 neutral  full    n=4  2.499s
+  [ 4/16] payments-fork        r1 neutral  delete  n=4  2.469s
+  [ 4/16] payments-fork        r1 neutral  addonly n=4  2.431s
+  [ 4/16] payments-fork        r1 neutral  wiki    n=4  2.455s
+  [ 5/16] payments-join        r0 restated full    n=4  2.483s
+  [ 5/16] payments-join        r0 restated delete  n=4  2.441s
+  [ 5/16] payments-join        r0 restated addonly n=4  2.417s
+  [ 5/16] payments-join        r0 restated wiki    n=4  2.468s
+  [ 5/16] payments-join        r0 neutral  full    n=4  2.451s
+  [ 5/16] payments-join        r0 neutral  delete  n=4  2.464s
+  [ 5/16] payments-join        r0 neutral  addonly n=4  2.431s
+  [ 5/16] payments-join        r0 neutral  wiki    n=4  2.49s
+  [ 6/16] payments-join        r1 restated full    n=4  2.477s
+  [ 6/16] payments-join        r1 restated delete  n=4  2.47s
+  [ 6/16] payments-join        r1 restated addonly n=4  2.41s
+  [ 6/16] payments-join        r1 restated wiki    n=4  2.458s
+  [ 6/16] payments-join        r1 neutral  full    n=4  2.452s
+  [ 6/16] payments-join        r1 neutral  delete  n=4  2.457s
+  [ 6/16] payments-join        r1 neutral  addonly n=4  2.445s
+  [ 6/16] payments-join        r1 neutral  wiki    n=4  2.46s
+  [ 7/16] payments-join        r3 restated full    n=4  2.464s
+  [ 7/16] payments-join        r3 restated delete  n=4  2.424s
+  [ 7/16] payments-join        r3 restated addonly n=4  2.489s
+  [ 7/16] payments-join        r3 restated wiki    n=4  2.449s
+  [ 7/16] payments-join        r3 neutral  full    n=4  2.428s
+  [ 7/16] payments-join        r3 neutral  delete  n=4  2.441s
+  [ 7/16] payments-join        r3 neutral  addonly n=4  2.419s
+  [ 7/16] payments-join        r3 neutral  wiki    n=4  2.457s
+  [ 8/16] payments-diamond     r0 restated full    n=4  2.472s
+  [ 8/16] payments-diamond     r0 restated delete  n=4  2.455s
+  [ 8/16] payments-diamond     r0 restated addonly n=4  2.414s
+  [ 8/16] payments-diamond     r0 restated wiki    n=4  2.456s
+  [ 8/16] payments-diamond     r0 neutral  full    n=4  2.463s
+  [ 8/16] payments-diamond     r0 neutral  delete  n=4  2.491s
+  [ 8/16] payments-diamond     r0 neutral  addonly n=4  2.455s
+  [ 8/16] payments-diamond     r0 neutral  wiki    n=4  2.479s
+  [ 9/16] payments-diamond     r1 restated full    n=4  2.447s
+  [ 9/16] payments-diamond     r1 restated delete  n=4  2.452s
+  [ 9/16] payments-diamond     r1 restated addonly n=4  2.453s
+  [ 9/16] payments-diamond     r1 restated wiki    n=4  2.472s
+  [ 9/16] payments-diamond     r1 neutral  full    n=4  2.437s
+  [ 9/16] payments-diamond     r1 neutral  delete  n=4  2.462s
+  [ 9/16] payments-diamond     r1 neutral  addonly n=4  2.434s
+  [ 9/16] payments-diamond     r1 neutral  wiki    n=4  2.434s
+  [10/16] payments-diamond     r3 restated full    n=4  2.454s
+  [10/16] payments-diamond     r3 restated delete  n=4  2.461s
+  [10/16] payments-diamond     r3 restated addonly n=4  2.447s
+  [10/16] payments-diamond     r3 restated wiki    n=4  2.449s
+  [10/16] payments-diamond     r3 neutral  full    n=4  2.432s
+  [10/16] payments-diamond     r3 neutral  delete  n=4  2.478s
+  [10/16] payments-diamond     r3 neutral  addonly n=4  2.437s
+  [10/16] payments-diamond     r3 neutral  wiki    n=4  2.455s
+  [11/16] payments-twochain    r0 restated full    n=4  2.446s
+  [11/16] payments-twochain    r0 restated delete  n=4  2.445s
+  [11/16] payments-twochain    r0 restated addonly n=4  2.449s
+  [11/16] payments-twochain    r0 restated wiki    n=4  2.444s
+  [11/16] payments-twochain    r0 neutral  full    n=4  2.426s
+  [11/16] payments-twochain    r0 neutral  delete  n=4  2.442s
+  [11/16] payments-twochain    r0 neutral  addonly n=4  2.449s
+  [11/16] payments-twochain    r0 neutral  wiki    n=4  2.475s
+  [12/16] payments-twochain    r1 restated full    n=4  2.466s
+  [12/16] payments-twochain    r1 restated delete  n=4  2.449s
+  [12/16] payments-twochain    r1 restated addonly n=4  2.424s
+  [12/16] payments-twochain    r1 restated wiki    n=4  2.462s
+  [12/16] payments-twochain    r1 neutral  full    n=4  2.441s
+  [12/16] payments-twochain    r1 neutral  delete  n=4  2.474s
+  [12/16] payments-twochain    r1 neutral  addonly n=4  2.467s
+  [12/16] payments-twochain    r1 neutral  wiki    n=4  2.424s
+  [13/16] payments-twochain    r3 restated full    n=4  2.437s
+  [13/16] payments-twochain    r3 restated delete  n=4  2.464s
+  [13/16] payments-twochain    r3 restated addonly n=4  2.423s
+  [13/16] payments-twochain    r3 restated wiki    n=4  2.44s
+  [13/16] payments-twochain    r3 neutral  full    n=4  2.423s
+  [13/16] payments-twochain    r3 neutral  delete  n=4  2.42s
+  [13/16] payments-twochain    r3 neutral  addonly n=4  2.404s
+  [13/16] payments-twochain    r3 neutral  wiki    n=4  2.455s
+  [14/16] payments-star        r0 restated full    n=4  2.464s
+  [14/16] payments-star        r0 restated delete  n=4  2.454s
+  [14/16] payments-star        r0 restated addonly n=4  2.438s
+  [14/16] payments-star        r0 restated wiki    n=4  2.479s
+  [14/16] payments-star        r0 neutral  full    n=4  2.441s
+  [14/16] payments-star        r0 neutral  delete  n=4  2.446s
+  [14/16] payments-star        r0 neutral  addonly n=4  2.403s
+  [14/16] payments-star        r0 neutral  wiki    n=4  2.482s
+  [15/16] payments-star        r1 restated full    n=4  2.505s
+  [15/16] payments-star        r1 restated delete  n=4  2.42s
+  [15/16] payments-star        r1 restated addonly n=4  2.46s
+  [15/16] payments-star        r1 restated wiki    n=4  2.45s
+  [15/16] payments-star        r1 neutral  full    n=4  2.487s
+  [15/16] payments-star        r1 neutral  delete  n=4  2.502s
+  [15/16] payments-star        r1 neutral  addonly n=4  2.452s
+  [15/16] payments-star        r1 neutral  wiki    n=4  2.455s
+  [16/16] payments-star        r3 restated full    n=4  2.483s
+  [16/16] payments-star        r3 restated delete  n=4  2.462s
+  [16/16] payments-star        r3 restated addonly n=4  2.449s
+  [16/16] payments-star        r3 restated wiki    n=4  2.469s
+  [16/16] payments-star        r3 neutral  full    n=4  2.446s
+  [16/16] payments-star        r3 neutral  delete  n=4  2.432s
+  [16/16] payments-star        r3 neutral  addonly n=4  2.433s
+  [16/16] payments-star        r3 neutral  wiki    n=4  2.425s
+
+  wrote results/e29_qwen25-7b-instruct_o0.csv / .json
+  design   arm       n   rejected_included
+  full     restated  16  0.5              
+  full     neutral   16  0.5              
+  delete   restated  16  1                
+  delete   neutral   16  0.625            
+  addonly  restated  16  0.688            
+  addonly  neutral   16  0.688            
+  wiki     restated  16  0.625            
+  wiki     neutral   16  0.375            
+
+  parse 1.000   mean |plan| 4.00

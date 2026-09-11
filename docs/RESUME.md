@@ -1,5 +1,73 @@
 # RESUME — where the work stands, and exactly what to do next
 
+# 2026-09-11 — E29: first candidate through the repaired gate, run on two deciders, DESIGN-DEPENDENT
+
+**Where it came from.** A reading pass over four repositories the author
+brought in (google-research/timesfm, nashsu/llm_wiki, mem0ai/mem0,
+cosmtrek/mindwalk), done the way E24 was found: read what the field's
+artifacts actually do, not what their papers say. Verified facts, all from
+source: Mem0 OSS v3 (April 2026) is **ADD-only** with no recency weighting
+and stores agent utterances at equal weight, while the Mem0 *paper* pipeline
+that everyone cites hard-deletes on contradiction with no tombstone; llm_wiki
+merges pages in place and queues contradictions for a human; mindwalk is a
+session replay tool whose judge may only report evidence-anchored findings;
+TimesFM has no fit here (no prior work on LLM traces, non-competitive as a
+zero-shot anomaly detector). Recorded in memory and in
+`docs/protocols/E29-memory-semantics.md` §0.
+
+**The gate ran first**, under `docs/NOVELTY-GATE.md`, with twelve papers read
+in full text by section (2609.04875, 2608.08236, 2605.06527, 2606.15903,
+2604.20006, 2606.24322, 2606.27472, 2605.10481, 2608.19701, 2606.01435,
+2609.03340, 2607.02579). Every component of the claim is occupied somewhere;
+the conjunction — a *partner's* content-bearing restatement of a step
+*rejected in dialogue*, delivered through hard-delete / add-only / merge-page /
+full-context designs, read on an executable plan by 3B–7B deciders as a DiD
+against a neutral line — was found nowhere. **Decision: candidate for testing,
+residual NARROW.** Six further papers are abstract-level only and are named as
+the coverage limit.
+
+**Declared with zero outcomes at `b905fb6`, run the same day.** 96 E16
+dialogues with a rejected slot × 2 arms × 4 designs = 768 calls per decider,
+oracle stores from the scorer's tags, `pin4`, temperature 0.
+
+| decider | Δ_full | DiD_delete | DiD_addonly | DiD_wiki | verdict |
+|---|---|---|---|---|---|
+| llama3.2:3b | −0.083 | **+0.438** [+0.312, +0.562] | +0.094 [−0.010, +0.198] | **+0.188** [+0.073, +0.312] | DESIGN-DEPENDENT |
+| qwen2.5:7b-instruct | −0.073 | **+0.375** [+0.271, +0.490] | +0.042 [−0.052, +0.135] | **+0.156** [+0.042, +0.281] | DESIGN-DEPENDENT |
+
+Parse 1.000 and |plan| 4.00 in every cell of both. Under write-time delete
+the rejection is consumed by the DELETE, the later mention is stored with
+nothing to contradict it, and the rejected step goes from the never-mentioned
+floor (0.60 / 0.58) to **0.96 / 0.89** of plans. Under full context the *same
+line lowers* relapse in both deciders, a sign the predictions got wrong.
+
+**Caveats that travel with the number.** Stores are semantic ideals, not a
+real extractor's output (arXiv:2606.15903 App. P reports Mem0's router
+under-deletes, which would move `delete` toward `addonly`). Cross-design
+*levels* mix design with rendering explicitness; only the within-design DiD is
+read. Two deciders, one corpus, one pinned length. Products are not run,
+their semantics are re-implemented from source.
+
+**Ledger.** 23 gated. 22 closed. **E29 stands as a candidate with a supported,
+narrow residual**, subject to the coverage limit; whether it is carried as an
+original result is the author's call, and the abstract-level papers should be
+read in full before that call.
+
+**Deliverable for the course.** The *Zombie Constraint X-ray* page
+(scratchpad `zombie_xray.html`, built by `xray_data.py` + `inject.py` from the
+result files, every number recomputed): real E16 transcripts, the six models'
+actual plans, the E18-B ladder, and the E29 rows. Publishing it as an
+artifact was blocked by the tool permission classifier this session; the file
+was sent to the author directly.
+
+**Next, if anything.** (1) Stage 2: a real small extractor running the three
+write paths on the same 96 dialogues, measuring DELETE-on-rejection and
+re-ADD-on-restatement rates — its own declaration. (2) Read the six
+abstract-level papers in full. (3) The negative Δ_full deserves one cheap
+follow-up: is it the "for the record" framing, or any late mention?
+
+---
+
 # 2026-09-07 — the benchmark-composition line (E24), the best result of the sprint
 
 **Method change that finally paid.** For eighteen candidates the loop was

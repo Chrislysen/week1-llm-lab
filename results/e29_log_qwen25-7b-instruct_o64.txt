@@ -1,0 +1,143 @@
+=== E29 memory semantics: qwen2.5:7b-instruct, 16 dialogues x 2 arms x 4 designs = 128 calls ===
+
+  [ 1/16] brewery-chain        r0 restated full    n=4  2.564s
+  [ 1/16] brewery-chain        r0 restated delete  n=4  2.465s
+  [ 1/16] brewery-chain        r0 restated addonly n=4  2.512s
+  [ 1/16] brewery-chain        r0 restated wiki    n=4  2.494s
+  [ 1/16] brewery-chain        r0 neutral  full    n=4  2.489s
+  [ 1/16] brewery-chain        r0 neutral  delete  n=4  2.471s
+  [ 1/16] brewery-chain        r0 neutral  addonly n=4  2.446s
+  [ 1/16] brewery-chain        r0 neutral  wiki    n=4  2.489s
+  [ 2/16] brewery-chain        r1 restated full    n=4  2.493s
+  [ 2/16] brewery-chain        r1 restated delete  n=4  2.492s
+  [ 2/16] brewery-chain        r1 restated addonly n=4  2.486s
+  [ 2/16] brewery-chain        r1 restated wiki    n=4  2.511s
+  [ 2/16] brewery-chain        r1 neutral  full    n=4  2.432s
+  [ 2/16] brewery-chain        r1 neutral  delete  n=4  2.458s
+  [ 2/16] brewery-chain        r1 neutral  addonly n=4  2.444s
+  [ 2/16] brewery-chain        r1 neutral  wiki    n=4  2.499s
+  [ 3/16] brewery-fork         r0 restated full    n=4  2.486s
+  [ 3/16] brewery-fork         r0 restated delete  n=4  2.505s
+  [ 3/16] brewery-fork         r0 restated addonly n=4  2.438s
+  [ 3/16] brewery-fork         r0 restated wiki    n=4  2.458s
+  [ 3/16] brewery-fork         r0 neutral  full    n=4  2.507s
+  [ 3/16] brewery-fork         r0 neutral  delete  n=4  2.46s
+  [ 3/16] brewery-fork         r0 neutral  addonly n=4  2.435s
+  [ 3/16] brewery-fork         r0 neutral  wiki    n=4  2.509s
+  [ 4/16] brewery-fork         r1 restated full    n=4  2.486s
+  [ 4/16] brewery-fork         r1 restated delete  n=4  2.5s
+  [ 4/16] brewery-fork         r1 restated addonly n=4  2.475s
+  [ 4/16] brewery-fork         r1 restated wiki    n=4  2.515s
+  [ 4/16] brewery-fork         r1 neutral  full    n=4  2.514s
+  [ 4/16] brewery-fork         r1 neutral  delete  n=4  2.5s
+  [ 4/16] brewery-fork         r1 neutral  addonly n=4  2.489s
+  [ 4/16] brewery-fork         r1 neutral  wiki    n=4  2.533s
+  [ 5/16] brewery-join         r0 restated full    n=4  2.48s
+  [ 5/16] brewery-join         r0 restated delete  n=4  2.475s
+  [ 5/16] brewery-join         r0 restated addonly n=4  2.493s
+  [ 5/16] brewery-join         r0 restated wiki    n=4  2.473s
+  [ 5/16] brewery-join         r0 neutral  full    n=4  2.475s
+  [ 5/16] brewery-join         r0 neutral  delete  n=4  2.469s
+  [ 5/16] brewery-join         r0 neutral  addonly n=4  2.461s
+  [ 5/16] brewery-join         r0 neutral  wiki    n=4  2.479s
+  [ 6/16] brewery-join         r1 restated full    n=4  2.477s
+  [ 6/16] brewery-join         r1 restated delete  n=4  2.521s
+  [ 6/16] brewery-join         r1 restated addonly n=4  2.459s
+  [ 6/16] brewery-join         r1 restated wiki    n=4  2.505s
+  [ 6/16] brewery-join         r1 neutral  full    n=4  2.448s
+  [ 6/16] brewery-join         r1 neutral  delete  n=4  2.46s
+  [ 6/16] brewery-join         r1 neutral  addonly n=4  2.484s
+  [ 6/16] brewery-join         r1 neutral  wiki    n=4  2.469s
+  [ 7/16] brewery-join         r3 restated full    n=4  2.517s
+  [ 7/16] brewery-join         r3 restated delete  n=4  2.485s
+  [ 7/16] brewery-join         r3 restated addonly n=4  2.455s
+  [ 7/16] brewery-join         r3 restated wiki    n=4  2.487s
+  [ 7/16] brewery-join         r3 neutral  full    n=4  2.47s
+  [ 7/16] brewery-join         r3 neutral  delete  n=4  2.504s
+  [ 7/16] brewery-join         r3 neutral  addonly n=4  2.462s
+  [ 7/16] brewery-join         r3 neutral  wiki    n=4  2.475s
+  [ 8/16] brewery-diamond      r0 restated full    n=4  2.506s
+  [ 8/16] brewery-diamond      r0 restated delete  n=4  2.434s
+  [ 8/16] brewery-diamond      r0 restated addonly n=4  2.479s
+  [ 8/16] brewery-diamond      r0 restated wiki    n=4  2.466s
+  [ 8/16] brewery-diamond      r0 neutral  full    n=4  2.483s
+  [ 8/16] brewery-diamond      r0 neutral  delete  n=4  2.501s
+  [ 8/16] brewery-diamond      r0 neutral  addonly n=4  2.447s
+  [ 8/16] brewery-diamond      r0 neutral  wiki    n=4  2.476s
+  [ 9/16] brewery-diamond      r1 restated full    n=4  2.459s
+  [ 9/16] brewery-diamond      r1 restated delete  n=4  2.485s
+  [ 9/16] brewery-diamond      r1 restated addonly n=4  2.501s
+  [ 9/16] brewery-diamond      r1 restated wiki    n=4  2.48s
+  [ 9/16] brewery-diamond      r1 neutral  full    n=4  2.466s
+  [ 9/16] brewery-diamond      r1 neutral  delete  n=4  2.484s
+  [ 9/16] brewery-diamond      r1 neutral  addonly n=4  2.436s
+  [ 9/16] brewery-diamond      r1 neutral  wiki    n=4  2.479s
+  [10/16] brewery-diamond      r3 restated full    n=4  2.505s
+  [10/16] brewery-diamond      r3 restated delete  n=4  2.463s
+  [10/16] brewery-diamond      r3 restated addonly n=4  2.458s
+  [10/16] brewery-diamond      r3 restated wiki    n=4  2.487s
+  [10/16] brewery-diamond      r3 neutral  full    n=4  2.473s
+  [10/16] brewery-diamond      r3 neutral  delete  n=4  2.466s
+  [10/16] brewery-diamond      r3 neutral  addonly n=4  2.482s
+  [10/16] brewery-diamond      r3 neutral  wiki    n=4  2.435s
+  [11/16] brewery-twochain     r0 restated full    n=4  2.514s
+  [11/16] brewery-twochain     r0 restated delete  n=4  2.469s
+  [11/16] brewery-twochain     r0 restated addonly n=4  2.46s
+  [11/16] brewery-twochain     r0 restated wiki    n=4  2.507s
+  [11/16] brewery-twochain     r0 neutral  full    n=4  2.525s
+  [11/16] brewery-twochain     r0 neutral  delete  n=4  2.486s
+  [11/16] brewery-twochain     r0 neutral  addonly n=4  2.45s
+  [11/16] brewery-twochain     r0 neutral  wiki    n=4  2.493s
+  [12/16] brewery-twochain     r1 restated full    n=4  2.462s
+  [12/16] brewery-twochain     r1 restated delete  n=4  2.471s
+  [12/16] brewery-twochain     r1 restated addonly n=4  2.492s
+  [12/16] brewery-twochain     r1 restated wiki    n=4  2.478s
+  [12/16] brewery-twochain     r1 neutral  full    n=4  2.46s
+  [12/16] brewery-twochain     r1 neutral  delete  n=4  2.486s
+  [12/16] brewery-twochain     r1 neutral  addonly n=4  2.45s
+  [12/16] brewery-twochain     r1 neutral  wiki    n=4  2.477s
+  [13/16] brewery-twochain     r3 restated full    n=4  2.484s
+  [13/16] brewery-twochain     r3 restated delete  n=4  2.477s
+  [13/16] brewery-twochain     r3 restated addonly n=4  2.514s
+  [13/16] brewery-twochain     r3 restated wiki    n=4  2.484s
+  [13/16] brewery-twochain     r3 neutral  full    n=4  2.483s
+  [13/16] brewery-twochain     r3 neutral  delete  n=4  2.49s
+  [13/16] brewery-twochain     r3 neutral  addonly n=4  2.5s
+  [13/16] brewery-twochain     r3 neutral  wiki    n=4  2.485s
+  [14/16] brewery-star         r0 restated full    n=4  2.518s
+  [14/16] brewery-star         r0 restated delete  n=4  2.483s
+  [14/16] brewery-star         r0 restated addonly n=4  2.498s
+  [14/16] brewery-star         r0 restated wiki    n=4  2.485s
+  [14/16] brewery-star         r0 neutral  full    n=4  2.479s
+  [14/16] brewery-star         r0 neutral  delete  n=4  2.503s
+  [14/16] brewery-star         r0 neutral  addonly n=4  2.456s
+  [14/16] brewery-star         r0 neutral  wiki    n=4  2.43s
+  [15/16] brewery-star         r1 restated full    n=4  2.466s
+  [15/16] brewery-star         r1 restated delete  n=4  2.441s
+  [15/16] brewery-star         r1 restated addonly n=4  2.471s
+  [15/16] brewery-star         r1 restated wiki    n=4  2.518s
+  [15/16] brewery-star         r1 neutral  full    n=4  2.503s
+  [15/16] brewery-star         r1 neutral  delete  n=4  2.462s
+  [15/16] brewery-star         r1 neutral  addonly n=4  2.483s
+  [15/16] brewery-star         r1 neutral  wiki    n=4  2.476s
+  [16/16] brewery-star         r3 restated full    n=4  2.467s
+  [16/16] brewery-star         r3 restated delete  n=4  2.46s
+  [16/16] brewery-star         r3 restated addonly n=4  2.491s
+  [16/16] brewery-star         r3 restated wiki    n=4  2.486s
+  [16/16] brewery-star         r3 neutral  full    n=4  2.482s
+  [16/16] brewery-star         r3 neutral  delete  n=4  2.461s
+  [16/16] brewery-star         r3 neutral  addonly n=4  2.447s
+  [16/16] brewery-star         r3 neutral  wiki    n=4  2.537s
+
+  wrote results/e29_qwen25-7b-instruct_o64.csv / .json
+  design   arm       n   rejected_included
+  full     restated  16  0.375            
+  full     neutral   16  0.375            
+  delete   restated  16  1                
+  delete   neutral   16  0.688            
+  addonly  restated  16  0.375            
+  addonly  neutral   16  0.5              
+  wiki     restated  16  0.562            
+  wiki     neutral   16  0.438            
+
+  parse 1.000   mean |plan| 4.00

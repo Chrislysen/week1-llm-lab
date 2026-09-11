@@ -299,3 +299,52 @@ the abstract-level coverage limit in §0.3 stands.
 
 `qwen2.5:7b-instruct` is declared above and is run next under the same
 allocation; its outcome is appended below when complete.
+
+---
+
+## Outcome — `qwen2.5:7b-instruct`, run 2026-09-11
+
+**Verdict by the declared rule: DESIGN-DEPENDENT.** 768 of 768 scheduled calls
+in six foreground chunks (`results/e29_qwen25-7b-instruct_o{0,16,32,48,64,80}.csv/.json`,
+logs alongside). Parse rate **1.000** in all eight cells; mean |plan| 4.00 in
+seven cells and 3.99 in one; no cell VOID; 0 parse retries; 96 of 96 dialogues
+complete. Summary in `results/e29_qwen25-7b-instruct_summary.json`.
+
+### Rejected-step inclusion, n = 96 paired dialogues per cell
+
+| design | restated | neutral | Δ | 95 % CI | **DiD vs full** | 95 % CI |
+|---|---|---|---|---|---|---|
+| full | 0.240 | 0.312 | −0.073 | [−0.146, −0.010] | reference | |
+| **delete** | **0.885** | 0.583 | **+0.302** | [+0.208, +0.396] | **+0.375** | **[+0.271, +0.490]** |
+| addonly | 0.312 | 0.344 | −0.031 | [−0.094, +0.031] | +0.042 | [−0.052, +0.135] |
+| **wiki** | 0.354 | 0.271 | +0.083 | [+0.000, +0.177] | **+0.156** | **[+0.042, +0.281]** |
+
+### Predictions against outcome
+
+P1, P2, P4, P6 confirmed as for the 3B (Δ_delete +0.302; DiD_delete +0.375;
+DiD_addonly +0.042 inside the partial band and below delete; `delete`/neutral
+0.583 against that cell's `never` 0.625, inside ±0.10). **P3 wrong on sign
+again**: Δ_full = −0.073 with an interval excluding zero. **P5 not confirmed
+again**: DiD_wiki +0.156 against DiD_addonly +0.042, though the wiki interval
+[+0.042, +0.281] only just clears the 0.15 threshold at the point estimate.
+
+### The two deciders agree
+
+| | Δ_full | DiD_delete | DiD_addonly | DiD_wiki |
+|---|---|---|---|---|
+| llama3.2:3b | −0.083 | +0.438 | +0.094 | +0.188 |
+| qwen2.5:7b-instruct | −0.073 | +0.375 | +0.042 | +0.156 |
+
+Same ordering, same signs, in two families. The write-time delete effect is
+the large one in both; the merge-page effect clears the declared threshold in
+both but sits near it; add-only is partial in both; and in both the same
+restatement line *lowers* relapse when the whole transcript is visible.
+
+### Standing
+
+Two deciders, two families, one corpus, oracle stores, one pinned length. The
+residual in §0.5 is **supported for `delete` and `wiki` in both deciders** and
+**partial for `addonly` in both**. The rendering caveat, the extractor caveat
+and the coverage limit stated for the 3B all stand unchanged. Nothing here is a
+model-size claim, and nothing here runs a real extractor or a shipped product.
+No further arm is authorised by this protocol.

@@ -1,0 +1,521 @@
+<title>Zombie Constraint X-ray</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --ground: #EDF0F3;
+    --surface: #FFFFFF;
+    --surface-2: #F5F7F9;
+    --ink: #16212B;
+    --muted: #5B6B7A;
+    --line: #CFD6DD;
+    --line-strong: #9FAAB5;
+    --zombie: #C8461B;
+    --zombie-soft: #FBE7DE;
+    --ok: #0E7C6B;
+    --ok-soft: #DDF2EE;
+    --proposed: #3A5F9E;
+    --proposed-soft: #E1E9F6;
+    --never: #7D8A97;
+    --never-soft: #E8ECF0;
+    --focus: #3A5F9E;
+    --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+    --mono: "IBM Plex Mono", "Consolas", "Menlo", monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0E141B;
+      --surface: #151D26;
+      --surface-2: #1B2530;
+      --ink: #E7ECF1;
+      --muted: #9AA8B5;
+      --line: #2A3541;
+      --line-strong: #46556A;
+      --zombie: #F07A4A;
+      --zombie-soft: #3A1F14;
+      --ok: #3CC5AE;
+      --ok-soft: #12312C;
+      --proposed: #7FA3E6;
+      --proposed-soft: #1B2A42;
+      --never: #8C99A6;
+      --never-soft: #232D38;
+      --focus: #7FA3E6;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #0E141B;
+    --surface: #151D26;
+    --surface-2: #1B2530;
+    --ink: #E7ECF1;
+    --muted: #9AA8B5;
+    --line: #2A3541;
+    --line-strong: #46556A;
+    --zombie: #F07A4A;
+    --zombie-soft: #3A1F14;
+    --ok: #3CC5AE;
+    --ok-soft: #12312C;
+    --proposed: #7FA3E6;
+    --proposed-soft: #1B2A42;
+    --never: #8C99A6;
+    --never-soft: #232D38;
+    --focus: #7FA3E6;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--proposed); }
+  :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 32px 24px 64px; display: grid; gap: 28px; }
+
+  header.mast { display: grid; gap: 10px; padding: 8px 0 4px; border-bottom: 1px solid var(--line-strong); }
+  .eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  h1 { font-family: var(--display); font-weight: 700; font-size: clamp(30px, 4.2vw, 44px); line-height: 1.05; letter-spacing: -.02em; margin: 0; text-wrap: balance; }
+  .thesis { max-width: 62ch; margin: 0; font-size: 18px; color: var(--ink); }
+  .thesis em { font-style: italic; }
+  .mast-meta { display: flex; flex-wrap: wrap; gap: 8px 22px; font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
+  .mast-meta b { color: var(--ink); font-weight: 500; }
+
+  section.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 22px 24px 24px; display: grid; gap: 16px; }
+  .panel-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 18px; }
+  h2 { font-family: var(--display); font-weight: 600; font-size: 22px; letter-spacing: -.01em; margin: 0; text-wrap: balance; }
+  .panel p { max-width: 68ch; margin: 0; }
+  .muted { color: var(--muted); }
+
+  /* ---- dialogue panel ---- */
+  .controls { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; }
+  select, button {
+    font: inherit; font-size: 14.5px; color: var(--ink); background: var(--surface-2);
+    border: 1px solid var(--line-strong); border-radius: 4px; padding: 6px 10px;
+  }
+  button { cursor: pointer; }
+  button:hover { border-color: var(--ink); }
+  .two { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 22px; }
+  @media (max-width: 860px) { .two { grid-template-columns: 1fr; } }
+
+  .transcript { display: grid; gap: 0; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
+  .turn { display: grid; grid-template-columns: 22px 1fr auto; gap: 10px; align-items: start; padding: 9px 12px; border-top: 1px solid var(--line); background: var(--surface); }
+  .turn:first-child { border-top: 0; }
+  .turn .idx { font-family: var(--mono); font-size: 11.5px; color: var(--muted); padding-top: 4px; }
+  .turn .who { font-family: var(--display); font-weight: 600; font-size: 13px; letter-spacing: .01em; color: var(--muted); display: block; }
+  .turn .txt { font-size: 15.5px; }
+  .turn.is-noise .txt { color: var(--muted); }
+  .turn.is-rejected-block { background: var(--zombie-soft); }
+  .turn.is-accepted-block { background: var(--ok-soft); }
+  .turn.is-proposed-block { background: var(--proposed-soft); }
+  .tag { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; text-transform: uppercase; white-space: nowrap; padding: 3px 7px; border-radius: 3px; border: 1px solid transparent; align-self: start; margin-top: 2px; }
+  .tag.noise { color: var(--never); border-color: var(--line); }
+  .tag.prop { color: var(--proposed); border-color: var(--proposed); }
+  .tag.acc { color: var(--ok); border-color: var(--ok); }
+  .tag.rej { color: var(--zombie); border-color: var(--zombie); font-weight: 500; }
+
+  .plans { display: grid; gap: 8px; align-content: start; }
+  .plan-row { display: grid; grid-template-columns: 150px 1fr; gap: 10px; align-items: center; padding: 8px 10px; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); }
+  .plan-row.carries { border-color: var(--zombie); }
+  .plan-row .m { display: grid; line-height: 1.2; }
+  .plan-row .m b { font-family: var(--display); font-weight: 600; font-size: 13.5px; }
+  .plan-row .m span { font-family: var(--mono); font-size: 11.5px; color: var(--muted); }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { font-family: var(--mono); font-size: 12px; padding: 4px 7px; border-radius: 3px; border: 1px solid var(--line-strong); background: var(--surface-2); color: var(--ink); }
+  .chip.z { background: var(--zombie); border-color: var(--zombie); color: #fff; font-weight: 500; }
+  .chip.a { border-color: var(--ok); color: var(--ok); }
+  .chip.p { border-color: var(--proposed); color: var(--proposed); }
+  .chip.n { color: var(--muted); }
+  .verdict { font-size: 12.5px; color: var(--muted); grid-column: 1 / -1; margin-top: -2px; }
+  .verdict b { color: var(--zombie); font-weight: 600; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 13px; color: var(--muted); align-items: center; }
+  .legend .chip { font-size: 11px; padding: 2px 6px; }
+  .units { display: flex; flex-wrap: wrap; gap: 8px; font-family: var(--mono); font-size: 12.5px; }
+  .units span { padding: 3px 8px; border-radius: 3px; background: var(--surface-2); border: 1px solid var(--line); }
+  .units span.rej { border-color: var(--zombie); color: var(--zombie); }
+  .units span.acc { border-color: var(--ok); color: var(--ok); }
+  .units span.prop { border-color: var(--proposed); color: var(--proposed); }
+  .units span.nev { color: var(--muted); }
+
+  /* ---- chart panel ---- */
+  .chart-wrap { overflow-x: auto; }
+  svg.ladder { width: 100%; max-width: 900px; height: auto; display: block; font-family: var(--body); }
+  svg.ladder text { fill: var(--ink); font-size: 13px; }
+  svg.ladder text.m { font-family: var(--mono); font-size: 12px; fill: var(--muted); }
+  svg.ladder text.lab { font-family: var(--display); font-weight: 600; font-size: 13px; }
+  svg.ladder line.grid { stroke: var(--line); stroke-width: 1; }
+  svg.ladder line.axis { stroke: var(--line-strong); stroke-width: 1; }
+  svg.ladder line.ci { stroke: var(--zombie); stroke-width: 2.5; stroke-linecap: round; }
+  svg.ladder circle.rej { fill: var(--zombie); }
+  svg.ladder rect.nev { fill: var(--never); }
+  svg.ladder path.acc { fill: var(--ok); }
+
+  table { border-collapse: collapse; width: 100%; font-size: 14.5px; font-variant-numeric: tabular-nums; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-family: var(--display); font-weight: 600; font-size: 12.5px; letter-spacing: .03em; text-transform: uppercase; color: var(--muted); }
+  td.num, th.num { text-align: right; font-family: var(--mono); font-size: 13.5px; }
+  td .ci { color: var(--muted); font-size: 12px; }
+  td.z { color: var(--zombie); font-weight: 500; }
+  .table-wrap { overflow-x: auto; }
+
+  /* ---- memory design panel ---- */
+  .design th:first-child, .design td:first-child { min-width: 180px; }
+  .design td { font-size: 14px; }
+  .design td code, .prov code { font-family: var(--mono); font-size: 12.5px; background: var(--surface-2); border: 1px solid var(--line); padding: 1px 5px; border-radius: 3px; }
+  .status { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 12.5px; padding: 5px 10px; border: 1px solid var(--line-strong); border-radius: 3px; background: var(--surface-2); }
+  .status i { width: 8px; height: 8px; border-radius: 50%; background: var(--never); display: inline-block; }
+  .status.measured i { background: var(--ok); }
+  .status.pending i { background: var(--zombie); }
+  .callout { border-left: 3px solid var(--proposed); padding: 6px 14px; background: var(--surface-2); max-width: 72ch; }
+
+  .prov { display: grid; gap: 8px; font-size: 14.5px; }
+  .prov li { margin: 0 0 4px; }
+  footer { color: var(--muted); font-size: 13px; font-family: var(--mono); }
+</style>
+
+<div class="wrap">
+  <header class="mast">
+    <div class="eyebrow">week1-llm-lab · E16 corpus · E17 / E18 pinned-length runs · deterministic scorer, no LLM judge</div>
+    <h1>Zombie Constraint X-ray</h1>
+    <p class="thesis">Two colleagues plan an incident recovery. One proposes a step; the other <em>explicitly rejects it</em>, and nobody brings it back. Six small local models then write the plan with the whole conversation in front of them. How often does the rejected step come back from the dead?</p>
+    <div class="mast-meta">
+      <span>corpus <b id="hash"></b></span>
+      <span>dialogues <b>144</b> · 36 instances × 4 rotations · 6 domains</span>
+      <span>rejected units per model <b>96</b></span>
+      <span>plan length pinned at <b>4</b> · temperature <b>0</b> · |vocab| <b>6</b></span>
+    </div>
+  </header>
+
+  <section class="panel" aria-labelledby="h-dialogue">
+    <div class="panel-head">
+      <h2 id="h-dialogue">One dialogue, six plans</h2>
+      <div class="controls">
+        <label for="pick" class="muted">Dialogue</label>
+        <select id="pick" aria-label="Choose a dialogue"></select>
+        <button id="prev" type="button" aria-label="Previous dialogue">‹ prev</button>
+        <button id="next" type="button" aria-label="Next dialogue">next ›</button>
+      </div>
+    </div>
+    <p>Every line the models saw is on the left, exactly as rendered; the scorer's hidden tags are shown beside each line. On the right is each model's real output for this dialogue. A step the Safety Auditor or Operations Lead rejected is marked in orange wherever a model put it back in the plan.</p>
+    <div class="units" id="units" aria-label="Constraint statuses in this dialogue"></div>
+    <div class="two">
+      <div class="transcript" id="transcript" role="list"></div>
+      <div class="plans" id="plans"></div>
+    </div>
+    <div class="legend">
+      <span><span class="chip z">STEP</span> rejected in the dialogue, still in the plan</span>
+      <span><span class="chip a">STEP</span> accepted, in the plan</span>
+      <span><span class="chip p">STEP</span> proposed with no reply</span>
+      <span><span class="chip n">STEP</span> never mentioned</span>
+    </div>
+  </section>
+
+  <section class="panel" aria-labelledby="h-ladder">
+    <div class="panel-head">
+      <h2 id="h-ladder">Across all 144 dialogues</h2>
+      <span class="muted">inclusion rate of the action, by how the dialogue treated it</span>
+    </div>
+    <p>Each model saw every dialogue in full. The orange dot is how often a <b>rejected</b> step was still in the plan, with a 95% Wilson interval. The grey mark is the same model's rate for steps that were <b>never mentioned</b>, the chance floor for a four-slot plan drawn from six identifiers. The teal mark is for <b>accepted</b> steps.</p>
+    <div class="chart-wrap"><svg class="ladder" id="ladder" viewBox="0 0 900 360" role="img" aria-label="Rejected-step inclusion rate per model with confidence intervals"></svg></div>
+    <div class="table-wrap">
+      <table id="ratetab">
+        <thead><tr>
+          <th>model</th><th>size</th>
+          <th class="num">rejected</th><th class="num">95% CI</th>
+          <th class="num">never</th><th class="num">accepted</th><th class="num">proposed</th><th class="num">mean |plan|</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="muted">Within one family the effect falls with scale (qwen2.5 3B → 7B → 14B), which replicates arXiv:2608.12599 with length controlled. Across families it does not: the smallest model here, gemma4:e4b, has the lowest relapse of the six. Both findings are replications and bounds of published work, not novelty claims.</p>
+  </section>
+
+  <section class="panel" aria-labelledby="h-memory">
+    <div class="panel-head">
+      <h2 id="h-memory">Where memory design enters</h2>
+      <span class="status pending" id="e29status"><i></i><span>E29 · not declared · not run</span></span>
+    </div>
+    <p>The runs above give every model the raw transcript. Deployed agents do not work that way: a memory layer sits between the conversation and the decision, and each popular design does something different with a step that was proposed and then rejected. The rows below are read from each system's source, not inferred.</p>
+    <div class="table-wrap">
+      <table class="design">
+        <thead><tr>
+          <th>design</th><th>after the rejection turn</th><th>if a partner later restates the step</th><th>at decision time</th><th>status here</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td><b>Full raw context</b><br><span class="muted">the arm measured above</span></td>
+            <td>Proposal and rejection both stay in the window, adjacent.</td>
+            <td>The restatement is one more line; the rejection is still present.</td>
+            <td>The decider resolves the conflict itself while writing the plan.</td>
+            <td><span class="status measured"><i></i>measured, 6 models</span></td>
+          </tr>
+          <tr>
+            <td><b>Write-time delete</b><br><span class="muted">Mem0 paper pipeline, arXiv:2504.19413 · <code>DEFAULT_UPDATE_MEMORY_PROMPT</code></span></td>
+            <td>An LLM compares the new fact with retrieved memories and may <code>DELETE</code> the proposal. The delete is hard: no tombstone, and the update prompt is only ever shown live memories.</td>
+            <td>Nothing in the store contradicts it any more, so the restatement is <code>ADD</code>ed as a fresh fact.</td>
+            <td>The decider sees only what survived; the rejection itself was never a stored fact.</td>
+            <td><span class="status"><i></i>semantics traced · not run</span></td>
+          </tr>
+          <tr>
+            <td><b>Add-only, no recency ranking</b><br><span class="muted">Mem0 OSS v3, April 2026 · <code>ADDITIVE_EXTRACTION_PROMPT</code></span></td>
+            <td>No <code>UPDATE</code> or <code>DELETE</code> exists. Proposal and rejection both become memories, if the extractor emits them at all. Agent utterances are stored "with equal weight".</td>
+            <td>One more copy of the stale step, retrieved by similarity alone; <code>attributed_to</code> is stored but unused in ranking and temporal features raise an error in OSS.</td>
+            <td>The decider gets the top-k by similarity and must resolve the conflict from copies.</td>
+            <td><span class="status"><i></i>semantics traced · not run</span></td>
+          </tr>
+          <tr>
+            <td><b>Merge-in-place page</b><br><span class="muted">Karpathy LLM-wiki pattern, nashsu/llm_wiki · <code>src/lib/ingest.ts</code></span></td>
+            <td>The step's page is merged "old + new instead of clobbering". Contradictions are not written into the page; they become review items for a human.</td>
+            <td>Merged into the same page. With no human reviewing, the contradiction stays queued and both versions coexist.</td>
+            <td>The decider reads a page that holds the proposal and its rejection side by side.</td>
+            <td><span class="status"><i></i>semantics traced · not run</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="e29block" hidden>
+      <p><b>E29, measured.</b> The same 96 dialogues, each rendered twice: once with the original proposer restating the rejected step late in the conversation, once with a length-matched neutral line in the same slot. Each version was delivered to the decider through the four designs above, with every store built from the scorer's own tags so it is the design's semantic ideal. The estimate is the difference-in-differences: how much more the restatement raises relapse under a design than it does under full context.</p>
+      <div class="table-wrap">
+        <table id="e29tab">
+          <thead><tr>
+            <th>design</th><th class="num">restated</th><th class="num">neutral</th><th class="num">Δ restated − neutral</th><th class="num">95% CI</th><th class="num">DiD vs full</th><th class="num">95% CI</th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p class="muted" id="e29note"></p>
+    </div>
+    <div class="callout" id="e29pending">
+      <p><b>The question E29 asks.</b> Does a partner's later restatement of a rejected step raise the relapse rate by an amount that depends on the memory design, measured as a difference-in-differences against the full-context arm above? The rows above will be filled in with measured rates only after the declared protocol has run.</p>
+    </div>
+  </section>
+
+  <section class="panel prov" aria-labelledby="h-prov">
+    <h2 id="h-prov">How to check every number here</h2>
+    <ul>
+      <li>Rates are recomputed from the per-unit result files, never copied from a report: <code>results/e17_&lt;model&gt;_v6_pin4_o*.csv</code>, 384 rows per model, one per (dialogue, required constraint).</li>
+      <li>Plans on the first panel are the raw <code>output</code> field of the matching <code>.json</code> file for that dialogue and model.</li>
+      <li>Transcripts are regenerated by <code>lineage_e16.build_dialogue</code>; the corpus hash above is <code>lineage_e16.corpus_hash()</code> and the runs assert it at start.</li>
+      <li>Scoring is deterministic: a step is "included" if its identifier is in the plan's <code>actions</code> list. No language model judged anything on this page.</li>
+      <li>Wilson intervals at z = 1.96, n = 96 rejected units per model, computed in the extraction script that built this page.</li>
+    </ul>
+    <footer>Zombie Constraint X-ray · built from the repository's own artifacts · no new model calls were made to produce this page</footer>
+  </section>
+</div>
+
+<script id="xray-data" type="application/json">__DATA__</script>
+<script>
+(function () {
+  var D = JSON.parse(document.getElementById('xray-data').textContent);
+  var MODELS = D.models;
+  document.getElementById('hash').textContent = D.corpus_hash;
+
+  var dias = D.dialogues;
+  var byKey = {};
+  dias.forEach(function (d, i) { byKey[d.instance + '|' + d.rotation] = i; });
+  var order = [];
+  D.showcase.forEach(function (k) { order.push(byKey[k[0] + '|' + k[1]]); });
+  dias.forEach(function (d, i) { if (order.indexOf(i) < 0) order.push(i); });
+
+  var pick = document.getElementById('pick');
+  order.forEach(function (i, pos) {
+    var d = dias[i];
+    var o = document.createElement('option');
+    o.value = i;
+    o.textContent = (pos < D.showcase.length ? '★ ' : '') + d.instance + ' · rotation ' + d.rotation + ' · ' + d.domain;
+    pick.appendChild(o);
+  });
+
+  function statusOf(d, cid) {
+    for (var i = 0; i < d.units.length; i++) if (d.units[i].constraint === cid) return d.units[i];
+    return null;
+  }
+  function actionStatus(d, act) {
+    for (var i = 0; i < d.units.length; i++) if (d.units[i].action === act) return d.units[i].status;
+    return 'never';
+  }
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+
+  function render(i) {
+    var d = dias[i];
+    pick.value = i;
+
+    var units = document.getElementById('units');
+    units.innerHTML = '';
+    d.units.forEach(function (u) {
+      var cls = { rejected: 'rej', accepted: 'acc', proposed: 'prop', never: 'nev' }[u.status];
+      units.appendChild(el('span', cls, u.constraint + ' ' + u.action + ' · ' + u.status));
+    });
+
+    var t = document.getElementById('transcript');
+    t.innerHTML = '';
+    var lastProp = null;
+    d.turns.forEach(function (turn, idx) {
+      var row = el('div', 'turn'); row.setAttribute('role', 'listitem');
+      var tagText = '', tagCls = 'noise', blockCls = '';
+      if (turn.tag === 'proposal') {
+        var u = statusOf(d, turn.cid); lastProp = u;
+        tagText = 'proposal · ' + turn.cid; tagCls = 'prop';
+        blockCls = u.status === 'rejected' ? 'is-rejected-block' : u.status === 'accepted' ? 'is-accepted-block' : 'is-proposed-block';
+      } else if (turn.tag === 'reply') {
+        var u2 = statusOf(d, turn.cid);
+        tagText = (u2.status === 'rejected' ? 'rejected' : 'accepted') + ' · ' + turn.cid;
+        tagCls = u2.status === 'rejected' ? 'rej' : 'acc';
+        blockCls = u2.status === 'rejected' ? 'is-rejected-block' : 'is-accepted-block';
+      } else {
+        tagText = 'noise'; blockCls = 'is-noise';
+      }
+      row.className = 'turn ' + blockCls;
+      row.appendChild(el('span', 'idx', String(idx + 1)));
+      var body = el('div');
+      body.appendChild(el('span', 'who', turn.speaker));
+      body.appendChild(el('span', 'txt', turn.text));
+      row.appendChild(body);
+      row.appendChild(el('span', 'tag ' + tagCls, tagText));
+      t.appendChild(row);
+    });
+
+    var plans = document.getElementById('plans');
+    plans.innerHTML = '';
+    var rejectedActions = d.units.filter(function (u) { return u.status === 'rejected'; }).map(function (u) { return u.action; });
+    MODELS.forEach(function (m) {
+      var plan = d.plans[m] || {};
+      var actions = plan.actions || [];
+      var row = el('div', 'plan-row');
+      var mm = el('div', 'm');
+      mm.appendChild(el('b', null, m));
+      mm.appendChild(el('span', null, D.agg[m].size + ' · ready ' + (plan.ready === undefined ? '?' : String(plan.ready))));
+      row.appendChild(mm);
+      var chips = el('div', 'chips');
+      var carries = false;
+      actions.forEach(function (a) {
+        var st = actionStatus(d, a);
+        var cls = st === 'rejected' ? 'z' : st === 'accepted' ? 'a' : st === 'proposed' ? 'p' : 'n';
+        if (st === 'rejected') carries = true;
+        var c = el('span', 'chip ' + cls, a);
+        c.title = a + ' · ' + st + ' in this dialogue';
+        chips.appendChild(c);
+      });
+      row.appendChild(chips);
+      if (rejectedActions.length) {
+        var v = el('div', 'verdict');
+        if (carries) { v.appendChild(el('b', null, 'carries the rejected step')); v.appendChild(document.createTextNode(' · ' + rejectedActions.filter(function (a) { return actions.indexOf(a) >= 0; }).join(', '))); }
+        else { v.textContent = 'drops the rejected step'; }
+        row.appendChild(v);
+        if (carries) row.classList.add('carries');
+      }
+      plans.appendChild(row);
+    });
+  }
+
+  pick.addEventListener('change', function () { render(parseInt(pick.value, 10)); });
+  document.getElementById('prev').addEventListener('click', function () {
+    var pos = order.indexOf(parseInt(pick.value, 10)); render(order[(pos - 1 + order.length) % order.length]);
+  });
+  document.getElementById('next').addEventListener('click', function () {
+    var pos = order.indexOf(parseInt(pick.value, 10)); render(order[(pos + 1) % order.length]);
+  });
+  render(order[0]);
+
+  /* ---- ladder chart ---- */
+  var svg = document.getElementById('ladder');
+  var NS = 'http://www.w3.org/2000/svg';
+  function s(tag, attrs, text) {
+    var e = document.createElementNS(NS, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  var W = 900, H = 360, left = 250, right = 40, top = 34, bottom = 44;
+  var plotW = W - left - right, rowH = (H - top - bottom) / MODELS.length;
+  function x(v) { return left + v * plotW; }
+  for (var g = 0; g <= 10; g++) {
+    var v = g / 10, xx = x(v);
+    svg.appendChild(s('line', { x1: xx, y1: top - 6, x2: xx, y2: H - bottom, 'class': g === 0 ? 'axis' : 'grid' }));
+    svg.appendChild(s('text', { x: xx, y: H - bottom + 18, 'text-anchor': 'middle', 'class': 'm' }, v.toFixed(1)));
+  }
+  svg.appendChild(s('text', { x: left + plotW / 2, y: H - 6, 'text-anchor': 'middle', 'class': 'm' }, 'share of plans that include the step'));
+  MODELS.forEach(function (m, i) {
+    var a = D.agg[m], cy = top + rowH * i + rowH / 2;
+    svg.appendChild(s('text', { x: 12, y: cy + 4, 'class': 'lab' }, m));
+    svg.appendChild(s('text', { x: left - 14, y: cy + 4, 'text-anchor': 'end', 'class': 'm' }, a.size));
+    var nev = a.never.rate, acc = a.accepted.rate, rej = a.rejected.rate, ci = a.rejected.ci;
+    svg.appendChild(s('rect', { x: x(nev) - 4, y: cy - 7, width: 8, height: 14, 'class': 'nev' }));
+    var ax = x(acc); svg.appendChild(s('path', { d: 'M' + ax + ' ' + (cy - 8) + ' L' + (ax + 7) + ' ' + cy + ' L' + ax + ' ' + (cy + 8) + ' L' + (ax - 7) + ' ' + cy + ' Z', 'class': 'acc' }));
+    svg.appendChild(s('line', { x1: x(ci[0]), y1: cy, x2: x(ci[1]), y2: cy, 'class': 'ci' }));
+    svg.appendChild(s('circle', { cx: x(rej), cy: cy, r: 7, 'class': 'rej' }));
+    svg.appendChild(s('text', { x: x(ci[1]) + 12, y: cy + 4, 'class': 'm' }, rej.toFixed(3)));
+  });
+  var ly = 16;
+  svg.appendChild(s('circle', { cx: left + 6, cy: ly, r: 5, 'class': 'rej' }));
+  svg.appendChild(s('text', { x: left + 16, y: ly + 4, 'class': 'm' }, 'rejected step, with 95% CI'));
+  svg.appendChild(s('rect', { x: left + 200, y: ly - 5, width: 8, height: 10, 'class': 'nev' }));
+  svg.appendChild(s('text', { x: left + 214, y: ly + 4, 'class': 'm' }, 'never mentioned (chance)'));
+  var lx = left + 400;
+  svg.appendChild(s('path', { d: 'M' + lx + ' ' + (ly - 6) + ' L' + (lx + 6) + ' ' + ly + ' L' + lx + ' ' + (ly + 6) + ' L' + (lx - 6) + ' ' + ly + ' Z', 'class': 'acc' }));
+  svg.appendChild(s('text', { x: lx + 12, y: ly + 4, 'class': 'm' }, 'accepted'));
+
+  /* ---- E29 results, if present ---- */
+  if (D.e29 && D.e29.length) {
+    document.getElementById('e29block').hidden = false;
+    document.getElementById('e29pending').hidden = true;
+    var st = document.getElementById('e29status');
+    st.className = 'status measured';
+    st.querySelector('span').textContent = 'E29 · ' + D.e29.map(function (E) { return E.model + ' ' + E.verdict_short; }).join(' · ');
+    var etb = document.querySelector('#e29tab tbody');
+    var notes = [];
+    D.e29.forEach(function (E) {
+    notes.push(E.note);
+    ['full', 'delete', 'addonly', 'wiki'].forEach(function (X) {
+      var tr = el('tr');
+      var name = { full: 'Full raw context', delete: 'Write-time delete', addonly: 'Add-only, no recency', wiki: 'Merge-in-place page' }[X];
+      var td0 = el('td'); td0.appendChild(el('b', null, name)); td0.appendChild(el('br')); td0.appendChild(el('span', 'muted', E.model + ' · ' + E.n_complete + ' dialogues'));
+      tr.appendChild(td0);
+      tr.appendChild(el('td', 'num', E.p[X + '|restated'].toFixed(3)));
+      tr.appendChild(el('td', 'num', E.p[X + '|neutral'].toFixed(3)));
+      var dl = E.delta[X], dc = E.ci_delta[X];
+      tr.appendChild(el('td', 'num', (dl >= 0 ? '+' : '') + dl.toFixed(3)));
+      tr.appendChild(el('td', 'num', '[' + (dc[0] >= 0 ? '+' : '') + dc[0].toFixed(3) + ', ' + (dc[1] >= 0 ? '+' : '') + dc[1].toFixed(3) + ']'));
+      if (X === 'full') {
+        tr.appendChild(el('td', 'num muted', 'reference'));
+        tr.appendChild(el('td', 'num muted', ''));
+      } else {
+        var dd = E.did[X], cc = E.ci_did[X];
+        var big = Math.abs(dd) >= 0.15 && (cc[0] > 0 || cc[1] < 0);
+        tr.appendChild(el('td', 'num' + (big ? ' z' : ''), (dd >= 0 ? '+' : '') + dd.toFixed(3)));
+        tr.appendChild(el('td', 'num', '[' + (cc[0] >= 0 ? '+' : '') + cc[0].toFixed(3) + ', ' + (cc[1] >= 0 ? '+' : '') + cc[1].toFixed(3) + ']'));
+      }
+      etb.appendChild(tr);
+    });
+    });
+    document.getElementById('e29note').textContent = notes.join(' ');
+    var cells = document.querySelectorAll('table.design tbody tr td:last-child .status');
+    var who = D.e29.map(function (E) { return E.model; }).join(', ');
+    cells.forEach(function (c) { c.className = 'status measured'; c.lastChild.textContent = 'measured, ' + who; });
+  }
+
+  /* ---- table ---- */
+  var tb = document.querySelector('#ratetab tbody');
+  MODELS.forEach(function (m) {
+    var a = D.agg[m], tr = el('tr');
+    tr.appendChild(el('td', null, m));
+    tr.appendChild(el('td', null, a.size));
+    var z = el('td', 'num z', a.rejected.rate.toFixed(3)); tr.appendChild(z);
+    tr.appendChild(el('td', 'num', '[' + a.rejected.ci[0].toFixed(3) + ', ' + a.rejected.ci[1].toFixed(3) + ']'));
+    tr.appendChild(el('td', 'num', a.never.rate.toFixed(3)));
+    tr.appendChild(el('td', 'num', a.accepted.rate.toFixed(3)));
+    tr.appendChild(el('td', 'num', a.proposed.rate.toFixed(3)));
+    tr.appendChild(el('td', 'num', a.mean_plan.toFixed(2)));
+    tb.appendChild(tr);
+  });
+})();
+</script>

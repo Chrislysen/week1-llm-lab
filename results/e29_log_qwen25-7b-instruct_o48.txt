@@ -1,0 +1,143 @@
+=== E29 memory semantics: qwen2.5:7b-instruct, 16 dialogues x 2 arms x 4 designs = 128 calls ===
+
+  [ 1/16] satellite-chain      r0 restated full    n=4  2.53s
+  [ 1/16] satellite-chain      r0 restated delete  n=4  2.553s
+  [ 1/16] satellite-chain      r0 restated addonly n=4  2.468s
+  [ 1/16] satellite-chain      r0 restated wiki    n=4  2.514s
+  [ 1/16] satellite-chain      r0 neutral  full    n=4  2.46s
+  [ 1/16] satellite-chain      r0 neutral  delete  n=4  2.449s
+  [ 1/16] satellite-chain      r0 neutral  addonly n=4  2.52s
+  [ 1/16] satellite-chain      r0 neutral  wiki    n=4  2.493s
+  [ 2/16] satellite-chain      r1 restated full    n=4  2.496s
+  [ 2/16] satellite-chain      r1 restated delete  n=4  2.48s
+  [ 2/16] satellite-chain      r1 restated addonly n=4  2.501s
+  [ 2/16] satellite-chain      r1 restated wiki    n=4  2.482s
+  [ 2/16] satellite-chain      r1 neutral  full    n=4  2.436s
+  [ 2/16] satellite-chain      r1 neutral  delete  n=4  2.473s
+  [ 2/16] satellite-chain      r1 neutral  addonly n=4  2.519s
+  [ 2/16] satellite-chain      r1 neutral  wiki    n=4  2.519s
+  [ 3/16] satellite-fork       r0 restated full    n=4  2.478s
+  [ 3/16] satellite-fork       r0 restated delete  n=4  2.49s
+  [ 3/16] satellite-fork       r0 restated addonly n=4  2.445s
+  [ 3/16] satellite-fork       r0 restated wiki    n=4  2.478s
+  [ 3/16] satellite-fork       r0 neutral  full    n=4  2.536s
+  [ 3/16] satellite-fork       r0 neutral  delete  n=4  2.47s
+  [ 3/16] satellite-fork       r0 neutral  addonly n=4  2.477s
+  [ 3/16] satellite-fork       r0 neutral  wiki    n=4  2.439s
+  [ 4/16] satellite-fork       r1 restated full    n=4  2.459s
+  [ 4/16] satellite-fork       r1 restated delete  n=4  2.498s
+  [ 4/16] satellite-fork       r1 restated addonly n=4  2.443s
+  [ 4/16] satellite-fork       r1 restated wiki    n=4  2.469s
+  [ 4/16] satellite-fork       r1 neutral  full    n=4  2.506s
+  [ 4/16] satellite-fork       r1 neutral  delete  n=4  2.455s
+  [ 4/16] satellite-fork       r1 neutral  addonly n=4  2.453s
+  [ 4/16] satellite-fork       r1 neutral  wiki    n=4  2.447s
+  [ 5/16] satellite-join       r0 restated full    n=4  2.476s
+  [ 5/16] satellite-join       r0 restated delete  n=4  2.461s
+  [ 5/16] satellite-join       r0 restated addonly n=4  2.515s
+  [ 5/16] satellite-join       r0 restated wiki    n=4  2.505s
+  [ 5/16] satellite-join       r0 neutral  full    n=4  2.489s
+  [ 5/16] satellite-join       r0 neutral  delete  n=4  2.472s
+  [ 5/16] satellite-join       r0 neutral  addonly n=4  2.526s
+  [ 5/16] satellite-join       r0 neutral  wiki    n=4  2.469s
+  [ 6/16] satellite-join       r1 restated full    n=4  2.495s
+  [ 6/16] satellite-join       r1 restated delete  n=4  2.465s
+  [ 6/16] satellite-join       r1 restated addonly n=4  2.458s
+  [ 6/16] satellite-join       r1 restated wiki    n=4  2.515s
+  [ 6/16] satellite-join       r1 neutral  full    n=4  2.438s
+  [ 6/16] satellite-join       r1 neutral  delete  n=4  2.44s
+  [ 6/16] satellite-join       r1 neutral  addonly n=4  2.453s
+  [ 6/16] satellite-join       r1 neutral  wiki    n=4  2.499s
+  [ 7/16] satellite-join       r3 restated full    n=4  2.437s
+  [ 7/16] satellite-join       r3 restated delete  n=4  2.521s
+  [ 7/16] satellite-join       r3 restated addonly n=4  2.489s
+  [ 7/16] satellite-join       r3 restated wiki    n=4  2.538s
+  [ 7/16] satellite-join       r3 neutral  full    n=4  2.462s
+  [ 7/16] satellite-join       r3 neutral  delete  n=4  2.487s
+  [ 7/16] satellite-join       r3 neutral  addonly n=4  2.461s
+  [ 7/16] satellite-join       r3 neutral  wiki    n=4  2.479s
+  [ 8/16] satellite-diamond    r0 restated full    n=4  2.508s
+  [ 8/16] satellite-diamond    r0 restated delete  n=4  2.524s
+  [ 8/16] satellite-diamond    r0 restated addonly n=4  2.492s
+  [ 8/16] satellite-diamond    r0 restated wiki    n=4  2.503s
+  [ 8/16] satellite-diamond    r0 neutral  full    n=4  2.486s
+  [ 8/16] satellite-diamond    r0 neutral  delete  n=4  2.487s
+  [ 8/16] satellite-diamond    r0 neutral  addonly n=4  2.504s
+  [ 8/16] satellite-diamond    r0 neutral  wiki    n=4  2.458s
+  [ 9/16] satellite-diamond    r1 restated full    n=4  2.471s
+  [ 9/16] satellite-diamond    r1 restated delete  n=4  2.502s
+  [ 9/16] satellite-diamond    r1 restated addonly n=4  2.45s
+  [ 9/16] satellite-diamond    r1 restated wiki    n=4  2.488s
+  [ 9/16] satellite-diamond    r1 neutral  full    n=4  2.453s
+  [ 9/16] satellite-diamond    r1 neutral  delete  n=4  2.517s
+  [ 9/16] satellite-diamond    r1 neutral  addonly n=4  2.454s
+  [ 9/16] satellite-diamond    r1 neutral  wiki    n=4  2.49s
+  [10/16] satellite-diamond    r3 restated full    n=4  2.469s
+  [10/16] satellite-diamond    r3 restated delete  n=4  2.5s
+  [10/16] satellite-diamond    r3 restated addonly n=4  2.483s
+  [10/16] satellite-diamond    r3 restated wiki    n=4  2.501s
+  [10/16] satellite-diamond    r3 neutral  full    n=4  2.454s
+  [10/16] satellite-diamond    r3 neutral  delete  n=4  2.521s
+  [10/16] satellite-diamond    r3 neutral  addonly n=4  2.473s
+  [10/16] satellite-diamond    r3 neutral  wiki    n=4  2.509s
+  [11/16] satellite-twochain   r0 restated full    n=4  2.461s
+  [11/16] satellite-twochain   r0 restated delete  n=4  2.491s
+  [11/16] satellite-twochain   r0 restated addonly n=4  2.488s
+  [11/16] satellite-twochain   r0 restated wiki    n=4  2.51s
+  [11/16] satellite-twochain   r0 neutral  full    n=4  2.472s
+  [11/16] satellite-twochain   r0 neutral  delete  n=4  2.485s
+  [11/16] satellite-twochain   r0 neutral  addonly n=4  2.493s
+  [11/16] satellite-twochain   r0 neutral  wiki    n=4  2.484s
+  [12/16] satellite-twochain   r1 restated full    n=4  2.471s
+  [12/16] satellite-twochain   r1 restated delete  n=4  2.457s
+  [12/16] satellite-twochain   r1 restated addonly n=4  2.508s
+  [12/16] satellite-twochain   r1 restated wiki    n=4  2.472s
+  [12/16] satellite-twochain   r1 neutral  full    n=4  2.475s
+  [12/16] satellite-twochain   r1 neutral  delete  n=4  2.481s
+  [12/16] satellite-twochain   r1 neutral  addonly n=4  2.474s
+  [12/16] satellite-twochain   r1 neutral  wiki    n=4  2.488s
+  [13/16] satellite-twochain   r3 restated full    n=4  2.497s
+  [13/16] satellite-twochain   r3 restated delete  n=4  2.453s
+  [13/16] satellite-twochain   r3 restated addonly n=4  2.53s
+  [13/16] satellite-twochain   r3 restated wiki    n=4  2.47s
+  [13/16] satellite-twochain   r3 neutral  full    n=4  2.508s
+  [13/16] satellite-twochain   r3 neutral  delete  n=4  2.453s
+  [13/16] satellite-twochain   r3 neutral  addonly n=4  2.466s
+  [13/16] satellite-twochain   r3 neutral  wiki    n=4  2.487s
+  [14/16] satellite-star       r0 restated full    n=4  2.479s
+  [14/16] satellite-star       r0 restated delete  n=4  2.513s
+  [14/16] satellite-star       r0 restated addonly n=4  2.479s
+  [14/16] satellite-star       r0 restated wiki    n=4  2.48s
+  [14/16] satellite-star       r0 neutral  full    n=4  2.456s
+  [14/16] satellite-star       r0 neutral  delete  n=4  2.475s
+  [14/16] satellite-star       r0 neutral  addonly n=4  2.527s
+  [14/16] satellite-star       r0 neutral  wiki    n=4  2.45s
+  [15/16] satellite-star       r1 restated full    n=4  2.446s
+  [15/16] satellite-star       r1 restated delete  n=4  2.505s
+  [15/16] satellite-star       r1 restated addonly n=4  2.419s
+  [15/16] satellite-star       r1 restated wiki    n=4  2.466s
+  [15/16] satellite-star       r1 neutral  full    n=4  2.455s
+  [15/16] satellite-star       r1 neutral  delete  n=4  2.464s
+  [15/16] satellite-star       r1 neutral  addonly n=4  2.457s
+  [15/16] satellite-star       r1 neutral  wiki    n=4  2.489s
+  [16/16] satellite-star       r3 restated full    n=4  2.475s
+  [16/16] satellite-star       r3 restated delete  n=4  2.46s
+  [16/16] satellite-star       r3 restated addonly n=4  2.532s
+  [16/16] satellite-star       r3 restated wiki    n=4  2.467s
+  [16/16] satellite-star       r3 neutral  full    n=4  2.493s
+  [16/16] satellite-star       r3 neutral  delete  n=4  2.475s
+  [16/16] satellite-star       r3 neutral  addonly n=4  2.52s
+  [16/16] satellite-star       r3 neutral  wiki    n=4  2.466s
+
+  wrote results/e29_qwen25-7b-instruct_o48.csv / .json
+  design   arm       n   rejected_included
+  full     restated  16  0.188            
+  full     neutral   16  0.25             
+  delete   restated  16  0.938            
+  delete   neutral   16  0.688            
+  addonly  restated  16  0.125            
+  addonly  neutral   16  0.188            
+  wiki     restated  16  0.062            
+  wiki     neutral   16  0.062            
+
+  parse 1.000   mean |plan| 4.00

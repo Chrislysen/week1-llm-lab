@@ -1,0 +1,143 @@
+=== E29 memory semantics: qwen2.5:7b-instruct, 16 dialogues x 2 arms x 4 designs = 128 calls ===
+
+  [ 1/16] pharmacy-chain       r0 restated full    n=4  2.561s
+  [ 1/16] pharmacy-chain       r0 restated delete  n=4  2.459s
+  [ 1/16] pharmacy-chain       r0 restated addonly n=4  2.479s
+  [ 1/16] pharmacy-chain       r0 restated wiki    n=4  2.5s
+  [ 1/16] pharmacy-chain       r0 neutral  full    n=4  2.488s
+  [ 1/16] pharmacy-chain       r0 neutral  delete  n=4  2.468s
+  [ 1/16] pharmacy-chain       r0 neutral  addonly n=4  2.448s
+  [ 1/16] pharmacy-chain       r0 neutral  wiki    n=4  2.464s
+  [ 2/16] pharmacy-chain       r1 restated full    n=4  2.509s
+  [ 2/16] pharmacy-chain       r1 restated delete  n=4  2.464s
+  [ 2/16] pharmacy-chain       r1 restated addonly n=4  2.5s
+  [ 2/16] pharmacy-chain       r1 restated wiki    n=4  2.48s
+  [ 2/16] pharmacy-chain       r1 neutral  full    n=4  2.477s
+  [ 2/16] pharmacy-chain       r1 neutral  delete  n=4  2.455s
+  [ 2/16] pharmacy-chain       r1 neutral  addonly n=4  2.46s
+  [ 2/16] pharmacy-chain       r1 neutral  wiki    n=4  2.492s
+  [ 3/16] pharmacy-fork        r0 restated full    n=4  2.507s
+  [ 3/16] pharmacy-fork        r0 restated delete  n=4  2.445s
+  [ 3/16] pharmacy-fork        r0 restated addonly n=4  2.514s
+  [ 3/16] pharmacy-fork        r0 restated wiki    n=4  2.479s
+  [ 3/16] pharmacy-fork        r0 neutral  full    n=4  2.5s
+  [ 3/16] pharmacy-fork        r0 neutral  delete  n=4  2.492s
+  [ 3/16] pharmacy-fork        r0 neutral  addonly n=4  2.503s
+  [ 3/16] pharmacy-fork        r0 neutral  wiki    n=4  2.487s
+  [ 4/16] pharmacy-fork        r1 restated full    n=4  2.482s
+  [ 4/16] pharmacy-fork        r1 restated delete  n=4  2.462s
+  [ 4/16] pharmacy-fork        r1 restated addonly n=4  2.44s
+  [ 4/16] pharmacy-fork        r1 restated wiki    n=4  2.478s
+  [ 4/16] pharmacy-fork        r1 neutral  full    n=4  2.44s
+  [ 4/16] pharmacy-fork        r1 neutral  delete  n=4  2.478s
+  [ 4/16] pharmacy-fork        r1 neutral  addonly n=4  2.491s
+  [ 4/16] pharmacy-fork        r1 neutral  wiki    n=4  2.469s
+  [ 5/16] pharmacy-join        r0 restated full    n=4  2.445s
+  [ 5/16] pharmacy-join        r0 restated delete  n=4  2.489s
+  [ 5/16] pharmacy-join        r0 restated addonly n=4  2.449s
+  [ 5/16] pharmacy-join        r0 restated wiki    n=4  2.436s
+  [ 5/16] pharmacy-join        r0 neutral  full    n=4  2.452s
+  [ 5/16] pharmacy-join        r0 neutral  delete  n=4  2.463s
+  [ 5/16] pharmacy-join        r0 neutral  addonly n=4  2.403s
+  [ 5/16] pharmacy-join        r0 neutral  wiki    n=4  2.464s
+  [ 6/16] pharmacy-join        r1 restated full    n=4  4.95s
+  [ 6/16] pharmacy-join        r1 restated delete  n=4  2.487s
+  [ 6/16] pharmacy-join        r1 restated addonly n=4  4.813s
+  [ 6/16] pharmacy-join        r1 restated wiki    n=4  2.493s
+  [ 6/16] pharmacy-join        r1 neutral  full    n=4  2.505s
+  [ 6/16] pharmacy-join        r1 neutral  delete  n=4  2.478s
+  [ 6/16] pharmacy-join        r1 neutral  addonly n=4  4.854s
+  [ 6/16] pharmacy-join        r1 neutral  wiki    n=4  4.86s
+  [ 7/16] pharmacy-join        r3 restated full    n=4  2.523s
+  [ 7/16] pharmacy-join        r3 restated delete  n=4  2.487s
+  [ 7/16] pharmacy-join        r3 restated addonly n=4  2.516s
+  [ 7/16] pharmacy-join        r3 restated wiki    n=4  2.503s
+  [ 7/16] pharmacy-join        r3 neutral  full    n=4  2.513s
+  [ 7/16] pharmacy-join        r3 neutral  delete  n=4  2.469s
+  [ 7/16] pharmacy-join        r3 neutral  addonly n=4  2.475s
+  [ 7/16] pharmacy-join        r3 neutral  wiki    n=4  2.45s
+  [ 8/16] pharmacy-diamond     r0 restated full    n=4  2.499s
+  [ 8/16] pharmacy-diamond     r0 restated delete  n=4  2.489s
+  [ 8/16] pharmacy-diamond     r0 restated addonly n=4  2.454s
+  [ 8/16] pharmacy-diamond     r0 restated wiki    n=4  2.519s
+  [ 8/16] pharmacy-diamond     r0 neutral  full    n=4  2.493s
+  [ 8/16] pharmacy-diamond     r0 neutral  delete  n=4  2.494s
+  [ 8/16] pharmacy-diamond     r0 neutral  addonly n=4  2.446s
+  [ 8/16] pharmacy-diamond     r0 neutral  wiki    n=4  2.46s
+  [ 9/16] pharmacy-diamond     r1 restated full    n=4  2.494s
+  [ 9/16] pharmacy-diamond     r1 restated delete  n=4  2.461s
+  [ 9/16] pharmacy-diamond     r1 restated addonly n=4  2.446s
+  [ 9/16] pharmacy-diamond     r1 restated wiki    n=4  2.48s
+  [ 9/16] pharmacy-diamond     r1 neutral  full    n=4  2.478s
+  [ 9/16] pharmacy-diamond     r1 neutral  delete  n=4  2.455s
+  [ 9/16] pharmacy-diamond     r1 neutral  addonly n=4  2.491s
+  [ 9/16] pharmacy-diamond     r1 neutral  wiki    n=4  2.457s
+  [10/16] pharmacy-diamond     r3 restated full    n=4  2.519s
+  [10/16] pharmacy-diamond     r3 restated delete  n=4  2.498s
+  [10/16] pharmacy-diamond     r3 restated addonly n=4  2.504s
+  [10/16] pharmacy-diamond     r3 restated wiki    n=4  2.473s
+  [10/16] pharmacy-diamond     r3 neutral  full    n=4  2.452s
+  [10/16] pharmacy-diamond     r3 neutral  delete  n=4  2.466s
+  [10/16] pharmacy-diamond     r3 neutral  addonly n=4  2.465s
+  [10/16] pharmacy-diamond     r3 neutral  wiki    n=4  2.451s
+  [11/16] pharmacy-twochain    r0 restated full    n=4  2.506s
+  [11/16] pharmacy-twochain    r0 restated delete  n=4  2.509s
+  [11/16] pharmacy-twochain    r0 restated addonly n=4  2.483s
+  [11/16] pharmacy-twochain    r0 restated wiki    n=4  2.503s
+  [11/16] pharmacy-twochain    r0 neutral  full    n=4  2.473s
+  [11/16] pharmacy-twochain    r0 neutral  delete  n=4  2.459s
+  [11/16] pharmacy-twochain    r0 neutral  addonly n=4  2.456s
+  [11/16] pharmacy-twochain    r0 neutral  wiki    n=4  2.475s
+  [12/16] pharmacy-twochain    r1 restated full    n=4  2.512s
+  [12/16] pharmacy-twochain    r1 restated delete  n=4  2.502s
+  [12/16] pharmacy-twochain    r1 restated addonly n=4  2.444s
+  [12/16] pharmacy-twochain    r1 restated wiki    n=4  2.463s
+  [12/16] pharmacy-twochain    r1 neutral  full    n=4  2.441s
+  [12/16] pharmacy-twochain    r1 neutral  delete  n=4  2.483s
+  [12/16] pharmacy-twochain    r1 neutral  addonly n=4  2.45s
+  [12/16] pharmacy-twochain    r1 neutral  wiki    n=4  2.447s
+  [13/16] pharmacy-twochain    r3 restated full    n=4  2.555s
+  [13/16] pharmacy-twochain    r3 restated delete  n=4  2.52s
+  [13/16] pharmacy-twochain    r3 restated addonly n=4  2.449s
+  [13/16] pharmacy-twochain    r3 restated wiki    n=4  2.483s
+  [13/16] pharmacy-twochain    r3 neutral  full    n=4  2.453s
+  [13/16] pharmacy-twochain    r3 neutral  delete  n=4  2.477s
+  [13/16] pharmacy-twochain    r3 neutral  addonly n=4  2.495s
+  [13/16] pharmacy-twochain    r3 neutral  wiki    n=4  2.462s
+  [14/16] pharmacy-star        r0 restated full    n=4  2.457s
+  [14/16] pharmacy-star        r0 restated delete  n=4  2.453s
+  [14/16] pharmacy-star        r0 restated addonly n=4  2.453s
+  [14/16] pharmacy-star        r0 restated wiki    n=4  4.865s
+  [14/16] pharmacy-star        r0 neutral  full    n=4  2.416s
+  [14/16] pharmacy-star        r0 neutral  delete  n=4  4.787s
+  [14/16] pharmacy-star        r0 neutral  addonly n=4  4.794s
+  [14/16] pharmacy-star        r0 neutral  wiki    n=4  4.793s
+  [15/16] pharmacy-star        r1 restated full    n=4  2.462s
+  [15/16] pharmacy-star        r1 restated delete  n=4  2.48s
+  [15/16] pharmacy-star        r1 restated addonly n=4  2.464s
+  [15/16] pharmacy-star        r1 restated wiki    n=4  2.453s
+  [15/16] pharmacy-star        r1 neutral  full    n=4  2.481s
+  [15/16] pharmacy-star        r1 neutral  delete  n=4  2.466s
+  [15/16] pharmacy-star        r1 neutral  addonly n=4  2.472s
+  [15/16] pharmacy-star        r1 neutral  wiki    n=4  2.485s
+  [16/16] pharmacy-star        r3 restated full    n=4  2.519s
+  [16/16] pharmacy-star        r3 restated delete  n=4  2.482s
+  [16/16] pharmacy-star        r3 restated addonly n=4  2.474s
+  [16/16] pharmacy-star        r3 restated wiki    n=4  2.492s
+  [16/16] pharmacy-star        r3 neutral  full    n=4  2.527s
+  [16/16] pharmacy-star        r3 neutral  delete  n=4  2.423s
+  [16/16] pharmacy-star        r3 neutral  addonly n=4  2.508s
+  [16/16] pharmacy-star        r3 neutral  wiki    n=4  2.464s
+
+  wrote results/e29_qwen25-7b-instruct_o32.csv / .json
+  design   arm       n   rejected_included
+  full     restated  16  0.062            
+  full     neutral   16  0.25             
+  delete   restated  16  0.75             
+  delete   neutral   16  0.375            
+  addonly  restated  16  0.312            
+  addonly  neutral   16  0.25             
+  wiki     restated  16  0.375            
+  wiki     neutral   16  0.25             
+
+  parse 1.000   mean |plan| 4.00
