@@ -38,7 +38,7 @@
   .scene canvas { display: block; width: 100%; height: 100%; }
   .labels { position: absolute; inset: 0; pointer-events: none; }
   .lbl { position: absolute; transform: translate(-50%, -100%); font-family: var(--mono); font-size: 12px; letter-spacing: .02em; color: #D6E1EE; background: rgba(6, 10, 16, .72); border: 1px solid rgba(70, 100, 140, .35); border-radius: 4px; padding: 4px 8px; white-space: nowrap; display: flex; gap: 6px; align-items: center; transition: border-color .3s ease, color .3s ease, background .3s ease; backdrop-filter: blur(2px); }
-  .lbl.rej { border-color: rgba(242, 154, 75, .8); color: var(--amber); }
+  .lbl.rej, .lbl.rej.lit { border-color: rgba(242, 154, 75, .8); color: var(--amber); }
   .lbl.lit { border-color: rgba(143, 208, 255, .7); color: #fff; }
   .lbl .n { display: none; min-width: 18px; height: 18px; border-radius: 9px; background: var(--white); color: #0A1018; font-weight: 600; font-size: 11px; align-items: center; justify-content: center; padding: 0 5px; }
   .lbl .n.on { display: inline-flex; }
@@ -257,19 +257,19 @@
     var keyL = new T.DirectionalLight(0xBFD5EE, 0.28); keyL.position.set(-9, 18, 9); scene.add(keyL);
     var rimL = new T.DirectionalLight(0x5F92D8, 0.22); rimL.position.set(10, 8, -14); scene.add(rimL);
     var composer = null, bloom = null;
-    try { if (T.EffectComposer && T.UnrealBloomPass) { composer = new T.EffectComposer(renderer); composer.addPass(new T.RenderPass(scene, camera)); bloom = new T.UnrealBloomPass(new T.Vector2(900, 540), 0.55, 0.65, 0.86); composer.addPass(bloom); } } catch (e) { composer = null; }
+    try { if (T.EffectComposer && T.UnrealBloomPass) { composer = new T.EffectComposer(renderer); composer.addPass(new T.RenderPass(scene, camera)); bloom = new T.UnrealBloomPass(new T.Vector2(900, 540), 0.42, 0.7, 0.88); composer.addPass(bloom); } } catch (e) { composer = null; }
     var groundTex = (function () {
       var c = document.createElement('canvas'); c.width = c.height = 1024; var g = c.getContext('2d');
-      var rg = g.createRadialGradient(512, 470, 30, 512, 470, 560); rg.addColorStop(0, '#0B1526'); rg.addColorStop(0.45, '#060B14'); rg.addColorStop(1, '#02040A');
+      var rg = g.createRadialGradient(512, 500, 8, 512, 500, 150); rg.addColorStop(0, '#0B1526'); rg.addColorStop(0.45, '#060B14'); rg.addColorStop(1, '#02040A');
       g.fillStyle = rg; g.fillRect(0, 0, 1024, 1024);
       for (var i = 0; i <= 64; i++) {
-        var q = i * 16, d = Math.abs(q - 512) / 512;
+        var q = i * 16, d = Math.abs(q - 512) / 150;
         g.strokeStyle = 'rgba(110, 155, 215,' + (0.075 * Math.max(0, 1 - d * 1.15)).toFixed(3) + ')'; g.lineWidth = 1;
         g.beginPath(); g.moveTo(q, 0); g.lineTo(q, 1024); g.stroke(); g.beginPath(); g.moveTo(0, q); g.lineTo(1024, q); g.stroke();
       }
       var t = new T.CanvasTexture(c); t.minFilter = T.LinearMipmapLinearFilter; t.anisotropy = 4; t.encoding = T.sRGBEncoding; return t;
     })();
-    var ground = new T.Mesh(new T.PlaneGeometry(64, 64), new T.MeshBasicMaterial({ map: groundTex })); ground.rotation.x = -Math.PI / 2; ground.position.set(0, -0.02, 0); scene.add(ground);
+    var ground = new T.Mesh(new T.PlaneGeometry(240, 240), new T.MeshBasicMaterial({ map: groundTex })); ground.rotation.x = -Math.PI / 2; ground.position.set(0, -0.02, 0); scene.add(ground);
     var pN = 320, pPos = new Float32Array(pN * 3);
     for (var i = 0; i < pN; i++) { pPos[i * 3] = (Math.random() - .5) * 48; pPos[i * 3 + 1] = Math.random() * 12 + 0.5; pPos[i * 3 + 2] = (Math.random() - .5) * 34 - 4; }
     var pGeo = new T.BufferGeometry(); pGeo.setAttribute('position', new T.BufferAttribute(pPos, 3));
@@ -413,7 +413,7 @@
       have.forEach(function (l, i) { if (used.indexOf(i) < 0) { if (animate) { l.dying = performance.now(); flashes.push({ lamp: l }); tw.glow = 1.2; tw.mesh.material.emissive.setHex(PAL.rejected); } else scene.remove(l.mesh); } });
       tw.lamps = keep; keep.forEach(function (l, i) { l.targetY = tw.h + 0.24 + i * 0.32; if (!animate) l.mesh.position.y = l.targetY; });
       var lit = keep.length > 0, lc = lit ? PAL[keep[keep.length - 1].kind] : null;
-      tw.base = lit ? lc : 0x07101C; tw.baseI = lit ? 0.1 : 0.35; tw.capBase = lit ? lc : 0x16304F; tw.capI = lit ? 1.6 : 0.4; tw.edges.material.color.setHex(lit ? lc : 0x2A4B72);
+      tw.base = lit ? lc : 0x07101C; tw.baseI = lit ? 0.1 : 0.35; tw.capBase = lit ? lc : 0x16304F; tw.capI = lit ? 1.15 : 0.4; tw.edges.material.color.setHex(lit ? lc : 0x2A4B72);
       labelEls[action].classList.toggle('lit', lit);
     }
     function setDeciding(on) {
@@ -429,14 +429,14 @@
       if (!on) { if (column) { scene.remove(column); column = null; } if (ring) { scene.remove(ring); ring = null; } if (beam) { scene.remove(beam); beam = null; }
         op.base = 0.35; op.baseL = 0.2; op.label.classList.remove('speaking'); op.label.querySelector('.role').textContent = ROLES['Operator'].role; }
     }
-    function clearPlan() { clearList(planObjs); order.forEach(function (a) { var tw = towers[a]; tw.badge.className = 'n'; tw.badge.textContent = ''; var lit = tw.lamps.length > 0, lc = lit ? PAL[tw.lamps[tw.lamps.length - 1].kind] : null; tw.base = lit ? lc : 0x07101C; tw.baseI = lit ? 0.1 : 0.35; tw.capBase = lit ? lc : 0x16304F; tw.capI = lit ? 1.6 : 0.4; tw.edges.material.color.setHex(lit ? lc : 0x2A4B72); }); }
+    function clearPlan() { clearList(planObjs); order.forEach(function (a) { var tw = towers[a]; tw.badge.className = 'n'; tw.badge.textContent = ''; var lit = tw.lamps.length > 0, lc = lit ? PAL[tw.lamps[tw.lamps.length - 1].kind] : null; tw.base = lit ? lc : 0x07101C; tw.baseI = lit ? 0.1 : 0.35; tw.capBase = lit ? lc : 0x16304F; tw.capI = lit ? 1.15 : 0.4; tw.edges.material.color.setHex(lit ? lc : 0x2A4B72); }); }
     function showPlan(actions, carries) {
       clearPlan(); var pts = [];
       actions.forEach(function (a, i) {
         var tw = towers[a]; if (!tw) return;
         pts.push(new T.Vector3(tw.x, tw.h + 0.9 + tw.lamps.length * 0.36, tw.z));
         tw.badge.textContent = String(i + 1); tw.badge.className = 'n on' + (a === rejected ? ' rej' : '');
-        tw.capBase = a === rejected ? PAL.mention : PAL.path; tw.capI = a === rejected ? 2.2 : 1.4; tw.edges.material.color.setHex(a === rejected ? PAL.mention : PAL.path); tw.base = a === rejected ? PAL.mention : 0x07101C; tw.baseI = a === rejected ? 0.2 : 0.35;
+        tw.capBase = a === rejected ? PAL.mention : PAL.path; tw.capI = a === rejected ? 1.8 : 1.0; tw.edges.material.color.setHex(a === rejected ? PAL.mention : PAL.path); tw.base = a === rejected ? PAL.mention : 0x07101C; tw.baseI = a === rejected ? 0.2 : 0.35;
         if (a === rejected) { flashes.push({ tower: tw, start: performance.now() }); var beam = new T.Mesh(new T.CylinderGeometry(0.5, 0.5, 14, 24, 1, true), new T.MeshBasicMaterial({ color: PAL.mention, transparent: true, opacity: 0.35, side: T.DoubleSide, blending: T.AdditiveBlending, depthWrite: false })); beam.position.set(tw.x, 7, tw.z); scene.add(beam); planObjs.push(beam); flashes.push({ beam: beam, start: performance.now() }); }
       });
       if (pts.length > 1) {
