@@ -534,3 +534,41 @@ larger decider shows a *smaller* DiD_delete; that would be an observation.
 `results/e29_<model>_o<offset>.csv/.json`. Read with `e29_analysis.py`
 unchanged. Outcomes appended below, one section per decider, never pooled
 with the first two.
+
+### Outcome — `qwen2.5:14b-instruct`, run 2026-09-12 (just after midnight), after `99d60fd`
+
+768 of 768 calls in six chunks of 16 dialogues, parse 1.000 in every cell,
+mean |plan| 3.99–4.00, all cells valid. `results/e29_qwen25-14b-instruct_o{0,16,32,48,64,80}.csv/.json`,
+`results/e29_qwen25-14b-instruct_summary.json`.
+
+| design | restated | neutral | Δ | 95 % CI | DiD vs full | 95 % CI |
+|---|---|---|---|---|---|---|
+| full | 0.219 | 0.167 | +0.052 | [−0.021, +0.125] | reference | |
+| delete | 0.896 | 0.635 | +0.260 | [+0.167, +0.354] | **+0.208** | [+0.094, +0.323] |
+| addonly | 0.062 | 0.062 | +0.000 | [−0.031, +0.031] | −0.052 | [−0.135, +0.021] |
+| wiki | 0.062 | 0.094 | −0.031 | [−0.083, +0.010] | −0.083 | [−0.167, −0.000] |
+
+**Verdict by the declared rule: DESIGN-DEPENDENT, delete DiD +0.208.** P1
+holds (Δ_delete +0.260, interval above 0), P2 holds (DiD_delete ≥ 0.15,
+interval excludes 0). P3: Δ_full is small and its sign is now positive
+(+0.052, interval includes 0); read with E29-C, the negative sign on the 3B
+decider was a register effect that does not carry to larger deciders. P4:
+DiD_addonly is inside the SESOI band (−0.052). P5: wiki and addonly agree
+(both flat); wiki's interval touches 0 on the negative side and is reported as
+an observation. P6: under `delete`/neutral the rejected step's inclusion
+(0.635) sits within 0.10 of that cell's `never` rate (0.542).
+
+**What the larger decider changes.** Three things, all observations:
+1. Under `addonly` and `wiki` the 14B decider almost never enacts the rejected
+   step (0.06), where the 3B and 7B deciders did so at 0.18–0.35. A larger
+   decider reads the stored rejection and honours it; the smaller ones
+   partly do not. The design dependence therefore sharpens with model size:
+   only the design that *removes* the rejection re-admits the step.
+2. Under `delete`/neutral the rejected step is enacted at 0.635 although the
+   store says nothing about it: with a pinned four-step plan and a six-item
+   vocabulary, a sparse store is completed from the menu (the `never` control
+   in that cell is 0.54). That caps Δ_delete on this decider at about
+   1 − 0.635, so the smaller DiD (+0.21 vs +0.44 and +0.38) is a ceiling
+   effect of the estimand, not a weaker mechanism.
+3. Δ_full changes sign across deciders (−0.083, −0.073, +0.052), consistent
+   with E29-C: a register effect specific to the 3B model.
