@@ -509,3 +509,28 @@ noise line ("BOOK_POST_INCIDENT_REVIEW"). This is symmetric across arms by
 construction and small, and it is not corrected for in any table above; it is
 recorded because the X-ray shows the raw plans and marks these identifiers
 as not offered.
+
+## Addendum — further deciders, declared 2026-09-11 (evening) with zero outcomes
+
+§1 named two deciders. Both completed and agreed. To find out whether the
+design dependence survives a larger decider and a third model family, E29 is
+re-run unchanged — same corpus (`187a426616f26598`), prompts, temperature,
+runner, read rule and validity rule — on:
+
+1. `qwen2.5:14b-instruct` (the largest instruct model installed; same family
+   as the second decider, five times its size);
+2. `gemma4:e4b` (a third family), only if the first completes and its `full`
+   cells are valid.
+
+**Predictions, fixed before the first call.** For each decider: P1 and P2 as
+in §2 (Δ_delete large and positive; DiD_delete ≥ 0.15 with an interval
+excluding 0); P3 as in §2 with the sign left open, since E29-C (framing) found
+the negative Δ_full to be a register effect on the 3B model that did not
+replicate by the rule on the 7B one. No prediction is placed on whether the
+larger decider shows a *smaller* DiD_delete; that would be an observation.
+
+**Allocation.** 768 scheduled calls per decider, chunked at 16 dialogues
+(`--offset k --limit 16`, 128 calls per chunk), each chunk writing its own
+`results/e29_<model>_o<offset>.csv/.json`. Read with `e29_analysis.py`
+unchanged. Outcomes appended below, one section per decider, never pooled
+with the first two.
