@@ -53,12 +53,14 @@ narrow residual**, subject to the coverage limit; whether it is carried as an
 original result is the author's call, and the abstract-level papers should be
 read in full before that call.
 
-**Deliverable for the course.** The *Zombie Constraint X-ray* page
-(scratchpad `zombie_xray.html`, built by `xray_data.py` + `inject.py` from the
-result files, every number recomputed): real E16 transcripts, the six models'
-actual plans, the E18-B ladder, and the E29 rows. Publishing it as an
-artifact was blocked by the tool permission classifier this session; the file
-was sent to the author directly.
+**Deliverable for the course.** The *Zombie Constraint X-ray*:
+`python xray_server.py` rebuilds the page from `results/` and opens it on
+localhost with a live panel (pick a dialogue, arm and memory design; see the
+exact decider block; Run live against Ollama and compare with the record;
+E29-B store snapshots line by line). `python xray_build.py` writes the static
+`docs/xray/zombie_xray.html`. Every number is recomputed from the result files.
+Publishing it as an artifact was blocked by the tool permission classifier
+this session; the static file was sent to the author directly.
 
 **Later the same day.** (a) **Coverage limit closed**: the six abstract-level
 papers were read in full; none covers the conjunction, none contradicts the
