@@ -110,11 +110,28 @@ sRGB output, halo sprites instead of bloom for local glow, and
 `window.__city.tick()` for stepping frames from a hidden tab. Verified in that
 mode through line 7 and a live decision.
 
+**E29-C, the Δ_full follow-up, run the same evening
+(`docs/protocols/E29C-framing.md`, declared at `5adc257`, 768 calls, corpus
+`979143b67049adf2`).** Question: is the negative full-context restatement
+effect the "for the record, I did raise X" framing, or any late mention?
+Four arms under `full` — E29's two re-run plus `plain` / `plain_neutral`
+("Just to note it, X came up earlier in this discussion"), ten words plus the
+referent each. `llama3.2:3b`: Δ_ftr −0.083 [−0.156, −0.010] (E29's −0.083,
+replicated in a fresh session), Δ_plain +0.062 [−0.010, +0.135], Diff −0.146
+[−0.240, −0.062] → **FRAMING**. `qwen2.5:7b-instruct`: Δ_ftr −0.062
+[−0.135, +0.000], Δ_plain 0.000 [−0.062, +0.062] → **NO-REPLICATION by the
+letter of the rule** (upper bound exactly zero), same shape, not upgraded, not
+pooled. Reading: on the course model the protection came from the authorship
+register, which sends the decider back to the rejection; a plain late mention
+does not. That sharpens E29 — the stores re-admitted the step despite a line
+that protects a full-context reader. Parse 1.000 everywhere, |plan| 3.99–4.00,
+controls flat across arms.
+
 **Next, if anything.** (1) A write-path stage with an extractor prompt that
 stores operational proposals at all — the Mem0 personal-info prompt does not —
-under its own declaration. (2) The negative Δ_full deserves one cheap
-follow-up: is it the "for the record" framing, or any late mention?
-(3) Republish the X-ray as an artifact outside auto mode.
+under its own declaration. (2) Done as E29-C above. (3) Republish the X-ray as an artifact outside
+auto mode — the publish was refused by the auto-mode classifier twice on
+2026-09-11; the static page `docs/xray/zombie_xray.html` is ready as is.
 
 ---
 

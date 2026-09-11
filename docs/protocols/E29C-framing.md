@@ -104,3 +104,64 @@ memory-design result and neither is claimed as novel.
 ## 5. Outcome
 
 _(empty at declaration)_
+
+## 5. Outcome — run 2026-09-11, the same evening, after `5adc257`
+
+384 calls per decider in three foreground chunks of 32 dialogues
+(`--offset 0/32/64 --limit 32`; the declaration said two chunks of 48, the
+runtime limit made three of 32 the safer split, nothing else changed). Zero
+transport retries. Parse retries: 0 on `llama3.2:3b`, 5 on
+`qwen2.5:7b-instruct`, all recovered. `results/e29c_<model>_o{0,32,64}.csv/.json`,
+`results/e29c_<model>_summary.json`.
+
+**Validity: all arms valid on both deciders.** Parse 1.000 in every arm; mean
+|plan| 3.99–4.00. Controls (P3): `never` inclusion 0.583–0.667 across arms
+on llama and 0.604–0.667 on qwen, `accepted` 0.967–1.000; no pair of arms
+differs by more than 0.10. The inserted line acted only on the rejected step.
+
+Rejected-step inclusion under full context, n = 96 dialogues per arm:
+
+| decider | restated | neutral | plain | plain_neutral | Δ_ftr | 95 % CI | Δ_plain | 95 % CI | Diff | 95 % CI | verdict |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| `llama3.2:3b` | 0.219 | 0.302 | 0.281 | 0.219 | **−0.083** | [−0.156, −0.010] | +0.062 | [−0.010, +0.135] | **−0.146** | [−0.240, −0.062] | **FRAMING** |
+| `qwen2.5:7b-instruct` | 0.240 | 0.302 | 0.281 | 0.281 | −0.062 | [−0.135, **+0.000**] | 0.000 | [−0.062, +0.062] | −0.062 | [−0.135, +0.010] | **NO-REPLICATION** (by the letter of the rule) |
+
+**`llama3.2:3b` — FRAMING.** P1 replicated to the third decimal: Δ_ftr −0.083
+in a fresh session against E29's −0.083 (the `restated` and `neutral` cells
+were re-run, not copied). The plain mention did not lower enactment; it leaned
+the other way (+0.062, interval including 0), and the difference between the
+two framings excludes 0 (−0.146 [−0.240, −0.062]). On the course model, what
+protected the decider against the zombie step was not that the step was
+mentioned late; it was the *"for the record, I did raise it"* register. A
+late mention of the rejected step with no authorship claim left enactment
+where the neutral line left it, or slightly above.
+
+**`qwen2.5:7b-instruct` — NO-REPLICATION, at the boundary.** Δ_ftr is −0.062
+(E29 had −0.073), but the percentile interval's upper end is exactly +0.000,
+and the rule requires it to exclude 0. The declared verdict is therefore
+NO-REPLICATION and it is not upgraded. What can be said without upgrading it:
+the pattern is the same shape as llama's — `restated` below `neutral`,
+`plain` exactly at `plain_neutral` (0.000 [−0.062, +0.062]) — and the Diff
+interval [−0.135, +0.010] is almost entirely on the FRAMING side. At the
+stated power (half-width ≈ 0.08 for a Δ) a true effect of −0.06 to −0.08 lands
+at this boundary about half the time; the E29 interval on qwen ([−0.146,
+−0.010]) and this one ([−0.135, +0.000]) are two draws from that situation.
+Pooling the two sessions would give a tighter interval and was **not** declared,
+so it is not done.
+
+**What follows, and what does not.**
+- The author's recorded lean (H-frame) is supported on the course model and
+  not contradicted on the second. Under full context, the E29 restatement line
+  reads to a small decider as a dispute about who said what, and it sends the
+  decision back to the exchange in which the step was rejected. A plain late
+  mention does not do that.
+- This sharpens E29's DiD reading rather than weakening it: the `delete` and
+  `wiki` designs re-admitted the rejected step *despite* a line that, read
+  whole, protects a full-context decider from it. The stores never saw the
+  register; they saw a fact.
+- Nothing here enters the ledger or changes E29's verdict. The residual E29
+  claim is unchanged; E29-C is a reading of one of its cells.
+- Not done, by choice: an arm where the *other* speaker restates, and an arm
+  where the proposer re-advocates ("I still think we should X"). Both are one
+  template each in `lineage_e29c.py` if ever wanted, under their own
+  declaration.
