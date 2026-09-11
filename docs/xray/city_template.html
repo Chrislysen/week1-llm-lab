@@ -272,7 +272,7 @@
     var keyL = new T.DirectionalLight(0xBFD5EE, 0.28); keyL.position.set(-9, 18, 9); scene.add(keyL);
     var rimL = new T.DirectionalLight(0x5F92D8, 0.22); rimL.position.set(10, 8, -14); scene.add(rimL);
     var composer = null, bloom = null;
-    try { if (T.EffectComposer && T.UnrealBloomPass) { composer = new T.EffectComposer(renderer); composer.addPass(new T.RenderPass(scene, camera)); bloom = new T.UnrealBloomPass(new T.Vector2(900, 540), 0.42, 0.7, 0.88); composer.addPass(bloom); } } catch (e) { composer = null; }
+    try { if (T.EffectComposer && T.UnrealBloomPass) { composer = new T.EffectComposer(renderer); composer.addPass(new T.RenderPass(scene, camera)); bloom = new T.UnrealBloomPass(new T.Vector2(900, 540), 0.36, 0.3, 0.9); composer.addPass(bloom); } } catch (e) { composer = null; }
     var groundTex = (function () {
       var c = document.createElement('canvas'); c.width = c.height = 1024; var g = c.getContext('2d');
       var rg = g.createRadialGradient(512, 500, 8, 512, 500, 150); rg.addColorStop(0, '#0B1526'); rg.addColorStop(0.45, '#060B14'); rg.addColorStop(1, '#02040A');
@@ -421,14 +421,14 @@
         var idx = -1; for (var i = 0; i < have.length; i++) if (have[i].kind === k && used.indexOf(i) < 0) { idx = i; break; }
         if (idx >= 0) { used.push(idx); keep.push(have[idx]); }
         else {
-          var m = new T.Mesh(new T.BoxGeometry(0.56, 0.26, 0.56), new T.MeshStandardMaterial({ color: PAL[k], emissive: PAL[k], emissiveIntensity: 2.2, transparent: true, opacity: 1 }));
+          var m = new T.Mesh(new T.BoxGeometry(0.56, 0.26, 0.56), new T.MeshStandardMaterial({ color: PAL[k], emissive: PAL[k], emissiveIntensity: 1.3, transparent: true, opacity: 1 }));
           m.position.set(tw.x, tw.h, tw.z); var s0 = animate ? 0.01 : 1; m.scale.set(s0, s0, s0); scene.add(m); keep.push({ kind: k, mesh: m, born: performance.now() - (animate ? 0 : 5000) });
         }
       });
       have.forEach(function (l, i) { if (used.indexOf(i) < 0) { if (animate) { l.dying = performance.now(); flashes.push({ lamp: l }); tw.glow = 1.2; tw.mesh.material.emissive.setHex(PAL.rejected); } else scene.remove(l.mesh); } });
       tw.lamps = keep; keep.forEach(function (l, i) { l.targetY = tw.h + 0.24 + i * 0.32; if (!animate) l.mesh.position.y = l.targetY; });
       var lit = keep.length > 0, lc = lit ? PAL[keep[keep.length - 1].kind] : null;
-      tw.base = lit ? lc : 0x07101C; tw.baseI = lit ? 0.06 : 0.35; tw.capBase = lit ? lc : 0x16304F; tw.capI = lit ? 1.15 : 0.4; tw.edges.material.color.setHex(lit ? lc : 0x2A4B72);
+      tw.base = lit ? lc : 0x07101C; tw.baseI = lit ? 0.06 : 0.35; tw.capBase = lit ? lc : 0x16304F; tw.capI = lit ? 0.9 : 0.4; tw.edges.material.color.setHex(lit ? lc : 0x2A4B72);
       labelEls[action].classList.toggle('lit', lit);
     }
     function setDeciding(on) {
@@ -444,7 +444,7 @@
       if (!on) { if (column) { scene.remove(column); column = null; } if (ring) { scene.remove(ring); ring = null; } if (beam) { scene.remove(beam); beam = null; }
         op.base = 0.35; op.baseL = 0.2; op.label.classList.remove('speaking'); op.label.querySelector('.role').textContent = ROLES['Operator'].role; camDistGoal = 19.5; camHGoal = 9.0; }
     }
-    function clearPlan() { planAnim = null; clearList(planObjs); order.forEach(function (a) { var tw = towers[a]; tw.badge.className = 'n'; tw.badge.textContent = ''; var lit = tw.lamps.length > 0, lc = lit ? PAL[tw.lamps[tw.lamps.length - 1].kind] : null; tw.base = lit ? lc : 0x07101C; tw.baseI = lit ? 0.06 : 0.35; tw.capBase = lit ? lc : 0x16304F; tw.capI = lit ? 1.15 : 0.4; tw.edges.material.color.setHex(lit ? lc : 0x2A4B72); }); }
+    function clearPlan() { planAnim = null; clearList(planObjs); order.forEach(function (a) { var tw = towers[a]; tw.badge.className = 'n'; tw.badge.textContent = ''; var lit = tw.lamps.length > 0, lc = lit ? PAL[tw.lamps[tw.lamps.length - 1].kind] : null; tw.base = lit ? lc : 0x07101C; tw.baseI = lit ? 0.06 : 0.35; tw.capBase = lit ? lc : 0x16304F; tw.capI = lit ? 0.9 : 0.4; tw.edges.material.color.setHex(lit ? lc : 0x2A4B72); }); }
     var planAnim = null;
     function showPlan(actions, carries) {
       clearPlan(); var pts = [], steps = [];
