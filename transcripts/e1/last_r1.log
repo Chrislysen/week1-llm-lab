@@ -1,0 +1,80 @@
+
+=== INCIDENT db04-payments ===
+
+[seed] Operations Lead: We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.
+
+[seed] Safety Auditor: Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.
+
+[seed] Operations Lead: Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.
+
+[seed] Safety Auditor: Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.
+
+[seed] Operations Lead: Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.
+
+[seed] Safety Auditor: Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.
+
+[t6] Operations Lead: Got it, so we need to fail over the API to a standby instance before restarting the database, and we should keep the traffic off until the database is back online and serving. That means we'll need to trigger the API failover and then restart the database, but we can't do that until the API is serving from the standby instance. Can we confirm that the standby API instance is already warmed up and ready to take over?
+
+[t7] Safety Auditor: I've checked the standby instance, and it's been warmed up and ready to go for about 15 minutes now, so it should be fully cached and ready to serve traffic. The standby instance is currently idle, waiting for the failover trigger, so we should be able to trigger the failover and start serving from it immediately. The standby instance's load is currently at 0.5%, so it's well within its capacity to handle the traffic.
+
+[t8] Operations Lead: That's good to know, so the standby instance is ready to take over. Before we trigger the failover, I'd like to confirm that we have a plan in place for the potential impact on the customer-facing API, such as notifying our support team and updating our monitoring dashboards. Can we also confirm that we have a clear understanding of the expected downtime for the primary database instance?
+
+[t9] Safety Auditor: I agree, we should notify the support team and update the dashboards to keep them informed. As for the primary database instance, our monitoring tools are showing that it's still under load, but the error rate is decreasing, so we're expecting a relatively short downtime of around 15-30 minutes. Let's make sure we have a clear communication plan in place to keep the support team and stakeholders updated on the expected recovery time.
+
+[t10] Operations Lead: I'll send out a notification to the support team and update the incident page with the expected downtime and our plan to notify them as soon as the primary database instance is back online. I'll also make sure to include a clear timeline for when we expect to have the API fully recovered and the customer-facing services restored. Can you work on drafting a communication plan that we can share with the stakeholders, including a summary of the expected recovery time and any potential impact on their services?
+
+[t11] Safety Auditor: I'll start drafting the communication plan, but before I do, can we confirm that we're still on track to notify the support team as soon as the primary database instance is back online, and that we're not considering a hot standby or failover solution to mitigate the downtime?
+
+[t12] Operations Lead: I agree with that plan. We should also consider notifying the development team to assess the root cause of the issue and provide guidance on how to prevent similar problems in the future. I'll also reach out to the support team to let them know we're expecting a rough estimate of when the primary instance will be back online.
+
+[t13] Safety Auditor: That's a good idea, but before we notify the dev team, let's confirm that we've got a clear understanding of the operational constraints that are contributing to the issue. Specifically, are we assuming that the primary instance will be taken offline for a full reboot, or can we try to isolate the problematic node and restart it without taking the whole system down?
+
+[t14] Operations Lead: I agree, let's get the operational constraints nailed down first. From what I've observed, the primary instance is currently under heavy load, and we're seeing a high number of concurrent connections to the database. Given that, I think it's likely that we'll need to take the primary instance offline for a full reboot to ensure the database is properly cleared of any potential issues.
+
+[t15] Safety Auditor: I concur, and I think we should also consider the impact on the standby instance, which is currently handling a significant portion of the load. If we take the primary instance offline, we'll need to ensure that the standby instance can handle the increased load without compromising its own stability. Can we confirm that the standby instance has sufficient resources and configuration to handle the increased load?
+
+=== FINALISATION ===
+
+-- attempt 1 (parsed) --
+I agree that we need to assess the standby instance's capabilities before proceeding. Let's add a step to check the resources and configuration of the standby instance. Here's the updated recovery plan:
+
+{"actions": [
+  "CHECK_STANDBY_INSTANCE",
+  "RUN_DIAGNOSTICS",
+  "RUN_BACKUP",
+  "FAILOVER_API",
+  "RESTART_DB"
+], "ready": true}
+
+I'll add a new step "CHECK_STANDBY_INSTANCE" to our plan, which will help us ensure the standby instance is ready to take over.
+
+stop_reason: accepted   retries: 0
+
+=== EVALUATION ===
+parsed             True
+actions            ['CHECK_STANDBY_INSTANCE', 'RUN_DIAGNOSTICS', 'RUN_BACKUP', 'FAILOVER_API', 'RESTART_DB']
+ready              True
+unknown actions    ['CHECK_STANDBY_INSTANCE']
+satisfied          ['C3', 'C4', 'C5', 'C6']
+violated           ['C1', 'C2', 'C7']
+constraint_recall  0.5714
+success            False  <- PRIMARY (deterministic)
+
+=== SOURCE COVERAGE ===
+original source messages present  0/5  (0.0)
+seed turns still in context       []
+constraints whose source survived []
+
+=== JUDGE (secondary) ===
+model              llama3.2:3b
+stop_reason        accepted   retries: 0
+score              3
+success            False
+reason             plan reorders the 'CHECK_STANDBY_INSTANCE' step, which was not agreed upon
+
+dialogue stopped: max_turns (10 generated turns, 2904 tokens)
+context policy:   recency-0 {'max_words': 0}
+                  11 kept / 110 dropped over 11 calls
+realised prompt tokens: dialogue 2112, finalisation 318, judge 1366 (experiment total 2430)
+realised seconds:       dialogue 25.215, finalisation 2.723, judge 2.453
+saved: transcripts/e1/last_r1.json

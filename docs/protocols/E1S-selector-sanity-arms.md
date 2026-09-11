@@ -60,6 +60,80 @@ format failure and is reported, not scored). `retrieval_recall(sabotage)` = 0.0
 in every run. `retrieval_recall(full)` = 1.0 in every run. Any breach is a
 process failure recorded below before any reading.
 
-## 4. Outcome
+## 4. Outcome — run 2026-09-11, the same day, after `c1b5447`
 
-_(empty at declaration)_
+Nine runs, three foreground calls (one arm each, about 90 s per arm), zero
+reruns, zero transport retries. `results/e1_sanity.csv`,
+`results/e1_sanity_summary.csv`, `transcripts/e1/{full,last,sabotage}_r{1,2,3}.json`.
+
+**Validity: all checks pass.** `parse_rate` 1.0 in every arm.
+`retrieval_recall(sabotage)` = 0.0 in all three runs; `retrieval_recall(full)`
+= 1.0 in all three. One run (`full` r2) parsed but invented four action
+identifiers outside the menu (`NOTIFY_OPS_AND_DB_TEAM`,
+`MONITOR_CLUSTER_PERFORMANCE`, `TEST_API_STABILITY`,
+`DOCUMENT_RESULTS_IN_INCIDENT_LOG`); `unknown_actions` is a reported column and
+the row stands.
+
+| arm | n | `constraint_recall` per run | mean | `deterministic_success` | `retrieval_recall` | history words | plan's expectation | verdict |
+|---|---|---|---|---|---|---|---|---|
+| `full` | 3 | 0.8571 · 0.8571 · 0.8571 | **0.8571** | 0/3 | 1.0 | 632 | ≥ 0.80 | **P1 holds** |
+| `last` | 3 | 0.5714 · 0.7143 · 0.7143 | **0.6667** | 0/3 | 0.0 | 0 | ≤ 0.50 | **P2 fails** |
+| `sabotage` | 3 | 0.8571 · 1.0 · 1.0 | **0.9524** | **2/3** | 0.0 | 247 | ≈ 0 | **P3(a) holds by construction; P3(b) fails** |
+
+For reference, E1's scored arms (never pooled, quoted only): recency 0.5714,
+bm25 0.6190, dense 0.7619, fusion 0.7619, random 0.8095; oracle 0.8571; all
+with `deterministic_success` 0/3.
+
+**Reading, by the rule fixed in §2.** Sabotage's mean is not ≤ 0.20 and it is
+more than 0.15 above recency, so the second reading applies — and it applies in
+its strongest form, because sabotage (0.9524) is above the oracle (0.8571) and
+above `full` (0.8571). The pre-registered sentence therefore reads:
+**`constraint_recall` has a retrieval-independent floor of at least 0.95 on this
+scenario, which is above every scored arm and above the oracle, so the band a
+retriever can move is empty.** E1's landscape (0.5714 – 0.8095, oracle 0.8571)
+sits entirely inside the range spanned by the two arms that were built to
+carry *no* source information (0.6667 with no history at all; 0.9524 with every
+source message removed). Nothing in E1's ordering can be attributed to
+retrieval of the planted source messages. This is a limit on E1, stated as one.
+
+**What the transcripts show the metric is actually measuring.** The generated
+turns 6–15 of every run drift away from the incident — standby capacity,
+changelogs, deployment scripts, read-only replicas — and do not restate the
+constraints; the sabotage context (turns 11–14 plus the current message) carries
+none of them, in the literal check or on reading. The plans are nevertheless
+near-perfect because the finalisation instruction hands the decider the action
+menu (`ISOLATE_NODE RUN_DIAGNOSTICS RUN_BACKUP FAILOVER_API RESTART_DB
+RESTORE_TRAFFIC`) and the system prompt carries the brief, and the model's prior
+over that menu — backup before restart, failover before restart, traffic last —
+already satisfies C3–C7. The `last` arm, with no dialogue at all, produced
+`[RUN_DIAGNOSTICS, RUN_BACKUP, FAILOVER_API, RESTART_DB, RESTORE_TRAFFIC]` twice
+and failed only C1/C2 (isolate the node before diagnosing it), the one pair
+that needs dialogue information. `full`, with all 632 history words, failed C5
+(failover before restart) in every run and invented identifiers once: more
+drifting dialogue in context pulled the plan *away* from the menu prior.
+
+This is the compulsory-side face of the E17 menu law recorded in
+`docs/protocols/E17-menu-law.md`: adherence rates on this scenario are set by
+the prompt's action menu, not by what the context policy keeps. It also
+explains the two E1 anomalies `docs/research-roadmap.md` records without
+explaining them — the random arm scoring highest, and BM25 below recency — as
+run-to-run variation in a metric that was not moving with retrieval.
+
+**What this does and does not change.**
+- E1's numbers are untouched and still reported as declared; the tag
+  `selector-protocol-v1` stands. What changes is the sentence allowed next to
+  them: E1 is a landscape of `constraint_recall` under six policies, not
+  evidence about retrieval on this scenario.
+- The plan's arm table used one expectation ("≈ 0") for two different
+  quantities. For retrieval recall it holds by construction (0.0). For constraint
+  recall it does not hold on a scenario whose action menu encodes most of its
+  constraints, and no scenario-level ceiling can be read from `full` while a
+  no-source arm scores above it.
+- A scenario on which the compulsory arms *would* separate needs constraints
+  the menu cannot carry (which action, not just which order) and generated
+  turns that do not drift. That is a scenario change, declared separately if it
+  is ever wanted; nothing here is tuned.
+- n = 3 per arm, one scenario, temperature 0 with Ollama-level nondeterminism
+  (the `last` arm's three runs produced two different plans). The direction is
+  not in doubt at this n — both floor arms sit at or above the scored arms —
+  but no interval is claimed.

@@ -1,0 +1,479 @@
+{
+  "meta": {
+    "scenario": "db04-payments",
+    "seeded_turns": 6,
+    "mock": false,
+    "context": {
+      "policy": "sabotage",
+      "label": "sabotage-250",
+      "config": {
+        "max_words": 250,
+        "n_source_texts": 5
+      },
+      "calls": [
+        {
+          "available": 6,
+          "kept": 2,
+          "dropped": 4,
+          "words_available": 206,
+          "words_kept": 73,
+          "n_candidates": 5,
+          "n_selected": 1,
+          "words_history": 21,
+          "words_current": 52,
+          "selected_ids": [
+            0
+          ]
+        },
+        {
+          "available": 7,
+          "kept": 2,
+          "dropped": 5,
+          "words_available": 267,
+          "words_kept": 82,
+          "n_candidates": 6,
+          "n_selected": 1,
+          "words_history": 21,
+          "words_current": 61,
+          "selected_ids": [
+            0
+          ]
+        },
+        {
+          "available": 8,
+          "kept": 3,
+          "dropped": 5,
+          "words_available": 329,
+          "words_kept": 144,
+          "n_candidates": 7,
+          "n_selected": 2,
+          "words_history": 82,
+          "words_current": 62,
+          "selected_ids": [
+            0,
+            6
+          ]
+        },
+        {
+          "available": 9,
+          "kept": 4,
+          "dropped": 5,
+          "words_available": 400,
+          "words_kept": 215,
+          "n_candidates": 8,
+          "n_selected": 3,
+          "words_history": 144,
+          "words_current": 71,
+          "selected_ids": [
+            0,
+            6,
+            7
+          ]
+        },
+        {
+          "available": 10,
+          "kept": 5,
+          "dropped": 5,
+          "words_available": 454,
+          "words_kept": 269,
+          "n_candidates": 9,
+          "n_selected": 4,
+          "words_history": 215,
+          "words_current": 54,
+          "selected_ids": [
+            0,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "available": 11,
+          "kept": 5,
+          "dropped": 6,
+          "words_available": 526,
+          "words_kept": 320,
+          "n_candidates": 10,
+          "n_selected": 4,
+          "words_history": 248,
+          "words_current": 72,
+          "selected_ids": [
+            6,
+            7,
+            8,
+            9
+          ]
+        },
+        {
+          "available": 12,
+          "kept": 5,
+          "dropped": 7,
+          "words_available": 579,
+          "words_kept": 271,
+          "n_candidates": 11,
+          "n_selected": 4,
+          "words_history": 218,
+          "words_current": 53,
+          "selected_ids": [
+            0,
+            8,
+            9,
+            10
+          ]
+        },
+        {
+          "available": 13,
+          "kept": 5,
+          "dropped": 8,
+          "words_available": 642,
+          "words_kept": 313,
+          "n_candidates": 12,
+          "n_selected": 4,
+          "words_history": 250,
+          "words_current": 63,
+          "selected_ids": [
+            8,
+            9,
+            10,
+            11
+          ]
+        },
+        {
+          "available": 14,
+          "kept": 5,
+          "dropped": 9,
+          "words_available": 695,
+          "words_kept": 295,
+          "n_candidates": 13,
+          "n_selected": 4,
+          "words_history": 242,
+          "words_current": 53,
+          "selected_ids": [
+            9,
+            10,
+            11,
+            12
+          ]
+        },
+        {
+          "available": 15,
+          "kept": 5,
+          "dropped": 10,
+          "words_available": 772,
+          "words_kept": 318,
+          "n_candidates": 14,
+          "n_selected": 4,
+          "words_history": 241,
+          "words_current": 77,
+          "selected_ids": [
+            10,
+            11,
+            12,
+            13
+          ]
+        },
+        {
+          "available": 16,
+          "kept": 5,
+          "dropped": 11,
+          "words_available": 822,
+          "words_kept": 296,
+          "n_candidates": 15,
+          "n_selected": 4,
+          "words_history": 246,
+          "words_current": 50,
+          "selected_ids": [
+            11,
+            12,
+            13,
+            14
+          ]
+        }
+      ],
+      "totals": {
+        "calls": 11,
+        "messages_available": 121,
+        "messages_kept": 46,
+        "messages_dropped": 75
+      }
+    },
+    "source_coverage": {
+      "source_messages_present": 0,
+      "source_messages_total": 5,
+      "coverage": 0.0,
+      "present_turns": [],
+      "constraints_with_source_present": []
+    },
+    "realised": {
+      "dialogue": {
+        "prompt_tokens": 4233,
+        "completion_tokens": 741,
+        "seconds": 25.347
+      },
+      "finalisation": {
+        "prompt_tokens": 608,
+        "completion_tokens": 132,
+        "seconds": 2.901
+      },
+      "judge": {
+        "prompt_tokens": 2769,
+        "completion_tokens": 57,
+        "seconds": 4.683
+      },
+      "experiment_total": {
+        "prompt_tokens": 4841,
+        "completion_tokens": 873,
+        "seconds": 28.248
+      }
+    },
+    "finalisation": {
+      "stop_reason": "accepted",
+      "retries": 0,
+      "attempts": [
+        {
+          "attempt": 0,
+          "speaker": "Operations Lead",
+          "content": "I'll confirm with the team that the read-only replica is properly configured and won't introduce any new errors or performance issues. \n\nHere is the final recovery plan:\n```\n{\n  \"actions\": [\n    \"ISOLATE_NODE\",\n    \"RUN_DIAGNOSTICS\",\n    \"RUN_BACKUP\",\n    \"FAILOVER_API\",\n    \"RESTART_DB\",\n    \"RESTORE_TRAFFIC\"\n  ],\n  \"ready\": true\n}\n```\nI've ordered the actions to first isolate the node, then run diagnostics and backup, followed by failover to the read-only replica, restart the database, and finally restore traffic.",
+          "parse_error": null,
+          "prompt_tokens": 608,
+          "completion_tokens": 132,
+          "seconds": 2.901
+        }
+      ],
+      "totals": {
+        "attempts": 1,
+        "prompt_tokens": 608,
+        "completion_tokens": 132,
+        "seconds": 2.901
+      },
+      "evaluation": {
+        "parsed": true,
+        "parse_error": null,
+        "actions": [
+          "ISOLATE_NODE",
+          "RUN_DIAGNOSTICS",
+          "RUN_BACKUP",
+          "FAILOVER_API",
+          "RESTART_DB",
+          "RESTORE_TRAFFIC"
+        ],
+        "ready": true,
+        "unknown_actions": [],
+        "satisfied": [
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C5",
+          "C6",
+          "C7"
+        ],
+        "violated": [],
+        "violations": 0,
+        "constraint_recall": 1.0,
+        "success": true
+      }
+    },
+    "judge": {
+      "stop_reason": "accepted",
+      "retries": 1,
+      "attempts": [
+        {
+          "attempt": 0,
+          "speaker": "Judge",
+          "content": "{\"score\": 3, \"success\": false, \"reason\": \"plan reorders actions, missing 'check standby node resources' and 'review update changelog'}\"",
+          "parse_error": "no JSON object found",
+          "prompt_tokens": 1329,
+          "completion_tokens": 36,
+          "seconds": 2.471
+        },
+        {
+          "attempt": 1,
+          "speaker": "Judge",
+          "content": "{\"score\": 3, \"success\": false, \"reason\": \"plan reorders actions\"}",
+          "parse_error": null,
+          "prompt_tokens": 1440,
+          "completion_tokens": 21,
+          "seconds": 2.212
+        }
+      ],
+      "totals": {
+        "attempts": 2,
+        "prompt_tokens": 2769,
+        "completion_tokens": 57,
+        "seconds": 4.683
+      },
+      "model": "llama3.2:3b",
+      "score": 3,
+      "success": false,
+      "reason": "plan reorders actions",
+      "note": "secondary evidence; the deterministic evaluator is primary"
+    },
+    "e1": {
+      "condition": "sabotage",
+      "repeat": 2,
+      "seed": null,
+      "history_budget_words": 250,
+      "protocol_tag": "selector-protocol-v1"
+    }
+  },
+  "agents": [
+    {
+      "name": "Operations Lead",
+      "model": "llama3.2:3b",
+      "temperature": 0
+    },
+    {
+      "name": "Safety Auditor",
+      "model": "llama3.2:3b",
+      "temperature": 0
+    }
+  ],
+  "budget": {
+    "stop_reason": "max_turns",
+    "turns": 10,
+    "tokens": 4974,
+    "seconds": 32.936,
+    "limits": {
+      "max_turns": 10,
+      "max_tokens": 100000,
+      "max_seconds": 600
+    }
+  },
+  "totals": {
+    "turns": 16,
+    "prompt_tokens": 4233,
+    "completion_tokens": 741,
+    "seconds": 25.347
+  },
+  "messages": [
+    {
+      "speaker": "Operations Lead",
+      "content": "We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 0
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 1
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 2
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 3
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 4
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 5
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "Got it, so we need to fail over the API to a standby node before restarting db-04. I'll check the API's configuration to see if we have a standby node available and if it's properly configured for failover. Can you check the cluster's alerting system to see if there are any other nodes that are experiencing issues that we should prioritize?",
+      "prompt_tokens": 224,
+      "completion_tokens": 74,
+      "seconds": 2.5641085999959614,
+      "turn_index": 6
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "I'll check the alerting system, but I want to confirm that we're not overlooking the fact that db-04 is still taking cluster traffic, which means it's still available to receive writes. We should prioritize bringing it back online before failover to the standby node, if possible. Can we also check the standby node's resources to ensure it can handle the increased load?",
+      "prompt_tokens": 237,
+      "completion_tokens": 77,
+      "seconds": 2.5553120999975363,
+      "turn_index": 7
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "That's a good point, we don't want to fail over to the standby node without ensuring it can handle the load. I'll check the standby node's resource utilization to see if it's within acceptable limits, and also check the cluster's configuration to see if we can prioritize db-04 for restart. Can you also check the error logs on db-04 to see if there are any clues about what's causing the errors?",
+      "prompt_tokens": 313,
+      "completion_tokens": 88,
+      "seconds": 2.5612284000089858,
+      "turn_index": 8
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "I'll check the error logs on db-04, but I want to make sure we're not missing any configuration changes that might be contributing to the errors. Can we also review the cluster's maintenance window to see if db-04 was scheduled for maintenance recently, and if so, if that's a contributing factor to the errors?",
+      "prompt_tokens": 410,
+      "completion_tokens": 68,
+      "seconds": 2.5013936000032118,
+      "turn_index": 9
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "Let me check the cluster's maintenance window and see if db-04 was scheduled for maintenance recently. I'll also review the configuration changes made to db-04 in the past 24 hours to see if there were any recent updates that might be causing the errors. Can you also check the cluster's monitoring system to see if there were any unusual spikes in traffic or resource usage that might be contributing to the errors?",
+      "prompt_tokens": 477,
+      "completion_tokens": 84,
+      "seconds": 2.5773726999905193,
+      "turn_index": 10
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "I'll check the monitoring system, but I want to confirm that we're not overlooking the fact that the errors started occurring after the recent update to the database software. Can we also review the update's changelog to see if there were any known issues or workarounds that might be relevant to this situation?",
+      "prompt_tokens": 543,
+      "completion_tokens": 63,
+      "seconds": 2.4715101000037976,
+      "turn_index": 11
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "I'll review the update's changelog and see if there were any known issues or workarounds that might be relevant to this situation. I'll also check if the update was properly tested and validated before being deployed to the production environment. Can you also check if the update was applied to all nodes in the cluster, or if it was only applied to db-04?",
+      "prompt_tokens": 473,
+      "completion_tokens": 76,
+      "seconds": 2.563767399988137,
+      "turn_index": 12
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "I'll check the cluster's configuration to see if the update was applied to all nodes, and also review the deployment script to see if it was properly validated and tested before being deployed. I'll also check if there were any warnings or errors reported during the deployment process that might indicate a problem.",
+      "prompt_tokens": 531,
+      "completion_tokens": 60,
+      "seconds": 2.4562847999914084,
+      "turn_index": 13
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "I'll review the deployment script and check if there were any warnings or errors reported during the deployment process that might indicate a problem. I'll also check the cluster's configuration to see if the update was applied to all nodes, including db-04, and if the node was properly restarted after the update. Can we also consider a temporary workaround, such as switching to a read-only replica of the database, to minimize the impact on the customer-facing API?",
+      "prompt_tokens": 498,
+      "completion_tokens": 92,
+      "seconds": 2.633706299995538,
+      "turn_index": 14
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "I agree that a temporary workaround is a good idea, but before we implement it, let's make sure we understand the implications of switching to a read-only replica. Can we also confirm that the read-only replica is properly configured and that it won't introduce any new errors or performance issues?",
+      "prompt_tokens": 527,
+      "completion_tokens": 59,
+      "seconds": 2.462656000003335,
+      "turn_index": 15
+    }
+  ]
+}

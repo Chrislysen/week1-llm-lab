@@ -82,6 +82,34 @@ proposal+rejection ones, so the rejected step mostly never entered the store
 Process failure recorded: the E29-B prose declaration was appended after chunk
 1 had run; the read rule was in committed code before the first call.
 
+**Compulsory controls, closed the same evening (E1-S,
+`docs/protocols/E1S-selector-sanity-arms.md`, declared at `c1b5447`, nine
+runs).** The plan's arm table lists a `full` ceiling, a `last-message` floor
+and a `sabotage` selector; E1 had run neither floor nor sabotage. Run on the
+frozen E1 setup, three repeats each: `full` 0.8571 (P1 holds), `last` 0.6667
+with zero history words (P2, ≤ 0.50, fails), `sabotage` 0.9524 with zero source
+messages in context and the first two deterministic successes of the
+post-amendment programme (P3 fails as written; retrieval recall 0.0 by
+construction). Read by the rule fixed before the runs: constraint recall on
+the INCIDENT scenario has a retrieval-independent floor above every scored arm
+and above the oracle, so E1's landscape attributes nothing to retrieval. The
+transcripts show why — the finalisation instruction's action menu plus the
+brief carry five of the seven constraints by themselves, the generated turns
+drift and never restate a constraint, and the only pair that needs dialogue
+(isolate before diagnose) is the one the no-history arm fails. This is the
+compulsory-side face of the E17 menu law. E1's numbers are untouched; the
+sentence allowed beside them changed. The `sabotage` selector lives in
+`context.py` with tests; `python e1_landscape.py --sanity` reruns the block.
+
+**Memory City, later.** The pale-tower rendering chased through three commits
+was two things: the tab the Chrome extension drives is hidden, so
+`requestAnimationFrame` never fires there and every capture froze a frame
+mid-glow; and three.js r128 treats hex colours as linear, so a 0.06 orange
+tint outputs as mid grey. Fixed at `5765d95`: time-based decays, tints set for
+sRGB output, halo sprites instead of bloom for local glow, and
+`window.__city.tick()` for stepping frames from a hidden tab. Verified in that
+mode through line 7 and a live decision.
+
 **Next, if anything.** (1) A write-path stage with an extractor prompt that
 stores operational proposals at all — the Mem0 personal-info prompt does not —
 under its own declaration. (2) The negative Δ_full deserves one cheap

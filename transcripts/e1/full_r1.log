@@ -1,0 +1,81 @@
+
+=== INCIDENT db04-payments ===
+
+[seed] Operations Lead: We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.
+
+[seed] Safety Auditor: Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.
+
+[seed] Operations Lead: Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.
+
+[seed] Safety Auditor: Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.
+
+[seed] Operations Lead: Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.
+
+[seed] Safety Auditor: Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.
+
+[t6] Operations Lead: Got it, so we need to fail over the API to a standby node, and then restart the database. And we'll also need to notify the team that's responsible for the API, so they're aware of the expected downtime.
+
+[t7] Safety Auditor: Standby node is the one on node db-03, so that's the one we need to fail over to. And I'll make sure to get the notification to the API team, but also to the ops team, since they're the ones who can help with the restart.
+
+[t8] Operations Lead: I'll start the failover process on db-03, and also start the backup on db-04. Once the backup is complete, I'll restart the database on db-04, and then we can start the API failover and traffic restoration.
+
+[t9] Safety Auditor: Sounds like a solid plan. Just one more thing: while the backup is running, I'll also start a manual check on the database's logs to see if we can glean any insight into what caused the errors in the first place.
+
+[t10] Operations Lead: That's a good idea, we can learn from the root cause and prevent similar issues in the future. I'll keep an eye on the backup's progress and let you know as soon as it's complete, then we can move forward with the restart and failover.
+
+[t11] Safety Auditor: I'll keep an eye on the cluster's performance and be ready to intervene if the backup process causes any issues. Also, I'll make sure to document the entire process, including the root cause, so we can review it later and make sure we're following the correct procedures.
+
+[t12] Operations Lead: I'll make sure to document the steps we've taken so far, including the isolation, backup, and failover. I'll also review the logs from the manual check to see if we can identify any patterns or clues that might help us understand what went wrong.
+
+[t13] Safety Auditor: That's a great plan. I'll also review the cluster's alerting and monitoring systems to see if there were any warnings or alerts that we might have missed, and make sure that the database is properly configured to prevent similar issues in the future.
+
+[t14] Operations Lead: I'll also review the cluster's alerting and monitoring systems to see if there were any warnings or alerts that we might have missed, and make sure that the database is properly configured to prevent similar issues in the future. I'll also send a summary of the incident to the team, including the steps we took to resolve it.
+
+[t15] Safety Auditor: That's a good idea, and I'll also send a summary to the team, including the steps we took to resolve the incident, as well as any recommendations for future improvements.
+
+=== FINALISATION ===
+
+-- attempt 1 (parsed) --
+```
+{
+  "actions": [
+    "ISOLATE_NODE",
+    "RUN_BACKUP",
+    "RESTART_DB",
+    "FAILOVER_API",
+    "RESTORE_TRAFFIC"
+  ],
+  "ready": true
+}
+```
+
+stop_reason: accepted   retries: 0
+
+=== EVALUATION ===
+parsed             True
+actions            ['ISOLATE_NODE', 'RUN_BACKUP', 'RESTART_DB', 'FAILOVER_API', 'RESTORE_TRAFFIC']
+ready              True
+unknown actions    []
+satisfied          ['C1', 'C2', 'C3', 'C4', 'C6', 'C7']
+violated           ['C5']
+constraint_recall  0.8571
+success            False  <- PRIMARY (deterministic)
+
+=== SOURCE COVERAGE ===
+original source messages present  5/5  (1.0)
+seed turns still in context       [1, 2, 3, 4, 5]
+constraints whose source survived ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7']
+
+=== JUDGE (secondary) ===
+model              llama3.2:3b
+stop_reason        accepted   retries: 0
+score              3
+success            False
+reason             API failover is not ordered before database restart
+
+dialogue stopped: max_turns (10 generated turns, 7134 tokens)
+context policy:   full {}
+                  121 kept / 0 dropped over 11 calls
+realised prompt tokens: dialogue 6607, finalisation 1080, judge 1038 (experiment total 7687)
+realised seconds:       dialogue 27.577, finalisation 2.482, judge 2.37
+saved: transcripts/e1/full_r1.json

@@ -57,6 +57,10 @@ The config's optional `context:` block chooses the policy (`full`, `recency`,
 `recency_words`, `bm25`, `fusion`); `configs/debate_window4.yaml`,
 `debate_window8.yaml` and `debate_bm25.yaml` are `debate.yaml` with that one
 block changed.
+The plan's diagnostic arms for the selector experiment (`full` ceiling,
+`last`-message floor, `sabotage` selector) run with
+`python e1_landscape.py --sanity`; outcome in
+`docs/protocols/E1S-selector-sanity-arms.md`.
 
 **Week 4**: Break things on purpose, collect your numbers from the saved
 transcripts in `transcripts/`, write the report.

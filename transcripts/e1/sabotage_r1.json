@@ -1,0 +1,470 @@
+{
+  "meta": {
+    "scenario": "db04-payments",
+    "seeded_turns": 6,
+    "mock": false,
+    "context": {
+      "policy": "sabotage",
+      "label": "sabotage-250",
+      "config": {
+        "max_words": 250,
+        "n_source_texts": 5
+      },
+      "calls": [
+        {
+          "available": 6,
+          "kept": 2,
+          "dropped": 4,
+          "words_available": 206,
+          "words_kept": 73,
+          "n_candidates": 5,
+          "n_selected": 1,
+          "words_history": 21,
+          "words_current": 52,
+          "selected_ids": [
+            0
+          ]
+        },
+        {
+          "available": 7,
+          "kept": 2,
+          "dropped": 5,
+          "words_available": 270,
+          "words_kept": 85,
+          "n_candidates": 6,
+          "n_selected": 1,
+          "words_history": 21,
+          "words_current": 64,
+          "selected_ids": [
+            0
+          ]
+        },
+        {
+          "available": 8,
+          "kept": 3,
+          "dropped": 5,
+          "words_available": 353,
+          "words_kept": 168,
+          "n_candidates": 7,
+          "n_selected": 2,
+          "words_history": 85,
+          "words_current": 83,
+          "selected_ids": [
+            0,
+            6
+          ]
+        },
+        {
+          "available": 9,
+          "kept": 4,
+          "dropped": 5,
+          "words_available": 441,
+          "words_kept": 256,
+          "n_candidates": 8,
+          "n_selected": 3,
+          "words_history": 168,
+          "words_current": 88,
+          "selected_ids": [
+            0,
+            6,
+            7
+          ]
+        },
+        {
+          "available": 10,
+          "kept": 4,
+          "dropped": 6,
+          "words_available": 509,
+          "words_kept": 303,
+          "n_candidates": 9,
+          "n_selected": 3,
+          "words_history": 235,
+          "words_current": 68,
+          "selected_ids": [
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "available": 11,
+          "kept": 4,
+          "dropped": 7,
+          "words_available": 574,
+          "words_kept": 304,
+          "n_candidates": 10,
+          "n_selected": 3,
+          "words_history": 239,
+          "words_current": 65,
+          "selected_ids": [
+            7,
+            8,
+            9
+          ]
+        },
+        {
+          "available": 12,
+          "kept": 5,
+          "dropped": 7,
+          "words_available": 634,
+          "words_kept": 302,
+          "n_candidates": 11,
+          "n_selected": 4,
+          "words_history": 242,
+          "words_current": 60,
+          "selected_ids": [
+            0,
+            8,
+            9,
+            10
+          ]
+        },
+        {
+          "available": 13,
+          "kept": 5,
+          "dropped": 8,
+          "words_available": 698,
+          "words_kept": 278,
+          "n_candidates": 12,
+          "n_selected": 4,
+          "words_history": 214,
+          "words_current": 64,
+          "selected_ids": [
+            0,
+            9,
+            10,
+            11
+          ]
+        },
+        {
+          "available": 14,
+          "kept": 5,
+          "dropped": 9,
+          "words_available": 748,
+          "words_kept": 260,
+          "n_candidates": 13,
+          "n_selected": 4,
+          "words_history": 210,
+          "words_current": 50,
+          "selected_ids": [
+            0,
+            10,
+            11,
+            12
+          ]
+        },
+        {
+          "available": 15,
+          "kept": 5,
+          "dropped": 10,
+          "words_available": 802,
+          "words_kept": 293,
+          "n_candidates": 14,
+          "n_selected": 4,
+          "words_history": 239,
+          "words_current": 54,
+          "selected_ids": [
+            10,
+            11,
+            12,
+            13
+          ]
+        },
+        {
+          "available": 16,
+          "kept": 6,
+          "dropped": 10,
+          "words_available": 857,
+          "words_kept": 304,
+          "n_candidates": 15,
+          "n_selected": 5,
+          "words_history": 249,
+          "words_current": 55,
+          "selected_ids": [
+            0,
+            11,
+            12,
+            13,
+            14
+          ]
+        }
+      ],
+      "totals": {
+        "calls": 11,
+        "messages_available": 121,
+        "messages_kept": 45,
+        "messages_dropped": 76
+      }
+    },
+    "source_coverage": {
+      "source_messages_present": 0,
+      "source_messages_total": 5,
+      "coverage": 0.0,
+      "present_turns": [],
+      "constraints_with_source_present": []
+    },
+    "realised": {
+      "dialogue": {
+        "prompt_tokens": 4238,
+        "completion_tokens": 781,
+        "seconds": 25.467
+      },
+      "finalisation": {
+        "prompt_tokens": 632,
+        "completion_tokens": 55,
+        "seconds": 2.461
+      },
+      "judge": {
+        "prompt_tokens": 1292,
+        "completion_tokens": 35,
+        "seconds": 2.408
+      },
+      "experiment_total": {
+        "prompt_tokens": 4870,
+        "completion_tokens": 836,
+        "seconds": 27.928
+      }
+    },
+    "finalisation": {
+      "stop_reason": "accepted",
+      "retries": 0,
+      "attempts": [
+        {
+          "attempt": 0,
+          "speaker": "Operations Lead",
+          "content": "{\"actions\": [\n  \"ISOLATE_NODE\",\n  \"RUN_DIAGNOSTICS\",\n  \"RUN_BACKUP\",\n  \"RESTART_DB\",\n  \"FAILOVER_API\",\n  \"RESTORE_TRAFFIC\"\n], \n\"ready\": true}",
+          "parse_error": null,
+          "prompt_tokens": 632,
+          "completion_tokens": 55,
+          "seconds": 2.461
+        }
+      ],
+      "totals": {
+        "attempts": 1,
+        "prompt_tokens": 632,
+        "completion_tokens": 55,
+        "seconds": 2.461
+      },
+      "evaluation": {
+        "parsed": true,
+        "parse_error": null,
+        "actions": [
+          "ISOLATE_NODE",
+          "RUN_DIAGNOSTICS",
+          "RUN_BACKUP",
+          "RESTART_DB",
+          "FAILOVER_API",
+          "RESTORE_TRAFFIC"
+        ],
+        "ready": true,
+        "unknown_actions": [],
+        "satisfied": [
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C6",
+          "C7"
+        ],
+        "violated": [
+          "C5"
+        ],
+        "violations": 1,
+        "constraint_recall": 0.8571,
+        "success": false
+      }
+    },
+    "judge": {
+      "stop_reason": "accepted",
+      "retries": 0,
+      "attempts": [
+        {
+          "attempt": 0,
+          "speaker": "Judge",
+          "content": "{\"score\": 3, \"success\": false, \"reason\": \"plan reorders actions, missing 'CHECK_API_CONFIG' and 'CHECK_LOGS' steps\"}",
+          "parse_error": null,
+          "prompt_tokens": 1292,
+          "completion_tokens": 35,
+          "seconds": 2.408
+        }
+      ],
+      "totals": {
+        "attempts": 1,
+        "prompt_tokens": 1292,
+        "completion_tokens": 35,
+        "seconds": 2.408
+      },
+      "model": "llama3.2:3b",
+      "score": 3,
+      "success": false,
+      "reason": "plan reorders actions, missing 'CHECK_API_CONFIG' and 'CHECK_LOGS' steps",
+      "note": "secondary evidence; the deterministic evaluator is primary"
+    },
+    "e1": {
+      "condition": "sabotage",
+      "repeat": 1,
+      "seed": null,
+      "history_budget_words": 250,
+      "protocol_tag": "selector-protocol-v1"
+    }
+  },
+  "agents": [
+    {
+      "name": "Operations Lead",
+      "model": "llama3.2:3b",
+      "temperature": 0
+    },
+    {
+      "name": "Safety Auditor",
+      "model": "llama3.2:3b",
+      "temperature": 0
+    }
+  ],
+  "budget": {
+    "stop_reason": "max_turns",
+    "turns": 10,
+    "tokens": 5019,
+    "seconds": 30.34,
+    "limits": {
+      "max_turns": 10,
+      "max_tokens": 100000,
+      "max_seconds": 600
+    }
+  },
+  "totals": {
+    "turns": 16,
+    "prompt_tokens": 4238,
+    "completion_tokens": 781,
+    "seconds": 25.467
+  },
+  "messages": [
+    {
+      "speaker": "Operations Lead",
+      "content": "We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 0
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 1
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 2
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 3
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 4
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 5
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "Got it, so we need to fail over the API to a standby node before restarting db-04. I'll check the API's configuration to see if we have a standby node available and if it's properly configured for failover. Can you check the cluster's alerting system to see if there are any other nodes that are experiencing issues that we should also consider for failover?",
+      "prompt_tokens": 224,
+      "completion_tokens": 78,
+      "seconds": 2.584987000009278,
+      "turn_index": 6
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "I'll check the alerting system to see if there are any other nodes that are experiencing issues, but I'm not sure if we can fail over to another node without first checking the API's configuration to ensure it's properly set up for failover. We don't want to risk introducing more errors into the system than we already have. Can you also check the API's logs to see if there are any error messages that might give us a clue about what's going on?",
+      "prompt_tokens": 241,
+      "completion_tokens": 97,
+      "seconds": 2.625113899994176,
+      "turn_index": 7
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "I'll check the API's logs to see if there are any error messages that might give us a clue about what's going on. If we can find a pattern or a specific error message, it might help us identify the root cause of the issue. I'll also review the API's configuration to see if we can make any adjustments to enable failover, but I'll also keep an eye on the cluster's alerting system to see if any other nodes come online that we can use as a standby.",
+      "prompt_tokens": 337,
+      "completion_tokens": 103,
+      "seconds": 2.6346018000040203,
+      "turn_index": 8
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "That sounds like a good plan. I'll keep an eye on the cluster's alerting system and let you know if any other nodes come online that we can consider for failover. In the meantime, I'll also check the cluster's monitoring system to see if there are any other metrics that might give us a clue about what's going on with db-04, such as CPU usage or memory usage.",
+      "prompt_tokens": 449,
+      "completion_tokens": 83,
+      "seconds": 2.545699100010097,
+      "turn_index": 9
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "That's a great idea, checking the monitoring system for metrics on db-04. If we can see if there's a spike in CPU usage or memory usage that might be contributing to the errors, it could help us identify the root cause of the issue. I'll also check the node's disk usage to see if there's any disk space issues that might be causing the errors.",
+      "prompt_tokens": 504,
+      "completion_tokens": 78,
+      "seconds": 2.564461299989489,
+      "turn_index": 10
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Let's also check the node's I/O patterns to see if there's a bottleneck that's causing the errors. If we can identify a specific I/O pattern, it might give us a clue about what's causing the issues with the database. Can you also check the node's logs to see if there are any error messages related to disk or I/O issues?",
+      "prompt_tokens": 509,
+      "completion_tokens": 74,
+      "seconds": 2.5171525000041584,
+      "turn_index": 11
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "I'll check the node's logs for any error messages related to disk or I/O issues, and also check the cluster's log aggregation system to see if there are any logs from other nodes that might be related to the issue. I'll also use the cluster's log analysis tool to search for keywords like \"disk full\" or \"I/O error\" to help narrow down the search.",
+      "prompt_tokens": 508,
+      "completion_tokens": 79,
+      "seconds": 2.579265899999882,
+      "turn_index": 12
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "That's a good plan. I'll also check the cluster's alerting system to see if there are any alerts that have been triggered on db-04 that we might have missed. If there are any alerts, it could give us a clue about what's going on and help us prioritize our investigation.",
+      "prompt_tokens": 494,
+      "completion_tokens": 62,
+      "seconds": 2.437871799993445,
+      "turn_index": 13
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "I'll check the alerting system as well, and also review the cluster's incident response plan to see if there are any specific procedures we need to follow in case of a database error. I'll also reach out to our database team to see if they've noticed anything unusual with the database's performance or behavior.",
+      "prompt_tokens": 463,
+      "completion_tokens": 64,
+      "seconds": 2.5008285000076285,
+      "turn_index": 14
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "It's always good to follow the plan and ensure we're following the proper procedures. Can you also check the plan to see if there are any specific steps that need to be taken to isolate the affected node or take the database offline, and if so, what the impact would be on the customer-facing API?",
+      "prompt_tokens": 509,
+      "completion_tokens": 63,
+      "seconds": 2.4767409000050975,
+      "turn_index": 15
+    }
+  ]
+}
