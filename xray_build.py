@@ -145,6 +145,7 @@ def e29_dialogues():
         verbs = dict(DOMAINS[inst.domain]["actions"])
         rec = {"instance": inst.id, "domain": inst.domain, "rotation": rot,
                "rejected_action": rej["action"], "phrase": verbs[rej["action"]],
+               "vocab": list(inst.actions),
                "units": [{"constraint": u["constraint"], "action": u["action"], "status": u["status"]} for u in d["units"]],
                "arms": {}, "blocks": {}, "recorded": {}}
         for arm in ARMS:

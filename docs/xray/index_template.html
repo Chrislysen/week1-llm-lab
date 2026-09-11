@@ -130,6 +130,7 @@
   .chip.a { border-color: var(--ok); color: var(--ok); }
   .chip.p { border-color: var(--proposed); color: var(--proposed); }
   .chip.n { color: var(--muted); }
+  .chip.x { color: var(--muted); border-style: dashed; text-decoration: line-through; }
   .verdict { font-size: 12.5px; color: var(--muted); grid-column: 1 / -1; margin-top: -2px; }
   .verdict b { color: var(--zombie); font-weight: 600; }
   .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 13px; color: var(--muted); align-items: center; }
@@ -228,6 +229,7 @@
       <span><span class="chip a">STEP</span> accepted, in the plan</span>
       <span><span class="chip p">STEP</span> proposed with no reply</span>
       <span><span class="chip n">STEP</span> never mentioned</span>
+      <span><span class="chip x">STEP</span> not one of the six identifiers offered</span>
     </div>
   </section>
 
@@ -447,11 +449,12 @@
       var chips = el('div', 'chips');
       var carries = false;
       actions.forEach(function (a) {
-        var st = actionStatus(d, a);
-        var cls = st === 'rejected' ? 'z' : st === 'accepted' ? 'a' : st === 'proposed' ? 'p' : 'n';
+        var known = Object.prototype.hasOwnProperty.call(d.verbs, a);
+        var st = known ? actionStatus(d, a) : 'invented';
+        var cls = !known ? 'x' : st === 'rejected' ? 'z' : st === 'accepted' ? 'a' : st === 'proposed' ? 'p' : 'n';
         if (st === 'rejected') carries = true;
         var c = el('span', 'chip ' + cls, a);
-        c.title = a + ' · ' + st + ' in this dialogue';
+        c.title = known ? a + ' · ' + st + ' in this dialogue' : a + ' · not one of the six identifiers offered; the model invented it';
         chips.appendChild(c);
       });
       row.appendChild(chips);
@@ -594,10 +597,13 @@
       var chips = el('div', 'chips'), carries = false;
       if (!plan) { chips.appendChild(el('span', 'muted', 'no recorded plan for this cell')); }
       else plan.actions.forEach(function (a) {
-        var st = statusOfAction(d, a);
-        var cls = st === 'rejected' ? 'z' : st === 'accepted' ? 'a' : st === 'proposed' ? 'p' : 'n';
+        var known = d.vocab.indexOf(a) >= 0;
+        var st = known ? statusOfAction(d, a) : 'invented';
+        var cls = !known ? 'x' : st === 'rejected' ? 'z' : st === 'accepted' ? 'a' : st === 'proposed' ? 'p' : 'n';
         if (st === 'rejected') carries = true;
-        var c = el('span', 'chip ' + cls, a); c.title = a + ' · ' + st + ' in this dialogue'; chips.appendChild(c);
+        var c = el('span', 'chip ' + cls, a);
+        c.title = known ? a + ' · ' + st + ' in this dialogue' : a + ' · not one of the six identifiers offered; the model invented it';
+        chips.appendChild(c);
       });
       row.appendChild(chips);
       if (plan) {
