@@ -62,3 +62,20 @@ transcripts in `transcripts/`, write the report.
 No `while` loop that calls a model exists without a Budget controlling it.
 If you're unsure about something, start with `Budget(max_turns=2)` in mock mode.
 Two turns can't hurt.
+
+## The Zombie Constraint X-ray
+
+Everything the research branch measured, on one page, rebuilt from the result
+files every time it starts:
+
+```
+python xray_server.py        # builds from results/, opens http://localhost:8765/
+python xray_build.py         # writes the static page to docs/xray/zombie_xray.html
+```
+
+The page shows real dialogues and the six models' actual plans, the relapse
+ladder with intervals recomputed from the CSVs, the four memory designs, and
+the E29 rows. With Ollama running, the live panel lets you pick a dialogue, an
+arm and a memory design, see the exact block the decider was given, and press
+**Run live** to send it to the local model now and compare with the record.
+Live runs are demo calls; nothing is written to `results/`.

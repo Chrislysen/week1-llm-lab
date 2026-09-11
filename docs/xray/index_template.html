@@ -172,6 +172,23 @@
   .status.pending i { background: var(--zombie); }
   .callout { border-left: 3px solid var(--proposed); padding: 6px 14px; background: var(--surface-2); max-width: 72ch; }
 
+  /* ---- live panel ---- */
+  pre.ctx { margin: 0; font-family: var(--mono); font-size: 12.5px; line-height: 1.45; white-space: pre-wrap; word-break: break-word; background: var(--surface-2); border: 1px solid var(--line); border-radius: 4px; padding: 12px 14px; max-height: 560px; overflow: auto; }
+  pre.ctx mark { background: var(--zombie-soft); color: var(--zombie); font-weight: 500; padding: 0 2px; border-radius: 2px; }
+  .plan-row.live { border-style: dashed; }
+  .plan-row .m em { font-style: normal; font-family: var(--mono); font-size: 11px; color: var(--ok); }
+  .plan-row .m em.diff { color: var(--zombie); }
+  .controls label { font-size: 13.5px; }
+  button:disabled { opacity: .5; cursor: not-allowed; }
+  table.snap td { font-size: 13px; vertical-align: top; }
+  table.snap td.said { max-width: 36ch; }
+  table.snap td.idx { font-family: var(--mono); color: var(--muted); }
+  table.snap ul { margin: 0; padding-left: 16px; font-family: var(--mono); font-size: 12px; }
+  table.snap li.new { color: var(--ok); }
+  table.snap li.gone { color: var(--zombie); text-decoration: line-through; }
+  table.snap tr.is-rejected-block td { background: var(--zombie-soft); }
+  .lv-err { color: var(--zombie); font-size: 13px; font-family: var(--mono); }
+
   .prov { display: grid; gap: 8px; font-size: 14.5px; }
   .prov li { margin: 0 0 4px; }
   footer { color: var(--muted); font-size: 13px; font-family: var(--mono); }
@@ -291,6 +308,38 @@
     </div>
     <div class="callout" id="e29pending">
       <p><b>The question E29 asks.</b> Does a partner's later restatement of a rejected step raise the relapse rate by an amount that depends on the memory design, measured as a difference-in-differences against the full-context arm above? The rows above will be filled in with measured rates only after the declared protocol has run.</p>
+    </div>
+  </section>
+
+  <section class="panel" id="live" hidden aria-labelledby="h-live">
+    <div class="panel-head">
+      <h2 id="h-live">Memory X-ray, live</h2>
+      <span class="status" id="lv-health"><i></i><span>checking Ollama…</span></span>
+    </div>
+    <p>Pick one of the 96 E29 dialogues, an arm and a memory design. The left pane is the exact block the decider was given, with the rejected step marked wherever it survives. The right pane is what each model answered when the experiment ran. <b>Run live</b> sends the same prompt to the local model now, at temperature 0, and checks the answer against the record.</p>
+    <div class="controls">
+      <label class="muted" for="lv-pick">Dialogue</label><select id="lv-pick" aria-label="Choose an E29 dialogue"></select>
+      <label class="muted" for="lv-arm">Arm</label>
+      <select id="lv-arm"><option value="restated">restated</option><option value="neutral">neutral line</option></select>
+      <label class="muted" for="lv-design">Design</label>
+      <select id="lv-design"><option value="full">full context</option><option value="delete">write-time delete</option><option value="addonly">add-only</option><option value="wiki">merge-in-place page</option></select>
+      <label class="muted" for="lv-model">Model</label><select id="lv-model"></select>
+      <button id="lv-run" type="button">Run live</button>
+      <span class="lv-err" id="lv-err"></span>
+    </div>
+    <div class="two">
+      <div>
+        <div class="eyebrow">what the decider saw</div>
+        <pre class="ctx" id="lv-context"></pre>
+      </div>
+      <div>
+        <div class="eyebrow">plans</div>
+        <div class="plans" id="lv-plans"></div>
+      </div>
+    </div>
+    <div id="lv-xray" hidden>
+      <div class="eyebrow">the real extractor's store, line by line · E29-B, Mem0 paper prompts run by llama3.2:3b</div>
+      <div class="table-wrap"><table class="snap" id="lv-snap"><thead><tr><th>line</th><th>said</th><th>store after this line</th></tr></thead><tbody></tbody></table></div>
     </div>
   </section>
 
@@ -501,6 +550,123 @@
     var cells = document.querySelectorAll('table.design tbody tr td:last-child .status');
     var who = D.e29.map(function (E) { return E.model; }).join(', ');
     cells.forEach(function (c) { c.className = 'status measured'; c.lastChild.textContent = 'measured, ' + who; });
+  }
+
+  /* ---- live panel (served by xray_server.py; hidden in the static build) ---- */
+  if (D.live && D.e29_dialogues) {
+    document.getElementById('live').hidden = false;
+    var lp = document.getElementById('lv-pick'), la = document.getElementById('lv-arm'),
+        ld = document.getElementById('lv-design'), lm = document.getElementById('lv-model'),
+        lrun = document.getElementById('lv-run'), lerr = document.getElementById('lv-err');
+    D.e29_dialogues.forEach(function (d, i) {
+      var o = el('option', null, d.instance + ' · rotation ' + d.rotation + ' · ' + d.domain + ' · rejected: ' + d.phrase);
+      o.value = i; lp.appendChild(o);
+    });
+    var installed = D.live.models || [];
+    var choices = D.e29_models.slice();
+    installed.forEach(function (m) { if (choices.indexOf(m) < 0) choices.push(m); });
+    choices.forEach(function (m) {
+      var ok = installed.indexOf(m) >= 0;
+      var o = el('option', null, m + (ok ? '' : ' (not installed)')); o.value = m; o.disabled = !ok; lm.appendChild(o);
+    });
+    var hb = document.getElementById('lv-health');
+    function setHealth(up, n) {
+      hb.className = 'status ' + (up ? 'measured' : 'pending');
+      hb.lastChild.textContent = up ? 'Ollama up · ' + n + ' models installed' : 'Ollama not reachable · recorded plans only';
+      lrun.disabled = !up;
+    }
+    fetch('/api/health').then(function (r) { return r.json(); })
+      .then(function (h) { setHealth(h.ollama, h.models.length); })
+      .catch(function () { setHealth(false, 0); });
+
+    function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+    function escRe(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+    function safePlan(text) {
+      if (!text) return null;
+      var a = text.indexOf('{'), b = text.lastIndexOf('}');
+      if (a < 0 || b < a) return null;
+      try { var o = JSON.parse(text.slice(a, b + 1)); return (o && o.actions) ? o : null; } catch (e) { return null; }
+    }
+    function statusOfAction(d, a) { for (var i = 0; i < d.units.length; i++) if (d.units[i].action === a) return d.units[i].status; return 'never'; }
+    function planRow(d, label, sub, plan, live) {
+      var row = el('div', 'plan-row' + (live ? ' live' : ''));
+      var mm = el('div', 'm'); mm.appendChild(el('b', null, label)); mm.appendChild(el('span', null, sub)); row.appendChild(mm);
+      var chips = el('div', 'chips'), carries = false;
+      if (!plan) { chips.appendChild(el('span', 'muted', 'no recorded plan for this cell')); }
+      else plan.actions.forEach(function (a) {
+        var st = statusOfAction(d, a);
+        var cls = st === 'rejected' ? 'z' : st === 'accepted' ? 'a' : st === 'proposed' ? 'p' : 'n';
+        if (st === 'rejected') carries = true;
+        var c = el('span', 'chip ' + cls, a); c.title = a + ' · ' + st + ' in this dialogue'; chips.appendChild(c);
+      });
+      row.appendChild(chips);
+      if (plan) {
+        var v = el('div', 'verdict');
+        if (carries) { v.appendChild(el('b', null, 'carries the rejected step')); v.appendChild(document.createTextNode(' · ' + d.rejected_action)); row.classList.add('carries'); }
+        else v.textContent = 'drops the rejected step';
+        row.appendChild(v);
+      }
+      return row;
+    }
+    var lastRecorded = {};
+    function renderLive() {
+      lerr.textContent = '';
+      var d = D.e29_dialogues[parseInt(lp.value, 10)], arm = la.value, X = ld.value;
+      var html = esc(d.blocks[arm][X]).replace(new RegExp(escRe(d.phrase), 'gi'), function (m) { return '<mark>' + m + '</mark>'; });
+      document.getElementById('lv-context').innerHTML = html;
+      var plans = document.getElementById('lv-plans'); plans.innerHTML = '';
+      var rec = d.recorded[arm][X] || {};
+      lastRecorded = {};
+      D.e29_models.forEach(function (m) {
+        var plan = safePlan(rec[m]); lastRecorded[m] = plan;
+        plans.appendChild(planRow(d, m, 'recorded when E29 ran · temperature 0', plan, false));
+      });
+      var key = d.instance + '|' + d.rotation + '|' + arm, snap = D.e29b[key];
+      var xr = document.getElementById('lv-xray');
+      xr.hidden = !(snap && X === 'delete');
+      if (snap && X === 'delete') renderSnap(d, snap);
+    }
+    function renderSnap(d, snap) {
+      var tb = document.querySelector('#lv-snap tbody'); tb.innerHTML = '';
+      var prev = {};
+      var byLine = {};
+      snap.snapshots.forEach(function (s) { byLine[s[0]] = s[1]; });
+      var deleted = {};
+      snap.events.forEach(function (e) { if (e[1] === 'DELETE') (deleted[e[0]] = deleted[e[0]] || []).push(e[2]); });
+      snap.lines.forEach(function (line, k) {
+        var tr = el('tr'); var tag = line[2][0];
+        if (tag === 'restate' || (tag !== 'noise' && tag !== 'neutral' && line[2][1] && (function () { for (var i = 0; i < d.units.length; i++) if (d.units[i].constraint === line[2][1] && d.units[i].status === 'rejected') return true; return false; })())) tr.className = 'is-rejected-block';
+        tr.appendChild(el('td', 'idx', String(k + 1)));
+        var said = el('td', 'said'); said.appendChild(el('b', null, line[0] + ': ')); said.appendChild(document.createTextNode(line[1])); tr.appendChild(said);
+        var td = el('td'); var ul = el('ul');
+        var store = byLine[k] || prev;
+        var prevTexts = Object.keys(prev).map(function (i) { return prev[i]; });
+        Object.keys(store).forEach(function (i) { var li = el('li', prevTexts.indexOf(store[i]) < 0 ? 'new' : null, store[i]); ul.appendChild(li); });
+        (deleted[k] || []).forEach(function (t) { ul.appendChild(el('li', 'gone', t)); });
+        if (!ul.children.length) ul.appendChild(el('li', 'muted', 'empty'));
+        td.appendChild(ul); tr.appendChild(td); tb.appendChild(tr);
+        prev = store;
+      });
+    }
+    lp.addEventListener('change', renderLive); la.addEventListener('change', renderLive); ld.addEventListener('change', renderLive);
+    lrun.addEventListener('click', function () {
+      var d = D.e29_dialogues[parseInt(lp.value, 10)], arm = la.value, X = ld.value, model = lm.value;
+      lrun.disabled = true; lrun.textContent = 'Running…'; lerr.textContent = '';
+      fetch('/api/run', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ i: parseInt(lp.value, 10), arm: arm, design: X, model: model }) })
+        .then(function (r) { return r.json(); })
+        .then(function (res) {
+          if (res.error && !res.plan) { lerr.textContent = res.error; return; }
+          var same = lastRecorded[model] && res.plan && JSON.stringify(lastRecorded[model].actions) === JSON.stringify(res.plan.actions);
+          var sub = 'live · ' + res.seconds + ' s · ' + (res.prompt_tokens || '?') + ' prompt tokens';
+          var row = planRow(d, model, sub, res.plan, true);
+          var tagEl = el('em', same ? null : 'diff', lastRecorded[model] ? (same ? 'identical to the recorded plan' : 'differs from the recorded plan') : 'no record for this model');
+          row.querySelector('.m').appendChild(tagEl);
+          document.getElementById('lv-plans').insertBefore(row, document.getElementById('lv-plans').firstChild);
+        })
+        .catch(function (e) { lerr.textContent = String(e); })
+        .then(function () { lrun.disabled = false; lrun.textContent = 'Run live'; });
+    });
+    renderLive();
   }
 
   /* ---- table ---- */
