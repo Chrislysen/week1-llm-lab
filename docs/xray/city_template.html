@@ -66,6 +66,20 @@
   .legend { position: absolute; left: 16px; bottom: 16px; display: flex; flex-wrap: wrap; gap: 6px 16px; font-family: var(--mono); font-size: 11.5px; color: var(--muted); background: rgba(6, 10, 16, .55); border: 1px solid rgba(70, 100, 140, .25); border-radius: 4px; padding: 6px 10px; }
   .legend i { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
   .legend i.ring { background: none; border: 2px solid var(--amber); border-radius: 50%; width: 8px; height: 8px; }
+  .interstitial { position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none; background: radial-gradient(ellipse at 50% 50%, rgba(3,6,10,.55) 0%, rgba(3,6,10,.2) 60%, rgba(3,6,10,0) 100%); opacity: 0; transition: opacity .35s ease; }
+  .interstitial.show { opacity: 1; }
+  .interstitial .box { text-align: center; display: grid; gap: 8px; max-width: 60ch; padding: 22px 30px; background: rgba(6, 10, 16, .82); border: 1px solid rgba(70, 100, 140, .4); border-radius: 8px; backdrop-filter: blur(3px); transform: translateY(6px); transition: transform .35s ease; }
+  .interstitial.show .box { transform: none; }
+  .interstitial .it { font-family: var(--display); font-weight: 700; font-size: 22px; letter-spacing: -.01em; color: var(--ink); }
+  .interstitial .is { font-family: var(--body); font-size: 15px; color: var(--muted); line-height: 1.4; }
+  .interstitial .is b { color: var(--amber); font-weight: 600; }
+  .lbl.flash { animation: lblflash 1.2s ease-out 2; }
+  @keyframes lblflash { 0% { box-shadow: 0 0 0 0 rgba(242, 154, 75, .7); } 100% { box-shadow: 0 0 0 14px rgba(242, 154, 75, 0); } }
+  .decision .saw { font-size: 13px; color: var(--muted); line-height: 1.4; border-left: 2px solid var(--line2); padding-left: 10px; }
+  .decision .saw b { color: var(--ink); font-weight: 600; } .decision .saw b.no { color: var(--amber); }
+  .keys { margin-left: auto; font-family: var(--mono); font-size: 11px; color: var(--dim); white-space: nowrap; }
+  .keys kbd { font: inherit; border: 1px solid var(--line2); border-radius: 3px; padding: 0 5px; color: var(--muted); }
+  @media (prefers-reduced-motion: reduce) { .lbl.flash { animation: none; } .interstitial, .interstitial .box { transition: none; } }
   .vignette { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 58%, rgba(3,6,10,0) 40%, rgba(3,6,10,.82) 100%); }
   .state { position: absolute; right: 16px; top: 16px; font-family: var(--mono); font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 8px; background: rgba(12, 19, 28, .7); border: 1px solid var(--line); border-radius: 3px; padding: 5px 10px; }
   .state i { width: 8px; height: 8px; border-radius: 50%; background: var(--dim); display: inline-block; }
@@ -176,6 +190,7 @@
     <canvas id="c"></canvas>
     <div class="vignette"></div>
     <div class="labels" id="labels"></div>
+    <div class="interstitial" id="inter"><div class="box"><div class="it" id="inter-t"></div><div class="is" id="inter-s"></div></div></div>
     <div class="cap"><div class="t" id="cap-t">Memory City</div><div class="s" id="cap-s">pick a dialogue and press play</div><div class="set" id="cap-set"></div><div class="how">thread = the conversation, left to right, on the speaker's side · tower height = how often the step appeared in recorded plans</div></div>
     <div class="state" id="state"><i></i><span>checking the local model…</span></div>
     <div class="legend">
@@ -187,7 +202,7 @@
   <aside class="rail">
     <section class="card conv"><h3><span class="eyebrow">Conversation</span><span class="r" id="conv-pos">not started</span></h3><div class="thread" id="thread"><div class="hint">Press play, or click any step on the timeline. Each line stays here as the conversation grows.</div></div></section>
     <section class="card memory"><h3><span class="eyebrow" id="mem-title">Memory store</span><span class="r" id="mem-count">empty</span></h3><div class="rule" id="mem-rule"></div><ul id="mem-list"><li class="empty">nothing stored yet</li></ul></section>
-    <section class="card decision"><h3><span class="eyebrow">Decision · Operator</span><span class="r" id="dec-meta">not asked yet</span></h3><div class="who"><i></i><b>Operator</b><span id="dec-who">writes the plan from what it is given</span></div><pre id="dec-out"></pre><div class="chips" id="dec-plan"></div><div class="verdict" id="dec-verdict"></div></section>
+    <section class="card decision"><h3><span class="eyebrow">Decision · Operator</span><span class="r" id="dec-meta">not asked yet</span></h3><div class="who"><i></i><b>Operator</b><span id="dec-who">writes the plan from what it is given</span></div><pre id="dec-out"></pre><div class="chips" id="dec-plan"></div><div class="verdict" id="dec-verdict"></div><div class="saw" id="dec-saw" hidden></div></section>
   </aside>
 </main>
 
@@ -209,7 +224,7 @@
   <div class="tally" title="relapse tally: how often the rejected step ends up in the plan; the tick is the recorded rate for this design and decider">
     <div class="bar restated"><span>restated arm</span><div class="track"><div class="fill" id="b-r"></div><div class="ghost" id="g-r" hidden></div></div><span class="val" id="v-r">0/0</span></div>
     <div class="bar neutral"><span>neutral arm</span><div class="track"><div class="fill" id="b-n"></div><div class="ghost" id="g-n" hidden></div></div><span class="val" id="v-n">0/0</span></div>
-    <div class="counters"><span>plans <b id="c-plans">0</b></span><span>carried <b id="c-carried">0</b></span><span>= record <b id="c-same">0</b></span><span class="err" id="err"></span></div>
+    <div class="counters"><span>plans <b id="c-plans">0</b></span><span>carried <b id="c-carried">0</b></span><span>= record <b id="c-same">0</b></span><span class="err" id="err"></span><span class="keys"><kbd>space</kbd> play · <kbd>←</kbd><kbd>→</kbd> step · <kbd>enter</kbd> decide</span></div>
   </div>
 </footer>
 
@@ -369,19 +384,19 @@
       order.forEach(function (a) { var tw = towers[a]; hero.remove(tw.mesh); hero.remove(tw.edges); hero.remove(tw.cap); tw.lamps.forEach(function (l) { scene.remove(l.mesh); }); if (labelEls[a]) labels.removeChild(labelEls[a]); });
       towers = {}; order = []; labelEls = {}; clearList(planObjs); comets.forEach(function (c) { scene.remove(c.head); c.tail.forEach(function (t) { scene.remove(t); }); }); comets = []; flashes = [];
       if (rejRing) { scene.remove(rejRing); rejRing = null; }
-      rejected = rejectedAction;
+      rejected = rejectedAction; camDist = 22.0; camH = 10.2; camDistGoal = 19.5; camHGoal = 9.0;
       var n = actions.length, R = 6.6;
       actions.forEach(function (a, i) {
         var ang = (-Math.PI / 2) + (i - (n - 1) / 2) * (Math.PI * 0.62 / (n - 1));
         var x = Math.cos(ang) * R, z = Math.sin(ang) * R * 0.62 - 0.6;
         var h = 1.0 + 2.6 * (heights[a] || 0.5);
-        var geo = new T.BoxGeometry(1.7, h, 1.7);
+        var geo = new T.BoxGeometry(1.7, h, 1.7); geo.translate(0, h / 2, 0);
         var mesh = new T.Mesh(geo, new T.MeshStandardMaterial({ color: 0x0A121D, roughness: 0.42, metalness: 0.18, emissive: new T.Color(0x07101C), emissiveIntensity: 0.35, transparent: true, opacity: 0.95 }));
-        mesh.position.set(x, h / 2, z); hero.add(mesh);
-        var edges = new T.LineSegments(new T.EdgesGeometry(geo), new T.LineBasicMaterial({ color: 0x2A4B72, transparent: true, opacity: 0.9 })); edges.position.copy(mesh.position); hero.add(edges);
-        var cap = new T.Mesh(new T.BoxGeometry(1.74, 0.1, 1.74), new T.MeshStandardMaterial({ color: 0x0F1C2E, emissive: new T.Color(0x16304F), emissiveIntensity: 0.4, roughness: 0.4 })); cap.position.set(x, h + 0.05, z); hero.add(cap);
+        mesh.position.set(x, 0, z); mesh.scale.y = 0.01; hero.add(mesh);
+        var edges = new T.LineSegments(new T.EdgesGeometry(geo), new T.LineBasicMaterial({ color: 0x2A4B72, transparent: true, opacity: 0.9 })); edges.position.copy(mesh.position); edges.scale.y = 0.01; hero.add(edges);
+        var cap = new T.Mesh(new T.BoxGeometry(1.74, 0.1, 1.74), new T.MeshStandardMaterial({ color: 0x0F1C2E, emissive: new T.Color(0x16304F), emissiveIntensity: 0.4, roughness: 0.4 })); cap.position.set(x, 0.05, z); hero.add(cap);
         var lb = el('div', 'lbl' + (a === rejected ? ' rej' : '')); var nb = el('span', 'n'); lb.appendChild(nb); lb.appendChild(el('span', null, a)); labels.appendChild(lb);
-        towers[a] = { mesh: mesh, edges: edges, cap: cap, x: x, z: z, h: h, lamps: [], glow: 0, base: 0x07101C, baseI: 0.35, capBase: 0x16304F, capI: 0.4, badge: nb }; labelEls[a] = lb; order.push(a);
+        towers[a] = { mesh: mesh, edges: edges, cap: cap, x: x, z: z, h: h, lamps: [], glow: 0, base: 0x07101C, baseI: 0.35, capBase: 0x16304F, capI: 0.4, badge: nb, rise: 0, riseAt: performance.now() + i * 110 }; labelEls[a] = lb; order.push(a);
         if (a === rejected) { rejRing = new T.Mesh(new T.RingGeometry(1.28, 1.38, 64), new T.MeshBasicMaterial({ color: PAL.mention, side: T.DoubleSide, transparent: true, opacity: 0.9, blending: T.AdditiveBlending, depthWrite: false })); rejRing.rotation.x = -Math.PI / 2; rejRing.position.set(x, 0.02, z); scene.add(rejRing); }
       });
     }
@@ -413,7 +428,7 @@
       have.forEach(function (l, i) { if (used.indexOf(i) < 0) { if (animate) { l.dying = performance.now(); flashes.push({ lamp: l }); tw.glow = 1.2; tw.mesh.material.emissive.setHex(PAL.rejected); } else scene.remove(l.mesh); } });
       tw.lamps = keep; keep.forEach(function (l, i) { l.targetY = tw.h + 0.24 + i * 0.32; if (!animate) l.mesh.position.y = l.targetY; });
       var lit = keep.length > 0, lc = lit ? PAL[keep[keep.length - 1].kind] : null;
-      tw.base = lit ? lc : 0x07101C; tw.baseI = lit ? 0.1 : 0.35; tw.capBase = lit ? lc : 0x16304F; tw.capI = lit ? 1.15 : 0.4; tw.edges.material.color.setHex(lit ? lc : 0x2A4B72);
+      tw.base = lit ? lc : 0x07101C; tw.baseI = lit ? 0.06 : 0.35; tw.capBase = lit ? lc : 0x16304F; tw.capI = lit ? 1.15 : 0.4; tw.edges.material.color.setHex(lit ? lc : 0x2A4B72);
       labelEls[action].classList.toggle('lit', lit);
     }
     function setDeciding(on) {
@@ -424,27 +439,42 @@
         var a = op.mesh.position.clone(), b = new T.Vector3(0, 1.2, -1), mid = a.clone().lerp(b, 0.5), len = a.distanceTo(b);
         beam = new T.Mesh(new T.CylinderGeometry(0.06, 0.06, len, 8, 1, true), new T.MeshBasicMaterial({ color: PAL.column, transparent: true, opacity: 0.55, blending: T.AdditiveBlending, depthWrite: false }));
         beam.position.copy(mid); beam.quaternion.setFromUnitVectors(new T.Vector3(0, 1, 0), b.clone().sub(a).normalize()); scene.add(beam);
-        op.base = 1.6; op.baseL = 1.2; op.label.classList.add('speaking'); op.label.querySelector('.role').textContent = 'reading the memory and writing the plan…';
+        op.base = 1.6; op.baseL = 1.2; op.label.classList.add('speaking'); op.label.querySelector('.role').textContent = 'reading the memory and writing the plan…'; camDistGoal = 17.6; camHGoal = 8.4;
       }
       if (!on) { if (column) { scene.remove(column); column = null; } if (ring) { scene.remove(ring); ring = null; } if (beam) { scene.remove(beam); beam = null; }
-        op.base = 0.35; op.baseL = 0.2; op.label.classList.remove('speaking'); op.label.querySelector('.role').textContent = ROLES['Operator'].role; }
+        op.base = 0.35; op.baseL = 0.2; op.label.classList.remove('speaking'); op.label.querySelector('.role').textContent = ROLES['Operator'].role; camDistGoal = 19.5; camHGoal = 9.0; }
     }
-    function clearPlan() { clearList(planObjs); order.forEach(function (a) { var tw = towers[a]; tw.badge.className = 'n'; tw.badge.textContent = ''; var lit = tw.lamps.length > 0, lc = lit ? PAL[tw.lamps[tw.lamps.length - 1].kind] : null; tw.base = lit ? lc : 0x07101C; tw.baseI = lit ? 0.1 : 0.35; tw.capBase = lit ? lc : 0x16304F; tw.capI = lit ? 1.15 : 0.4; tw.edges.material.color.setHex(lit ? lc : 0x2A4B72); }); }
+    function clearPlan() { planAnim = null; clearList(planObjs); order.forEach(function (a) { var tw = towers[a]; tw.badge.className = 'n'; tw.badge.textContent = ''; var lit = tw.lamps.length > 0, lc = lit ? PAL[tw.lamps[tw.lamps.length - 1].kind] : null; tw.base = lit ? lc : 0x07101C; tw.baseI = lit ? 0.06 : 0.35; tw.capBase = lit ? lc : 0x16304F; tw.capI = lit ? 1.15 : 0.4; tw.edges.material.color.setHex(lit ? lc : 0x2A4B72); }); }
+    var planAnim = null;
     function showPlan(actions, carries) {
-      clearPlan(); var pts = [];
+      clearPlan(); var pts = [], steps = [];
       actions.forEach(function (a, i) {
         var tw = towers[a]; if (!tw) return;
-        pts.push(new T.Vector3(tw.x, tw.h + 0.9 + tw.lamps.length * 0.36, tw.z));
-        tw.badge.textContent = String(i + 1); tw.badge.className = 'n on' + (a === rejected ? ' rej' : '');
-        tw.capBase = a === rejected ? PAL.mention : PAL.path; tw.capI = a === rejected ? 1.8 : 1.0; tw.edges.material.color.setHex(a === rejected ? PAL.mention : PAL.path); tw.base = a === rejected ? PAL.mention : 0x07101C; tw.baseI = a === rejected ? 0.2 : 0.35;
-        if (a === rejected) { flashes.push({ tower: tw, start: performance.now() }); var beam = new T.Mesh(new T.CylinderGeometry(0.5, 0.5, 14, 24, 1, true), new T.MeshBasicMaterial({ color: PAL.mention, transparent: true, opacity: 0.35, side: T.DoubleSide, blending: T.AdditiveBlending, depthWrite: false })); beam.position.set(tw.x, 7, tw.z); scene.add(beam); planObjs.push(beam); flashes.push({ beam: beam, start: performance.now() }); }
+        pts.push(new T.Vector3(tw.x, tw.h + 0.9 + tw.lamps.length * 0.36, tw.z)); steps.push({ tw: tw, a: a, i: i, shown: false });
       });
+      var color = carries ? PAL.mention : PAL.path;
+      var tube = null;
       if (pts.length > 1) {
-        var tube = new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3(pts, false, 'catmullrom', 0.2), 96, 0.07, 8, false), new T.MeshBasicMaterial({ color: carries ? PAL.mention : PAL.path, transparent: true, opacity: 0.95 })); scene.add(tube); planObjs.push(tube);
-        pts.forEach(function (p) { var s = new T.Mesh(new T.SphereGeometry(0.16, 12, 12), new T.MeshBasicMaterial({ color: carries ? PAL.mention : PAL.path })); s.position.copy(p); scene.add(s); planObjs.push(s); });
+        tube = new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3(pts, false, 'catmullrom', 0.2), 96, 0.07, 8, false), new T.MeshBasicMaterial({ color: color, transparent: true, opacity: 0.95 }));
+        tube.geometry.setDrawRange(0, 0); scene.add(tube); planObjs.push(tube);
       }
+      planAnim = { tube: tube, total: tube ? tube.geometry.index.count : 0, steps: steps, color: color, start: performance.now(), dur: reduced ? 1 : 1500 };
     }
-    var W = 0, Hh = 0, orbit = 0, t0 = performance.now(), visible = true, rafPending = false;
+    function revealStep(st, color) {
+      var tw = st.tw, a = st.a;
+      var sp = new T.Mesh(new T.SphereGeometry(0.16, 12, 12), new T.MeshBasicMaterial({ color: color })); sp.position.set(tw.x, tw.h + 0.9 + tw.lamps.length * 0.36, tw.z); scene.add(sp); planObjs.push(sp);
+      tw.badge.textContent = String(st.i + 1); tw.badge.className = 'n on' + (a === rejected ? ' rej' : '');
+      tw.capBase = a === rejected ? PAL.mention : PAL.path; tw.capI = a === rejected ? 1.8 : 1.0; tw.edges.material.color.setHex(a === rejected ? PAL.mention : PAL.path); tw.base = a === rejected ? PAL.mention : 0x07101C; tw.baseI = a === rejected ? 0.2 : 0.35;
+      if (a === rejected) { flashes.push({ tower: tw, start: performance.now() }); var beam = new T.Mesh(new T.CylinderGeometry(0.5, 0.5, 14, 24, 1, true), new T.MeshBasicMaterial({ color: PAL.mention, transparent: true, opacity: 0.35, side: T.DoubleSide, blending: T.AdditiveBlending, depthWrite: false })); beam.position.set(tw.x, 7, tw.z); scene.add(beam); planObjs.push(beam); flashes.push({ beam: beam, start: performance.now() }); }
+    }
+    function zombie(action) {
+      var tw = towers[action]; if (!tw) return;
+      var rg = new T.Mesh(new T.RingGeometry(0.5, 0.8, 64), new T.MeshBasicMaterial({ color: PAL.mention, side: T.DoubleSide, transparent: true, opacity: 0.9, blending: T.AdditiveBlending, depthWrite: false }));
+      rg.rotation.x = -Math.PI / 2; rg.position.set(tw.x, 0.04, tw.z); scene.add(rg); flashes.push({ burst: rg, start: performance.now() });
+      tw.glow = 1.6; tw.mesh.material.emissive.setHex(PAL.mention);
+      if (labelEls[action]) { labelEls[action].classList.remove('flash'); void labelEls[action].offsetWidth; labelEls[action].classList.add('flash'); }
+    }
+    var W = 0, Hh = 0, orbit = 0, t0 = performance.now(), visible = true, rafPending = false, camDist = 22.5, camDistGoal = 19.5, camH = 10.5, camHGoal = 9.0;
     function resize() {
       var w = host.clientWidth || 800, h = host.clientHeight || 500, pr = renderer.getPixelRatio();
       if (w !== W || h !== Hh) { W = w; Hh = h; renderer.setSize(w, h, false); if (composer) composer.setSize(w, h); if (bloom) bloom.setSize(w, h); camera.aspect = w / h; camera.updateProjectionMatrix(); }
@@ -454,7 +484,8 @@
       var now = performance.now(), t = (now - t0) / 1000;
       resize();
       if (!reduced) orbit = Math.sin(t * 0.12) * 0.09;
-      camera.position.set(Math.sin(orbit) * 19.5, 9.0, Math.cos(orbit) * 19.5 + 1.0); camera.lookAt(0, 1.2, -0.9);
+      camDist += (camDistGoal - camDist) * 0.03; camH += (camHGoal - camH) * 0.03;
+      camera.position.set(Math.sin(orbit) * camDist, camH, Math.cos(orbit) * camDist + 1.0); camera.lookAt(0, 1.2, -0.9);
       comets = comets.filter(function (c) {
         var L = c.legs[c.leg], k = Math.min(1, (now - c.start) / L.dur), e = k < 0.5 ? 2 * k * k : -1 + (4 - 2 * k) * k;
         function at(q) { q = Math.max(0, q); var p = new T.Vector3().lerpVectors(L.from, L.to, q); p.y += Math.sin(q * Math.PI) * L.lift; return p; }
@@ -469,15 +500,24 @@
       order.forEach(function (a) {
         var tw = towers[a]; tw.glow = Math.max(0, tw.glow - 0.03); if (tw.glow <= 0) tw.mesh.material.emissive.setHex(tw.base); tw.mesh.material.emissiveIntensity = tw.baseI + tw.glow * 0.5;
         tw.cap.material.emissive.setHex(tw.capBase); tw.cap.material.emissiveIntensity = tw.capI + tw.glow;
+        if (tw.rise < 1) { var rr = reduced ? 1 : Math.min(1, Math.max(0, (now - tw.riseAt) / 750)); tw.rise = rr; var ey = 1 - Math.pow(1 - rr, 3); tw.mesh.scale.y = Math.max(0.01, ey); tw.edges.scale.y = Math.max(0.01, ey); tw.cap.position.y = tw.h * ey + 0.05; }
         tw.lamps.forEach(function (l) { var s = Math.min(1, (now - l.born) / (reduced ? 1 : 280)); l.mesh.scale.set(s, s, s); l.mesh.position.y += ((l.targetY || tw.h) - l.mesh.position.y) * 0.22; });
-        place(labelEls[a], new T.Vector3(tw.x, tw.h + 0.5 + tw.lamps.length * 0.36, tw.z), -6);
+        place(labelEls[a], new T.Vector3(tw.x, tw.h * tw.mesh.scale.y + 0.5 + tw.lamps.length * 0.36, tw.z), -6);
       });
       Object.keys(agents).forEach(function (n) { var ag = agents[n]; ag.glow = Math.max(0, ag.glow - 0.02); var hs = ag.haloSize * (1 + 0.45 * ag.glow) * (ag.dec ? (0.7 + 0.3 * Math.min(1, ag.base)) : 1); ag.halo.scale.set(hs, hs, 1); ag.halo.material.opacity = ag.dec ? 0.35 + 0.5 * Math.min(1, ag.base) : 0.75 + 0.25 * Math.min(1, ag.glow); ag.light.intensity = ag.baseL + ag.glow * 0.8;
         place(ag.label, ag.mesh.position, 26);
         var bp = (bubbleAt && ag.bubble.classList.contains('show')) ? new T.Vector3(bubbleAt.x, LANE.y + 0.9, bubbleAt.z) : new T.Vector3(ag.mesh.position.x, ag.mesh.position.y + 0.9, ag.mesh.position.z);
         place(ag.bubble, bp, 0); });
       place(padLbl, pad.position, 10);
+      if (planAnim) {
+        var pp = Math.min(1, (now - planAnim.start) / planAnim.dur), pe = pp < 0.5 ? 2 * pp * pp : -1 + (4 - 2 * pp) * pp;
+        if (planAnim.tube) planAnim.tube.geometry.setDrawRange(0, Math.floor(planAnim.total * pe));
+        var nS = planAnim.steps.length;
+        planAnim.steps.forEach(function (st, i) { var at = nS > 1 ? i / (nS - 1) : 0; if (!st.shown && pe >= at - 0.001) { st.shown = true; revealStep(st, planAnim.color); } });
+        if (pp >= 1) planAnim = null;
+      }
       flashes = flashes.filter(function (f) {
+        if (f.burst) { var bb = (now - f.start) / 1300; var sc = 1 + bb * 5; f.burst.scale.set(sc, sc, sc); f.burst.material.opacity = 0.9 * (1 - bb); if (bb >= 1) { scene.remove(f.burst); return false; } return true; }
         if (f.lamp) { var d = (now - f.lamp.dying) / 750; f.lamp.mesh.material.opacity = Math.max(0, 1 - d); f.lamp.mesh.position.y -= 0.025; if (d >= 1) { scene.remove(f.lamp.mesh); return false; } return true; }
         if (f.beam) { var b = (now - f.start) / 2600; f.beam.material.opacity = 0.35 * Math.max(0, 1 - b); return b < 1; }
         var k2 = (now - f.start) / 2800; f.tower.capI = 1.4 + 1.4 * Math.abs(Math.sin(k2 * Math.PI * 4)); if (k2 >= 1) f.tower.capI = 2.2; return k2 < 1;
@@ -493,7 +533,7 @@
     try { new IntersectionObserver(function (es) { visible = es.some(function (e) { return e.isIntersecting; }); kick(); }, { threshold: 0.02 }).observe(host); } catch (e) { visible = true; }
     window.addEventListener('resize', function () { kick(); });
     kick();
-    return { setDistrict: setDistrict, setThread: setThread, markStep: markStep, pulse: pulse, say: say, setLamps: setLamps, setDeciding: setDeciding, showPlan: showPlan, clearPlan: clearPlan, FLIGHT: FLIGHT };
+    return { setDistrict: setDistrict, setThread: setThread, markStep: markStep, pulse: pulse, say: say, setLamps: setLamps, setDeciding: setDeciding, showPlan: showPlan, clearPlan: clearPlan, zombie: zombie, FLIGHT: FLIGHT };
   }
 
   /* ================= app ================= */
@@ -599,7 +639,7 @@
   }
   function renderDecision() {
     var dm = $('dec-meta'), out = $('dec-out'), plan = $('dec-plan'), v = $('dec-verdict');
-    if (!S.decided && !S.deciding) { dm.textContent = 'not asked yet'; out.textContent = ''; plan.innerHTML = ''; v.textContent = ''; $('dec-who').textContent = 'writes the plan from what it is given'; return; }
+    if (!S.decided && !S.deciding) { dm.textContent = 'not asked yet'; out.textContent = ''; plan.innerHTML = ''; v.textContent = ''; $('dec-who').textContent = 'writes the plan from what it is given'; $('dec-saw').hidden = true; return; }
   }
   var gotoSeq = 0;
   function goto(k, animate) {
@@ -616,7 +656,7 @@
       }
     }
     renderNow(); paintScrub();
-    if (stepwise && scene3) { setTimeout(function () { if (seq === gotoSeq) renderMemory(true); }, flight); }
+    if (stepwise && scene3) { setTimeout(function () { if (seq === gotoSeq) { renderMemory(true); var lnz = S.tl.lines[S.k]; if (lnz && lnz.tag === 'restate') scene3.zombie(d.rejected_action); } }, flight); }
     else renderMemory(false);
     $('cap-s').innerHTML = '<b>' + d.phrase + '</b> was proposed and then rejected · ' + S.arm + ' arm · ' + DESIGN_NAME[S.design];
   }
@@ -634,6 +674,23 @@
       }
       buildScrub(); renderDecision(); goto(keepK ? Math.min(S.k, S.n - 1) : -1, false);
     }).catch(function (e) { $('err').textContent = String(e.message || e); });
+  }
+
+  var interTimer = null;
+  function interstitial(title, subHtml, ms) {
+    var it = $('inter'); $('inter-t').textContent = title; $('inter-s').innerHTML = subHtml; it.classList.add('show');
+    if (interTimer) clearTimeout(interTimer); interTimer = setTimeout(function () { it.classList.remove('show'); }, ms || 1800);
+    return sleep(ms || 1800);
+  }
+  function sawLine(d) {
+    var X = S.design, items = S.tl.stores[X][S.n - 1] || [], ph = d.phrase.toLowerCase(), el2 = $('dec-saw');
+    var sawRej = X === 'full' ? true : items.some(function (it) { var l = it.toLowerCase(); return l.indexOf(ph) >= 0 && /rejected/.test(l); });
+    var sawMention = items.some(function (it) { var l = it.toLowerCase(); return l.indexOf(ph) >= 0 && /noted|raised earlier|for the record/.test(l); });
+    el2.hidden = false; el2.innerHTML = '';
+    el2.appendChild(document.createTextNode('The Operator could see ' + items.length + (X === 'full' ? ' lines' : ' items') + '. The rejection of '));
+    el2.appendChild(el('b', null, d.phrase)); el2.appendChild(document.createTextNode(' was '));
+    el2.appendChild(el('b', sawRej ? null : 'no', sawRej ? 'among them' : 'not among them'));
+    el2.appendChild(document.createTextNode(sawMention ? (sawRej ? '; so was the later mention.' : '; the later mention was.') : '.'));
   }
 
   /* ---- deciding ---- */
@@ -669,7 +726,8 @@
     var det = null; try { det = await detail(S.i); } catch (e) { det = null; }
     var recPlan = det ? safePlan((det.recorded[S.arm][S.design] || {})[S.model]) : null;
     var carries = planRow(d, res.plan, ''); var same = !!(recPlan && res.plan && JSON.stringify(recPlan.actions) === JSON.stringify(res.plan.actions));
-    $('dec-meta').textContent = res.seconds + ' s · ' + (res.prompt_tokens || '?') + ' prompt tokens';
+    $('dec-meta').textContent = res.seconds + ' s · ' + (res.prompt_tokens || '?') + ' tokens';
+    sawLine(d);
     var v = $('dec-verdict'); v.innerHTML = '';
     v.appendChild(carries ? el('b', null, 'carries the rejected step') : el('span', null, 'drops the rejected step'));
     v.appendChild(document.createTextNode(' · ')); v.appendChild(el('em', same ? null : 'diff', recPlan ? (same ? 'identical to the recorded plan' : 'differs from the recorded plan') : 'no record for this model'));
@@ -698,10 +756,18 @@
     if (S.playing) { stop(); return; }
     S.playing = true; playBtn.textContent = '⏸'; playBtn.title = 'pause'; $('err').textContent = '';
     try {
+      if (S.k < 0 && !S.decided) { var d0 = IDX[S.i]; await interstitial('Dialogue ' + (S.i + 1) + ' of ' + IDX.length + ' · ' + d0.instance, (S.arm === 'restated' ? 'The <b>' + d0.phrase + '</b> step will be proposed, rejected, and later brought up again.' : 'The <b>' + d0.phrase + '</b> step will be proposed and rejected; a neutral line takes the restatement\'s place.'), 2200); if (!S.playing) return; }
       while (S.playing) {
         if (S.decided) { if (!$('auto').checked) { stop(); break; } await sleep(3200); if (!S.playing) break;
-          if (S.arm === 'restated') { setArm('neutral'); await load(S.i, 'neutral', false); } else { setArm('restated'); await load((S.i + 1) % IDX.length, 'restated', false); }
-          await sleep(1400); continue; }
+          if (S.arm === 'restated') {
+            await interstitial('Same dialogue, other arm', 'The restatement is replaced by a <b>neutral line</b> of the same length in the same place. Everything else is identical.', 2400); if (!S.playing) break;
+            setArm('neutral'); await load(S.i, 'neutral', false);
+          } else {
+            var nx = IDX[(S.i + 1) % IDX.length];
+            await interstitial('Dialogue ' + (((S.i + 1) % IDX.length) + 1) + ' of ' + IDX.length + ' · ' + nx.instance, 'District <b>' + nx.domain + '</b>. The <b>' + nx.phrase + '</b> step will be proposed, rejected, and later brought up again.', 2400); if (!S.playing) break;
+            setArm('restated'); await load((S.i + 1) % IDX.length, 'restated', false);
+          }
+          await sleep(900); continue; }
         if (S.k < S.n - 1) { goto(S.k + 1, true); await sleep(Math.max(+$('pace').value, (scene3 ? scene3.FLIGHT : 0) + 600)); continue; }
         if ($('t-decide').disabled) { stop(); break; }
         await sleep(600);
