@@ -42,7 +42,7 @@ TWO PROPERTIES THE TESTS ENFORCE.
 import hashlib
 import random
 
-from lineage_bench import DOMAINS, SPEAKERS, all_instances, plan_instruction
+from lineage_bench import DOMAINS, NEW_DOMAINS, SPEAKERS, all_instances, plan_instruction
 
 STATUSES = ("accepted", "rejected", "proposed", "never")
 N_ROTATIONS = 4
@@ -65,6 +65,25 @@ T_REJECT = [
     "No, drop that one -- it is not needed for this case.",
     "Let's not; that one is not needed here.",
     "No -- leave that out this time.",
+]
+
+#: Second template bank, used only for the second corpus (NEW_DOMAINS): same
+#: rules (the proposal carries the phrase, replies carry no action words), a
+#: different surface. The frozen corpus never sees these.
+T_PROPOSE2 = [
+    "I think we need to {a} on this one; put it on the list.",
+    "One more for the plan: {a}.",
+    "My suggestion is that we {a} as part of the response.",
+]
+T_ACCEPT2 = [
+    "Yes, keep it.",
+    "Agreed -- that stays in.",
+    "Fine, that one is in.",
+]
+T_REJECT2 = [
+    "No, take that one off; we don't need it here.",
+    "I'd leave that out; it is not needed this time.",
+    "Not that one -- drop it for this case.",
 ]
 
 
@@ -94,6 +113,9 @@ def build_dialogue(instance, rotation):
     verbs = dict(DOMAINS[instance.domain]["actions"])
     slots = required_slots(instance)
     rng = random.Random(_seed("e16", instance.id, rotation))
+    second = instance.domain in NEW_DOMAINS
+    t_propose, t_accept, t_reject = ((T_PROPOSE2, T_ACCEPT2, T_REJECT2) if second
+                                     else (T_PROPOSE, T_ACCEPT, T_REJECT))
 
     blocks = []
     for j, c in enumerate(slots):
@@ -101,13 +123,13 @@ def build_dialogue(instance, rotation):
         if st == "never":
             continue
         phrase = verbs[c.a]
-        t_prop = T_PROPOSE[_seed("prop", instance.id, c.id) % len(T_PROPOSE)]
+        t_prop = t_propose[_seed("prop", instance.id, c.id) % len(t_propose)]
         block = [(t_prop.format(a=phrase), ("proposal", c.id))]
         if st == "accepted":
-            t = T_ACCEPT[_seed("acc", instance.id, c.id) % len(T_ACCEPT)]
+            t = t_accept[_seed("acc", instance.id, c.id) % len(t_accept)]
             block.append((t, ("reply", c.id)))
         elif st == "rejected":
-            t = T_REJECT[_seed("rej", instance.id, c.id) % len(T_REJECT)]
+            t = t_reject[_seed("rej", instance.id, c.id) % len(t_reject)]
             block.append((t, ("reply", c.id)))
         blocks.append(block)
 
@@ -132,10 +154,11 @@ def units_of(instance, rotation):
     } for j, c in enumerate(required_slots(instance))]
 
 
-def all_dialogues():
-    """Every (instance, rotation) with its dialogue and units."""
+def all_dialogues(domains=None):
+    """Every (instance, rotation) with its dialogue and units. `domains` selects
+    the second corpus; the default is the frozen benchmark."""
     out = []
-    for inst in all_instances():
+    for inst in all_instances(domains):
         for r in range(N_ROTATIONS):
             out.append({"instance": inst, "rotation": r,
                         "dialogue": build_dialogue(inst, r),

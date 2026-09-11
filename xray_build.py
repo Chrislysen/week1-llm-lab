@@ -12,7 +12,7 @@ import math
 import os
 from collections import defaultdict
 
-from lineage_bench import DOMAINS
+from lineage_bench import BENCH_DOMAINS, DOMAINS
 from lineage_e16 import all_dialogues, corpus_hash
 from lineage_e29 import ARMS, DESIGNS, all_e29_dialogues, context_block
 from lineage_e29 import corpus_hash as e29_hash
@@ -211,7 +211,7 @@ def city_districts(dias):
     """One district per domain; tower heights are how often each step appeared in
     the recorded plans for that domain, over all dialogues and all six models."""
     out = []
-    for dom in DOMAINS:
+    for dom in BENCH_DOMAINS:
         actions = [a for a, _ in DOMAINS[dom]["actions"]]
         n, hits = 0, {a: 0 for a in actions}
         for d in dias:

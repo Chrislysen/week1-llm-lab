@@ -11,9 +11,7 @@ Offline. No model calls. Five groups, matching the validation gate:
 """
 import json
 
-from lineage_bench import (AUTHORITY_RULE, DOMAINS, EXPOSURES, GRAPHS, LINEAGE_CLASSES,
-                           all_instances, expose, generate_instance,
-                           plan_instruction, render_dialogue)
+from lineage_bench import AUTHORITY_RULE, BENCH_DOMAINS, DOMAINS, EXPOSURES, GRAPHS, LINEAGE_CLASSES, all_instances, expose, generate_instance, plan_instruction, render_dialogue
 from lineage_eval import (check_plan, corrupted_form,
                           corruption_susceptibility, decision_authority_inversion,
                           obeys, presence, recovery_rate,
@@ -50,7 +48,7 @@ def topo_order(instance, constraints=None):
 
 assert len(INSTANCES) == 36, len(INSTANCES)
 assert len({i.id for i in INSTANCES}) == 36, "instance ids must be unique"
-assert len(DOMAINS) == 6 and len(GRAPHS) == 6
+assert len(BENCH_DOMAINS) == 6 and len(GRAPHS) == 6
 
 for inst in INSTANCES:
     assert len(inst.actions) == 6, inst.id
@@ -72,7 +70,7 @@ for inst in INSTANCES:
 
 # Vocabularies are disjoint across domains, so no single domain's lexical
 # accident can dominate the benchmark.
-vocabs = {d: {a for a, _ in DOMAINS[d]["actions"]} for d in DOMAINS}
+vocabs = {d: {a for a, _ in DOMAINS[d]["actions"]} for d in BENCH_DOMAINS}
 for d1 in vocabs:
     for d2 in vocabs:
         if d1 < d2:
@@ -360,7 +358,7 @@ print("n-gram separability gate:  OK")
 
 # -- Deterministic regeneration from seed --------------------------------
 
-for d in DOMAINS:
+for d in BENCH_DOMAINS:
     for g in GRAPHS:
         a, b = generate_instance(d, g), generate_instance(d, g)
         assert a == b, f"{d}-{g} is not deterministic"

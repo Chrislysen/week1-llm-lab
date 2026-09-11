@@ -249,6 +249,121 @@ T_REQ_SUPERSEDE = [
 ]
 
 SPEAKERS = ("Operations Lead", "Safety Auditor")
+
+#: The frozen benchmark domains, in order. `all_instances()` iterates THESE, so
+#: adding domains below cannot change the E16/E29 corpora (hash-asserted).
+BENCH_DOMAINS = tuple(DOMAINS)
+
+#: Second corpus (E29-N, declared 2026-09-12): six new domains, same shape.
+#: Every action phrase is 3-5 words with distinct content words inside its
+#: domain; noise lines carry none of them.
+DOMAINS_NEW = {
+    "grid": {
+        "setting": "a substation fault on the regional power grid",
+        "actions": [
+            ("OPEN_BREAKER", "open the faulted breaker"),
+            ("RESYNC_RELAY", "resynchronise the protection relay"),
+            ("SHED_LOAD", "shed the industrial load"),
+            ("ISOLATE_TRANSFORMER", "isolate the backup transformer"),
+            ("RESTORE_FEEDER", "restore the eastern feeder"),
+            ("PULL_RECORDER", "pull the disturbance recorder"),
+        ],
+        "noise": [
+            "The control room shift changes at 22:00 tonight.",
+            "The regulator wants the outage report within 48 hours.",
+            "The forecast says the storm front clears by morning.",
+            "The maintenance van is still parked at the north gate.",
+        ],
+    },
+    "airline": {
+        "setting": "an airline operations disruption at a hub airport",
+        "actions": [
+            ("SWAP_AIRCRAFT", "swap the delayed aircraft"),
+            ("REBOOK_CONNECTIONS", "rebook the missed connections"),
+            ("HOLD_DEPARTURES", "hold the evening departures"),
+            ("RECALL_CREW", "recall the standby crew"),
+            ("OPEN_LOUNGE", "open the overflow lounge"),
+            ("BRIEF_HANDLERS", "brief the ground handlers"),
+        ],
+        "noise": [
+            "Catering confirmed the late delivery for gate 14.",
+            "The duty manager's phone is on the charger.",
+            "The weekly safety briefing moved to Thursday.",
+            "Someone left the tow tractor by stand 22.",
+        ],
+    },
+    "newsroom": {
+        "setting": "a content management outage at a newsroom",
+        "actions": [
+            ("FREEZE_PUBLISHING", "freeze the publishing queue"),
+            ("ROLLBACK_PLUGIN", "roll back the editor plugin"),
+            ("PURGE_FRONTPAGE", "purge the front page cache"),
+            ("REINDEX_ARCHIVE", "reindex the article archive"),
+            ("REOPEN_LIVEBLOG", "reopen the live blog"),
+            ("PAGE_VENDOR", "page the platform vendor"),
+        ],
+        "noise": [
+            "The morning editorial meeting starts at 09:30.",
+            "Sports wants the byline styles fixed by Friday.",
+            "The newsroom coffee machine is out of order again.",
+            "A freelancer asked about the invoice portal.",
+        ],
+    },
+    "water": {
+        "setting": "a treatment fault at a municipal water plant",
+        "actions": [
+            ("CLOSE_INTAKE", "close the river intake"),
+            ("DOSE_TANK", "dose the contact tank"),
+            ("FLUSH_MAINS", "flush the northern mains"),
+            ("TEST_RESERVOIR", "test the service reservoir"),
+            ("RESTART_PUMPS", "restart the high-lift pumps"),
+            ("ISSUE_NOTICE", "issue the boil-water notice"),
+        ],
+        "noise": [
+            "The lab courier collects the vials at 15:00.",
+            "The council meeting agenda went out this morning.",
+            "The fence contractor is on site tomorrow.",
+            "The night operator's handover notes are on the desk.",
+        ],
+    },
+    "checkout": {
+        "setting": "a checkout failure on an e-commerce platform",
+        "actions": [
+            ("DISABLE_PROMO", "disable the promotion engine"),
+            ("SWITCH_PSP", "switch the payment provider"),
+            ("CLEAR_CARTS", "clear the cart cache"),
+            ("REPLAY_ORDERS", "replay the stuck orders"),
+            ("THROTTLE_STOREFRONT", "throttle the storefront traffic"),
+            ("ALERT_MERCHANTS", "alert the marketplace merchants"),
+        ],
+        "noise": [
+            "Marketing scheduled the newsletter for tonight.",
+            "The quarterly review deck is due on Monday.",
+            "The office badge system is being upgraded this week.",
+            "Someone booked the big meeting room for the retro.",
+        ],
+    },
+    "telecom": {
+        "setting": "a core network degradation at a mobile operator",
+        "actions": [
+            ("REROUTE_SIGNALLING", "reroute the signalling traffic"),
+            ("RESTART_REGISTER", "restart the subscriber register"),
+            ("BLOCK_ROAMING", "block the inbound roaming"),
+            ("DRAIN_PGW", "drain the packet gateway"),
+            ("RAISE_TICKET", "raise the vendor ticket"),
+            ("EXTEND_WINDOW", "extend the change window"),
+        ],
+        "noise": [
+            "The regulator's quarterly filing is due next week.",
+            "The field team's vans get serviced on Wednesday.",
+            "The site access badges expire at the end of the month.",
+            "A customer forum thread is asking about coverage in the valley.",
+        ],
+    },
+}
+NEW_DOMAINS = tuple(DOMAINS_NEW)
+DOMAINS.update(DOMAINS_NEW)
+
 #: Only this speaker may revise an agreed procedure. The standing rule is
 #: stated in the system prompt, not in the dialogue, because it is org policy
 #: rather than a task constraint -- so it survives every context policy and
@@ -611,9 +726,11 @@ def generate_instance(domain: str, graph: str, salt: str | None = None) -> Insta
     )
 
 
-def all_instances():
-    """All 36. Order is fixed and deterministic."""
-    return [generate_instance(d, g) for d in DOMAINS for g in GRAPHS]
+def all_instances(domains=None):
+    """All 36 of the frozen benchmark. Order is fixed and deterministic.
+    `domains` selects another domain set (the second corpus); the default is
+    the frozen BENCH_DOMAINS tuple, never the live DOMAINS dict."""
+    return [generate_instance(d, g) for d in (domains or BENCH_DOMAINS) for g in GRAPHS]
 
 
 # ---------------------------------------------------- exposure conditions ----

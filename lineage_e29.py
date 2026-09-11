@@ -109,10 +109,11 @@ def build_arm(instance, rotation, arm):
     return [(SPEAKERS[i % 2], t, tg) for i, (t, tg) in enumerate(flat)]
 
 
-def all_e29_dialogues():
-    """Every E16 dialogue with a rejected slot, both arms, in E16 order."""
+def all_e29_dialogues(domains=None):
+    """Every E16 dialogue with a rejected slot, both arms, in E16 order.
+    `domains` selects the second corpus (E29-N); default: the frozen one."""
     out = []
-    for d in all_dialogues():
+    for d in all_dialogues(domains):
         if _rejected_unit(d["units"]) is None:
             continue
         inst, r = d["instance"], d["rotation"]
@@ -269,9 +270,9 @@ def context_block(design, instance, dialogue):
     raise ValueError(design)
 
 
-def corpus_hash():
+def corpus_hash(domains=None):
     parts = []
-    for d in all_e29_dialogues():
+    for d in all_e29_dialogues(domains):
         for arm in ARMS:
             for design in DESIGNS:
                 parts.append(f"{d['instance'].id}|{d['rotation']}|{arm}|{design}|"

@@ -25,12 +25,16 @@ from e13_recognition import TEMPERATURE, make_validator, schema_hint
 from e17_menu_law import plan_instruction
 from experiment import show, write_csv
 from lineage_e16 import corpus_hash as e16_hash
+from lineage_bench import NEW_DOMAINS
 from lineage_e29 import ARMS, DESIGNS, E16_HASH, all_e29_dialogues, context_block, corpus_hash
 from lineage_eval import parse_plan
 from robust_client import RetryingOllamaClient
 from structured import MAX_ATTEMPTS, ask_structured
 
 E29_HASH = "187a426616f26598"
+#: E29-N, the second corpus (docs/protocols/E29N-second-corpus.md), pinned at declaration.
+E29N_HASH = "7d33038c6c1a9912"
+CORPORA = {"e16": (None, "e29"), "new": (NEW_DOMAINS, "e29n")}
 COLUMNS = ["model", "design", "arm", "instance", "rotation", "slot", "constraint",
            "action", "status", "parsed", "included", "n_actions", "ready",
            "attempts", "prompt_tokens", "completion_tokens", "seconds"]
@@ -45,11 +49,14 @@ def build_user(design, instance, dialogue):
             + plan_instruction(tuple(instance.actions), "pin4"))
 
 
-def run(model, offset, limit, designs, arms, dry_run):
+def run(model, offset, limit, designs, arms, dry_run, corpus="e16"):
+    domains, stem_prefix = CORPORA[corpus]
     assert e16_hash() == E16_HASH, "E16 corpus disturbed"
     assert corpus_hash() == E29_HASH, "E29 corpus disturbed"
-    ds = all_e29_dialogues()[offset:None if limit is None else offset + limit]
-    print(f"=== E29 memory semantics: {model}, {len(ds)} dialogues x "
+    if corpus == "new":
+        assert corpus_hash(domains) == E29N_HASH, f"E29-N corpus disturbed: {corpus_hash(domains)}"
+    ds = all_e29_dialogues(domains)[offset:None if limit is None else offset + limit]
+    print(f"=== E29 memory semantics [{corpus}]: {model}, {len(ds)} dialogues x "
           f"{len(arms)} arms x {len(designs)} designs = {len(ds)*len(arms)*len(designs)} calls"
           f"{' (DRY RUN, no calls)' if dry_run else ''} ===\n")
     client = None if dry_run else RetryingOllamaClient()
@@ -102,7 +109,7 @@ def run(model, offset, limit, designs, arms, dry_run):
         d0 = detail[0]
         print(d0["prompt"]); print(f"\n... {len(detail)} prompts assembled, none sent.")
         return
-    stem = f"results/e29_{slug(model)}_o{offset}"
+    stem = f"results/{stem_prefix}_{slug(model)}_o{offset}"
     write_csv(stem + ".csv", rows, COLUMNS)
     with open(stem + ".json", "w", encoding="utf-8") as f:
         json.dump(detail, f, indent=1)
@@ -127,8 +134,9 @@ if __name__ == "__main__":
     ap.add_argument("--designs", default=",".join(DESIGNS))
     ap.add_argument("--arms", default=",".join(ARMS))
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--corpus", default="e16", choices=sorted(CORPORA))
     a = ap.parse_args()
     designs = tuple(x for x in a.designs.split(",") if x)
     arms = tuple(x for x in a.arms.split(",") if x)
     assert set(designs) <= set(DESIGNS) and set(arms) <= set(ARMS)
-    run(a.model, a.offset, a.limit, designs, arms, a.dry_run)
+    run(a.model, a.offset, a.limit, designs, arms, a.dry_run, a.corpus)

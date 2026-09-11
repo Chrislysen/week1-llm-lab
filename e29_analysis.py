@@ -27,9 +27,9 @@ def slug(s):
     return s.replace(".", "").replace(":", "-")
 
 
-def load(model):
+def load(model, prefix="e29"):
     rows = []
-    for f in sorted(glob.glob(f"results/e29_{slug(model)}_o*.csv")):
+    for f in sorted(glob.glob(f"results/{prefix}_{slug(model)}_o*.csv")):
         rows += list(csv.DictReader(open(f, encoding="utf-8")))
     for r in rows:
         r["included"] = {"True": True, "False": False}.get(r["included"])
@@ -59,14 +59,15 @@ def deltas(dias, keys):
     return p, delta, did
 
 
-def main(model):
-    rows = load(model)
+def main(model, corpus="e16"):
+    prefix = {"e16": "e29", "new": "e29n"}[corpus]
+    rows = load(model, prefix)
     if not rows:
-        print("no E29 rows for", model); return
+        print(f"no {prefix} rows for", model); return
     dias = cells(rows)
     complete = [k for k, v in dias.items()
                 if all(v[X].get(arm) is not None for X in DESIGNS for arm in ARMS)]
-    print(f"=== E29 read: {model} — {len(dias)} dialogues seen, {len(complete)} complete on all 8 cells ===\n")
+    print(f"=== E29 read [{corpus}]: {model} — {len(dias)} dialogues seen, {len(complete)} complete on all 8 cells ===\n")
 
     # validity per cell
     void = []
@@ -130,12 +131,15 @@ def main(model):
            "delta": delta, "did": did,
            "ci_delta": {X: ci(("delta", X)) for X in DESIGNS}, "ci_did": {X: ci(("did", X)) for X in DESIGNS},
            "void": void, "verdict": verdict}
-    with open(f"results/e29_{slug(model)}_summary.json", "w", encoding="utf-8") as f:
+    out["corpus"] = corpus
+    with open(f"results/{prefix}_{slug(model)}_summary.json", "w", encoding="utf-8") as f:
         json.dump(out, f, indent=1)
-    print(f"  wrote results/e29_{slug(model)}_summary.json")
+    print(f"  wrote results/{prefix}_{slug(model)}_summary.json")
 
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", required=True)
-    main(ap.parse_args().model)
+    ap.add_argument("--corpus", default="e16", choices=("e16", "new"))
+    a = ap.parse_args()
+    main(a.model, a.corpus)

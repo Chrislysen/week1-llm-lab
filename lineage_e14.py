@@ -51,7 +51,7 @@ import json
 import random
 
 from e10_independence import SYSTEM
-from lineage_bench import DOMAINS, GRAPHS, generate_instance, plan_instruction
+from lineage_bench import BENCH_DOMAINS, DOMAINS, GRAPHS, generate_instance, plan_instruction
 from lineage_e10 import BASES, T_CONTRADICT, T_SOURCE, T_SUPPORT, _cap
 from lineage_e12 import CONTRADICTOR, SRC_SPEAKER, SUPPORT_SPEAKERS, render
 from lineage_eval import _topo, check_plan, obeys
@@ -107,7 +107,7 @@ READY_INSTRUCTION = (
 def fresh_instances():
     """144 fresh formal instances, order fixed: salt, then domain, then graph."""
     return [generate_instance(d, g, salt=s)
-            for s in SALTS for d in DOMAINS for g in GRAPHS]
+            for s in SALTS for d in BENCH_DOMAINS for g in GRAPHS]
 
 
 def by_instance():
