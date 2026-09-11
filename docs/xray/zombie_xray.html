@@ -542,6 +542,8 @@ function makeCity(stage, districtsData) {
     new IntersectionObserver(function (entries) { visible = entries.some(function (e) { return e.isIntersecting; }); kick(); }, { threshold: 0.02 }).observe(stage);
   } catch (e) { visible = true; }
   document.addEventListener('visibilitychange', function () { pageShown = !document.hidden; kick(); });
+  window.addEventListener('focus', function () { pageShown = !document.hidden; kick(); });
+  window.addEventListener('scroll', function () { kick(); }, { passive: true });
   function kick() { if (!rafPending && visible && pageShown) { rafPending = true; requestAnimationFrame(frame); } }
   renderer.toneMapping = T.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05; renderer.outputEncoding = T.sRGBEncoding;
   var scene = new T.Scene(); scene.fog = new T.FogExp2(PAL.bg, 0.02);
@@ -769,8 +771,10 @@ function makeCity(stage, districtsData) {
     rafPending = false;
     if (visible && pageShown) kick();
   }
+  resize();
+  camera.position.set(camTarget.x + Math.sin(orbit) * camDist, camH, camTarget.z + Math.cos(orbit) * camDist); camera.lookAt(camTarget.x, camTarget.y + 0.8, camTarget.z);
+  if (composer) composer.render(); else renderer.render(scene, camera);
   kick();
-  renderer.render(scene, camera);
   feed('START', 'city built from the recorded plans · ' + order.length + ' districts · ' + order.length * 6 + ' towers');
   return { reset: reset, pulse: pulse, mark: mark, event: event, setStoreSize: setStoreSize, setLamps: setLamps, setDeciding: setDeciding, showPlan: showPlan };
 }
