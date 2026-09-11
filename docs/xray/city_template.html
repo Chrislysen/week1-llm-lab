@@ -272,7 +272,7 @@
     var keyL = new T.DirectionalLight(0xBFD5EE, 0.28); keyL.position.set(-9, 18, 9); scene.add(keyL);
     var rimL = new T.DirectionalLight(0x5F92D8, 0.22); rimL.position.set(10, 8, -14); scene.add(rimL);
     var composer = null, bloom = null;
-    try { if (T.EffectComposer && T.UnrealBloomPass) { composer = new T.EffectComposer(renderer); composer.addPass(new T.RenderPass(scene, camera)); bloom = new T.UnrealBloomPass(new T.Vector2(900, 540), 0.36, 0.3, 0.9); composer.addPass(bloom); } } catch (e) { composer = null; }
+    try { if (T.EffectComposer && T.UnrealBloomPass) { composer = new T.EffectComposer(renderer); composer.addPass(new T.RenderPass(scene, camera)); bloom = new T.UnrealBloomPass(new T.Vector2(900, 540), 0.28, 0.0, 0.96); composer.addPass(bloom); } } catch (e) { composer = null; }
     var groundTex = (function () {
       var c = document.createElement('canvas'); c.width = c.height = 1024; var g = c.getContext('2d');
       var rg = g.createRadialGradient(512, 500, 8, 512, 500, 150); rg.addColorStop(0, '#0B1526'); rg.addColorStop(0.45, '#060B14'); rg.addColorStop(1, '#02040A');
@@ -381,7 +381,7 @@
     var H = 1.4;
     function clearList(list) { list.forEach(function (o) { scene.remove(o); hero.remove(o); }); list.length = 0; }
     function setDistrict(dom, actions, heights, rejectedAction) {
-      order.forEach(function (a) { var tw = towers[a]; hero.remove(tw.mesh); hero.remove(tw.edges); hero.remove(tw.cap); tw.lamps.forEach(function (l) { scene.remove(l.mesh); }); if (labelEls[a]) labels.removeChild(labelEls[a]); });
+      order.forEach(function (a) { var tw = towers[a]; hero.remove(tw.mesh); hero.remove(tw.edges); hero.remove(tw.cap); tw.lamps.forEach(function (l) { scene.remove(l.mesh); scene.remove(l.halo); }); if (labelEls[a]) labels.removeChild(labelEls[a]); });
       towers = {}; order = []; labelEls = {}; clearList(planObjs); comets.forEach(function (c) { scene.remove(c.head); c.tail.forEach(function (t) { scene.remove(t); }); }); comets = []; flashes = [];
       if (rejRing) { scene.remove(rejRing); rejRing = null; }
       rejected = rejectedAction; camDist = 22.0; camH = 10.2; camDistGoal = 19.5; camHGoal = 9.0;
@@ -407,11 +407,12 @@
       /* speaker -> its marker on the thread ("said"), then marker -> the tower ("filed") */
       var ag = agents[speaker], from = ag ? ag.mesh.position.clone() : new T.Vector3(0, 1.5, 8), color = kindColor(kind);
       var via = thread.markers[idx] ? markerPos(idx) : new T.Vector3(0, LANE.y, 1.2);
-      var head = new T.Mesh(new T.SphereGeometry(0.22, 16, 16), new T.MeshBasicMaterial({ color: color })); scene.add(head);
+      var head = new T.Mesh(new T.SphereGeometry(0.2, 16, 16), new T.MeshBasicMaterial({ color: 0xF4F9FF })); scene.add(head);
+      var hh = glow(color, 1.6); scene.add(hh);
       var tail = []; for (var i = 0; i < 12; i++) { var t = new T.Mesh(new T.SphereGeometry(0.15 - i * 0.01, 10, 10), new T.MeshBasicMaterial({ color: color, transparent: true, opacity: 0.7 - i * 0.055 })); scene.add(t); tail.push(t); }
       var legs = [{ from: from, to: via, dur: LEG1, lift: 1.4 }];
       if (action && towers[action]) legs.push({ from: via, to: towerTop(action), dur: LEG2, lift: 2.2 });
-      comets.push({ head: head, tail: tail, legs: legs, leg: 0, start: performance.now(), action: action, color: color });
+      comets.push({ head: head, halo: hh, tail: tail, legs: legs, leg: 0, start: performance.now(), action: action, color: color });
       return legs.length === 2 ? FLIGHT : LEG1;
     }
     function setLamps(action, kinds, animate) {
@@ -421,11 +422,13 @@
         var idx = -1; for (var i = 0; i < have.length; i++) if (have[i].kind === k && used.indexOf(i) < 0) { idx = i; break; }
         if (idx >= 0) { used.push(idx); keep.push(have[idx]); }
         else {
-          var m = new T.Mesh(new T.BoxGeometry(0.56, 0.26, 0.56), new T.MeshStandardMaterial({ color: PAL[k], emissive: PAL[k], emissiveIntensity: 1.3, transparent: true, opacity: 1 }));
-          m.position.set(tw.x, tw.h, tw.z); var s0 = animate ? 0.01 : 1; m.scale.set(s0, s0, s0); scene.add(m); keep.push({ kind: k, mesh: m, born: performance.now() - (animate ? 0 : 5000) });
+          var m = new T.Mesh(new T.BoxGeometry(0.56, 0.26, 0.56), new T.MeshStandardMaterial({ color: PAL[k], emissive: PAL[k], emissiveIntensity: 0.9, transparent: true, opacity: 1 }));
+          m.position.set(tw.x, tw.h, tw.z); var s0 = animate ? 0.01 : 1; m.scale.set(s0, s0, s0); scene.add(m);
+          var lh = glow(PAL[k], 1.1); lh.position.copy(m.position); lh.material.opacity = 0.7; scene.add(lh);
+          keep.push({ kind: k, mesh: m, halo: lh, born: performance.now() - (animate ? 0 : 5000) });
         }
       });
-      have.forEach(function (l, i) { if (used.indexOf(i) < 0) { if (animate) { l.dying = performance.now(); flashes.push({ lamp: l }); tw.glow = 1.2; tw.mesh.material.emissive.setHex(PAL.rejected); } else scene.remove(l.mesh); } });
+      have.forEach(function (l, i) { if (used.indexOf(i) < 0) { if (animate) { l.dying = performance.now(); flashes.push({ lamp: l }); tw.glow = 1.2; tw.mesh.material.emissive.setHex(PAL.rejected); } else { scene.remove(l.mesh); scene.remove(l.halo); } } });
       tw.lamps = keep; keep.forEach(function (l, i) { l.targetY = tw.h + 0.24 + i * 0.32; if (!animate) l.mesh.position.y = l.targetY; });
       var lit = keep.length > 0, lc = lit ? PAL[keep[keep.length - 1].kind] : null;
       tw.base = lit ? lc : 0x07101C; tw.baseI = lit ? 0.06 : 0.35; tw.capBase = lit ? lc : 0x16304F; tw.capI = lit ? 0.9 : 0.4; tw.edges.material.color.setHex(lit ? lc : 0x2A4B72);
@@ -489,19 +492,19 @@
       comets = comets.filter(function (c) {
         var L = c.legs[c.leg], k = Math.min(1, (now - c.start) / L.dur), e = k < 0.5 ? 2 * k * k : -1 + (4 - 2 * k) * k;
         function at(q) { q = Math.max(0, q); var p = new T.Vector3().lerpVectors(L.from, L.to, q); p.y += Math.sin(q * Math.PI) * L.lift; return p; }
-        c.head.position.copy(at(e)); c.tail.forEach(function (tm, i) { tm.position.copy(at(e - (i + 1) * 0.045)); });
+        c.head.position.copy(at(e)); c.halo.position.copy(c.head.position); c.tail.forEach(function (tm, i) { tm.position.copy(at(e - (i + 1) * 0.045)); });
         if (k >= 1) {
           if (c.leg < c.legs.length - 1) { c.leg += 1; c.start = now; return true; }
-          scene.remove(c.head); c.tail.forEach(function (tm) { scene.remove(tm); }); var tw = towers[c.action]; if (tw) { tw.glow = 1.3; tw.mesh.material.emissive.setHex(c.color); } return false;
+          scene.remove(c.head); scene.remove(c.halo); c.tail.forEach(function (tm) { scene.remove(tm); }); var tw = towers[c.action]; if (tw) { tw.glow = 1.3; tw.mesh.material.emissive.setHex(c.color); } return false;
         }
         return true;
       });
       thread.markers.forEach(function (m, i) { var sc = m.cur ? 1 + 0.25 * Math.abs(Math.sin(t * 5)) : 1; m.mesh.scale.set(sc, sc, sc); var hs = 0.9 * (m.cur ? 1.3 + 0.2 * Math.abs(Math.sin(t * 5)) : 1); m.halo.scale.set(hs, hs, 1); place(m.badge, new T.Vector3(m.x, LANE.y + 0.55, m.z), 0); });
       order.forEach(function (a) {
-        var tw = towers[a]; tw.glow = Math.max(0, tw.glow - 0.03); if (tw.glow <= 0) tw.mesh.material.emissive.setHex(tw.base); tw.mesh.material.emissiveIntensity = tw.baseI + tw.glow * 0.5;
+        var tw = towers[a]; tw.glow = Math.max(0, tw.glow - 0.05); if (tw.glow <= 0) tw.mesh.material.emissive.setHex(tw.base); tw.mesh.material.emissiveIntensity = tw.baseI + tw.glow * 0.25;
         tw.cap.material.emissive.setHex(tw.capBase); tw.cap.material.emissiveIntensity = tw.capI + tw.glow;
         if (tw.rise < 1) { var rr = reduced ? 1 : Math.min(1, Math.max(0, (now - tw.riseAt) / 750)); tw.rise = rr; var ey = 1 - Math.pow(1 - rr, 3); tw.mesh.scale.y = Math.max(0.01, ey); tw.edges.scale.y = Math.max(0.01, ey); tw.cap.position.y = tw.h * ey + 0.05; }
-        tw.lamps.forEach(function (l) { var s = Math.min(1, (now - l.born) / (reduced ? 1 : 280)); l.mesh.scale.set(s, s, s); l.mesh.position.y += ((l.targetY || tw.h) - l.mesh.position.y) * 0.22; });
+        tw.lamps.forEach(function (l) { var s = Math.min(1, (now - l.born) / (reduced ? 1 : 280)); l.mesh.scale.set(s, s, s); l.mesh.position.y += ((l.targetY || tw.h) - l.mesh.position.y) * 0.22; if (l.halo) { l.halo.position.copy(l.mesh.position); l.halo.scale.set(1.1 * s, 1.1 * s, 1); } });
         place(labelEls[a], new T.Vector3(tw.x, tw.h * tw.mesh.scale.y + 0.5 + tw.lamps.length * 0.36, tw.z), -6);
       });
       Object.keys(agents).forEach(function (n) { var ag = agents[n]; ag.glow = Math.max(0, ag.glow - 0.02); var hs = ag.haloSize * (1 + 0.45 * ag.glow) * (ag.dec ? (0.7 + 0.3 * Math.min(1, ag.base)) : 1); ag.halo.scale.set(hs, hs, 1); ag.halo.material.opacity = ag.dec ? 0.35 + 0.5 * Math.min(1, ag.base) : 0.75 + 0.25 * Math.min(1, ag.glow); ag.light.intensity = ag.baseL + ag.glow * 0.8;
@@ -518,7 +521,7 @@
       }
       flashes = flashes.filter(function (f) {
         if (f.burst) { var bb = (now - f.start) / 1300; var sc = 1 + bb * 5; f.burst.scale.set(sc, sc, sc); f.burst.material.opacity = 0.9 * (1 - bb); if (bb >= 1) { scene.remove(f.burst); return false; } return true; }
-        if (f.lamp) { var d = (now - f.lamp.dying) / 750; f.lamp.mesh.material.opacity = Math.max(0, 1 - d); f.lamp.mesh.position.y -= 0.025; if (d >= 1) { scene.remove(f.lamp.mesh); return false; } return true; }
+        if (f.lamp) { var d = (now - f.lamp.dying) / 750; f.lamp.mesh.material.opacity = Math.max(0, 1 - d); f.lamp.mesh.position.y -= 0.025; if (f.lamp.halo) { f.lamp.halo.material.opacity = 0.7 * Math.max(0, 1 - d); f.lamp.halo.position.copy(f.lamp.mesh.position); } if (d >= 1) { scene.remove(f.lamp.mesh); if (f.lamp.halo) scene.remove(f.lamp.halo); return false; } return true; }
         if (f.beam) { var b = (now - f.start) / 2600; f.beam.material.opacity = 0.35 * Math.max(0, 1 - b); return b < 1; }
         var k2 = (now - f.start) / 2800; f.tower.capI = 1.4 + 1.4 * Math.abs(Math.sin(k2 * Math.PI * 4)); if (k2 >= 1) f.tower.capI = 2.2; return k2 < 1;
       });
