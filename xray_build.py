@@ -181,10 +181,34 @@ def e29b_snapshots():
     return out
 
 
+def city_districts(dias):
+    """One district per domain; tower heights are how often each step appeared in
+    the recorded plans for that domain, over all dialogues and all six models."""
+    out = []
+    for dom in DOMAINS:
+        actions = [a for a, _ in DOMAINS[dom]["actions"]]
+        n, hits = 0, {a: 0 for a in actions}
+        for d in dias:
+            if d["domain"] != dom:
+                continue
+            for m in MODELS:
+                p = d["plans"][m]
+                if not p:
+                    continue
+                n += 1
+                for a in p["actions"]:
+                    if a in hits:
+                        hits[a] += 1
+        out.append({"domain": dom, "setting": DOMAINS[dom]["setting"], "actions": actions,
+                    "verbs": dict(DOMAINS[dom]["actions"]),
+                    "heights": {a: round(hits[a] / n, 3) if n else 0 for a in actions}, "plans": n})
+    return out
+
+
 def build_data(live=False, live_models=None):
     agg, dias, showcase = e18_ladder()
     return {"corpus_hash": corpus_hash(), "e29_hash": e29_hash(), "models": MODELS, "agg": agg,
-            "dialogues": dias, "showcase": showcase, "e29": e29_summaries(),
+            "dialogues": dias, "showcase": showcase, "e29": e29_summaries(), "city": city_districts(dias),
             "e29_dialogues": e29_dialogues(), "e29_models": E29_MODELS, "e29b": e29b_snapshots(),
             "live": {"models": live_models or []} if live else None}
 
