@@ -93,6 +93,55 @@ temperature). One extractor prompt of the author's, so a REAL-STORE EFFECT
 here is "a Mem0-router store fed by an operational extractor", not "Mem0". The
 keyword mention rule undercounts paraphrases. 48 dialogues, one corpus.
 
-## 5. Outcome
+## 5. Outcome — run 2026-09-12, after `8bce1ae`
 
-_(empty at declaration)_
+48 of 48 dialogues in eight foreground chunks of six (about 6–7 minutes
+each), extractor and router `qwen2.5:7b-instruct`, decider `llama3.2:3b`.
+Zero malformed extractor outputs, zero malformed router outputs, zero
+transport retries. Decider parse 1.000 in both arms, mean |plan| 4.00.
+`results/e29d_qwen25-7b-instruct_llama32-3b_o{0,6,…,42}.csv/.json` (every
+store snapshot, every router event, every decider prompt and output),
+`results/e29d_qwen25-7b-instruct_llama32-3b_summary.json`.
+
+| question | value | prediction | verdict |
+|---|---|---|---|
+| **W0** store mentions the step after its proposal line | **0.958** of 48 | ≥ 0.5 | **P0 holds; stage informative** |
+| **W1** rejection removed the step, given it was there | **0.217** (n = 46) | < 0.5 | **P1 holds** |
+| **W2** final store mentions the rejected step | restated **0.854** · neutral **0.750** | restated > neutral | **P3 holds** |
+| router events per dialogue (ADD / UPDATE / DELETE) | restated 6.54 / 3.81 / 0.35 · neutral 6.62 / 2.92 / 0.35; store size 6.2 | — | — |
+| **D** rejected-step inclusion on the real store | restated **0.667** · neutral **0.500** · Δ_real **+0.167 [+0.042, +0.292]** | 0 ≤ Δ_real < oracle Δ_delete | **P2 holds** |
+| E29 oracle `delete`, same 48 dialogues, same decider | 0.958 · 0.562 · +0.396 | | |
+| E29 oracle `addonly`, same 48 | 0.208 · 0.167 · +0.042 | | |
+| E29 oracle `full`, same 48 | 0.083 · 0.208 · −0.125 | | |
+
+**Verdict by the declared rule: REAL-STORE EFFECT** (Δ_real ≥ 0.15, interval
+above 0).
+
+**What the real write path did.** Asked for operational facts, the extractor
+stored the proposed step almost always; the manipulation check that E29-B
+failed at 0.11 passes at 0.96 with a prompt change and nothing else. Mem0's
+router then behaved as arXiv:2606.15903 App. P and Mem0's own v3 rationale
+say it does: on the rejection line it DELETEd the proposal in about one
+dialogue in five and otherwise ADDed the rejection or UPDATEd the proposal's
+text to carry it. The rejected step therefore survived in three quarters of
+neutral-arm stores, and the restatement pushed that to 0.85 by entering as a
+fresh fact.
+
+**Where the real store sits.** On enactment it lands between the two oracle
+designs, as predicted: +0.167 against +0.042 (add-only) and +0.396 (delete).
+One observation beyond the predictions: the neutral-arm enactment on the real
+store (0.500) is far above the oracle add-only cell (0.167) although the
+rejection is usually present in both. The oracle store renders the rejection
+by a fixed template; the router's UPDATEs rewrite the proposal's text to fold
+the rejection in ("… proposed X; … said it is not needed"), and the 3B decider
+reads such merged lines as weaker than a separate rejection. Whether that is
+the rewrite or the wording is not tested here.
+
+**What this adds to E29.** E29's DiD was measured on semantic ideals. This
+stage shows that a real Mem0-router store fed by a fit-for-purpose extractor
+re-admits a dialogue-rejected step when a partner restates it, by an amount
+that is smaller than the hard-delete ideal and larger than add-only, and that
+the mechanism is the one E29 named: the restatement enters the store as a
+fact with no rejection attached. Limits as declared: one extractor prompt of
+the author's, one extractor model, one decider, no embedder or vector store,
+48 dialogues of one corpus, a keyword mention rule.
