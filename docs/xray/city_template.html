@@ -124,12 +124,12 @@
   .seg button { border: 0; border-radius: 0; background: transparent; padding: 6px 10px; font-family: var(--mono); font-size: 12px; }
   .seg button.on { background: var(--line2); color: var(--ink); }
   .tally { display: grid; grid-template-columns: 1fr 1fr auto; gap: 16px; align-items: center; }
-  .bar { display: grid; grid-template-columns: 84px 1fr; align-items: center; gap: 12px; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  .bar { display: grid; grid-template-columns: 84px 1fr 230px; align-items: center; gap: 12px; font-family: var(--mono); font-size: 12px; color: var(--muted); }
   .bar .track { position: relative; height: 16px; background: var(--panel2); border: 1px solid var(--line); border-radius: 3px; overflow: hidden; }
   .bar .fill { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: var(--amber); transition: width .5s ease; }
   .bar.neutral .fill { background: var(--dim); }
   .bar .ghost { position: absolute; top: -1px; bottom: -1px; width: 2px; background: var(--white); opacity: .8; }
-  .bar .val { position: absolute; right: 6px; top: 0; line-height: 16px; font-size: 11px; color: var(--ink); }
+  .bar .val { font-size: 11.5px; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .counters { display: flex; gap: 14px; font-family: var(--mono); font-size: 12px; color: var(--dim); white-space: nowrap; }
   .counters b { color: var(--ink); font-weight: 500; }
   .err { font-family: var(--mono); font-size: 12px; color: var(--red); }
@@ -187,8 +187,8 @@
     <label class="auto"><input type="checkbox" id="auto" checked> auto-advance</label>
   </div>
   <div class="tally">
-    <div class="bar restated"><span>restated</span><div class="track"><div class="fill" id="b-r"></div><div class="ghost" id="g-r" hidden></div><span class="val" id="v-r">0/0</span></div></div>
-    <div class="bar neutral"><span>neutral</span><div class="track"><div class="fill" id="b-n"></div><div class="ghost" id="g-n" hidden></div><span class="val" id="v-n">0/0</span></div></div>
+    <div class="bar restated"><span>restated</span><div class="track"><div class="fill" id="b-r"></div><div class="ghost" id="g-r" hidden></div></div><span class="val" id="v-r">0/0</span></div>
+    <div class="bar neutral"><span>neutral</span><div class="track"><div class="fill" id="b-n"></div><div class="ghost" id="g-n" hidden></div></div><span class="val" id="v-n">0/0</span></div>
     <div class="counters"><span>plans <b id="c-plans">0</b></span><span>carried <b id="c-carried">0</b></span><span>= record <b id="c-same">0</b></span><span class="err" id="err"></span></div>
   </div>
 </footer>
@@ -251,7 +251,7 @@
     /* hero district */
     var hero = new T.Group(); scene.add(hero);
     var towers = {}, order = [], labelEls = {}, comets = [], flashes = [], planObjs = [], column = null, ring = null, rejRing = null, rejected = null;
-    var pad = new T.Mesh(new T.CylinderGeometry(0.75, 0.75, 0.1, 40), new T.MeshStandardMaterial({ color: 0x14202E, emissive: 0x0B1420 })); pad.position.set(-2.4, 0.05, 2.9); scene.add(pad);
+    var pad = new T.Mesh(new T.CylinderGeometry(0.75, 0.75, 0.1, 40), new T.MeshStandardMaterial({ color: 0x14202E, emissive: 0x0B1420 })); pad.position.set(-3.8, 0.05, 3.1); scene.add(pad);
     var padLbl = el('div', 'lbl agent', 'aside · not about a step'); labels.appendChild(padLbl);
     var ROLES = { 'Operations Lead': { color: '#7FA3E6', hex: PAL.agentA, role: 'proposes steps and keeps the plan', x: -8.8, z: 1.4 },
                   'Safety Auditor': { color: '#3CC5AE', hex: PAL.agentB, role: 'holds the plan to what was agreed', x: 8.8, z: 1.4 },

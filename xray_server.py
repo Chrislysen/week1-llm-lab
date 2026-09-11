@@ -223,12 +223,42 @@ class Handler(BaseHTTPRequestHandler):
         print("  " + (fmt % args))
 
 
+def daemonize(port):
+    """Re-launch this server as a detached process that outlives the calling
+    shell (Windows: new process group, detached, breaking away from any job
+    object that would otherwise kill it). Logs go to results/xray_server_*.log."""
+    import os
+    import subprocess
+    import sys
+    here = os.path.dirname(os.path.abspath(__file__))
+    out = open(os.path.join(here, "results", "xray_server_out.log"), "ab")
+    err = open(os.path.join(here, "results", "xray_server_err.log"), "ab")
+    cmd = [sys.executable, "-u", os.path.abspath(__file__), "--port", str(port), "--no-browser"]
+    flags = 0
+    if os.name == "nt":
+        flags = subprocess.DETACHED_PROCESS | subprocess.CREATE_NEW_PROCESS_GROUP
+        try:
+            p = subprocess.Popen(cmd, cwd=here, stdout=out, stderr=err, stdin=subprocess.DEVNULL,
+                                 creationflags=flags | 0x01000000, close_fds=True)  # CREATE_BREAKAWAY_FROM_JOB
+        except OSError:
+            p = subprocess.Popen(cmd, cwd=here, stdout=out, stderr=err, stdin=subprocess.DEVNULL,
+                                 creationflags=flags, close_fds=True)
+    else:
+        p = subprocess.Popen(cmd, cwd=here, stdout=out, stderr=err, stdin=subprocess.DEVNULL,
+                             start_new_session=True, close_fds=True)
+    print(f"detached server pid {p.pid} on http://localhost:{port}/  (logs in results/xray_server_*.log)")
+
+
 def main():
     global STATE
     ap = argparse.ArgumentParser()
     ap.add_argument("--port", type=int, default=8765)
     ap.add_argument("--no-browser", action="store_true")
+    ap.add_argument("--daemon", action="store_true", help="start detached and return")
     a = ap.parse_args()
+    if a.daemon:
+        daemonize(a.port)
+        return
     print("building the X-ray from results/ ...")
     STATE = State()
     d = STATE.data

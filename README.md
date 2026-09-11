@@ -74,6 +74,7 @@ files every time it starts:
 
 ```
 python xray_server.py        # builds from results/, opens http://localhost:8765/
+python xray_server.py --daemon   # same, detached from the shell; logs in results/
 python xray_build.py         # writes the static page to docs/xray/zombie_xray.html
 ```
 
