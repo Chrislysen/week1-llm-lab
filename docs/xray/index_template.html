@@ -1,4 +1,5 @@
 <title>Zombie Constraint X-ray</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23070B12'/%3E%3Ccircle cx='32' cy='32' r='16' fill='none' stroke='%23F29A4B' stroke-width='6'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
@@ -162,6 +163,12 @@
   td .ci { color: var(--muted); font-size: 12px; }
   td.z { color: var(--zombie); font-weight: 500; }
   .table-wrap { overflow-x: auto; }
+  tr.sub td { font-family: var(--display); font-weight: 600; font-size: 12.5px; letter-spacing: .03em; text-transform: uppercase; color: var(--proposed); padding-top: 16px; border-bottom: 1px solid var(--line-strong); }
+  .e29notes { margin: 0; padding-left: 18px; max-width: 78ch; display: grid; gap: 4px; }
+  .e29notes li { font-size: 14.5px; }
+  .controls button.primary { background: var(--proposed); border-color: var(--proposed); color: #fff; font-weight: 600; padding: 6px 16px; }
+  .controls button.primary:hover { filter: brightness(1.08); }
+  .controls button.primary:disabled { filter: none; }
 
   /* ---- memory design panel ---- */
   .design th:first-child, .design td:first-child { min-width: 180px; }
@@ -234,11 +241,11 @@
   .hud-tr { right: 14px; top: 14px; pointer-events: auto; }
   .hud-btn { font: inherit; font-size: 12px; color: #C9D4E0; background: rgba(12,19,28,.85); border: 1px solid #2A3C52; border-radius: 3px; padding: 5px 9px; cursor: pointer; }
   .hud-btn:hover { border-color: #5B8DEF; color: #fff; }
-  .hud-feed { right: 14px; top: 52px; width: 300px; display: grid; gap: 3px; }
+  .hud-feed { right: 14px; top: 52px; width: 340px; display: grid; gap: 3px; }
   .hud-feed .fe { display: grid; grid-template-columns: 58px 62px 1fr; gap: 8px; align-items: baseline; padding: 4px 8px; background: rgba(12,19,28,.78); border: 1px solid #1C2836; border-radius: 3px; animation: fein .35s ease; }
   .hud-feed .fe .t { color: #5E6F80; font-size: 11px; }
   .hud-feed .fe .k { font-weight: 600; letter-spacing: .06em; font-size: 11px; }
-  .hud-feed .fe .x { color: #B7C5D3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .hud-feed .fe .x { color: #B7C5D3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.35; }
   .hud-feed .fe-ADD .k { color: #2FBFA3; } .hud-feed .fe-DELETE .k { color: #E04B3A; } .hud-feed .fe-LINE .k { color: #5B8DEF; }
   .hud-feed .fe-RESTATED .k { color: #F29A4B; } .hud-feed .fe-DECIDER .k { color: #8FD0FF; } .hud-feed .fe-PLAN .k { color: #E8F1FF; }
   .hud-feed .fe-CARRIES .k { color: #F29A4B; } .hud-feed .fe-START .k { color: #8FA3B8; }
@@ -392,7 +399,8 @@
           <tbody></tbody>
         </table>
       </div>
-      <p class="muted" id="e29note"></p>
+      <ul class="e29notes" id="e29notes"></ul>
+      <p class="muted" id="e29caveat"></p>
     </div>
     <div class="callout" id="e29pending">
       <p><b>The question E29 asks.</b> Does a partner's later restatement of a rejected step raise the relapse rate by an amount that depends on the memory design, measured as a difference-in-differences against the full-context arm above? The rows above will be filled in with measured rates only after the declared protocol has run.</p>
@@ -404,14 +412,14 @@
       <h2 id="h-replay">Watch it happen</h2>
       <span class="status" id="rp-state"><i></i><span>idle</span></span>
     </div>
-    <p>The city is the whole corpus: six districts for the six domains, a tower for every step, heights from how often that step appeared in the recorded plans. Press <b>Play</b> and the camera flies to the dialogue's district. Each line arrives as light from the agent who said it, the roof lamps show exactly what the chosen memory design has stored, the decider raises a column while its tokens stream in, and the plan is drawn as a path through the towers. If the ringed tower is on the path, the rejected step is back. Below the city the same run is shown as text, and the tally fills up against the recorded rates. Both arms of every dialogue are played, restated first, in the experiment's order.</p>
+    <p>The city is the corpus: a district per domain, a tower per step, heights from the recorded plans. Press <b>Play</b> and the camera flies to the dialogue's district. Lines arrive as light from the agent who said them, the roof lamps show what the chosen memory design has actually stored, and the plan is drawn through the towers. If the ringed tower is on the path, the rejected step is back. The same run is shown as text below, and the tally fills up against the recorded rates.</p>
     <div class="controls">
       <label class="muted" for="rp-design">Design</label>
       <select id="rp-design"><option value="delete">write-time delete</option><option value="full">full context</option><option value="addonly">add-only</option><option value="wiki">merge-in-place page</option></select>
       <label class="muted" for="rp-model">Model</label><select id="rp-model"></select>
       <label class="muted" for="rp-speed">Pace</label>
       <select id="rp-speed"><option value="700">unhurried</option><option value="340" selected>normal</option><option value="90">quick</option></select>
-      <button id="rp-play" type="button">Play</button>
+      <button id="rp-play" type="button" class="primary">Play</button>
       <button id="rp-stop" type="button" disabled>Stop</button>
       <button id="rp-reset" type="button">Reset tally</button>
       <span class="lv-err" id="rp-err"></span>
@@ -904,9 +912,9 @@ function makeCity(stage, districtsData) {
   var ly = 16;
   svg.appendChild(s('circle', { cx: left + 6, cy: ly, r: 5, 'class': 'rej' }));
   svg.appendChild(s('text', { x: left + 16, y: ly + 4, 'class': 'm' }, 'rejected step, with 95% CI'));
-  svg.appendChild(s('rect', { x: left + 200, y: ly - 5, width: 8, height: 10, 'class': 'nev' }));
-  svg.appendChild(s('text', { x: left + 214, y: ly + 4, 'class': 'm' }, 'never mentioned (chance)'));
-  var lx = left + 400;
+  svg.appendChild(s('rect', { x: left + 250, y: ly - 5, width: 8, height: 10, 'class': 'nev' }));
+  svg.appendChild(s('text', { x: left + 264, y: ly + 4, 'class': 'm' }, 'never mentioned (chance)'));
+  var lx = left + 500;
   svg.appendChild(s('path', { d: 'M' + lx + ' ' + (ly - 6) + ' L' + (lx + 6) + ' ' + ly + ' L' + lx + ' ' + (ly + 6) + ' L' + (lx - 6) + ' ' + ly + ' Z', 'class': 'acc' }));
   svg.appendChild(s('text', { x: lx + 12, y: ly + 4, 'class': 'm' }, 'accepted'));
 
@@ -947,11 +955,11 @@ function makeCity(stage, districtsData) {
     var notes = [];
     D.e29.forEach(function (E) {
     notes.push(E.note);
+    var sub = el('tr', 'sub'); var sd = el('td'); sd.colSpan = 7; sd.textContent = E.model + ' · ' + E.n_complete + ' dialogues · ' + E.verdict_short; sub.appendChild(sd); etb.appendChild(sub);
     ['full', 'delete', 'addonly', 'wiki'].forEach(function (X) {
       var tr = el('tr');
       var name = { full: 'Full raw context', delete: 'Write-time delete', addonly: 'Add-only, no recency', wiki: 'Merge-in-place page' }[X];
-      var td0 = el('td'); td0.appendChild(el('b', null, name)); td0.appendChild(el('br')); td0.appendChild(el('span', 'muted', E.model + ' · ' + E.n_complete + ' dialogues'));
-      tr.appendChild(td0);
+      tr.appendChild(el('td', null, name));
       tr.appendChild(el('td', 'num', E.p[X + '|restated'].toFixed(3)));
       tr.appendChild(el('td', 'num', E.p[X + '|neutral'].toFixed(3)));
       var dl = E.delta[X], dc = E.ci_delta[X];
@@ -969,19 +977,21 @@ function makeCity(stage, districtsData) {
       etb.appendChild(tr);
     });
     });
-    document.getElementById('e29note').textContent = notes.join(' ');
+    var nl = document.getElementById('e29notes'); nl.innerHTML = '';
+    notes.forEach(function (n) { nl.appendChild(el('li', null, n)); });
+    document.getElementById('e29caveat').textContent = (D.e29_caveat || '') + (D.e29b_note ? ' ' + D.e29b_note : '');
     var cells = document.querySelectorAll('table.design tbody tr td:last-child .status');
     var who = D.e29.length === 1 ? D.e29[0].model : D.e29.length + ' deciders';
     cells.forEach(function (c) { c.className = 'status measured'; c.lastChild.textContent = 'measured · ' + who; c.title = D.e29.map(function (E) { return E.model; }).join(', '); });
   }
 
   /* ---- live panel (served by xray_server.py; hidden in the static build) ---- */
-  if (D.live && D.e29_dialogues) {
+  if (D.live && D.e29_index) {
     document.getElementById('live').hidden = false;
     var lp = document.getElementById('lv-pick'), la = document.getElementById('lv-arm'),
         ld = document.getElementById('lv-design'), lm = document.getElementById('lv-model'),
         lrun = document.getElementById('lv-run'), lerr = document.getElementById('lv-err');
-    D.e29_dialogues.forEach(function (d, i) {
+    D.e29_index.forEach(function (d, i) {
       var o = el('option', null, d.instance + ' · rotation ' + d.rotation + ' · ' + d.domain + ' · rejected: ' + d.phrase);
       o.value = i; lp.appendChild(o);
     });
@@ -1035,13 +1045,22 @@ function makeCity(stage, districtsData) {
       return row;
     }
     var lastRecorded = {};
+    var detailCache = {};
+    function detail(i) {
+      if (detailCache[i]) return Promise.resolve(detailCache[i]);
+      return fetch('/api/e29?i=' + i).then(function (r) { return r.json(); }).then(function (x) { if (x.error) throw new Error(x.error); detailCache[i] = x; return x; });
+    }
+    var renderSeq = 0;
     function renderLive() {
       lerr.textContent = '';
-      var d = D.e29_dialogues[parseInt(lp.value, 10)], arm = la.value, X = ld.value;
-      var html = esc(d.blocks[arm][X]).replace(new RegExp(escRe(d.phrase), 'gi'), function (m) { return '<mark>' + m + '</mark>'; });
+      var i = parseInt(lp.value, 10), d = D.e29_index[i], arm = la.value, X = ld.value, seq = ++renderSeq;
+      document.getElementById('lv-context').textContent = 'loading…';
+      detail(i).then(function (det) {
+      if (seq !== renderSeq) return;
+      var html = esc(det.blocks[arm][X]).replace(new RegExp(escRe(d.phrase), 'gi'), function (m) { return '<mark>' + m + '</mark>'; });
       document.getElementById('lv-context').innerHTML = html;
       var plans = document.getElementById('lv-plans'); plans.innerHTML = '';
-      var rec = d.recorded[arm][X] || {};
+      var rec = det.recorded[arm][X] || {};
       lastRecorded = {};
       D.e29_models.forEach(function (m) {
         var plan = safePlan(rec[m]); lastRecorded[m] = plan;
@@ -1051,6 +1070,7 @@ function makeCity(stage, districtsData) {
       var xr = document.getElementById('lv-xray');
       xr.hidden = !(snap && X === 'delete');
       if (snap && X === 'delete') renderSnap(d, snap);
+      }).catch(function (e) { lerr.textContent = String(e.message || e); });
     }
     function renderSnap(d, snap) {
       var tb = document.querySelector('#lv-snap tbody'); tb.innerHTML = '';
@@ -1186,7 +1206,7 @@ function makeCity(stage, districtsData) {
       return out;
     }
     async function playOne(i, arm) {
-      var X = rd.value, model = rm.value, d = D.e29_dialogues[i];
+      var X = rd.value, model = rm.value, d = D.e29_index[i], det = await detail(i);
       document.getElementById('rp-title').textContent = d.instance + ' · rotation ' + d.rotation + ' · ' + arm + ' arm · rejected step: ' + d.phrase;
       var tl = await fetch('/api/timeline?i=' + i + '&arm=' + arm).then(function (r) { return r.json(); });
       if (tl.error) throw new Error(tl.error);
@@ -1223,7 +1243,7 @@ function makeCity(stage, districtsData) {
       if (res.error && !res.plan) { throw new Error(res.error); }
       if (city) city.showPlan(res.plan ? res.plan.actions : [], !!(res.plan && res.plan.actions.indexOf(d.rejected_action) >= 0));
       var row = planRow(d, model, 'live · ' + res.seconds + ' s · ' + (res.prompt_tokens || '?') + ' prompt tokens', res.plan, true);
-      var recPlan = safePlan((d.recorded[arm][X] || {})[model]);
+      var recPlan = safePlan((det.recorded[arm][X] || {})[model]);
       var same = recPlan && res.plan && JSON.stringify(recPlan.actions) === JSON.stringify(res.plan.actions);
       row.querySelector('.m').appendChild(el('em', same ? null : 'diff', recPlan ? (same ? 'identical to the record' : 'differs from the record') : 'no record for this model'));
       document.getElementById('rp-plan').appendChild(row);
@@ -1238,10 +1258,10 @@ function makeCity(stage, districtsData) {
       running = true; rplay.disabled = true; rstop.disabled = false; rerr.textContent = '';
       try {
         while (running) {
-          var i = cursor % D.e29_dialogues.length;
+          var i = cursor % D.e29_index.length;
           for (var a = 0; a < 2 && running; a++) {
             var arm = ['restated', 'neutral'][a];
-            setRState('dialogue ' + (i + 1) + ' of ' + D.e29_dialogues.length + ' · ' + arm + ' arm', 'measured');
+            setRState('dialogue ' + (i + 1) + ' of ' + D.e29_index.length + ' · ' + arm + ' arm', 'measured');
             await playOne(i, arm);
           }
           cursor += 1;
@@ -1261,7 +1281,7 @@ function makeCity(stage, districtsData) {
 
     lp.addEventListener('change', renderLive); la.addEventListener('change', renderLive); ld.addEventListener('change', renderLive);
     lrun.addEventListener('click', function () {
-      var d = D.e29_dialogues[parseInt(lp.value, 10)], arm = la.value, X = ld.value, model = lm.value;
+      var d = D.e29_index[parseInt(lp.value, 10)], arm = la.value, X = ld.value, model = lm.value;
       lrun.disabled = true; lrun.textContent = 'Running…'; lerr.textContent = '';
       fetch('/api/run', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ i: parseInt(lp.value, 10), arm: arm, design: X, model: model }) })
         .then(function (r) { return r.json(); })

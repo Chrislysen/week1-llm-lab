@@ -130,19 +130,23 @@ def e29_summaries():
                      f"{e['p']['delete|neutral']:.2f} to {e['p']['delete|restated']:.2f}; under full context "
                      f"the same line moved it by {e['delta']['full']:+.2f}.")
         out.append(e)
-    if out:
-        out[-1]["note"] += (" Stores are semantic ideals built from the scorer's tags, not the output of a "
-                            "real extractor; paired bootstrap over dialogues, B = 2000; the read rule uses "
-                            "only the within-design difference, so levels across designs are shown, not compared.")
-        b = os.path.join(HERE, "results", "e29b_llama32-3b_summary.json")
-        if os.path.exists(b):
-            eb = json.load(open(b, encoding="utf-8"))
-            out[-1]["note"] += (f" A follow-up (E29-B) ran the Mem0 paper's own extraction prompt for real on "
-                                f"{eb['n']} of these dialogues with llama3.2:3b: it stored the proposed step at its "
-                                f"proposal line in {eb['manip_prop']:.2f} of them, so that stage reads uninformative "
-                                f"by its declared rule; descriptively, the rejected step mostly never entered the "
-                                f"store at all, and a later restatement entered it as a fresh fact.")
     return out
+
+
+E29_CAVEAT = ("Stores are semantic ideals built from the scorer's tags, not the output of a real extractor. "
+              "Paired bootstrap over dialogues, B = 2000. The read rule uses only the within-design difference, "
+              "so levels across designs are shown, not compared.")
+
+
+def e29b_note():
+    b = os.path.join(HERE, "results", "e29b_llama32-3b_summary.json")
+    if not os.path.exists(b):
+        return ""
+    eb = json.load(open(b, encoding="utf-8"))
+    return (f"A follow-up, E29-B, ran the Mem0 paper's own extraction prompt for real on {eb['n']} of these "
+            f"dialogues with llama3.2:3b. It stored the proposed step at its proposal line in {eb['manip_prop']:.2f} "
+            f"of them, so that stage reads uninformative by its declared rule; descriptively, the rejected step "
+            f"mostly never entered the store at all, and a later restatement entered it as a fresh fact.")
 
 
 def e29_dialogues():
@@ -209,13 +213,26 @@ def build_data(live=False, live_models=None):
     agg, dias, showcase = e18_ladder()
     return {"corpus_hash": corpus_hash(), "e29_hash": e29_hash(), "models": MODELS, "agg": agg,
             "dialogues": dias, "showcase": showcase, "e29": e29_summaries(), "city": city_districts(dias),
+            "e29_caveat": E29_CAVEAT, "e29b_note": e29b_note(),
             "e29_dialogues": e29_dialogues(), "e29_models": E29_MODELS, "e29b": e29b_snapshots(),
             "live": {"models": live_models or []} if live else None}
 
 
+INDEX_KEYS = ("instance", "domain", "rotation", "rejected_action", "phrase", "vocab", "phrases", "units")
+
+
+def page_data(data):
+    """What the page embeds: everything except the per-dialogue E29 blocks and
+    recorded outputs, which the server serves on demand (/api/e29?i=)."""
+    out = dict(data)
+    out["e29_index"] = [{k: d[k] for k in INDEX_KEYS} for d in data.get("e29_dialogues", [])]
+    out.pop("e29_dialogues", None)
+    return out
+
+
 def render_page(data):
     tpl = open(TEMPLATE, encoding="utf-8").read()
-    blob = json.dumps(data).replace("</", "<\\/")
+    blob = json.dumps(page_data(data)).replace("</", "<\\/")
     body = tpl.replace("__DATA__", blob)
     return ("<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n"
             "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n"

@@ -159,6 +159,18 @@ class Handler(BaseHTTPRequestHandler):
         if url.path == "/api/health":
             m = ollama_models()
             return self._send(200, {"ollama": bool(m), "models": m})
+        if url.path == "/api/e29":
+            q = urllib.parse.parse_qs(url.query)
+            try:
+                i = int(q.get("i", ["-1"])[0])
+                recs = STATE.data["e29_dialogues"]
+                if not (0 <= i < len(recs)):
+                    return self._send(400, {"error": "bad dialogue"})
+                d = recs[i]
+                return self._send(200, {"instance": d["instance"], "rotation": d["rotation"],
+                                        "blocks": d["blocks"], "recorded": d["recorded"]})
+            except Exception as e:
+                return self._send(500, {"error": f"{type(e).__name__}: {e}"})
         if url.path == "/api/timeline":
             q = urllib.parse.parse_qs(url.query)
             try:
