@@ -53,6 +53,10 @@ and scenario. Write the design doc.
 
 **Week 3**: Add context management, write a judge function, run experiments by
 copying the config and changing one parameter at a time.
+The config's optional `context:` block chooses the policy (`full`, `recency`,
+`recency_words`, `bm25`, `fusion`); `configs/debate_window4.yaml`,
+`debate_window8.yaml` and `debate_bm25.yaml` are `debate.yaml` with that one
+block changed.
 
 **Week 4**: Break things on purpose, collect your numbers from the saved
 transcripts in `transcripts/`, write the report.

@@ -1,0 +1,33 @@
+# Copy of debate.yaml with ONE thing changed: the context policy (recency window of 4 messages).
+# Week 3: one parameter at a time. Run: python run.py --config configs/debate_window4.yaml [--mock]
+
+topic: "Cities should ban private cars from their centres."
+
+budget:
+  max_turns: 8
+  max_tokens: 4000
+  max_seconds: 120
+
+agents:
+  - name: Pro
+    system_prompt: >
+      Debate topic: Cities should ban private cars from their centres.
+      You argue IN FAVOUR. Make one concrete point per turn.
+      Be brief: at most 2 sentences. Address the other speaker's last point.
+    model: "llama3.2:3b"
+    temperature: 0.7
+
+  - name: Con
+    system_prompt: >
+      Debate topic: Cities should ban private cars from their centres.
+      You argue AGAINST. Make one concrete point per turn.
+      Be brief: at most 2 sentences. Address the other speaker's last point.
+    model: "llama3.2:3b"
+    temperature: 0.7
+
+output: "transcripts/debate_window4.json"
+
+context:
+  policy: recency
+  max_messages: 4
+

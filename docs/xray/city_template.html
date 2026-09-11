@@ -214,7 +214,7 @@
         var h = 0.6 + 3.2 * (d.heights[a] || 0);
         var m = new T.Mesh(new T.BoxGeometry(1.5, h, 1.5), new T.MeshStandardMaterial({ color: 0x0E1620, roughness: 0.9, emissive: 0x0A1320 }));
         m.position.set(cx + (i % 3 - 1) * 2.8, h / 2, cz + Math.floor(i / 3) * 3.0); far.add(m);
-        var e = new T.LineSegments(new T.EdgesGeometry(m.geometry), new T.LineBasicMaterial({ color: 0x1B2C42, transparent: true, opacity: 0.8 })); e.position.copy(m.position); far.add(e);
+        var e = new T.LineSegments(new T.EdgesGeometry(m.geometry), new T.LineBasicMaterial({ color: 0x16243A, transparent: true, opacity: 0.55 })); e.position.copy(m.position); far.add(e);
       });
     });
     /* hero district */

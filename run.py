@@ -25,6 +25,32 @@ def smoke(mock):
           f"{r.seconds:.2f}s)")
 
 
+def make_context(spec):
+    """The Week 3 hook, chosen from the config's `context:` block.
+
+        context: {policy: full}                       # everything (default)
+        context: {policy: recency, max_messages: 8}   # system + newest N messages
+        context: {policy: recency_words, max_words: 250}
+        context: {policy: bm25, max_words: 250}       # relevance-ranked older messages
+        context: {policy: fusion, max_words: 250}     # bm25 + dense, alpha fixed a priori
+
+    Every policy keeps the system message and the current message; see context.py.
+    """
+    if not spec or spec.get("policy", "full") == "full":
+        return None
+    from context import BM25Budget, FusionBudget, RecencyBudget, RecencyWindow
+    policy = spec["policy"]
+    if policy == "recency":
+        return RecencyWindow(int(spec.get("max_messages", 8)))
+    if policy == "recency_words":
+        return RecencyBudget(int(spec.get("max_words", 250)))
+    if policy == "bm25":
+        return BM25Budget(int(spec.get("max_words", 250)))
+    if policy == "fusion":
+        return FusionBudget(int(spec.get("max_words", 250)))
+    raise ValueError(f"unknown context policy {policy!r}")
+
+
 def run_config(path, mock):
     import yaml  # local import so the smoke test needs no extra deps
 
@@ -38,7 +64,8 @@ def run_config(path, mock):
     budget = Budget(**cfg.get("budget", {}))
     client = make_client(mock=mock)
 
-    engine = DialogueEngine(agents, client, budget)
+    engine = DialogueEngine(agents, client, budget,
+                            manage_context=make_context(cfg.get("context")))
     transcript = engine.run()
 
     for e in transcript:
