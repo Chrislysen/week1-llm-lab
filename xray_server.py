@@ -32,7 +32,7 @@ from e29_memory_semantics import build_user
 from lineage_e29 import ARMS, DESIGNS, all_e29_dialogues, store_timeline
 from lineage_eval import parse_plan
 from structured import MAX_ATTEMPTS, ask_structured
-from xray_build import build_data, render_page
+from xray_build import E29_MODELS, build_data, render_city_page, render_page
 
 OLLAMA = "http://localhost:11434"
 
@@ -51,6 +51,7 @@ class State:
         self.models = ollama_models()
         self.data = build_data(live=True, live_models=self.models)
         self.page = render_page(self.data).encode("utf-8")
+        self.city = render_city_page(self.data).encode("utf-8")
         self.dialogues = all_e29_dialogues()
         self.lock = threading.Lock()
         self.client = None
@@ -156,6 +157,8 @@ class Handler(BaseHTTPRequestHandler):
         url = urllib.parse.urlparse(self.path)
         if url.path in ("/", "/index.html"):
             return self._send(200, STATE.page, "text/html; charset=utf-8")
+        if url.path in ("/city", "/city/", "/play"):
+            return self._send(200, STATE.city, "text/html; charset=utf-8")
         if url.path == "/api/health":
             m = ollama_models()
             return self._send(200, {"ollama": bool(m), "models": m})

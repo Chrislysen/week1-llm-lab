@@ -230,6 +230,19 @@ def page_data(data):
     return out
 
 
+CITY_TEMPLATE = os.path.join(HERE, "docs", "xray", "city_template.html")
+
+
+def render_city_page(data):
+    """The full-screen player (served at /city)."""
+    tpl = open(CITY_TEMPLATE, encoding="utf-8").read()
+    blob = json.dumps(page_data(data)).replace("</", "<\\/")
+    body = tpl.replace("__DATA__", blob)
+    return ("<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n"
+            "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n"
+            "</head>\n<body>\n" + body + "\n</body>\n</html>\n")
+
+
 def render_page(data):
     tpl = open(TEMPLATE, encoding="utf-8").read()
     blob = json.dumps(page_data(data)).replace("</", "<\\/")
