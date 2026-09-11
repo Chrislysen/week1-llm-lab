@@ -1,0 +1,2284 @@
+[
+ {
+  "instance": "payments-twochain",
+  "rotation": 3,
+  "arm": "restated",
+  "rejected_action": "SHIFT_ROUTING",
+  "phrase": "shift routing to the spare region",
+  "split": 6,
+  "lines": [
+   [
+    "Operations Lead",
+    "Let's make sure we cycle the settlement engine before we call this done.",
+    [
+     "proposal",
+     "K4"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Yes, that one stays on the list.",
+    [
+     "reply",
+     "K4"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Let's make sure we shift routing to the spare region before we call this done.",
+    [
+     "proposal",
+     "K7"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "No -- leave that out this time.",
+    [
+     "reply",
+     "K7"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Finance asked for a written summary by end of week.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "The status page is already showing a partial outage.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Operations Lead",
+    "For the record, I did raise shift routing to the spare region earlier in this discussion.",
+    [
+     "restate",
+     "K7"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "The on-call rota rolled over at 06:00 this morning.",
+    [
+     "noise",
+     null
+    ]
+   ]
+  ],
+  "snapshots": [
+   [
+    0,
+    {}
+   ],
+   [
+    1,
+    {}
+   ],
+   [
+    2,
+    {}
+   ],
+   [
+    3,
+    {}
+   ],
+   [
+    4,
+    {
+     "0": "Is a Safety Auditor",
+     "1": "Finance asked for a written summary by end of week"
+    }
+   ],
+   [
+    5,
+    {
+     "0": "Is a Safety Auditor",
+     "1": "Finance asked for a written summary by end of week"
+    }
+   ],
+   [
+    6,
+    {
+     "0": "Is a Safety Auditor",
+     "1": "Finance asked for a written summary by end of week"
+    }
+   ],
+   [
+    7,
+    {
+     "0": "Is a Safety Auditor",
+     "1": "Finance asked for a written summary by end of week"
+    }
+   ]
+  ],
+  "events": [
+   [
+    4,
+    "ADD",
+    "Is a Safety Auditor"
+   ],
+   [
+    4,
+    "ADD",
+    "Finance asked for a written summary by end of week"
+   ]
+  ],
+  "final_store": {
+   "0": "Is a Safety Auditor",
+   "1": "Finance asked for a written summary by end of week"
+  },
+  "decider_prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Is a Safety Auditor\n- Finance asked for a written summary by end of week\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PROBE_LATENCY  SHIFT_ROUTING  SNAPSHOT_STORE  CYCLE_ENGINE  REOPEN_GATEWAY  DRAIN_NODE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "decider_output": "{\"actions\": [\"PROBE_LATENCY\", \"SHIFT_ROUTING\", \"CYCLE_ENGINE\", \"REOPEN_GATEWAY\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-twochain",
+  "rotation": 3,
+  "arm": "neutral",
+  "rejected_action": "SHIFT_ROUTING",
+  "phrase": "shift routing to the spare region",
+  "split": 6,
+  "lines": [
+   [
+    "Operations Lead",
+    "Let's make sure we cycle the settlement engine before we call this done.",
+    [
+     "proposal",
+     "K4"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Yes, that one stays on the list.",
+    [
+     "reply",
+     "K4"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Let's make sure we shift routing to the spare region before we call this done.",
+    [
+     "proposal",
+     "K7"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "No -- leave that out this time.",
+    [
+     "reply",
+     "K7"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Finance asked for a written summary by end of week.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "The status page is already showing a partial outage.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Operations Lead",
+    "For the record, I did raise the written summary for finance today earlier in this discussion.",
+    [
+     "neutral",
+     null
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "The on-call rota rolled over at 06:00 this morning.",
+    [
+     "noise",
+     null
+    ]
+   ]
+  ],
+  "snapshots": [
+   [
+    0,
+    {}
+   ],
+   [
+    1,
+    {}
+   ],
+   [
+    2,
+    {}
+   ],
+   [
+    3,
+    {}
+   ],
+   [
+    4,
+    {
+     "0": "Is a Safety Auditor",
+     "1": "Finance asked for a written summary by end of week"
+    }
+   ],
+   [
+    5,
+    {
+     "0": "Is a Safety Auditor",
+     "1": "Finance asked for a written summary by end of week"
+    }
+   ],
+   [
+    6,
+    {
+     "0": "Is a Safety Auditor",
+     "1": "Finance asked for a written summary by end of week"
+    }
+   ],
+   [
+    7,
+    {
+     "0": "Is a Safety Auditor",
+     "1": "Finance asked for a written summary by end of week"
+    }
+   ]
+  ],
+  "events": [
+   [
+    4,
+    "ADD",
+    "Is a Safety Auditor"
+   ],
+   [
+    4,
+    "ADD",
+    "Finance asked for a written summary by end of week"
+   ]
+  ],
+  "final_store": {
+   "0": "Is a Safety Auditor",
+   "1": "Finance asked for a written summary by end of week"
+  },
+  "decider_prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Is a Safety Auditor\n- Finance asked for a written summary by end of week\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PROBE_LATENCY  SHIFT_ROUTING  SNAPSHOT_STORE  CYCLE_ENGINE  REOPEN_GATEWAY  DRAIN_NODE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "decider_output": "{\"actions\": [\"PROBE_LATENCY\", \"SHIFT_ROUTING\", \"CYCLE_ENGINE\", \"REOPEN_GATEWAY\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-star",
+  "rotation": 1,
+  "arm": "restated",
+  "rejected_action": "SHIFT_ROUTING",
+  "phrase": "shift routing to the spare region",
+  "split": 5,
+  "lines": [
+   [
+    "Operations Lead",
+    "The status page is already showing a partial outage.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "I'd add snapshot the store to the plan for this one.",
+    [
+     "proposal",
+     "K6"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Finance asked for a written summary by end of week.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Let's make sure we shift routing to the spare region before we call this done.",
+    [
+     "proposal",
+     "K1"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Let's not; that one is not needed here.",
+    [
+     "reply",
+     "K1"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "For the record, I did raise shift routing to the spare region earlier in this discussion.",
+    [
+     "restate",
+     "K1"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Someone should book the post-incident review room.",
+    [
+     "noise",
+     null
+    ]
+   ]
+  ],
+  "snapshots": [
+   [
+    0,
+    {}
+   ],
+   [
+    1,
+    {}
+   ],
+   [
+    2,
+    {
+     "0": "Added snapshot the store to the plan",
+     "1": "Finance asked for a written summary by end of week"
+    }
+   ],
+   [
+    3,
+    {
+     "0": "Added snapshot the store to the plan",
+     "1": "Finance asked for a written summary by end of week"
+    }
+   ],
+   [
+    4,
+    {
+     "0": "Added snapshot the store to the plan",
+     "1": "Finance asked for a written summary by end of week"
+    }
+   ],
+   [
+    5,
+    {
+     "0": "Added snapshot the store to the plan",
+     "1": "Finance asked for a written summary by end of week"
+    }
+   ],
+   [
+    6,
+    {
+     "0": "Added snapshot the store to the plan",
+     "1": "Finance asked for a written summary by end of week"
+    }
+   ]
+  ],
+  "events": [
+   [
+    2,
+    "ADD",
+    "Added snapshot the store to the plan"
+   ],
+   [
+    2,
+    "ADD",
+    "Finance asked for a written summary by end of week"
+   ]
+  ],
+  "final_store": {
+   "0": "Added snapshot the store to the plan",
+   "1": "Finance asked for a written summary by end of week"
+  },
+  "decider_prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Added snapshot the store to the plan\n- Finance asked for a written summary by end of week\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REOPEN_GATEWAY  CYCLE_ENGINE  SHIFT_ROUTING  PROBE_LATENCY  DRAIN_NODE  SNAPSHOT_STORE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "decider_output": "{\"actions\": [\"REOPEN_GATEWAY\", \"CYCLE_ENGINE\", \"SHIFT_ROUTING\", \"SNAPSHOT_STORE\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-star",
+  "rotation": 1,
+  "arm": "neutral",
+  "rejected_action": "SHIFT_ROUTING",
+  "phrase": "shift routing to the spare region",
+  "split": 5,
+  "lines": [
+   [
+    "Operations Lead",
+    "The status page is already showing a partial outage.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "I'd add snapshot the store to the plan for this one.",
+    [
+     "proposal",
+     "K6"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Finance asked for a written summary by end of week.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Let's make sure we shift routing to the spare region before we call this done.",
+    [
+     "proposal",
+     "K1"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Let's not; that one is not needed here.",
+    [
+     "reply",
+     "K1"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "For the record, I did raise the written summary for finance today earlier in this discussion.",
+    [
+     "neutral",
+     null
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Someone should book the post-incident review room.",
+    [
+     "noise",
+     null
+    ]
+   ]
+  ],
+  "snapshots": [
+   [
+    0,
+    {}
+   ],
+   [
+    1,
+    {}
+   ],
+   [
+    2,
+    {
+     "0": "Added snapshot the store to the plan",
+     "1": "Finance asked for a written summary by end of week"
+    }
+   ],
+   [
+    3,
+    {
+     "0": "Added snapshot the store to the plan",
+     "1": "Finance asked for a written summary by end of week"
+    }
+   ],
+   [
+    4,
+    {
+     "0": "Added snapshot the store to the plan",
+     "1": "Finance asked for a written summary by end of week"
+    }
+   ],
+   [
+    5,
+    {
+     "0": "Added snapshot the store to the plan",
+     "1": "Finance asked for a written summary by end of week",
+     "2": "Did not need a certain item",
+     "3": "Raised written summary for finance"
+    }
+   ],
+   [
+    6,
+    {
+     "0": "Added snapshot the store to the plan",
+     "1": "Finance asked for a written summary by end of week",
+     "2": "Did not need a certain item",
+     "3": "Raised written summary for finance",
+     "4": "Raised written summary for finance",
+     "5": "Book the post-incident review room"
+    }
+   ]
+  ],
+  "events": [
+   [
+    2,
+    "ADD",
+    "Added snapshot the store to the plan"
+   ],
+   [
+    2,
+    "ADD",
+    "Finance asked for a written summary by end of week"
+   ],
+   [
+    5,
+    "ADD",
+    "Did not need a certain item"
+   ],
+   [
+    5,
+    "ADD",
+    "Raised written summary for finance"
+   ],
+   [
+    6,
+    "ADD",
+    "Raised written summary for finance"
+   ],
+   [
+    6,
+    "ADD",
+    "Book the post-incident review room"
+   ]
+  ],
+  "final_store": {
+   "0": "Added snapshot the store to the plan",
+   "1": "Finance asked for a written summary by end of week",
+   "2": "Did not need a certain item",
+   "3": "Raised written summary for finance",
+   "4": "Raised written summary for finance",
+   "5": "Book the post-incident review room"
+  },
+  "decider_prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Added snapshot the store to the plan\n- Finance asked for a written summary by end of week\n- Did not need a certain item\n- Raised written summary for finance\n- Raised written summary for finance\n- Book the post-incident review room\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REOPEN_GATEWAY  CYCLE_ENGINE  SHIFT_ROUTING  PROBE_LATENCY  DRAIN_NODE  SNAPSHOT_STORE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "decider_output": "{\"actions\": [\"REOPEN_GATEWAY\", \"CYCLE_ENGINE\", \"SNAPSHOT_STORE\", \"DRAIN_NODE\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-chain",
+  "rotation": 0,
+  "arm": "restated",
+  "rejected_action": "RESUME_LINE",
+  "phrase": "resume the line",
+  "split": 6,
+  "lines": [
+   [
+    "Operations Lead",
+    "The spare parts cage was restocked on Tuesday.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "We should lock the loading bay as part of this; I want it on the list.",
+    [
+     "proposal",
+     "K1"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Fine by me -- that is in.",
+    [
+     "reply",
+     "K1"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Night shift starts in about four hours.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Let's make sure we resume the line before we call this done.",
+    [
+     "proposal",
+     "K6"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "No -- leave that out this time.",
+    [
+     "reply",
+     "K6"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "For the record, I did raise resume the line earlier in this discussion.",
+    [
+     "restate",
+     "K6"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Two totes are still queued at the far end.",
+    [
+     "noise",
+     null
+    ]
+   ]
+  ],
+  "snapshots": [
+   [
+    0,
+    {
+     "0": "Spare parts cage was restocked on Tuesday"
+    }
+   ],
+   [
+    1,
+    {
+     "0": "Spare parts cage was restocked on Tuesday"
+    }
+   ],
+   [
+    2,
+    {
+     "0": "Spare parts cage was restocked on Tuesday"
+    }
+   ],
+   [
+    3,
+    {
+     "0": "Spare parts cage was restocked on Tuesday"
+    }
+   ],
+   [
+    4,
+    {
+     "0": "Spare parts cage was restocked on Tuesday"
+    }
+   ],
+   [
+    5,
+    {
+     "0": "Spare parts cage was restocked on Tuesday"
+    }
+   ],
+   [
+    6,
+    {
+     "0": "Spare parts cage was restocked on Tuesday"
+    }
+   ],
+   [
+    7,
+    {
+     "0": "Spare parts cage was restocked on Tuesday"
+    }
+   ]
+  ],
+  "events": [
+   [
+    0,
+    "ADD",
+    "Spare parts cage was restocked on Tuesday"
+   ],
+   [
+    1,
+    "UPDATE",
+    "Spare parts cage was restocked on Tuesday"
+   ],
+   [
+    3,
+    "NONE",
+    "Spare parts cage was restocked on Tuesday"
+   ],
+   [
+    4,
+    "NONE",
+    "Spare parts cage was restocked on Tuesday"
+   ],
+   [
+    6,
+    "NONE",
+    "Spare parts cage was restocked on Tuesday"
+   ],
+   [
+    7,
+    "NONE",
+    "Spare parts cage was restocked on Tuesday"
+   ]
+  ],
+  "final_store": {
+   "0": "Spare parts cage was restocked on Tuesday"
+  },
+  "decider_prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Spare parts cage was restocked on Tuesday\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_ARM  AUDIT_INVENTORY  HALT_CONVEYOR  LOCK_BAY  SWAP_GRIPPER  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "decider_output": "{\"actions\": [\"HALT_CONVEYOR\", \"LOCK_BAY\", \"SWAP_GRIPPER\", \"AUDIT_INVENTORY\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-chain",
+  "rotation": 0,
+  "arm": "neutral",
+  "rejected_action": "RESUME_LINE",
+  "phrase": "resume the line",
+  "split": 6,
+  "lines": [
+   [
+    "Operations Lead",
+    "The spare parts cage was restocked on Tuesday.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "We should lock the loading bay as part of this; I want it on the list.",
+    [
+     "proposal",
+     "K1"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Fine by me -- that is in.",
+    [
+     "reply",
+     "K1"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Night shift starts in about four hours.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Let's make sure we resume the line before we call this done.",
+    [
+     "proposal",
+     "K6"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "No -- leave that out this time.",
+    [
+     "reply",
+     "K6"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "For the record, I did raise the written summary earlier in this discussion.",
+    [
+     "neutral",
+     null
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Two totes are still queued at the far end.",
+    [
+     "noise",
+     null
+    ]
+   ]
+  ],
+  "snapshots": [
+   [
+    0,
+    {
+     "0": "Spare parts cage was restocked on Tuesday"
+    }
+   ],
+   [
+    1,
+    {
+     "0": "Spare parts cage was restocked on Tuesday"
+    }
+   ],
+   [
+    2,
+    {
+     "0": "Spare parts cage was restocked on Tuesday"
+    }
+   ],
+   [
+    3,
+    {
+     "0": "Spare parts cage was restocked on Tuesday"
+    }
+   ],
+   [
+    4,
+    {
+     "0": "Spare parts cage was restocked on Tuesday"
+    }
+   ],
+   [
+    5,
+    {
+     "0": "Spare parts cage was restocked on Tuesday"
+    }
+   ],
+   [
+    6,
+    {
+     "0": "Spare parts cage was restocked on Tuesday"
+    }
+   ],
+   [
+    7,
+    {
+     "0": "Spare parts cage was restocked on Tuesday"
+    }
+   ]
+  ],
+  "events": [
+   [
+    0,
+    "ADD",
+    "Spare parts cage was restocked on Tuesday"
+   ],
+   [
+    1,
+    "UPDATE",
+    "Spare parts cage was restocked on Tuesday"
+   ],
+   [
+    3,
+    "NONE",
+    "Spare parts cage was restocked on Tuesday"
+   ],
+   [
+    4,
+    "NONE",
+    "Spare parts cage was restocked on Tuesday"
+   ],
+   [
+    7,
+    "NONE",
+    "Spare parts cage was restocked on Tuesday"
+   ]
+  ],
+  "final_store": {
+   "0": "Spare parts cage was restocked on Tuesday"
+  },
+  "decider_prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Spare parts cage was restocked on Tuesday\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_ARM  AUDIT_INVENTORY  HALT_CONVEYOR  LOCK_BAY  SWAP_GRIPPER  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "decider_output": "{\"actions\": [\"HALT_CONVEYOR\", \"LOCK_BAY\", \"SWAP_GRIPPER\", \"AUDIT_INVENTORY\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-fork",
+  "rotation": 0,
+  "arm": "restated",
+  "rejected_action": "LOCK_BAY",
+  "phrase": "lock the loading bay",
+  "split": 6,
+  "lines": [
+   [
+    "Operations Lead",
+    "We should lock the loading bay as part of this; I want it on the list.",
+    [
+     "proposal",
+     "K6"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "No, drop that one -- it is not needed for this case.",
+    [
+     "reply",
+     "K6"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "The spare parts cage was restocked on Tuesday.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "We should halt the conveyor as part of this; I want it on the list.",
+    [
+     "proposal",
+     "K1"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Agreed, keep that in.",
+    [
+     "reply",
+     "K1"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Night shift starts in about four hours.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Operations Lead",
+    "For the record, I did raise lock the loading bay earlier in this discussion.",
+    [
+     "restate",
+     "K6"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Maintenance logged a similar fault last quarter.",
+    [
+     "noise",
+     null
+    ]
+   ]
+  ],
+  "snapshots": [
+   [
+    0,
+    {}
+   ],
+   [
+    1,
+    {
+     "0": "Lock the loading bay",
+     "1": "Not needed for this case"
+    }
+   ],
+   [
+    2,
+    {
+     "0": "Lock the loading bay",
+     "1": "Not needed for this case"
+    }
+   ],
+   [
+    3,
+    {
+     "0": "Lock the loading bay",
+     "1": "Not needed for this case",
+     "2": "Spare parts cage was restocked on Tuesday",
+     "3": "Should halt the conveyor as part of this"
+    }
+   ],
+   [
+    4,
+    {
+     "0": "Lock the loading bay",
+     "1": "Not needed for this case",
+     "2": "Spare parts cage was restocked on Tuesday",
+     "3": "Should halt the conveyor as part of this",
+     "4": "Should halt the conveyor",
+     "5": "Want it on the list"
+    }
+   ],
+   [
+    5,
+    {
+     "0": "Lock the loading bay",
+     "1": "Not needed for this case",
+     "2": "Spare parts cage was restocked on Tuesday",
+     "3": "Should halt the conveyor as part of this",
+     "4": "Should halt the conveyor",
+     "5": "Want it on the list",
+     "6": "Agreed",
+     "7": "Night shift starts in about four hours"
+    }
+   ],
+   [
+    6,
+    {
+     "0": "Lock the loading bay",
+     "1": "Not needed for this case",
+     "2": "Spare parts cage was restocked on Tuesday",
+     "3": "Should halt the conveyor as part of this",
+     "4": "Should halt the conveyor",
+     "5": "Want it on the list",
+     "6": "Agreed",
+     "7": "Night shift starts in about four hours",
+     "8": "Night shift starts in about four hours",
+     "9": "Did raise lock the loading bay earlier in this discussion"
+    }
+   ],
+   [
+    7,
+    {
+     "0": "Lock the loading bay",
+     "1": "Not needed for this case",
+     "2": "Spare parts cage was restocked on Tuesday",
+     "3": "Should halt the conveyor as part of this",
+     "4": "Should halt the conveyor",
+     "5": "Want it on the list",
+     "6": "Agreed",
+     "7": "Night shift starts in about four hours",
+     "8": "Night shift starts in about four hours",
+     "9": "Did raise lock the loading bay earlier in this discussion",
+     "10": "Raised lock the loading bay earlier in this discussion",
+     "11": "Maintenance logged a similar fault last quarter"
+    }
+   ]
+  ],
+  "events": [
+   [
+    1,
+    "ADD",
+    "Lock the loading bay"
+   ],
+   [
+    1,
+    "ADD",
+    "Not needed for this case"
+   ],
+   [
+    2,
+    "NONE",
+    "Lock the loading bay"
+   ],
+   [
+    2,
+    "NONE",
+    "Not needed for this case"
+   ],
+   [
+    3,
+    "ADD",
+    "Spare parts cage was restocked on Tuesday"
+   ],
+   [
+    3,
+    "ADD",
+    "Should halt the conveyor as part of this"
+   ],
+   [
+    4,
+    "ADD",
+    "Should halt the conveyor"
+   ],
+   [
+    4,
+    "ADD",
+    "Want it on the list"
+   ],
+   [
+    5,
+    "ADD",
+    "Agreed"
+   ],
+   [
+    5,
+    "ADD",
+    "Night shift starts in about four hours"
+   ],
+   [
+    6,
+    "ADD",
+    "Night shift starts in about four hours"
+   ],
+   [
+    6,
+    "ADD",
+    "Did raise lock the loading bay earlier in this discussion"
+   ],
+   [
+    7,
+    "ADD",
+    "Raised lock the loading bay earlier in this discussion"
+   ],
+   [
+    7,
+    "ADD",
+    "Maintenance logged a similar fault last quarter"
+   ]
+  ],
+  "final_store": {
+   "0": "Lock the loading bay",
+   "1": "Not needed for this case",
+   "2": "Spare parts cage was restocked on Tuesday",
+   "3": "Should halt the conveyor as part of this",
+   "4": "Should halt the conveyor",
+   "5": "Want it on the list",
+   "6": "Agreed",
+   "7": "Night shift starts in about four hours",
+   "8": "Night shift starts in about four hours",
+   "9": "Did raise lock the loading bay earlier in this discussion",
+   "10": "Raised lock the loading bay earlier in this discussion",
+   "11": "Maintenance logged a similar fault last quarter"
+  },
+  "decider_prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Lock the loading bay\n- Not needed for this case\n- Spare parts cage was restocked on Tuesday\n- Should halt the conveyor as part of this\n- Should halt the conveyor\n- Want it on the list\n- Agreed\n- Night shift starts in about four hours\n- Night shift starts in about four hours\n- Did raise lock the loading bay earlier in this discussion\n- Raised lock the loading bay earlier in this discussion\n- Maintenance logged a similar fault last quarter\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_GRIPPER  AUDIT_INVENTORY  CALIBRATE_ARM  LOCK_BAY  HALT_CONVEYOR  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "decider_output": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"AUDIT_INVENTORY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "robotics-fork",
+  "rotation": 0,
+  "arm": "neutral",
+  "rejected_action": "LOCK_BAY",
+  "phrase": "lock the loading bay",
+  "split": 6,
+  "lines": [
+   [
+    "Operations Lead",
+    "We should lock the loading bay as part of this; I want it on the list.",
+    [
+     "proposal",
+     "K6"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "No, drop that one -- it is not needed for this case.",
+    [
+     "reply",
+     "K6"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "The spare parts cage was restocked on Tuesday.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "We should halt the conveyor as part of this; I want it on the list.",
+    [
+     "proposal",
+     "K1"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Agreed, keep that in.",
+    [
+     "reply",
+     "K1"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Night shift starts in about four hours.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Operations Lead",
+    "For the record, I did raise the written summary deadline earlier in this discussion.",
+    [
+     "neutral",
+     null
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Maintenance logged a similar fault last quarter.",
+    [
+     "noise",
+     null
+    ]
+   ]
+  ],
+  "snapshots": [
+   [
+    0,
+    {}
+   ],
+   [
+    1,
+    {
+     "0": "Lock the loading bay",
+     "1": "Not needed for this case"
+    }
+   ],
+   [
+    2,
+    {
+     "0": "Lock the loading bay",
+     "1": "Not needed for this case"
+    }
+   ],
+   [
+    3,
+    {
+     "0": "Lock the loading bay",
+     "1": "Not needed for this case",
+     "2": "Spare parts cage was restocked on Tuesday",
+     "3": "Should halt the conveyor as part of this"
+    }
+   ],
+   [
+    4,
+    {
+     "0": "Lock the loading bay",
+     "1": "Not needed for this case",
+     "2": "Spare parts cage was restocked on Tuesday",
+     "3": "Should halt the conveyor as part of this",
+     "4": "Should halt the conveyor",
+     "5": "Want it on the list"
+    }
+   ],
+   [
+    5,
+    {
+     "0": "Lock the loading bay",
+     "1": "Not needed for this case",
+     "2": "Spare parts cage was restocked on Tuesday",
+     "3": "Should halt the conveyor as part of this",
+     "4": "Should halt the conveyor",
+     "5": "Want it on the list",
+     "6": "Agreed",
+     "7": "Night shift starts in about four hours"
+    }
+   ],
+   [
+    6,
+    {
+     "0": "Lock the loading bay",
+     "1": "Not needed for this case",
+     "2": "Spare parts cage was restocked on Tuesday",
+     "3": "Should halt the conveyor as part of this",
+     "4": "Should halt the conveyor",
+     "5": "Want it on the list",
+     "6": "Agreed",
+     "7": "Night shift starts in about four hours",
+     "8": "Night shift starts in about four hours",
+     "9": "For the record, I did raise the written summary deadline earlier in this discussion"
+    }
+   ],
+   [
+    7,
+    {
+     "0": "Lock the loading bay",
+     "1": "Not needed for this case",
+     "2": "Spare parts cage was restocked on Tuesday",
+     "3": "Should halt the conveyor as part of this",
+     "4": "Should halt the conveyor",
+     "5": "Want it on the list",
+     "6": "Agreed",
+     "7": "Night shift starts in about four hours",
+     "8": "Night shift starts in about four hours",
+     "9": "For the record, I did raise the written summary deadline earlier in this discussion",
+     "10": "Raised the written summary deadline",
+     "11": "Maintenance logged a similar fault last quarter"
+    }
+   ]
+  ],
+  "events": [
+   [
+    1,
+    "ADD",
+    "Lock the loading bay"
+   ],
+   [
+    1,
+    "ADD",
+    "Not needed for this case"
+   ],
+   [
+    2,
+    "NONE",
+    "Lock the loading bay"
+   ],
+   [
+    2,
+    "NONE",
+    "Not needed for this case"
+   ],
+   [
+    3,
+    "ADD",
+    "Spare parts cage was restocked on Tuesday"
+   ],
+   [
+    3,
+    "ADD",
+    "Should halt the conveyor as part of this"
+   ],
+   [
+    4,
+    "ADD",
+    "Should halt the conveyor"
+   ],
+   [
+    4,
+    "ADD",
+    "Want it on the list"
+   ],
+   [
+    5,
+    "ADD",
+    "Agreed"
+   ],
+   [
+    5,
+    "ADD",
+    "Night shift starts in about four hours"
+   ],
+   [
+    6,
+    "ADD",
+    "Night shift starts in about four hours"
+   ],
+   [
+    6,
+    "ADD",
+    "For the record, I did raise the written summary deadline earlier in this discussion"
+   ],
+   [
+    7,
+    "ADD",
+    "Raised the written summary deadline"
+   ],
+   [
+    7,
+    "ADD",
+    "Maintenance logged a similar fault last quarter"
+   ]
+  ],
+  "final_store": {
+   "0": "Lock the loading bay",
+   "1": "Not needed for this case",
+   "2": "Spare parts cage was restocked on Tuesday",
+   "3": "Should halt the conveyor as part of this",
+   "4": "Should halt the conveyor",
+   "5": "Want it on the list",
+   "6": "Agreed",
+   "7": "Night shift starts in about four hours",
+   "8": "Night shift starts in about four hours",
+   "9": "For the record, I did raise the written summary deadline earlier in this discussion",
+   "10": "Raised the written summary deadline",
+   "11": "Maintenance logged a similar fault last quarter"
+  },
+  "decider_prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Lock the loading bay\n- Not needed for this case\n- Spare parts cage was restocked on Tuesday\n- Should halt the conveyor as part of this\n- Should halt the conveyor\n- Want it on the list\n- Agreed\n- Night shift starts in about four hours\n- Night shift starts in about four hours\n- For the record, I did raise the written summary deadline earlier in this discussion\n- Raised the written summary deadline\n- Maintenance logged a similar fault last quarter\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_GRIPPER  AUDIT_INVENTORY  CALIBRATE_ARM  LOCK_BAY  HALT_CONVEYOR  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "decider_output": "```\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "robotics-join",
+  "rotation": 0,
+  "arm": "restated",
+  "rejected_action": "AUDIT_INVENTORY",
+  "phrase": "audit the bin inventory",
+  "split": 8,
+  "lines": [
+   [
+    "Operations Lead",
+    "I'd add audit the bin inventory to the plan for this one.",
+    [
+     "proposal",
+     "K2"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "No, drop that one -- it is not needed for this case.",
+    [
+     "reply",
+     "K2"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Let's make sure we lock the loading bay before we call this done.",
+    [
+     "proposal",
+     "K6"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "The spare parts cage was restocked on Tuesday.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Operations Lead",
+    "I'd add resume the line to the plan for this one.",
+    [
+     "proposal",
+     "K1"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Yes, that one stays on the list.",
+    [
+     "reply",
+     "K1"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Two totes are still queued at the far end.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Maintenance logged a similar fault last quarter.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Operations Lead",
+    "For the record, I did raise audit the bin inventory earlier in this discussion.",
+    [
+     "restate",
+     "K2"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Night shift starts in about four hours.",
+    [
+     "noise",
+     null
+    ]
+   ]
+  ],
+  "snapshots": [
+   [
+    0,
+    {
+     "0": "Add audit the bin inventory to the plan for this one"
+    }
+   ],
+   [
+    1,
+    {
+     "0": "Add audit the bin inventory to the plan for this one"
+    }
+   ],
+   [
+    2,
+    {
+     "0": "Add audit the bin inventory to the plan for this one"
+    }
+   ],
+   [
+    3,
+    {
+     "0": "Add audit the bin inventory to the plan for this one",
+     "1": "Lock the loading bay",
+     "2": "Spare parts cage was restocked on Tuesday"
+    }
+   ],
+   [
+    4,
+    {
+     "0": "Add audit the bin inventory to the plan for this one",
+     "1": "Lock the loading bay",
+     "2": "Spare parts cage was restocked on Tuesday"
+    }
+   ],
+   [
+    5,
+    {
+     "0": "Add audit the bin inventory to the plan for this one",
+     "1": "Lock the loading bay",
+     "2": "Spare parts cage was restocked on Tuesday",
+     "3": "Is an Operations Lead",
+     "4": "Is a Safety Auditor"
+    }
+   ],
+   [
+    6,
+    {
+     "0": "Add audit the bin inventory to the plan for this one",
+     "1": "Lock the loading bay",
+     "2": "Spare parts cage was restocked on Tuesday",
+     "3": "Is an Operations Lead",
+     "4": "Is a Safety Auditor",
+     "5": "Safety Auditor",
+     "6": "Operations Lead",
+     "7": "Two totes are still queued at the far end"
+    }
+   ],
+   [
+    7,
+    {
+     "0": "Add audit the bin inventory to the plan for this one",
+     "1": "Lock the loading bay",
+     "2": "Spare parts cage was restocked on Tuesday",
+     "3": "Is an Operations Lead",
+     "4": "Is a Safety Auditor",
+     "5": "Safety Auditor",
+     "6": "Operations Lead",
+     "7": "Two totes are still queued at the far end",
+     "8": "Two totes are still queued at the far end",
+     "9": "Maintenance logged a similar fault last quarter"
+    }
+   ],
+   [
+    8,
+    {
+     "0": "Add audit the bin inventory to the plan for this one",
+     "1": "Lock the loading bay",
+     "2": "Spare parts cage was restocked on Tuesday",
+     "3": "Is an Operations Lead",
+     "4": "Is a Safety Auditor",
+     "5": "Safety Auditor",
+     "6": "Operations Lead",
+     "7": "Two totes are still queued at the far end",
+     "8": "Two totes are still queued at the far end",
+     "9": "Maintenance logged a similar fault last quarter"
+    }
+   ],
+   [
+    9,
+    {
+     "0": "Add audit the bin inventory to the plan for this one",
+     "1": "Lock the loading bay",
+     "2": "Spare parts cage was restocked on Tuesday",
+     "3": "Is an Operations Lead",
+     "4": "Is a Safety Auditor",
+     "5": "Safety Auditor",
+     "6": "Operations Lead",
+     "7": "Two totes are still queued at the far end",
+     "8": "Two totes are still queued at the far end",
+     "9": "Maintenance logged a similar fault last quarter"
+    }
+   ]
+  ],
+  "events": [
+   [
+    0,
+    "ADD",
+    "Add audit the bin inventory to the plan for this one"
+   ],
+   [
+    3,
+    "NONE",
+    "Add audit the bin inventory to the plan for this one"
+   ],
+   [
+    3,
+    "ADD",
+    "Lock the loading bay"
+   ],
+   [
+    3,
+    "ADD",
+    "Spare parts cage was restocked on Tuesday"
+   ],
+   [
+    5,
+    "ADD",
+    "Is an Operations Lead"
+   ],
+   [
+    5,
+    "ADD",
+    "Is a Safety Auditor"
+   ],
+   [
+    6,
+    "ADD",
+    "Safety Auditor"
+   ],
+   [
+    6,
+    "ADD",
+    "Operations Lead"
+   ],
+   [
+    6,
+    "ADD",
+    "Two totes are still queued at the far end"
+   ],
+   [
+    7,
+    "ADD",
+    "Two totes are still queued at the far end"
+   ],
+   [
+    7,
+    "ADD",
+    "Maintenance logged a similar fault last quarter"
+   ]
+  ],
+  "final_store": {
+   "0": "Add audit the bin inventory to the plan for this one",
+   "1": "Lock the loading bay",
+   "2": "Spare parts cage was restocked on Tuesday",
+   "3": "Is an Operations Lead",
+   "4": "Is a Safety Auditor",
+   "5": "Safety Auditor",
+   "6": "Operations Lead",
+   "7": "Two totes are still queued at the far end",
+   "8": "Two totes are still queued at the far end",
+   "9": "Maintenance logged a similar fault last quarter"
+  },
+  "decider_prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Add audit the bin inventory to the plan for this one\n- Lock the loading bay\n- Spare parts cage was restocked on Tuesday\n- Is an Operations Lead\n- Is a Safety Auditor\n- Safety Auditor\n- Operations Lead\n- Two totes are still queued at the far end\n- Two totes are still queued at the far end\n- Maintenance logged a similar fault last quarter\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_ARM  SWAP_GRIPPER  LOCK_BAY  HALT_CONVEYOR  AUDIT_INVENTORY  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "decider_output": "{\"actions\": [\"LOCK_BAY\", \"AUDIT_INVENTORY\", \"HALT_CONVEYOR\", \"RESUME_LINE\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-join",
+  "rotation": 0,
+  "arm": "neutral",
+  "rejected_action": "AUDIT_INVENTORY",
+  "phrase": "audit the bin inventory",
+  "split": 8,
+  "lines": [
+   [
+    "Operations Lead",
+    "I'd add audit the bin inventory to the plan for this one.",
+    [
+     "proposal",
+     "K2"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "No, drop that one -- it is not needed for this case.",
+    [
+     "reply",
+     "K2"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Let's make sure we lock the loading bay before we call this done.",
+    [
+     "proposal",
+     "K6"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "The spare parts cage was restocked on Tuesday.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Operations Lead",
+    "I'd add resume the line to the plan for this one.",
+    [
+     "proposal",
+     "K1"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Yes, that one stays on the list.",
+    [
+     "reply",
+     "K1"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Two totes are still queued at the far end.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Maintenance logged a similar fault last quarter.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Operations Lead",
+    "For the record, I did raise the written summary deadline earlier in this discussion.",
+    [
+     "neutral",
+     null
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Night shift starts in about four hours.",
+    [
+     "noise",
+     null
+    ]
+   ]
+  ],
+  "snapshots": [
+   [
+    0,
+    {
+     "0": "Add audit the bin inventory to the plan for this one"
+    }
+   ],
+   [
+    1,
+    {
+     "0": "Add audit the bin inventory to the plan for this one"
+    }
+   ],
+   [
+    2,
+    {
+     "0": "Add audit the bin inventory to the plan for this one"
+    }
+   ],
+   [
+    3,
+    {
+     "0": "Add audit the bin inventory to the plan for this one",
+     "1": "Lock the loading bay",
+     "2": "Spare parts cage was restocked on Tuesday"
+    }
+   ],
+   [
+    4,
+    {
+     "0": "Add audit the bin inventory to the plan for this one",
+     "1": "Lock the loading bay",
+     "2": "Spare parts cage was restocked on Tuesday"
+    }
+   ],
+   [
+    5,
+    {
+     "0": "Add audit the bin inventory to the plan for this one",
+     "1": "Lock the loading bay",
+     "2": "Spare parts cage was restocked on Tuesday",
+     "3": "Is an Operations Lead",
+     "4": "Is a Safety Auditor"
+    }
+   ],
+   [
+    6,
+    {
+     "0": "Add audit the bin inventory to the plan for this one",
+     "1": "Lock the loading bay",
+     "2": "Spare parts cage was restocked on Tuesday",
+     "3": "Is an Operations Lead",
+     "4": "Is a Safety Auditor",
+     "5": "Safety Auditor",
+     "6": "Operations Lead",
+     "7": "Two totes are still queued at the far end"
+    }
+   ],
+   [
+    7,
+    {
+     "0": "Add audit the bin inventory to the plan for this one",
+     "1": "Lock the loading bay",
+     "2": "Spare parts cage was restocked on Tuesday",
+     "3": "Is an Operations Lead",
+     "4": "Is a Safety Auditor",
+     "5": "Safety Auditor",
+     "6": "Operations Lead",
+     "7": "Two totes are still queued at the far end",
+     "8": "Two totes are still queued at the far end",
+     "9": "Maintenance logged a similar fault last quarter"
+    }
+   ],
+   [
+    8,
+    {
+     "0": "Add audit the bin inventory to the plan for this one",
+     "1": "Lock the loading bay",
+     "2": "Spare parts cage was restocked on Tuesday",
+     "3": "Is an Operations Lead",
+     "4": "Is a Safety Auditor",
+     "5": "Safety Auditor",
+     "6": "Operations Lead",
+     "7": "Two totes are still queued at the far end",
+     "8": "Two totes are still queued at the far end",
+     "9": "Maintenance logged a similar fault last quarter"
+    }
+   ],
+   [
+    9,
+    {
+     "0": "Add audit the bin inventory to the plan for this one",
+     "1": "Lock the loading bay",
+     "2": "Spare parts cage was restocked on Tuesday",
+     "3": "Is an Operations Lead",
+     "4": "Is a Safety Auditor",
+     "5": "Safety Auditor",
+     "6": "Operations Lead",
+     "7": "Two totes are still queued at the far end",
+     "8": "Two totes are still queued at the far end",
+     "9": "Maintenance logged a similar fault last quarter"
+    }
+   ]
+  ],
+  "events": [
+   [
+    0,
+    "ADD",
+    "Add audit the bin inventory to the plan for this one"
+   ],
+   [
+    3,
+    "NONE",
+    "Add audit the bin inventory to the plan for this one"
+   ],
+   [
+    3,
+    "ADD",
+    "Lock the loading bay"
+   ],
+   [
+    3,
+    "ADD",
+    "Spare parts cage was restocked on Tuesday"
+   ],
+   [
+    5,
+    "ADD",
+    "Is an Operations Lead"
+   ],
+   [
+    5,
+    "ADD",
+    "Is a Safety Auditor"
+   ],
+   [
+    6,
+    "ADD",
+    "Safety Auditor"
+   ],
+   [
+    6,
+    "ADD",
+    "Operations Lead"
+   ],
+   [
+    6,
+    "ADD",
+    "Two totes are still queued at the far end"
+   ],
+   [
+    7,
+    "ADD",
+    "Two totes are still queued at the far end"
+   ],
+   [
+    7,
+    "ADD",
+    "Maintenance logged a similar fault last quarter"
+   ]
+  ],
+  "final_store": {
+   "0": "Add audit the bin inventory to the plan for this one",
+   "1": "Lock the loading bay",
+   "2": "Spare parts cage was restocked on Tuesday",
+   "3": "Is an Operations Lead",
+   "4": "Is a Safety Auditor",
+   "5": "Safety Auditor",
+   "6": "Operations Lead",
+   "7": "Two totes are still queued at the far end",
+   "8": "Two totes are still queued at the far end",
+   "9": "Maintenance logged a similar fault last quarter"
+  },
+  "decider_prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Add audit the bin inventory to the plan for this one\n- Lock the loading bay\n- Spare parts cage was restocked on Tuesday\n- Is an Operations Lead\n- Is a Safety Auditor\n- Safety Auditor\n- Operations Lead\n- Two totes are still queued at the far end\n- Two totes are still queued at the far end\n- Maintenance logged a similar fault last quarter\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_ARM  SWAP_GRIPPER  LOCK_BAY  HALT_CONVEYOR  AUDIT_INVENTORY  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "decider_output": "{\"actions\": [\"LOCK_BAY\", \"AUDIT_INVENTORY\", \"HALT_CONVEYOR\", \"RESUME_LINE\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-join",
+  "rotation": 3,
+  "arm": "restated",
+  "rejected_action": "LOCK_BAY",
+  "phrase": "lock the loading bay",
+  "split": 7,
+  "lines": [
+   [
+    "Operations Lead",
+    "The spare parts cage was restocked on Tuesday.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Let's make sure we lock the loading bay before we call this done.",
+    [
+     "proposal",
+     "K6"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "No, drop that one -- it is not needed for this case.",
+    [
+     "reply",
+     "K6"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Night shift starts in about four hours.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Operations Lead",
+    "I'd add audit the bin inventory to the plan for this one.",
+    [
+     "proposal",
+     "K2"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Fine by me -- that is in.",
+    [
+     "reply",
+     "K2"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Maintenance logged a similar fault last quarter.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "For the record, I did raise lock the loading bay earlier in this discussion.",
+    [
+     "restate",
+     "K6"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Two totes are still queued at the far end.",
+    [
+     "noise",
+     null
+    ]
+   ]
+  ],
+  "snapshots": [
+   [
+    0,
+    {
+     "0": "Spare parts cage was restocked on Tuesday"
+    }
+   ],
+   [
+    1,
+    {
+     "0": "Spare parts cage was restocked on Tuesday"
+    }
+   ],
+   [
+    2,
+    {
+     "0": "Spare parts cage was restocked on Tuesday"
+    }
+   ],
+   [
+    3,
+    {
+     "0": "Spare parts cage was restocked on Tuesday",
+     "1": "Night shift starts in about four hours"
+    }
+   ],
+   [
+    4,
+    {
+     "0": "Spare parts cage was restocked on Tuesday"
+    }
+   ],
+   [
+    5,
+    {
+     "0": "Spare parts cage was restocked on Tuesday"
+    }
+   ],
+   [
+    6,
+    {
+     "0": "Spare parts cage was restocked on Tuesday"
+    }
+   ],
+   [
+    7,
+    {
+     "0": "Spare parts cage was restocked on Tuesday"
+    }
+   ],
+   [
+    8,
+    {
+     "0": "Spare parts cage was restocked on Tuesday"
+    }
+   ]
+  ],
+  "events": [
+   [
+    0,
+    "ADD",
+    "Spare parts cage was restocked on Tuesday"
+   ],
+   [
+    2,
+    "NONE",
+    "Spare parts cage was restocked on Tuesday"
+   ],
+   [
+    3,
+    "ADD",
+    "Night shift starts in about four hours"
+   ],
+   [
+    4,
+    "NONE",
+    "Spare parts cage was restocked on Tuesday"
+   ],
+   [
+    4,
+    "DELETE",
+    "Night shift starts in about four hours"
+   ],
+   [
+    5,
+    "NONE",
+    "Spare parts cage was restocked on Tuesday"
+   ],
+   [
+    6,
+    "NONE",
+    "Spare parts cage was restocked on Tuesday"
+   ],
+   [
+    7,
+    "NONE",
+    "Spare parts cage was restocked on Tuesday"
+   ],
+   [
+    8,
+    "NONE",
+    "Spare parts cage was restocked on Tuesday"
+   ]
+  ],
+  "final_store": {
+   "0": "Spare parts cage was restocked on Tuesday"
+  },
+  "decider_prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Spare parts cage was restocked on Tuesday\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_ARM  SWAP_GRIPPER  LOCK_BAY  HALT_CONVEYOR  AUDIT_INVENTORY  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "decider_output": "{\"actions\": [\"LOCK_BAY\", \"SWAP_GRIPPER\", \"CALIBRATE_ARM\", \"AUDIT_INVENTORY\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-join",
+  "rotation": 3,
+  "arm": "neutral",
+  "rejected_action": "LOCK_BAY",
+  "phrase": "lock the loading bay",
+  "split": 7,
+  "lines": [
+   [
+    "Operations Lead",
+    "The spare parts cage was restocked on Tuesday.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Let's make sure we lock the loading bay before we call this done.",
+    [
+     "proposal",
+     "K6"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "No, drop that one -- it is not needed for this case.",
+    [
+     "reply",
+     "K6"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Night shift starts in about four hours.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Operations Lead",
+    "I'd add audit the bin inventory to the plan for this one.",
+    [
+     "proposal",
+     "K2"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Fine by me -- that is in.",
+    [
+     "reply",
+     "K2"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Maintenance logged a similar fault last quarter.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "For the record, I did raise the written summary deadline earlier in this discussion.",
+    [
+     "neutral",
+     null
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Two totes are still queued at the far end.",
+    [
+     "noise",
+     null
+    ]
+   ]
+  ],
+  "snapshots": [
+   [
+    0,
+    {
+     "0": "Spare parts cage was restocked on Tuesday"
+    }
+   ],
+   [
+    1,
+    {
+     "0": "Spare parts cage was restocked on Tuesday"
+    }
+   ],
+   [
+    2,
+    {
+     "0": "Spare parts cage was restocked on Tuesday"
+    }
+   ],
+   [
+    3,
+    {
+     "0": "Spare parts cage was restocked on Tuesday",
+     "1": "Night shift starts in about four hours"
+    }
+   ],
+   [
+    4,
+    {
+     "0": "Spare parts cage was restocked on Tuesday"
+    }
+   ],
+   [
+    5,
+    {
+     "0": "Spare parts cage was restocked on Tuesday"
+    }
+   ],
+   [
+    6,
+    {
+     "0": "Spare parts cage was restocked on Tuesday"
+    }
+   ],
+   [
+    7,
+    {
+     "0": "Spare parts cage was restocked on Tuesday"
+    }
+   ],
+   [
+    8,
+    {
+     "0": "Spare parts cage was restocked on Tuesday"
+    }
+   ]
+  ],
+  "events": [
+   [
+    0,
+    "ADD",
+    "Spare parts cage was restocked on Tuesday"
+   ],
+   [
+    2,
+    "NONE",
+    "Spare parts cage was restocked on Tuesday"
+   ],
+   [
+    3,
+    "ADD",
+    "Night shift starts in about four hours"
+   ],
+   [
+    4,
+    "NONE",
+    "Spare parts cage was restocked on Tuesday"
+   ],
+   [
+    4,
+    "DELETE",
+    "Night shift starts in about four hours"
+   ],
+   [
+    5,
+    "NONE",
+    "Spare parts cage was restocked on Tuesday"
+   ],
+   [
+    6,
+    "NONE",
+    "Spare parts cage was restocked on Tuesday"
+   ],
+   [
+    8,
+    "NONE",
+    "Spare parts cage was restocked on Tuesday"
+   ]
+  ],
+  "final_store": {
+   "0": "Spare parts cage was restocked on Tuesday"
+  },
+  "decider_prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Spare parts cage was restocked on Tuesday\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_ARM  SWAP_GRIPPER  LOCK_BAY  HALT_CONVEYOR  AUDIT_INVENTORY  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "decider_output": "{\"actions\": [\"LOCK_BAY\", \"SWAP_GRIPPER\", \"CALIBRATE_ARM\", \"AUDIT_INVENTORY\"], \"ready\": true}"
+ }
+]

@@ -22,6 +22,14 @@ if summaries:
     summaries[-1]["note"] += (" Stores are semantic ideals built from the scorer's tags, not the output of a real "
                               "extractor; paired bootstrap over dialogues, B = 2000; the read rule uses only the "
                               "within-design difference, so levels across designs are shown, not compared.")
+    b = os.path.join(REPO, "results", "e29b_llama32-3b_summary.json")
+    if os.path.exists(b):
+        eb = json.load(open(b, encoding="utf-8"))
+        summaries[-1]["note"] += (f" A follow-up (E29-B) ran the Mem0 paper's own extraction prompt for real on {eb['n']} of these "
+                                  f"dialogues with llama3.2:3b: it stored the proposed step at its proposal line in "
+                                  f"{eb['manip_prop']:.2f} of them, so that stage reads uninformative by its declared rule; "
+                                  f"descriptively, the rejected step mostly never entered the store at all, and a later "
+                                  f"restatement entered it as a fresh fact.")
     data["e29"] = summaries
 else:
     print("no E29 summary yet")

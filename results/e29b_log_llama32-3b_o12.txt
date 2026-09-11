@@ -1,0 +1,19 @@
+=== E29-B real extractor: llama3.2:3b, 6 dialogues ===
+
+  [ 1/6] robotics-diamond     r1 restated store= 1 mentions=. prop=False reply=False D=0 bad=0/1 n=4
+  [ 1/6] robotics-diamond     r1 neutral  store= 1 mentions=. prop=False reply=False D=0 bad=0/0 n=4
+  [ 2/6] robotics-twochain    r0 restated store= 1 mentions=. prop=False reply=False D=0 bad=0/7 n=4
+  [ 2/6] robotics-twochain    r0 neutral  store= 3 mentions=. prop=False reply=False D=0 bad=0/6 n=4
+  [ 3/6] robotics-twochain    r3 restated store= 2 mentions=Y prop=False reply=False D=0 bad=0/3 n=4
+  [ 3/6] robotics-twochain    r3 neutral  store= 3 mentions=. prop=False reply=False D=0 bad=0/2 n=4
+  [ 4/6] robotics-star        r1 restated store= 7 mentions=Y prop=False reply=True D=1 bad=0/1 n=4
+  [ 4/6] robotics-star        r1 neutral  store= 5 mentions=Y prop=False reply=True D=1 bad=0/1 n=4
+  [ 5/6] pharmacy-chain       r0 restated store= 3 mentions=. prop=False reply=False D=1 bad=0/2 n=4
+  [ 5/6] pharmacy-chain       r0 neutral  store= 5 mentions=. prop=False reply=False D=1 bad=0/1 n=4
+  [ 6/6] pharmacy-fork        r0 restated store= 2 mentions=Y prop=True reply=True D=0 bad=0/2 n=4
+  [ 6/6] pharmacy-fork        r0 neutral  store= 2 mentions=Y prop=True reply=True D=0 bad=0/1 n=4
+
+  wrote results/e29b_llama32-3b_o12.csv / .json
+  arm       n  rejected_included  store_mentions
+  restated  6  0.667              0.5           
+  neutral   6  0.5                0.333         

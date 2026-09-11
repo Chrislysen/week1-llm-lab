@@ -448,3 +448,49 @@ parse ≥ 0.95, mean |plan| in [3.9, 4.1]).
 Nothing about the Mem0 product as shipped (no vector store, no embedder, one
 temperature); one extractor model; the keyword mention rule. W1 and W2 are
 descriptive and are reported with their denominators, not tested.
+
+## Outcome — `llama3.2:3b`, run 2026-09-11, STOPPED at 18 of 48 dialogues
+
+**Verdict by the declared rule: UNINFORMATIVE.** The manipulation check
+failed: the store mentioned the step after its own proposal line in **2 of 18
+dialogues (0.111)** against the 0.5 floor, across payments, robotics and
+pharmacy (`results/e29b_llama32-3b_o{0,6,12}.csv/.json`, logs alongside,
+summary `results/e29b_llama32-3b_summary.json`). Decider parse 1.000 in both
+arms, mean |plan| 4.00 / 3.96.
+
+**Stopped early, and why.** The check is declared over 48 dialogues. Passing
+it from 2/18 would need 22 of the remaining 30, and three domains had shown
+the same behaviour. The remaining 30 dialogues were not run; their allocation
+is unspent and not carried forward. Spent: at most 13.8 + 13.4 write calls per
+dialogue per arm (the shared prefix is counted in both arms, so the unique
+total lies below 18 × 27.2 ≈ 490) plus 36 decider calls.
+
+**What the extractor actually did** (from the line-by-line snapshots in the
+`.json` files). The Mem0 paper's `FACT_RETRIEVAL_PROMPT` is a personal
+information organiser; on an operations dialogue, run by a 3B model, it
+stored almost nothing from a proposal line on its own. It stored the
+proposal + *acceptance* exchange in several dialogues ("Cycle the settlement
+engine to the plan for this one") and stored nothing from the proposal +
+*rejection* exchange in all but two. So the rejected step mostly never entered
+the store, not because a DELETE fired (0.17 DELETEs per dialogue, W1 = 0/2 where
+the step had been stored) but because the extractor did not write it. In the
+restated arm the late mention was then written as a fresh fact ("Did raise
+snapshot the store earlier in this discussion") with nothing beside it: the
+final store mentioned the rejected step in **0.389** of restated dialogues
+against **0.222** of neutral ones (W2, n = 18 each). Malformed update output
+ran 1.1–1.6 per dialogue and was treated as no-op, as mem0 does.
+
+**Exploratory, not a verdict.** On the real store the decider's relapse was
+0.722 restated vs 0.611 neutral, Δ_real **+0.111 [+0.000, +0.278]** at n = 18,
+against **+0.500** under E29's oracle delete and **−0.111** under full context
+on the same 18 dialogues. Direction as expected P8, magnitude between add-only
+and delete; the interval touches zero and the stage is uninformative by rule,
+so this is recorded and not claimed.
+
+**What this does to E29.** Nothing to its verdicts, which were about oracle
+stores and say so. It sharpens the extractor caveat: with this prompt and this
+model the paper pipeline realises the "rejection leaves no trace, restatement
+re-enters clean" shape by **omission at write time** rather than by DELETE. A
+stage that tests the write path as a supersession mechanism needs an extractor
+prompt that stores operational proposals in the first place, which is a
+different declaration and not this one.

@@ -60,11 +60,24 @@ actual plans, the E18-B ladder, and the E29 rows. Publishing it as an
 artifact was blocked by the tool permission classifier this session; the file
 was sent to the author directly.
 
-**Next, if anything.** (1) Stage 2: a real small extractor running the three
-write paths on the same 96 dialogues, measuring DELETE-on-rejection and
-re-ADD-on-restatement rates — its own declaration. (2) Read the six
-abstract-level papers in full. (3) The negative Δ_full deserves one cheap
+**Later the same day.** (a) **Coverage limit closed**: the six abstract-level
+papers were read in full; none covers the conjunction, none contradicts the
+direction (protocol §0.3 addendum). (b) **E29-B ran and read UNINFORMATIVE by
+its own rule**, stopped at 18 of 48 dialogues: the Mem0 paper's extraction
+prompt, run by llama3.2:3b, stored the proposed step at its proposal line in
+2 of 18 dialogues. It stored proposal+acceptance exchanges and almost never
+proposal+rejection ones, so the rejected step mostly never entered the store
+(by omission, not DELETE), and a later restatement entered as a fresh fact in
+0.39 of restated dialogues vs 0.22 neutral. Exploratory Δ_real +0.111
+[0.000, +0.278] on the real store vs +0.500 oracle delete on the same 18.
+Process failure recorded: the E29-B prose declaration was appended after chunk
+1 had run; the read rule was in committed code before the first call.
+
+**Next, if anything.** (1) A write-path stage with an extractor prompt that
+stores operational proposals at all — the Mem0 personal-info prompt does not —
+under its own declaration. (2) The negative Δ_full deserves one cheap
 follow-up: is it the "for the record" framing, or any late mention?
+(3) Republish the X-ray as an artifact outside auto mode.
 
 ---
 
