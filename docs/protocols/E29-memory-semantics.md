@@ -82,6 +82,26 @@ MemoryArena. All are single-agent, QA or task-score, with no restatement
 manipulation by their abstracts; they occupy the *design-contrast* component,
 which is conceded as occupied regardless.
 
+**Coverage limit CLOSED, 2026-09-11, after the E29 outcomes were recorded.**
+All six read in full text by section. None constructs a rejection in
+dialogue, a partner restatement, or a with/without-restatement contrast; none
+contradicts the E29 direction. Details that matter: MemOps Table 3 has Mem0's
+Stale Value Rate at 0.102 against 0.016 for GPT-4o long context with no
+restatement at all, the closest quantitative support for delete ≫ full;
+MemStrata's §4.1 rule ("same key, different object → supersede; same object →
+reinforce") would let a re-assertion of the old value re-supersede the
+retraction, the flip E29 measures, but its triple model cannot record a
+negation so the rejection would never enter its ledger; MemoryAgentBench SF
+is serial-numbered sentences, Mem0 18.0 vs long context 45–78 (Table 3);
+MemoryArena is PARTIAL on the executable-plan-under-memory-design half only
+(full context vs Mem0 vs RAG, §4.1, Table 3) and the "pass^5" attributed to it
+in this session's search notes is not in the paper; Infini's merge-vs-append
+ablation is LongMemEval-only (§4.3.1, Table 2), not the selective-forgetting
+split as the search summary said; Useful Memories finds agent-chosen pruning
+*helps* relative to append-only in a trajectory store with no re-mention
+(§6.4, Table 5), which does not touch E29's write-time-delete-then-restatement
+mechanism. The gate's coverage is now full-text on all eighteen named papers.
+
 Search log: 19 field-vocabulary queries by the gate agents plus 9 in this
 session, 2026-09-11; queries and returns recorded in the session transcript
 and summarised in the table above.
@@ -348,3 +368,83 @@ residual in §0.5 is **supported for `delete` and `wiki` in both deciders** and
 and the coverage limit stated for the 3B all stand unchanged. Nothing here is a
 model-size claim, and nothing here runs a real extractor or a shipped product.
 No further arm is authorised by this protocol.
+
+---
+
+# E29-B — the same write path, run for real by a small model
+
+**Declared 2026-09-11, after both E29 outcomes above were recorded.** E29's
+`delete` store was an oracle: the DELETE always fired. E29-B replaces the
+oracle with the Mem0 paper pipeline's own prompts, run by `llama3.2:3b`, line
+by line, and lets the decider read the store the extractor actually produced.
+Runner `e29b_real_extractor.py`; prompts vendored verbatim in
+`mem0_vendored.py`; read rule `e29b_analysis.py`.
+
+**Process failure, recorded.** The read rule, manipulation check and design
+were committed in code at `7e4dd63` before the first call, and the commit
+message states the declaration. This prose section was meant to go in at the
+same time; its append failed on a mismatched anchor and the failure was not
+noticed until after chunk 1 (6 dialogues, 144 write and decider calls) had
+run. The **predictions P7–P9 below were therefore not committed before the
+first call** and are reported as expectations written down after 6 of 48
+dialogues had been seen, not as pre-registered predictions. The read rule is
+unaffected: it is the one in the committed code.
+
+## Questions
+
+- **W1** Given the proposal made it into the store, does the rejection line
+  remove it? (mem0's DELETE rule: "if the retrieved facts contain information
+  that contradicts the information present in the memory, then you have to
+  delete it.")
+- **W2** Does the final store mention the rejected step more often in the
+  restated arm than in the neutral arm?
+- **D** On the real store, does the decider's relapse move with the
+  restatement (Δ_real), and how does that compare with the oracle Δ_delete and
+  the full-context Δ on the same dialogues?
+
+## Design
+
+Every second E29 dialogue in E29 order, **48 dialogues**, both arms. For each
+line: extraction with `FACT_RETRIEVAL_PROMPT` on the latest exchange (previous
+line + this line, mem0's `parse_messages` format), then, if any facts, one
+update call built by mem0's `get_update_memory_messages` with the whole live
+store as old memories (a superset of mem0's top-k), events applied as mem0
+applies them, malformed output counted and treated as no-op. The common prefix
+of the two arms is processed once and the store forked. Decider: E29's prompt,
+`pin4`, temperature 0, reading the store rendered exactly as E29's `delete`
+design rendered its oracle store. Store snapshots kept after every line.
+
+**Deviations from mem0, stated:** temperature 0 (OSS default 0.1); no
+embedding retrieval; one line per `add()`. "Mentions" is a keyword rule (all
+content words of the action phrase present in a live fact); paraphrases that
+drop a content word count as absent, a stated limit.
+
+**Allocation.** At most 2 write calls per line plus 1 decider call per arm:
+≈ 24 calls per dialogue, **≈ 1,150 scheduled calls**, chunked 6 dialogues at a
+time; transport retries per the client, parse retries only for the decider.
+
+## Read rule (committed in code before the first call)
+
+**Manipulation check.** The store must mention the step after its proposal
+line in ≥ 0.5 of dialogues, or the stage is **UNINFORMATIVE**: a
+personal-preferences extractor may simply not extract ops steps, which is a
+finding about the prompt, not about supersession.
+
+Paired bootstrap over dialogues, seed 0, B = 2000. **REAL-STORE EFFECT** if
+Δ_real ≥ 0.15 with the interval above 0; **NULL** if |Δ_real| < 0.05 with the
+interval inside ±0.15; **PARTIAL** otherwise. Validity as in E29 (decider
+parse ≥ 0.95, mean |plan| in [3.9, 4.1]).
+
+## Expectations (written after chunk 1, see the process note)
+
+- **P7** The extractor under-deletes: W1 < 0.5 (arXiv:2606.15903 App. P;
+  Mem0's own v3 rationale).
+- **P8** The real store behaves between E29's `addonly` and `delete`:
+  0 < Δ_real < oracle Δ_delete on the same dialogues.
+- **P9** W2 is higher in the restated arm than the neutral arm regardless of W1.
+
+## What cannot follow
+
+Nothing about the Mem0 product as shipped (no vector store, no embedder, one
+temperature); one extractor model; the keyword mention rule. W1 and W2 are
+descriptive and are reported with their denominators, not tested.

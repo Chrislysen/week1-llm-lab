@@ -1,0 +1,1986 @@
+[
+ {
+  "instance": "payments-chain",
+  "rotation": 0,
+  "arm": "restated",
+  "rejected_action": "SNAPSHOT_STORE",
+  "phrase": "snapshot the store",
+  "split": 6,
+  "lines": [
+   [
+    "Operations Lead",
+    "The status page is already showing a partial outage.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "I'd add cycle the settlement engine to the plan for this one.",
+    [
+     "proposal",
+     "K1"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Yes, that one stays on the list.",
+    [
+     "reply",
+     "K1"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "The on-call rota rolled over at 06:00 this morning.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Let's make sure we snapshot the store before we call this done.",
+    [
+     "proposal",
+     "K6"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "No, drop that one -- it is not needed for this case.",
+    [
+     "reply",
+     "K6"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "For the record, I did raise snapshot the store earlier in this discussion.",
+    [
+     "restate",
+     "K6"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Someone should book the post-incident review room.",
+    [
+     "noise",
+     null
+    ]
+   ]
+  ],
+  "snapshots": [
+   [
+    0,
+    {}
+   ],
+   [
+    1,
+    {}
+   ],
+   [
+    2,
+    {
+     "0": "Cycle the settlement engine to the plan for this one",
+     "1": "That one stays on the list"
+    }
+   ],
+   [
+    3,
+    {
+     "0": "Cycle the settlement engine to the plan for this one",
+     "1": "That one stays on the list"
+    }
+   ],
+   [
+    4,
+    {
+     "0": "Cycle the settlement engine to the plan for this one",
+     "1": "That one stays on the list"
+    }
+   ],
+   [
+    5,
+    {
+     "0": "Cycle the settlement engine to the plan for this one",
+     "1": "That one stays on the list"
+    }
+   ],
+   [
+    6,
+    {
+     "0": "Cycle the settlement engine to the plan for this one",
+     "1": "That one stays on the list"
+    }
+   ],
+   [
+    7,
+    {
+     "0": "Cycle the settlement engine to the plan for this one",
+     "1": "That one stays on the list"
+    }
+   ]
+  ],
+  "events": [
+   [
+    2,
+    "ADD",
+    "Cycle the settlement engine to the plan for this one"
+   ],
+   [
+    2,
+    "ADD",
+    "That one stays on the list"
+   ],
+   [
+    6,
+    "NONE",
+    "Cycle the settlement engine to the plan for this one"
+   ],
+   [
+    6,
+    "NONE",
+    "That one stays on the list"
+   ]
+  ],
+  "final_store": {
+   "0": "Cycle the settlement engine to the plan for this one",
+   "1": "That one stays on the list"
+  },
+  "decider_prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Cycle the settlement engine to the plan for this one\n- That one stays on the list\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PROBE_LATENCY  SNAPSHOT_STORE  REOPEN_GATEWAY  SHIFT_ROUTING  CYCLE_ENGINE  DRAIN_NODE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "decider_output": "{\"actions\": [\"CYCLE_ENGINE\", \"PROBE_LATENCY\", \"CYCLE_ENGINE\", \"DRAIN_NODE\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-chain",
+  "rotation": 0,
+  "arm": "neutral",
+  "rejected_action": "SNAPSHOT_STORE",
+  "phrase": "snapshot the store",
+  "split": 6,
+  "lines": [
+   [
+    "Operations Lead",
+    "The status page is already showing a partial outage.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "I'd add cycle the settlement engine to the plan for this one.",
+    [
+     "proposal",
+     "K1"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Yes, that one stays on the list.",
+    [
+     "reply",
+     "K1"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "The on-call rota rolled over at 06:00 this morning.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Let's make sure we snapshot the store before we call this done.",
+    [
+     "proposal",
+     "K6"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "No, drop that one -- it is not needed for this case.",
+    [
+     "reply",
+     "K6"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "For the record, I did raise the written summary earlier in this discussion.",
+    [
+     "neutral",
+     null
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Someone should book the post-incident review room.",
+    [
+     "noise",
+     null
+    ]
+   ]
+  ],
+  "snapshots": [
+   [
+    0,
+    {}
+   ],
+   [
+    1,
+    {}
+   ],
+   [
+    2,
+    {
+     "0": "Cycle the settlement engine to the plan for this one",
+     "1": "That one stays on the list"
+    }
+   ],
+   [
+    3,
+    {
+     "0": "Cycle the settlement engine to the plan for this one",
+     "1": "That one stays on the list"
+    }
+   ],
+   [
+    4,
+    {
+     "0": "Cycle the settlement engine to the plan for this one",
+     "1": "That one stays on the list"
+    }
+   ],
+   [
+    5,
+    {
+     "0": "Cycle the settlement engine to the plan for this one",
+     "1": "That one stays on the list"
+    }
+   ],
+   [
+    6,
+    {
+     "0": "Cycle the settlement engine to the plan for this one",
+     "1": "That one stays on the list"
+    }
+   ],
+   [
+    7,
+    {
+     "0": "Cycle the settlement engine to the plan for this one",
+     "1": "That one stays on the list"
+    }
+   ]
+  ],
+  "events": [
+   [
+    2,
+    "ADD",
+    "Cycle the settlement engine to the plan for this one"
+   ],
+   [
+    2,
+    "ADD",
+    "That one stays on the list"
+   ]
+  ],
+  "final_store": {
+   "0": "Cycle the settlement engine to the plan for this one",
+   "1": "That one stays on the list"
+  },
+  "decider_prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Cycle the settlement engine to the plan for this one\n- That one stays on the list\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PROBE_LATENCY  SNAPSHOT_STORE  REOPEN_GATEWAY  SHIFT_ROUTING  CYCLE_ENGINE  DRAIN_NODE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "decider_output": "{\"actions\": [\"CYCLE_ENGINE\", \"PROBE_LATENCY\", \"CYCLE_ENGINE\", \"DRAIN_NODE\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-fork",
+  "rotation": 0,
+  "arm": "restated",
+  "rejected_action": "SNAPSHOT_STORE",
+  "phrase": "snapshot the store",
+  "split": 6,
+  "lines": [
+   [
+    "Operations Lead",
+    "The status page is already showing a partial outage.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "I'd add reopen the gateway to the plan for this one.",
+    [
+     "proposal",
+     "K1"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Agreed, keep that in.",
+    [
+     "reply",
+     "K1"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Someone should book the post-incident review room.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Let's make sure we snapshot the store before we call this done.",
+    [
+     "proposal",
+     "K6"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Let's not; that one is not needed here.",
+    [
+     "reply",
+     "K6"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "For the record, I did raise snapshot the store earlier in this discussion.",
+    [
+     "restate",
+     "K6"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Finance asked for a written summary by end of week.",
+    [
+     "noise",
+     null
+    ]
+   ]
+  ],
+  "snapshots": [
+   [
+    0,
+    {}
+   ],
+   [
+    1,
+    {}
+   ],
+   [
+    2,
+    {}
+   ],
+   [
+    3,
+    {}
+   ],
+   [
+    4,
+    {}
+   ],
+   [
+    5,
+    {}
+   ],
+   [
+    6,
+    {
+     "0": "Is a Safety Auditor",
+     "1": "Did raise snapshot the store earlier in this discussion"
+    }
+   ],
+   [
+    7,
+    {
+     "0": "Is a Safety Auditor",
+     "1": "Did raise snapshot the store earlier in this discussion"
+    }
+   ]
+  ],
+  "events": [
+   [
+    6,
+    "ADD",
+    "Is a Safety Auditor"
+   ],
+   [
+    6,
+    "ADD",
+    "Did raise snapshot the store earlier in this discussion"
+   ]
+  ],
+  "final_store": {
+   "0": "Is a Safety Auditor",
+   "1": "Did raise snapshot the store earlier in this discussion"
+  },
+  "decider_prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Is a Safety Auditor\n- Did raise snapshot the store earlier in this discussion\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  DRAIN_NODE  SHIFT_ROUTING  SNAPSHOT_STORE  PROBE_LATENCY  REOPEN_GATEWAY  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "decider_output": "{\"actions\": [\"DRAIN_NODE\", \"SNAPSHOT_STORE\", \"SHIFT_ROUTING\", \"CYCLE_ENGINE\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-fork",
+  "rotation": 0,
+  "arm": "neutral",
+  "rejected_action": "SNAPSHOT_STORE",
+  "phrase": "snapshot the store",
+  "split": 6,
+  "lines": [
+   [
+    "Operations Lead",
+    "The status page is already showing a partial outage.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "I'd add reopen the gateway to the plan for this one.",
+    [
+     "proposal",
+     "K1"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Agreed, keep that in.",
+    [
+     "reply",
+     "K1"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Someone should book the post-incident review room.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Let's make sure we snapshot the store before we call this done.",
+    [
+     "proposal",
+     "K6"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Let's not; that one is not needed here.",
+    [
+     "reply",
+     "K6"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "For the record, I did raise the written summary earlier in this discussion.",
+    [
+     "neutral",
+     null
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Finance asked for a written summary by end of week.",
+    [
+     "noise",
+     null
+    ]
+   ]
+  ],
+  "snapshots": [
+   [
+    0,
+    {}
+   ],
+   [
+    1,
+    {}
+   ],
+   [
+    2,
+    {}
+   ],
+   [
+    3,
+    {}
+   ],
+   [
+    4,
+    {}
+   ],
+   [
+    5,
+    {}
+   ],
+   [
+    6,
+    {}
+   ],
+   [
+    7,
+    {
+     "0": "Raised a written summary earlier in this discussion",
+     "1": "Finance asked for a written summary by end of week"
+    }
+   ]
+  ],
+  "events": [
+   [
+    7,
+    "ADD",
+    "Raised a written summary earlier in this discussion"
+   ],
+   [
+    7,
+    "ADD",
+    "Finance asked for a written summary by end of week"
+   ]
+  ],
+  "final_store": {
+   "0": "Raised a written summary earlier in this discussion",
+   "1": "Finance asked for a written summary by end of week"
+  },
+  "decider_prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Raised a written summary earlier in this discussion\n- Finance asked for a written summary by end of week\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  DRAIN_NODE  SHIFT_ROUTING  SNAPSHOT_STORE  PROBE_LATENCY  REOPEN_GATEWAY  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "decider_output": "{\"actions\": [\"DRAIN_NODE\", \"SNAPSHOT_STORE\", \"SHIFT_ROUTING\", \"CYCLE_ENGINE\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-join",
+  "rotation": 0,
+  "arm": "restated",
+  "rejected_action": "SHIFT_ROUTING",
+  "phrase": "shift routing to the spare region",
+  "split": 7,
+  "lines": [
+   [
+    "Operations Lead",
+    "I'd add snapshot the store to the plan for this one.",
+    [
+     "proposal",
+     "K6"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "The status page is already showing a partial outage.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Operations Lead",
+    "The on-call rota rolled over at 06:00 this morning.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Let's make sure we shift routing to the spare region before we call this done.",
+    [
+     "proposal",
+     "K2"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "No, drop that one -- it is not needed for this case.",
+    [
+     "reply",
+     "K2"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "I'd add cycle the settlement engine to the plan for this one.",
+    [
+     "proposal",
+     "K1"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Agreed, keep that in.",
+    [
+     "reply",
+     "K1"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "For the record, I did raise shift routing to the spare region earlier in this discussion.",
+    [
+     "restate",
+     "K2"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Someone should book the post-incident review room.",
+    [
+     "noise",
+     null
+    ]
+   ]
+  ],
+  "snapshots": [
+   [
+    0,
+    {}
+   ],
+   [
+    1,
+    {}
+   ],
+   [
+    2,
+    {
+     "0": "Status page is already showing a partial outage",
+     "1": "On-call rota rolled over at 06:00 this morning"
+    }
+   ],
+   [
+    3,
+    {
+     "0": "Status page is already showing a partial outage",
+     "1": "On-call rota rolled over at 06:00 this morning"
+    }
+   ],
+   [
+    4,
+    {
+     "0": "Status page is already showing a partial outage",
+     "1": "On-call rota rolled over at 06:00 this morning",
+     "2": "Is a Safety Auditor",
+     "3": "Is an Operations Lead"
+    }
+   ],
+   [
+    5,
+    {
+     "0": "Status page is already showing a partial outage",
+     "1": "On-call rota rolled over at 06:00 this morning",
+     "2": "Is a Safety Auditor",
+     "3": "Is an Operations Lead",
+     "4": "Drop the settlement engine from the plan",
+     "5": "Cycle the settlement engine should be added to the plan"
+    }
+   ],
+   [
+    6,
+    {
+     "0": "Status page is already showing a partial outage",
+     "1": "On-call rota rolled over at 06:00 this morning",
+     "2": "Is a Safety Auditor",
+     "3": "Is an Operations Lead",
+     "4": "Drop the settlement engine from the plan",
+     "5": "Cycle the settlement engine should be added to the plan"
+    }
+   ],
+   [
+    7,
+    {
+     "0": "Status page is already showing a partial outage",
+     "1": "On-call rota rolled over at 06:00 this morning",
+     "2": "Is a Safety Auditor",
+     "3": "Is an Operations Lead",
+     "4": "Drop the settlement engine from the plan",
+     "5": "Cycle the settlement engine should be added to the plan",
+     "6": "Agreed to keep that in",
+     "7": "Raised shift routing to the spare region earlier in this discussion"
+    }
+   ],
+   [
+    8,
+    {
+     "0": "Status page is already showing a partial outage",
+     "1": "On-call rota rolled over at 06:00 this morning",
+     "2": "Is a Safety Auditor",
+     "3": "Is an Operations Lead",
+     "4": "Drop the settlement engine from the plan",
+     "5": "Cycle the settlement engine should be added to the plan",
+     "6": "Agreed to keep that in",
+     "7": "Raised shift routing to the spare region earlier in this discussion"
+    }
+   ]
+  ],
+  "events": [
+   [
+    2,
+    "ADD",
+    "Status page is already showing a partial outage"
+   ],
+   [
+    2,
+    "ADD",
+    "On-call rota rolled over at 06:00 this morning"
+   ],
+   [
+    4,
+    "ADD",
+    "Is a Safety Auditor"
+   ],
+   [
+    4,
+    "ADD",
+    "Is an Operations Lead"
+   ],
+   [
+    5,
+    "ADD",
+    "Drop the settlement engine from the plan"
+   ],
+   [
+    5,
+    "ADD",
+    "Cycle the settlement engine should be added to the plan"
+   ],
+   [
+    7,
+    "ADD",
+    "Agreed to keep that in"
+   ],
+   [
+    7,
+    "ADD",
+    "Raised shift routing to the spare region earlier in this discussion"
+   ]
+  ],
+  "final_store": {
+   "0": "Status page is already showing a partial outage",
+   "1": "On-call rota rolled over at 06:00 this morning",
+   "2": "Is a Safety Auditor",
+   "3": "Is an Operations Lead",
+   "4": "Drop the settlement engine from the plan",
+   "5": "Cycle the settlement engine should be added to the plan",
+   "6": "Agreed to keep that in",
+   "7": "Raised shift routing to the spare region earlier in this discussion"
+  },
+  "decider_prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Status page is already showing a partial outage\n- On-call rota rolled over at 06:00 this morning\n- Is a Safety Auditor\n- Is an Operations Lead\n- Drop the settlement engine from the plan\n- Cycle the settlement engine should be added to the plan\n- Agreed to keep that in\n- Raised shift routing to the spare region earlier in this discussion\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SHIFT_ROUTING  REOPEN_GATEWAY  DRAIN_NODE  PROBE_LATENCY  SNAPSHOT_STORE  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "decider_output": "{\"actions\": [\"SHIFT_ROUTING\", \"CYCLE_ENGINE\", \"REOPEN_GATEWAY\", \"DRAIN_NODE\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-join",
+  "rotation": 0,
+  "arm": "neutral",
+  "rejected_action": "SHIFT_ROUTING",
+  "phrase": "shift routing to the spare region",
+  "split": 7,
+  "lines": [
+   [
+    "Operations Lead",
+    "I'd add snapshot the store to the plan for this one.",
+    [
+     "proposal",
+     "K6"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "The status page is already showing a partial outage.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Operations Lead",
+    "The on-call rota rolled over at 06:00 this morning.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Let's make sure we shift routing to the spare region before we call this done.",
+    [
+     "proposal",
+     "K2"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "No, drop that one -- it is not needed for this case.",
+    [
+     "reply",
+     "K2"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "I'd add cycle the settlement engine to the plan for this one.",
+    [
+     "proposal",
+     "K1"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Agreed, keep that in.",
+    [
+     "reply",
+     "K1"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "For the record, I did raise the written summary for finance today earlier in this discussion.",
+    [
+     "neutral",
+     null
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Someone should book the post-incident review room.",
+    [
+     "noise",
+     null
+    ]
+   ]
+  ],
+  "snapshots": [
+   [
+    0,
+    {}
+   ],
+   [
+    1,
+    {}
+   ],
+   [
+    2,
+    {
+     "0": "Status page is already showing a partial outage",
+     "1": "On-call rota rolled over at 06:00 this morning"
+    }
+   ],
+   [
+    3,
+    {
+     "0": "Status page is already showing a partial outage",
+     "1": "On-call rota rolled over at 06:00 this morning"
+    }
+   ],
+   [
+    4,
+    {
+     "0": "Status page is already showing a partial outage",
+     "1": "On-call rota rolled over at 06:00 this morning",
+     "2": "Is a Safety Auditor",
+     "3": "Is an Operations Lead"
+    }
+   ],
+   [
+    5,
+    {
+     "0": "Status page is already showing a partial outage",
+     "1": "On-call rota rolled over at 06:00 this morning",
+     "2": "Is a Safety Auditor",
+     "3": "Is an Operations Lead",
+     "4": "Drop the settlement engine from the plan",
+     "5": "Cycle the settlement engine should be added to the plan"
+    }
+   ],
+   [
+    6,
+    {
+     "0": "Status page is already showing a partial outage",
+     "1": "On-call rota rolled over at 06:00 this morning",
+     "2": "Is a Safety Auditor",
+     "3": "Is an Operations Lead",
+     "4": "Drop the settlement engine from the plan",
+     "5": "Cycle the settlement engine should be added to the plan"
+    }
+   ],
+   [
+    7,
+    {
+     "0": "Status page is already showing a partial outage",
+     "1": "On-call rota rolled over at 06:00 this morning",
+     "2": "Is a Safety Auditor",
+     "3": "Is an Operations Lead",
+     "4": "Drop the settlement engine from the plan",
+     "5": "Cycle the settlement engine should be added to the plan",
+     "6": "Agreed",
+     "7": "Raised the written summary for finance today"
+    }
+   ],
+   [
+    8,
+    {
+     "0": "Status page is already showing a partial outage",
+     "1": "On-call rota rolled over at 06:00 this morning",
+     "2": "Is a Safety Auditor",
+     "3": "Is an Operations Lead",
+     "4": "Drop the settlement engine from the plan",
+     "5": "Cycle the settlement engine should be added to the plan",
+     "6": "Agreed",
+     "7": "Raised the written summary for finance today",
+     "8": "Raised the written summary for finance",
+     "9": "Book the post-incident review room"
+    }
+   ]
+  ],
+  "events": [
+   [
+    2,
+    "ADD",
+    "Status page is already showing a partial outage"
+   ],
+   [
+    2,
+    "ADD",
+    "On-call rota rolled over at 06:00 this morning"
+   ],
+   [
+    4,
+    "ADD",
+    "Is a Safety Auditor"
+   ],
+   [
+    4,
+    "ADD",
+    "Is an Operations Lead"
+   ],
+   [
+    5,
+    "ADD",
+    "Drop the settlement engine from the plan"
+   ],
+   [
+    5,
+    "ADD",
+    "Cycle the settlement engine should be added to the plan"
+   ],
+   [
+    7,
+    "ADD",
+    "Agreed"
+   ],
+   [
+    7,
+    "ADD",
+    "Raised the written summary for finance today"
+   ],
+   [
+    8,
+    "ADD",
+    "Raised the written summary for finance"
+   ],
+   [
+    8,
+    "ADD",
+    "Book the post-incident review room"
+   ]
+  ],
+  "final_store": {
+   "0": "Status page is already showing a partial outage",
+   "1": "On-call rota rolled over at 06:00 this morning",
+   "2": "Is a Safety Auditor",
+   "3": "Is an Operations Lead",
+   "4": "Drop the settlement engine from the plan",
+   "5": "Cycle the settlement engine should be added to the plan",
+   "6": "Agreed",
+   "7": "Raised the written summary for finance today",
+   "8": "Raised the written summary for finance",
+   "9": "Book the post-incident review room"
+  },
+  "decider_prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Status page is already showing a partial outage\n- On-call rota rolled over at 06:00 this morning\n- Is a Safety Auditor\n- Is an Operations Lead\n- Drop the settlement engine from the plan\n- Cycle the settlement engine should be added to the plan\n- Agreed\n- Raised the written summary for finance today\n- Raised the written summary for finance\n- Book the post-incident review room\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SHIFT_ROUTING  REOPEN_GATEWAY  DRAIN_NODE  PROBE_LATENCY  SNAPSHOT_STORE  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "decider_output": "{\"actions\": [\n  \"CYCLE_ENGINE\",\n  \"REOPEN_GATEWAY\",\n  \"DRAIN_NODE\",\n  \"SHIFT_ROUTING\"\n], \n\"ready\": true}"
+ },
+ {
+  "instance": "payments-join",
+  "rotation": 3,
+  "arm": "restated",
+  "rejected_action": "SNAPSHOT_STORE",
+  "phrase": "snapshot the store",
+  "split": 6,
+  "lines": [
+   [
+    "Operations Lead",
+    "Someone should book the post-incident review room.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "The on-call rota rolled over at 06:00 this morning.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Let's make sure we shift routing to the spare region before we call this done.",
+    [
+     "proposal",
+     "K2"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Agreed, keep that in.",
+    [
+     "reply",
+     "K2"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "I'd add snapshot the store to the plan for this one.",
+    [
+     "proposal",
+     "K6"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Let's not; that one is not needed here.",
+    [
+     "reply",
+     "K6"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "For the record, I did raise snapshot the store earlier in this discussion.",
+    [
+     "restate",
+     "K6"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "The status page is already showing a partial outage.",
+    [
+     "noise",
+     null
+    ]
+   ]
+  ],
+  "snapshots": [
+   [
+    0,
+    {}
+   ],
+   [
+    1,
+    {
+     "0": "Someone should book the post-incident review room",
+     "1": "The on-call rota rolled over at 06:00 this morning"
+    }
+   ],
+   [
+    2,
+    {
+     "0": "Someone should book the post-incident review room",
+     "1": "The on-call rota rolled over at 06:00 this morning"
+    }
+   ],
+   [
+    3,
+    {
+     "0": "Someone should book the post-incident review room",
+     "1": "The on-call rota rolled over at 06:00 this morning"
+    }
+   ],
+   [
+    4,
+    {
+     "0": "Someone should book the post-incident review room",
+     "1": "The on-call rota rolled over at 06:00 this morning"
+    }
+   ],
+   [
+    5,
+    {
+     "0": "Someone should book the post-incident review room",
+     "1": "The on-call rota rolled over at 06:00 this morning"
+    }
+   ],
+   [
+    6,
+    {
+     "0": "Someone should book the post-incident review room",
+     "1": "The on-call rota rolled over at 06:00 this morning"
+    }
+   ],
+   [
+    7,
+    {
+     "0": "Someone should book the post-incident review room",
+     "1": "The on-call rota rolled over at 06:00 this morning"
+    }
+   ]
+  ],
+  "events": [
+   [
+    1,
+    "ADD",
+    "Someone should book the post-incident review room"
+   ],
+   [
+    1,
+    "ADD",
+    "The on-call rota rolled over at 06:00 this morning"
+   ],
+   [
+    6,
+    "NONE",
+    "Someone should book the post-incident review room"
+   ],
+   [
+    6,
+    "NONE",
+    "The on-call rota rolled over at 06:00 this morning"
+   ]
+  ],
+  "final_store": {
+   "0": "Someone should book the post-incident review room",
+   "1": "The on-call rota rolled over at 06:00 this morning"
+  },
+  "decider_prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Someone should book the post-incident review room\n- The on-call rota rolled over at 06:00 this morning\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SHIFT_ROUTING  REOPEN_GATEWAY  DRAIN_NODE  PROBE_LATENCY  SNAPSHOT_STORE  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "decider_output": "{\"actions\": [\"SHIFT_ROUTING\", \"REOPEN_GATEWAY\", \"CYCLE_ENGINE\", \"DRAIN_NODE\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-join",
+  "rotation": 3,
+  "arm": "neutral",
+  "rejected_action": "SNAPSHOT_STORE",
+  "phrase": "snapshot the store",
+  "split": 6,
+  "lines": [
+   [
+    "Operations Lead",
+    "Someone should book the post-incident review room.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "The on-call rota rolled over at 06:00 this morning.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Let's make sure we shift routing to the spare region before we call this done.",
+    [
+     "proposal",
+     "K2"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Agreed, keep that in.",
+    [
+     "reply",
+     "K2"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "I'd add snapshot the store to the plan for this one.",
+    [
+     "proposal",
+     "K6"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Let's not; that one is not needed here.",
+    [
+     "reply",
+     "K6"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "For the record, I did raise the written summary earlier in this discussion.",
+    [
+     "neutral",
+     null
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "The status page is already showing a partial outage.",
+    [
+     "noise",
+     null
+    ]
+   ]
+  ],
+  "snapshots": [
+   [
+    0,
+    {}
+   ],
+   [
+    1,
+    {
+     "0": "Someone should book the post-incident review room",
+     "1": "The on-call rota rolled over at 06:00 this morning"
+    }
+   ],
+   [
+    2,
+    {
+     "0": "Someone should book the post-incident review room",
+     "1": "The on-call rota rolled over at 06:00 this morning"
+    }
+   ],
+   [
+    3,
+    {
+     "0": "Someone should book the post-incident review room",
+     "1": "The on-call rota rolled over at 06:00 this morning"
+    }
+   ],
+   [
+    4,
+    {
+     "0": "Someone should book the post-incident review room",
+     "1": "The on-call rota rolled over at 06:00 this morning"
+    }
+   ],
+   [
+    5,
+    {
+     "0": "Someone should book the post-incident review room",
+     "1": "The on-call rota rolled over at 06:00 this morning"
+    }
+   ],
+   [
+    6,
+    {
+     "0": "Someone should book the post-incident review room",
+     "1": "The on-call rota rolled over at 06:00 this morning"
+    }
+   ],
+   [
+    7,
+    {
+     "0": "Someone should book the post-incident review room",
+     "1": "The on-call rota rolled over at 06:00 this morning"
+    }
+   ]
+  ],
+  "events": [
+   [
+    1,
+    "ADD",
+    "Someone should book the post-incident review room"
+   ],
+   [
+    1,
+    "ADD",
+    "The on-call rota rolled over at 06:00 this morning"
+   ]
+  ],
+  "final_store": {
+   "0": "Someone should book the post-incident review room",
+   "1": "The on-call rota rolled over at 06:00 this morning"
+  },
+  "decider_prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Someone should book the post-incident review room\n- The on-call rota rolled over at 06:00 this morning\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SHIFT_ROUTING  REOPEN_GATEWAY  DRAIN_NODE  PROBE_LATENCY  SNAPSHOT_STORE  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "decider_output": "{\"actions\": [\n  \"SHIFT_ROUTING\",\n  \"REOPEN_GATEWAY\",\n  \"CYCLE_ENGINE\",\n  \"DRAIN_NODE\"\n], \n\"ready\": true}"
+ },
+ {
+  "instance": "payments-diamond",
+  "rotation": 1,
+  "arm": "restated",
+  "rejected_action": "CYCLE_ENGINE",
+  "phrase": "cycle the settlement engine",
+  "split": 6,
+  "lines": [
+   [
+    "Operations Lead",
+    "Someone should book the post-incident review room.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "We should probe end-to-end latency as part of this; I want it on the list.",
+    [
+     "proposal",
+     "K6"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "I'd add cycle the settlement engine to the plan for this one.",
+    [
+     "proposal",
+     "K1"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Let's not; that one is not needed here.",
+    [
+     "reply",
+     "K1"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "The status page is already showing a partial outage.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "The on-call rota rolled over at 06:00 this morning.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Operations Lead",
+    "For the record, I did raise cycle the settlement engine earlier in this discussion.",
+    [
+     "restate",
+     "K1"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Finance asked for a written summary by end of week.",
+    [
+     "noise",
+     null
+    ]
+   ]
+  ],
+  "snapshots": [
+   [
+    0,
+    {
+     "0": "Someone should book the post-incident review room"
+    }
+   ],
+   [
+    1,
+    {
+     "0": "Someone should book the post-incident review room"
+    }
+   ],
+   [
+    2,
+    {
+     "0": "Someone should book the post-incident review room"
+    }
+   ],
+   [
+    3,
+    {
+     "0": "Someone should book the post-incident review room"
+    }
+   ],
+   [
+    4,
+    {
+     "0": "Someone should book the post-incident review room"
+    }
+   ],
+   [
+    5,
+    {
+     "0": "Someone should book the post-incident review room"
+    }
+   ],
+   [
+    6,
+    {
+     "0": "Someone should book the post-incident review room"
+    }
+   ],
+   [
+    7,
+    {
+     "0": "Someone should book the post-incident review room"
+    }
+   ]
+  ],
+  "events": [
+   [
+    0,
+    "ADD",
+    "Someone should book the post-incident review room"
+   ],
+   [
+    3,
+    "NONE",
+    "Someone should book the post-incident review room"
+   ],
+   [
+    5,
+    "NONE",
+    "Someone should book the post-incident review room"
+   ],
+   [
+    6,
+    "NONE",
+    "Someone should book the post-incident review room"
+   ],
+   [
+    7,
+    "NONE",
+    "Someone should book the post-incident review room"
+   ]
+  ],
+  "final_store": {
+   "0": "Someone should book the post-incident review room"
+  },
+  "decider_prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Someone should book the post-incident review room\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CYCLE_ENGINE  REOPEN_GATEWAY  SNAPSHOT_STORE  DRAIN_NODE  PROBE_LATENCY  SHIFT_ROUTING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "decider_output": "{\"actions\": [\"CYCLE_ENGINE\", \"REOPEN_GATEWAY\", \"SNAPSHOT_STORE\", \"DRAIN_NODE\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-diamond",
+  "rotation": 1,
+  "arm": "neutral",
+  "rejected_action": "CYCLE_ENGINE",
+  "phrase": "cycle the settlement engine",
+  "split": 6,
+  "lines": [
+   [
+    "Operations Lead",
+    "Someone should book the post-incident review room.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "We should probe end-to-end latency as part of this; I want it on the list.",
+    [
+     "proposal",
+     "K6"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "I'd add cycle the settlement engine to the plan for this one.",
+    [
+     "proposal",
+     "K1"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Let's not; that one is not needed here.",
+    [
+     "reply",
+     "K1"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "The status page is already showing a partial outage.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "The on-call rota rolled over at 06:00 this morning.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Operations Lead",
+    "For the record, I did raise the written summary deadline earlier in this discussion.",
+    [
+     "neutral",
+     null
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Finance asked for a written summary by end of week.",
+    [
+     "noise",
+     null
+    ]
+   ]
+  ],
+  "snapshots": [
+   [
+    0,
+    {
+     "0": "Someone should book the post-incident review room"
+    }
+   ],
+   [
+    1,
+    {
+     "0": "Someone should book the post-incident review room"
+    }
+   ],
+   [
+    2,
+    {
+     "0": "Someone should book the post-incident review room"
+    }
+   ],
+   [
+    3,
+    {
+     "0": "Someone should book the post-incident review room"
+    }
+   ],
+   [
+    4,
+    {
+     "0": "Someone should book the post-incident review room"
+    }
+   ],
+   [
+    5,
+    {
+     "0": "Someone should book the post-incident review room"
+    }
+   ],
+   [
+    6,
+    {
+     "0": "Someone should book the post-incident review room"
+    }
+   ],
+   [
+    7,
+    {
+     "0": "Someone should book the post-incident review room"
+    }
+   ]
+  ],
+  "events": [
+   [
+    0,
+    "ADD",
+    "Someone should book the post-incident review room"
+   ],
+   [
+    3,
+    "NONE",
+    "Someone should book the post-incident review room"
+   ],
+   [
+    5,
+    "NONE",
+    "Someone should book the post-incident review room"
+   ],
+   [
+    6,
+    "NONE",
+    "Someone should book the post-incident review room"
+   ],
+   [
+    7,
+    "NONE",
+    "Someone should book the post-incident review room"
+   ]
+  ],
+  "final_store": {
+   "0": "Someone should book the post-incident review room"
+  },
+  "decider_prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Someone should book the post-incident review room\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CYCLE_ENGINE  REOPEN_GATEWAY  SNAPSHOT_STORE  DRAIN_NODE  PROBE_LATENCY  SHIFT_ROUTING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "decider_output": "{\"actions\": [\"CYCLE_ENGINE\", \"REOPEN_GATEWAY\", \"SNAPSHOT_STORE\", \"DRAIN_NODE\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-twochain",
+  "rotation": 0,
+  "arm": "restated",
+  "rejected_action": "CYCLE_ENGINE",
+  "phrase": "cycle the settlement engine",
+  "split": 7,
+  "lines": [
+   [
+    "Operations Lead",
+    "Finance asked for a written summary by end of week.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "The status page is already showing a partial outage.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Let's make sure we shift routing to the spare region before we call this done.",
+    [
+     "proposal",
+     "K7"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Let's make sure we cycle the settlement engine before we call this done.",
+    [
+     "proposal",
+     "K4"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "No, drop that one -- it is not needed for this case.",
+    [
+     "reply",
+     "K4"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "I'd add reopen the gateway to the plan for this one.",
+    [
+     "proposal",
+     "K1"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Yes, that one stays on the list.",
+    [
+     "reply",
+     "K1"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "For the record, I did raise cycle the settlement engine earlier in this discussion.",
+    [
+     "restate",
+     "K4"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "The on-call rota rolled over at 06:00 this morning.",
+    [
+     "noise",
+     null
+    ]
+   ]
+  ],
+  "snapshots": [
+   [
+    0,
+    {
+     "0": "Received a request for a written summary by end of week"
+    }
+   ],
+   [
+    1,
+    {
+     "0": "Received a request for a written summary by end of week"
+    }
+   ],
+   [
+    2,
+    {
+     "0": "Received a request for a written summary by end of week"
+    }
+   ],
+   [
+    3,
+    {
+     "0": "Received a request for a written summary by end of week"
+    }
+   ],
+   [
+    4,
+    {
+     "0": "Received a request for a written summary by end of week"
+    }
+   ],
+   [
+    5,
+    {
+     "0": "Received a request for a written summary by end of week"
+    }
+   ],
+   [
+    6,
+    {
+     "0": "Received a request for a written summary by end of week"
+    }
+   ],
+   [
+    7,
+    {
+     "0": "Received a request for a written summary by end of week"
+    }
+   ],
+   [
+    8,
+    {
+     "0": "Received a request for a written summary by end of week"
+    }
+   ]
+  ],
+  "events": [
+   [
+    0,
+    "ADD",
+    "Received a request for a written summary by end of week"
+   ],
+   [
+    1,
+    "UPDATE",
+    "Received a request for a written summary by end of week"
+   ],
+   [
+    1,
+    "NONE",
+    "Safety Auditor: The status page is already showing a partial outage"
+   ],
+   [
+    3,
+    "NONE",
+    "Received a request for a written summary by end of week"
+   ],
+   [
+    7,
+    "NONE",
+    "Received a request for a written summary by end of week"
+   ]
+  ],
+  "final_store": {
+   "0": "Received a request for a written summary by end of week"
+  },
+  "decider_prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Received a request for a written summary by end of week\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PROBE_LATENCY  SHIFT_ROUTING  SNAPSHOT_STORE  CYCLE_ENGINE  REOPEN_GATEWAY  DRAIN_NODE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "decider_output": "{\"actions\": [\"PROBE_LATENCY\", \"CYCLE_ENGINE\", \"SHIFT_ROUTING\", \"REOPEN_GATEWAY\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-twochain",
+  "rotation": 0,
+  "arm": "neutral",
+  "rejected_action": "CYCLE_ENGINE",
+  "phrase": "cycle the settlement engine",
+  "split": 7,
+  "lines": [
+   [
+    "Operations Lead",
+    "Finance asked for a written summary by end of week.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "The status page is already showing a partial outage.",
+    [
+     "noise",
+     null
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Let's make sure we shift routing to the spare region before we call this done.",
+    [
+     "proposal",
+     "K7"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "Let's make sure we cycle the settlement engine before we call this done.",
+    [
+     "proposal",
+     "K4"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "No, drop that one -- it is not needed for this case.",
+    [
+     "reply",
+     "K4"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "I'd add reopen the gateway to the plan for this one.",
+    [
+     "proposal",
+     "K1"
+    ]
+   ],
+   [
+    "Operations Lead",
+    "Yes, that one stays on the list.",
+    [
+     "reply",
+     "K1"
+    ]
+   ],
+   [
+    "Safety Auditor",
+    "For the record, I did raise the written summary deadline earlier in this discussion.",
+    [
+     "neutral",
+     null
+    ]
+   ],
+   [
+    "Operations Lead",
+    "The on-call rota rolled over at 06:00 this morning.",
+    [
+     "noise",
+     null
+    ]
+   ]
+  ],
+  "snapshots": [
+   [
+    0,
+    {
+     "0": "Received a request for a written summary by end of week"
+    }
+   ],
+   [
+    1,
+    {
+     "0": "Received a request for a written summary by end of week"
+    }
+   ],
+   [
+    2,
+    {
+     "0": "Received a request for a written summary by end of week"
+    }
+   ],
+   [
+    3,
+    {
+     "0": "Received a request for a written summary by end of week"
+    }
+   ],
+   [
+    4,
+    {
+     "0": "Received a request for a written summary by end of week"
+    }
+   ],
+   [
+    5,
+    {
+     "0": "Received a request for a written summary by end of week"
+    }
+   ],
+   [
+    6,
+    {
+     "0": "Received a request for a written summary by end of week"
+    }
+   ],
+   [
+    7,
+    {
+     "0": "Received a request for a written summary by end of week",
+     "1": "Operations Lead",
+     "2": "Safety Auditor"
+    }
+   ],
+   [
+    8,
+    {
+     "0": "Received a request for a written summary by end of week",
+     "1": "Operations Lead",
+     "2": "Safety Auditor"
+    }
+   ]
+  ],
+  "events": [
+   [
+    0,
+    "ADD",
+    "Received a request for a written summary by end of week"
+   ],
+   [
+    1,
+    "UPDATE",
+    "Received a request for a written summary by end of week"
+   ],
+   [
+    1,
+    "NONE",
+    "Safety Auditor: The status page is already showing a partial outage"
+   ],
+   [
+    3,
+    "NONE",
+    "Received a request for a written summary by end of week"
+   ],
+   [
+    7,
+    "NONE",
+    "Received a request for a written summary by end of week"
+   ],
+   [
+    7,
+    "ADD",
+    "Operations Lead"
+   ],
+   [
+    7,
+    "ADD",
+    "Safety Auditor"
+   ],
+   [
+    7,
+    "NONE",
+    "Raised the written summary deadline earlier in this discussion"
+   ]
+  ],
+  "final_store": {
+   "0": "Received a request for a written summary by end of week",
+   "1": "Operations Lead",
+   "2": "Safety Auditor"
+  },
+  "decider_prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Received a request for a written summary by end of week\n- Operations Lead\n- Safety Auditor\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PROBE_LATENCY  SHIFT_ROUTING  SNAPSHOT_STORE  CYCLE_ENGINE  REOPEN_GATEWAY  DRAIN_NODE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "decider_output": "{\"actions\": [\"PROBE_LATENCY\", \"SHIFT_ROUTING\", \"CYCLE_ENGINE\", \"REOPEN_GATEWAY\"], \"ready\": true}"
+ }
+]
