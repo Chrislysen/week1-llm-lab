@@ -494,3 +494,18 @@ re-enters clean" shape by **omission at write time** rather than by DELETE. A
 stage that tests the write path as a supersession mechanism needs an extractor
 prompt that stores operational proposals in the first place, which is a
 different declaration and not this one.
+
+---
+
+## Note added 2026-09-11 while building the X-ray (zero calls)
+
+**Invented identifiers.** The plan validator accepts identifiers outside the
+six offered, and the scorer reads only whether each unit's own action is
+present, so an invented identifier never counts as a rejected-step inclusion
+but does occupy one of the four pinned slots. Counting from the recorded
+outputs: **67 of 1,536** E29 plans (4.4 %) and **22 of 876** E17/E18 `pin4`
+plans (2.5 %) contain at least one such identifier, typically lifted from a
+noise line ("BOOK_POST_INCIDENT_REVIEW"). This is symmetric across arms by
+construction and small, and it is not corrected for in any table above; it is
+recorded because the X-ray shows the raw plans and marks these identifiers
+as not offered.
