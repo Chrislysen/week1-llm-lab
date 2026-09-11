@@ -57,7 +57,9 @@ read in full before that call.
 `python xray_server.py` rebuilds the page from `results/` and opens it on
 localhost with a live panel (pick a dialogue, arm and memory design; see the
 exact decider block; Run live against Ollama and compare with the record;
-E29-B store snapshots line by line). `python xray_build.py` writes the static
+E29-B store snapshots line by line; a *Watch it happen* replay that plays a
+dialogue while a Three.js city shows the store as roof lamps, streams the
+decider, and fills a live tally against the recorded rates). `python xray_build.py` writes the static
 `docs/xray/zombie_xray.html`. Every number is recomputed from the result files.
 Publishing it as an artifact was blocked by the tool permission classifier
 this session; the static file was sent to the author directly.

@@ -167,7 +167,8 @@
   .design th:first-child, .design td:first-child { min-width: 180px; }
   .design td { font-size: 14px; }
   .design td code, .prov code { font-family: var(--mono); font-size: 12.5px; background: var(--surface-2); border: 1px solid var(--line); padding: 1px 5px; border-radius: 3px; }
-  .status { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 12.5px; padding: 5px 10px; border: 1px solid var(--line-strong); border-radius: 3px; background: var(--surface-2); }
+  .status { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 12.5px; padding: 5px 10px; border: 1px solid var(--line-strong); border-radius: 3px; background: var(--surface-2); max-width: 100%; }
+  .status span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .status i { width: 8px; height: 8px; border-radius: 50%; background: var(--never); display: inline-block; }
   .status.measured i { background: var(--ok); }
   .status.pending i { background: var(--zombie); }
@@ -218,6 +219,19 @@
   @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(200, 70, 27, .55); } 100% { box-shadow: 0 0 0 12px rgba(200, 70, 27, 0); } }
   .chip.z.pulse { animation: pulse 1s ease-out 2; }
   @media (prefers-reduced-motion: reduce) { .chip.z.pulse { animation: none; } .rp-store li, .bar .fill, .rp-lines .turn { transition: none; } }
+
+  /* ---- live city ---- */
+  .city-wrap { position: relative; border: 1px solid var(--line); border-radius: 6px; background: var(--surface-2); overflow: hidden; }
+  .city-wrap canvas { display: block; width: 100%; height: 360px; }
+  .city-cap { position: absolute; left: 12px; top: 10px; font-family: var(--mono); font-size: 12px; color: var(--muted); background: var(--surface); border: 1px solid var(--line); border-radius: 3px; padding: 4px 8px; max-width: 70%; }
+  .city-legend { position: absolute; right: 12px; bottom: 10px; display: flex; flex-wrap: wrap; gap: 4px 12px; font-family: var(--mono); font-size: 11px; color: var(--muted); background: var(--surface); border: 1px solid var(--line); border-radius: 3px; padding: 4px 8px; }
+  .city-legend i { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
+  .city-legend .lamp.proposal { background: #5B8DEF; }
+  .city-legend .lamp.accepted { background: #2FBFA3; }
+  .city-legend .lamp.rejected { background: #C0392B; }
+  .city-legend .lamp.mention { background: #F07A4A; }
+  .city-legend .lamp.path { background: #E7ECF1; border: 1px solid #9FAAB5; }
+  .city-wrap[hidden] { display: none; }
 
   /* ---- mechanism strip ---- */
   .mech { display: grid; gap: 10px; }
@@ -379,6 +393,17 @@
       <button id="rp-reset" type="button">Reset tally</button>
       <span class="lv-err" id="rp-err"></span>
     </div>
+    <div class="city-wrap" id="city-wrap">
+      <canvas id="city" aria-label="Live city: six buildings for the six steps, two agents as lights, memory as lamps on the roofs, the plan as a path"></canvas>
+      <div class="city-cap" id="city-cap">the city is idle · press Play</div>
+      <div class="city-legend">
+        <span><i class="lamp proposal"></i>proposal stored</span>
+        <span><i class="lamp accepted"></i>accepted</span>
+        <span><i class="lamp rejected"></i>rejection stored</span>
+        <span><i class="lamp mention"></i>restated mention</span>
+        <span><i class="lamp path"></i>plan path</span>
+      </div>
+    </div>
     <div class="rp-grid">
       <div>
         <div class="eyebrow" id="rp-title">dialogue</div>
@@ -447,6 +472,149 @@
 </div>
 
 <script id="xray-data" type="application/json">__DATA__</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* ---- the live city: six buildings for six steps, two agents as lights, memory as roof lamps, the plan as a path ---- */
+function makeCity(canvas) {
+  if (!window.THREE) return null;
+  var T = window.THREE;
+  var css = getComputedStyle(document.documentElement);
+  function v(name, fb) { var s = css.getPropertyValue(name).trim(); return s || fb; }
+  var COL = { ground: v('--surface-2', '#F5F7F9'), ink: v('--ink', '#16212B'), muted: v('--line-strong', '#9FAAB5'), line: v('--line', '#CFD6DD'),
+              proposal: '#5B8DEF', accepted: '#2FBFA3', rejected: '#C0392B', mention: '#F07A4A', path: v('--ink', '#16212B'), agentA: '#7FA3E6', agentB: '#3CC5AE' };
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var renderer = new T.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  var scene = new T.Scene();
+  var camera = new T.PerspectiveCamera(38, 2, 0.1, 100);
+  scene.add(new T.HemisphereLight(0xffffff, 0x444466, 0.9));
+  var sun = new T.DirectionalLight(0xffffff, 0.55); sun.position.set(6, 12, 8); scene.add(sun);
+  var ground = new T.Mesh(new T.PlaneGeometry(22, 12), new T.MeshStandardMaterial({ color: new T.Color(COL.ground), roughness: 1 }));
+  ground.rotation.x = -Math.PI / 2; ground.position.y = -0.01; scene.add(ground);
+  var grid = new T.GridHelper(22, 22, new T.Color(COL.line), new T.Color(COL.line)); grid.position.y = 0; scene.add(grid);
+  var pad = new T.Mesh(new T.CylinderGeometry(0.9, 0.9, 0.08, 32), new T.MeshStandardMaterial({ color: new T.Color(COL.line) }));
+  pad.position.set(0, 0.04, 4.3); scene.add(pad);
+  function label(text, size, color) {
+    var c = document.createElement('canvas'); c.width = 512; c.height = 128; var g = c.getContext('2d');
+    g.font = '600 ' + (size || 44) + 'px "IBM Plex Mono", Consolas, monospace'; g.textAlign = 'center'; g.textBaseline = 'middle';
+    g.fillStyle = color || COL.ink; g.fillText(text, 256, 64);
+    var tex = new T.CanvasTexture(c); tex.minFilter = T.LinearFilter;
+    var s = new T.Sprite(new T.SpriteMaterial({ map: tex, transparent: true, depthTest: false })); s.scale.set(3.2, 0.8, 1); return s;
+  }
+  var padLabel = label('log', 40, COL.muted); padLabel.position.set(0, 0.6, 4.3); scene.add(padLabel);
+  var agents = {};
+  [['Operations Lead', -7.2, COL.agentA], ['Safety Auditor', 7.2, COL.agentB]].forEach(function (a) {
+    var m = new T.Mesh(new T.SphereGeometry(0.32, 24, 24), new T.MeshStandardMaterial({ color: new T.Color(a[2]), emissive: new T.Color(a[2]), emissiveIntensity: 0.8 }));
+    m.position.set(a[1], 1.1, 0.6); scene.add(m);
+    var l = new T.PointLight(new T.Color(a[2]), 0.7, 14); l.position.set(a[1], 2.2, 0.6); scene.add(l);
+    var lb = label(a[0], 34, COL.ink); lb.position.set(a[1], 2.1, 0.6); lb.scale.set(3.6, 0.9, 1); scene.add(lb);
+    agents[a[0]] = m;
+  });
+  var buildings = {}, order = [], pulses = [], lamps = {}, pathObjs = [], ring = null, deciding = false, flashes = [], rejectedAction = null, t0 = performance.now();
+  var H = 1.25, SLOTS = [[-3.2, -1.4], [0, -1.4], [3.2, -1.4], [-3.2, 1.6], [0, 1.6], [3.2, 1.6]];
+  function clearGroup(list) { list.forEach(function (o) { scene.remove(o); }); list.length = 0; }
+  function reset(vocab, rejected, caption) {
+    order.forEach(function (a) { var b = buildings[a]; scene.remove(b.mesh); scene.remove(b.label); if (b.ringMark) scene.remove(b.ringMark); });
+    buildings = {}; order = []; lamps = {}; rejectedAction = rejected;
+    Object.keys(lamps).forEach(function (k) { lamps[k].forEach(function (l) { scene.remove(l.mesh); }); });
+    clearGroup(pathObjs); clearGroup(pulses.map(function (p) { return p.mesh; })); pulses = []; flashes = [];
+    vocab.forEach(function (a, i) {
+      var s = SLOTS[i % SLOTS.length];
+      var mat = new T.MeshStandardMaterial({ color: new T.Color(COL.muted), roughness: 0.8, emissive: new T.Color(0x000000) });
+      var mesh = new T.Mesh(new T.BoxGeometry(1.5, H, 1.5), mat); mesh.position.set(s[0], H / 2, s[1]); scene.add(mesh);
+      var lb = label(a, 40, COL.ink); lb.position.set(s[0], H + 1.05, s[1]); lb.scale.set(3.4, 0.85, 1); scene.add(lb);
+      var b = { mesh: mesh, label: lb, x: s[0], z: s[1], base: new T.Color(COL.muted) };
+      if (a === rejected) {
+        var rm = new T.Mesh(new T.RingGeometry(1.15, 1.3, 40), new T.MeshBasicMaterial({ color: new T.Color(COL.mention), side: T.DoubleSide, transparent: true, opacity: 0.8 }));
+        rm.rotation.x = -Math.PI / 2; rm.position.set(s[0], 0.01, s[1]); scene.add(rm); b.ringMark = rm;
+      }
+      buildings[a] = b; order.push(a); lamps[a] = [];
+    });
+    document.getElementById('city-cap').textContent = caption;
+  }
+  function target(action) { var b = buildings[action]; return b ? new T.Vector3(b.x, H + 0.3, b.z) : new T.Vector3(0, 0.4, 4.3); }
+  function pulse(speaker, action, color) {
+    var from = agents[speaker] ? agents[speaker].position.clone() : new T.Vector3(0, 1, 0);
+    var mesh = new T.Mesh(new T.SphereGeometry(0.2, 16, 16), new T.MeshBasicMaterial({ color: new T.Color(color), transparent: true, opacity: 1 }));
+    mesh.position.copy(from); scene.add(mesh);
+    pulses.push({ mesh: mesh, from: from, to: target(action), start: performance.now(), dur: reduced ? 1 : 460, action: action, color: color });
+  }
+  function setLamps(action, kinds) {
+    var have = lamps[action] || [], b = buildings[action]; if (!b) return;
+    var keep = [], used = [];
+    kinds.forEach(function (k) {
+      var idx = -1; for (var i = 0; i < have.length; i++) if (have[i].kind === k && used.indexOf(i) < 0) { idx = i; break; }
+      if (idx >= 0) { used.push(idx); keep.push(have[idx]); }
+      else {
+        var m = new T.Mesh(new T.BoxGeometry(0.55, 0.3, 0.55), new T.MeshStandardMaterial({ color: new T.Color(COL[k]), emissive: new T.Color(COL[k]), emissiveIntensity: 0.55, transparent: true, opacity: 1 }));
+        m.position.set(b.x, H, b.z); m.scale.set(0.01, 0.01, 0.01); scene.add(m);
+        keep.push({ kind: k, mesh: m, born: performance.now() });
+      }
+    });
+    have.forEach(function (l, i) { if (used.indexOf(i) < 0) { l.dying = performance.now(); flashes.push({ lamp: l }); } });
+    lamps[action] = keep;
+    keep.forEach(function (l, i) { l.targetY = H + 0.15 + i * 0.34; });
+    var lit = keep.length > 0;
+    b.mesh.material.emissive = new T.Color(lit ? COL[keep[keep.length - 1].kind] : 0x000000);
+    b.mesh.material.emissiveIntensity = lit ? 0.18 : 0;
+  }
+  function setDeciding(on) {
+    deciding = on;
+    if (on && !ring) {
+      ring = new T.Mesh(new T.RingGeometry(0.3, 0.5, 48), new T.MeshBasicMaterial({ color: new T.Color(COL.path), side: T.DoubleSide, transparent: true, opacity: 0.7 }));
+      ring.rotation.x = -Math.PI / 2; ring.position.y = 0.02; scene.add(ring); ring.userData.start = performance.now();
+    }
+    if (!on && ring) { scene.remove(ring); ring = null; }
+    document.getElementById('city-cap').textContent = on ? 'the decider is writing the plan…' : document.getElementById('city-cap').textContent;
+  }
+  function showPlan(actions, carries) {
+    clearGroup(pathObjs);
+    var pts = [];
+    actions.forEach(function (a, i) {
+      var b = buildings[a]; if (!b) return;
+      pts.push(new T.Vector3(b.x, H + 0.9 + 0.3 * (lamps[a] || []).length, b.z));
+      var n = label(String(i + 1), 56, a === rejectedAction ? COL.mention : COL.ink); n.position.set(b.x + 0.9, H + 0.75, b.z - 0.9); n.scale.set(1.2, 0.6, 1); scene.add(n); pathObjs.push(n);
+      b.mesh.material.emissive = new T.Color(a === rejectedAction ? COL.mention : COL.path); b.mesh.material.emissiveIntensity = a === rejectedAction ? 0.7 : 0.25;
+      if (a === rejectedAction) flashes.push({ building: b, start: performance.now() });
+    });
+    if (pts.length > 1) {
+      var geo = new T.BufferGeometry().setFromPoints(pts);
+      var line = new T.Line(geo, new T.LineBasicMaterial({ color: new T.Color(carries ? COL.mention : COL.path), linewidth: 2 })); scene.add(line); pathObjs.push(line);
+    }
+    document.getElementById('city-cap').textContent = carries ? 'the rejected step is back in the plan' : 'the plan leaves the rejected step out';
+  }
+  function resize() {
+    var w = canvas.clientWidth || 800, h = canvas.clientHeight || 360;
+    if (canvas.width !== Math.floor(w * renderer.getPixelRatio()) || canvas.height !== Math.floor(h * renderer.getPixelRatio())) renderer.setSize(w, h, false);
+    camera.aspect = w / h; camera.updateProjectionMatrix();
+  }
+  function frame() {
+    var now = performance.now(), t = (now - t0) / 1000;
+    resize();
+    var orbit = reduced ? 0 : Math.sin(t * 0.18) * 0.35;
+    camera.position.set(Math.sin(orbit) * 13, 8.2, Math.cos(orbit) * 13); camera.lookAt(0, 0.6, 0.4);
+    pulses = pulses.filter(function (p) {
+      var k = Math.min(1, (now - p.start) / p.dur), e = k < 0.5 ? 2 * k * k : -1 + (4 - 2 * k) * k;
+      p.mesh.position.lerpVectors(p.from, p.to, e); p.mesh.position.y += Math.sin(e * Math.PI) * 1.6;
+      if (k >= 1) { scene.remove(p.mesh); if (buildings[p.action]) { buildings[p.action].mesh.material.emissive = new T.Color(p.color); buildings[p.action].mesh.material.emissiveIntensity = 0.35; } return false; }
+      return true;
+    });
+    Object.keys(lamps).forEach(function (a) { lamps[a].forEach(function (l) {
+      var s = Math.min(1, (now - l.born) / (reduced ? 1 : 260)); l.mesh.scale.set(s, s, s);
+      l.mesh.position.y += ((l.targetY || H) - l.mesh.position.y) * 0.25;
+    }); });
+    flashes = flashes.filter(function (f) {
+      if (f.lamp) { var d = (now - f.lamp.dying) / 700; f.lamp.mesh.material.opacity = Math.max(0, 1 - d); f.lamp.mesh.position.y -= 0.02; if (d >= 1) { scene.remove(f.lamp.mesh); return false; } return true; }
+      var k = (now - f.start) / 2600; f.building.mesh.material.emissiveIntensity = 0.35 + 0.45 * Math.abs(Math.sin(k * Math.PI * 4)); return k < 1;
+    });
+    if (ring) { var r = ((now - ring.userData.start) % 1400) / 1400; var sc = 1 + r * 16; ring.scale.set(sc, sc, sc); ring.material.opacity = 0.7 * (1 - r); }
+    renderer.render(scene, camera);
+    requestAnimationFrame(frame);
+  }
+  frame();
+  return { reset: reset, pulse: pulse, setLamps: setLamps, setDeciding: setDeciding, showPlan: showPlan };
+}
+</script>
 <script>
 (function () {
   var D = JSON.parse(document.getElementById('xray-data').textContent);
@@ -848,6 +1016,38 @@
           return fin || { error: 'the stream ended without a result' };
         });
     }
+    var city = null;
+    try { city = makeCity(document.getElementById('city')); } catch (e) { city = null; }
+    if (!city) document.getElementById('city-wrap').hidden = true;
+    function actionOfCid(d, cid) { for (var i = 0; i < d.units.length; i++) if (d.units[i].constraint === cid) return d.units[i].action; return null; }
+    function statusOfCid(d, cid) { for (var i = 0; i < d.units.length; i++) if (d.units[i].constraint === cid) return d.units[i].status; return null; }
+    function lampsFromStore(items, X, lines, d) {
+      /* which roof lamps each building has, read from the store itself */
+      var out = {}; d.vocab.forEach(function (a) { out[a] = []; });
+      if (X === 'full') {
+        lines.forEach(function (ln) {
+          var a = ln.cid ? actionOfCid(d, ln.cid) : null; if (!a) return;
+          var k = ln.tag === 'proposal' ? 'proposal' : ln.tag === 'reply' ? (statusOfCid(d, ln.cid) === 'rejected' ? 'rejected' : 'accepted') : ln.tag === 'restate' ? 'mention' : null;
+          if (k) out[a].push(k);
+        });
+        return out;
+      }
+      items.forEach(function (it) {
+        var pieces = X === 'wiki' ? it.split('\n') : [it];
+        var page = X === 'wiki' ? (pieces[0] || '').replace(/^## /, '').toLowerCase() : null;
+        var low = it.toLowerCase();
+        Object.keys(d.phrases).forEach(function (a) {
+          var ph = d.phrases[a].toLowerCase();
+          if (X === 'wiki') {
+            if (page !== ph) return;
+            pieces.slice(1).forEach(function (b) { var bl = b.toLowerCase(); out[a].push(/rejected/.test(bl) ? 'rejected' : /accepted/.test(bl) ? 'accepted' : /noted again/.test(bl) ? 'mention' : 'proposal'); });
+          } else if (low.indexOf(ph) >= 0) {
+            out[a].push(/rejected/.test(low) ? 'rejected' : /accepted it/.test(low) ? 'accepted' : /noted that|raised earlier/.test(low) ? 'mention' : 'proposal');
+          }
+        });
+      });
+      return out;
+    }
     async function playOne(i, arm) {
       var X = rd.value, model = rm.value, d = D.e29_dialogues[i];
       document.getElementById('rp-title').textContent = d.instance + ' · rotation ' + d.rotation + ' · ' + arm + ' arm · rejected step: ' + d.phrase;
@@ -856,17 +1056,27 @@
       var rows = showLines(tl.lines, d);
       document.getElementById('rp-store').innerHTML = '';
       document.getElementById('rp-out').textContent = ''; document.getElementById('rp-plan').innerHTML = '';
+      if (city) city.reset(d.vocab, d.rejected_action, d.instance + ' · ' + arm + ' arm · ' + { full: 'full context', delete: 'write-time delete', addonly: 'add-only', wiki: 'merge-in-place page' }[X] + ' · rejected step ringed');
       var prev = [];
       for (var k = 0; k < tl.lines.length && running; k++) {
         rows.forEach(function (r) { r.classList.remove('current'); }); rows[k].classList.add('shown'); rows[k].classList.add('current');
+        if (city) {
+          var ln = tl.lines[k], act = ln.cid ? actionOfCid(d, ln.cid) : null;
+          var col = ln.tag === 'proposal' ? '#5B8DEF' : ln.tag === 'reply' ? (statusOfCid(d, ln.cid) === 'rejected' ? '#C0392B' : '#2FBFA3') : ln.tag === 'restate' ? '#F07A4A' : '#9FAAB5';
+          city.pulse(ln.speaker, act, col);
+        }
         renderStore(tl.stores[X][k], X, d.phrase, prev); prev = tl.stores[X][k];
+        if (city) { var lm = lampsFromStore(tl.stores[X][k], X, tl.lines.slice(0, k + 1), d); Object.keys(lm).forEach(function (a) { city.setLamps(a, lm[a]); }); }
         await sleep(+rs.value);
       }
       if (!running) return;
       rows.forEach(function (r) { r.classList.remove('current'); });
-      setRState('deciding with ' + model + '…', 'pending');
+      setRState('deciding · ' + model, 'pending');
+      if (city) city.setDeciding(true);
       var res = await streamDecider(i, arm, X, model, document.getElementById('rp-out'));
+      if (city) city.setDeciding(false);
       if (res.error && !res.plan) { throw new Error(res.error); }
+      if (city) city.showPlan(res.plan ? res.plan.actions : [], !!(res.plan && res.plan.actions.indexOf(d.rejected_action) >= 0));
       var row = planRow(d, model, 'live · ' + res.seconds + ' s · ' + (res.prompt_tokens || '?') + ' prompt tokens', res.plan, true);
       var recPlan = safePlan((d.recorded[arm][X] || {})[model]);
       var same = recPlan && res.plan && JSON.stringify(recPlan.actions) === JSON.stringify(res.plan.actions);

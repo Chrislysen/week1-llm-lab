@@ -78,4 +78,8 @@ ladder with intervals recomputed from the CSVs, the four memory designs, and
 the E29 rows. With Ollama running, the live panel lets you pick a dialogue, an
 arm and a memory design, see the exact block the decider was given, and press
 **Run live** to send it to the local model now and compare with the record.
-Live runs are demo calls; nothing is written to `results/`.
+Press **Play** in *Watch it happen* and a dialogue plays line by line while a
+small 3D city shows the memory store: six buildings for the six steps, the two
+agents as lights, roof lamps for what each design has stored, the decider's
+ripple while tokens stream, and the plan drawn as a path. Live runs are demo
+calls; nothing is written to `results/`.
