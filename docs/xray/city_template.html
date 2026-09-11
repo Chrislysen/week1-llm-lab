@@ -34,12 +34,12 @@
 
   /* ---- main ---- */
   .main { display: grid; grid-template-columns: minmax(0, 1fr) 380px; min-height: 0; }
-  .scene { position: relative; min-height: 0; overflow: hidden; }
+  .scene { position: relative; min-height: 0; overflow: hidden; background: radial-gradient(ellipse at 50% 38%, #10203A 0%, #0A1322 38%, #060A12 72%, #03060A 100%); }
   .scene canvas { display: block; width: 100%; height: 100%; }
   .labels { position: absolute; inset: 0; pointer-events: none; }
-  .lbl { position: absolute; transform: translate(-50%, -100%); font-family: var(--mono); font-size: 12px; color: var(--ink); background: rgba(12, 19, 28, .78); border: 1px solid var(--line2); border-radius: 3px; padding: 3px 7px; white-space: nowrap; display: flex; gap: 6px; align-items: center; transition: border-color .3s ease, color .3s ease; }
-  .lbl.rej { border-color: var(--amber); color: var(--amber); }
-  .lbl.lit { border-color: var(--cyan); }
+  .lbl { position: absolute; transform: translate(-50%, -100%); font-family: var(--mono); font-size: 12px; letter-spacing: .02em; color: #D6E1EE; background: rgba(6, 10, 16, .72); border: 1px solid rgba(70, 100, 140, .35); border-radius: 4px; padding: 4px 8px; white-space: nowrap; display: flex; gap: 6px; align-items: center; transition: border-color .3s ease, color .3s ease, background .3s ease; backdrop-filter: blur(2px); }
+  .lbl.rej { border-color: rgba(242, 154, 75, .8); color: var(--amber); }
+  .lbl.lit { border-color: rgba(143, 208, 255, .7); color: #fff; }
   .lbl .n { display: none; min-width: 18px; height: 18px; border-radius: 9px; background: var(--white); color: #0A1018; font-weight: 600; font-size: 11px; align-items: center; justify-content: center; padding: 0 5px; }
   .lbl .n.on { display: inline-flex; }
   .lbl .n.rej { background: var(--amber); }
@@ -47,7 +47,7 @@
   .lbl.step { transform: translate(-50%, -50%); font-size: 10.5px; padding: 1px 6px; min-width: 20px; justify-content: center; color: var(--dim); border-color: var(--line); background: rgba(12, 19, 28, .7); }
   .lbl.step.done { color: var(--ink); border-color: var(--line2); }
   .lbl.step.cur { color: #0A1018; background: var(--white); border-color: var(--white); font-weight: 600; }
-  .lbl.plate { transform: translate(-50%, 0); background: rgba(12, 19, 28, .86); border: 1px solid var(--line2); padding: 6px 10px; display: grid; gap: 2px; text-align: left; transition: border-color .3s ease, box-shadow .3s ease; }
+  .lbl.plate { transform: translate(-50%, 0); background: rgba(6, 10, 16, .8); border: 1px solid rgba(70, 100, 140, .35); padding: 7px 11px; display: grid; gap: 2px; text-align: left; transition: border-color .3s ease, box-shadow .3s ease; }
   .lbl.plate .nm { font-family: var(--display); font-weight: 600; font-size: 12.5px; letter-spacing: .02em; display: flex; align-items: center; gap: 7px; color: var(--ink); }
   .lbl.plate .nm i { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
   .lbl.plate .role { font-family: var(--body); font-size: 11.5px; color: var(--muted); }
@@ -60,23 +60,25 @@
   .cap { position: absolute; left: 16px; top: 16px; display: grid; gap: 4px; max-width: 46ch; }
   .cap .t { font-family: var(--display); font-weight: 600; font-size: 18px; letter-spacing: -.01em; }
   .cap .s { font-family: var(--mono); font-size: 12px; color: var(--muted); }
-  .cap .set { font-family: var(--body); font-size: 13px; color: var(--muted); line-height: 1.35; }
+  .cap .set { font-family: var(--body); font-size: 13.5px; color: var(--muted); line-height: 1.35; }
+  .cap .how { font-family: var(--mono); font-size: 11px; color: var(--dim); line-height: 1.4; margin-top: 4px; }
   .cap .s b { color: var(--amber); font-weight: 500; }
-  .legend { position: absolute; left: 16px; bottom: 16px; display: flex; flex-wrap: wrap; gap: 4px 16px; font-family: var(--mono); font-size: 11px; color: var(--muted); }
+  .legend { position: absolute; left: 16px; bottom: 16px; display: flex; flex-wrap: wrap; gap: 6px 16px; font-family: var(--mono); font-size: 11.5px; color: var(--muted); background: rgba(6, 10, 16, .55); border: 1px solid rgba(70, 100, 140, .25); border-radius: 4px; padding: 6px 10px; }
   .legend i { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
   .legend i.ring { background: none; border: 2px solid var(--amber); border-radius: 50%; width: 8px; height: 8px; }
-  .vignette { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 60%, rgba(7,11,18,0) 45%, rgba(7,11,18,.7) 100%); }
+  .vignette { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 58%, rgba(3,6,10,0) 40%, rgba(3,6,10,.82) 100%); }
   .state { position: absolute; right: 16px; top: 16px; font-family: var(--mono); font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 8px; background: rgba(12, 19, 28, .7); border: 1px solid var(--line); border-radius: 3px; padding: 5px 10px; }
   .state i { width: 8px; height: 8px; border-radius: 50%; background: var(--dim); display: inline-block; }
   .state.on i { background: var(--teal); box-shadow: 0 0 10px var(--teal); }
   .state.busy i { background: var(--amber); box-shadow: 0 0 10px var(--amber); }
 
   /* ---- rail ---- */
-  .rail { display: grid; grid-template-rows: minmax(0, 1.15fr) minmax(0, 1fr) auto; gap: 12px; padding: 16px; border-left: 1px solid var(--line); background: var(--panel); min-height: 0; }
+  .rail { display: grid; grid-template-rows: minmax(0, 1.35fr) minmax(0, 1fr) auto; gap: 12px; padding: 16px; border-left: 1px solid var(--line); background: var(--panel); min-height: 0; }
   .card { background: var(--panel2); border: 1px solid var(--line); border-radius: 6px; padding: 14px 16px; display: grid; gap: 10px; min-height: 0; align-content: start; }
-  .card h3 { margin: 0; display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+  .card h3 { margin: 0; display: flex; justify-content: space-between; align-items: baseline; gap: 8px; min-height: 18px; }
+  .card h3 .r { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 55%; }
   .card h3 .eyebrow { color: var(--muted); }
-  .card h3 .r { font-family: var(--mono); font-size: 11.5px; color: var(--dim); }
+  .card h3 .r { font-family: var(--mono); font-size: 11.5px; color: var(--dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 55%; }
   .now .who { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
   .now .who i { width: 9px; height: 9px; border-radius: 50%; display: inline-block; background: var(--dim); align-self: center; }
   .now .who b { font-family: var(--display); font-weight: 600; font-size: 13.5px; color: var(--ink); }
@@ -94,13 +96,13 @@
   .ln .hd b { font-family: var(--display); font-weight: 600; font-size: 12.5px; color: var(--c, var(--ink)); }
   .ln .hd .k { font-family: var(--mono); font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
   .ln .hd .no { margin-left: auto; font-family: var(--mono); font-size: 10.5px; color: var(--dim); }
-  .ln p { margin: 0; font-size: 14px; line-height: 1.4; color: var(--ink); }
+  .ln p { margin: 0; font-size: 14.5px; line-height: 1.42; color: var(--ink); }
   .ln .ref { font-family: var(--mono); font-size: 11px; color: var(--muted); }
   .ln .ref b { font-weight: 600; color: var(--amber); }
   .memory { overflow: hidden; }
   .memory .rule { font-size: 12.5px; color: var(--muted); line-height: 1.4; border-left: 2px solid var(--line2); padding-left: 10px; }
   .memory ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; overflow: auto; min-height: 0; }
-  .memory li { font-family: var(--mono); font-size: 12px; line-height: 1.4; padding: 7px 9px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel); transition: background .3s ease, border-color .3s ease, opacity .5s ease, transform .3s ease; white-space: pre-wrap; }
+  .memory li { font-family: var(--mono); font-size: 12.5px; line-height: 1.45; padding: 7px 9px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel); transition: background .3s ease, border-color .3s ease, opacity .5s ease, transform .3s ease; white-space: pre-wrap; }
   .memory li.new { border-color: var(--teal); background: rgba(47, 191, 163, .1); }
   .memory li.zombie { border-color: var(--amber); }
   .memory li.gone { opacity: 0; transform: translateX(8px); text-decoration: line-through; color: var(--red); }
@@ -139,7 +141,7 @@
   .seg button { border: 0; border-radius: 0; background: transparent; padding: 6px 10px; font-family: var(--mono); font-size: 12px; }
   .seg button.on { background: var(--line2); color: var(--ink); }
   .tally { display: grid; grid-template-columns: 1fr 1fr auto; gap: 16px; align-items: center; }
-  .tcap { display: flex; justify-content: space-between; gap: 12px; }
+  .tcap { display: none; }
   .scap { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--dim); margin-right: 6px; white-space: nowrap; }
   .bar { display: grid; grid-template-columns: 104px 1fr 230px; align-items: center; gap: 12px; font-family: var(--mono); font-size: 12px; color: var(--muted); white-space: nowrap; }
   .bar .track { position: relative; height: 16px; background: var(--panel2); border: 1px solid var(--line); border-radius: 3px; overflow: hidden; }
@@ -174,13 +176,12 @@
     <canvas id="c"></canvas>
     <div class="vignette"></div>
     <div class="labels" id="labels"></div>
-    <div class="cap"><div class="t" id="cap-t">Memory City</div><div class="s" id="cap-s">pick a dialogue and press play</div><div class="set" id="cap-set"></div></div>
+    <div class="cap"><div class="t" id="cap-t">Memory City</div><div class="s" id="cap-s">pick a dialogue and press play</div><div class="set" id="cap-set"></div><div class="how">thread = the conversation, left to right, on the speaker's side · tower height = how often the step appeared in recorded plans</div></div>
     <div class="state" id="state"><i></i><span>checking the local model…</span></div>
     <div class="legend">
       <span><i style="background:#5B8DEF"></i>proposal</span><span><i style="background:#2FBFA3"></i>accepted</span>
       <span><i style="background:#E04B3A"></i>rejection</span><span><i style="background:#F29A4B"></i>restated</span>
       <span><i style="background:#E8F1FF"></i>plan</span><span><i class="ring"></i>rejected step</span>
-      <span>thread = the conversation, left to right, on the speaker's side</span><span>tower height = how often the step appeared in recorded plans</span>
     </div>
   </section>
   <aside class="rail">
@@ -205,7 +206,7 @@
     <label class="auto"><input type="checkbox" id="auto" checked> auto-advance</label>
   </div>
   <div class="tcap"><span class="eyebrow">relapse tally · how often the rejected step ends up in the plan · the tick is the recorded rate for this design and decider</span></div>
-  <div class="tally">
+  <div class="tally" title="relapse tally: how often the rejected step ends up in the plan; the tick is the recorded rate for this design and decider">
     <div class="bar restated"><span>restated arm</span><div class="track"><div class="fill" id="b-r"></div><div class="ghost" id="g-r" hidden></div></div><span class="val" id="v-r">0/0</span></div>
     <div class="bar neutral"><span>neutral arm</span><div class="track"><div class="fill" id="b-n"></div><div class="ghost" id="g-n" hidden></div></div><span class="val" id="v-n">0/0</span></div>
     <div class="counters"><span>plans <b id="c-plans">0</b></span><span>carried <b id="c-carried">0</b></span><span>= record <b id="c-same">0</b></span><span class="err" id="err"></span></div>
@@ -241,49 +242,56 @@
     var T = window.THREE;
     var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var PAL = { bg: 0x070B12, plate: 0x0C141E, tower: 0x101923, edge: 0x223650, edgeLit: 0x3B6EA5, proposal: 0x5B8DEF, accepted: 0x2FBFA3, rejected: 0xE04B3A, mention: 0xF29A4B, path: 0xE8F1FF, agentA: 0x7FA3E6, agentB: 0x3CC5AE, column: 0x8FD0FF, noise: 0x6F8399 };
-    var renderer = new T.WebGLRenderer({ canvas: canvas, antialias: true, powerPreference: 'high-performance' });
+    var renderer = new T.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
-    renderer.setClearColor(PAL.bg, 1); renderer.toneMapping = T.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05; renderer.outputEncoding = T.sRGBEncoding;
-    var scene = new T.Scene(); scene.fog = new T.FogExp2(PAL.bg, 0.026);
+    renderer.setClearColor(0x000000, 0); renderer.toneMapping = T.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.0; renderer.outputEncoding = T.sRGBEncoding;
+    var scene = new T.Scene();
     var camera = new T.PerspectiveCamera(40, 2, 0.1, 200);
-    scene.add(new T.HemisphereLight(0x8FB3D9, 0x0A0F16, 0.55));
-    var keyL = new T.DirectionalLight(0xBFD7F2, 0.35); keyL.position.set(8, 16, 10); scene.add(keyL);
+    scene.add(new T.HemisphereLight(0x9FC3E9, 0x05080D, 0.7));
+    var keyL = new T.DirectionalLight(0xCFE3FA, 0.45); keyL.position.set(-9, 18, 9); scene.add(keyL);
+    var rimL = new T.DirectionalLight(0x6FA0E0, 0.35); rimL.position.set(10, 8, -14); scene.add(rimL);
     var composer = null, bloom = null;
-    try { if (T.EffectComposer && T.UnrealBloomPass) { composer = new T.EffectComposer(renderer); composer.addPass(new T.RenderPass(scene, camera)); bloom = new T.UnrealBloomPass(new T.Vector2(900, 540), 0.8, 0.5, 0.72); composer.addPass(bloom); } } catch (e) { composer = null; }
-    var ground = new T.Mesh(new T.PlaneGeometry(200, 200), new T.MeshStandardMaterial({ color: PAL.bg, roughness: 1 })); ground.rotation.x = -Math.PI / 2; ground.position.y = -0.03; scene.add(ground);
-    var grid = new T.GridHelper(120, 60, 0x152130, 0x0E1822); grid.position.y = -0.02; scene.add(grid);
-    var pN = 500, pPos = new Float32Array(pN * 3);
-    for (var i = 0; i < pN; i++) { pPos[i * 3] = (Math.random() - .5) * 70; pPos[i * 3 + 1] = Math.random() * 14 + 0.5; pPos[i * 3 + 2] = (Math.random() - .5) * 50 - 6; }
+    try { if (T.EffectComposer && T.UnrealBloomPass) { composer = new T.EffectComposer(renderer); composer.addPass(new T.RenderPass(scene, camera)); bloom = new T.UnrealBloomPass(new T.Vector2(900, 540), 0.55, 0.65, 0.86); composer.addPass(bloom); } } catch (e) { composer = null; }
+    var groundTex = (function () {
+      var c = document.createElement('canvas'); c.width = c.height = 1024; var g = c.getContext('2d');
+      var rg = g.createRadialGradient(512, 470, 30, 512, 470, 560); rg.addColorStop(0, '#132238'); rg.addColorStop(0.45, '#0A1320'); rg.addColorStop(1, '#03060A');
+      g.fillStyle = rg; g.fillRect(0, 0, 1024, 1024);
+      for (var i = 0; i <= 64; i++) {
+        var q = i * 16, d = Math.abs(q - 512) / 512;
+        g.strokeStyle = 'rgba(120, 165, 220,' + (0.16 * Math.max(0, 1 - d * 1.15)).toFixed(3) + ')'; g.lineWidth = 1;
+        g.beginPath(); g.moveTo(q, 0); g.lineTo(q, 1024); g.stroke(); g.beginPath(); g.moveTo(0, q); g.lineTo(1024, q); g.stroke();
+      }
+      var t = new T.CanvasTexture(c); t.minFilter = T.LinearMipmapLinearFilter; t.anisotropy = 4; return t;
+    })();
+    var ground = new T.Mesh(new T.PlaneGeometry(64, 64), new T.MeshBasicMaterial({ map: groundTex })); ground.rotation.x = -Math.PI / 2; ground.position.set(0, -0.02, 0); scene.add(ground);
+    var pN = 320, pPos = new Float32Array(pN * 3);
+    for (var i = 0; i < pN; i++) { pPos[i * 3] = (Math.random() - .5) * 48; pPos[i * 3 + 1] = Math.random() * 12 + 0.5; pPos[i * 3 + 2] = (Math.random() - .5) * 34 - 4; }
     var pGeo = new T.BufferGeometry(); pGeo.setAttribute('position', new T.BufferAttribute(pPos, 3));
-    scene.add(new T.Points(pGeo, new T.PointsMaterial({ color: 0x5F93C9, size: 0.09, transparent: true, opacity: 0.5, depthWrite: false })));
-    /* distant skyline: every district's towers, far behind, for depth */
-    var far = new T.Group(); scene.add(far);
-    DIST.forEach(function (d, di) {
-      var cx = (di - (DIST.length - 1) / 2) * 12, cz = -38 - (di % 2) * 8;
-      d.actions.forEach(function (a, i) {
-        var h = 0.6 + 3.2 * (d.heights[a] || 0);
-        var m = new T.Mesh(new T.BoxGeometry(1.5, h, 1.5), new T.MeshStandardMaterial({ color: 0x0E1620, roughness: 0.9, emissive: 0x0A1320 }));
-        m.position.set(cx + (i % 3 - 1) * 2.8, h / 2, cz + Math.floor(i / 3) * 3.0); far.add(m);
-        var e = new T.LineSegments(new T.EdgesGeometry(m.geometry), new T.LineBasicMaterial({ color: 0x16243A, transparent: true, opacity: 0.55 })); e.position.copy(m.position); far.add(e);
-      });
-    });
+    scene.add(new T.Points(pGeo, new T.PointsMaterial({ color: 0x7FB0E6, size: 0.055, transparent: true, opacity: 0.45, depthWrite: false })));
+    var glowTex = (function () {
+      var c = document.createElement('canvas'); c.width = c.height = 128; var g = c.getContext('2d');
+      var rg = g.createRadialGradient(64, 64, 2, 64, 64, 62); rg.addColorStop(0, 'rgba(255,255,255,1)'); rg.addColorStop(0.25, 'rgba(255,255,255,.55)'); rg.addColorStop(0.6, 'rgba(255,255,255,.12)'); rg.addColorStop(1, 'rgba(255,255,255,0)');
+      g.fillStyle = rg; g.fillRect(0, 0, 128, 128); var t = new T.CanvasTexture(c); return t;
+    })();
+    function glow(color, size) { var sp = new T.Sprite(new T.SpriteMaterial({ map: glowTex, color: color, transparent: true, opacity: 0.9, blending: T.AdditiveBlending, depthWrite: false })); sp.scale.set(size, size, 1); return sp; }
     /* hero district */
     var hero = new T.Group(); scene.add(hero);
     var towers = {}, order = [], labelEls = {}, comets = [], flashes = [], planObjs = [], column = null, ring = null, rejRing = null, rejected = null;
-    var pad = new T.Mesh(new T.CylinderGeometry(0.75, 0.75, 0.1, 40), new T.MeshStandardMaterial({ color: 0x14202E, emissive: 0x0B1420 })); pad.position.set(-3.8, 0.05, 3.1); scene.add(pad);
-    var padLbl = el('div', 'lbl agent', 'aside · not about a step'); labels.appendChild(padLbl);
+    var pad = new T.Mesh(new T.CylinderGeometry(0.62, 0.62, 0.08, 40), new T.MeshStandardMaterial({ color: 0x0F1A28, emissive: 0x13233A, emissiveIntensity: 0.6 })); pad.position.set(-3.8, 0.05, 3.1); scene.add(pad);
+    var padLbl = el('div', 'lbl agent', 'aside'); padLbl.style.opacity = '.6'; labels.appendChild(padLbl);
     var ROLES = { 'Operations Lead': { color: '#7FA3E6', hex: PAL.agentA, role: 'proposes steps and keeps the plan', x: -8.8, z: 1.4 },
                   'Safety Auditor': { color: '#3CC5AE', hex: PAL.agentB, role: 'holds the plan to what was agreed', x: 8.8, z: 1.4 },
                   'Operator': { color: '#8FD0FF', hex: PAL.column, role: 'writes the plan from what it is given', x: 0, z: 5.6 } };
     var agents = {};
     Object.keys(ROLES).forEach(function (name) {
       var r = ROLES[name], dec = name === 'Operator';
-      var m = new T.Mesh(new T.SphereGeometry(dec ? 0.5 : 0.42, 24, 24), new T.MeshStandardMaterial({ color: r.hex, emissive: r.hex, emissiveIntensity: dec ? 0.35 : 1.1 })); m.position.set(r.x, dec ? 1.5 : 1.7, r.z); scene.add(m);
-      var l = new T.PointLight(r.hex, dec ? 0.2 : 0.8, 18); l.position.set(r.x, 3, r.z); scene.add(l);
+      var m = new T.Mesh(new T.SphereGeometry(dec ? 0.3 : 0.26, 24, 24), new T.MeshBasicMaterial({ color: 0xF4F9FF })); m.position.set(r.x, dec ? 1.5 : 1.7, r.z); scene.add(m);
+      var halo = glow(r.hex, dec ? 2.4 : 2.8); halo.position.copy(m.position); scene.add(halo);
+      var l = new T.PointLight(r.hex, dec ? 0.25 : 0.9, 18); l.position.set(r.x, 3, r.z); scene.add(l);
       var lb = el('div', 'lbl plate'); lb.style.setProperty('--c', r.color);
       var nm = el('div', 'nm'); var dot = el('i'); dot.style.background = r.color; nm.appendChild(dot); nm.appendChild(document.createTextNode(name)); lb.appendChild(nm); lb.appendChild(el('div', 'role', r.role)); labels.appendChild(lb);
       var bb = el('div', 'bubble'); bb.style.setProperty('--c', r.color); labels.appendChild(bb);
-      agents[name] = { mesh: m, light: l, label: lb, bubble: bb, color: r.color, hex: r.hex, dec: dec, base: dec ? 0.35 : 1.1, baseL: dec ? 0.2 : 0.8, glow: 0 };
+      agents[name] = { mesh: m, halo: halo, haloSize: dec ? 2.4 : 2.8, light: l, label: lb, bubble: bb, color: r.color, hex: r.hex, dec: dec, base: dec ? 0.35 : 1.1, baseL: dec ? 0.25 : 0.9, glow: 0 };
     });
     var bubbleTimer = null, bubbleAt = null;
     function say(name, text, kindLabel, holdMs, anchorIdx) {
@@ -300,7 +308,7 @@
     var thread = { markers: [], lineDone: null, lineTodo: null, arcs: [], links: [] };
     var LANE = { x0: -7.2, x1: 7.2, zA: 0.55, zB: 2.15, y: 0.34 };
     function clearThread() {
-      thread.markers.forEach(function (m) { scene.remove(m.mesh); if (m.badge.parentNode) labels.removeChild(m.badge); });
+      thread.markers.forEach(function (m) { scene.remove(m.mesh); scene.remove(m.halo); if (m.badge.parentNode) labels.removeChild(m.badge); });
       thread.markers = []; thread.arcs.forEach(function (a) { scene.remove(a); }); thread.arcs = []; thread.links.forEach(function (l) { scene.remove(l); }); thread.links = [];
       if (thread.lineDone) { scene.remove(thread.lineDone); thread.lineDone = null; } if (thread.lineTodo) { scene.remove(thread.lineTodo); thread.lineTodo = null; }
     }
@@ -310,10 +318,11 @@
       var n = lines.length;
       lines.forEach(function (ln, i) {
         var x = n > 1 ? LANE.x0 + (LANE.x1 - LANE.x0) * i / (n - 1) : 0, z = ln.speaker === 'Operations Lead' ? LANE.zA : LANE.zB;
-        var m = new T.Mesh(new T.SphereGeometry(0.2, 16, 16), new T.MeshStandardMaterial({ color: 0x22354D, emissive: 0x000000, emissiveIntensity: 1, transparent: true, opacity: 0.9 }));
+        var m = new T.Mesh(new T.SphereGeometry(0.17, 16, 16), new T.MeshStandardMaterial({ color: 0x22354D, emissive: 0x000000, emissiveIntensity: 1, transparent: true, opacity: 0.9 }));
         m.position.set(x, LANE.y, z); scene.add(m);
+        var mg = glow(0xffffff, 0.9); mg.position.copy(m.position); mg.material.opacity = 0; scene.add(mg);
         var b = el('div', 'lbl step', String(i + 1)); labels.appendChild(b);
-        thread.markers.push({ mesh: m, badge: b, kind: kinds[i], action: actions[i], ref: refs[i], x: x, z: z, done: false });
+        thread.markers.push({ mesh: m, halo: mg, badge: b, kind: kinds[i], action: actions[i], ref: refs[i], x: x, z: z, done: false });
       });
       markStep(-1);
     }
@@ -323,6 +332,7 @@
         var done = i <= k, cur = i === k, c = kindColor(m.kind);
         m.done = done; m.cur = cur;
         m.mesh.material.color.setHex(done ? c : 0x22354D); m.mesh.material.emissive.setHex(done ? c : 0x000000); m.mesh.material.emissiveIntensity = cur ? 1.5 : done ? 0.55 : 0;
+        m.halo.material.color.setHex(c); m.halo.material.opacity = cur ? 0.95 : done ? 0.45 : 0;
         m.badge.className = 'lbl step' + (done ? ' done' : '') + (cur ? ' cur' : '');
       });
       thread.arcs.forEach(function (a) { scene.remove(a); }); thread.arcs = []; thread.links.forEach(function (l) { scene.remove(l); }); thread.links = [];
@@ -350,7 +360,7 @@
     var H = 1.4;
     function clearList(list) { list.forEach(function (o) { scene.remove(o); hero.remove(o); }); list.length = 0; }
     function setDistrict(dom, actions, heights, rejectedAction) {
-      order.forEach(function (a) { var tw = towers[a]; hero.remove(tw.mesh); hero.remove(tw.edges); tw.lamps.forEach(function (l) { scene.remove(l.mesh); }); if (labelEls[a]) labels.removeChild(labelEls[a]); });
+      order.forEach(function (a) { var tw = towers[a]; hero.remove(tw.mesh); hero.remove(tw.edges); hero.remove(tw.cap); tw.lamps.forEach(function (l) { scene.remove(l.mesh); }); if (labelEls[a]) labels.removeChild(labelEls[a]); });
       towers = {}; order = []; labelEls = {}; clearList(planObjs); comets.forEach(function (c) { scene.remove(c.head); c.tail.forEach(function (t) { scene.remove(t); }); }); comets = []; flashes = [];
       if (rejRing) { scene.remove(rejRing); rejRing = null; }
       rejected = rejectedAction;
@@ -360,12 +370,13 @@
         var x = Math.cos(ang) * R, z = Math.sin(ang) * R * 0.62 - 0.6;
         var h = 1.0 + 2.6 * (heights[a] || 0.5);
         var geo = new T.BoxGeometry(1.7, h, 1.7);
-        var mesh = new T.Mesh(geo, new T.MeshStandardMaterial({ color: PAL.tower, roughness: 0.5, metalness: 0.3, emissive: new T.Color(0x000000), emissiveIntensity: 1 }));
+        var mesh = new T.Mesh(geo, new T.MeshStandardMaterial({ color: 0x0B1420, roughness: 0.38, metalness: 0.2, emissive: new T.Color(0x0A1626), emissiveIntensity: 0.6, transparent: true, opacity: 0.94 }));
         mesh.position.set(x, h / 2, z); hero.add(mesh);
-        var edges = new T.LineSegments(new T.EdgesGeometry(geo), new T.LineBasicMaterial({ color: PAL.edgeLit, transparent: true, opacity: 0.95 })); edges.position.copy(mesh.position); hero.add(edges);
+        var edges = new T.LineSegments(new T.EdgesGeometry(geo), new T.LineBasicMaterial({ color: 0x2A4B72, transparent: true, opacity: 0.9 })); edges.position.copy(mesh.position); hero.add(edges);
+        var cap = new T.Mesh(new T.BoxGeometry(1.74, 0.1, 1.74), new T.MeshStandardMaterial({ color: 0x14243A, emissive: new T.Color(0x1B3556), emissiveIntensity: 0.5, roughness: 0.4 })); cap.position.set(x, h + 0.05, z); hero.add(cap);
         var lb = el('div', 'lbl' + (a === rejected ? ' rej' : '')); var nb = el('span', 'n'); lb.appendChild(nb); lb.appendChild(el('span', null, a)); labels.appendChild(lb);
-        towers[a] = { mesh: mesh, edges: edges, x: x, z: z, h: h, lamps: [], glow: 0, base: 0x000000, baseI: 0, badge: nb }; labelEls[a] = lb; order.push(a);
-        if (a === rejected) { rejRing = new T.Mesh(new T.RingGeometry(1.25, 1.42, 48), new T.MeshBasicMaterial({ color: PAL.mention, side: T.DoubleSide, transparent: true, opacity: 0.9 })); rejRing.rotation.x = -Math.PI / 2; rejRing.position.set(x, 0.02, z); scene.add(rejRing); }
+        towers[a] = { mesh: mesh, edges: edges, cap: cap, x: x, z: z, h: h, lamps: [], glow: 0, base: 0x000000, baseI: 0, capBase: 0x1B3556, capI: 0.5, badge: nb }; labelEls[a] = lb; order.push(a);
+        if (a === rejected) { rejRing = new T.Mesh(new T.RingGeometry(1.28, 1.38, 64), new T.MeshBasicMaterial({ color: PAL.mention, side: T.DoubleSide, transparent: true, opacity: 0.9, blending: T.AdditiveBlending, depthWrite: false })); rejRing.rotation.x = -Math.PI / 2; rejRing.position.set(x, 0.02, z); scene.add(rejRing); }
       });
     }
     function towerTop(a) { var tw = towers[a]; return tw ? new T.Vector3(tw.x, tw.h + 0.3 + tw.lamps.length * 0.36, tw.z) : new T.Vector3(0, 0.5, 2.6); }
@@ -389,13 +400,14 @@
         var idx = -1; for (var i = 0; i < have.length; i++) if (have[i].kind === k && used.indexOf(i) < 0) { idx = i; break; }
         if (idx >= 0) { used.push(idx); keep.push(have[idx]); }
         else {
-          var m = new T.Mesh(new T.BoxGeometry(0.66, 0.3, 0.66), new T.MeshStandardMaterial({ color: PAL[k], emissive: PAL[k], emissiveIntensity: 1.7, transparent: true, opacity: 1 }));
+          var m = new T.Mesh(new T.BoxGeometry(0.56, 0.26, 0.56), new T.MeshStandardMaterial({ color: PAL[k], emissive: PAL[k], emissiveIntensity: 2.2, transparent: true, opacity: 1 }));
           m.position.set(tw.x, tw.h, tw.z); var s0 = animate ? 0.01 : 1; m.scale.set(s0, s0, s0); scene.add(m); keep.push({ kind: k, mesh: m, born: performance.now() - (animate ? 0 : 5000) });
         }
       });
       have.forEach(function (l, i) { if (used.indexOf(i) < 0) { if (animate) { l.dying = performance.now(); flashes.push({ lamp: l }); tw.glow = 1.2; tw.mesh.material.emissive.setHex(PAL.rejected); } else scene.remove(l.mesh); } });
-      tw.lamps = keep; keep.forEach(function (l, i) { l.targetY = tw.h + 0.17 + i * 0.36; if (!animate) l.mesh.position.y = l.targetY; });
-      var lit = keep.length > 0; tw.base = lit ? PAL[keep[keep.length - 1].kind] : 0x000000; tw.baseI = lit ? 0.3 : 0;
+      tw.lamps = keep; keep.forEach(function (l, i) { l.targetY = tw.h + 0.24 + i * 0.32; if (!animate) l.mesh.position.y = l.targetY; });
+      var lit = keep.length > 0, lc = lit ? PAL[keep[keep.length - 1].kind] : null;
+      tw.base = lit ? lc : 0x0A1626; tw.baseI = lit ? 0.12 : 0.6; tw.capBase = lit ? lc : 0x1B3556; tw.capI = lit ? 1.6 : 0.5; tw.edges.material.color.setHex(lit ? lc : 0x2A4B72);
       labelEls[action].classList.toggle('lit', lit);
     }
     function setDeciding(on) {
@@ -411,14 +423,14 @@
       if (!on) { if (column) { scene.remove(column); column = null; } if (ring) { scene.remove(ring); ring = null; } if (beam) { scene.remove(beam); beam = null; }
         op.base = 0.35; op.baseL = 0.2; op.label.classList.remove('speaking'); op.label.querySelector('.role').textContent = ROLES['Operator'].role; }
     }
-    function clearPlan() { clearList(planObjs); order.forEach(function (a) { var tw = towers[a]; tw.badge.className = 'n'; tw.badge.textContent = ''; var lit = tw.lamps.length > 0; tw.base = lit ? PAL[tw.lamps[tw.lamps.length - 1].kind] : 0x000000; tw.baseI = lit ? 0.3 : 0; }); }
+    function clearPlan() { clearList(planObjs); order.forEach(function (a) { var tw = towers[a]; tw.badge.className = 'n'; tw.badge.textContent = ''; var lit = tw.lamps.length > 0, lc = lit ? PAL[tw.lamps[tw.lamps.length - 1].kind] : null; tw.base = lit ? lc : 0x0A1626; tw.baseI = lit ? 0.12 : 0.6; tw.capBase = lit ? lc : 0x1B3556; tw.capI = lit ? 1.6 : 0.5; tw.edges.material.color.setHex(lit ? lc : 0x2A4B72); }); }
     function showPlan(actions, carries) {
       clearPlan(); var pts = [];
       actions.forEach(function (a, i) {
         var tw = towers[a]; if (!tw) return;
         pts.push(new T.Vector3(tw.x, tw.h + 0.9 + tw.lamps.length * 0.36, tw.z));
         tw.badge.textContent = String(i + 1); tw.badge.className = 'n on' + (a === rejected ? ' rej' : '');
-        tw.base = a === rejected ? PAL.mention : PAL.path; tw.baseI = a === rejected ? 0.55 : 0.16;
+        tw.capBase = a === rejected ? PAL.mention : PAL.path; tw.capI = a === rejected ? 2.2 : 1.4; tw.edges.material.color.setHex(a === rejected ? PAL.mention : PAL.path); tw.base = a === rejected ? PAL.mention : 0x0A1626; tw.baseI = a === rejected ? 0.25 : 0.6;
         if (a === rejected) { flashes.push({ tower: tw, start: performance.now() }); var beam = new T.Mesh(new T.CylinderGeometry(0.5, 0.5, 14, 24, 1, true), new T.MeshBasicMaterial({ color: PAL.mention, transparent: true, opacity: 0.35, side: T.DoubleSide, blending: T.AdditiveBlending, depthWrite: false })); beam.position.set(tw.x, 7, tw.z); scene.add(beam); planObjs.push(beam); flashes.push({ beam: beam, start: performance.now() }); }
       });
       if (pts.length > 1) {
@@ -447,13 +459,14 @@
         }
         return true;
       });
-      thread.markers.forEach(function (m, i) { var sc = m.cur ? 1 + 0.25 * Math.abs(Math.sin(t * 5)) : 1; m.mesh.scale.set(sc, sc, sc); place(m.badge, new T.Vector3(m.x, LANE.y + 0.55, m.z), 0); });
+      thread.markers.forEach(function (m, i) { var sc = m.cur ? 1 + 0.25 * Math.abs(Math.sin(t * 5)) : 1; m.mesh.scale.set(sc, sc, sc); var hs = 0.9 * (m.cur ? 1.3 + 0.2 * Math.abs(Math.sin(t * 5)) : 1); m.halo.scale.set(hs, hs, 1); place(m.badge, new T.Vector3(m.x, LANE.y + 0.55, m.z), 0); });
       order.forEach(function (a) {
-        var tw = towers[a]; tw.glow = Math.max(0, tw.glow - 0.03); if (tw.glow <= 0) tw.mesh.material.emissive.setHex(tw.base); tw.mesh.material.emissiveIntensity = tw.baseI + tw.glow;
+        var tw = towers[a]; tw.glow = Math.max(0, tw.glow - 0.03); if (tw.glow <= 0) tw.mesh.material.emissive.setHex(tw.base); tw.mesh.material.emissiveIntensity = tw.baseI + tw.glow * 0.5;
+        tw.cap.material.emissive.setHex(tw.capBase); tw.cap.material.emissiveIntensity = tw.capI + tw.glow;
         tw.lamps.forEach(function (l) { var s = Math.min(1, (now - l.born) / (reduced ? 1 : 280)); l.mesh.scale.set(s, s, s); l.mesh.position.y += ((l.targetY || tw.h) - l.mesh.position.y) * 0.22; });
         place(labelEls[a], new T.Vector3(tw.x, tw.h + 0.5 + tw.lamps.length * 0.36, tw.z), -6);
       });
-      Object.keys(agents).forEach(function (n) { var ag = agents[n]; ag.glow = Math.max(0, ag.glow - 0.02); ag.mesh.material.emissiveIntensity = ag.base + ag.glow; ag.light.intensity = ag.baseL + ag.glow * 0.8;
+      Object.keys(agents).forEach(function (n) { var ag = agents[n]; ag.glow = Math.max(0, ag.glow - 0.02); var hs = ag.haloSize * (1 + 0.45 * ag.glow) * (ag.dec ? (0.7 + 0.3 * Math.min(1, ag.base)) : 1); ag.halo.scale.set(hs, hs, 1); ag.halo.material.opacity = ag.dec ? 0.35 + 0.5 * Math.min(1, ag.base) : 0.75 + 0.25 * Math.min(1, ag.glow); ag.light.intensity = ag.baseL + ag.glow * 0.8;
         place(ag.label, ag.mesh.position, 26);
         var bp = (bubbleAt && ag.bubble.classList.contains('show')) ? new T.Vector3(bubbleAt.x, LANE.y + 0.9, bubbleAt.z) : new T.Vector3(ag.mesh.position.x, ag.mesh.position.y + 0.9, ag.mesh.position.z);
         place(ag.bubble, bp, 0); });
@@ -461,7 +474,7 @@
       flashes = flashes.filter(function (f) {
         if (f.lamp) { var d = (now - f.lamp.dying) / 750; f.lamp.mesh.material.opacity = Math.max(0, 1 - d); f.lamp.mesh.position.y -= 0.025; if (d >= 1) { scene.remove(f.lamp.mesh); return false; } return true; }
         if (f.beam) { var b = (now - f.start) / 2600; f.beam.material.opacity = 0.35 * Math.max(0, 1 - b); return b < 1; }
-        var k2 = (now - f.start) / 2800; f.tower.mesh.material.emissiveIntensity = 0.4 + 0.55 * Math.abs(Math.sin(k2 * Math.PI * 4)); return k2 < 1;
+        var k2 = (now - f.start) / 2800; f.tower.capI = 1.4 + 1.4 * Math.abs(Math.sin(k2 * Math.PI * 4)); if (k2 >= 1) f.tower.capI = 2.2; return k2 < 1;
       });
       if (column) column.material.opacity = 0.07 + 0.06 * (0.5 + 0.5 * Math.sin(t * 5));
       if (ring) { var r = ((now - ring.userData.start) % 1600) / 1600, sc = 1 + r * 12; ring.scale.set(sc, sc, sc); ring.material.opacity = 0.8 * (1 - r); }
