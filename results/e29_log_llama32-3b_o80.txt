@@ -1,0 +1,143 @@
+=== E29 memory semantics: llama3.2:3b, 16 dialogues x 2 arms x 4 designs = 128 calls ===
+
+  [ 1/16] rail-chain           r0 restated full    n=4  2.41s
+  [ 1/16] rail-chain           r0 restated delete  n=4  2.343s
+  [ 1/16] rail-chain           r0 restated addonly n=4  2.286s
+  [ 1/16] rail-chain           r0 restated wiki    n=4  2.37s
+  [ 1/16] rail-chain           r0 neutral  full    n=4  2.393s
+  [ 1/16] rail-chain           r0 neutral  delete  n=4  2.317s
+  [ 1/16] rail-chain           r0 neutral  addonly n=4  2.302s
+  [ 1/16] rail-chain           r0 neutral  wiki    n=4  2.376s
+  [ 2/16] rail-chain           r1 restated full    n=4  2.283s
+  [ 2/16] rail-chain           r1 restated delete  n=4  2.359s
+  [ 2/16] rail-chain           r1 restated addonly n=4  2.363s
+  [ 2/16] rail-chain           r1 restated wiki    n=4  2.368s
+  [ 2/16] rail-chain           r1 neutral  full    n=4  2.289s
+  [ 2/16] rail-chain           r1 neutral  delete  n=4  2.349s
+  [ 2/16] rail-chain           r1 neutral  addonly n=4  2.361s
+  [ 2/16] rail-chain           r1 neutral  wiki    n=4  2.358s
+  [ 3/16] rail-fork            r0 restated full    n=4  2.303s
+  [ 3/16] rail-fork            r0 restated delete  n=4  2.368s
+  [ 3/16] rail-fork            r0 restated addonly n=4  2.34s
+  [ 3/16] rail-fork            r0 restated wiki    n=4  2.382s
+  [ 3/16] rail-fork            r0 neutral  full    n=4  2.318s
+  [ 3/16] rail-fork            r0 neutral  delete  n=4  2.351s
+  [ 3/16] rail-fork            r0 neutral  addonly n=4  2.283s
+  [ 3/16] rail-fork            r0 neutral  wiki    n=4  2.378s
+  [ 4/16] rail-fork            r1 restated full    n=4  2.273s
+  [ 4/16] rail-fork            r1 restated delete  n=4  2.304s
+  [ 4/16] rail-fork            r1 restated addonly n=4  2.34s
+  [ 4/16] rail-fork            r1 restated wiki    n=4  2.376s
+  [ 4/16] rail-fork            r1 neutral  full    n=4  2.299s
+  [ 4/16] rail-fork            r1 neutral  delete  n=4  2.304s
+  [ 4/16] rail-fork            r1 neutral  addonly n=4  2.284s
+  [ 4/16] rail-fork            r1 neutral  wiki    n=4  2.385s
+  [ 5/16] rail-join            r0 restated full    n=4  2.356s
+  [ 5/16] rail-join            r0 restated delete  n=4  2.317s
+  [ 5/16] rail-join            r0 restated addonly n=4  2.323s
+  [ 5/16] rail-join            r0 restated wiki    n=4  2.373s
+  [ 5/16] rail-join            r0 neutral  full    n=4  2.308s
+  [ 5/16] rail-join            r0 neutral  delete  n=4  2.394s
+  [ 5/16] rail-join            r0 neutral  addonly n=4  2.291s
+  [ 5/16] rail-join            r0 neutral  wiki    n=4  2.377s
+  [ 6/16] rail-join            r1 restated full    n=4  2.385s
+  [ 6/16] rail-join            r1 restated delete  n=4  2.353s
+  [ 6/16] rail-join            r1 restated addonly n=4  2.297s
+  [ 6/16] rail-join            r1 restated wiki    n=4  2.373s
+  [ 6/16] rail-join            r1 neutral  full    n=4  2.275s
+  [ 6/16] rail-join            r1 neutral  delete  n=4  2.314s
+  [ 6/16] rail-join            r1 neutral  addonly n=4  2.331s
+  [ 6/16] rail-join            r1 neutral  wiki    n=4  2.374s
+  [ 7/16] rail-join            r3 restated full    n=4  2.281s
+  [ 7/16] rail-join            r3 restated delete  n=4  2.358s
+  [ 7/16] rail-join            r3 restated addonly n=4  2.375s
+  [ 7/16] rail-join            r3 restated wiki    n=4  2.381s
+  [ 7/16] rail-join            r3 neutral  full    n=4  2.295s
+  [ 7/16] rail-join            r3 neutral  delete  n=4  2.338s
+  [ 7/16] rail-join            r3 neutral  addonly n=4  2.375s
+  [ 7/16] rail-join            r3 neutral  wiki    n=4  2.36s
+  [ 8/16] rail-diamond         r0 restated full    n=4  2.287s
+  [ 8/16] rail-diamond         r0 restated delete  n=4  2.343s
+  [ 8/16] rail-diamond         r0 restated addonly n=4  2.26s
+  [ 8/16] rail-diamond         r0 restated wiki    n=4  2.36s
+  [ 8/16] rail-diamond         r0 neutral  full    n=4  2.321s
+  [ 8/16] rail-diamond         r0 neutral  delete  n=4  2.296s
+  [ 8/16] rail-diamond         r0 neutral  addonly n=4  2.355s
+  [ 8/16] rail-diamond         r0 neutral  wiki    n=4  2.389s
+  [ 9/16] rail-diamond         r1 restated full    n=4  2.307s
+  [ 9/16] rail-diamond         r1 restated delete  n=4  2.338s
+  [ 9/16] rail-diamond         r1 restated addonly n=4  2.296s
+  [ 9/16] rail-diamond         r1 restated wiki    n=4  2.351s
+  [ 9/16] rail-diamond         r1 neutral  full    n=4  2.297s
+  [ 9/16] rail-diamond         r1 neutral  delete  n=4  2.349s
+  [ 9/16] rail-diamond         r1 neutral  addonly n=4  2.282s
+  [ 9/16] rail-diamond         r1 neutral  wiki    n=4  2.362s
+  [10/16] rail-diamond         r3 restated full    n=4  2.295s
+  [10/16] rail-diamond         r3 restated delete  n=4  2.347s
+  [10/16] rail-diamond         r3 restated addonly n=4  2.297s
+  [10/16] rail-diamond         r3 restated wiki    n=4  2.355s
+  [10/16] rail-diamond         r3 neutral  full    n=4  2.296s
+  [10/16] rail-diamond         r3 neutral  delete  n=4  2.302s
+  [10/16] rail-diamond         r3 neutral  addonly n=4  2.298s
+  [10/16] rail-diamond         r3 neutral  wiki    n=4  2.35s
+  [11/16] rail-twochain        r0 restated full    n=4  2.31s
+  [11/16] rail-twochain        r0 restated delete  n=4  2.334s
+  [11/16] rail-twochain        r0 restated addonly n=4  2.26s
+  [11/16] rail-twochain        r0 restated wiki    n=4  2.364s
+  [11/16] rail-twochain        r0 neutral  full    n=4  2.312s
+  [11/16] rail-twochain        r0 neutral  delete  n=4  2.313s
+  [11/16] rail-twochain        r0 neutral  addonly n=4  2.309s
+  [11/16] rail-twochain        r0 neutral  wiki    n=4  2.383s
+  [12/16] rail-twochain        r1 restated full    n=4  2.361s
+  [12/16] rail-twochain        r1 restated delete  n=4  2.351s
+  [12/16] rail-twochain        r1 restated addonly n=4  2.299s
+  [12/16] rail-twochain        r1 restated wiki    n=4  2.367s
+  [12/16] rail-twochain        r1 neutral  full    n=4  2.303s
+  [12/16] rail-twochain        r1 neutral  delete  n=4  2.351s
+  [12/16] rail-twochain        r1 neutral  addonly n=4  2.363s
+  [12/16] rail-twochain        r1 neutral  wiki    n=4  2.375s
+  [13/16] rail-twochain        r3 restated full    n=4  2.285s
+  [13/16] rail-twochain        r3 restated delete  n=4  2.365s
+  [13/16] rail-twochain        r3 restated addonly n=4  2.334s
+  [13/16] rail-twochain        r3 restated wiki    n=4  2.359s
+  [13/16] rail-twochain        r3 neutral  full    n=4  2.307s
+  [13/16] rail-twochain        r3 neutral  delete  n=4  2.352s
+  [13/16] rail-twochain        r3 neutral  addonly n=4  2.26s
+  [13/16] rail-twochain        r3 neutral  wiki    n=4  2.37s
+  [14/16] rail-star            r0 restated full    n=4  2.325s
+  [14/16] rail-star            r0 restated delete  n=4  2.39s
+  [14/16] rail-star            r0 restated addonly n=4  2.376s
+  [14/16] rail-star            r0 restated wiki    n=4  2.34s
+  [14/16] rail-star            r0 neutral  full    n=4  2.357s
+  [14/16] rail-star            r0 neutral  delete  n=4  2.366s
+  [14/16] rail-star            r0 neutral  addonly n=4  2.34s
+  [14/16] rail-star            r0 neutral  wiki    n=4  2.367s
+  [15/16] rail-star            r1 restated full    n=4  2.299s
+  [15/16] rail-star            r1 restated delete  n=4  2.361s
+  [15/16] rail-star            r1 restated addonly n=4  2.357s
+  [15/16] rail-star            r1 restated wiki    n=4  2.379s
+  [15/16] rail-star            r1 neutral  full    n=4  2.275s
+  [15/16] rail-star            r1 neutral  delete  n=4  2.34s
+  [15/16] rail-star            r1 neutral  addonly n=4  2.364s
+  [15/16] rail-star            r1 neutral  wiki    n=4  2.378s
+  [16/16] rail-star            r3 restated full    n=4  2.316s
+  [16/16] rail-star            r3 restated delete  n=4  2.321s
+  [16/16] rail-star            r3 restated addonly n=4  2.374s
+  [16/16] rail-star            r3 restated wiki    n=4  2.356s
+  [16/16] rail-star            r3 neutral  full    n=4  2.311s
+  [16/16] rail-star            r3 neutral  delete  n=4  2.364s
+  [16/16] rail-star            r3 neutral  addonly n=4  2.294s
+  [16/16] rail-star            r3 neutral  wiki    n=4  2.394s
+
+  wrote results/e29_llama32-3b_o80.csv / .json
+  design   arm       n   rejected_included
+  full     restated  16  0.25             
+  full     neutral   16  0.312            
+  delete   restated  16  1                
+  delete   neutral   16  0.625            
+  addonly  restated  16  0.062            
+  addonly  neutral   16  0                
+  wiki     restated  16  0                
+  wiki     neutral   16  0                
+
+  parse 1.000   mean |plan| 4.00

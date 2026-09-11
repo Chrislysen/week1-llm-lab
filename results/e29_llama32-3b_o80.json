@@ -1,0 +1,1026 @@
+[
+ {
+  "instance": "rail-chain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Let's make sure we replace the relay before we call this done.\nSafety Auditor: Fine by me -- that is in.\nOperations Lead: The timetable amendment takes effect on Sunday.\nSafety Auditor: The permanent way team logged this last year.\nOperations Lead: Let's make sure we ground the catenary before we call this done.\nSafety Auditor: Let's not; that one is not needed here.\nOperations Lead: For the record, I did raise ground the catenary earlier in this discussion.\nSafety Auditor: Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  TEST_INTERLOCK  INSPECT_POINTS  GROUND_CATENARY  BLOCK_SECTION  CLEAR_SECTION  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"TEST_INTERLOCK\",\n    \"INSPECT_POINTS\",\n    \"REPLACE_RELAY\",\n    \"BLOCK_SECTION\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-chain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to replace the relay; Safety Auditor accepted it.\n- The timetable amendment takes effect on Sunday.\n- The permanent way team logged this last year.\n- Operations Lead noted that ground the catenary had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  TEST_INTERLOCK  INSPECT_POINTS  GROUND_CATENARY  BLOCK_SECTION  CLEAR_SECTION  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\n  \"GROUND_CATENARY\",\n  \"BLOCK_SECTION\",\n  \"REPLACE_RELAY\",\n  \"CLEAR_SECTION\"\n], \n\"ready\": true}"
+ },
+ {
+  "instance": "rail-chain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to replace the relay.\n- Safety Auditor accepted the proposal to replace the relay.\n- The timetable amendment takes effect on Sunday.\n- The permanent way team logged this last year.\n- Operations Lead proposed to ground the catenary.\n- Safety Auditor rejected the proposal to ground the catenary; it is not needed for this case.\n- Operations Lead noted that ground the catenary had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  TEST_INTERLOCK  INSPECT_POINTS  GROUND_CATENARY  BLOCK_SECTION  CLEAR_SECTION  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"TEST_INTERLOCK\", \"INSPECT_POINTS\", \"REPLACE_RELAY\", \"BLOCK_SECTION\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-chain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## replace the relay\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\n## discussion log\n- The timetable amendment takes effect on Sunday.\n- The permanent way team logged this last year.\n- Two crews are already on site at the depot.\n\n## ground the catenary\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n- noted again by Operations Lead: raised earlier in the discussion\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  TEST_INTERLOCK  INSPECT_POINTS  GROUND_CATENARY  BLOCK_SECTION  CLEAR_SECTION  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"REPLACE_RELAY\",\n    \"TEST_INTERLOCK\",\n    \"BLOCK_SECTION\",\n    \"CLEAR_SECTION\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-chain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Let's make sure we replace the relay before we call this done.\nSafety Auditor: Fine by me -- that is in.\nOperations Lead: The timetable amendment takes effect on Sunday.\nSafety Auditor: The permanent way team logged this last year.\nOperations Lead: Let's make sure we ground the catenary before we call this done.\nSafety Auditor: Let's not; that one is not needed here.\nOperations Lead: For the record, I did raise the written summary earlier in this discussion.\nSafety Auditor: Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  TEST_INTERLOCK  INSPECT_POINTS  GROUND_CATENARY  BLOCK_SECTION  CLEAR_SECTION  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"TEST_INTERLOCK\",\n    \"INSPECT_POINTS\",\n    \"REPLACE_RELAY\",\n    \"BLOCK_SECTION\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-chain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to replace the relay; Safety Auditor accepted it.\n- The timetable amendment takes effect on Sunday.\n- The permanent way team logged this last year.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  TEST_INTERLOCK  INSPECT_POINTS  GROUND_CATENARY  BLOCK_SECTION  CLEAR_SECTION  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\n  \"REPLACE_RELAY\",\n  \"TEST_INTERLOCK\",\n  \"BLOCK_SECTION\",\n  \"CLEAR_SECTION\"\n], \n\"ready\": true}"
+ },
+ {
+  "instance": "rail-chain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to replace the relay.\n- Safety Auditor accepted the proposal to replace the relay.\n- The timetable amendment takes effect on Sunday.\n- The permanent way team logged this last year.\n- Operations Lead proposed to ground the catenary.\n- Safety Auditor rejected the proposal to ground the catenary; it is not needed for this case.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  TEST_INTERLOCK  INSPECT_POINTS  GROUND_CATENARY  BLOCK_SECTION  CLEAR_SECTION  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"TEST_INTERLOCK\", \"INSPECT_POINTS\", \"REPLACE_RELAY\", \"BLOCK_SECTION\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-chain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## replace the relay\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\n## discussion log\n- The timetable amendment takes effect on Sunday.\n- The permanent way team logged this last year.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\n## ground the catenary\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  TEST_INTERLOCK  INSPECT_POINTS  GROUND_CATENARY  BLOCK_SECTION  CLEAR_SECTION  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"REPLACE_RELAY\",\n    \"TEST_INTERLOCK\",\n    \"INSPECT_POINTS\",\n    \"BLOCK_SECTION\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-chain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Weather is forecast dry until the evening.\nSafety Auditor: Let's make sure we ground the catenary before we call this done.\nOperations Lead: Let's make sure we replace the relay before we call this done.\nSafety Auditor: No, drop that one -- it is not needed for this case.\nOperations Lead: The timetable amendment takes effect on Sunday.\nSafety Auditor: The permanent way team logged this last year.\nOperations Lead: For the record, I did raise replace the relay earlier in this discussion.\nSafety Auditor: Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  TEST_INTERLOCK  INSPECT_POINTS  GROUND_CATENARY  BLOCK_SECTION  CLEAR_SECTION  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"TEST_INTERLOCK\", \"GROUND_CATENARY\", \"BLOCK_SECTION\", \"CLEAR_SECTION\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-chain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Weather is forecast dry until the evening.\n- Safety Auditor proposed to ground the catenary.\n- The timetable amendment takes effect on Sunday.\n- The permanent way team logged this last year.\n- Operations Lead noted that replace the relay had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  TEST_INTERLOCK  INSPECT_POINTS  GROUND_CATENARY  BLOCK_SECTION  CLEAR_SECTION  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\n  \"REPLACE_RELAY\",\n  \"BLOCK_SECTION\",\n  \"GROUND_CATENARY\",\n  \"TEST_INTERLOCK\"\n], \n\"ready\": true}"
+ },
+ {
+  "instance": "rail-chain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Weather is forecast dry until the evening.\n- Safety Auditor proposed to ground the catenary.\n- Operations Lead proposed to replace the relay.\n- Safety Auditor rejected the proposal to replace the relay; it is not needed for this case.\n- The timetable amendment takes effect on Sunday.\n- The permanent way team logged this last year.\n- Operations Lead noted that replace the relay had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  TEST_INTERLOCK  INSPECT_POINTS  GROUND_CATENARY  BLOCK_SECTION  CLEAR_SECTION  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"GROUND_CATENARY\",\n    \"TEST_INTERLOCK\",\n    \"INSPECT_POINTS\",\n    \"BLOCK_SECTION\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-chain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- Weather is forecast dry until the evening.\n- The timetable amendment takes effect on Sunday.\n- The permanent way team logged this last year.\n- Two crews are already on site at the depot.\n\n## ground the catenary\n- proposed by Safety Auditor\n\n## replace the relay\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n- noted again by Operations Lead: raised earlier in the discussion\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  TEST_INTERLOCK  INSPECT_POINTS  GROUND_CATENARY  BLOCK_SECTION  CLEAR_SECTION  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"TEST_INTERLOCK\",\n    \"INSPECT_POINTS\",\n    \"GROUND_CATENARY\",\n    \"BLOCK_SECTION\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-chain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Weather is forecast dry until the evening.\nSafety Auditor: Let's make sure we ground the catenary before we call this done.\nOperations Lead: Let's make sure we replace the relay before we call this done.\nSafety Auditor: No, drop that one -- it is not needed for this case.\nOperations Lead: The timetable amendment takes effect on Sunday.\nSafety Auditor: The permanent way team logged this last year.\nOperations Lead: For the record, I did raise the written summary earlier in this discussion.\nSafety Auditor: Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  TEST_INTERLOCK  INSPECT_POINTS  GROUND_CATENARY  BLOCK_SECTION  CLEAR_SECTION  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"TEST_INTERLOCK\", \"GROUND_CATENARY\", \"BLOCK_SECTION\", \"CLEAR_SECTION\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-chain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Weather is forecast dry until the evening.\n- Safety Auditor proposed to ground the catenary.\n- The timetable amendment takes effect on Sunday.\n- The permanent way team logged this last year.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  TEST_INTERLOCK  INSPECT_POINTS  GROUND_CATENARY  BLOCK_SECTION  CLEAR_SECTION  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\n  \"GROUND_CATENARY\",\n  \"TEST_INTERLOCK\",\n  \"INSPECT_POINTS\",\n  \"BLOCK_SECTION\"\n], \n\"ready\": true}"
+ },
+ {
+  "instance": "rail-chain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Weather is forecast dry until the evening.\n- Safety Auditor proposed to ground the catenary.\n- Operations Lead proposed to replace the relay.\n- Safety Auditor rejected the proposal to replace the relay; it is not needed for this case.\n- The timetable amendment takes effect on Sunday.\n- The permanent way team logged this last year.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  TEST_INTERLOCK  INSPECT_POINTS  GROUND_CATENARY  BLOCK_SECTION  CLEAR_SECTION  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"GROUND_CATENARY\",\n    \"TEST_INTERLOCK\",\n    \"INSPECT_POINTS\",\n    \"BLOCK_SECTION\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-chain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- Weather is forecast dry until the evening.\n- The timetable amendment takes effect on Sunday.\n- The permanent way team logged this last year.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\n## ground the catenary\n- proposed by Safety Auditor\n\n## replace the relay\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  TEST_INTERLOCK  INSPECT_POINTS  GROUND_CATENARY  BLOCK_SECTION  CLEAR_SECTION  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"TEST_INTERLOCK\",\n    \"INSPECT_POINTS\",\n    \"GROUND_CATENARY\",\n    \"BLOCK_SECTION\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-fork",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: We should test the interlock as part of this; I want it on the list.\nSafety Auditor: No, drop that one -- it is not needed for this case.\nOperations Lead: The permanent way team logged this last year.\nSafety Auditor: Let's make sure we replace the relay before we call this done.\nOperations Lead: Fine by me -- that is in.\nSafety Auditor: Two crews are already on site at the depot.\nOperations Lead: For the record, I did raise test the interlock earlier in this discussion.\nSafety Auditor: Weather is forecast dry until the evening.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  GROUND_CATENARY  INSPECT_POINTS  BLOCK_SECTION  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REPLACE_RELAY\", \"BLOCK_SECTION\", \"GROUND_CATENARY\", \"INSPECT_POINTS\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-fork",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The permanent way team logged this last year.\n- Safety Auditor proposed to replace the relay; Operations Lead accepted it.\n- Two crews are already on site at the depot.\n- Operations Lead noted that test the interlock had been raised earlier in the discussion.\n- Weather is forecast dry until the evening.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  GROUND_CATENARY  INSPECT_POINTS  BLOCK_SECTION  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\n  \"REPLACE_RELAY\",\n  \"TEST_INTERLOCK\",\n  \"BLOCK_SECTION\",\n  \"GROUND_CATENARY\"\n], \n\"ready\": true}"
+ },
+ {
+  "instance": "rail-fork",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to test the interlock.\n- Safety Auditor rejected the proposal to test the interlock; it is not needed for this case.\n- The permanent way team logged this last year.\n- Safety Auditor proposed to replace the relay.\n- Operations Lead accepted the proposal to replace the relay.\n- Two crews are already on site at the depot.\n- Operations Lead noted that test the interlock had been raised earlier in the discussion.\n- Weather is forecast dry until the evening.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  GROUND_CATENARY  INSPECT_POINTS  BLOCK_SECTION  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REPLACE_RELAY\", \"BLOCK_SECTION\", \"GROUND_CATENARY\", \"INSPECT_POINTS\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-fork",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## test the interlock\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n- noted again by Operations Lead: raised earlier in the discussion\n\n## discussion log\n- The permanent way team logged this last year.\n- Two crews are already on site at the depot.\n- Weather is forecast dry until the evening.\n\n## replace the relay\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  GROUND_CATENARY  INSPECT_POINTS  BLOCK_SECTION  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"REPLACE_RELAY\",\n    \"BLOCK_SECTION\",\n    \"GROUND_CATENARY\",\n    \"INSPECT_POINTS\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-fork",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: We should test the interlock as part of this; I want it on the list.\nSafety Auditor: No, drop that one -- it is not needed for this case.\nOperations Lead: The permanent way team logged this last year.\nSafety Auditor: Let's make sure we replace the relay before we call this done.\nOperations Lead: Fine by me -- that is in.\nSafety Auditor: Two crews are already on site at the depot.\nOperations Lead: For the record, I did raise the written summary earlier in this discussion.\nSafety Auditor: Weather is forecast dry until the evening.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  GROUND_CATENARY  INSPECT_POINTS  BLOCK_SECTION  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REPLACE_RELAY\", \"GROUND_CATENARY\", \"INSPECT_POINTS\", \"BLOCK_SECTION\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-fork",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The permanent way team logged this last year.\n- Safety Auditor proposed to replace the relay; Operations Lead accepted it.\n- Two crews are already on site at the depot.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Weather is forecast dry until the evening.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  GROUND_CATENARY  INSPECT_POINTS  BLOCK_SECTION  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\n  \"REPLACE_RELAY\",\n  \"TEST_INTERLOCK\",\n  \"INSPECT_POINTS\",\n  \"GROUND_CATENARY\"\n], \n\"ready\": true}"
+ },
+ {
+  "instance": "rail-fork",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to test the interlock.\n- Safety Auditor rejected the proposal to test the interlock; it is not needed for this case.\n- The permanent way team logged this last year.\n- Safety Auditor proposed to replace the relay.\n- Operations Lead accepted the proposal to replace the relay.\n- Two crews are already on site at the depot.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Weather is forecast dry until the evening.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  GROUND_CATENARY  INSPECT_POINTS  BLOCK_SECTION  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REPLACE_RELAY\", \"BLOCK_SECTION\", \"GROUND_CATENARY\", \"INSPECT_POINTS\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-fork",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## test the interlock\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n\n## discussion log\n- The permanent way team logged this last year.\n- Two crews are already on site at the depot.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Weather is forecast dry until the evening.\n\n## replace the relay\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  GROUND_CATENARY  INSPECT_POINTS  BLOCK_SECTION  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"REPLACE_RELAY\",\n    \"GROUND_CATENARY\",\n    \"BLOCK_SECTION\",\n    \"INSPECT_POINTS\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-fork",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Two crews are already on site at the depot.\nSafety Auditor: Let's make sure we replace the relay before we call this done.\nOperations Lead: No, drop that one -- it is not needed for this case.\nSafety Auditor: Weather is forecast dry until the evening.\nOperations Lead: We should test the interlock as part of this; I want it on the list.\nSafety Auditor: For the record, I did raise replace the relay earlier in this discussion.\nOperations Lead: The timetable amendment takes effect on Sunday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  GROUND_CATENARY  INSPECT_POINTS  BLOCK_SECTION  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"TEST_INTERLOCK\", \"REPLACE_RELAY\", \"GROUND_CATENARY\", \"BLOCK_SECTION\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-fork",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Two crews are already on site at the depot.\n- Weather is forecast dry until the evening.\n- Operations Lead proposed to test the interlock.\n- Safety Auditor noted that replace the relay had been raised earlier in the discussion.\n- The timetable amendment takes effect on Sunday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  GROUND_CATENARY  INSPECT_POINTS  BLOCK_SECTION  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\n  \"REPLACE_RELAY\",\n  \"TEST_INTERLOCK\",\n  \"INSPECT_POINTS\",\n  \"BLOCK_SECTION\"\n], \n\"ready\": true}"
+ },
+ {
+  "instance": "rail-fork",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Two crews are already on site at the depot.\n- Safety Auditor proposed to replace the relay.\n- Operations Lead rejected the proposal to replace the relay; it is not needed for this case.\n- Weather is forecast dry until the evening.\n- Operations Lead proposed to test the interlock.\n- Safety Auditor noted that replace the relay had been raised earlier in the discussion.\n- The timetable amendment takes effect on Sunday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  GROUND_CATENARY  INSPECT_POINTS  BLOCK_SECTION  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"INSPECT_POINTS\",\n    \"TEST_INTERLOCK\",\n    \"GROUND_CATENARY\",\n    \"BLOCK_SECTION\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-fork",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- Two crews are already on site at the depot.\n- Weather is forecast dry until the evening.\n- The timetable amendment takes effect on Sunday.\n\n## replace the relay\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n- noted again by Safety Auditor: raised earlier in the discussion\n\n## test the interlock\n- proposed by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  GROUND_CATENARY  INSPECT_POINTS  BLOCK_SECTION  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"TEST_INTERLOCK\",\n    \"INSPECT_POINTS\",\n    \"GROUND_CATENARY\",\n    \"CLEAR_SECTION\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-fork",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Two crews are already on site at the depot.\nSafety Auditor: Let's make sure we replace the relay before we call this done.\nOperations Lead: No, drop that one -- it is not needed for this case.\nSafety Auditor: Weather is forecast dry until the evening.\nOperations Lead: We should test the interlock as part of this; I want it on the list.\nSafety Auditor: For the record, I did raise the written summary earlier in this discussion.\nOperations Lead: The timetable amendment takes effect on Sunday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  GROUND_CATENARY  INSPECT_POINTS  BLOCK_SECTION  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"TEST_INTERLOCK\", \"REPLACE_RELAY\", \"GROUND_CATENARY\", \"BLOCK_SECTION\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-fork",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Two crews are already on site at the depot.\n- Weather is forecast dry until the evening.\n- Operations Lead proposed to test the interlock.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- The timetable amendment takes effect on Sunday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  GROUND_CATENARY  INSPECT_POINTS  BLOCK_SECTION  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"TEST_INTERLOCK\", \"INSPECT_POINTS\", \"REPLACE_RELAY\", \"BLOCK_SECTION\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-fork",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Two crews are already on site at the depot.\n- Safety Auditor proposed to replace the relay.\n- Operations Lead rejected the proposal to replace the relay; it is not needed for this case.\n- Weather is forecast dry until the evening.\n- Operations Lead proposed to test the interlock.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- The timetable amendment takes effect on Sunday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  GROUND_CATENARY  INSPECT_POINTS  BLOCK_SECTION  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"TEST_INTERLOCK\", \"INSPECT_POINTS\", \"GROUND_CATENARY\", \"BLOCK_SECTION\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-fork",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- Two crews are already on site at the depot.\n- Weather is forecast dry until the evening.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- The timetable amendment takes effect on Sunday.\n\n## replace the relay\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n\n## test the interlock\n- proposed by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  GROUND_CATENARY  INSPECT_POINTS  BLOCK_SECTION  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"GROUND_CATENARY\",\n    \"INSPECT_POINTS\",\n    \"TEST_INTERLOCK\",\n    \"BLOCK_SECTION\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-join",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Let's make sure we test the interlock before we call this done.\nSafety Auditor: No -- leave that out this time.\nOperations Lead: Let's make sure we replace the relay before we call this done.\nSafety Auditor: Fine by me -- that is in.\nOperations Lead: The timetable amendment takes effect on Sunday.\nSafety Auditor: Weather is forecast dry until the evening.\nOperations Lead: I'd add inspect the points to the plan for this one.\nSafety Auditor: The permanent way team logged this last year.\nOperations Lead: For the record, I did raise test the interlock earlier in this discussion.\nSafety Auditor: Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  BLOCK_SECTION  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"REPLACE_RELAY\",\n    \"BLOCK_SECTION\",\n    \"INSPECT_POINTS\",\n    \"CLEAR_SECTION\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-join",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to replace the relay; Safety Auditor accepted it.\n- The timetable amendment takes effect on Sunday.\n- Weather is forecast dry until the evening.\n- Operations Lead proposed to inspect the points.\n- The permanent way team logged this last year.\n- Operations Lead noted that test the interlock had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  BLOCK_SECTION  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\n  \"TEST_INTERLOCK\",\n  \"REPLACE_RELAY\",\n  \"INSPECT_POINTS\",\n  \"BLOCK_SECTION\"\n], \n\"ready\": true}"
+ },
+ {
+  "instance": "rail-join",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to test the interlock.\n- Safety Auditor rejected the proposal to test the interlock; it is not needed for this case.\n- Operations Lead proposed to replace the relay.\n- Safety Auditor accepted the proposal to replace the relay.\n- The timetable amendment takes effect on Sunday.\n- Weather is forecast dry until the evening.\n- Operations Lead proposed to inspect the points.\n- The permanent way team logged this last year.\n- Operations Lead noted that test the interlock had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  BLOCK_SECTION  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REPLACE_RELAY\", \"BLOCK_SECTION\", \"TEST_INTERLOCK\", \"GROUND_CATENARY\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-join",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## test the interlock\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n- noted again by Operations Lead: raised earlier in the discussion\n\n## replace the relay\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\n## discussion log\n- The timetable amendment takes effect on Sunday.\n- Weather is forecast dry until the evening.\n- The permanent way team logged this last year.\n- Two crews are already on site at the depot.\n\n## inspect the points\n- proposed by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  BLOCK_SECTION  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"REPLACE_RELAY\",\n    \"BLOCK_SECTION\",\n    \"GROUND_CATENARY\",\n    \"CLEAR_SECTION\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-join",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Let's make sure we test the interlock before we call this done.\nSafety Auditor: No -- leave that out this time.\nOperations Lead: Let's make sure we replace the relay before we call this done.\nSafety Auditor: Fine by me -- that is in.\nOperations Lead: The timetable amendment takes effect on Sunday.\nSafety Auditor: Weather is forecast dry until the evening.\nOperations Lead: I'd add inspect the points to the plan for this one.\nSafety Auditor: The permanent way team logged this last year.\nOperations Lead: For the record, I did raise the written summary earlier in this discussion.\nSafety Auditor: Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  BLOCK_SECTION  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REPLACE_RELAY\", \"BLOCK_SECTION\", \"GROUND_CATENARY\", \"INSPECT_POINTS\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-join",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to replace the relay; Safety Auditor accepted it.\n- The timetable amendment takes effect on Sunday.\n- Weather is forecast dry until the evening.\n- Operations Lead proposed to inspect the points.\n- The permanent way team logged this last year.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  BLOCK_SECTION  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"REPLACE_RELAY\",\n    \"TEST_INTERLOCK\",\n    \"INSPECT_POINTS\",\n    \"BLOCK_SECTION\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-join",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to test the interlock.\n- Safety Auditor rejected the proposal to test the interlock; it is not needed for this case.\n- Operations Lead proposed to replace the relay.\n- Safety Auditor accepted the proposal to replace the relay.\n- The timetable amendment takes effect on Sunday.\n- Weather is forecast dry until the evening.\n- Operations Lead proposed to inspect the points.\n- The permanent way team logged this last year.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  BLOCK_SECTION  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REPLACE_RELAY\", \"BLOCK_SECTION\", \"INSPECT_POINTS\", \"CLEAR_SECTION\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-join",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## test the interlock\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n\n## replace the relay\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\n## discussion log\n- The timetable amendment takes effect on Sunday.\n- Weather is forecast dry until the evening.\n- The permanent way team logged this last year.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\n## inspect the points\n- proposed by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  BLOCK_SECTION  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"REPLACE_RELAY\",\n    \"BLOCK_SECTION\",\n    \"GROUND_CATENARY\",\n    \"CLEAR_SECTION\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-join",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Let's make sure we replace the relay before we call this done.\nSafety Auditor: No -- leave that out this time.\nOperations Lead: The permanent way team logged this last year.\nSafety Auditor: Weather is forecast dry until the evening.\nOperations Lead: Let's make sure we test the interlock before we call this done.\nSafety Auditor: The timetable amendment takes effect on Sunday.\nOperations Lead: For the record, I did raise replace the relay earlier in this discussion.\nSafety Auditor: Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  BLOCK_SECTION  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"TEST_INTERLOCK\",\n    \"BLOCK_SECTION\",\n    \"GROUND_CATENARY\",\n    \"INSPECT_POINTS\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-join",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The permanent way team logged this last year.\n- Weather is forecast dry until the evening.\n- Operations Lead proposed to test the interlock.\n- The timetable amendment takes effect on Sunday.\n- Operations Lead noted that replace the relay had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  BLOCK_SECTION  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\n  \"REPLACE_RELAY\",\n  \"TEST_INTERLOCK\",\n  \"BLOCK_SECTION\",\n  \"CLEAR_SECTION\"\n], \n\"ready\": true}"
+ },
+ {
+  "instance": "rail-join",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to replace the relay.\n- Safety Auditor rejected the proposal to replace the relay; it is not needed for this case.\n- The permanent way team logged this last year.\n- Weather is forecast dry until the evening.\n- Operations Lead proposed to test the interlock.\n- The timetable amendment takes effect on Sunday.\n- Operations Lead noted that replace the relay had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  BLOCK_SECTION  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"TEST_INTERLOCK\", \"INSPECT_POINTS\", \"BLOCK_SECTION\", \"GROUND_CATENARY\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-join",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## replace the relay\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n- noted again by Operations Lead: raised earlier in the discussion\n\n## discussion log\n- The permanent way team logged this last year.\n- Weather is forecast dry until the evening.\n- The timetable amendment takes effect on Sunday.\n- Two crews are already on site at the depot.\n\n## test the interlock\n- proposed by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  BLOCK_SECTION  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"TEST_INTERLOCK\",\n    \"BLOCK_SECTION\",\n    \"GROUND_CATENARY\",\n    \"CLEAR_SECTION\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-join",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Let's make sure we replace the relay before we call this done.\nSafety Auditor: No -- leave that out this time.\nOperations Lead: The permanent way team logged this last year.\nSafety Auditor: Weather is forecast dry until the evening.\nOperations Lead: Let's make sure we test the interlock before we call this done.\nSafety Auditor: The timetable amendment takes effect on Sunday.\nOperations Lead: For the record, I did raise the written summary earlier in this discussion.\nSafety Auditor: Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  BLOCK_SECTION  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"TEST_INTERLOCK\", \"BLOCK_SECTION\", \"GROUND_CATENARY\", \"REPLACE_RELAY\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-join",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The permanent way team logged this last year.\n- Weather is forecast dry until the evening.\n- Operations Lead proposed to test the interlock.\n- The timetable amendment takes effect on Sunday.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  BLOCK_SECTION  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\n  \"TEST_INTERLOCK\",\n  \"INSPECT_POINTS\",\n  \"BLOCK_SECTION\",\n  \"CLEAR_SECTION\"\n], \n\"ready\": true}"
+ },
+ {
+  "instance": "rail-join",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to replace the relay.\n- Safety Auditor rejected the proposal to replace the relay; it is not needed for this case.\n- The permanent way team logged this last year.\n- Weather is forecast dry until the evening.\n- Operations Lead proposed to test the interlock.\n- The timetable amendment takes effect on Sunday.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  BLOCK_SECTION  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"TEST_INTERLOCK\",\n    \"BLOCK_SECTION\",\n    \"GROUND_CATENARY\",\n    \"INSPECT_POINTS\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-join",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## replace the relay\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n\n## discussion log\n- The permanent way team logged this last year.\n- Weather is forecast dry until the evening.\n- The timetable amendment takes effect on Sunday.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\n## test the interlock\n- proposed by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  BLOCK_SECTION  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"TEST_INTERLOCK\",\n    \"BLOCK_SECTION\",\n    \"GROUND_CATENARY\",\n    \"CLEAR_SECTION\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-join",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: The permanent way team logged this last year.\nSafety Auditor: Let's make sure we test the interlock before we call this done.\nOperations Lead: Agreed, keep that in.\nSafety Auditor: I'd add inspect the points to the plan for this one.\nOperations Lead: No, drop that one -- it is not needed for this case.\nSafety Auditor: The timetable amendment takes effect on Sunday.\nOperations Lead: Weather is forecast dry until the evening.\nSafety Auditor: For the record, I did raise inspect the points earlier in this discussion.\nOperations Lead: Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  BLOCK_SECTION  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"TEST_INTERLOCK\", \"REPLACE_RELAY\", \"BLOCK_SECTION\", \"CLEAR_SECTION\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-join",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The permanent way team logged this last year.\n- Safety Auditor proposed to test the interlock; Operations Lead accepted it.\n- The timetable amendment takes effect on Sunday.\n- Weather is forecast dry until the evening.\n- Safety Auditor noted that inspect the points had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  BLOCK_SECTION  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\n  \"TEST_INTERLOCK\",\n  \"INSPECT_POINTS\",\n  \"CLEAR_SECTION\",\n  \"BLOCK_SECTION\"\n], \n\"ready\": true}"
+ },
+ {
+  "instance": "rail-join",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The permanent way team logged this last year.\n- Safety Auditor proposed to test the interlock.\n- Operations Lead accepted the proposal to test the interlock.\n- Safety Auditor proposed to inspect the points.\n- Operations Lead rejected the proposal to inspect the points; it is not needed for this case.\n- The timetable amendment takes effect on Sunday.\n- Weather is forecast dry until the evening.\n- Safety Auditor noted that inspect the points had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  BLOCK_SECTION  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"TEST_INTERLOCK\",\n    \"BLOCK_SECTION\",\n    \"GROUND_CATENARY\",\n    \"REPLACE_RELAY\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-join",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The permanent way team logged this last year.\n- The timetable amendment takes effect on Sunday.\n- Weather is forecast dry until the evening.\n- Two crews are already on site at the depot.\n\n## test the interlock\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\n## inspect the points\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n- noted again by Safety Auditor: raised earlier in the discussion\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  BLOCK_SECTION  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"TEST_INTERLOCK\",\n    \"BLOCK_SECTION\",\n    \"GROUND_CATENARY\",\n    \"REPLACE_RELAY\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-join",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: The permanent way team logged this last year.\nSafety Auditor: Let's make sure we test the interlock before we call this done.\nOperations Lead: Agreed, keep that in.\nSafety Auditor: I'd add inspect the points to the plan for this one.\nOperations Lead: No, drop that one -- it is not needed for this case.\nSafety Auditor: The timetable amendment takes effect on Sunday.\nOperations Lead: Weather is forecast dry until the evening.\nSafety Auditor: For the record, I did raise the written summary earlier in this discussion.\nOperations Lead: Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  BLOCK_SECTION  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"TEST_INTERLOCK\", \"REPLACE_RELAY\", \"BLOCK_SECTION\", \"CLEAR_SECTION\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-join",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The permanent way team logged this last year.\n- Safety Auditor proposed to test the interlock; Operations Lead accepted it.\n- The timetable amendment takes effect on Sunday.\n- Weather is forecast dry until the evening.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  BLOCK_SECTION  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\n  \"TEST_INTERLOCK\",\n  \"INSPECT_POINTS\",\n  \"REPLACE_RELAY\",\n  \"BLOCK_SECTION\"\n], \n\"ready\": true}"
+ },
+ {
+  "instance": "rail-join",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The permanent way team logged this last year.\n- Safety Auditor proposed to test the interlock.\n- Operations Lead accepted the proposal to test the interlock.\n- Safety Auditor proposed to inspect the points.\n- Operations Lead rejected the proposal to inspect the points; it is not needed for this case.\n- The timetable amendment takes effect on Sunday.\n- Weather is forecast dry until the evening.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  BLOCK_SECTION  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"TEST_INTERLOCK\",\n    \"GROUND_CATENARY\",\n    \"BLOCK_SECTION\",\n    \"REPLACE_RELAY\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-join",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The permanent way team logged this last year.\n- The timetable amendment takes effect on Sunday.\n- Weather is forecast dry until the evening.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\n## test the interlock\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\n## inspect the points\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  BLOCK_SECTION  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"TEST_INTERLOCK\",\n    \"GROUND_CATENARY\",\n    \"BLOCK_SECTION\",\n    \"REPLACE_RELAY\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-diamond",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: We should replace the relay as part of this; I want it on the list.\nSafety Auditor: Let's not; that one is not needed here.\nOperations Lead: The timetable amendment takes effect on Sunday.\nSafety Auditor: We should ground the catenary as part of this; I want it on the list.\nOperations Lead: Yes, that one stays on the list.\nSafety Auditor: Let's make sure we inspect the points before we call this done.\nOperations Lead: The permanent way team logged this last year.\nSafety Auditor: Weather is forecast dry until the evening.\nOperations Lead: For the record, I did raise replace the relay earlier in this discussion.\nSafety Auditor: Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  BLOCK_SECTION  TEST_INTERLOCK  INSPECT_POINTS  REPLACE_RELAY  GROUND_CATENARY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_SECTION\", \"REPLACE_RELAY\", \"GROUND_CATENARY\", \"TEST_INTERLOCK\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-diamond",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The timetable amendment takes effect on Sunday.\n- Safety Auditor proposed to ground the catenary; Operations Lead accepted it.\n- Safety Auditor proposed to inspect the points.\n- The permanent way team logged this last year.\n- Weather is forecast dry until the evening.\n- Operations Lead noted that replace the relay had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  BLOCK_SECTION  TEST_INTERLOCK  INSPECT_POINTS  REPLACE_RELAY  GROUND_CATENARY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\n  \"REPLACE_RELAY\",\n  \"TEST_INTERLOCK\",\n  \"INSPECT_POINTS\",\n  \"GROUND_CATENARY\"\n], \n\"ready\": true}"
+ },
+ {
+  "instance": "rail-diamond",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to replace the relay.\n- Safety Auditor rejected the proposal to replace the relay; it is not needed for this case.\n- The timetable amendment takes effect on Sunday.\n- Safety Auditor proposed to ground the catenary.\n- Operations Lead accepted the proposal to ground the catenary.\n- Safety Auditor proposed to inspect the points.\n- The permanent way team logged this last year.\n- Weather is forecast dry until the evening.\n- Operations Lead noted that replace the relay had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  BLOCK_SECTION  TEST_INTERLOCK  INSPECT_POINTS  REPLACE_RELAY  GROUND_CATENARY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"TEST_INTERLOCK\", \"INSPECT_POINTS\", \"GROUND_CATENARY\", \"BLOCK_SECTION\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-diamond",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## replace the relay\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n- noted again by Operations Lead: raised earlier in the discussion\n\n## discussion log\n- The timetable amendment takes effect on Sunday.\n- The permanent way team logged this last year.\n- Weather is forecast dry until the evening.\n- Two crews are already on site at the depot.\n\n## ground the catenary\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\n## inspect the points\n- proposed by Safety Auditor\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  BLOCK_SECTION  TEST_INTERLOCK  INSPECT_POINTS  REPLACE_RELAY  GROUND_CATENARY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"GROUND_CATENARY\",\n    \"INSPECT_POINTS\",\n    \"BLOCK_SECTION\",\n    \"TEST_INTERLOCK\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-diamond",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: We should replace the relay as part of this; I want it on the list.\nSafety Auditor: Let's not; that one is not needed here.\nOperations Lead: The timetable amendment takes effect on Sunday.\nSafety Auditor: We should ground the catenary as part of this; I want it on the list.\nOperations Lead: Yes, that one stays on the list.\nSafety Auditor: Let's make sure we inspect the points before we call this done.\nOperations Lead: The permanent way team logged this last year.\nSafety Auditor: Weather is forecast dry until the evening.\nOperations Lead: For the record, I did raise the written summary earlier in this discussion.\nSafety Auditor: Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  BLOCK_SECTION  TEST_INTERLOCK  INSPECT_POINTS  REPLACE_RELAY  GROUND_CATENARY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_SECTION\", \"REPLACE_RELAY\", \"GROUND_CATENARY\", \"TEST_INTERLOCK\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-diamond",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The timetable amendment takes effect on Sunday.\n- Safety Auditor proposed to ground the catenary; Operations Lead accepted it.\n- Safety Auditor proposed to inspect the points.\n- The permanent way team logged this last year.\n- Weather is forecast dry until the evening.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  BLOCK_SECTION  TEST_INTERLOCK  INSPECT_POINTS  REPLACE_RELAY  GROUND_CATENARY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\n  \"GROUND_CATENARY\",\n  \"INSPECT_POINTS\",\n  \"TEST_INTERLOCK\",\n  \"BLOCK_SECTION\"\n], \n\"ready\": true}"
+ },
+ {
+  "instance": "rail-diamond",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to replace the relay.\n- Safety Auditor rejected the proposal to replace the relay; it is not needed for this case.\n- The timetable amendment takes effect on Sunday.\n- Safety Auditor proposed to ground the catenary.\n- Operations Lead accepted the proposal to ground the catenary.\n- Safety Auditor proposed to inspect the points.\n- The permanent way team logged this last year.\n- Weather is forecast dry until the evening.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  BLOCK_SECTION  TEST_INTERLOCK  INSPECT_POINTS  REPLACE_RELAY  GROUND_CATENARY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"GROUND_CATENARY\",\n    \"TEST_INTERLOCK\",\n    \"INSPECT_POINTS\",\n    \"CLEAR_SECTION\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-diamond",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## replace the relay\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n\n## discussion log\n- The timetable amendment takes effect on Sunday.\n- The permanent way team logged this last year.\n- Weather is forecast dry until the evening.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\n## ground the catenary\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\n## inspect the points\n- proposed by Safety Auditor\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  BLOCK_SECTION  TEST_INTERLOCK  INSPECT_POINTS  REPLACE_RELAY  GROUND_CATENARY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"GROUND_CATENARY\",\n    \"TEST_INTERLOCK\",\n    \"INSPECT_POINTS\",\n    \"CLEAR_SECTION\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-diamond",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: We should replace the relay as part of this; I want it on the list.\nSafety Auditor: Two crews are already on site at the depot.\nOperations Lead: Weather is forecast dry until the evening.\nSafety Auditor: We should ground the catenary as part of this; I want it on the list.\nOperations Lead: No, drop that one -- it is not needed for this case.\nSafety Auditor: For the record, I did raise ground the catenary earlier in this discussion.\nOperations Lead: The permanent way team logged this last year.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  BLOCK_SECTION  TEST_INTERLOCK  INSPECT_POINTS  REPLACE_RELAY  GROUND_CATENARY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REPLACE_RELAY\", \"TEST_INTERLOCK\", \"INSPECT_POINTS\", \"CLEAR_SECTION\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-diamond",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to replace the relay.\n- Two crews are already on site at the depot.\n- Weather is forecast dry until the evening.\n- Safety Auditor noted that ground the catenary had been raised earlier in the discussion.\n- The permanent way team logged this last year.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  BLOCK_SECTION  TEST_INTERLOCK  INSPECT_POINTS  REPLACE_RELAY  GROUND_CATENARY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\n  \"GROUND_CATENARY\",\n  \"REPLACE_RELAY\",\n  \"TEST_INTERLOCK\",\n  \"INSPECT_POINTS\"\n], \n\"ready\": true}"
+ },
+ {
+  "instance": "rail-diamond",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to replace the relay.\n- Two crews are already on site at the depot.\n- Weather is forecast dry until the evening.\n- Safety Auditor proposed to ground the catenary.\n- Operations Lead rejected the proposal to ground the catenary; it is not needed for this case.\n- Safety Auditor noted that ground the catenary had been raised earlier in the discussion.\n- The permanent way team logged this last year.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  BLOCK_SECTION  TEST_INTERLOCK  INSPECT_POINTS  REPLACE_RELAY  GROUND_CATENARY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REPLACE_RELAY\", \"TEST_INTERLOCK\", \"INSPECT_POINTS\", \"BLOCK_SECTION\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-diamond",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## replace the relay\n- proposed by Operations Lead\n\n## discussion log\n- Two crews are already on site at the depot.\n- Weather is forecast dry until the evening.\n- The permanent way team logged this last year.\n\n## ground the catenary\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n- noted again by Safety Auditor: raised earlier in the discussion\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  BLOCK_SECTION  TEST_INTERLOCK  INSPECT_POINTS  REPLACE_RELAY  GROUND_CATENARY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"REPLACE_RELAY\",\n    \"TEST_INTERLOCK\",\n    \"INSPECT_POINTS\",\n    \"BLOCK_SECTION\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-diamond",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: We should replace the relay as part of this; I want it on the list.\nSafety Auditor: Two crews are already on site at the depot.\nOperations Lead: Weather is forecast dry until the evening.\nSafety Auditor: We should ground the catenary as part of this; I want it on the list.\nOperations Lead: No, drop that one -- it is not needed for this case.\nSafety Auditor: For the record, I did raise the written summary earlier in this discussion.\nOperations Lead: The permanent way team logged this last year.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  BLOCK_SECTION  TEST_INTERLOCK  INSPECT_POINTS  REPLACE_RELAY  GROUND_CATENARY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REPLACE_RELAY\", \"TEST_INTERLOCK\", \"INSPECT_POINTS\", \"CLEAR_SECTION\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-diamond",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to replace the relay.\n- Two crews are already on site at the depot.\n- Weather is forecast dry until the evening.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- The permanent way team logged this last year.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  BLOCK_SECTION  TEST_INTERLOCK  INSPECT_POINTS  REPLACE_RELAY  GROUND_CATENARY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\n  \"REPLACE_RELAY\",\n  \"TEST_INTERLOCK\",\n  \"INSPECT_POINTS\",\n  \"GROUND_CATENARY\"\n], \n\"ready\": true}"
+ },
+ {
+  "instance": "rail-diamond",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to replace the relay.\n- Two crews are already on site at the depot.\n- Weather is forecast dry until the evening.\n- Safety Auditor proposed to ground the catenary.\n- Operations Lead rejected the proposal to ground the catenary; it is not needed for this case.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- The permanent way team logged this last year.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  BLOCK_SECTION  TEST_INTERLOCK  INSPECT_POINTS  REPLACE_RELAY  GROUND_CATENARY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REPLACE_RELAY\", \"TEST_INTERLOCK\", \"INSPECT_POINTS\", \"BLOCK_SECTION\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-diamond",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## replace the relay\n- proposed by Operations Lead\n\n## discussion log\n- Two crews are already on site at the depot.\n- Weather is forecast dry until the evening.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- The permanent way team logged this last year.\n\n## ground the catenary\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  BLOCK_SECTION  TEST_INTERLOCK  INSPECT_POINTS  REPLACE_RELAY  GROUND_CATENARY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"REPLACE_RELAY\",\n    \"TEST_INTERLOCK\",\n    \"INSPECT_POINTS\",\n    \"CLEAR_SECTION\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-diamond",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Let's make sure we inspect the points before we call this done.\nSafety Auditor: Let's not; that one is not needed here.\nOperations Lead: The permanent way team logged this last year.\nSafety Auditor: The timetable amendment takes effect on Sunday.\nOperations Lead: We should replace the relay as part of this; I want it on the list.\nSafety Auditor: Fine by me -- that is in.\nOperations Lead: For the record, I did raise inspect the points earlier in this discussion.\nSafety Auditor: Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  BLOCK_SECTION  TEST_INTERLOCK  INSPECT_POINTS  REPLACE_RELAY  GROUND_CATENARY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"TEST_INTERLOCK\", \"REPLACE_RELAY\", \"GROUND_CATENARY\", \"BLOCK_SECTION\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-diamond",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The permanent way team logged this last year.\n- The timetable amendment takes effect on Sunday.\n- Operations Lead proposed to replace the relay; Safety Auditor accepted it.\n- Operations Lead noted that inspect the points had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  BLOCK_SECTION  TEST_INTERLOCK  INSPECT_POINTS  REPLACE_RELAY  GROUND_CATENARY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\n  \"GROUND_CATENARY\",\n  \"REPLACE_RELAY\",\n  \"TEST_INTERLOCK\",\n  \"INSPECT_POINTS\"\n], \n\"ready\": true}"
+ },
+ {
+  "instance": "rail-diamond",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to inspect the points.\n- Safety Auditor rejected the proposal to inspect the points; it is not needed for this case.\n- The permanent way team logged this last year.\n- The timetable amendment takes effect on Sunday.\n- Operations Lead proposed to replace the relay.\n- Safety Auditor accepted the proposal to replace the relay.\n- Operations Lead noted that inspect the points had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  BLOCK_SECTION  TEST_INTERLOCK  INSPECT_POINTS  REPLACE_RELAY  GROUND_CATENARY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REPLACE_RELAY\", \"TEST_INTERLOCK\", \"BLOCK_SECTION\", \"GROUND_CATENARY\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-diamond",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## inspect the points\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n- noted again by Operations Lead: raised earlier in the discussion\n\n## discussion log\n- The permanent way team logged this last year.\n- The timetable amendment takes effect on Sunday.\n- Two crews are already on site at the depot.\n\n## replace the relay\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  BLOCK_SECTION  TEST_INTERLOCK  INSPECT_POINTS  REPLACE_RELAY  GROUND_CATENARY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"REPLACE_RELAY\",\n    \"TEST_INTERLOCK\",\n    \"BLOCK_SECTION\",\n    \"GROUND_CATENARY\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-diamond",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Let's make sure we inspect the points before we call this done.\nSafety Auditor: Let's not; that one is not needed here.\nOperations Lead: The permanent way team logged this last year.\nSafety Auditor: The timetable amendment takes effect on Sunday.\nOperations Lead: We should replace the relay as part of this; I want it on the list.\nSafety Auditor: Fine by me -- that is in.\nOperations Lead: For the record, I did raise the written summary earlier in this discussion.\nSafety Auditor: Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  BLOCK_SECTION  TEST_INTERLOCK  INSPECT_POINTS  REPLACE_RELAY  GROUND_CATENARY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"TEST_INTERLOCK\", \"REPLACE_RELAY\", \"GROUND_CATENARY\", \"BLOCK_SECTION\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-diamond",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The permanent way team logged this last year.\n- The timetable amendment takes effect on Sunday.\n- Operations Lead proposed to replace the relay; Safety Auditor accepted it.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  BLOCK_SECTION  TEST_INTERLOCK  INSPECT_POINTS  REPLACE_RELAY  GROUND_CATENARY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\n  \"REPLACE_RELAY\",\n  \"TEST_INTERLOCK\",\n  \"INSPECT_POINTS\",\n  \"BLOCK_SECTION\"\n], \n\"ready\": true}"
+ },
+ {
+  "instance": "rail-diamond",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to inspect the points.\n- Safety Auditor rejected the proposal to inspect the points; it is not needed for this case.\n- The permanent way team logged this last year.\n- The timetable amendment takes effect on Sunday.\n- Operations Lead proposed to replace the relay.\n- Safety Auditor accepted the proposal to replace the relay.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  BLOCK_SECTION  TEST_INTERLOCK  INSPECT_POINTS  REPLACE_RELAY  GROUND_CATENARY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REPLACE_RELAY\", \"TEST_INTERLOCK\", \"BLOCK_SECTION\", \"GROUND_CATENARY\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-diamond",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## inspect the points\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n\n## discussion log\n- The permanent way team logged this last year.\n- The timetable amendment takes effect on Sunday.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\n## replace the relay\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CLEAR_SECTION  BLOCK_SECTION  TEST_INTERLOCK  INSPECT_POINTS  REPLACE_RELAY  GROUND_CATENARY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"REPLACE_RELAY\",\n    \"TEST_INTERLOCK\",\n    \"GROUND_CATENARY\",\n    \"BLOCK_SECTION\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-twochain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: We should replace the relay as part of this; I want it on the list.\nSafety Auditor: Yes, that one stays on the list.\nOperations Lead: I'd add clear the section to the plan for this one.\nSafety Auditor: The timetable amendment takes effect on Sunday.\nOperations Lead: Two crews are already on site at the depot.\nSafety Auditor: Let's make sure we test the interlock before we call this done.\nOperations Lead: Let's not; that one is not needed here.\nSafety Auditor: For the record, I did raise test the interlock earlier in this discussion.\nOperations Lead: Weather is forecast dry until the evening.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  GROUND_CATENARY  BLOCK_SECTION  CLEAR_SECTION  TEST_INTERLOCK  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REPLACE_RELAY\", \"CLEAR_SECTION\", \"INSPECT_POINTS\", \"GROUND_CATENARY\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-twochain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to replace the relay; Safety Auditor accepted it.\n- Operations Lead proposed to clear the section.\n- The timetable amendment takes effect on Sunday.\n- Two crews are already on site at the depot.\n- Safety Auditor noted that test the interlock had been raised earlier in the discussion.\n- Weather is forecast dry until the evening.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  GROUND_CATENARY  BLOCK_SECTION  CLEAR_SECTION  TEST_INTERLOCK  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\n  \"REPLACE_RELAY\",\n  \"TEST_INTERLOCK\",\n  \"CLEAR_SECTION\",\n  \"BLOCK_SECTION\"\n], \n\"ready\": true}"
+ },
+ {
+  "instance": "rail-twochain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to replace the relay.\n- Safety Auditor accepted the proposal to replace the relay.\n- Operations Lead proposed to clear the section.\n- The timetable amendment takes effect on Sunday.\n- Two crews are already on site at the depot.\n- Safety Auditor proposed to test the interlock.\n- Operations Lead rejected the proposal to test the interlock; it is not needed for this case.\n- Safety Auditor noted that test the interlock had been raised earlier in the discussion.\n- Weather is forecast dry until the evening.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  GROUND_CATENARY  BLOCK_SECTION  CLEAR_SECTION  TEST_INTERLOCK  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CLEAR_SECTION\", \"REPLACE_RELAY\", \"INSPECT_POINTS\", \"BLOCK_SECTION\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-twochain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## replace the relay\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\n## clear the section\n- proposed by Operations Lead\n\n## discussion log\n- The timetable amendment takes effect on Sunday.\n- Two crews are already on site at the depot.\n- Weather is forecast dry until the evening.\n\n## test the interlock\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n- noted again by Safety Auditor: raised earlier in the discussion\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  GROUND_CATENARY  BLOCK_SECTION  CLEAR_SECTION  TEST_INTERLOCK  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"CLEAR_SECTION\",\n    \"REPLACE_RELAY\",\n    \"GROUND_CATENARY\",\n    \"INSPECT_POINTS\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-twochain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: We should replace the relay as part of this; I want it on the list.\nSafety Auditor: Yes, that one stays on the list.\nOperations Lead: I'd add clear the section to the plan for this one.\nSafety Auditor: The timetable amendment takes effect on Sunday.\nOperations Lead: Two crews are already on site at the depot.\nSafety Auditor: Let's make sure we test the interlock before we call this done.\nOperations Lead: Let's not; that one is not needed here.\nSafety Auditor: For the record, I did raise the written summary earlier in this discussion.\nOperations Lead: Weather is forecast dry until the evening.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  GROUND_CATENARY  BLOCK_SECTION  CLEAR_SECTION  TEST_INTERLOCK  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REPLACE_RELAY\", \"CLEAR_SECTION\", \"INSPECT_POINTS\", \"GROUND_CATENARY\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-twochain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to replace the relay; Safety Auditor accepted it.\n- Operations Lead proposed to clear the section.\n- The timetable amendment takes effect on Sunday.\n- Two crews are already on site at the depot.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- Weather is forecast dry until the evening.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  GROUND_CATENARY  BLOCK_SECTION  CLEAR_SECTION  TEST_INTERLOCK  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\n  \"REPLACE_RELAY\",\n  \"CLEAR_SECTION\",\n  \"TEST_INTERLOCK\",\n  \"INSPECT_POINTS\"\n], \n\"ready\": true}"
+ },
+ {
+  "instance": "rail-twochain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to replace the relay.\n- Safety Auditor accepted the proposal to replace the relay.\n- Operations Lead proposed to clear the section.\n- The timetable amendment takes effect on Sunday.\n- Two crews are already on site at the depot.\n- Safety Auditor proposed to test the interlock.\n- Operations Lead rejected the proposal to test the interlock; it is not needed for this case.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- Weather is forecast dry until the evening.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  GROUND_CATENARY  BLOCK_SECTION  CLEAR_SECTION  TEST_INTERLOCK  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CLEAR_SECTION\", \"REPLACE_RELAY\", \"INSPECT_POINTS\", \"BLOCK_SECTION\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-twochain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## replace the relay\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\n## clear the section\n- proposed by Operations Lead\n\n## discussion log\n- The timetable amendment takes effect on Sunday.\n- Two crews are already on site at the depot.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- Weather is forecast dry until the evening.\n\n## test the interlock\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  GROUND_CATENARY  BLOCK_SECTION  CLEAR_SECTION  TEST_INTERLOCK  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"CLEAR_SECTION\",\n    \"REPLACE_RELAY\",\n    \"GROUND_CATENARY\",\n    \"INSPECT_POINTS\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-twochain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: The permanent way team logged this last year.\nSafety Auditor: Two crews are already on site at the depot.\nOperations Lead: We should replace the relay as part of this; I want it on the list.\nSafety Auditor: No, drop that one -- it is not needed for this case.\nOperations Lead: Let's make sure we test the interlock before we call this done.\nSafety Auditor: The timetable amendment takes effect on Sunday.\nOperations Lead: For the record, I did raise replace the relay earlier in this discussion.\nSafety Auditor: Weather is forecast dry until the evening.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  GROUND_CATENARY  BLOCK_SECTION  CLEAR_SECTION  TEST_INTERLOCK  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"TEST_INTERLOCK\",\n    \"CLEAR_SECTION\",\n    \"INSPECT_POINTS\",\n    \"REPLACE_RELAY\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-twochain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The permanent way team logged this last year.\n- Two crews are already on site at the depot.\n- Operations Lead proposed to test the interlock.\n- The timetable amendment takes effect on Sunday.\n- Operations Lead noted that replace the relay had been raised earlier in the discussion.\n- Weather is forecast dry until the evening.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  GROUND_CATENARY  BLOCK_SECTION  CLEAR_SECTION  TEST_INTERLOCK  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\n  \"REPLACE_RELAY\",\n  \"TEST_INTERLOCK\",\n  \"GROUND_CATENARY\",\n  \"INSPECT_POINTS\"\n], \n\"ready\": true}"
+ },
+ {
+  "instance": "rail-twochain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The permanent way team logged this last year.\n- Two crews are already on site at the depot.\n- Operations Lead proposed to replace the relay.\n- Safety Auditor rejected the proposal to replace the relay; it is not needed for this case.\n- Operations Lead proposed to test the interlock.\n- The timetable amendment takes effect on Sunday.\n- Operations Lead noted that replace the relay had been raised earlier in the discussion.\n- Weather is forecast dry until the evening.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  GROUND_CATENARY  BLOCK_SECTION  CLEAR_SECTION  TEST_INTERLOCK  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\n  \"TEST_INTERLOCK\",\n  \"INSPECT_POINTS\",\n  \"GROUND_CATENARY\",\n  \"CLEAR_SECTION\"\n], \n\"ready\": true}"
+ },
+ {
+  "instance": "rail-twochain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The permanent way team logged this last year.\n- Two crews are already on site at the depot.\n- The timetable amendment takes effect on Sunday.\n- Weather is forecast dry until the evening.\n\n## replace the relay\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n- noted again by Operations Lead: raised earlier in the discussion\n\n## test the interlock\n- proposed by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  GROUND_CATENARY  BLOCK_SECTION  CLEAR_SECTION  TEST_INTERLOCK  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"TEST_INTERLOCK\",\n    \"GROUND_CATENARY\",\n    \"BLOCK_SECTION\",\n    \"INSPECT_POINTS\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-twochain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: The permanent way team logged this last year.\nSafety Auditor: Two crews are already on site at the depot.\nOperations Lead: We should replace the relay as part of this; I want it on the list.\nSafety Auditor: No, drop that one -- it is not needed for this case.\nOperations Lead: Let's make sure we test the interlock before we call this done.\nSafety Auditor: The timetable amendment takes effect on Sunday.\nOperations Lead: For the record, I did raise the written summary earlier in this discussion.\nSafety Auditor: Weather is forecast dry until the evening.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  GROUND_CATENARY  BLOCK_SECTION  CLEAR_SECTION  TEST_INTERLOCK  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\n  \"TEST_INTERLOCK\",\n  \"REPLACE_RELAY\",\n  \"BLOCK_SECTION\",\n  \"CLEAR_SECTION\"\n], \n\"ready\": true}"
+ },
+ {
+  "instance": "rail-twochain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The permanent way team logged this last year.\n- Two crews are already on site at the depot.\n- Operations Lead proposed to test the interlock.\n- The timetable amendment takes effect on Sunday.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Weather is forecast dry until the evening.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  GROUND_CATENARY  BLOCK_SECTION  CLEAR_SECTION  TEST_INTERLOCK  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\n  \"TEST_INTERLOCK\",\n  \"REPLACE_RELAY\",\n  \"GROUND_CATENARY\",\n  \"INSPECT_POINTS\"\n], \n\"ready\": true}"
+ },
+ {
+  "instance": "rail-twochain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The permanent way team logged this last year.\n- Two crews are already on site at the depot.\n- Operations Lead proposed to replace the relay.\n- Safety Auditor rejected the proposal to replace the relay; it is not needed for this case.\n- Operations Lead proposed to test the interlock.\n- The timetable amendment takes effect on Sunday.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Weather is forecast dry until the evening.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  GROUND_CATENARY  BLOCK_SECTION  CLEAR_SECTION  TEST_INTERLOCK  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"TEST_INTERLOCK\",\n    \"INSPECT_POINTS\",\n    \"GROUND_CATENARY\",\n    \"BLOCK_SECTION\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-twochain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The permanent way team logged this last year.\n- Two crews are already on site at the depot.\n- The timetable amendment takes effect on Sunday.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Weather is forecast dry until the evening.\n\n## replace the relay\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n\n## test the interlock\n- proposed by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  GROUND_CATENARY  BLOCK_SECTION  CLEAR_SECTION  TEST_INTERLOCK  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"GROUND_CATENARY\",\n    \"TEST_INTERLOCK\",\n    \"CLEAR_SECTION\",\n    \"INSPECT_POINTS\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-twochain",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: I'd add clear the section to the plan for this one.\nSafety Auditor: Let's not; that one is not needed here.\nOperations Lead: The permanent way team logged this last year.\nSafety Auditor: The timetable amendment takes effect on Sunday.\nOperations Lead: Let's make sure we test the interlock before we call this done.\nSafety Auditor: Yes, that one stays on the list.\nOperations Lead: For the record, I did raise clear the section earlier in this discussion.\nSafety Auditor: Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  GROUND_CATENARY  BLOCK_SECTION  CLEAR_SECTION  TEST_INTERLOCK  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"TEST_INTERLOCK\", \"REPLACE_RELAY\", \"GROUND_CATENARY\", \"INSPECT_POINTS\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-twochain",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The permanent way team logged this last year.\n- The timetable amendment takes effect on Sunday.\n- Operations Lead proposed to test the interlock; Safety Auditor accepted it.\n- Operations Lead noted that clear the section had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  GROUND_CATENARY  BLOCK_SECTION  CLEAR_SECTION  TEST_INTERLOCK  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\n  \"CLEAR_SECTION\",\n  \"TEST_INTERLOCK\",\n  \"REPLACE_RELAY\",\n  \"INSPECT_POINTS\"\n], \n\"ready\": true}"
+ },
+ {
+  "instance": "rail-twochain",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to clear the section.\n- Safety Auditor rejected the proposal to clear the section; it is not needed for this case.\n- The permanent way team logged this last year.\n- The timetable amendment takes effect on Sunday.\n- Operations Lead proposed to test the interlock.\n- Safety Auditor accepted the proposal to test the interlock.\n- Operations Lead noted that clear the section had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  GROUND_CATENARY  BLOCK_SECTION  CLEAR_SECTION  TEST_INTERLOCK  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"TEST_INTERLOCK\",\n    \"INSPECT_POINTS\",\n    \"GROUND_CATENARY\",\n    \"BLOCK_SECTION\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-twochain",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## clear the section\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n- noted again by Operations Lead: raised earlier in the discussion\n\n## discussion log\n- The permanent way team logged this last year.\n- The timetable amendment takes effect on Sunday.\n- Two crews are already on site at the depot.\n\n## test the interlock\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  GROUND_CATENARY  BLOCK_SECTION  CLEAR_SECTION  TEST_INTERLOCK  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"TEST_INTERLOCK\",\n    \"GROUND_CATENARY\",\n    \"REPLACE_RELAY\",\n    \"INSPECT_POINTS\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-twochain",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: I'd add clear the section to the plan for this one.\nSafety Auditor: Let's not; that one is not needed here.\nOperations Lead: The permanent way team logged this last year.\nSafety Auditor: The timetable amendment takes effect on Sunday.\nOperations Lead: Let's make sure we test the interlock before we call this done.\nSafety Auditor: Yes, that one stays on the list.\nOperations Lead: For the record, I did raise the written summary earlier in this discussion.\nSafety Auditor: Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  GROUND_CATENARY  BLOCK_SECTION  CLEAR_SECTION  TEST_INTERLOCK  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"TEST_INTERLOCK\", \"REPLACE_RELAY\", \"GROUND_CATENARY\", \"INSPECT_POINTS\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-twochain",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The permanent way team logged this last year.\n- The timetable amendment takes effect on Sunday.\n- Operations Lead proposed to test the interlock; Safety Auditor accepted it.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  GROUND_CATENARY  BLOCK_SECTION  CLEAR_SECTION  TEST_INTERLOCK  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\n  \"TEST_INTERLOCK\",\n  \"REPLACE_RELAY\",\n  \"GROUND_CATENARY\",\n  \"INSPECT_POINTS\"\n], \n\"ready\": true}"
+ },
+ {
+  "instance": "rail-twochain",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to clear the section.\n- Safety Auditor rejected the proposal to clear the section; it is not needed for this case.\n- The permanent way team logged this last year.\n- The timetable amendment takes effect on Sunday.\n- Operations Lead proposed to test the interlock.\n- Safety Auditor accepted the proposal to test the interlock.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  GROUND_CATENARY  BLOCK_SECTION  CLEAR_SECTION  TEST_INTERLOCK  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"TEST_INTERLOCK\", \"INSPECT_POINTS\", \"GROUND_CATENARY\", \"BLOCK_SECTION\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-twochain",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## clear the section\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n\n## discussion log\n- The permanent way team logged this last year.\n- The timetable amendment takes effect on Sunday.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\n## test the interlock\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  GROUND_CATENARY  BLOCK_SECTION  CLEAR_SECTION  TEST_INTERLOCK  REPLACE_RELAY  INSPECT_POINTS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"TEST_INTERLOCK\",\n    \"GROUND_CATENARY\",\n    \"REPLACE_RELAY\",\n    \"INSPECT_POINTS\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-star",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Let's make sure we clear the section before we call this done.\nSafety Auditor: Agreed, keep that in.\nOperations Lead: Weather is forecast dry until the evening.\nSafety Auditor: Two crews are already on site at the depot.\nOperations Lead: I'd add block the section to the plan for this one.\nSafety Auditor: We should ground the catenary as part of this; I want it on the list.\nOperations Lead: No, drop that one -- it is not needed for this case.\nSafety Auditor: For the record, I did raise ground the catenary earlier in this discussion.\nOperations Lead: The timetable amendment takes effect on Sunday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  INSPECT_POINTS  BLOCK_SECTION  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"INSPECT_POINTS\",\n    \"BLOCK_SECTION\",\n    \"CLEAR_SECTION\",\n    \"TEST_INTERLOCK\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-star",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to clear the section; Safety Auditor accepted it.\n- Weather is forecast dry until the evening.\n- Two crews are already on site at the depot.\n- Operations Lead proposed to block the section.\n- Safety Auditor noted that ground the catenary had been raised earlier in the discussion.\n- The timetable amendment takes effect on Sunday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  INSPECT_POINTS  BLOCK_SECTION  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"GROUND_CATENARY\",\n    \"BLOCK_SECTION\",\n    \"CLEAR_SECTION\",\n    \"TEST_INTERLOCK\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-star",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to clear the section.\n- Safety Auditor accepted the proposal to clear the section.\n- Weather is forecast dry until the evening.\n- Two crews are already on site at the depot.\n- Operations Lead proposed to block the section.\n- Safety Auditor proposed to ground the catenary.\n- Operations Lead rejected the proposal to ground the catenary; it is not needed for this case.\n- Safety Auditor noted that ground the catenary had been raised earlier in the discussion.\n- The timetable amendment takes effect on Sunday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  INSPECT_POINTS  BLOCK_SECTION  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"BLOCK_SECTION\",\n    \"CLEAR_SECTION\",\n    \"TEST_INTERLOCK\",\n    \"INSPECT_POINTS\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-star",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## clear the section\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\n## discussion log\n- Weather is forecast dry until the evening.\n- Two crews are already on site at the depot.\n- The timetable amendment takes effect on Sunday.\n\n## block the section\n- proposed by Operations Lead\n\n## ground the catenary\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n- noted again by Safety Auditor: raised earlier in the discussion\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  INSPECT_POINTS  BLOCK_SECTION  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"INSPECT_POINTS\",\n    \"CLEAR_SECTION\",\n    \"BLOCK_SECTION\",\n    \"TEST_INTERLOCK\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-star",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Let's make sure we clear the section before we call this done.\nSafety Auditor: Agreed, keep that in.\nOperations Lead: Weather is forecast dry until the evening.\nSafety Auditor: Two crews are already on site at the depot.\nOperations Lead: I'd add block the section to the plan for this one.\nSafety Auditor: We should ground the catenary as part of this; I want it on the list.\nOperations Lead: No, drop that one -- it is not needed for this case.\nSafety Auditor: For the record, I did raise the written summary earlier in this discussion.\nOperations Lead: The timetable amendment takes effect on Sunday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  INSPECT_POINTS  BLOCK_SECTION  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"INSPECT_POINTS\",\n    \"BLOCK_SECTION\",\n    \"CLEAR_SECTION\",\n    \"TEST_INTERLOCK\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-star",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to clear the section; Safety Auditor accepted it.\n- Weather is forecast dry until the evening.\n- Two crews are already on site at the depot.\n- Operations Lead proposed to block the section.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- The timetable amendment takes effect on Sunday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  INSPECT_POINTS  BLOCK_SECTION  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"BLOCK_SECTION\",\n    \"INSPECT_POINTS\",\n    \"CLEAR_SECTION\",\n    \"GROUND_CATENARY\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-star",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to clear the section.\n- Safety Auditor accepted the proposal to clear the section.\n- Weather is forecast dry until the evening.\n- Two crews are already on site at the depot.\n- Operations Lead proposed to block the section.\n- Safety Auditor proposed to ground the catenary.\n- Operations Lead rejected the proposal to ground the catenary; it is not needed for this case.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- The timetable amendment takes effect on Sunday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  INSPECT_POINTS  BLOCK_SECTION  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"BLOCK_SECTION\",\n    \"CLEAR_SECTION\",\n    \"TEST_INTERLOCK\",\n    \"INSPECT_POINTS\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-star",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## clear the section\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\n## discussion log\n- Weather is forecast dry until the evening.\n- Two crews are already on site at the depot.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- The timetable amendment takes effect on Sunday.\n\n## block the section\n- proposed by Operations Lead\n\n## ground the catenary\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  INSPECT_POINTS  BLOCK_SECTION  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"INSPECT_POINTS\",\n    \"CLEAR_SECTION\",\n    \"BLOCK_SECTION\",\n    \"TEST_INTERLOCK\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-star",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: We should ground the catenary as part of this; I want it on the list.\nSafety Auditor: Let's make sure we clear the section before we call this done.\nOperations Lead: Let's not; that one is not needed here.\nSafety Auditor: The timetable amendment takes effect on Sunday.\nOperations Lead: Weather is forecast dry until the evening.\nSafety Auditor: For the record, I did raise clear the section earlier in this discussion.\nOperations Lead: Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  INSPECT_POINTS  BLOCK_SECTION  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REPLACE_RELAY\", \"TEST_INTERLOCK\", \"GROUND_CATENARY\", \"INSPECT_POINTS\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-star",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to ground the catenary.\n- The timetable amendment takes effect on Sunday.\n- Weather is forecast dry until the evening.\n- Safety Auditor noted that clear the section had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  INSPECT_POINTS  BLOCK_SECTION  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"CLEAR_SECTION\",\n    \"REPLACE_RELAY\",\n    \"TEST_INTERLOCK\",\n    \"GROUND_CATENARY\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-star",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to ground the catenary.\n- Safety Auditor proposed to clear the section.\n- Operations Lead rejected the proposal to clear the section; it is not needed for this case.\n- The timetable amendment takes effect on Sunday.\n- Weather is forecast dry until the evening.\n- Safety Auditor noted that clear the section had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  INSPECT_POINTS  BLOCK_SECTION  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"INSPECT_POINTS\",\n    \"GROUND_CATENARY\",\n    \"TEST_INTERLOCK\",\n    \"BLOCK_SECTION\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-star",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## ground the catenary\n- proposed by Operations Lead\n\n## clear the section\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n- noted again by Safety Auditor: raised earlier in the discussion\n\n## discussion log\n- The timetable amendment takes effect on Sunday.\n- Weather is forecast dry until the evening.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  INSPECT_POINTS  BLOCK_SECTION  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"REPLACE_RELAY\",\n    \"TEST_INTERLOCK\",\n    \"INSPECT_POINTS\",\n    \"GROUND_CATENARY\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-star",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: We should ground the catenary as part of this; I want it on the list.\nSafety Auditor: Let's make sure we clear the section before we call this done.\nOperations Lead: Let's not; that one is not needed here.\nSafety Auditor: The timetable amendment takes effect on Sunday.\nOperations Lead: Weather is forecast dry until the evening.\nSafety Auditor: For the record, I did raise the written summary earlier in this discussion.\nOperations Lead: Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  INSPECT_POINTS  BLOCK_SECTION  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REPLACE_RELAY\", \"TEST_INTERLOCK\", \"GROUND_CATENARY\", \"INSPECT_POINTS\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-star",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to ground the catenary.\n- The timetable amendment takes effect on Sunday.\n- Weather is forecast dry until the evening.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  INSPECT_POINTS  BLOCK_SECTION  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\n  \"GROUND_CATENARY\",\n  \"INSPECT_POINTS\",\n  \"TEST_INTERLOCK\",\n  \"BLOCK_SECTION\"\n], \n\"ready\": true}"
+ },
+ {
+  "instance": "rail-star",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to ground the catenary.\n- Safety Auditor proposed to clear the section.\n- Operations Lead rejected the proposal to clear the section; it is not needed for this case.\n- The timetable amendment takes effect on Sunday.\n- Weather is forecast dry until the evening.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  INSPECT_POINTS  BLOCK_SECTION  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"INSPECT_POINTS\",\n    \"GROUND_CATENARY\",\n    \"TEST_INTERLOCK\",\n    \"REPLACE_RELAY\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-star",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## ground the catenary\n- proposed by Operations Lead\n\n## clear the section\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n\n## discussion log\n- The timetable amendment takes effect on Sunday.\n- Weather is forecast dry until the evening.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  INSPECT_POINTS  BLOCK_SECTION  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"REPLACE_RELAY\",\n    \"TEST_INTERLOCK\",\n    \"GROUND_CATENARY\",\n    \"INSPECT_POINTS\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-star",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: We should ground the catenary as part of this; I want it on the list.\nSafety Auditor: Yes, that one stays on the list.\nOperations Lead: Weather is forecast dry until the evening.\nSafety Auditor: I'd add block the section to the plan for this one.\nOperations Lead: No -- leave that out this time.\nSafety Auditor: Two crews are already on site at the depot.\nOperations Lead: The timetable amendment takes effect on Sunday.\nSafety Auditor: For the record, I did raise block the section earlier in this discussion.\nOperations Lead: The permanent way team logged this last year.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  INSPECT_POINTS  BLOCK_SECTION  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REPLACE_RELAY\", \"TEST_INTERLOCK\", \"GROUND_CATENARY\", \"BLOCK_SECTION\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-star",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to ground the catenary; Safety Auditor accepted it.\n- Weather is forecast dry until the evening.\n- Two crews are already on site at the depot.\n- The timetable amendment takes effect on Sunday.\n- Safety Auditor noted that block the section had been raised earlier in the discussion.\n- The permanent way team logged this last year.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  INSPECT_POINTS  BLOCK_SECTION  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\n  \"BLOCK_SECTION\",\n  \"GROUND_CATENARY\",\n  \"TEST_INTERLOCK\",\n  \"REPLACE_RELAY\"\n], \n\"ready\": true}"
+ },
+ {
+  "instance": "rail-star",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to ground the catenary.\n- Safety Auditor accepted the proposal to ground the catenary.\n- Weather is forecast dry until the evening.\n- Safety Auditor proposed to block the section.\n- Operations Lead rejected the proposal to block the section; it is not needed for this case.\n- Two crews are already on site at the depot.\n- The timetable amendment takes effect on Sunday.\n- Safety Auditor noted that block the section had been raised earlier in the discussion.\n- The permanent way team logged this last year.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  INSPECT_POINTS  BLOCK_SECTION  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"GROUND_CATENARY\",\n    \"INSPECT_POINTS\",\n    \"TEST_INTERLOCK\",\n    \"CLEAR_SECTION\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-star",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## ground the catenary\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\n## discussion log\n- Weather is forecast dry until the evening.\n- Two crews are already on site at the depot.\n- The timetable amendment takes effect on Sunday.\n- The permanent way team logged this last year.\n\n## block the section\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n- noted again by Safety Auditor: raised earlier in the discussion\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  INSPECT_POINTS  BLOCK_SECTION  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"GROUND_CATENARY\",\n    \"INSPECT_POINTS\",\n    \"TEST_INTERLOCK\",\n    \"CLEAR_SECTION\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "rail-star",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: We should ground the catenary as part of this; I want it on the list.\nSafety Auditor: Yes, that one stays on the list.\nOperations Lead: Weather is forecast dry until the evening.\nSafety Auditor: I'd add block the section to the plan for this one.\nOperations Lead: No -- leave that out this time.\nSafety Auditor: Two crews are already on site at the depot.\nOperations Lead: The timetable amendment takes effect on Sunday.\nSafety Auditor: For the record, I did raise the written summary earlier in this discussion.\nOperations Lead: The permanent way team logged this last year.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  INSPECT_POINTS  BLOCK_SECTION  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REPLACE_RELAY\", \"TEST_INTERLOCK\", \"GROUND_CATENARY\", \"BLOCK_SECTION\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-star",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to ground the catenary; Safety Auditor accepted it.\n- Weather is forecast dry until the evening.\n- Two crews are already on site at the depot.\n- The timetable amendment takes effect on Sunday.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- The permanent way team logged this last year.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  INSPECT_POINTS  BLOCK_SECTION  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\n  \"GROUND_CATENARY\",\n  \"TEST_INTERLOCK\",\n  \"REPLACE_RELAY\",\n  \"BLOCK_SECTION\"\n], \n\"ready\": true}"
+ },
+ {
+  "instance": "rail-star",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to ground the catenary.\n- Safety Auditor accepted the proposal to ground the catenary.\n- Weather is forecast dry until the evening.\n- Safety Auditor proposed to block the section.\n- Operations Lead rejected the proposal to block the section; it is not needed for this case.\n- Two crews are already on site at the depot.\n- The timetable amendment takes effect on Sunday.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- The permanent way team logged this last year.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  INSPECT_POINTS  BLOCK_SECTION  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"GROUND_CATENARY\", \"INSPECT_POINTS\", \"TEST_INTERLOCK\", \"CLEAR_SECTION\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-star",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## ground the catenary\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\n## discussion log\n- Weather is forecast dry until the evening.\n- Two crews are already on site at the depot.\n- The timetable amendment takes effect on Sunday.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- The permanent way team logged this last year.\n\n## block the section\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  INSPECT_POINTS  BLOCK_SECTION  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```\n{\n  \"actions\": [\n    \"REPLACE_RELAY\",\n    \"TEST_INTERLOCK\",\n    \"GROUND_CATENARY\",\n    \"INSPECT_POINTS\"\n  ],\n  \"ready\": true\n}\n```"
+ }
+]

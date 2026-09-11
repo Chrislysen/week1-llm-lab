@@ -213,3 +213,89 @@ in the 0.05–0.15 band will land PARTIAL and are **not** to be read as absent.
 `e29_analysis.py`; outputs `results/e29_<model>_o*.csv/.json` and
 `results/e29_<model>_summary.json`. Outcome section to be appended below this
 line after the run, never edited above it.
+
+---
+
+## Outcome — `llama3.2:3b`, run 2026-09-11
+
+**Verdict by the declared rule: DESIGN-DEPENDENT.** 768 of 768 scheduled calls
+completed in five foreground chunks (`results/e29_llama32-3b_o{0,20,40,60,80}.csv/.json`,
+logs alongside). Parse rate **1.000** in all eight cells; mean |plan| **4.00**
+in seven cells and 3.99 in one; no cell VOID; 0 parse retries; 96 of 96
+dialogues complete on all eight cells. Read by `e29_analysis.py`, summary in
+`results/e29_llama32-3b_summary.json`.
+
+### Rejected-step inclusion, n = 96 paired dialogues per cell
+
+| design | restated | neutral | Δ = restated − neutral | 95 % CI | **DiD vs full** | 95 % CI |
+|---|---|---|---|---|---|---|
+| full | 0.198 | 0.281 | −0.083 | [−0.167, −0.010] | reference | |
+| **delete** | **0.958** | 0.604 | **+0.354** | [+0.260, +0.458] | **+0.438** | **[+0.312, +0.562]** |
+| addonly | 0.188 | 0.177 | +0.010 | [−0.062, +0.094] | +0.094 | [−0.010, +0.198] |
+| **wiki** | 0.240 | 0.135 | +0.104 | [+0.031, +0.177] | **+0.188** | **[+0.073, +0.312]** |
+
+Paired bootstrap over dialogues, seed 0, B = 2000.
+
+### Predictions against outcome
+
+- **P1 confirmed.** Δ_delete = +0.354; predicted ≈ +0.4 from the `never` and
+  `proposed` rates. Under `delete`/restated the step is in **0.958** of plans:
+  the store carries a bare mention and no rejection, and the decider treats it
+  as a live proposal.
+- **P2 confirmed.** DiD_delete = +0.438, interval [+0.312, +0.562], far above
+  the 0.15 threshold.
+- **P3 partly wrong.** Δ_full is small, as predicted, but **negative**: with the
+  transcript visible, the proposer's late "for the record, I did raise X" line
+  *lowered* relapse from 0.281 to 0.198, interval excluding zero. The prediction
+  said "small", not "negative". Recorded as a miss on sign. No mechanism is
+  claimed; one reading is that the line points the decider back at the
+  rejection block, another is that a mention flagged as history reads as
+  closed. Neither is tested here.
+- **P4 confirmed.** DiD_addonly = +0.094 with an interval touching zero:
+  inside the partial band, below the delete effect, not read as absent.
+- **P5 not confirmed.** DiD_wiki = +0.188 against DiD_addonly = +0.094. The
+  same facts grouped by entity, with "noted again" directly under "rejected",
+  produced a larger restatement effect than the same facts in a chronological
+  list. Reported as an observation; the interval overlap between the two is
+  substantial and no claim is made about the gap.
+- **P6 confirmed.** Under `delete`/neutral the rejected step's inclusion is
+  0.604 against that cell's `never` rate of 0.562, inside ±0.10: the design
+  has forgotten the rejection *and* the proposal, and the step behaves as if
+  never mentioned.
+
+### Controls
+
+`accepted` is 0.983–1.000 in every cell and `never` sits at 0.542–0.667, so
+the eight cells differ in their handling of the rejected step and not in how
+much they put in a plan. Mean |plan| is pinned throughout.
+
+### What this establishes, and what it does not
+
+**Establishes**, for this decider on these 96 dialogues with oracle stores:
+the restatement's effect on relapse is set by the memory design it passes
+through. Under write-time delete the rejection is consumed by the DELETE, the
+later mention is stored with nothing to contradict it, and relapse goes from
+the never-mentioned floor to near certainty. Under full context the same line
+does nothing harmful. Add-only and merge-page sit between, with the merge-page
+effect clearing the threshold and the add-only effect not.
+
+**A rendering caveat that limits cross-design comparison of *levels*.** Under
+the neutral arm, `addonly` (0.177) and `wiki` (0.135) show *lower* relapse than
+`full` (0.281). The oracle store spells out the referent of a rejection
+("rejected the proposal to snapshot the store") where the transcript leaves it
+to adjacency ("No, drop that one"). Levels across designs therefore mix the
+design with the explicitness of the rendering. **The read rule uses only the
+within-design DiD**, which holds rendering constant; the levels are reported,
+not compared.
+
+**Does not establish.** Anything about real extractors, whose failure to
+DELETE (arXiv:2606.15903 App. P) would move `delete` toward `addonly`.
+Anything about the Mem0 or llm_wiki products. Any model-size claim. The
+residual in §0.5 is **supported for `delete` and `wiki`** and **partial for
+`addonly`** on one decider; originality remains as narrow as §0.5 states, and
+the abstract-level coverage limit in §0.3 stands.
+
+### Second decider
+
+`qwen2.5:7b-instruct` is declared above and is run next under the same
+allocation; its outcome is appended below when complete.
