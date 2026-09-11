@@ -537,7 +537,8 @@ function makeCity(stage, districtsData) {
   document.addEventListener('visibilitychange', function () { pageShown = !document.hidden; kick(); });
   window.addEventListener('focus', function () { pageShown = !document.hidden; kick(); });
   window.addEventListener('scroll', function () { kick(); }, { passive: true });
-  function kick() { if (!rafPending && visible && pageShown) { rafPending = true; requestAnimationFrame(frame); } }
+  /* requestAnimationFrame already pauses in hidden tabs; only the on-screen check gates the loop */
+  function kick() { if (!rafPending && visible) { rafPending = true; requestAnimationFrame(frame); } }
   renderer.toneMapping = T.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05; renderer.outputEncoding = T.sRGBEncoding;
   var scene = new T.Scene(); scene.fog = new T.FogExp2(PAL.bg, 0.02);
   var camera = new T.PerspectiveCamera(40, 2, 0.1, 300);
@@ -762,7 +763,7 @@ function makeCity(stage, districtsData) {
     var pa = pGeo.attributes.position.array; for (var i = 1; i < pa.length; i += 3) { pa[i] += 0.004; if (pa[i] > 17) pa[i] = 0.5; } pGeo.attributes.position.needsUpdate = true;
     if (composer) composer.render(); else renderer.render(scene, camera);
     rafPending = false;
-    if (visible && pageShown) kick();
+    if (visible) kick();
   }
   resize();
   camera.position.set(camTarget.x + Math.sin(orbit) * camDist, camH, camTarget.z + Math.cos(orbit) * camDist); camera.lookAt(camTarget.x, camTarget.y + 0.8, camTarget.z);
