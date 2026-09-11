@@ -327,6 +327,37 @@ class OracleBudget(BudgetedPolicy):
         return sources + rest_by_recency
 
 
+class SabotageBudget(BudgetedPolicy):
+    """Constraint-bearing source messages EXCLUDED, then the most recent.
+
+    The evaluator's own sanity check (docs/plan.md, diagnostic arms; research-
+    design.md S6). A selector built to fail: it is told which message texts carry
+    planted constraints and never returns one of them, spending the whole budget
+    on the most recent non-source messages instead. Budget-matched like every
+    other arm; the current message stays mandatory like every other arm.
+
+    Like the oracle it uses hidden evaluator knowledge to CHOOSE and can only
+    return messages already in the dialogue. It is a diagnostic, not a selector:
+    if the scored metric does not fall when the sources are removed, the metric
+    is not measuring retrieval of the sources.
+    """
+
+    name = "sabotage"
+
+    def __init__(self, max_words: int, source_texts):
+        super().__init__(max_words)
+        self.source_texts = frozenset(source_texts)
+
+    def config(self) -> dict:
+        return {"max_words": self.max_words, "n_source_texts": len(self.source_texts)}
+
+    def priority(self, rest, query):
+        return [
+            i for i in range(len(rest) - 1, -1, -1)
+            if rest[i]["content"] not in self.source_texts
+        ]
+
+
 # --- Scoring policies (the four selectors) --------------------------------
 
 

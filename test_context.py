@@ -2,7 +2,7 @@
 
 Run:  python test_context.py
 """
-from context import (FullHistory, OracleBudget, RandomBudget, RecencyBudget,
+from context import (FullHistory, OracleBudget, RandomBudget, RecencyBudget, SabotageBudget,
                      RecencyWindow, make_policy, preflight,
                      query_for_finalisation, query_for_turn, words)
 
@@ -255,6 +255,25 @@ assert sum(words(m) for m in history) <= 90
 for W in (0, 45, 90, 150, 250):
     sel = OracleBudget(W, SOURCES).select(POOL)
     assert all(m in POOL for m in sel), "oracle injected content not in the dialogue"
+
+# Sabotage is the oracle's mirror: it NEVER returns a source message, at any
+# budget, and otherwise behaves like recency. Same subset guarantee as the
+# oracle -- it selects with hidden knowledge, it never injects.
+for W in range(0, 260, 10):
+    sel = SabotageBudget(W, SOURCES).select(POOL)
+    assert sel[0] == SYS and sel[-1] == POOL[-1], "sabotage broke the frame"
+    history = [m["content"] for m in sel[1:-1]]
+    assert not any(h in SOURCES for h in history), f"sabotage returned a source at W={W}"
+    assert sum(words(h) for h in history) <= W, "sabotage overspent history"
+    assert all(m in POOL for m in sel), "sabotage injected content"
+    i = [POOL.index(m) for m in sel[1:]]
+    assert i == sorted(i), "sabotage broke chronological order"
+# At a budget where recency would reach the sources, sabotage skips them and
+# keeps filling with the next most recent non-source candidates instead.
+sab = SabotageBudget(250, SOURCES).select(POOL)
+assert len(sab) == len(POOL) - len(SOURCES), sab
+# Even a source that would fit exactly is refused: W=30 = the two sources' words.
+assert [m["content"] for m in SabotageBudget(30, SOURCES).select(POOL)[1:-1]] != SOURCES
 
 # Random is seeded and reproducible; different seeds can differ.
 a = RandomBudget(100, seed=7).select(POOL)

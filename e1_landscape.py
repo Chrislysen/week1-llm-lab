@@ -15,6 +15,16 @@ generalization evidence and is not significance-tested, by instruction.
 
 Run:  python e1_landscape.py --mock
       python e1_landscape.py
+
+E1-S (declared 2026-09-11, docs/protocols/E1S-selector-sanity-arms.md): the
+three diagnostic arms the plan lists and E1 never ran -- `full` (ceiling, not
+budget-matched), `last` (floor: system + current message, W = 0) and
+`sabotage` (source messages excluded, recency fills W). Three repeats each,
+written to results/e1_sanity*.csv and NEVER pooled with the five scored arms.
+
+      python e1_landscape.py --sanity --mock
+      python e1_landscape.py --sanity --only sabotage --repeat 1   (one run)
+      python e1_landscape.py --sanity                             (all nine)
 """
 import argparse
 import contextlib
@@ -24,8 +34,8 @@ import os
 import statistics
 
 import run_incident
-from context import (BM25Budget, DenseBudget, FusionBudget, OracleBudget,
-                     RandomBudget, RecencyBudget)
+from context import (BM25Budget, DenseBudget, FullHistory, FusionBudget,
+                     OracleBudget, RandomBudget, RecencyBudget, SabotageBudget)
 from experiment import TURNS, row_from_transcript, show, write_csv
 from scenario import CONSTRAINTS, INCIDENT
 
@@ -44,6 +54,8 @@ SEEDS = {int(k): v for k, v in
 
 #: The five scored conditions. Oracle is deliberately NOT here.
 SCORED = ["recency", "random", "bm25", "dense", "fusion"]
+#: E1-S diagnostic arms. Never pooled with SCORED.
+SANITY = ["full", "last", "sabotage"]
 
 COLUMNS = [
     "condition", "repeat", "seed",
@@ -70,13 +82,19 @@ def policy_for(condition, repeat):
         return FusionBudget(W), None
     if condition == "oracle":
         return OracleBudget(W, SOURCE_TEXTS), None
+    if condition == "full":
+        return FullHistory(), None            # ceiling: not budget-matched
+    if condition == "last":
+        return RecencyBudget(0), None         # floor: system + current message
+    if condition == "sabotage":
+        return SabotageBudget(W, SOURCE_TEXTS), None
     raise ValueError(condition)
 
 
-def execute(condition, repeat, mock):
+def execute(condition, repeat, mock, out_dir=OUT_DIR):
     policy, seed = policy_for(condition, repeat)
-    out = f"{OUT_DIR}/{condition}_r{repeat}.json"
-    log = f"{OUT_DIR}/{condition}_r{repeat}.log"
+    out = f"{out_dir}/{condition}_r{repeat}.json"
+    log = f"{out_dir}/{condition}_r{repeat}.log"
     buf = io.StringIO()
     with contextlib.redirect_stdout(buf):
         run_incident.main(mock=mock, turns=TURNS, out=out, window=policy,
@@ -117,7 +135,12 @@ def build_row(path, condition, repeat, seed):
     # The LAST context call is the finalisation selection -- the one that
     # produced the plan being scored.
     final_call = m["context"]["calls"][-1]
-    ids = final_call.get("selected_ids", [])
+    if "selected_ids" in final_call:
+        ids = final_call["selected_ids"]
+    else:
+        # Non-budgeted policy (`full`): everything before the current message
+        # was sent, so the selection is the whole pool.
+        ids = list(range(final_call["available"] - 1))
     src, seed_other, gen = compose(ids)
 
     cov = m["source_coverage"]
@@ -139,8 +162,10 @@ def build_row(path, condition, repeat, seed):
         "retries": base["retries"],
         "judge_score": base["judge_score"],
         "judge_success": base["judge_success"],
-        "history_words": final_call.get("words_history"),
-        "current_words": final_call.get("words_current"),
+        # `full` has no budget split; its record carries words_kept (history
+        # + current) and no separate current count.
+        "history_words": final_call.get("words_history", final_call.get("words_kept")),
+        "current_words": final_call.get("words_current", ""),
         "prompt_tokens": base["prompt_tokens"],
         "completion_tokens": base["completion_tokens"],
         "seconds": base["seconds"],
@@ -177,11 +202,11 @@ def summarise(rows):
     return out
 
 
-def run_block(conditions, mock, label):
+def run_block(conditions, mock, label, repeats=None, out_dir=OUT_DIR):
     rows = []
     for cond in conditions:
-        for repeat in range(1, REPEATS + 1):
-            path, seed = execute(cond, repeat, mock)
+        for repeat in (repeats or range(1, REPEATS + 1)):
+            path, seed = execute(cond, repeat, mock, out_dir=out_dir)
             row = build_row(path, cond, repeat, seed)
             rows.append(row)
             print(f"  {cond:<8} r{repeat}"
@@ -240,7 +265,75 @@ def main(mock):
           "may be tuned from it.")
 
 
+def _read_csv(path):
+    import csv
+    if not os.path.exists(path):
+        return []
+    with open(path, newline="") as f:
+        rows = list(csv.DictReader(f))
+    for r in rows:
+        r["repeat"] = int(r["repeat"])
+        for k in ("constraint_recall", "retrieval_recall", "seconds"):
+            r[k] = float(r[k])
+        for k in ("sel_source", "sel_seed_other", "sel_generated", "unknown_actions",
+                  "violations", "retries", "prompt_tokens", "completion_tokens"):
+            r[k] = int(float(r[k]))
+        r["history_words"] = float(r["history_words"]) if r["history_words"] != "" else 0.0
+        r["deterministic_success"] = r["deterministic_success"] == "True"
+        r["parse_success"] = r["parse_success"] == "True"
+        r["judge_score"] = (None if r["judge_score"] in ("", "None")
+                            else float(r["judge_score"]))
+    return rows
+
+
+def main_sanity(mock, only=None, repeat=None):
+    """E1-S: the three diagnostic arms, one run per call if asked.
+
+    Rows accumulate in results/e1_sanity.csv (a rerun of the same condition and
+    repeat replaces its row); the summary is rebuilt from every row present.
+    Mock runs go to *_mock files so they can never be mistaken for evidence.
+    """
+    tag = "_mock" if mock else ""
+    out_dir = f"{OUT_DIR}_mock" if mock else OUT_DIR
+    runs_csv = f"{RESULTS_DIR}/e1_sanity{tag}.csv"
+    summary_csv = f"{RESULTS_DIR}/e1_sanity{tag}_summary.csv"
+    conds = [only] if only else SANITY
+    for c in conds:
+        if c not in SANITY:
+            raise SystemExit(f"--only must be one of {SANITY}, got {c!r}")
+    repeats = [repeat] if repeat else None
+
+    print("=== E1-S: selector sanity arms (diagnostic, never pooled with E1) ===")
+    print("  protocol            docs/protocols/E1S-selector-sanity-arms.md")
+    print(f"  history budget      W = {W} words for last/sabotage; full is unbudgeted")
+    print(f"  conditions          {conds} x {repeats or list(range(1, REPEATS + 1))}\n")
+    new = run_block(conds, mock, "sanity", repeats=repeats, out_dir=out_dir)
+
+    rows = _read_csv(runs_csv)
+    for r in new:
+        rows = [x for x in rows if not (x["condition"] == r["condition"]
+                                        and x["repeat"] == r["repeat"])]
+        rows.append(r)
+    rows.sort(key=lambda r: (SANITY.index(r["condition"]), r["repeat"]))
+    write_csv(runs_csv, rows, COLUMNS)
+    summary = summarise(rows)
+    print(f"\n=== E1-S per-run ({len(rows)} rows on file) ===")
+    show(rows, COLUMNS)
+    print("\n=== E1-S per-condition summary ===")
+    show(summary, list(summary[0].keys()))
+    write_csv(summary_csv, summary, list(summary[0].keys()))
+    print(f"\nwrote {runs_csv}, {summary_csv}")
+
+
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
     p.add_argument("--mock", action="store_true")
-    main(mock=p.parse_args().mock)
+    p.add_argument("--sanity", action="store_true",
+                   help="run the E1-S diagnostic arms instead of the five scored ones")
+    p.add_argument("--only", default=None, help="E1-S: one condition (full|last|sabotage)")
+    p.add_argument("--repeat", type=int, default=None, help="E1-S: one repeat (1..3)")
+    a = p.parse_args()
+    if a.sanity:
+        main_sanity(mock=a.mock, only=a.only, repeat=a.repeat)
+    else:
+        main(mock=a.mock)
