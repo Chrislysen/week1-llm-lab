@@ -25,7 +25,7 @@ to near certainty (difference-in-differences against full context +0.44,
 nothing; merge-in-place sits between on the two small deciders and is flat on
 the other two. The ordering survives a second corpus of six new
 domains and new sentence wording on all three deciders (hard-delete DiD
-+0.34, +0.47, +0.25), although absolute rates move by a factor of two with
++0.43, +0.58, +0.31), although absolute rates move by a factor of two with
 the wording on the small deciders. A real Mem0 update router fed by an operational
 extractor reproduces the mechanism on the same dialogues (+0.17 [+0.04,
 +0.29], between the add-only and hard-delete ideals): it deletes on rejection
@@ -216,17 +216,17 @@ the frozen first corpus is hash-asserted untouched.
 | decider | design | restated | neutral | Δ_X | DiD_X | 95 % CI |
 |---|---|---|---|---|---|---|
 | llama3.2:3b | full | 0.604 | 0.760 | −0.156 | ref | |
-| | delete | 0.958 | 0.771 | +0.188 | **+0.344** | [+0.240, +0.469] |
-| | addonly | 0.490 | 0.479 | +0.010 | +0.167 | [+0.073, +0.260] |
-| | wiki | 0.615 | 0.500 | +0.115 | +0.271 | [+0.156, +0.396] |
+| | delete | 0.948 | 0.677 | +0.271 | **+0.427** | [+0.312, +0.552] |
+| | addonly | 0.354 | 0.333 | +0.021 | +0.177 | [+0.073, +0.281] |
+| | wiki | 0.500 | 0.344 | +0.156 | +0.312 | [+0.198, +0.438] |
 | qwen2.5:7b-instruct | full | 0.521 | 0.677 | −0.156 | ref | |
-| | delete | 0.969 | 0.656 | +0.312 | **+0.469** | [+0.344, +0.594] |
-| | addonly | 0.521 | 0.583 | −0.062 | +0.094 | [−0.021, +0.208] |
-| | wiki | 0.583 | 0.479 | +0.104 | +0.260 | [+0.146, +0.385] |
+| | delete | 0.958 | 0.531 | +0.427 | **+0.583** | [+0.458, +0.719] |
+| | addonly | 0.406 | 0.490 | −0.083 | +0.073 | [−0.052, +0.198] |
+| | wiki | 0.438 | 0.333 | +0.104 | +0.260 | [+0.146, +0.385] |
 | qwen2.5:14b-instruct | full | 0.552 | 0.521 | +0.031 | ref | |
-| | delete | 0.990 | 0.708 | +0.281 | **+0.250** | [+0.125, +0.385] |
-| | addonly | 0.354 | 0.333 | +0.021 | −0.010 | [−0.115, +0.094] |
-| | wiki | 0.406 | 0.344 | +0.062 | +0.031 | [−0.073, +0.135] |
+| | delete | 0.990 | 0.646 | +0.344 | **+0.312** | [+0.187, +0.448] |
+| | addonly | 0.146 | 0.115 | +0.031 | +0.000 | [−0.104, +0.104] |
+| | wiki | 0.177 | 0.104 | +0.073 | +0.042 | [−0.062, +0.146] |
 
 All three deciders read DESIGN-DEPENDENT on the second corpus as well; the 14B reading is the cleanest, with no prediction and no control failing. The ordering delete ≫ wiki > addonly ≈ 0 holds on the small deciders and delete ≫ addonly ≈ wiki ≈ 0 on the 14B; the levels do not. Under full
 context the rejected step comes back at 0.76 and 0.68 (neutral arm) against
@@ -239,8 +239,8 @@ visible: the DiD estimand inherits the reference arm's movement, so with
 Δ_full at −0.156 every design's DiD sits 0.156 above its own Δ and add-only's
 DiD trips the pre-registered band on the 3B model although add-only itself
 did not respond (+0.010); we therefore report Δ_X beside DiD_X throughout, and
-the within-store contrast Δ_delete vs Δ_addonly (+0.188 vs +0.010, +0.312 vs
-−0.062 here; +0.354 vs +0.010, +0.302 vs −0.031, +0.260 vs +0.000 on the first
+the within-store contrast Δ_delete vs Δ_addonly (+0.271 vs +0.021, +0.427 vs
+−0.083, +0.344 vs +0.031 here; +0.354 vs +0.010, +0.302 vs −0.031, +0.260 vs +0.000 on the first
 corpus) is the reading that does not depend on the reference arm.
 
 ### 4.3 The full-context register effect
@@ -307,11 +307,8 @@ Accepted steps are enacted at 0.97–1.00 in every cell of every run.
 Never-mentioned steps are enacted at 0.42–0.73 depending on decider, design
 and corpus; that band is the pinned-plan prior over the menu and is the reason
 Δ_delete has a ceiling. Under `delete`/neutral the rejected step's inclusion
-stays within 0.10 of its cell's never-mentioned rate on the first corpus for
-all three deciders and on the second for the 14B, and fails that control by
-0.18–0.21 for the two small deciders on the second corpus, where a step the
-store is silent about is not treated as never mentioned when the surrounding
-dialogue makes it plausible; that is a limit of the control, stated.
+stays within 0.10 of its cell's never-mentioned rate on both corpora for
+every decider run.
 
 ## 5. Limitations
 
@@ -340,7 +337,14 @@ Every protocol in `docs/protocols/` was committed with zero outcomes before
 its first call and appended with the outcome afterwards; commit hashes are
 named in each. Corpus hashes: E16 `70f136a47f5779c8`, E29 `187a426616f26598`,
 E29-C `979143b67049adf2`, E29-N `7d33038c6c1a9912`; runners refuse to start if
-a hash moves. `pytest` runs 202 tests, including the store invariants. Runs
+a hash moves. `pytest` runs 203 tests, including the store invariants. One extractor bug
+reached a run: the oracle extractor keyed reply polarity on a sentence prefix
+and mis-stored one second-corpus rejection wording as an acceptance in 24 of
+96 dialogues (store designs only). It was found by reading, fixed by template
+membership with a test, and the 144 affected cells per decider were re-run;
+the first-corpus blocks were hash-verified byte-identical before and after,
+and both versions of every second-corpus number are on disk
+(`docs/protocols/E29N-second-corpus.md` §6–7). Runs
 re-execute with `python e29_memory_semantics.py --model M [--corpus new]`,
 `python e29c_framing.py`, `python e29d_ops_extractor.py`; analyses with the
 matching `*_analysis.py`, zero model calls. `python xray_server.py` serves an
@@ -359,5 +363,5 @@ live re-run of the decider checked against the record.
 | E29-C P1 | Δ_ftr replicates on 3B | −0.083 vs −0.083 |
 | E29-C P2 | H-frame vs H-mention | FRAMING (3B); NO-REPLICATION at the boundary (7B) |
 | E29-D P0–P3 | store ≥ 0.5; W1 < 0.5; 0 ≤ Δ_real < Δ_delete; W2 restated > neutral | 0.958; 0.217; +0.167 < +0.396; 0.854 > 0.750 |
-| E29-N P1 | DESIGN-DEPENDENT via delete on each decider | +0.344, +0.469, +0.250 |
-| E29-N P2 | |DiD_addonly| < 0.15 | holds on 7B (+0.094) and 14B (−0.010), fails on 3B (+0.167) through the reference arm |
+| E29-N P1 | DESIGN-DEPENDENT via delete on each decider | +0.427, +0.583, +0.312 (after the extractor correction; +0.344, +0.469, +0.250 before) |
+| E29-N P2 | |DiD_addonly| < 0.15 | holds on 7B (+0.073) and 14B (0.000), fails on 3B (+0.177) through the reference arm |

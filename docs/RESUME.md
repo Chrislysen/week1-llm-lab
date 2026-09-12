@@ -56,6 +56,19 @@ reading that does not depend on the reference arm. P5 (the never-mentioned
 control) fails on both deciders on this corpus: a step the store is silent
 about is enacted at 0.66–0.77 when the dialogue makes it plausible.
 
+**E29-N CORRECTION (2026-09-12, `99f2f29`).** Found by reading while adding
+a fifth design: the oracle extractor keyed reply polarity on a "No" / "Let's
+not" prefix and stored the second bank's "I'd leave that out" rejection as
+an acceptance, in 24 of 96 second-corpus dialogues, store designs only;
+first corpus byte-identical (hash unchanged). Fixed by template membership,
+guarded by a test, re-run for exactly the 144 changed cells per decider.
+Corrected: delete DiD +0.427 / +0.583 / +0.312 (3B / 7B / 14B), add-only
++0.177 / +0.073 / 0.000 with own Δ near zero, wiki +0.312 / +0.260 / +0.042;
+the never-mentioned control now holds on all three (both v1 failures were
+the bug). Verdicts unchanged in kind. Second-corpus hash re-pinned
+7d33038c6c1a9912 → e965c5fd022d6e37; v1 summaries in
+`results/e29n_v1_contaminated/`.
+
 **E29-N, third decider.** `qwen2.5:14b-instruct` on the second corpus:
 DESIGN-DEPENDENT, delete DiD +0.250 [+0.125, +0.385], add-only −0.010,
 wiki +0.031, Δ_full +0.031 n.s., every control holding — the cleanest of

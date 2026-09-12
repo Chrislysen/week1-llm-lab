@@ -209,3 +209,50 @@ Read rule, validity rule and predictions in §2–3 are unchanged. The
 contaminated summary files are kept under `results/e29n_v1_contaminated/`
 for the record. The outcome below supersedes §5's tables; §5 is left in
 place with a pointer here.
+
+## 7. Corrected outcome — targeted re-run 2026-09-12, after `99f2f29`
+
+144 calls per decider (24 dialogues × 3 store designs × 2 arms), parse 1.000,
+mean |plan| 3.94–4.00, all cells valid. `results/e29n_<model>_fix_o0.csv/.json`
+override the originals for those cells; `full` cells and the 72 unaffected
+dialogues' store cells are the v1 rows. Summaries regenerated.
+
+| decider | design | restated | neutral | Δ | 95 % CI | DiD vs full | 95 % CI | v1 DiD |
+|---|---|---|---|---|---|---|---|---|
+| `llama3.2:3b` | full | 0.604 | 0.760 | −0.156 | [−0.240, −0.083] | reference | | |
+| | delete | 0.948 | 0.677 | +0.271 | [+0.177, +0.375] | **+0.427** | [+0.312, +0.552] | +0.344 |
+| | addonly | 0.354 | 0.333 | +0.021 | [−0.031, +0.083] | +0.177 | [+0.073, +0.281] | +0.167 |
+| | wiki | 0.500 | 0.344 | +0.156 | [+0.083, +0.240] | +0.312 | [+0.198, +0.438] | +0.271 |
+| `qwen2.5:7b-instruct` | full | 0.521 | 0.677 | −0.156 | [−0.250, −0.073] | reference | | |
+| | delete | 0.958 | 0.531 | +0.427 | [+0.323, +0.531] | **+0.583** | [+0.458, +0.719] | +0.469 |
+| | addonly | 0.406 | 0.490 | −0.083 | [−0.167, +0.000] | +0.073 | [−0.052, +0.198] | +0.094 |
+| | wiki | 0.438 | 0.333 | +0.104 | [+0.021, +0.188] | +0.260 | [+0.146, +0.385] | +0.260 |
+| `qwen2.5:14b-instruct` | full | 0.552 | 0.521 | +0.031 | [−0.052, +0.115] | reference | | |
+| | delete | 0.990 | 0.646 | +0.344 | [+0.260, +0.438] | **+0.312** | [+0.187, +0.448] | +0.250 |
+| | addonly | 0.146 | 0.115 | +0.031 | [−0.031, +0.094] | +0.000 | [−0.104, +0.104] | −0.010 |
+| | wiki | 0.177 | 0.104 | +0.073 | [+0.000, +0.146] | +0.042 | [−0.062, +0.146] | +0.031 |
+
+**Verdicts: DESIGN-DEPENDENT on all three deciders, unchanged in kind,
+larger in size.** P1 holds everywhere. P2 holds on the 7B (+0.073) and 14B
+(0.000) and still fails on the 3B (+0.177) for the reason §5 gave: add-only's
+own Δ is +0.021 and the DiD inherits the −0.156 of the reference arm. P3:
+wiki positive on the small deciders, flat on the 14B, as on the first corpus.
+**P5 now holds on all three** (delete/neutral vs never: 0.677 vs 0.583,
+0.531 vs 0.521, 0.646 vs 0.646); both v1 failures were the contamination,
+not the decider.
+
+**What the correction changed in the reading.** The store levels in the
+neutral arm fall by 0.15–0.30 once the 24 mis-stored rejections read as
+rejections (add-only 0.479→0.333, 0.583→0.490, 0.333→0.115), the delete Δ
+rises on every decider, and the never-mentioned control stops failing. Two
+of §5's three "things the second corpus shows" stand as written: the design
+contrast survives new content and wording while the level does not, and the
+register effect is not 3B-only. The third, about the DiD inheriting the
+reference arm, stands for the 3B decider and is moot on the others. The
+sentence about the never-mentioned control failing is withdrawn.
+
+**Process note.** The bug lived in code E29 declared frozen and was caught by
+reading, four runs later. The test that now guards it should have been
+written with the second template bank. Recorded in `docs/RESUME.md` and in
+the paper draft's reproducibility section; both versions of every number are
+on disk.

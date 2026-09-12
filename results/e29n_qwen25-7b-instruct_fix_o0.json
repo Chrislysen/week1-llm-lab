@@ -1,0 +1,1154 @@
+[
+ {
+  "instance": "grid-twochain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to restore the eastern feeder.\n- Safety Auditor proposed to resynchronise the protection relay; Operations Lead accepted it.\n- The forecast says the storm front clears by morning.\n- The maintenance van is still parked at the north gate.\n- Safety Auditor noted that pull the disturbance recorder had been raised earlier in the discussion.\n- The regulator wants the outage report within 48 hours.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTORE_FEEDER  ISOLATE_TRANSFORMER  RESYNC_RELAY  SHED_LOAD  PULL_RECORDER  OPEN_BREAKER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"ISOLATE_TRANSFORMER\", \"PULL_RECORDER\", \"RESYNC_RELAY\", \"RESTORE_FEEDER\"], \"ready\": true}"
+ },
+ {
+  "instance": "grid-twochain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to restore the eastern feeder.\n- Safety Auditor proposed to pull the disturbance recorder.\n- Operations Lead rejected the proposal to pull the disturbance recorder; it is not needed for this case.\n- Safety Auditor proposed to resynchronise the protection relay.\n- Operations Lead accepted the proposal to resynchronise the protection relay.\n- The forecast says the storm front clears by morning.\n- The maintenance van is still parked at the north gate.\n- Safety Auditor noted that pull the disturbance recorder had been raised earlier in the discussion.\n- The regulator wants the outage report within 48 hours.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTORE_FEEDER  ISOLATE_TRANSFORMER  RESYNC_RELAY  SHED_LOAD  PULL_RECORDER  OPEN_BREAKER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"ISOLATE_TRANSFORMER\", \"RESYNC_RELAY\", \"RESTORE_FEEDER\", \"PULL_RECORDER\"], \"ready\": true}"
+ },
+ {
+  "instance": "grid-twochain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## restore the eastern feeder\n- proposed by Operations Lead\n\n## pull the disturbance recorder\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n- noted again by Safety Auditor: raised earlier in the discussion\n\n## resynchronise the protection relay\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\n## discussion log\n- The forecast says the storm front clears by morning.\n- The maintenance van is still parked at the north gate.\n- The regulator wants the outage report within 48 hours.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTORE_FEEDER  ISOLATE_TRANSFORMER  RESYNC_RELAY  SHED_LOAD  PULL_RECORDER  OPEN_BREAKER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"ISOLATE_TRANSFORMER\", \"RESYNC_RELAY\", \"RESTORE_FEEDER\", \"PULL_RECORDER\"], \"ready\": true}"
+ },
+ {
+  "instance": "grid-twochain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to restore the eastern feeder.\n- Safety Auditor proposed to resynchronise the protection relay; Operations Lead accepted it.\n- The forecast says the storm front clears by morning.\n- The maintenance van is still parked at the north gate.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The regulator wants the outage report within 48 hours.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTORE_FEEDER  ISOLATE_TRANSFORMER  RESYNC_RELAY  SHED_LOAD  PULL_RECORDER  OPEN_BREAKER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"ISOLATE_TRANSFORMER\", \"RESYNC_RELAY\", \"RESTORE_FEEDER\", \"PULL_RECORDER\"], \"ready\": true}"
+ },
+ {
+  "instance": "grid-twochain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to restore the eastern feeder.\n- Safety Auditor proposed to pull the disturbance recorder.\n- Operations Lead rejected the proposal to pull the disturbance recorder; it is not needed for this case.\n- Safety Auditor proposed to resynchronise the protection relay.\n- Operations Lead accepted the proposal to resynchronise the protection relay.\n- The forecast says the storm front clears by morning.\n- The maintenance van is still parked at the north gate.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The regulator wants the outage report within 48 hours.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTORE_FEEDER  ISOLATE_TRANSFORMER  RESYNC_RELAY  SHED_LOAD  PULL_RECORDER  OPEN_BREAKER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RESTORE_FEEDER\", \"RESYNC_RELAY\", \"PULL_RECORDER\", \"SHED_LOAD\"], \"ready\": true}"
+ },
+ {
+  "instance": "grid-twochain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## restore the eastern feeder\n- proposed by Operations Lead\n\n## pull the disturbance recorder\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n\n## resynchronise the protection relay\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\n## discussion log\n- The forecast says the storm front clears by morning.\n- The maintenance van is still parked at the north gate.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The regulator wants the outage report within 48 hours.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTORE_FEEDER  ISOLATE_TRANSFORMER  RESYNC_RELAY  SHED_LOAD  PULL_RECORDER  OPEN_BREAKER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"ISOLATE_TRANSFORMER\", \"RESYNC_RELAY\", \"RESTORE_FEEDER\", \"PULL_RECORDER\"], \"ready\": true}"
+ },
+ {
+  "instance": "grid-twochain",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The forecast says the storm front clears by morning.\n- Safety Auditor proposed to pull the disturbance recorder; Operations Lead accepted it.\n- The regulator wants the outage report within 48 hours.\n- The maintenance van is still parked at the north gate.\n- Safety Auditor noted that restore the eastern feeder had been raised earlier in the discussion.\n- The control room shift changes at 22:00 tonight.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTORE_FEEDER  ISOLATE_TRANSFORMER  RESYNC_RELAY  SHED_LOAD  PULL_RECORDER  OPEN_BREAKER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"PULL_RECORDER\", \"RESTORE_FEEDER\", \"RESYNC_RELAY\", \"OPEN_BREAKER\"], \"ready\": true}"
+ },
+ {
+  "instance": "grid-twochain",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The forecast says the storm front clears by morning.\n- Safety Auditor proposed to restore the eastern feeder.\n- Operations Lead rejected the proposal to restore the eastern feeder; it is not needed for this case.\n- Safety Auditor proposed to pull the disturbance recorder.\n- Operations Lead accepted the proposal to pull the disturbance recorder.\n- The regulator wants the outage report within 48 hours.\n- The maintenance van is still parked at the north gate.\n- Safety Auditor noted that restore the eastern feeder had been raised earlier in the discussion.\n- The control room shift changes at 22:00 tonight.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTORE_FEEDER  ISOLATE_TRANSFORMER  RESYNC_RELAY  SHED_LOAD  PULL_RECORDER  OPEN_BREAKER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"PULL_RECORDER\", \"ISOLATE_TRANSFORMER\", \"RESYNC_RELAY\", \"SHED_LOAD\"], \"ready\": true}"
+ },
+ {
+  "instance": "grid-twochain",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The forecast says the storm front clears by morning.\n- The regulator wants the outage report within 48 hours.\n- The maintenance van is still parked at the north gate.\n- The control room shift changes at 22:00 tonight.\n\n## restore the eastern feeder\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n- noted again by Safety Auditor: raised earlier in the discussion\n\n## pull the disturbance recorder\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTORE_FEEDER  ISOLATE_TRANSFORMER  RESYNC_RELAY  SHED_LOAD  PULL_RECORDER  OPEN_BREAKER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"ISOLATE_TRANSFORMER\", \"PULL_RECORDER\", \"RESYNC_RELAY\", \"OPEN_BREAKER\"], \"ready\": true}"
+ },
+ {
+  "instance": "grid-twochain",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The forecast says the storm front clears by morning.\n- Safety Auditor proposed to pull the disturbance recorder; Operations Lead accepted it.\n- The regulator wants the outage report within 48 hours.\n- The maintenance van is still parked at the north gate.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The control room shift changes at 22:00 tonight.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTORE_FEEDER  ISOLATE_TRANSFORMER  RESYNC_RELAY  SHED_LOAD  PULL_RECORDER  OPEN_BREAKER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"ISOLATE_TRANSFORMER\", \"PULL_RECORDER\", \"RESYNC_RELAY\", \"RESTORE_FEEDER\"], \"ready\": true}"
+ },
+ {
+  "instance": "grid-twochain",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The forecast says the storm front clears by morning.\n- Safety Auditor proposed to restore the eastern feeder.\n- Operations Lead rejected the proposal to restore the eastern feeder; it is not needed for this case.\n- Safety Auditor proposed to pull the disturbance recorder.\n- Operations Lead accepted the proposal to pull the disturbance recorder.\n- The regulator wants the outage report within 48 hours.\n- The maintenance van is still parked at the north gate.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The control room shift changes at 22:00 tonight.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTORE_FEEDER  ISOLATE_TRANSFORMER  RESYNC_RELAY  SHED_LOAD  PULL_RECORDER  OPEN_BREAKER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"OPEN_BREAKER\", \"PULL_RECORDER\", \"ISOLATE_TRANSFORMER\", \"RESYNC_RELAY\"], \"ready\": true}"
+ },
+ {
+  "instance": "grid-twochain",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The forecast says the storm front clears by morning.\n- The regulator wants the outage report within 48 hours.\n- The maintenance van is still parked at the north gate.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The control room shift changes at 22:00 tonight.\n\n## restore the eastern feeder\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n\n## pull the disturbance recorder\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTORE_FEEDER  ISOLATE_TRANSFORMER  RESYNC_RELAY  SHED_LOAD  PULL_RECORDER  OPEN_BREAKER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"ISOLATE_TRANSFORMER\", \"PULL_RECORDER\", \"RESYNC_RELAY\", \"OPEN_BREAKER\"], \"ready\": true}"
+ },
+ {
+  "instance": "grid-star",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to isolate the backup transformer; Safety Auditor accepted it.\n- The maintenance van is still parked at the north gate.\n- The forecast says the storm front clears by morning.\n- The control room shift changes at 22:00 tonight.\n- Safety Auditor noted that shed the industrial load had been raised earlier in the discussion.\n- The regulator wants the outage report within 48 hours.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PULL_RECORDER  OPEN_BREAKER  RESTORE_FEEDER  ISOLATE_TRANSFORMER  SHED_LOAD  RESYNC_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"ISOLATE_TRANSFORMER\", \"SHED_LOAD\", \"OPEN_BREAKER\", \"RESTORE_FEEDER\"], \"ready\": true}"
+ },
+ {
+  "instance": "grid-star",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to isolate the backup transformer.\n- Safety Auditor accepted the proposal to isolate the backup transformer.\n- The maintenance van is still parked at the north gate.\n- Safety Auditor proposed to shed the industrial load.\n- Operations Lead rejected the proposal to shed the industrial load; it is not needed for this case.\n- The forecast says the storm front clears by morning.\n- The control room shift changes at 22:00 tonight.\n- Safety Auditor noted that shed the industrial load had been raised earlier in the discussion.\n- The regulator wants the outage report within 48 hours.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PULL_RECORDER  OPEN_BREAKER  RESTORE_FEEDER  ISOLATE_TRANSFORMER  SHED_LOAD  RESYNC_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"ISOLATE_TRANSFORMER\", \"OPEN_BREAKER\", \"SHED_LOAD\", \"RESYNC_RELAY\"], \"ready\": true}"
+ },
+ {
+  "instance": "grid-star",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## isolate the backup transformer\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\n## discussion log\n- The maintenance van is still parked at the north gate.\n- The forecast says the storm front clears by morning.\n- The control room shift changes at 22:00 tonight.\n- The regulator wants the outage report within 48 hours.\n\n## shed the industrial load\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n- noted again by Safety Auditor: raised earlier in the discussion\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PULL_RECORDER  OPEN_BREAKER  RESTORE_FEEDER  ISOLATE_TRANSFORMER  SHED_LOAD  RESYNC_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"ISOLATE_TRANSFORMER\", \"RESTORE_FEEDER\", \"PULL_RECORDER\", \"RESYNC_RELAY\"], \"ready\": true}"
+ },
+ {
+  "instance": "grid-star",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to isolate the backup transformer; Safety Auditor accepted it.\n- The maintenance van is still parked at the north gate.\n- The forecast says the storm front clears by morning.\n- The control room shift changes at 22:00 tonight.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The regulator wants the outage report within 48 hours.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PULL_RECORDER  OPEN_BREAKER  RESTORE_FEEDER  ISOLATE_TRANSFORMER  SHED_LOAD  RESYNC_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"ISOLATE_TRANSFORMER\", \"SHED_LOAD\", \"OPEN_BREAKER\", \"RESTORE_FEEDER\"], \"ready\": true}"
+ },
+ {
+  "instance": "grid-star",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to isolate the backup transformer.\n- Safety Auditor accepted the proposal to isolate the backup transformer.\n- The maintenance van is still parked at the north gate.\n- Safety Auditor proposed to shed the industrial load.\n- Operations Lead rejected the proposal to shed the industrial load; it is not needed for this case.\n- The forecast says the storm front clears by morning.\n- The control room shift changes at 22:00 tonight.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The regulator wants the outage report within 48 hours.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PULL_RECORDER  OPEN_BREAKER  RESTORE_FEEDER  ISOLATE_TRANSFORMER  SHED_LOAD  RESYNC_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"ISOLATE_TRANSFORMER\", \"OPEN_BREAKER\", \"SHED_LOAD\", \"RESYNC_RELAY\"], \"ready\": true}"
+ },
+ {
+  "instance": "grid-star",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## isolate the backup transformer\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\n## discussion log\n- The maintenance van is still parked at the north gate.\n- The forecast says the storm front clears by morning.\n- The control room shift changes at 22:00 tonight.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The regulator wants the outage report within 48 hours.\n\n## shed the industrial load\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PULL_RECORDER  OPEN_BREAKER  RESTORE_FEEDER  ISOLATE_TRANSFORMER  SHED_LOAD  RESYNC_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"ISOLATE_TRANSFORMER\", \"RESYNC_RELAY\", \"RESTORE_FEEDER\", \"PULL_RECORDER\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-fork",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to swap the delayed aircraft; Safety Auditor accepted it.\n- Catering confirmed the late delivery for gate 14.\n- Someone left the tow tractor by stand 22.\n- Operations Lead noted that hold the evening departures had been raised earlier in the discussion.\n- The weekly safety briefing moved to Thursday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  SWAP_AIRCRAFT  HOLD_DEPARTURES  BRIEF_HANDLERS  RECALL_CREW  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"HOLD_DEPARTURES\", \"RECALL_CREW\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-fork",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to hold the evening departures.\n- Safety Auditor rejected the proposal to hold the evening departures; it is not needed for this case.\n- Operations Lead proposed to swap the delayed aircraft.\n- Safety Auditor accepted the proposal to swap the delayed aircraft.\n- Catering confirmed the late delivery for gate 14.\n- Someone left the tow tractor by stand 22.\n- Operations Lead noted that hold the evening departures had been raised earlier in the discussion.\n- The weekly safety briefing moved to Thursday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  SWAP_AIRCRAFT  HOLD_DEPARTURES  BRIEF_HANDLERS  RECALL_CREW  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"RECALL_CREW\", \"BRIEF_HANDLERS\", \"OPEN_LOUNGE\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-fork",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## hold the evening departures\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n- noted again by Operations Lead: raised earlier in the discussion\n\n## swap the delayed aircraft\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\n## discussion log\n- Catering confirmed the late delivery for gate 14.\n- Someone left the tow tractor by stand 22.\n- The weekly safety briefing moved to Thursday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  SWAP_AIRCRAFT  HOLD_DEPARTURES  BRIEF_HANDLERS  RECALL_CREW  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"HOLD_DEPARTURES\", \"BRIEF_HANDLERS\", \"RECALL_CREW\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-fork",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to swap the delayed aircraft; Safety Auditor accepted it.\n- Catering confirmed the late delivery for gate 14.\n- Someone left the tow tractor by stand 22.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The weekly safety briefing moved to Thursday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  SWAP_AIRCRAFT  HOLD_DEPARTURES  BRIEF_HANDLERS  RECALL_CREW  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"RECALL_CREW\", \"BRIEF_HANDLERS\", \"REBOOK_CONNECTIONS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-fork",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to hold the evening departures.\n- Safety Auditor rejected the proposal to hold the evening departures; it is not needed for this case.\n- Operations Lead proposed to swap the delayed aircraft.\n- Safety Auditor accepted the proposal to swap the delayed aircraft.\n- Catering confirmed the late delivery for gate 14.\n- Someone left the tow tractor by stand 22.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The weekly safety briefing moved to Thursday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  SWAP_AIRCRAFT  HOLD_DEPARTURES  BRIEF_HANDLERS  RECALL_CREW  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"HOLD_DEPARTURES\", \"RECALL_CREW\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-fork",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## hold the evening departures\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n\n## swap the delayed aircraft\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\n## discussion log\n- Catering confirmed the late delivery for gate 14.\n- Someone left the tow tractor by stand 22.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The weekly safety briefing moved to Thursday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  SWAP_AIRCRAFT  HOLD_DEPARTURES  BRIEF_HANDLERS  RECALL_CREW  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"HOLD_DEPARTURES\", \"RECALL_CREW\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-fork",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to hold the evening departures.\n- Catering confirmed the late delivery for gate 14.\n- The duty manager's phone is on the charger.\n- Safety Auditor noted that swap the delayed aircraft had been raised earlier in the discussion.\n- Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  SWAP_AIRCRAFT  HOLD_DEPARTURES  BRIEF_HANDLERS  RECALL_CREW  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"HOLD_DEPARTURES\", \"RECALL_CREW\", \"BRIEF_HANDLERS\", \"REBOOK_CONNECTIONS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-fork",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to hold the evening departures.\n- Safety Auditor proposed to swap the delayed aircraft.\n- Operations Lead rejected the proposal to swap the delayed aircraft; it is not needed for this case.\n- Catering confirmed the late delivery for gate 14.\n- The duty manager's phone is on the charger.\n- Safety Auditor noted that swap the delayed aircraft had been raised earlier in the discussion.\n- Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  SWAP_AIRCRAFT  HOLD_DEPARTURES  BRIEF_HANDLERS  RECALL_CREW  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"HOLD_DEPARTURES\", \"SWAP_AIRCRAFT\", \"BRIEF_HANDLERS\", \"RECALL_CREW\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-fork",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## hold the evening departures\n- proposed by Operations Lead\n\n## swap the delayed aircraft\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n- noted again by Safety Auditor: raised earlier in the discussion\n\n## discussion log\n- Catering confirmed the late delivery for gate 14.\n- The duty manager's phone is on the charger.\n- Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  SWAP_AIRCRAFT  HOLD_DEPARTURES  BRIEF_HANDLERS  RECALL_CREW  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"HOLD_DEPARTURES\", \"BRIEF_HANDLERS\", \"RECALL_CREW\", \"REBOOK_CONNECTIONS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-fork",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to hold the evening departures.\n- Catering confirmed the late delivery for gate 14.\n- The duty manager's phone is on the charger.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  SWAP_AIRCRAFT  HOLD_DEPARTURES  BRIEF_HANDLERS  RECALL_CREW  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"HOLD_DEPARTURES\", \"RECALL_CREW\", \"BRIEF_HANDLERS\", \"REBOOK_CONNECTIONS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-fork",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to hold the evening departures.\n- Safety Auditor proposed to swap the delayed aircraft.\n- Operations Lead rejected the proposal to swap the delayed aircraft; it is not needed for this case.\n- Catering confirmed the late delivery for gate 14.\n- The duty manager's phone is on the charger.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  SWAP_AIRCRAFT  HOLD_DEPARTURES  BRIEF_HANDLERS  RECALL_CREW  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"HOLD_DEPARTURES\", \"SWAP_AIRCRAFT\", \"RECALL_CREW\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-fork",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## hold the evening departures\n- proposed by Operations Lead\n\n## swap the delayed aircraft\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n\n## discussion log\n- Catering confirmed the late delivery for gate 14.\n- The duty manager's phone is on the charger.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  SWAP_AIRCRAFT  HOLD_DEPARTURES  BRIEF_HANDLERS  RECALL_CREW  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"HOLD_DEPARTURES\", \"BRIEF_HANDLERS\", \"RECALL_CREW\", \"REBOOK_CONNECTIONS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-join",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The duty manager's phone is on the charger.\n- Safety Auditor proposed to open the overflow lounge.\n- Operations Lead proposed to hold the evening departures; Safety Auditor accepted it.\n- The weekly safety briefing moved to Thursday.\n- Someone left the tow tractor by stand 22.\n- Operations Lead noted that swap the delayed aircraft had been raised earlier in the discussion.\n- Catering confirmed the late delivery for gate 14.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REBOOK_CONNECTIONS  OPEN_LOUNGE  HOLD_DEPARTURES  SWAP_AIRCRAFT  RECALL_CREW  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"HOLD_DEPARTURES\", \"OPEN_LOUNGE\", \"SWAP_AIRCRAFT\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-join",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The duty manager's phone is on the charger.\n- Safety Auditor proposed to open the overflow lounge.\n- Operations Lead proposed to hold the evening departures.\n- Safety Auditor accepted the proposal to hold the evening departures.\n- Operations Lead proposed to swap the delayed aircraft.\n- Safety Auditor rejected the proposal to swap the delayed aircraft; it is not needed for this case.\n- The weekly safety briefing moved to Thursday.\n- Someone left the tow tractor by stand 22.\n- Operations Lead noted that swap the delayed aircraft had been raised earlier in the discussion.\n- Catering confirmed the late delivery for gate 14.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REBOOK_CONNECTIONS  OPEN_LOUNGE  HOLD_DEPARTURES  SWAP_AIRCRAFT  RECALL_CREW  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"OPEN_LOUNGE\", \"HOLD_DEPARTURES\", \"RECALL_CREW\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-join",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The duty manager's phone is on the charger.\n- The weekly safety briefing moved to Thursday.\n- Someone left the tow tractor by stand 22.\n- Catering confirmed the late delivery for gate 14.\n\n## open the overflow lounge\n- proposed by Safety Auditor\n\n## hold the evening departures\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\n## swap the delayed aircraft\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n- noted again by Operations Lead: raised earlier in the discussion\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REBOOK_CONNECTIONS  OPEN_LOUNGE  HOLD_DEPARTURES  SWAP_AIRCRAFT  RECALL_CREW  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"OPEN_LOUNGE\", \"HOLD_DEPARTURES\", \"RECALL_CREW\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-join",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The duty manager's phone is on the charger.\n- Safety Auditor proposed to open the overflow lounge.\n- Operations Lead proposed to hold the evening departures; Safety Auditor accepted it.\n- The weekly safety briefing moved to Thursday.\n- Someone left the tow tractor by stand 22.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Catering confirmed the late delivery for gate 14.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REBOOK_CONNECTIONS  OPEN_LOUNGE  HOLD_DEPARTURES  SWAP_AIRCRAFT  RECALL_CREW  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"HOLD_DEPARTURES\", \"OPEN_LOUNGE\", \"SWAP_AIRCRAFT\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-join",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The duty manager's phone is on the charger.\n- Safety Auditor proposed to open the overflow lounge.\n- Operations Lead proposed to hold the evening departures.\n- Safety Auditor accepted the proposal to hold the evening departures.\n- Operations Lead proposed to swap the delayed aircraft.\n- Safety Auditor rejected the proposal to swap the delayed aircraft; it is not needed for this case.\n- The weekly safety briefing moved to Thursday.\n- Someone left the tow tractor by stand 22.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Catering confirmed the late delivery for gate 14.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REBOOK_CONNECTIONS  OPEN_LOUNGE  HOLD_DEPARTURES  SWAP_AIRCRAFT  RECALL_CREW  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"OPEN_LOUNGE\", \"HOLD_DEPARTURES\", \"RECALL_CREW\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-join",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The duty manager's phone is on the charger.\n- The weekly safety briefing moved to Thursday.\n- Someone left the tow tractor by stand 22.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Catering confirmed the late delivery for gate 14.\n\n## open the overflow lounge\n- proposed by Safety Auditor\n\n## hold the evening departures\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\n## swap the delayed aircraft\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REBOOK_CONNECTIONS  OPEN_LOUNGE  HOLD_DEPARTURES  SWAP_AIRCRAFT  RECALL_CREW  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"OPEN_LOUNGE\", \"HOLD_DEPARTURES\", \"RECALL_CREW\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-join",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to swap the delayed aircraft.\n- The weekly safety briefing moved to Thursday.\n- Someone left the tow tractor by stand 22.\n- The duty manager's phone is on the charger.\n- Operations Lead noted that hold the evening departures had been raised earlier in the discussion.\n- Catering confirmed the late delivery for gate 14.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REBOOK_CONNECTIONS  OPEN_LOUNGE  HOLD_DEPARTURES  SWAP_AIRCRAFT  RECALL_CREW  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"HOLD_DEPARTURES\", \"RECALL_CREW\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-join",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to swap the delayed aircraft.\n- The weekly safety briefing moved to Thursday.\n- Operations Lead proposed to hold the evening departures.\n- Safety Auditor rejected the proposal to hold the evening departures; it is not needed for this case.\n- Someone left the tow tractor by stand 22.\n- The duty manager's phone is on the charger.\n- Operations Lead noted that hold the evening departures had been raised earlier in the discussion.\n- Catering confirmed the late delivery for gate 14.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REBOOK_CONNECTIONS  OPEN_LOUNGE  HOLD_DEPARTURES  SWAP_AIRCRAFT  RECALL_CREW  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"REBOOK_CONNECTIONS\", \"OPEN_LOUNGE\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-join",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## swap the delayed aircraft\n- proposed by Operations Lead\n\n## discussion log\n- The weekly safety briefing moved to Thursday.\n- Someone left the tow tractor by stand 22.\n- The duty manager's phone is on the charger.\n- Catering confirmed the late delivery for gate 14.\n\n## hold the evening departures\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n- noted again by Operations Lead: raised earlier in the discussion\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REBOOK_CONNECTIONS  OPEN_LOUNGE  HOLD_DEPARTURES  SWAP_AIRCRAFT  RECALL_CREW  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"RECALL_CREW\", \"BRIEF_HANDLERS\", \"OPEN_LOUNGE\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-join",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to swap the delayed aircraft.\n- The weekly safety briefing moved to Thursday.\n- Someone left the tow tractor by stand 22.\n- The duty manager's phone is on the charger.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Catering confirmed the late delivery for gate 14.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REBOOK_CONNECTIONS  OPEN_LOUNGE  HOLD_DEPARTURES  SWAP_AIRCRAFT  RECALL_CREW  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"BRIEF_HANDLERS\", \"RECALL_CREW\", \"OPEN_LOUNGE\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-join",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to swap the delayed aircraft.\n- The weekly safety briefing moved to Thursday.\n- Operations Lead proposed to hold the evening departures.\n- Safety Auditor rejected the proposal to hold the evening departures; it is not needed for this case.\n- Someone left the tow tractor by stand 22.\n- The duty manager's phone is on the charger.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Catering confirmed the late delivery for gate 14.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REBOOK_CONNECTIONS  OPEN_LOUNGE  HOLD_DEPARTURES  SWAP_AIRCRAFT  RECALL_CREW  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"RECALL_CREW\", \"BRIEF_HANDLERS\", \"OPEN_LOUNGE\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-join",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## swap the delayed aircraft\n- proposed by Operations Lead\n\n## discussion log\n- The weekly safety briefing moved to Thursday.\n- Someone left the tow tractor by stand 22.\n- The duty manager's phone is on the charger.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Catering confirmed the late delivery for gate 14.\n\n## hold the evening departures\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REBOOK_CONNECTIONS  OPEN_LOUNGE  HOLD_DEPARTURES  SWAP_AIRCRAFT  RECALL_CREW  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"REBOOK_CONNECTIONS\", \"OPEN_LOUNGE\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-twochain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The weekly safety briefing moved to Thursday.\n- Catering confirmed the late delivery for gate 14.\n- Operations Lead proposed to rebook the missed connections.\n- Safety Auditor noted that brief the ground handlers had been raised earlier in the discussion.\n- Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  RECALL_CREW  HOLD_DEPARTURES  REBOOK_CONNECTIONS  SWAP_AIRCRAFT  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BRIEF_HANDLERS\", \"RECALL_CREW\", \"REBOOK_CONNECTIONS\", \"HOLD_DEPARTURES\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-twochain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The weekly safety briefing moved to Thursday.\n- Safety Auditor proposed to brief the ground handlers.\n- Operations Lead rejected the proposal to brief the ground handlers; it is not needed for this case.\n- Catering confirmed the late delivery for gate 14.\n- Operations Lead proposed to rebook the missed connections.\n- Safety Auditor noted that brief the ground handlers had been raised earlier in the discussion.\n- Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  RECALL_CREW  HOLD_DEPARTURES  REBOOK_CONNECTIONS  SWAP_AIRCRAFT  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RECALL_CREW\", \"REBOOK_CONNECTIONS\", \"HOLD_DEPARTURES\", \"OPEN_LOUNGE\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-twochain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The weekly safety briefing moved to Thursday.\n- Catering confirmed the late delivery for gate 14.\n- Someone left the tow tractor by stand 22.\n\n## brief the ground handlers\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n- noted again by Safety Auditor: raised earlier in the discussion\n\n## rebook the missed connections\n- proposed by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  RECALL_CREW  HOLD_DEPARTURES  REBOOK_CONNECTIONS  SWAP_AIRCRAFT  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RECALL_CREW\", \"REBOOK_CONNECTIONS\", \"HOLD_DEPARTURES\", \"SWAP_AIRCRAFT\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-twochain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The weekly safety briefing moved to Thursday.\n- Catering confirmed the late delivery for gate 14.\n- Operations Lead proposed to rebook the missed connections.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  RECALL_CREW  HOLD_DEPARTURES  REBOOK_CONNECTIONS  SWAP_AIRCRAFT  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RECALL_CREW\", \"REBOOK_CONNECTIONS\", \"BRIEF_HANDLERS\", \"OPEN_LOUNGE\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-twochain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The weekly safety briefing moved to Thursday.\n- Safety Auditor proposed to brief the ground handlers.\n- Operations Lead rejected the proposal to brief the ground handlers; it is not needed for this case.\n- Catering confirmed the late delivery for gate 14.\n- Operations Lead proposed to rebook the missed connections.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  RECALL_CREW  HOLD_DEPARTURES  REBOOK_CONNECTIONS  SWAP_AIRCRAFT  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RECALL_CREW\", \"REBOOK_CONNECTIONS\", \"HOLD_DEPARTURES\", \"OPEN_LOUNGE\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-twochain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The weekly safety briefing moved to Thursday.\n- Catering confirmed the late delivery for gate 14.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- Someone left the tow tractor by stand 22.\n\n## brief the ground handlers\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n\n## rebook the missed connections\n- proposed by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  RECALL_CREW  HOLD_DEPARTURES  REBOOK_CONNECTIONS  SWAP_AIRCRAFT  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RECALL_CREW\", \"HOLD_DEPARTURES\", \"REBOOK_CONNECTIONS\", \"SWAP_AIRCRAFT\"], \"ready\": true}"
+ },
+ {
+  "instance": "newsroom-join",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Sports wants the byline styles fixed by Friday.\n- Safety Auditor proposed to page the platform vendor.\n- The morning editorial meeting starts at 09:30.\n- Safety Auditor noted that freeze the publishing queue had been raised earlier in the discussion.\n- A freelancer asked about the invoice portal.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PURGE_FRONTPAGE  REINDEX_ARCHIVE  ROLLBACK_PLUGIN  REOPEN_LIVEBLOG  FREEZE_PUBLISHING  PAGE_VENDOR\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"FREEZE_PUBLISHING\", \"PAGE_VENDOR\", \"ROLLBACK_PLUGIN\", \"REINDEX_ARCHIVE\"], \"ready\": true}"
+ },
+ {
+  "instance": "newsroom-join",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Sports wants the byline styles fixed by Friday.\n- Safety Auditor proposed to freeze the publishing queue.\n- Operations Lead rejected the proposal to freeze the publishing queue; it is not needed for this case.\n- Safety Auditor proposed to page the platform vendor.\n- The morning editorial meeting starts at 09:30.\n- Safety Auditor noted that freeze the publishing queue had been raised earlier in the discussion.\n- A freelancer asked about the invoice portal.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PURGE_FRONTPAGE  REINDEX_ARCHIVE  ROLLBACK_PLUGIN  REOPEN_LIVEBLOG  FREEZE_PUBLISHING  PAGE_VENDOR\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"ROLLBACK_PLUGIN\", \"FREEZE_PUBLISHING\", \"PAGE_VENDOR\", \"REINDEX_ARCHIVE\"], \"ready\": true}"
+ },
+ {
+  "instance": "newsroom-join",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- Sports wants the byline styles fixed by Friday.\n- The morning editorial meeting starts at 09:30.\n- A freelancer asked about the invoice portal.\n\n## freeze the publishing queue\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n- noted again by Safety Auditor: raised earlier in the discussion\n\n## page the platform vendor\n- proposed by Safety Auditor\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PURGE_FRONTPAGE  REINDEX_ARCHIVE  ROLLBACK_PLUGIN  REOPEN_LIVEBLOG  FREEZE_PUBLISHING  PAGE_VENDOR\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"PAGE_VENDOR\", \"ROLLBACK_PLUGIN\", \"FREEZE_PUBLISHING\", \"REINDEX_ARCHIVE\"], \"ready\": true}"
+ },
+ {
+  "instance": "newsroom-join",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Sports wants the byline styles fixed by Friday.\n- Safety Auditor proposed to page the platform vendor.\n- The morning editorial meeting starts at 09:30.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- A freelancer asked about the invoice portal.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PURGE_FRONTPAGE  REINDEX_ARCHIVE  ROLLBACK_PLUGIN  REOPEN_LIVEBLOG  FREEZE_PUBLISHING  PAGE_VENDOR\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"ROLLBACK_PLUGIN\", \"FREEZE_PUBLISHING\", \"PAGE_VENDOR\", \"REINDEX_ARCHIVE\"], \"ready\": true}"
+ },
+ {
+  "instance": "newsroom-join",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Sports wants the byline styles fixed by Friday.\n- Safety Auditor proposed to freeze the publishing queue.\n- Operations Lead rejected the proposal to freeze the publishing queue; it is not needed for this case.\n- Safety Auditor proposed to page the platform vendor.\n- The morning editorial meeting starts at 09:30.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- A freelancer asked about the invoice portal.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PURGE_FRONTPAGE  REINDEX_ARCHIVE  ROLLBACK_PLUGIN  REOPEN_LIVEBLOG  FREEZE_PUBLISHING  PAGE_VENDOR\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"ROLLBACK_PLUGIN\", \"FREEZE_PUBLISHING\", \"PAGE_VENDOR\", \"REINDEX_ARCHIVE\"], \"ready\": true}"
+ },
+ {
+  "instance": "newsroom-join",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- Sports wants the byline styles fixed by Friday.\n- The morning editorial meeting starts at 09:30.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- A freelancer asked about the invoice portal.\n\n## freeze the publishing queue\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n\n## page the platform vendor\n- proposed by Safety Auditor\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PURGE_FRONTPAGE  REINDEX_ARCHIVE  ROLLBACK_PLUGIN  REOPEN_LIVEBLOG  FREEZE_PUBLISHING  PAGE_VENDOR\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"PAGE_VENDOR\", \"ROLLBACK_PLUGIN\", \"REINDEX_ARCHIVE\", \"FREEZE_PUBLISHING\"], \"ready\": true}"
+ },
+ {
+  "instance": "newsroom-star",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The morning editorial meeting starts at 09:30.\n- Safety Auditor proposed to freeze the publishing queue.\n- The newsroom coffee machine is out of order again.\n- Safety Auditor noted that purge the front page cache had been raised earlier in the discussion.\n- A freelancer asked about the invoice portal.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REINDEX_ARCHIVE  PAGE_VENDOR  ROLLBACK_PLUGIN  REOPEN_LIVEBLOG  PURGE_FRONTPAGE  FREEZE_PUBLISHING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"FREEZE_PUBLISHING\", \"PURGE_FRONTPAGE\", \"ROLLBACK_PLUGIN\", \"PAGE_VENDOR\"], \"ready\": true}"
+ },
+ {
+  "instance": "newsroom-star",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The morning editorial meeting starts at 09:30.\n- Safety Auditor proposed to purge the front page cache.\n- Operations Lead rejected the proposal to purge the front page cache; it is not needed for this case.\n- Safety Auditor proposed to freeze the publishing queue.\n- The newsroom coffee machine is out of order again.\n- Safety Auditor noted that purge the front page cache had been raised earlier in the discussion.\n- A freelancer asked about the invoice portal.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REINDEX_ARCHIVE  PAGE_VENDOR  ROLLBACK_PLUGIN  REOPEN_LIVEBLOG  PURGE_FRONTPAGE  FREEZE_PUBLISHING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"FREEZE_PUBLISHING\", \"ROLLBACK_PLUGIN\", \"REINDEX_ARCHIVE\", \"PAGE_VENDOR\"], \"ready\": true}"
+ },
+ {
+  "instance": "newsroom-star",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The morning editorial meeting starts at 09:30.\n- The newsroom coffee machine is out of order again.\n- A freelancer asked about the invoice portal.\n\n## purge the front page cache\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n- noted again by Safety Auditor: raised earlier in the discussion\n\n## freeze the publishing queue\n- proposed by Safety Auditor\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REINDEX_ARCHIVE  PAGE_VENDOR  ROLLBACK_PLUGIN  REOPEN_LIVEBLOG  PURGE_FRONTPAGE  FREEZE_PUBLISHING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"FREEZE_PUBLISHING\", \"REINDEX_ARCHIVE\", \"ROLLBACK_PLUGIN\", \"PAGE_VENDOR\"], \"ready\": true}"
+ },
+ {
+  "instance": "newsroom-star",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The morning editorial meeting starts at 09:30.\n- Safety Auditor proposed to freeze the publishing queue.\n- The newsroom coffee machine is out of order again.\n- Safety Auditor noted that the written summary for finance had been raised earlier in the discussion.\n- A freelancer asked about the invoice portal.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REINDEX_ARCHIVE  PAGE_VENDOR  ROLLBACK_PLUGIN  REOPEN_LIVEBLOG  PURGE_FRONTPAGE  FREEZE_PUBLISHING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"FREEZE_PUBLISHING\", \"REINDEX_ARCHIVE\", \"ROLLBACK_PLUGIN\", \"PUSH_NOTIFICATION\"], \"ready\": true}"
+ },
+ {
+  "instance": "newsroom-star",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The morning editorial meeting starts at 09:30.\n- Safety Auditor proposed to purge the front page cache.\n- Operations Lead rejected the proposal to purge the front page cache; it is not needed for this case.\n- Safety Auditor proposed to freeze the publishing queue.\n- The newsroom coffee machine is out of order again.\n- Safety Auditor noted that the written summary for finance had been raised earlier in the discussion.\n- A freelancer asked about the invoice portal.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REINDEX_ARCHIVE  PAGE_VENDOR  ROLLBACK_PLUGIN  REOPEN_LIVEBLOG  PURGE_FRONTPAGE  FREEZE_PUBLISHING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"FREEZE_PUBLISHING\", \"ROLLBACK_PLUGIN\", \"REINDEX_ARCHIVE\", \"PAGE_VENDOR\"], \"ready\": true}"
+ },
+ {
+  "instance": "newsroom-star",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The morning editorial meeting starts at 09:30.\n- The newsroom coffee machine is out of order again.\n- Safety Auditor noted that the written summary for finance had been raised earlier in the discussion.\n- A freelancer asked about the invoice portal.\n\n## purge the front page cache\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n\n## freeze the publishing queue\n- proposed by Safety Auditor\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REINDEX_ARCHIVE  PAGE_VENDOR  ROLLBACK_PLUGIN  REOPEN_LIVEBLOG  PURGE_FRONTPAGE  FREEZE_PUBLISHING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"FREEZE_PUBLISHING\", \"REINDEX_ARCHIVE\", \"ROLLBACK_PLUGIN\", \"PAGE_VENDOR\"], \"ready\": true}"
+ },
+ {
+  "instance": "newsroom-star",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Sports wants the byline styles fixed by Friday.\n- The morning editorial meeting starts at 09:30.\n- Operations Lead proposed to freeze the publishing queue; Safety Auditor accepted it.\n- Operations Lead noted that reopen the live blog had been raised earlier in the discussion.\n- The newsroom coffee machine is out of order again.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REINDEX_ARCHIVE  PAGE_VENDOR  ROLLBACK_PLUGIN  REOPEN_LIVEBLOG  PURGE_FRONTPAGE  FREEZE_PUBLISHING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"FREEZE_PUBLISHING\", \"REOPEN_LIVEBLOG\", \"REINDEX_ARCHIVE\", \"PURGE_FRONTPAGE\"], \"ready\": true}"
+ },
+ {
+  "instance": "newsroom-star",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to reopen the live blog.\n- Safety Auditor rejected the proposal to reopen the live blog; it is not needed for this case.\n- Sports wants the byline styles fixed by Friday.\n- The morning editorial meeting starts at 09:30.\n- Operations Lead proposed to freeze the publishing queue.\n- Safety Auditor accepted the proposal to freeze the publishing queue.\n- Operations Lead noted that reopen the live blog had been raised earlier in the discussion.\n- The newsroom coffee machine is out of order again.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REINDEX_ARCHIVE  PAGE_VENDOR  ROLLBACK_PLUGIN  REOPEN_LIVEBLOG  PURGE_FRONTPAGE  FREEZE_PUBLISHING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"FREEZE_PUBLISHING\", \"ROLLBACK_PLUGIN\", \"REINDEX_ARCHIVE\", \"PUSH_NOTIFICATION_TO_EDITORIAL\"], \"ready\": true}"
+ },
+ {
+  "instance": "newsroom-star",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## reopen the live blog\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n- noted again by Operations Lead: raised earlier in the discussion\n\n## discussion log\n- Sports wants the byline styles fixed by Friday.\n- The morning editorial meeting starts at 09:30.\n- The newsroom coffee machine is out of order again.\n\n## freeze the publishing queue\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REINDEX_ARCHIVE  PAGE_VENDOR  ROLLBACK_PLUGIN  REOPEN_LIVEBLOG  PURGE_FRONTPAGE  FREEZE_PUBLISHING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"FREEZE_PUBLISHING\", \"ROLLBACK_PLUGIN\", \"Purge_FRONTPAGE\", \"REINDEX_ARCHIVE\"], \"ready\": true}"
+ },
+ {
+  "instance": "newsroom-star",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Sports wants the byline styles fixed by Friday.\n- The morning editorial meeting starts at 09:30.\n- Operations Lead proposed to freeze the publishing queue; Safety Auditor accepted it.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The newsroom coffee machine is out of order again.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REINDEX_ARCHIVE  PAGE_VENDOR  ROLLBACK_PLUGIN  REOPEN_LIVEBLOG  PURGE_FRONTPAGE  FREEZE_PUBLISHING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"FREEZE_PUBLISHING\", \"ROLLBACK_PLUGIN\", \"REINDEX_ARCHIVE\", \"Purge_FRONTPAGE\"], \"ready\": true}"
+ },
+ {
+  "instance": "newsroom-star",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to reopen the live blog.\n- Safety Auditor rejected the proposal to reopen the live blog; it is not needed for this case.\n- Sports wants the byline styles fixed by Friday.\n- The morning editorial meeting starts at 09:30.\n- Operations Lead proposed to freeze the publishing queue.\n- Safety Auditor accepted the proposal to freeze the publishing queue.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The newsroom coffee machine is out of order again.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REINDEX_ARCHIVE  PAGE_VENDOR  ROLLBACK_PLUGIN  REOPEN_LIVEBLOG  PURGE_FRONTPAGE  FREEZE_PUBLISHING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"ROLLBACK_PLUGIN\", \"FREEZE_PUBLISHING\", \"REOPEN_LIVEBLOG\", \"PUSH_SUMMARY_DEADLINE\"], \"ready\": true}"
+ },
+ {
+  "instance": "newsroom-star",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## reopen the live blog\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n\n## discussion log\n- Sports wants the byline styles fixed by Friday.\n- The morning editorial meeting starts at 09:30.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The newsroom coffee machine is out of order again.\n\n## freeze the publishing queue\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REINDEX_ARCHIVE  PAGE_VENDOR  ROLLBACK_PLUGIN  REOPEN_LIVEBLOG  PURGE_FRONTPAGE  FREEZE_PUBLISHING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"FREEZE_PUBLISHING\", \"ROLLBACK_PLUGIN\", \"REINDEX_ARCHIVE\", \"Purge_FRONTPAGE\"], \"ready\": true}"
+ },
+ {
+  "instance": "water-join",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The lab courier collects the vials at 15:00.\n- The fence contractor is on site tomorrow.\n- Operations Lead proposed to issue the boil-water notice.\n- Safety Auditor noted that dose the contact tank had been raised earlier in the discussion.\n- The council meeting agenda went out this morning.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  DOSE_TANK  TEST_RESERVOIR  FLUSH_MAINS  CLOSE_INTAKE  ISSUE_NOTICE  RESTART_PUMPS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CLOSE_INTAKE\", \"FLUSH_MAINS\", \"DOSE_TANK\", \"ISSUE_NOTICE\"], \"ready\": true}"
+ },
+ {
+  "instance": "water-join",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The lab courier collects the vials at 15:00.\n- The fence contractor is on site tomorrow.\n- Operations Lead proposed to issue the boil-water notice.\n- Safety Auditor proposed to dose the contact tank.\n- Operations Lead rejected the proposal to dose the contact tank; it is not needed for this case.\n- Safety Auditor noted that dose the contact tank had been raised earlier in the discussion.\n- The council meeting agenda went out this morning.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  DOSE_TANK  TEST_RESERVOIR  FLUSH_MAINS  CLOSE_INTAKE  ISSUE_NOTICE  RESTART_PUMPS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CLOSE_INTAKE\", \"FLUSH_MAINS\", \"ISSUE_NOTICE\", \"DOSE_TANK\"], \"ready\": true}"
+ },
+ {
+  "instance": "water-join",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The lab courier collects the vials at 15:00.\n- The fence contractor is on site tomorrow.\n- The council meeting agenda went out this morning.\n\n## issue the boil-water notice\n- proposed by Operations Lead\n\n## dose the contact tank\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n- noted again by Safety Auditor: raised earlier in the discussion\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  DOSE_TANK  TEST_RESERVOIR  FLUSH_MAINS  CLOSE_INTAKE  ISSUE_NOTICE  RESTART_PUMPS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CLOSE_INTAKE\", \"FLUSH_MAINS\", \"DOSE_TANK\", \"ISSUE_NOTICE\"], \"ready\": true}"
+ },
+ {
+  "instance": "water-join",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The lab courier collects the vials at 15:00.\n- The fence contractor is on site tomorrow.\n- Operations Lead proposed to issue the boil-water notice.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The council meeting agenda went out this morning.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  DOSE_TANK  TEST_RESERVOIR  FLUSH_MAINS  CLOSE_INTAKE  ISSUE_NOTICE  RESTART_PUMPS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CLOSE_INTAKE\", \"FLUSH_MAINS\", \"TEST_RESERVOIR\", \"ISSUE_NOTICE\"], \"ready\": true}"
+ },
+ {
+  "instance": "water-join",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The lab courier collects the vials at 15:00.\n- The fence contractor is on site tomorrow.\n- Operations Lead proposed to issue the boil-water notice.\n- Safety Auditor proposed to dose the contact tank.\n- Operations Lead rejected the proposal to dose the contact tank; it is not needed for this case.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The council meeting agenda went out this morning.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  DOSE_TANK  TEST_RESERVOIR  FLUSH_MAINS  CLOSE_INTAKE  ISSUE_NOTICE  RESTART_PUMPS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CLOSE_INTAKE\", \"FLUSH_MAINS\", \"DOSE_TANK\", \"ISSUE_NOTICE\"], \"ready\": true}"
+ },
+ {
+  "instance": "water-join",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The lab courier collects the vials at 15:00.\n- The fence contractor is on site tomorrow.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The council meeting agenda went out this morning.\n\n## issue the boil-water notice\n- proposed by Operations Lead\n\n## dose the contact tank\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  DOSE_TANK  TEST_RESERVOIR  FLUSH_MAINS  CLOSE_INTAKE  ISSUE_NOTICE  RESTART_PUMPS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CLOSE_INTAKE\", \"DOSE_TANK\", \"TEST_RESERVOIR\", \"ISSUE_NOTICE\"], \"ready\": true}"
+ },
+ {
+  "instance": "water-diamond",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to test the service reservoir.\n- Safety Auditor proposed to issue the boil-water notice; Operations Lead accepted it.\n- The lab courier collects the vials at 15:00.\n- The council meeting agenda went out this morning.\n- Safety Auditor noted that close the river intake had been raised earlier in the discussion.\n- The night operator's handover notes are on the desk.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_PUMPS  TEST_RESERVOIR  FLUSH_MAINS  CLOSE_INTAKE  DOSE_TANK  ISSUE_NOTICE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"TEST_RESERVOIR\", \"CLOSE_INTAKE\", \"ISSUE_NOTICE\", \"DOSE_TANK\"], \"ready\": true}"
+ },
+ {
+  "instance": "water-diamond",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to test the service reservoir.\n- Safety Auditor proposed to close the river intake.\n- Operations Lead rejected the proposal to close the river intake; it is not needed for this case.\n- Safety Auditor proposed to issue the boil-water notice.\n- Operations Lead accepted the proposal to issue the boil-water notice.\n- The lab courier collects the vials at 15:00.\n- The council meeting agenda went out this morning.\n- Safety Auditor noted that close the river intake had been raised earlier in the discussion.\n- The night operator's handover notes are on the desk.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_PUMPS  TEST_RESERVOIR  FLUSH_MAINS  CLOSE_INTAKE  DOSE_TANK  ISSUE_NOTICE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"TEST_RESERVOIR\", \"DOSE_TANK\", \"ISSUE_NOTICE\", \"CLOSE_INTAKE\"], \"ready\": true}"
+ },
+ {
+  "instance": "water-diamond",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## test the service reservoir\n- proposed by Operations Lead\n\n## close the river intake\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n- noted again by Safety Auditor: raised earlier in the discussion\n\n## issue the boil-water notice\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\n## discussion log\n- The lab courier collects the vials at 15:00.\n- The council meeting agenda went out this morning.\n- The night operator's handover notes are on the desk.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_PUMPS  TEST_RESERVOIR  FLUSH_MAINS  CLOSE_INTAKE  DOSE_TANK  ISSUE_NOTICE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"TEST_RESERVOIR\", \"DOSE_TANK\", \"ISSUE_NOTICE\", \"CLOSE_INTAKE\"], \"ready\": true}"
+ },
+ {
+  "instance": "water-diamond",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to test the service reservoir.\n- Safety Auditor proposed to issue the boil-water notice; Operations Lead accepted it.\n- The lab courier collects the vials at 15:00.\n- The council meeting agenda went out this morning.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The night operator's handover notes are on the desk.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_PUMPS  TEST_RESERVOIR  FLUSH_MAINS  CLOSE_INTAKE  DOSE_TANK  ISSUE_NOTICE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"TEST_RESERVOIR\", \"DOSE_TANK\", \"ISSUE_NOTICE\", \"CLOSE_INTAKE\"], \"ready\": true}"
+ },
+ {
+  "instance": "water-diamond",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to test the service reservoir.\n- Safety Auditor proposed to close the river intake.\n- Operations Lead rejected the proposal to close the river intake; it is not needed for this case.\n- Safety Auditor proposed to issue the boil-water notice.\n- Operations Lead accepted the proposal to issue the boil-water notice.\n- The lab courier collects the vials at 15:00.\n- The council meeting agenda went out this morning.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The night operator's handover notes are on the desk.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_PUMPS  TEST_RESERVOIR  FLUSH_MAINS  CLOSE_INTAKE  DOSE_TANK  ISSUE_NOTICE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"TEST_RESERVOIR\", \"DOSE_TANK\", \"ISSUE_NOTICE\", \"CLOSE_INTAKE\"], \"ready\": true}"
+ },
+ {
+  "instance": "water-diamond",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## test the service reservoir\n- proposed by Operations Lead\n\n## close the river intake\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n\n## issue the boil-water notice\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\n## discussion log\n- The lab courier collects the vials at 15:00.\n- The council meeting agenda went out this morning.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The night operator's handover notes are on the desk.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_PUMPS  TEST_RESERVOIR  FLUSH_MAINS  CLOSE_INTAKE  DOSE_TANK  ISSUE_NOTICE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"TEST_RESERVOIR\", \"DOSE_TANK\", \"ISSUE_NOTICE\", \"CLOSE_INTAKE\"], \"ready\": true}"
+ },
+ {
+  "instance": "water-diamond",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The fence contractor is on site tomorrow.\n- Safety Auditor proposed to close the river intake; Operations Lead accepted it.\n- The night operator's handover notes are on the desk.\n- The council meeting agenda went out this morning.\n- Safety Auditor noted that test the service reservoir had been raised earlier in the discussion.\n- The lab courier collects the vials at 15:00.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_PUMPS  TEST_RESERVOIR  FLUSH_MAINS  CLOSE_INTAKE  DOSE_TANK  ISSUE_NOTICE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CLOSE_INTAKE\", \"TEST_RESERVOIR\", \"DOSE_TANK\", \"ISSUE_NOTICE\"], \"ready\": true}"
+ },
+ {
+  "instance": "water-diamond",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The fence contractor is on site tomorrow.\n- Safety Auditor proposed to close the river intake.\n- Operations Lead accepted the proposal to close the river intake.\n- Safety Auditor proposed to test the service reservoir.\n- Operations Lead rejected the proposal to test the service reservoir; it is not needed for this case.\n- The night operator's handover notes are on the desk.\n- The council meeting agenda went out this morning.\n- Safety Auditor noted that test the service reservoir had been raised earlier in the discussion.\n- The lab courier collects the vials at 15:00.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_PUMPS  TEST_RESERVOIR  FLUSH_MAINS  CLOSE_INTAKE  DOSE_TANK  ISSUE_NOTICE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CLOSE_INTAKE\", \"TEST_RESERVOIR\", \"FLUSH_MAINS\", \"DOSE_TANK\"], \"ready\": true}"
+ },
+ {
+  "instance": "water-diamond",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The fence contractor is on site tomorrow.\n- The night operator's handover notes are on the desk.\n- The council meeting agenda went out this morning.\n- The lab courier collects the vials at 15:00.\n\n## close the river intake\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\n## test the service reservoir\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n- noted again by Safety Auditor: raised earlier in the discussion\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_PUMPS  TEST_RESERVOIR  FLUSH_MAINS  CLOSE_INTAKE  DOSE_TANK  ISSUE_NOTICE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CLOSE_INTAKE\", \"RESTART_PUMPS\", \"TEST_RESERVOIR\", \"ISSUE_NOTICE\"], \"ready\": true}"
+ },
+ {
+  "instance": "water-diamond",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The fence contractor is on site tomorrow.\n- Safety Auditor proposed to close the river intake; Operations Lead accepted it.\n- The night operator's handover notes are on the desk.\n- The council meeting agenda went out this morning.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The lab courier collects the vials at 15:00.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_PUMPS  TEST_RESERVOIR  FLUSH_MAINS  CLOSE_INTAKE  DOSE_TANK  ISSUE_NOTICE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CLOSE_INTAKE\", \"FLUSH_MAINS\", \"DOSE_TANK\", \"ISSUE_NOTICE\"], \"ready\": true}"
+ },
+ {
+  "instance": "water-diamond",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The fence contractor is on site tomorrow.\n- Safety Auditor proposed to close the river intake.\n- Operations Lead accepted the proposal to close the river intake.\n- Safety Auditor proposed to test the service reservoir.\n- Operations Lead rejected the proposal to test the service reservoir; it is not needed for this case.\n- The night operator's handover notes are on the desk.\n- The council meeting agenda went out this morning.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The lab courier collects the vials at 15:00.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_PUMPS  TEST_RESERVOIR  FLUSH_MAINS  CLOSE_INTAKE  DOSE_TANK  ISSUE_NOTICE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CLOSE_INTAKE\", \"FLUSH_MAINS\", \"DOSE_TANK\", \"ISSUE_NOTICE\"], \"ready\": true}"
+ },
+ {
+  "instance": "water-diamond",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The fence contractor is on site tomorrow.\n- The night operator's handover notes are on the desk.\n- The council meeting agenda went out this morning.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The lab courier collects the vials at 15:00.\n\n## close the river intake\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\n## test the service reservoir\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_PUMPS  TEST_RESERVOIR  FLUSH_MAINS  CLOSE_INTAKE  DOSE_TANK  ISSUE_NOTICE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CLOSE_INTAKE\", \"RESTART_PUMPS\", \"TEST_RESERVOIR\", \"ISSUE_NOTICE\"], \"ready\": true}"
+ },
+ {
+  "instance": "water-twochain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The night operator's handover notes are on the desk.\n- Safety Auditor proposed to restart the high-lift pumps.\n- The fence contractor is on site tomorrow.\n- The council meeting agenda went out this morning.\n- Operations Lead noted that dose the contact tank had been raised earlier in the discussion.\n- The lab courier collects the vials at 15:00.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_PUMPS  FLUSH_MAINS  TEST_RESERVOIR  ISSUE_NOTICE  CLOSE_INTAKE  DOSE_TANK\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RESTART_PUMPS\", \"DOSE_TANK\", \"FLUSH_MAINS\", \"ISSUE_NOTICE\"], \"ready\": true}"
+ },
+ {
+  "instance": "water-twochain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The night operator's handover notes are on the desk.\n- Safety Auditor proposed to restart the high-lift pumps.\n- Operations Lead proposed to dose the contact tank.\n- Safety Auditor rejected the proposal to dose the contact tank; it is not needed for this case.\n- The fence contractor is on site tomorrow.\n- The council meeting agenda went out this morning.\n- Operations Lead noted that dose the contact tank had been raised earlier in the discussion.\n- The lab courier collects the vials at 15:00.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_PUMPS  FLUSH_MAINS  TEST_RESERVOIR  ISSUE_NOTICE  CLOSE_INTAKE  DOSE_TANK\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RESTART_PUMPS\", \"DOSE_TANK\", \"FLUSH_MAINS\", \"ISSUE_NOTICE\"], \"ready\": true}"
+ },
+ {
+  "instance": "water-twochain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The night operator's handover notes are on the desk.\n- The fence contractor is on site tomorrow.\n- The council meeting agenda went out this morning.\n- The lab courier collects the vials at 15:00.\n\n## restart the high-lift pumps\n- proposed by Safety Auditor\n\n## dose the contact tank\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n- noted again by Operations Lead: raised earlier in the discussion\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_PUMPS  FLUSH_MAINS  TEST_RESERVOIR  ISSUE_NOTICE  CLOSE_INTAKE  DOSE_TANK\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RESTART_PUMPS\", \"CLOSE_INTAKE\", \"ISSUE_NOTICE\", \"NOT_DOSE_TANK\"], \"ready\": true}"
+ },
+ {
+  "instance": "water-twochain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The night operator's handover notes are on the desk.\n- Safety Auditor proposed to restart the high-lift pumps.\n- The fence contractor is on site tomorrow.\n- The council meeting agenda went out this morning.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The lab courier collects the vials at 15:00.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_PUMPS  FLUSH_MAINS  TEST_RESERVOIR  ISSUE_NOTICE  CLOSE_INTAKE  DOSE_TANK\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RESTART_PUMPS\", \"FLUSH_MAINS\", \"TEST_RESERVOIR\", \"ISSUE_NOTICE\"], \"ready\": true}"
+ },
+ {
+  "instance": "water-twochain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The night operator's handover notes are on the desk.\n- Safety Auditor proposed to restart the high-lift pumps.\n- Operations Lead proposed to dose the contact tank.\n- Safety Auditor rejected the proposal to dose the contact tank; it is not needed for this case.\n- The fence contractor is on site tomorrow.\n- The council meeting agenda went out this morning.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The lab courier collects the vials at 15:00.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_PUMPS  FLUSH_MAINS  TEST_RESERVOIR  ISSUE_NOTICE  CLOSE_INTAKE  DOSE_TANK\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RESTART_PUMPS\", \"DOSE_TANK\", \"FLUSH_MAINS\", \"ISSUE_NOTICE\"], \"ready\": true}"
+ },
+ {
+  "instance": "water-twochain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The night operator's handover notes are on the desk.\n- The fence contractor is on site tomorrow.\n- The council meeting agenda went out this morning.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The lab courier collects the vials at 15:00.\n\n## restart the high-lift pumps\n- proposed by Safety Auditor\n\n## dose the contact tank\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_PUMPS  FLUSH_MAINS  TEST_RESERVOIR  ISSUE_NOTICE  CLOSE_INTAKE  DOSE_TANK\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RESTART_PUMPS\", \"CLOSE_INTAKE\", \"ISSUE_NOTICE\", \"DOSE_TANK\"], \"ready\": true}"
+ },
+ {
+  "instance": "water-star",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to flush the northern mains; Safety Auditor accepted it.\n- The fence contractor is on site tomorrow.\n- Safety Auditor proposed to dose the contact tank.\n- The council meeting agenda went out this morning.\n- Safety Auditor noted that close the river intake had been raised earlier in the discussion.\n- The lab courier collects the vials at 15:00.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  ISSUE_NOTICE  FLUSH_MAINS  TEST_RESERVOIR  DOSE_TANK  CLOSE_INTAKE  RESTART_PUMPS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CLOSE_INTAKE\", \"FLUSH_MAINS\", \"DOSE_TANK\", \"ISSUE_NOTICE\"], \"ready\": true}"
+ },
+ {
+  "instance": "water-star",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to flush the northern mains.\n- Safety Auditor accepted the proposal to flush the northern mains.\n- The fence contractor is on site tomorrow.\n- Safety Auditor proposed to dose the contact tank.\n- The council meeting agenda went out this morning.\n- Safety Auditor proposed to close the river intake.\n- Operations Lead rejected the proposal to close the river intake; it is not needed for this case.\n- Safety Auditor noted that close the river intake had been raised earlier in the discussion.\n- The lab courier collects the vials at 15:00.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  ISSUE_NOTICE  FLUSH_MAINS  TEST_RESERVOIR  DOSE_TANK  CLOSE_INTAKE  RESTART_PUMPS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"FLUSH_MAINS\", \"DOSE_TANK\", \"TEST_RESERVOIR\", \"CLOSE_INTAKE\"], \"ready\": true}"
+ },
+ {
+  "instance": "water-star",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## flush the northern mains\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\n## discussion log\n- The fence contractor is on site tomorrow.\n- The council meeting agenda went out this morning.\n- The lab courier collects the vials at 15:00.\n\n## dose the contact tank\n- proposed by Safety Auditor\n\n## close the river intake\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n- noted again by Safety Auditor: raised earlier in the discussion\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  ISSUE_NOTICE  FLUSH_MAINS  TEST_RESERVOIR  DOSE_TANK  CLOSE_INTAKE  RESTART_PUMPS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"FLUSH_MAINS\", \"DOSE_TANK\", \"RESTART_PUMPS\", \"CLOSE_INTAKE\"], \"ready\": true}"
+ },
+ {
+  "instance": "water-star",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to flush the northern mains; Safety Auditor accepted it.\n- The fence contractor is on site tomorrow.\n- Safety Auditor proposed to dose the contact tank.\n- The council meeting agenda went out this morning.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The lab courier collects the vials at 15:00.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  ISSUE_NOTICE  FLUSH_MAINS  TEST_RESERVOIR  DOSE_TANK  CLOSE_INTAKE  RESTART_PUMPS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"FLUSH_MAINS\", \"DOSE_TANK\", \"TEST_RESERVOIR\", \"ISSUE_NOTICE\"], \"ready\": true}"
+ },
+ {
+  "instance": "water-star",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to flush the northern mains.\n- Safety Auditor accepted the proposal to flush the northern mains.\n- The fence contractor is on site tomorrow.\n- Safety Auditor proposed to dose the contact tank.\n- The council meeting agenda went out this morning.\n- Safety Auditor proposed to close the river intake.\n- Operations Lead rejected the proposal to close the river intake; it is not needed for this case.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The lab courier collects the vials at 15:00.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  ISSUE_NOTICE  FLUSH_MAINS  TEST_RESERVOIR  DOSE_TANK  CLOSE_INTAKE  RESTART_PUMPS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"FLUSH_MAINS\", \"DOSE_TANK\", \"TEST_RESERVOIR\", \"ISSUE_NOTICE\"], \"ready\": true}"
+ },
+ {
+  "instance": "water-star",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## flush the northern mains\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\n## discussion log\n- The fence contractor is on site tomorrow.\n- The council meeting agenda went out this morning.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The lab courier collects the vials at 15:00.\n\n## dose the contact tank\n- proposed by Safety Auditor\n\n## close the river intake\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  ISSUE_NOTICE  FLUSH_MAINS  TEST_RESERVOIR  DOSE_TANK  CLOSE_INTAKE  RESTART_PUMPS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"FLUSH_MAINS\", \"DOSE_TANK\", \"ISSUE_NOTICE\", \"RESTART_PUMPS\"], \"ready\": true}"
+ },
+ {
+  "instance": "water-star",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The fence contractor is on site tomorrow.\n- The council meeting agenda went out this morning.\n- Operations Lead proposed to close the river intake.\n- The night operator's handover notes are on the desk.\n- Operations Lead noted that flush the northern mains had been raised earlier in the discussion.\n- The lab courier collects the vials at 15:00.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  ISSUE_NOTICE  FLUSH_MAINS  TEST_RESERVOIR  DOSE_TANK  CLOSE_INTAKE  RESTART_PUMPS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"FLUSH_MAINS\", \"TEST_RESERVOIR\", \"CLOSE_INTAKE\", \"ISSUE_NOTICE\"], \"ready\": true}"
+ },
+ {
+  "instance": "water-star",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to flush the northern mains.\n- Safety Auditor rejected the proposal to flush the northern mains; it is not needed for this case.\n- The fence contractor is on site tomorrow.\n- The council meeting agenda went out this morning.\n- Operations Lead proposed to close the river intake.\n- The night operator's handover notes are on the desk.\n- Operations Lead noted that flush the northern mains had been raised earlier in the discussion.\n- The lab courier collects the vials at 15:00.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  ISSUE_NOTICE  FLUSH_MAINS  TEST_RESERVOIR  DOSE_TANK  CLOSE_INTAKE  RESTART_PUMPS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CLOSE_INTAKE\", \"TEST_RESERVOIR\", \"FLUSH_MAINS\", \"DOSE_TANK\"], \"ready\": true}"
+ },
+ {
+  "instance": "water-star",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## flush the northern mains\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n- noted again by Operations Lead: raised earlier in the discussion\n\n## discussion log\n- The fence contractor is on site tomorrow.\n- The council meeting agenda went out this morning.\n- The night operator's handover notes are on the desk.\n- The lab courier collects the vials at 15:00.\n\n## close the river intake\n- proposed by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  ISSUE_NOTICE  FLUSH_MAINS  TEST_RESERVOIR  DOSE_TANK  CLOSE_INTAKE  RESTART_PUMPS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CLOSE_INTAKE\", \"DOSE_TANK\", \"TEST_RESERVOIR\", \"RESTART_PUMPS\"], \"ready\": true}"
+ },
+ {
+  "instance": "water-star",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The fence contractor is on site tomorrow.\n- The council meeting agenda went out this morning.\n- Operations Lead proposed to close the river intake.\n- The night operator's handover notes are on the desk.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The lab courier collects the vials at 15:00.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  ISSUE_NOTICE  FLUSH_MAINS  TEST_RESERVOIR  DOSE_TANK  CLOSE_INTAKE  RESTART_PUMPS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CLOSE_INTAKE\", \"TEST_RESERVOIR\", \"DOSE_TANK\", \"FLUSH_MAINS\"], \"ready\": true}"
+ },
+ {
+  "instance": "water-star",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to flush the northern mains.\n- Safety Auditor rejected the proposal to flush the northern mains; it is not needed for this case.\n- The fence contractor is on site tomorrow.\n- The council meeting agenda went out this morning.\n- Operations Lead proposed to close the river intake.\n- The night operator's handover notes are on the desk.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The lab courier collects the vials at 15:00.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  ISSUE_NOTICE  FLUSH_MAINS  TEST_RESERVOIR  DOSE_TANK  CLOSE_INTAKE  RESTART_PUMPS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CLOSE_INTAKE\", \"FLUSH_MAINS\", \"TEST_RESERVOIR\", \"DOSE_TANK\"], \"ready\": true}"
+ },
+ {
+  "instance": "water-star",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## flush the northern mains\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n\n## discussion log\n- The fence contractor is on site tomorrow.\n- The council meeting agenda went out this morning.\n- The night operator's handover notes are on the desk.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The lab courier collects the vials at 15:00.\n\n## close the river intake\n- proposed by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  ISSUE_NOTICE  FLUSH_MAINS  TEST_RESERVOIR  DOSE_TANK  CLOSE_INTAKE  RESTART_PUMPS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CLOSE_INTAKE\", \"DOSE_TANK\", \"TEST_RESERVOIR\", \"RESTART_PUMPS\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-join",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to restart the subscriber register.\n- The regulator's quarterly filing is due next week.\n- Operations Lead proposed to block the inbound roaming; Safety Auditor accepted it.\n- A customer forum thread is asking about coverage in the valley.\n- Safety Auditor noted that raise the vendor ticket had been raised earlier in the discussion.\n- The site access badges expire at the end of the month.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  REROUTE_SIGNALLING  DRAIN_PGW  RAISE_TICKET  BLOCK_ROAMING  EXTEND_WINDOW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"RESTART_REGISTER\", \"RAISE_TICKET\", \"EXTEND_WINDOW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-join",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to restart the subscriber register.\n- The regulator's quarterly filing is due next week.\n- Operations Lead proposed to block the inbound roaming.\n- Safety Auditor accepted the proposal to block the inbound roaming.\n- A customer forum thread is asking about coverage in the valley.\n- Safety Auditor proposed to raise the vendor ticket.\n- Operations Lead rejected the proposal to raise the vendor ticket; it is not needed for this case.\n- Safety Auditor noted that raise the vendor ticket had been raised earlier in the discussion.\n- The site access badges expire at the end of the month.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  REROUTE_SIGNALLING  DRAIN_PGW  RAISE_TICKET  BLOCK_ROAMING  EXTEND_WINDOW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RESTART_REGISTER\", \"BLOCK_ROAMING\", \"RAISE_TICKET\", \"EXTEND_WINDOW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-join",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## restart the subscriber register\n- proposed by Operations Lead\n\n## discussion log\n- The regulator's quarterly filing is due next week.\n- A customer forum thread is asking about coverage in the valley.\n- The site access badges expire at the end of the month.\n\n## block the inbound roaming\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\n## raise the vendor ticket\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n- noted again by Safety Auditor: raised earlier in the discussion\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  REROUTE_SIGNALLING  DRAIN_PGW  RAISE_TICKET  BLOCK_ROAMING  EXTEND_WINDOW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RESTART_REGISTER\", \"BLOCK_ROAMING\", \"EXTEND_WINDOW\", \"RAISE_TICKET\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-join",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to restart the subscriber register.\n- The regulator's quarterly filing is due next week.\n- Operations Lead proposed to block the inbound roaming; Safety Auditor accepted it.\n- A customer forum thread is asking about coverage in the valley.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The site access badges expire at the end of the month.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  REROUTE_SIGNALLING  DRAIN_PGW  RAISE_TICKET  BLOCK_ROAMING  EXTEND_WINDOW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"RESTART_REGISTER\", \"RAISE_TICKET\", \"EXTEND_WINDOW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-join",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to restart the subscriber register.\n- The regulator's quarterly filing is due next week.\n- Operations Lead proposed to block the inbound roaming.\n- Safety Auditor accepted the proposal to block the inbound roaming.\n- A customer forum thread is asking about coverage in the valley.\n- Safety Auditor proposed to raise the vendor ticket.\n- Operations Lead rejected the proposal to raise the vendor ticket; it is not needed for this case.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The site access badges expire at the end of the month.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  REROUTE_SIGNALLING  DRAIN_PGW  RAISE_TICKET  BLOCK_ROAMING  EXTEND_WINDOW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RESTART_REGISTER\", \"BLOCK_ROAMING\", \"EXTEND_WINDOW\", \"RAISE_TICKET\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-join",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## restart the subscriber register\n- proposed by Operations Lead\n\n## discussion log\n- The regulator's quarterly filing is due next week.\n- A customer forum thread is asking about coverage in the valley.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The site access badges expire at the end of the month.\n\n## block the inbound roaming\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\n## raise the vendor ticket\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  REROUTE_SIGNALLING  DRAIN_PGW  RAISE_TICKET  BLOCK_ROAMING  EXTEND_WINDOW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RESTART_REGISTER\", \"BLOCK_ROAMING\", \"EXTEND_WINDOW\", \"RAISE_TICKET\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-join",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- A customer forum thread is asking about coverage in the valley.\n- Safety Auditor proposed to raise the vendor ticket.\n- The field team's vans get serviced on Wednesday.\n- The site access badges expire at the end of the month.\n- Operations Lead noted that block the inbound roaming had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  REROUTE_SIGNALLING  DRAIN_PGW  RAISE_TICKET  BLOCK_ROAMING  EXTEND_WINDOW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"BLOCK_ROAMING\", \"EXTEND_WINDOW\", \"RESTART_REGISTER\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-join",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- A customer forum thread is asking about coverage in the valley.\n- Safety Auditor proposed to raise the vendor ticket.\n- Operations Lead proposed to block the inbound roaming.\n- Safety Auditor rejected the proposal to block the inbound roaming; it is not needed for this case.\n- The field team's vans get serviced on Wednesday.\n- The site access badges expire at the end of the month.\n- Operations Lead noted that block the inbound roaming had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  REROUTE_SIGNALLING  DRAIN_PGW  RAISE_TICKET  BLOCK_ROAMING  EXTEND_WINDOW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"EXTEND_WINDOW\", \"RESTART_REGISTER\", \"DRAIN_PGW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-join",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- A customer forum thread is asking about coverage in the valley.\n- The field team's vans get serviced on Wednesday.\n- The site access badges expire at the end of the month.\n- The regulator's quarterly filing is due next week.\n\n## raise the vendor ticket\n- proposed by Safety Auditor\n\n## block the inbound roaming\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n- noted again by Operations Lead: raised earlier in the discussion\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  REROUTE_SIGNALLING  DRAIN_PGW  RAISE_TICKET  BLOCK_ROAMING  EXTEND_WINDOW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"EXTEND_WINDOW\", \"RESTART_REGISTER\", \"DRAIN_PGW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-join",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- A customer forum thread is asking about coverage in the valley.\n- Safety Auditor proposed to raise the vendor ticket.\n- The field team's vans get serviced on Wednesday.\n- The site access badges expire at the end of the month.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  REROUTE_SIGNALLING  DRAIN_PGW  RAISE_TICKET  BLOCK_ROAMING  EXTEND_WINDOW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"BLOCK_ROAMING\", \"EXTEND_WINDOW\", \"RESTART_REGISTER\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-join",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- A customer forum thread is asking about coverage in the valley.\n- Safety Auditor proposed to raise the vendor ticket.\n- Operations Lead proposed to block the inbound roaming.\n- Safety Auditor rejected the proposal to block the inbound roaming; it is not needed for this case.\n- The field team's vans get serviced on Wednesday.\n- The site access badges expire at the end of the month.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  REROUTE_SIGNALLING  DRAIN_PGW  RAISE_TICKET  BLOCK_ROAMING  EXTEND_WINDOW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"BLOCK_ROAMING\", \"EXTEND_WINDOW\", \"RESTART_REGISTER\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-join",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- A customer forum thread is asking about coverage in the valley.\n- The field team's vans get serviced on Wednesday.\n- The site access badges expire at the end of the month.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\n## raise the vendor ticket\n- proposed by Safety Auditor\n\n## block the inbound roaming\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  REROUTE_SIGNALLING  DRAIN_PGW  RAISE_TICKET  BLOCK_ROAMING  EXTEND_WINDOW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"EXTEND_WINDOW\", \"RESTART_REGISTER\", \"DRAIN_PGW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-diamond",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The site access badges expire at the end of the month.\n- A customer forum thread is asking about coverage in the valley.\n- Operations Lead proposed to restart the subscriber register.\n- Safety Auditor noted that reroute the signalling traffic had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  EXTEND_WINDOW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET  BLOCK_ROAMING  DRAIN_PGW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"EXTEND_WINDOW\", \"REROUTE_SIGNALLING\", \"RESTART_REGISTER\", \"RAISE_TICKET\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-diamond",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The site access badges expire at the end of the month.\n- A customer forum thread is asking about coverage in the valley.\n- Operations Lead proposed to restart the subscriber register.\n- Safety Auditor proposed to reroute the signalling traffic.\n- Operations Lead rejected the proposal to reroute the signalling traffic; it is not needed for this case.\n- Safety Auditor noted that reroute the signalling traffic had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  EXTEND_WINDOW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET  BLOCK_ROAMING  DRAIN_PGW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"EXTEND_WINDOW\", \"RESTART_REGISTER\", \"RAISE_TICKET\", \"BLOCK_ROAMING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-diamond",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The site access badges expire at the end of the month.\n- A customer forum thread is asking about coverage in the valley.\n- The regulator's quarterly filing is due next week.\n\n## restart the subscriber register\n- proposed by Operations Lead\n\n## reroute the signalling traffic\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n- noted again by Safety Auditor: raised earlier in the discussion\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  EXTEND_WINDOW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET  BLOCK_ROAMING  DRAIN_PGW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"EXTEND_WINDOW\", \"RESTART_REGISTER\", \"RAISE_TICKET\", \"BLOCK_ROAMING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-diamond",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The site access badges expire at the end of the month.\n- A customer forum thread is asking about coverage in the valley.\n- Operations Lead proposed to restart the subscriber register.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  EXTEND_WINDOW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET  BLOCK_ROAMING  DRAIN_PGW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"RESTART_REGISTER\", \"DRAIN_PGW\", \"EXTEND_WINDOW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-diamond",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The site access badges expire at the end of the month.\n- A customer forum thread is asking about coverage in the valley.\n- Operations Lead proposed to restart the subscriber register.\n- Safety Auditor proposed to reroute the signalling traffic.\n- Operations Lead rejected the proposal to reroute the signalling traffic; it is not needed for this case.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  EXTEND_WINDOW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET  BLOCK_ROAMING  DRAIN_PGW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"EXTEND_WINDOW\", \"RESTART_REGISTER\", \"BLOCK_ROAMING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-diamond",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The site access badges expire at the end of the month.\n- A customer forum thread is asking about coverage in the valley.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\n## restart the subscriber register\n- proposed by Operations Lead\n\n## reroute the signalling traffic\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  EXTEND_WINDOW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET  BLOCK_ROAMING  DRAIN_PGW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"EXTEND_WINDOW\", \"RAISE_TICKET\", \"RESTART_REGISTER\", \"DRAIN_PGW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-diamond",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The site access badges expire at the end of the month.\n- Safety Auditor proposed to restart the subscriber register; Operations Lead accepted it.\n- The regulator's quarterly filing is due next week.\n- Operations Lead noted that block the inbound roaming had been raised earlier in the discussion.\n- A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  EXTEND_WINDOW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET  BLOCK_ROAMING  DRAIN_PGW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RESTART_REGISTER\", \"BLOCK_ROAMING\", \"RAISE_TICKET\", \"DRAIN_PGW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-diamond",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to block the inbound roaming.\n- Safety Auditor rejected the proposal to block the inbound roaming; it is not needed for this case.\n- The site access badges expire at the end of the month.\n- Safety Auditor proposed to restart the subscriber register.\n- Operations Lead accepted the proposal to restart the subscriber register.\n- The regulator's quarterly filing is due next week.\n- Operations Lead noted that block the inbound roaming had been raised earlier in the discussion.\n- A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  EXTEND_WINDOW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET  BLOCK_ROAMING  DRAIN_PGW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RESTART_REGISTER\", \"RAISE_TICKET\", \"BLOCK_ROAMING\", \"DRAIN_PGW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-diamond",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## block the inbound roaming\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n- noted again by Operations Lead: raised earlier in the discussion\n\n## discussion log\n- The site access badges expire at the end of the month.\n- The regulator's quarterly filing is due next week.\n- A customer forum thread is asking about coverage in the valley.\n\n## restart the subscriber register\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  EXTEND_WINDOW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET  BLOCK_ROAMING  DRAIN_PGW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"RESTART_REGISTER\", \"REROUTE_SIGNALLING\", \"EXTEND_WINDOW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-diamond",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The site access badges expire at the end of the month.\n- Safety Auditor proposed to restart the subscriber register; Operations Lead accepted it.\n- The regulator's quarterly filing is due next week.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  EXTEND_WINDOW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET  BLOCK_ROAMING  DRAIN_PGW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"RESTART_REGISTER\", \"EXTEND_WINDOW\", \"DRAIN_PGW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-diamond",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to block the inbound roaming.\n- Safety Auditor rejected the proposal to block the inbound roaming; it is not needed for this case.\n- The site access badges expire at the end of the month.\n- Safety Auditor proposed to restart the subscriber register.\n- Operations Lead accepted the proposal to restart the subscriber register.\n- The regulator's quarterly filing is due next week.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  EXTEND_WINDOW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET  BLOCK_ROAMING  DRAIN_PGW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RASTER_REGISTER\", \"BLOCK_ROAMING\", \"RESTART_REGISTER\", \"RAISE_TICKET\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-diamond",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## block the inbound roaming\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n\n## discussion log\n- The site access badges expire at the end of the month.\n- The regulator's quarterly filing is due next week.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- A customer forum thread is asking about coverage in the valley.\n\n## restart the subscriber register\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  EXTEND_WINDOW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET  BLOCK_ROAMING  DRAIN_PGW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"RESTART_REGISTER\", \"EXTEND_WINDOW\", \"DRAIN_PGW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-twochain",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The field team's vans get serviced on Wednesday.\n- Safety Auditor proposed to block the inbound roaming; Operations Lead accepted it.\n- The site access badges expire at the end of the month.\n- The regulator's quarterly filing is due next week.\n- Safety Auditor noted that extend the change window had been raised earlier in the discussion.\n- A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BLOCK_ROAMING  EXTEND_WINDOW  DRAIN_PGW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"EXTEND_WINDOW\", \"RAISE_TICKET\", \"RESTART_REGISTER\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-twochain",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The field team's vans get serviced on Wednesday.\n- Safety Auditor proposed to block the inbound roaming.\n- Operations Lead accepted the proposal to block the inbound roaming.\n- Safety Auditor proposed to extend the change window.\n- Operations Lead rejected the proposal to extend the change window; it is not needed for this case.\n- The site access badges expire at the end of the month.\n- The regulator's quarterly filing is due next week.\n- Safety Auditor noted that extend the change window had been raised earlier in the discussion.\n- A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BLOCK_ROAMING  EXTEND_WINDOW  DRAIN_PGW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"RAISE_TICKET\", \"EXTEND_WINDOW\", \"RESTART_REGISTER\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-twochain",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The field team's vans get serviced on Wednesday.\n- The site access badges expire at the end of the month.\n- The regulator's quarterly filing is due next week.\n- A customer forum thread is asking about coverage in the valley.\n\n## block the inbound roaming\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\n## extend the change window\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n- noted again by Safety Auditor: raised earlier in the discussion\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BLOCK_ROAMING  EXTEND_WINDOW  DRAIN_PGW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"EXTEND_WINDOW\", \"RAISE_TICKET\", \"RESTART_REGISTER\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-twochain",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The field team's vans get serviced on Wednesday.\n- Safety Auditor proposed to block the inbound roaming; Operations Lead accepted it.\n- The site access badges expire at the end of the month.\n- The regulator's quarterly filing is due next week.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BLOCK_ROAMING  EXTEND_WINDOW  DRAIN_PGW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"EXTEND_WINDOW\", \"RAISE_TICKET\", \"RESTART_REGISTER\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-twochain",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The field team's vans get serviced on Wednesday.\n- Safety Auditor proposed to block the inbound roaming.\n- Operations Lead accepted the proposal to block the inbound roaming.\n- Safety Auditor proposed to extend the change window.\n- Operations Lead rejected the proposal to extend the change window; it is not needed for this case.\n- The site access badges expire at the end of the month.\n- The regulator's quarterly filing is due next week.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BLOCK_ROAMING  EXTEND_WINDOW  DRAIN_PGW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"RAISE_TICKET\", \"RESTART_REGISTER\", \"EXTEND_WINDOW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-twochain",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The field team's vans get serviced on Wednesday.\n- The site access badges expire at the end of the month.\n- The regulator's quarterly filing is due next week.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- A customer forum thread is asking about coverage in the valley.\n\n## block the inbound roaming\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\n## extend the change window\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BLOCK_ROAMING  EXTEND_WINDOW  DRAIN_PGW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"RAISE_TICKET\", \"EXTEND_WINDOW\", \"RESTART_REGISTER\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-star",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to reroute the signalling traffic.\n- The regulator's quarterly filing is due next week.\n- The site access badges expire at the end of the month.\n- Safety Auditor noted that drain the packet gateway had been raised earlier in the discussion.\n- A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  RESTART_REGISTER  BLOCK_ROAMING  DRAIN_PGW  EXTEND_WINDOW  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REROUTE_SIGNALLING\", \"DRAIN_PGW\", \"EXTEND_WINDOW\", \"RAISE_TICKET\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-star",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to reroute the signalling traffic.\n- The regulator's quarterly filing is due next week.\n- The site access badges expire at the end of the month.\n- Safety Auditor proposed to drain the packet gateway.\n- Operations Lead rejected the proposal to drain the packet gateway; it is not needed for this case.\n- Safety Auditor noted that drain the packet gateway had been raised earlier in the discussion.\n- A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  RESTART_REGISTER  BLOCK_ROAMING  DRAIN_PGW  EXTEND_WINDOW  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REROUTE_SIGNALLING\", \"EXTEND_WINDOW\", \"RAISE_TICKET\", \"BLOCK_ROAMING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-star",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## reroute the signalling traffic\n- proposed by Operations Lead\n\n## discussion log\n- The regulator's quarterly filing is due next week.\n- The site access badges expire at the end of the month.\n- A customer forum thread is asking about coverage in the valley.\n\n## drain the packet gateway\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n- noted again by Safety Auditor: raised earlier in the discussion\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  RESTART_REGISTER  BLOCK_ROAMING  DRAIN_PGW  EXTEND_WINDOW  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REROUTE_SIGNALLING\", \"EXTEND_WINDOW\", \"RESTART_REGISTER\", \"BLOCK_ROAMING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-star",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to reroute the signalling traffic.\n- The regulator's quarterly filing is due next week.\n- The site access badges expire at the end of the month.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  RESTART_REGISTER  BLOCK_ROAMING  DRAIN_PGW  EXTEND_WINDOW  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REROUTE_SIGNALLING\", \"EXTEND_WINDOW\", \"RAISE_TICKET\", \"RESTART_REGISTER\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-star",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to reroute the signalling traffic.\n- The regulator's quarterly filing is due next week.\n- The site access badges expire at the end of the month.\n- Safety Auditor proposed to drain the packet gateway.\n- Operations Lead rejected the proposal to drain the packet gateway; it is not needed for this case.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  RESTART_REGISTER  BLOCK_ROAMING  DRAIN_PGW  EXTEND_WINDOW  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REROUTE_SIGNALLING\", \"EXTEND_WINDOW\", \"RAISE_TICKET\", \"BLOCK_ROAMING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-star",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## reroute the signalling traffic\n- proposed by Operations Lead\n\n## discussion log\n- The regulator's quarterly filing is due next week.\n- The site access badges expire at the end of the month.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- A customer forum thread is asking about coverage in the valley.\n\n## drain the packet gateway\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  RESTART_REGISTER  BLOCK_ROAMING  DRAIN_PGW  EXTEND_WINDOW  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REROUTE_SIGNALLING\", \"EXTEND_WINDOW\", \"RAISE_TICKET\", \"BLOCK_ROAMING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-star",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The site access badges expire at the end of the month.\n- The field team's vans get serviced on Wednesday.\n- Operations Lead proposed to reroute the signalling traffic; Safety Auditor accepted it.\n- Operations Lead noted that extend the change window had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  RESTART_REGISTER  BLOCK_ROAMING  DRAIN_PGW  EXTEND_WINDOW  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"EXTEND_WINDOW\", \"REROUTE_SIGNALLING\", \"BLOCK_ROAMING\", \"RAISE_TICKET\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-star",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to extend the change window.\n- Safety Auditor rejected the proposal to extend the change window; it is not needed for this case.\n- The site access badges expire at the end of the month.\n- The field team's vans get serviced on Wednesday.\n- Operations Lead proposed to reroute the signalling traffic.\n- Safety Auditor accepted the proposal to reroute the signalling traffic.\n- Operations Lead noted that extend the change window had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  RESTART_REGISTER  BLOCK_ROAMING  DRAIN_PGW  EXTEND_WINDOW  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REROUTE_SIGNALLING\", \"BLOCK_ROAMING\", \"DRAIN_PGW\", \"RAISE_TICKET\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-star",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## extend the change window\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n- noted again by Operations Lead: raised earlier in the discussion\n\n## discussion log\n- The site access badges expire at the end of the month.\n- The field team's vans get serviced on Wednesday.\n- The regulator's quarterly filing is due next week.\n\n## reroute the signalling traffic\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  RESTART_REGISTER  BLOCK_ROAMING  DRAIN_PGW  EXTEND_WINDOW  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"EXTEND_WINDOW\", \"RAISE_TICKET\", \"REROUTE_SIGNALLING\", \"BLOCK_ROAMING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-star",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The site access badges expire at the end of the month.\n- The field team's vans get serviced on Wednesday.\n- Operations Lead proposed to reroute the signalling traffic; Safety Auditor accepted it.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  RESTART_REGISTER  BLOCK_ROAMING  DRAIN_PGW  EXTEND_WINDOW  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"RESTART_REGISTER\", \"REROUTE_SIGNALLING\", \"EXTEND_WINDOW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-star",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to extend the change window.\n- Safety Auditor rejected the proposal to extend the change window; it is not needed for this case.\n- The site access badges expire at the end of the month.\n- The field team's vans get serviced on Wednesday.\n- Operations Lead proposed to reroute the signalling traffic.\n- Safety Auditor accepted the proposal to reroute the signalling traffic.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  RESTART_REGISTER  BLOCK_ROAMING  DRAIN_PGW  EXTEND_WINDOW  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"REROUTE_SIGNALLING\", \"EXTEND_WINDOW\", \"BLOCK_ROAMING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-star",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## extend the change window\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n\n## discussion log\n- The site access badges expire at the end of the month.\n- The field team's vans get serviced on Wednesday.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\n## reroute the signalling traffic\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  RESTART_REGISTER  BLOCK_ROAMING  DRAIN_PGW  EXTEND_WINDOW  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"REROUTE_SIGNALLING\", \"EXTEND_WINDOW\", \"BLOCK_ROAMING\"], \"ready\": true}"
+ }
+]
