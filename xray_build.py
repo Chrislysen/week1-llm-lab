@@ -206,6 +206,26 @@ def e29n_note():
             "came back about 0.7 of the time against 0.3 before); the ordering across designs did not.")
 
 
+def e29x_note():
+    """E29-X: the two reviewer controls (rendering, tombstone)."""
+    parts = []
+    for slug_, name in (("llama32-3b", "llama3.2:3b"), ("qwen25-7b-instruct", "qwen2.5:7b-instruct"), ("qwen25-14b-instruct", "qwen2.5:14b-instruct")):
+        b = os.path.join(HERE, "results", f"e29x_{slug_}_summary.json")
+        if not os.path.exists(b):
+            continue
+        e = json.load(open(b, encoding="utf-8"))
+        r1 = e.get("r1", {}).get("verdict", "?"); t1 = e.get("t1", {}).get("verdict", "?")
+        parts.append(f"{name}: explicit-referent transcript neutral level {e['p']['full_explicit|neutral']:.3f} vs plain {e['p']['full|neutral']:.3f} "
+                     f"({r1.lower()}); tombstone {e['p']['tombstone|restated']:.3f} / {e['p']['tombstone|neutral']:.3f}, "
+                     f"DiD {e['did']['tombstone']:+.3f} [{e['ci_did']['tombstone'][0]:+.3f}, {e['ci_did']['tombstone'][1]:+.3f}] ({t1.lower()})")
+    if not parts:
+        return ""
+    return ("E29-X ran two controls an outside adversarial review asked for: a transcript whose accept and reject replies name their "
+            "referent as explicitly as the store does, to test whether the level gap between full context and add-only was rendering; "
+            "and a tombstone design that keeps the rejected proposal flagged [withdrawn] instead of deleting it. "
+            + " · ".join(parts) + ".")
+
+
 def e29_dialogues():
     """The 96 E29 dialogues: turns per arm, the context block per design, and
     every recorded decider output, keyed by model."""
@@ -270,7 +290,7 @@ def build_data(live=False, live_models=None):
     agg, dias, showcase = e18_ladder()
     return {"corpus_hash": corpus_hash(), "e29_hash": e29_hash(), "models": MODELS, "agg": agg,
             "dialogues": dias, "showcase": showcase, "e29": e29_summaries(), "city": city_districts(dias),
-            "e29_caveat": E29_CAVEAT, "e29b_note": e29b_note(), "e29c_note": e29c_note(), "e29d_note": e29d_note(), "e29n_note": e29n_note(),
+            "e29_caveat": E29_CAVEAT, "e29b_note": e29b_note(), "e29c_note": e29c_note(), "e29d_note": e29d_note(), "e29n_note": e29n_note(), "e29x_note": e29x_note(),
             "e29_dialogues": e29_dialogues(), "e29_models": E29_MODELS, "e29b": e29b_snapshots(),
             "live": {"models": live_models or []} if live else None}
 

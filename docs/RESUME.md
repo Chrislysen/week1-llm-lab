@@ -75,6 +75,18 @@ wiki +0.031, Δ_full +0.031 n.s., every control holding — the cleanest of
 the three second-corpus readings. The second corpus now carries the E29
 verdict on all three deciders.
 
+**E29-X, the two reviewer controls (`7f89477` → run 2026-09-12).** From the
+scout's adversarial pass. Rendering control: a transcript whose replies name
+their referent as the store does leaves the full-context neutral level
+unchanged on all three deciders (0.281, 0.316, 0.167 to the third decimal),
+so the level gap to add-only is design, not rendering; the 3B loses the
+register effect under explicit referents. Tombstone design (rejected
+proposal retained, flagged "[withdrawn]"): the flag is not read as a
+rejection (neutral 0.625 / 0.421 / 0.292 vs add-only 0.177 / 0.344 / 0.062);
+BETWEEN on 3B and 7B, FLAG NOT HONOURED on the 14B (DiD +0.292), the
+reverse of the declared lean, recorded as a miss. Same-session full cells
+replicate E29 to within 0.004 on all three. 1,728 calls, parse ≥ 0.998.
+
 **Gemini Deep Research scout, run 1 (2026-09-12).** Brief in
 `docs/GEMINI-DEEP-RESEARCH-BRIEF.md`; return and triage in
 `docs/gemini-research-log/`. Nine new leads, five read in full text. The

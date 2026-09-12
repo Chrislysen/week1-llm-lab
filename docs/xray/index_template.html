@@ -683,7 +683,7 @@
     var nl = document.getElementById('e29notes'); nl.innerHTML = '';
     notes.forEach(function (n) { nl.appendChild(el('li', null, n)); });
     var cav = document.getElementById('e29caveat'); cav.textContent = D.e29_caveat || '';
-    [D.e29b_note, D.e29d_note, D.e29c_note, D.e29n_note].forEach(function (t) { if (t) { var np = el('p', 'muted', t); cav.parentNode.insertBefore(np, cav.nextSibling); cav = np; } });
+    [D.e29b_note, D.e29d_note, D.e29c_note, D.e29n_note, D.e29x_note].forEach(function (t) { if (t) { var np = el('p', 'muted', t); cav.parentNode.insertBefore(np, cav.nextSibling); cav = np; } });
     var cells = document.querySelectorAll('table.design tbody tr td:last-child .status');
     var who = D.e29.length === 1 ? D.e29[0].model : D.e29.length + ' deciders';
     cells.forEach(function (c) { c.className = 'status measured'; c.lastChild.textContent = 'measured · ' + who; c.title = D.e29.map(function (E) { return E.model; }).join(', '); });

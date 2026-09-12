@@ -32,8 +32,14 @@ extractor reproduces the mechanism on the same dialogues (+0.17 [+0.04,
 one time in five and otherwise keeps the proposal, and the restatement enters
 as a fresh fact with no rejection attached. Under full context the same
 restatement is protective on small deciders, and a follow-up shows this is the
-"for the record, I did raise it" register rather than the mention itself. We
-release the corpora, protocols, prompts, and every store snapshot.
+"for the record, I did raise it" register rather than the mention itself. Two
+controls an outside adversarial review asked for leave the picture intact:
+spelling out every reply's referent in the transcript does not move the
+full-context level, so the gap to add-only is design rather than rendering,
+and a soft-supersede flag that retains the rejected proposal as "[withdrawn]"
+is not read as a rejection and, on the largest decider, re-admits the step
+like a deletion once it is restated. We release the corpora, protocols,
+prompts, and every store snapshot.
 
 ## 1. Introduction
 
@@ -301,7 +307,36 @@ present, because the router's UPDATEs fold the rejection into the proposal's
 own text and the 3B decider reads the merged line as weaker than a separate
 rejection.
 
-### 4.5 Controls
+### 4.5 Two reviewer controls
+
+An outside adversarial review (a research-scout run whose brief withheld our
+design) raised two objections we had not tested: that the level differences
+across designs could be an artefact of how explicitly each rendering names
+the rejection's referent, and that add-only is a straw baseline against
+which a soft-supersede flag is the industry mitigation. We ran both as E29-X
+on the first corpus with a same-session full-context reference on the three
+Qwen and Llama deciders (1,728 calls).
+
+*Rendering.* A transcript in which every accept and reject reply names its
+referent as the store does ("No, drop the proposal to snapshot the store")
+leaves the neutral-arm level exactly where the plain transcript had it on all
+three deciders (0.281 → 0.281, 0.316 → 0.316, 0.167 → 0.167). The gap to
+add-only is not rendering. On the 3B decider the explicit transcript also
+loses the register effect (−0.010 against −0.083), which fits E29-C: once
+referents are spelt out, "I did raise it" has nowhere new to send the reader.
+
+*Tombstone.* A fifth design keeps the rejected proposal flagged
+"[withdrawn]" instead of deleting it, with nothing else stored for the
+rejection. In the neutral arm the flagged proposal is enacted at 0.625,
+0.421 and 0.292 on the 3B, 7B and 14B, against add-only's 0.177, 0.344 and
+0.062: a bracket is not read as a rejection. With the restatement present the
+small deciders are partly protected by the flag (0.646, 0.463 against
+delete's 0.958, 0.885), the 14B is not (0.635; DiD +0.292 [+0.177, +0.396]).
+We had predicted the reverse size ordering and record the miss. The ordering
+in the neutral arm is delete > tombstone > full ≈ explicit full > add-only on
+every decider.
+
+### 4.6 Controls
 
 Accepted steps are enacted at 0.97–1.00 in every cell of every run.
 Never-mentioned steps are enacted at 0.42–0.73 depending on decider, design
@@ -324,12 +359,9 @@ referent of a rejection where the transcript leaves it to adjacency), so only
 within-design contrasts are compared. The compulsory course experiment this
 work sits beside (E1) turned out, on its own sanity arms, to be measuring plan
 plausibility under an action menu rather than retrieval; we record that there
-because it shaped the pinned-plan design here. Two controls a reviewer would
-reasonably ask for are not run and are named as follow-ups: a rendering
-control that presents the transcript's rejection in the store's explicit
-template, so that levels across designs could be compared and not only
-within-design contrasts; and a tombstone design (rejection retained but
-flagged inactive) as a fifth arm between add-only and hard delete.
+because it shaped the pinned-plan design here. Two controls an outside review
+asked for were run (§4.5); a control we still have not run is a free-length
+plan, which would trade the menu ceiling for length variance.
 
 ## 6. Reproducibility
 
@@ -365,3 +397,5 @@ live re-run of the decider checked against the record.
 | E29-D P0–P3 | store ≥ 0.5; W1 < 0.5; 0 ≤ Δ_real < Δ_delete; W2 restated > neutral | 0.958; 0.217; +0.167 < +0.396; 0.854 > 0.750 |
 | E29-N P1 | DESIGN-DEPENDENT via delete on each decider | +0.427, +0.583, +0.312 (after the extractor correction; +0.344, +0.469, +0.250 before) |
 | E29-N P2 | |DiD_addonly| < 0.15 | holds on 7B (+0.073) and 14B (0.000), fails on 3B (+0.177) through the reference arm |
+| E29-X R1 | explicit referents move the full-context level toward add-only (lean: yes on 3B) | no, on all three: level unchanged to the third decimal |
+| E29-X T1 | tombstone between add-only and delete; lean: flag not honoured on 3B, honoured on 14B | between on 3B and 7B; NOT honoured on 14B (DiD +0.292): the lean was reversed |

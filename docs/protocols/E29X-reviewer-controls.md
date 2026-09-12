@@ -73,6 +73,79 @@ restatement of a dialogue-rejected step re-enters the plan through hard
 delete and not through add-only) is neither widened nor narrowed by it. One
 corpus, three deciders, oracle stores.
 
-## 4. Outcome
+## 4. Outcome — run 2026-09-12, after `7f89477`
 
-_(empty at declaration)_
+576 calls per decider (llama in four chunks of 24, qwen 7B in four of 24,
+qwen 14B in six of 16). Parse 1.000 / 0.998 / 1.000 (one parse failure on the
+7B, so 95 complete dialogues there); mean |plan| 3.98–4.00; all cells valid.
+`results/e29x_<model>_o*.csv/.json`, `results/e29x_<model>_summary.json`.
+
+Rejected-step inclusion (n = 96, 95, 96) with the same-session `full`
+reference; E29's `addonly` and `delete` cells quoted for the level and Δ
+comparisons the predictions name.
+
+| decider | design | restated | neutral | Δ | 95 % CI | DiD vs full | 95 % CI |
+|---|---|---|---|---|---|---|---|
+| `llama3.2:3b` | full (same session; E29: 0.198 / 0.281) | 0.198 | 0.281 | −0.083 | [−0.167, −0.010] | reference | |
+| | full_explicit | 0.271 | 0.281 | −0.010 | [−0.063, +0.042] | +0.073 | [+0.000, +0.146] |
+| | tombstone | 0.646 | 0.625 | +0.021 | [−0.042, +0.073] | +0.104 | [+0.010, +0.208] |
+| | *E29 addonly / delete, neutral* | | *0.177 / 0.604* | *+0.010 / +0.354* | | | |
+| `qwen2.5:7b-instruct` | full (E29: 0.240 / 0.312) | 0.242 | 0.316 | −0.074 | [−0.147, +0.000] | reference | |
+| | full_explicit | 0.232 | 0.316 | −0.084 | [−0.147, −0.032] | −0.011 | [−0.095, +0.063] |
+| | tombstone | 0.463 | 0.421 | +0.042 | [−0.021, +0.105] | +0.116 | [+0.021, +0.221] |
+| | *E29 addonly / delete, neutral* | | *0.344 / 0.583* | *−0.031 / +0.302* | | | |
+| `qwen2.5:14b-instruct` | full (E29: 0.219 / 0.167) | 0.219 | 0.167 | +0.052 | [−0.021, +0.125] | reference | |
+| | full_explicit | 0.156 | 0.167 | −0.010 | [−0.083, +0.052] | −0.062 | [−0.146, +0.021] |
+| | tombstone | 0.635 | 0.292 | +0.344 | [+0.250, +0.438] | **+0.292** | [+0.177, +0.396] |
+| | *E29 addonly / delete, neutral* | | *0.062 / 0.635* | *+0.000 / +0.260* | | | |
+
+**Replication first.** The same-session `full` cells reproduce E29's to
+within 0.004 on all three deciders (0.198/0.281, 0.242/0.316, 0.219/0.167
+against 0.198/0.281, 0.240/0.312, 0.219/0.167). That is the third
+independent replication of the E29 full cells on the 3B model.
+
+**R1 — DESIGN on all three deciders.** Making every reply's referent explicit
+("the proposal to snapshot the store" in place of "that one") leaves the
+neutral-arm level of the transcript exactly where it was: 0.281 → 0.281,
+0.316 → 0.316, 0.167 → 0.167. The gap to add-only's level (0.104, 0.028,
+0.104) does not move. The level difference E29 declined to compare is not the
+explicitness of the rejection's referent; it is the design. The author's
+lean (RENDERING on the 3B) was wrong. One observation beside the prediction:
+on the 3B decider the explicit transcript loses the register effect
+(Δ −0.010 against −0.083; DiD +0.073 [+0.000, +0.146]). With referents spelt
+out, "for the record, I did raise it" no longer sends the decider anywhere
+it has not already been. On the 7B the register effect stays (−0.084).
+
+**R2 holds.** Δ_full_explicit is near zero or negative on the small deciders.
+
+**T1 — BETWEEN on the 3B and 7B, FLAG NOT HONOURED on the 14B.** The
+declared lean was the reverse (not honoured on the 3B, honoured on the 14B)
+and is recorded as a miss. What the cells show:
+- In the *neutral* arm a retained-but-flagged proposal is enacted at 0.625 /
+  0.421 / 0.292 — far above add-only's explicit rejection (0.177 / 0.344 /
+  0.062) and, on the small deciders, at the same level as delete's absence
+  (0.604 / 0.583). A "[withdrawn]" bracket is not read as a rejection; on
+  the 3B it is read as nothing at all.
+- In the *restated* arm the flagged line blunts the re-admission on the
+  small deciders (0.646 / 0.463 against delete's 0.958 / 0.885) but not on
+  the 14B (0.635, Δ +0.344, DiD +0.292 with an interval clear of zero). The
+  largest decider honours a sentence that says "rejected" (add-only 0.062)
+  and does not honour a flag once the step is mentioned again.
+- Δ_tombstone lies between Δ_addonly and Δ_delete on all three, as T1's
+  first clause predicted.
+
+**T2.** Accepted-step inclusion 0.983–1.000 everywhere. Never-mentioned
+inclusion is within 0.10 across designs in every neutral arm; in the
+restated arm it drops under tombstone by 0.146 (3B: 0.604 → 0.458) and
+0.125 (14B: 0.729 → 0.604), which is displacement: the pinned four-step plan
+has one slot fewer once the zombie step takes one. Reported, not explained
+away.
+
+**What this changes.** The reviewer's rendering objection is answered
+empirically: levels across designs may now be compared, and the ordering
+delete > tombstone > full ≈ full_explicit > addonly holds in the neutral arm
+on every decider. The reviewer's "true by construction" objection is
+answered by adding the mitigation they named: a soft-supersede flag is not a
+substitute for storing the rejection; on the largest decider it behaves like
+deletion as soon as the step is restated. Nothing here widens the E29
+residual; it removes two ways of explaining it away.
