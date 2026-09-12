@@ -75,6 +75,11 @@ wiki +0.031, Δ_full +0.031 n.s., every control holding — the cleanest of
 the three second-corpus readings. The second corpus now carries the E29
 verdict on all three deciders.
 
+**Figure 1.** `docs/paper/fig1-delta-by-design.svg` / `.png` (`paper_fig.py`,
+from the same summaries the report reads): every design's Δ with its interval
+on every decider and both corpora, plus the two controls; the same figure is
+drawn live in the report under the E29 table.
+
 **E29-X, the two reviewer controls (`7f89477` → run 2026-09-12).** From the
 scout's adversarial pass. Rendering control: a transcript whose replies name
 their referent as the store does leaves the full-context neutral level

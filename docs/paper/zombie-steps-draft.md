@@ -172,9 +172,11 @@ cell in every run below parsed at 1.000 with mean length 3.98–4.00.
 
 ## 4. Results
 
-### 4.1 Design dependence on three deciders (first corpus)
+### 4.1 Design dependence on four deciders (first corpus)
 
-Rejected-step inclusion, n = 96 dialogues per cell.
+Figure 1 (`fig1-delta-by-design.svg`) shows every Δ in this section and the
+next with its interval; the tables give the levels. Rejected-step inclusion,
+n = 96 dialogues per cell.
 
 | decider | design | restated | neutral | Δ_X | DiD_X | 95 % CI |
 |---|---|---|---|---|---|---|
