@@ -1,0 +1,1026 @@
+[
+ {
+  "instance": "airline-chain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: The weekly safety briefing moved to Thursday.\nSafety Auditor: Catering confirmed the late delivery for gate 14.\nOperations Lead: I think we need to brief the ground handlers on this one; put it on the list.\nSafety Auditor: Not that one -- drop it for this case.\nOperations Lead: I think we need to rebook the missed connections on this one; put it on the list.\nSafety Auditor: Fine, that one is in.\nOperations Lead: For the record, I did raise brief the ground handlers earlier in this discussion.\nSafety Auditor: The duty manager's phone is on the charger.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BRIEF_HANDLERS  OPEN_LOUNGE  HOLD_DEPARTURES  RECALL_CREW  REBOOK_CONNECTIONS  SWAP_AIRCRAFT\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REBOOK_CONNECTIONS\", \"BRIEF_HANDLERS\", \"HOLD_DEPARTURES\", \"SWAP_AIRCRAFT\"], \"ready\": false}"
+ },
+ {
+  "instance": "airline-chain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The weekly safety briefing moved to Thursday.\n- Catering confirmed the late delivery for gate 14.\n- Operations Lead proposed to rebook the missed connections; Safety Auditor accepted it.\n- Operations Lead noted that brief the ground handlers had been raised earlier in the discussion.\n- The duty manager's phone is on the charger.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BRIEF_HANDLERS  OPEN_LOUNGE  HOLD_DEPARTURES  RECALL_CREW  REBOOK_CONNECTIONS  SWAP_AIRCRAFT\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BRIEF_HANDLERS\", \"REBOOK_CONNECTIONS\", \"HOLD_DEPARTURES\", \"OPEN_LOUNGE\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-chain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The weekly safety briefing moved to Thursday.\n- Catering confirmed the late delivery for gate 14.\n- Operations Lead proposed to brief the ground handlers.\n- Safety Auditor rejected the proposal to brief the ground handlers; it is not needed for this case.\n- Operations Lead proposed to rebook the missed connections.\n- Safety Auditor accepted the proposal to rebook the missed connections.\n- Operations Lead noted that brief the ground handlers had been raised earlier in the discussion.\n- The duty manager's phone is on the charger.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BRIEF_HANDLERS  OPEN_LOUNGE  HOLD_DEPARTURES  RECALL_CREW  REBOOK_CONNECTIONS  SWAP_AIRCRAFT\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REBOOK_CONNECTIONS\", \"OPEN_LOUNGE\", \"HOLD_DEPARTURES\", \"SWAP_AIRCRAFT\"], \"ready\": false}"
+ },
+ {
+  "instance": "airline-chain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The weekly safety briefing moved to Thursday.\n- Catering confirmed the late delivery for gate 14.\n- The duty manager's phone is on the charger.\n\n## brief the ground handlers\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n- noted again by Operations Lead: raised earlier in the discussion\n\n## rebook the missed connections\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BRIEF_HANDLERS  OPEN_LOUNGE  HOLD_DEPARTURES  RECALL_CREW  REBOOK_CONNECTIONS  SWAP_AIRCRAFT\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REBOOK_CONNECTIONS\", \"HOLD_DEPARTURES\", \"OPEN_LOUNGE\", \"BRIEF_HANDLERS\"], \"ready\": false}"
+ },
+ {
+  "instance": "airline-chain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: The weekly safety briefing moved to Thursday.\nSafety Auditor: Catering confirmed the late delivery for gate 14.\nOperations Lead: I think we need to brief the ground handlers on this one; put it on the list.\nSafety Auditor: Not that one -- drop it for this case.\nOperations Lead: I think we need to rebook the missed connections on this one; put it on the list.\nSafety Auditor: Fine, that one is in.\nOperations Lead: For the record, I did raise the written summary deadline earlier in this discussion.\nSafety Auditor: The duty manager's phone is on the charger.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BRIEF_HANDLERS  OPEN_LOUNGE  HOLD_DEPARTURES  RECALL_CREW  REBOOK_CONNECTIONS  SWAP_AIRCRAFT\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REBOOK_CONNECTIONS\", \"BRIEF_HANDLERS\", \"HOLD_DEPARTURES\", \"SWAP_AIRCRAFT\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-chain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The weekly safety briefing moved to Thursday.\n- Catering confirmed the late delivery for gate 14.\n- Operations Lead proposed to rebook the missed connections; Safety Auditor accepted it.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The duty manager's phone is on the charger.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BRIEF_HANDLERS  OPEN_LOUNGE  HOLD_DEPARTURES  RECALL_CREW  REBOOK_CONNECTIONS  SWAP_AIRCRAFT\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BRIEF_HANDLERS\", \"REBOOK_CONNECTIONS\", \"HOLD_DEPARTURES\", \"SWAP_AIRCRAFT\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-chain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The weekly safety briefing moved to Thursday.\n- Catering confirmed the late delivery for gate 14.\n- Operations Lead proposed to brief the ground handlers.\n- Safety Auditor rejected the proposal to brief the ground handlers; it is not needed for this case.\n- Operations Lead proposed to rebook the missed connections.\n- Safety Auditor accepted the proposal to rebook the missed connections.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The duty manager's phone is on the charger.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BRIEF_HANDLERS  OPEN_LOUNGE  HOLD_DEPARTURES  RECALL_CREW  REBOOK_CONNECTIONS  SWAP_AIRCRAFT\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REBOOK_CONNECTIONS\", \"HOLD_DEPARTURES\", \"OPEN_LOUNGE\", \"BRIEF_HANDLERS\"], \"ready\": false}"
+ },
+ {
+  "instance": "airline-chain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The weekly safety briefing moved to Thursday.\n- Catering confirmed the late delivery for gate 14.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The duty manager's phone is on the charger.\n\n## brief the ground handlers\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n\n## rebook the missed connections\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BRIEF_HANDLERS  OPEN_LOUNGE  HOLD_DEPARTURES  RECALL_CREW  REBOOK_CONNECTIONS  SWAP_AIRCRAFT\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REBOOK_CONNECTIONS\", \"HOLD_DEPARTURES\", \"OPEN_LOUNGE\", \"BRIEF_HANDLERS\"], \"ready\": false}"
+ },
+ {
+  "instance": "airline-chain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: The weekly safety briefing moved to Thursday.\nSafety Auditor: Someone left the tow tractor by stand 22.\nOperations Lead: I think we need to brief the ground handlers on this one; put it on the list.\nSafety Auditor: I think we need to rebook the missed connections on this one; put it on the list.\nOperations Lead: No, take that one off; we don't need it here.\nSafety Auditor: For the record, I did raise rebook the missed connections earlier in this discussion.\nOperations Lead: Catering confirmed the late delivery for gate 14.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BRIEF_HANDLERS  OPEN_LOUNGE  HOLD_DEPARTURES  RECALL_CREW  REBOOK_CONNECTIONS  SWAP_AIRCRAFT\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BRIEF_HANDLERS\", \"REBOOK_CONNECTIONS\", \"HOLD_DEPARTURES\", \"SWAP_AIRCRAFT\"], \"ready\": false}"
+ },
+ {
+  "instance": "airline-chain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The weekly safety briefing moved to Thursday.\n- Someone left the tow tractor by stand 22.\n- Operations Lead proposed to brief the ground handlers.\n- Safety Auditor noted that rebook the missed connections had been raised earlier in the discussion.\n- Catering confirmed the late delivery for gate 14.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BRIEF_HANDLERS  OPEN_LOUNGE  HOLD_DEPARTURES  RECALL_CREW  REBOOK_CONNECTIONS  SWAP_AIRCRAFT\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BRIEF_HANDLERS\", \"REBOOK_CONNECTIONS\", \"HOLD_DEPARTURES\", \"SWAP_AIRCRAFT\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-chain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The weekly safety briefing moved to Thursday.\n- Someone left the tow tractor by stand 22.\n- Operations Lead proposed to brief the ground handlers.\n- Safety Auditor proposed to rebook the missed connections.\n- Operations Lead rejected the proposal to rebook the missed connections; it is not needed for this case.\n- Safety Auditor noted that rebook the missed connections had been raised earlier in the discussion.\n- Catering confirmed the late delivery for gate 14.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BRIEF_HANDLERS  OPEN_LOUNGE  HOLD_DEPARTURES  RECALL_CREW  REBOOK_CONNECTIONS  SWAP_AIRCRAFT\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BRIEF_HANDLERS\", \"HOLD_DEPARTURES\", \"OPEN_LOUNGE\", \"SWAP_AIRCRAFT\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-chain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The weekly safety briefing moved to Thursday.\n- Someone left the tow tractor by stand 22.\n- Catering confirmed the late delivery for gate 14.\n\n## brief the ground handlers\n- proposed by Operations Lead\n\n## rebook the missed connections\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n- noted again by Safety Auditor: raised earlier in the discussion\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BRIEF_HANDLERS  OPEN_LOUNGE  HOLD_DEPARTURES  RECALL_CREW  REBOOK_CONNECTIONS  SWAP_AIRCRAFT\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BRIEF_HANDLERS\", \"HOLD_DEPARTURES\", \"OPEN_LOUNGE\", \"REBOOK_CONNECTIONS\"], \"ready\": false}"
+ },
+ {
+  "instance": "airline-chain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: The weekly safety briefing moved to Thursday.\nSafety Auditor: Someone left the tow tractor by stand 22.\nOperations Lead: I think we need to brief the ground handlers on this one; put it on the list.\nSafety Auditor: I think we need to rebook the missed connections on this one; put it on the list.\nOperations Lead: No, take that one off; we don't need it here.\nSafety Auditor: For the record, I did raise the written summary deadline earlier in this discussion.\nOperations Lead: Catering confirmed the late delivery for gate 14.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BRIEF_HANDLERS  OPEN_LOUNGE  HOLD_DEPARTURES  RECALL_CREW  REBOOK_CONNECTIONS  SWAP_AIRCRAFT\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BRIEF_HANDLERS\", \"REBOOK_CONNECTIONS\", \"HOLD_DEPARTURES\", \"SWAP_AIRCRAFT\"], \"ready\": false}"
+ },
+ {
+  "instance": "airline-chain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The weekly safety briefing moved to Thursday.\n- Someone left the tow tractor by stand 22.\n- Operations Lead proposed to brief the ground handlers.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- Catering confirmed the late delivery for gate 14.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BRIEF_HANDLERS  OPEN_LOUNGE  HOLD_DEPARTURES  RECALL_CREW  REBOOK_CONNECTIONS  SWAP_AIRCRAFT\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BRIEF_HANDLERS\", \"REBOOK_CONNECTIONS\", \"SWAP_AIRCRAFT\", \"HOLD_DEPARTURES\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-chain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The weekly safety briefing moved to Thursday.\n- Someone left the tow tractor by stand 22.\n- Operations Lead proposed to brief the ground handlers.\n- Safety Auditor proposed to rebook the missed connections.\n- Operations Lead rejected the proposal to rebook the missed connections; it is not needed for this case.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- Catering confirmed the late delivery for gate 14.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BRIEF_HANDLERS  OPEN_LOUNGE  HOLD_DEPARTURES  RECALL_CREW  REBOOK_CONNECTIONS  SWAP_AIRCRAFT\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BRIEF_HANDLERS\", \"HOLD_DEPARTURES\", \"SWAP_AIRCRAFT\", \"OPEN_LOUNGE\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-chain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The weekly safety briefing moved to Thursday.\n- Someone left the tow tractor by stand 22.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- Catering confirmed the late delivery for gate 14.\n\n## brief the ground handlers\n- proposed by Operations Lead\n\n## rebook the missed connections\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BRIEF_HANDLERS  OPEN_LOUNGE  HOLD_DEPARTURES  RECALL_CREW  REBOOK_CONNECTIONS  SWAP_AIRCRAFT\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BRIEF_HANDLERS\", \"REBOOK_CONNECTIONS\", \"HOLD_DEPARTURES\", \"SWAP_AIRCRAFT\"], \"ready\": false}"
+ },
+ {
+  "instance": "airline-fork",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: My suggestion is that we hold the evening departures as part of the response.\nSafety Auditor: I'd leave that out; it is not needed this time.\nOperations Lead: I think we need to swap the delayed aircraft on this one; put it on the list.\nSafety Auditor: Yes, keep it.\nOperations Lead: Catering confirmed the late delivery for gate 14.\nSafety Auditor: Someone left the tow tractor by stand 22.\nOperations Lead: For the record, I did raise hold the evening departures earlier in this discussion.\nSafety Auditor: The weekly safety briefing moved to Thursday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  SWAP_AIRCRAFT  HOLD_DEPARTURES  BRIEF_HANDLERS  RECALL_CREW  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"BRIEF_HANDLERS\", \"REBOOK_CONNECTIONS\", \"HOLD_DEPARTURES\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-fork",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to hold the evening departures; Safety Auditor accepted it.\n- Operations Lead proposed to swap the delayed aircraft; Safety Auditor accepted it.\n- Catering confirmed the late delivery for gate 14.\n- Someone left the tow tractor by stand 22.\n- Operations Lead noted that hold the evening departures had been raised earlier in the discussion.\n- The weekly safety briefing moved to Thursday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  SWAP_AIRCRAFT  HOLD_DEPARTURES  BRIEF_HANDLERS  RECALL_CREW  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"HOLD_DEPARTURES\", \"SWAP_AIRCRAFT\", \"REBOOK_CONNECTIONS\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-fork",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to hold the evening departures.\n- Safety Auditor accepted the proposal to hold the evening departures.\n- Operations Lead proposed to swap the delayed aircraft.\n- Safety Auditor accepted the proposal to swap the delayed aircraft.\n- Catering confirmed the late delivery for gate 14.\n- Someone left the tow tractor by stand 22.\n- Operations Lead noted that hold the evening departures had been raised earlier in the discussion.\n- The weekly safety briefing moved to Thursday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  SWAP_AIRCRAFT  HOLD_DEPARTURES  BRIEF_HANDLERS  RECALL_CREW  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"HOLD_DEPARTURES\", \"SWAP_AIRCRAFT\", \"BRIEF_HANDLERS\", \"REBOOK_CONNECTIONS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-fork",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## hold the evening departures\n- proposed by Operations Lead\n- accepted by Safety Auditor\n- noted again by Operations Lead: raised earlier in the discussion\n\n## swap the delayed aircraft\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\n## discussion log\n- Catering confirmed the late delivery for gate 14.\n- Someone left the tow tractor by stand 22.\n- The weekly safety briefing moved to Thursday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  SWAP_AIRCRAFT  HOLD_DEPARTURES  BRIEF_HANDLERS  RECALL_CREW  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"HOLD_DEPARTURES\", \"SWAP_AIRCRAFT\", \"REBOOK_CONNECTIONS\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-fork",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: My suggestion is that we hold the evening departures as part of the response.\nSafety Auditor: I'd leave that out; it is not needed this time.\nOperations Lead: I think we need to swap the delayed aircraft on this one; put it on the list.\nSafety Auditor: Yes, keep it.\nOperations Lead: Catering confirmed the late delivery for gate 14.\nSafety Auditor: Someone left the tow tractor by stand 22.\nOperations Lead: For the record, I did raise the written summary deadline earlier in this discussion.\nSafety Auditor: The weekly safety briefing moved to Thursday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  SWAP_AIRCRAFT  HOLD_DEPARTURES  BRIEF_HANDLERS  RECALL_CREW  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"REBOOK_CONNECTIONS\", \"BRIEF_HANDLERS\", \"OPEN_LOUNGE\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-fork",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to hold the evening departures; Safety Auditor accepted it.\n- Operations Lead proposed to swap the delayed aircraft; Safety Auditor accepted it.\n- Catering confirmed the late delivery for gate 14.\n- Someone left the tow tractor by stand 22.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The weekly safety briefing moved to Thursday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  SWAP_AIRCRAFT  HOLD_DEPARTURES  BRIEF_HANDLERS  RECALL_CREW  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"HOLD_DEPARTURES\", \"SWAP_AIRCRAFT\", \"REBOOK_CONNECTIONS\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-fork",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to hold the evening departures.\n- Safety Auditor accepted the proposal to hold the evening departures.\n- Operations Lead proposed to swap the delayed aircraft.\n- Safety Auditor accepted the proposal to swap the delayed aircraft.\n- Catering confirmed the late delivery for gate 14.\n- Someone left the tow tractor by stand 22.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The weekly safety briefing moved to Thursday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  SWAP_AIRCRAFT  HOLD_DEPARTURES  BRIEF_HANDLERS  RECALL_CREW  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"HOLD_DEPARTURES\", \"SWAP_AIRCRAFT\", \"REBOOK_CONNECTIONS\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-fork",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## hold the evening departures\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\n## swap the delayed aircraft\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\n## discussion log\n- Catering confirmed the late delivery for gate 14.\n- Someone left the tow tractor by stand 22.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The weekly safety briefing moved to Thursday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  SWAP_AIRCRAFT  HOLD_DEPARTURES  BRIEF_HANDLERS  RECALL_CREW  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"HOLD_DEPARTURES\", \"SWAP_AIRCRAFT\", \"REBOOK_CONNECTIONS\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-fork",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: My suggestion is that we hold the evening departures as part of the response.\nSafety Auditor: I think we need to swap the delayed aircraft on this one; put it on the list.\nOperations Lead: I'd leave that out; it is not needed this time.\nSafety Auditor: Catering confirmed the late delivery for gate 14.\nOperations Lead: The duty manager's phone is on the charger.\nSafety Auditor: For the record, I did raise swap the delayed aircraft earlier in this discussion.\nOperations Lead: Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  SWAP_AIRCRAFT  HOLD_DEPARTURES  BRIEF_HANDLERS  RECALL_CREW  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"HOLD_DEPARTURES\", \"REBOOK_CONNECTIONS\", \"BRIEF_HANDLERS\", \"SWAP_AIRCRAFT\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-fork",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to hold the evening departures.\n- Safety Auditor proposed to swap the delayed aircraft; Operations Lead accepted it.\n- Catering confirmed the late delivery for gate 14.\n- The duty manager's phone is on the charger.\n- Safety Auditor noted that swap the delayed aircraft had been raised earlier in the discussion.\n- Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  SWAP_AIRCRAFT  HOLD_DEPARTURES  BRIEF_HANDLERS  RECALL_CREW  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"HOLD_DEPARTURES\", \"REBOOK_CONNECTIONS\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-fork",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to hold the evening departures.\n- Safety Auditor proposed to swap the delayed aircraft.\n- Operations Lead accepted the proposal to swap the delayed aircraft.\n- Catering confirmed the late delivery for gate 14.\n- The duty manager's phone is on the charger.\n- Safety Auditor noted that swap the delayed aircraft had been raised earlier in the discussion.\n- Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  SWAP_AIRCRAFT  HOLD_DEPARTURES  BRIEF_HANDLERS  RECALL_CREW  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"HOLD_DEPARTURES\", \"BRIEF_HANDLERS\", \"REBOOK_CONNECTIONS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-fork",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## hold the evening departures\n- proposed by Operations Lead\n\n## swap the delayed aircraft\n- proposed by Safety Auditor\n- accepted by Operations Lead\n- noted again by Safety Auditor: raised earlier in the discussion\n\n## discussion log\n- Catering confirmed the late delivery for gate 14.\n- The duty manager's phone is on the charger.\n- Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  SWAP_AIRCRAFT  HOLD_DEPARTURES  BRIEF_HANDLERS  RECALL_CREW  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"HOLD_DEPARTURES\", \"SWAP_AIRCRAFT\", \"REBOOK_CONNECTIONS\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-fork",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: My suggestion is that we hold the evening departures as part of the response.\nSafety Auditor: I think we need to swap the delayed aircraft on this one; put it on the list.\nOperations Lead: I'd leave that out; it is not needed this time.\nSafety Auditor: Catering confirmed the late delivery for gate 14.\nOperations Lead: The duty manager's phone is on the charger.\nSafety Auditor: For the record, I did raise the written summary deadline earlier in this discussion.\nOperations Lead: Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  SWAP_AIRCRAFT  HOLD_DEPARTURES  BRIEF_HANDLERS  RECALL_CREW  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"HOLD_DEPARTURES\", \"BRIEF_HANDLERS\", \"REBOOK_CONNECTIONS\", \"SWAP_AIRCRAFT\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-fork",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to hold the evening departures.\n- Safety Auditor proposed to swap the delayed aircraft; Operations Lead accepted it.\n- Catering confirmed the late delivery for gate 14.\n- The duty manager's phone is on the charger.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  SWAP_AIRCRAFT  HOLD_DEPARTURES  BRIEF_HANDLERS  RECALL_CREW  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"HOLD_DEPARTURES\", \"SWAP_AIRCRAFT\", \"REBOOK_CONNECTIONS\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-fork",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to hold the evening departures.\n- Safety Auditor proposed to swap the delayed aircraft.\n- Operations Lead accepted the proposal to swap the delayed aircraft.\n- Catering confirmed the late delivery for gate 14.\n- The duty manager's phone is on the charger.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  SWAP_AIRCRAFT  HOLD_DEPARTURES  BRIEF_HANDLERS  RECALL_CREW  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"HOLD_DEPARTURES\", \"REBOOK_CONNECTIONS\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-fork",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## hold the evening departures\n- proposed by Operations Lead\n\n## swap the delayed aircraft\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\n## discussion log\n- Catering confirmed the late delivery for gate 14.\n- The duty manager's phone is on the charger.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  SWAP_AIRCRAFT  HOLD_DEPARTURES  BRIEF_HANDLERS  RECALL_CREW  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"HOLD_DEPARTURES\", \"SWAP_AIRCRAFT\", \"REBOOK_CONNECTIONS\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-join",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: The duty manager's phone is on the charger.\nSafety Auditor: I think we need to open the overflow lounge on this one; put it on the list.\nOperations Lead: I think we need to hold the evening departures on this one; put it on the list.\nSafety Auditor: Fine, that one is in.\nOperations Lead: My suggestion is that we swap the delayed aircraft as part of the response.\nSafety Auditor: I'd leave that out; it is not needed this time.\nOperations Lead: The weekly safety briefing moved to Thursday.\nSafety Auditor: Someone left the tow tractor by stand 22.\nOperations Lead: For the record, I did raise swap the delayed aircraft earlier in this discussion.\nSafety Auditor: Catering confirmed the late delivery for gate 14.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REBOOK_CONNECTIONS  OPEN_LOUNGE  HOLD_DEPARTURES  SWAP_AIRCRAFT  RECALL_CREW  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"OPEN_LOUNGE\", \"HOLD_DEPARTURES\", \"REBOOK_CONNECTIONS\", \"RECALL_CREW\"], \"ready\": false}"
+ },
+ {
+  "instance": "airline-join",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The duty manager's phone is on the charger.\n- Safety Auditor proposed to open the overflow lounge.\n- Operations Lead proposed to hold the evening departures; Safety Auditor accepted it.\n- Operations Lead proposed to swap the delayed aircraft; Safety Auditor accepted it.\n- The weekly safety briefing moved to Thursday.\n- Someone left the tow tractor by stand 22.\n- Operations Lead noted that swap the delayed aircraft had been raised earlier in the discussion.\n- Catering confirmed the late delivery for gate 14.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REBOOK_CONNECTIONS  OPEN_LOUNGE  HOLD_DEPARTURES  SWAP_AIRCRAFT  RECALL_CREW  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"HOLD_DEPARTURES\", \"SWAP_AIRCRAFT\", \"OPEN_LOUNGE\", \"REBOOK_CONNECTIONS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-join",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The duty manager's phone is on the charger.\n- Safety Auditor proposed to open the overflow lounge.\n- Operations Lead proposed to hold the evening departures.\n- Safety Auditor accepted the proposal to hold the evening departures.\n- Operations Lead proposed to swap the delayed aircraft.\n- Safety Auditor accepted the proposal to swap the delayed aircraft.\n- The weekly safety briefing moved to Thursday.\n- Someone left the tow tractor by stand 22.\n- Operations Lead noted that swap the delayed aircraft had been raised earlier in the discussion.\n- Catering confirmed the late delivery for gate 14.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REBOOK_CONNECTIONS  OPEN_LOUNGE  HOLD_DEPARTURES  SWAP_AIRCRAFT  RECALL_CREW  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"HOLD_DEPARTURES\", \"SWAP_AIRCRAFT\", \"OPEN_LOUNGE\", \"REBOOK_CONNECTIONS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-join",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The duty manager's phone is on the charger.\n- The weekly safety briefing moved to Thursday.\n- Someone left the tow tractor by stand 22.\n- Catering confirmed the late delivery for gate 14.\n\n## open the overflow lounge\n- proposed by Safety Auditor\n\n## hold the evening departures\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\n## swap the delayed aircraft\n- proposed by Operations Lead\n- accepted by Safety Auditor\n- noted again by Operations Lead: raised earlier in the discussion\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REBOOK_CONNECTIONS  OPEN_LOUNGE  HOLD_DEPARTURES  SWAP_AIRCRAFT  RECALL_CREW  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"OPEN_LOUNGE\", \"HOLD_DEPARTURES\", \"SWAP_AIRCRAFT\", \"REBOOK_CONNECTIONS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-join",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: The duty manager's phone is on the charger.\nSafety Auditor: I think we need to open the overflow lounge on this one; put it on the list.\nOperations Lead: I think we need to hold the evening departures on this one; put it on the list.\nSafety Auditor: Fine, that one is in.\nOperations Lead: My suggestion is that we swap the delayed aircraft as part of the response.\nSafety Auditor: I'd leave that out; it is not needed this time.\nOperations Lead: The weekly safety briefing moved to Thursday.\nSafety Auditor: Someone left the tow tractor by stand 22.\nOperations Lead: For the record, I did raise the written summary deadline earlier in this discussion.\nSafety Auditor: Catering confirmed the late delivery for gate 14.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REBOOK_CONNECTIONS  OPEN_LOUNGE  HOLD_DEPARTURES  SWAP_AIRCRAFT  RECALL_CREW  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"OPEN_LOUNGE\", \"HOLD_DEPARTURES\", \"REBOOK_CONNECTIONS\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-join",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The duty manager's phone is on the charger.\n- Safety Auditor proposed to open the overflow lounge.\n- Operations Lead proposed to hold the evening departures; Safety Auditor accepted it.\n- Operations Lead proposed to swap the delayed aircraft; Safety Auditor accepted it.\n- The weekly safety briefing moved to Thursday.\n- Someone left the tow tractor by stand 22.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Catering confirmed the late delivery for gate 14.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REBOOK_CONNECTIONS  OPEN_LOUNGE  HOLD_DEPARTURES  SWAP_AIRCRAFT  RECALL_CREW  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"HOLD_DEPARTURES\", \"SWAP_AIRCRAFT\", \"OPEN_LOUNGE\", \"REBOOK_CONNECTIONS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-join",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The duty manager's phone is on the charger.\n- Safety Auditor proposed to open the overflow lounge.\n- Operations Lead proposed to hold the evening departures.\n- Safety Auditor accepted the proposal to hold the evening departures.\n- Operations Lead proposed to swap the delayed aircraft.\n- Safety Auditor accepted the proposal to swap the delayed aircraft.\n- The weekly safety briefing moved to Thursday.\n- Someone left the tow tractor by stand 22.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Catering confirmed the late delivery for gate 14.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REBOOK_CONNECTIONS  OPEN_LOUNGE  HOLD_DEPARTURES  SWAP_AIRCRAFT  RECALL_CREW  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"HOLD_DEPARTURES\", \"SWAP_AIRCRAFT\", \"OPEN_LOUNGE\", \"REBOOK_CONNECTIONS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-join",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The duty manager's phone is on the charger.\n- The weekly safety briefing moved to Thursday.\n- Someone left the tow tractor by stand 22.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Catering confirmed the late delivery for gate 14.\n\n## open the overflow lounge\n- proposed by Safety Auditor\n\n## hold the evening departures\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\n## swap the delayed aircraft\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REBOOK_CONNECTIONS  OPEN_LOUNGE  HOLD_DEPARTURES  SWAP_AIRCRAFT  RECALL_CREW  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"OPEN_LOUNGE\", \"HOLD_DEPARTURES\", \"SWAP_AIRCRAFT\", \"REBOOK_CONNECTIONS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-join",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: My suggestion is that we swap the delayed aircraft as part of the response.\nSafety Auditor: The weekly safety briefing moved to Thursday.\nOperations Lead: I think we need to hold the evening departures on this one; put it on the list.\nSafety Auditor: I'd leave that out; it is not needed this time.\nOperations Lead: Someone left the tow tractor by stand 22.\nSafety Auditor: The duty manager's phone is on the charger.\nOperations Lead: For the record, I did raise hold the evening departures earlier in this discussion.\nSafety Auditor: Catering confirmed the late delivery for gate 14.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REBOOK_CONNECTIONS  OPEN_LOUNGE  HOLD_DEPARTURES  SWAP_AIRCRAFT  RECALL_CREW  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"BRIEF_HANDLERS\", \"REBOOK_CONNECTIONS\", \"OPEN_LOUNGE\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-join",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to swap the delayed aircraft.\n- The weekly safety briefing moved to Thursday.\n- Operations Lead proposed to hold the evening departures; Safety Auditor accepted it.\n- Someone left the tow tractor by stand 22.\n- The duty manager's phone is on the charger.\n- Operations Lead noted that hold the evening departures had been raised earlier in the discussion.\n- Catering confirmed the late delivery for gate 14.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REBOOK_CONNECTIONS  OPEN_LOUNGE  HOLD_DEPARTURES  SWAP_AIRCRAFT  RECALL_CREW  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"HOLD_DEPARTURES\", \"REBOOK_CONNECTIONS\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-join",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to swap the delayed aircraft.\n- The weekly safety briefing moved to Thursday.\n- Operations Lead proposed to hold the evening departures.\n- Safety Auditor accepted the proposal to hold the evening departures.\n- Someone left the tow tractor by stand 22.\n- The duty manager's phone is on the charger.\n- Operations Lead noted that hold the evening departures had been raised earlier in the discussion.\n- Catering confirmed the late delivery for gate 14.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REBOOK_CONNECTIONS  OPEN_LOUNGE  HOLD_DEPARTURES  SWAP_AIRCRAFT  RECALL_CREW  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"HOLD_DEPARTURES\", \"REBOOK_CONNECTIONS\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-join",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## swap the delayed aircraft\n- proposed by Operations Lead\n\n## discussion log\n- The weekly safety briefing moved to Thursday.\n- Someone left the tow tractor by stand 22.\n- The duty manager's phone is on the charger.\n- Catering confirmed the late delivery for gate 14.\n\n## hold the evening departures\n- proposed by Operations Lead\n- accepted by Safety Auditor\n- noted again by Operations Lead: raised earlier in the discussion\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REBOOK_CONNECTIONS  OPEN_LOUNGE  HOLD_DEPARTURES  SWAP_AIRCRAFT  RECALL_CREW  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"HOLD_DEPARTURES\", \"SWAP_AIRCRAFT\", \"REBOOK_CONNECTIONS\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-join",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: My suggestion is that we swap the delayed aircraft as part of the response.\nSafety Auditor: The weekly safety briefing moved to Thursday.\nOperations Lead: I think we need to hold the evening departures on this one; put it on the list.\nSafety Auditor: I'd leave that out; it is not needed this time.\nOperations Lead: Someone left the tow tractor by stand 22.\nSafety Auditor: The duty manager's phone is on the charger.\nOperations Lead: For the record, I did raise the written summary deadline earlier in this discussion.\nSafety Auditor: Catering confirmed the late delivery for gate 14.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REBOOK_CONNECTIONS  OPEN_LOUNGE  HOLD_DEPARTURES  SWAP_AIRCRAFT  RECALL_CREW  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"BRIEF_HANDLERS\", \"REBOOK_CONNECTIONS\", \"OPEN_LOUNGE\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-join",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to swap the delayed aircraft.\n- The weekly safety briefing moved to Thursday.\n- Operations Lead proposed to hold the evening departures; Safety Auditor accepted it.\n- Someone left the tow tractor by stand 22.\n- The duty manager's phone is on the charger.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Catering confirmed the late delivery for gate 14.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REBOOK_CONNECTIONS  OPEN_LOUNGE  HOLD_DEPARTURES  SWAP_AIRCRAFT  RECALL_CREW  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"HOLD_DEPARTURES\", \"REBOOK_CONNECTIONS\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-join",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to swap the delayed aircraft.\n- The weekly safety briefing moved to Thursday.\n- Operations Lead proposed to hold the evening departures.\n- Safety Auditor accepted the proposal to hold the evening departures.\n- Someone left the tow tractor by stand 22.\n- The duty manager's phone is on the charger.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Catering confirmed the late delivery for gate 14.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REBOOK_CONNECTIONS  OPEN_LOUNGE  HOLD_DEPARTURES  SWAP_AIRCRAFT  RECALL_CREW  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"HOLD_DEPARTURES\", \"RECALL_CREW\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-join",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## swap the delayed aircraft\n- proposed by Operations Lead\n\n## discussion log\n- The weekly safety briefing moved to Thursday.\n- Someone left the tow tractor by stand 22.\n- The duty manager's phone is on the charger.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Catering confirmed the late delivery for gate 14.\n\n## hold the evening departures\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REBOOK_CONNECTIONS  OPEN_LOUNGE  HOLD_DEPARTURES  SWAP_AIRCRAFT  RECALL_CREW  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"HOLD_DEPARTURES\", \"REBOOK_CONNECTIONS\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-join",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Catering confirmed the late delivery for gate 14.\nSafety Auditor: My suggestion is that we swap the delayed aircraft as part of the response.\nOperations Lead: Yes, keep it.\nSafety Auditor: I think we need to open the overflow lounge on this one; put it on the list.\nOperations Lead: No, take that one off; we don't need it here.\nSafety Auditor: The weekly safety briefing moved to Thursday.\nOperations Lead: Someone left the tow tractor by stand 22.\nSafety Auditor: For the record, I did raise open the overflow lounge earlier in this discussion.\nOperations Lead: The duty manager's phone is on the charger.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REBOOK_CONNECTIONS  OPEN_LOUNGE  HOLD_DEPARTURES  SWAP_AIRCRAFT  RECALL_CREW  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"REBOOK_CONNECTIONS\", \"BRIEF_HANDLERS\", \"HOLD_DEPARTURES\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-join",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Catering confirmed the late delivery for gate 14.\n- Safety Auditor proposed to swap the delayed aircraft; Operations Lead accepted it.\n- The weekly safety briefing moved to Thursday.\n- Someone left the tow tractor by stand 22.\n- Safety Auditor noted that open the overflow lounge had been raised earlier in the discussion.\n- The duty manager's phone is on the charger.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REBOOK_CONNECTIONS  OPEN_LOUNGE  HOLD_DEPARTURES  SWAP_AIRCRAFT  RECALL_CREW  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"REBOOK_CONNECTIONS\", \"OPEN_LOUNGE\", \"HOLD_DEPARTURES\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-join",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Catering confirmed the late delivery for gate 14.\n- Safety Auditor proposed to swap the delayed aircraft.\n- Operations Lead accepted the proposal to swap the delayed aircraft.\n- Safety Auditor proposed to open the overflow lounge.\n- Operations Lead rejected the proposal to open the overflow lounge; it is not needed for this case.\n- The weekly safety briefing moved to Thursday.\n- Someone left the tow tractor by stand 22.\n- Safety Auditor noted that open the overflow lounge had been raised earlier in the discussion.\n- The duty manager's phone is on the charger.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REBOOK_CONNECTIONS  OPEN_LOUNGE  HOLD_DEPARTURES  SWAP_AIRCRAFT  RECALL_CREW  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"REBOOK_CONNECTIONS\", \"HOLD_DEPARTURES\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-join",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- Catering confirmed the late delivery for gate 14.\n- The weekly safety briefing moved to Thursday.\n- Someone left the tow tractor by stand 22.\n- The duty manager's phone is on the charger.\n\n## swap the delayed aircraft\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\n## open the overflow lounge\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n- noted again by Safety Auditor: raised earlier in the discussion\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REBOOK_CONNECTIONS  OPEN_LOUNGE  HOLD_DEPARTURES  SWAP_AIRCRAFT  RECALL_CREW  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"HOLD_DEPARTURES\", \"REBOOK_CONNECTIONS\", \"RECALL_CREW\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-join",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Catering confirmed the late delivery for gate 14.\nSafety Auditor: My suggestion is that we swap the delayed aircraft as part of the response.\nOperations Lead: Yes, keep it.\nSafety Auditor: I think we need to open the overflow lounge on this one; put it on the list.\nOperations Lead: No, take that one off; we don't need it here.\nSafety Auditor: The weekly safety briefing moved to Thursday.\nOperations Lead: Someone left the tow tractor by stand 22.\nSafety Auditor: For the record, I did raise the written summary deadline earlier in this discussion.\nOperations Lead: The duty manager's phone is on the charger.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REBOOK_CONNECTIONS  OPEN_LOUNGE  HOLD_DEPARTURES  SWAP_AIRCRAFT  RECALL_CREW  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"REBOOK_CONNECTIONS\", \"HOLD_DEPARTURES\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-join",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Catering confirmed the late delivery for gate 14.\n- Safety Auditor proposed to swap the delayed aircraft; Operations Lead accepted it.\n- The weekly safety briefing moved to Thursday.\n- Someone left the tow tractor by stand 22.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The duty manager's phone is on the charger.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REBOOK_CONNECTIONS  OPEN_LOUNGE  HOLD_DEPARTURES  SWAP_AIRCRAFT  RECALL_CREW  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"REBOOK_CONNECTIONS\", \"BRIEF_HANDLERS\", \"HOLD_DEPARTURES\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-join",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Catering confirmed the late delivery for gate 14.\n- Safety Auditor proposed to swap the delayed aircraft.\n- Operations Lead accepted the proposal to swap the delayed aircraft.\n- Safety Auditor proposed to open the overflow lounge.\n- Operations Lead rejected the proposal to open the overflow lounge; it is not needed for this case.\n- The weekly safety briefing moved to Thursday.\n- Someone left the tow tractor by stand 22.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The duty manager's phone is on the charger.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REBOOK_CONNECTIONS  OPEN_LOUNGE  HOLD_DEPARTURES  SWAP_AIRCRAFT  RECALL_CREW  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"REBOOK_CONNECTIONS\", \"HOLD_DEPARTURES\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-join",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- Catering confirmed the late delivery for gate 14.\n- The weekly safety briefing moved to Thursday.\n- Someone left the tow tractor by stand 22.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The duty manager's phone is on the charger.\n\n## swap the delayed aircraft\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\n## open the overflow lounge\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REBOOK_CONNECTIONS  OPEN_LOUNGE  HOLD_DEPARTURES  SWAP_AIRCRAFT  RECALL_CREW  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"REBOOK_CONNECTIONS\", \"HOLD_DEPARTURES\", \"RECALL_CREW\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-diamond",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: One more for the plan: swap the delayed aircraft.\nSafety Auditor: Yes, keep it.\nOperations Lead: I think we need to recall the standby crew on this one; put it on the list.\nSafety Auditor: No, take that one off; we don't need it here.\nOperations Lead: My suggestion is that we open the overflow lounge as part of the response.\nSafety Auditor: The duty manager's phone is on the charger.\nOperations Lead: The weekly safety briefing moved to Thursday.\nSafety Auditor: Catering confirmed the late delivery for gate 14.\nOperations Lead: For the record, I did raise recall the standby crew earlier in this discussion.\nSafety Auditor: Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RECALL_CREW  OPEN_LOUNGE  BRIEF_HANDLERS  HOLD_DEPARTURES  SWAP_AIRCRAFT  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"OPEN_LOUNGE\", \"BRIEF_HANDLERS\", \"REBOOK_CONNECTIONS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-diamond",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to swap the delayed aircraft; Safety Auditor accepted it.\n- Operations Lead proposed to open the overflow lounge.\n- The duty manager's phone is on the charger.\n- The weekly safety briefing moved to Thursday.\n- Catering confirmed the late delivery for gate 14.\n- Operations Lead noted that recall the standby crew had been raised earlier in the discussion.\n- Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RECALL_CREW  OPEN_LOUNGE  BRIEF_HANDLERS  HOLD_DEPARTURES  SWAP_AIRCRAFT  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RECALL_CREW\", \"SWAP_AIRCRAFT\", \"OPEN_LOUNGE\", \"REBOOK_CONNECTIONS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-diamond",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to swap the delayed aircraft.\n- Safety Auditor accepted the proposal to swap the delayed aircraft.\n- Operations Lead proposed to recall the standby crew.\n- Safety Auditor rejected the proposal to recall the standby crew; it is not needed for this case.\n- Operations Lead proposed to open the overflow lounge.\n- The duty manager's phone is on the charger.\n- The weekly safety briefing moved to Thursday.\n- Catering confirmed the late delivery for gate 14.\n- Operations Lead noted that recall the standby crew had been raised earlier in the discussion.\n- Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RECALL_CREW  OPEN_LOUNGE  BRIEF_HANDLERS  HOLD_DEPARTURES  SWAP_AIRCRAFT  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"OPEN_LOUNGE\", \"REBOOK_CONNECTIONS\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-diamond",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## swap the delayed aircraft\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\n## recall the standby crew\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n- noted again by Operations Lead: raised earlier in the discussion\n\n## open the overflow lounge\n- proposed by Operations Lead\n\n## discussion log\n- The duty manager's phone is on the charger.\n- The weekly safety briefing moved to Thursday.\n- Catering confirmed the late delivery for gate 14.\n- Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RECALL_CREW  OPEN_LOUNGE  BRIEF_HANDLERS  HOLD_DEPARTURES  SWAP_AIRCRAFT  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"OPEN_LOUNGE\", \"REBOOK_CONNECTIONS\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-diamond",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: One more for the plan: swap the delayed aircraft.\nSafety Auditor: Yes, keep it.\nOperations Lead: I think we need to recall the standby crew on this one; put it on the list.\nSafety Auditor: No, take that one off; we don't need it here.\nOperations Lead: My suggestion is that we open the overflow lounge as part of the response.\nSafety Auditor: The duty manager's phone is on the charger.\nOperations Lead: The weekly safety briefing moved to Thursday.\nSafety Auditor: Catering confirmed the late delivery for gate 14.\nOperations Lead: For the record, I did raise the written summary deadline earlier in this discussion.\nSafety Auditor: Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RECALL_CREW  OPEN_LOUNGE  BRIEF_HANDLERS  HOLD_DEPARTURES  SWAP_AIRCRAFT  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"OPEN_LOUNGE\", \"BRIEF_HANDLERS\", \"REBOOK_CONNECTIONS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-diamond",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to swap the delayed aircraft; Safety Auditor accepted it.\n- Operations Lead proposed to open the overflow lounge.\n- The duty manager's phone is on the charger.\n- The weekly safety briefing moved to Thursday.\n- Catering confirmed the late delivery for gate 14.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RECALL_CREW  OPEN_LOUNGE  BRIEF_HANDLERS  HOLD_DEPARTURES  SWAP_AIRCRAFT  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"OPEN_LOUNGE\", \"REBOOK_CONNECTIONS\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-diamond",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to swap the delayed aircraft.\n- Safety Auditor accepted the proposal to swap the delayed aircraft.\n- Operations Lead proposed to recall the standby crew.\n- Safety Auditor rejected the proposal to recall the standby crew; it is not needed for this case.\n- Operations Lead proposed to open the overflow lounge.\n- The duty manager's phone is on the charger.\n- The weekly safety briefing moved to Thursday.\n- Catering confirmed the late delivery for gate 14.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RECALL_CREW  OPEN_LOUNGE  BRIEF_HANDLERS  HOLD_DEPARTURES  SWAP_AIRCRAFT  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"OPEN_LOUNGE\", \"REBOOK_CONNECTIONS\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-diamond",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## swap the delayed aircraft\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\n## recall the standby crew\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n\n## open the overflow lounge\n- proposed by Operations Lead\n\n## discussion log\n- The duty manager's phone is on the charger.\n- The weekly safety briefing moved to Thursday.\n- Catering confirmed the late delivery for gate 14.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RECALL_CREW  OPEN_LOUNGE  BRIEF_HANDLERS  HOLD_DEPARTURES  SWAP_AIRCRAFT  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"OPEN_LOUNGE\", \"REBOOK_CONNECTIONS\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-diamond",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Someone left the tow tractor by stand 22.\nSafety Auditor: The duty manager's phone is on the charger.\nOperations Lead: One more for the plan: swap the delayed aircraft.\nSafety Auditor: No, take that one off; we don't need it here.\nOperations Lead: I think we need to recall the standby crew on this one; put it on the list.\nSafety Auditor: Catering confirmed the late delivery for gate 14.\nOperations Lead: For the record, I did raise swap the delayed aircraft earlier in this discussion.\nSafety Auditor: The weekly safety briefing moved to Thursday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RECALL_CREW  OPEN_LOUNGE  BRIEF_HANDLERS  HOLD_DEPARTURES  SWAP_AIRCRAFT  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RECALL_CREW\", \"SWAP_AIRCRAFT\", \"BRIEF_HANDLERS\", \"REBOOK_CONNECTIONS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-diamond",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Someone left the tow tractor by stand 22.\n- The duty manager's phone is on the charger.\n- Operations Lead proposed to recall the standby crew.\n- Catering confirmed the late delivery for gate 14.\n- Operations Lead noted that swap the delayed aircraft had been raised earlier in the discussion.\n- The weekly safety briefing moved to Thursday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RECALL_CREW  OPEN_LOUNGE  BRIEF_HANDLERS  HOLD_DEPARTURES  SWAP_AIRCRAFT  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RECALL_CREW\", \"SWAP_AIRCRAFT\", \"REBOOK_CONNECTIONS\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-diamond",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Someone left the tow tractor by stand 22.\n- The duty manager's phone is on the charger.\n- Operations Lead proposed to swap the delayed aircraft.\n- Safety Auditor rejected the proposal to swap the delayed aircraft; it is not needed for this case.\n- Operations Lead proposed to recall the standby crew.\n- Catering confirmed the late delivery for gate 14.\n- Operations Lead noted that swap the delayed aircraft had been raised earlier in the discussion.\n- The weekly safety briefing moved to Thursday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RECALL_CREW  OPEN_LOUNGE  BRIEF_HANDLERS  HOLD_DEPARTURES  SWAP_AIRCRAFT  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RECALL_CREW\", \"BRIEF_HANDLERS\", \"REBOOK_CONNECTIONS\", \"HOLD_DEPARTURES\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-diamond",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- Someone left the tow tractor by stand 22.\n- The duty manager's phone is on the charger.\n- Catering confirmed the late delivery for gate 14.\n- The weekly safety briefing moved to Thursday.\n\n## swap the delayed aircraft\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n- noted again by Operations Lead: raised earlier in the discussion\n\n## recall the standby crew\n- proposed by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RECALL_CREW  OPEN_LOUNGE  BRIEF_HANDLERS  HOLD_DEPARTURES  SWAP_AIRCRAFT  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RECALL_CREW\", \"BRIEF_HANDLERS\", \"HOLD_DEPARTURES\", \"REBOOK_CONNECTIONS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-diamond",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Someone left the tow tractor by stand 22.\nSafety Auditor: The duty manager's phone is on the charger.\nOperations Lead: One more for the plan: swap the delayed aircraft.\nSafety Auditor: No, take that one off; we don't need it here.\nOperations Lead: I think we need to recall the standby crew on this one; put it on the list.\nSafety Auditor: Catering confirmed the late delivery for gate 14.\nOperations Lead: For the record, I did raise the written summary deadline earlier in this discussion.\nSafety Auditor: The weekly safety briefing moved to Thursday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RECALL_CREW  OPEN_LOUNGE  BRIEF_HANDLERS  HOLD_DEPARTURES  SWAP_AIRCRAFT  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RECALL_CREW\", \"SWAP_AIRCRAFT\", \"BRIEF_HANDLERS\", \"REBOOK_CONNECTIONS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-diamond",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Someone left the tow tractor by stand 22.\n- The duty manager's phone is on the charger.\n- Operations Lead proposed to recall the standby crew.\n- Catering confirmed the late delivery for gate 14.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The weekly safety briefing moved to Thursday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RECALL_CREW  OPEN_LOUNGE  BRIEF_HANDLERS  HOLD_DEPARTURES  SWAP_AIRCRAFT  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RECALL_CREW\", \"BRIEF_HANDLERS\", \"REBOOK_CONNECTIONS\", \"HOLD_DEPARTURES\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-diamond",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Someone left the tow tractor by stand 22.\n- The duty manager's phone is on the charger.\n- Operations Lead proposed to swap the delayed aircraft.\n- Safety Auditor rejected the proposal to swap the delayed aircraft; it is not needed for this case.\n- Operations Lead proposed to recall the standby crew.\n- Catering confirmed the late delivery for gate 14.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The weekly safety briefing moved to Thursday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RECALL_CREW  OPEN_LOUNGE  BRIEF_HANDLERS  HOLD_DEPARTURES  SWAP_AIRCRAFT  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RECALL_CREW\", \"BRIEF_HANDLERS\", \"REBOOK_CONNECTIONS\", \"HOLD_DEPARTURES\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-diamond",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- Someone left the tow tractor by stand 22.\n- The duty manager's phone is on the charger.\n- Catering confirmed the late delivery for gate 14.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The weekly safety briefing moved to Thursday.\n\n## swap the delayed aircraft\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n\n## recall the standby crew\n- proposed by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RECALL_CREW  OPEN_LOUNGE  BRIEF_HANDLERS  HOLD_DEPARTURES  SWAP_AIRCRAFT  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RECALL_CREW\", \"BRIEF_HANDLERS\", \"HOLD_DEPARTURES\", \"REBOOK_CONNECTIONS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-diamond",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: I think we need to recall the standby crew on this one; put it on the list.\nSafety Auditor: Agreed -- that stays in.\nOperations Lead: My suggestion is that we open the overflow lounge as part of the response.\nSafety Auditor: Not that one -- drop it for this case.\nOperations Lead: The duty manager's phone is on the charger.\nSafety Auditor: Catering confirmed the late delivery for gate 14.\nOperations Lead: For the record, I did raise open the overflow lounge earlier in this discussion.\nSafety Auditor: Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RECALL_CREW  OPEN_LOUNGE  BRIEF_HANDLERS  HOLD_DEPARTURES  SWAP_AIRCRAFT  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RECALL_CREW\", \"BRIEF_HANDLERS\", \"REBOOK_CONNECTIONS\", \"HOLD_DEPARTURES\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-diamond",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to recall the standby crew; Safety Auditor accepted it.\n- The duty manager's phone is on the charger.\n- Catering confirmed the late delivery for gate 14.\n- Operations Lead noted that open the overflow lounge had been raised earlier in the discussion.\n- Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RECALL_CREW  OPEN_LOUNGE  BRIEF_HANDLERS  HOLD_DEPARTURES  SWAP_AIRCRAFT  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RECALL_CREW\", \"OPEN_LOUNGE\", \"BRIEF_HANDLERS\", \"REBOOK_CONNECTIONS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-diamond",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to recall the standby crew.\n- Safety Auditor accepted the proposal to recall the standby crew.\n- Operations Lead proposed to open the overflow lounge.\n- Safety Auditor rejected the proposal to open the overflow lounge; it is not needed for this case.\n- The duty manager's phone is on the charger.\n- Catering confirmed the late delivery for gate 14.\n- Operations Lead noted that open the overflow lounge had been raised earlier in the discussion.\n- Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RECALL_CREW  OPEN_LOUNGE  BRIEF_HANDLERS  HOLD_DEPARTURES  SWAP_AIRCRAFT  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RECALL_CREW\", \"BRIEF_HANDLERS\", \"HOLD_DEPARTURES\", \"REBOOK_CONNECTIONS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-diamond",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## recall the standby crew\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\n## open the overflow lounge\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n- noted again by Operations Lead: raised earlier in the discussion\n\n## discussion log\n- The duty manager's phone is on the charger.\n- Catering confirmed the late delivery for gate 14.\n- Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RECALL_CREW  OPEN_LOUNGE  BRIEF_HANDLERS  HOLD_DEPARTURES  SWAP_AIRCRAFT  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RECALL_CREW\", \"BRIEF_HANDLERS\", \"HOLD_DEPARTURES\", \"REBOOK_CONNECTIONS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-diamond",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: I think we need to recall the standby crew on this one; put it on the list.\nSafety Auditor: Agreed -- that stays in.\nOperations Lead: My suggestion is that we open the overflow lounge as part of the response.\nSafety Auditor: Not that one -- drop it for this case.\nOperations Lead: The duty manager's phone is on the charger.\nSafety Auditor: Catering confirmed the late delivery for gate 14.\nOperations Lead: For the record, I did raise the written summary deadline earlier in this discussion.\nSafety Auditor: Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RECALL_CREW  OPEN_LOUNGE  BRIEF_HANDLERS  HOLD_DEPARTURES  SWAP_AIRCRAFT  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RECALL_CREW\", \"BRIEF_HANDLERS\", \"REBOOK_CONNECTIONS\", \"HOLD_DEPARTURES\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-diamond",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to recall the standby crew; Safety Auditor accepted it.\n- The duty manager's phone is on the charger.\n- Catering confirmed the late delivery for gate 14.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RECALL_CREW  OPEN_LOUNGE  BRIEF_HANDLERS  HOLD_DEPARTURES  SWAP_AIRCRAFT  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RECALL_CREW\", \"BRIEF_HANDLERS\", \"REBOOK_CONNECTIONS\", \"HOLD_DEPARTURES\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-diamond",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to recall the standby crew.\n- Safety Auditor accepted the proposal to recall the standby crew.\n- Operations Lead proposed to open the overflow lounge.\n- Safety Auditor rejected the proposal to open the overflow lounge; it is not needed for this case.\n- The duty manager's phone is on the charger.\n- Catering confirmed the late delivery for gate 14.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RECALL_CREW  OPEN_LOUNGE  BRIEF_HANDLERS  HOLD_DEPARTURES  SWAP_AIRCRAFT  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RECALL_CREW\", \"BRIEF_HANDLERS\", \"HOLD_DEPARTURES\", \"REBOOK_CONNECTIONS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-diamond",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## recall the standby crew\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\n## open the overflow lounge\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n\n## discussion log\n- The duty manager's phone is on the charger.\n- Catering confirmed the late delivery for gate 14.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RECALL_CREW  OPEN_LOUNGE  BRIEF_HANDLERS  HOLD_DEPARTURES  SWAP_AIRCRAFT  REBOOK_CONNECTIONS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RECALL_CREW\", \"BRIEF_HANDLERS\", \"HOLD_DEPARTURES\", \"REBOOK_CONNECTIONS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-twochain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: My suggestion is that we swap the delayed aircraft as part of the response.\nSafety Auditor: I think we need to brief the ground handlers on this one; put it on the list.\nOperations Lead: Fine, that one is in.\nSafety Auditor: One more for the plan: rebook the missed connections.\nOperations Lead: No, take that one off; we don't need it here.\nSafety Auditor: The weekly safety briefing moved to Thursday.\nOperations Lead: Someone left the tow tractor by stand 22.\nSafety Auditor: For the record, I did raise rebook the missed connections earlier in this discussion.\nOperations Lead: Catering confirmed the late delivery for gate 14.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  RECALL_CREW  HOLD_DEPARTURES  REBOOK_CONNECTIONS  SWAP_AIRCRAFT  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"BRIEF_HANDLERS\", \"HOLD_DEPARTURES\", \"REBOOK_CONNECTIONS\"], \"ready\": false}"
+ },
+ {
+  "instance": "airline-twochain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to swap the delayed aircraft.\n- Safety Auditor proposed to brief the ground handlers; Operations Lead accepted it.\n- The weekly safety briefing moved to Thursday.\n- Someone left the tow tractor by stand 22.\n- Safety Auditor noted that rebook the missed connections had been raised earlier in the discussion.\n- Catering confirmed the late delivery for gate 14.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  RECALL_CREW  HOLD_DEPARTURES  REBOOK_CONNECTIONS  SWAP_AIRCRAFT  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"BRIEF_HANDLERS\", \"REBOOK_CONNECTIONS\", \"HOLD_DEPARTURES\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-twochain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to swap the delayed aircraft.\n- Safety Auditor proposed to brief the ground handlers.\n- Operations Lead accepted the proposal to brief the ground handlers.\n- Safety Auditor proposed to rebook the missed connections.\n- Operations Lead rejected the proposal to rebook the missed connections; it is not needed for this case.\n- The weekly safety briefing moved to Thursday.\n- Someone left the tow tractor by stand 22.\n- Safety Auditor noted that rebook the missed connections had been raised earlier in the discussion.\n- Catering confirmed the late delivery for gate 14.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  RECALL_CREW  HOLD_DEPARTURES  REBOOK_CONNECTIONS  SWAP_AIRCRAFT  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"BRIEF_HANDLERS\", \"REBOOK_CONNECTIONS\", \"HOLD_DEPARTURES\"], \"ready\": false}"
+ },
+ {
+  "instance": "airline-twochain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## swap the delayed aircraft\n- proposed by Operations Lead\n\n## brief the ground handlers\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\n## rebook the missed connections\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n- noted again by Safety Auditor: raised earlier in the discussion\n\n## discussion log\n- The weekly safety briefing moved to Thursday.\n- Someone left the tow tractor by stand 22.\n- Catering confirmed the late delivery for gate 14.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  RECALL_CREW  HOLD_DEPARTURES  REBOOK_CONNECTIONS  SWAP_AIRCRAFT  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"BRIEF_HANDLERS\", \"HOLD_DEPARTURES\", \"REBOOK_CONNECTIONS\"], \"ready\": false}"
+ },
+ {
+  "instance": "airline-twochain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: My suggestion is that we swap the delayed aircraft as part of the response.\nSafety Auditor: I think we need to brief the ground handlers on this one; put it on the list.\nOperations Lead: Fine, that one is in.\nSafety Auditor: One more for the plan: rebook the missed connections.\nOperations Lead: No, take that one off; we don't need it here.\nSafety Auditor: The weekly safety briefing moved to Thursday.\nOperations Lead: Someone left the tow tractor by stand 22.\nSafety Auditor: For the record, I did raise the written summary deadline earlier in this discussion.\nOperations Lead: Catering confirmed the late delivery for gate 14.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  RECALL_CREW  HOLD_DEPARTURES  REBOOK_CONNECTIONS  SWAP_AIRCRAFT  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"BRIEF_HANDLERS\", \"HOLD_DEPARTURES\", \"REBOOK_CONNECTIONS\"], \"ready\": false}"
+ },
+ {
+  "instance": "airline-twochain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to swap the delayed aircraft.\n- Safety Auditor proposed to brief the ground handlers; Operations Lead accepted it.\n- The weekly safety briefing moved to Thursday.\n- Someone left the tow tractor by stand 22.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- Catering confirmed the late delivery for gate 14.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  RECALL_CREW  HOLD_DEPARTURES  REBOOK_CONNECTIONS  SWAP_AIRCRAFT  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"BRIEF_HANDLERS\", \"REBOOK_CONNECTIONS\", \"HOLD_DEPARTURES\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-twochain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to swap the delayed aircraft.\n- Safety Auditor proposed to brief the ground handlers.\n- Operations Lead accepted the proposal to brief the ground handlers.\n- Safety Auditor proposed to rebook the missed connections.\n- Operations Lead rejected the proposal to rebook the missed connections; it is not needed for this case.\n- The weekly safety briefing moved to Thursday.\n- Someone left the tow tractor by stand 22.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- Catering confirmed the late delivery for gate 14.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  RECALL_CREW  HOLD_DEPARTURES  REBOOK_CONNECTIONS  SWAP_AIRCRAFT  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"BRIEF_HANDLERS\", \"RECALL_CREW\", \"HOLD_DEPARTURES\"], \"ready\": false}"
+ },
+ {
+  "instance": "airline-twochain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## swap the delayed aircraft\n- proposed by Operations Lead\n\n## brief the ground handlers\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\n## rebook the missed connections\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n\n## discussion log\n- The weekly safety briefing moved to Thursday.\n- Someone left the tow tractor by stand 22.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- Catering confirmed the late delivery for gate 14.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  RECALL_CREW  HOLD_DEPARTURES  REBOOK_CONNECTIONS  SWAP_AIRCRAFT  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"BRIEF_HANDLERS\", \"HOLD_DEPARTURES\", \"REBOOK_CONNECTIONS\"], \"ready\": false}"
+ },
+ {
+  "instance": "airline-twochain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: The weekly safety briefing moved to Thursday.\nSafety Auditor: I think we need to brief the ground handlers on this one; put it on the list.\nOperations Lead: I'd leave that out; it is not needed this time.\nSafety Auditor: Catering confirmed the late delivery for gate 14.\nOperations Lead: One more for the plan: rebook the missed connections.\nSafety Auditor: For the record, I did raise brief the ground handlers earlier in this discussion.\nOperations Lead: Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  RECALL_CREW  HOLD_DEPARTURES  REBOOK_CONNECTIONS  SWAP_AIRCRAFT  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REBOOK_CONNECTIONS\", \"BRIEF_HANDLERS\", \"OPEN_LOUNGE\", \"SWAP_AIRCRAFT\"], \"ready\": false}"
+ },
+ {
+  "instance": "airline-twochain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The weekly safety briefing moved to Thursday.\n- Safety Auditor proposed to brief the ground handlers; Operations Lead accepted it.\n- Catering confirmed the late delivery for gate 14.\n- Operations Lead proposed to rebook the missed connections.\n- Safety Auditor noted that brief the ground handlers had been raised earlier in the discussion.\n- Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  RECALL_CREW  HOLD_DEPARTURES  REBOOK_CONNECTIONS  SWAP_AIRCRAFT  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BRIEF_HANDLERS\", \"REBOOK_CONNECTIONS\", \"OPEN_LOUNGE\", \"HOLD_DEPARTURES\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-twochain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The weekly safety briefing moved to Thursday.\n- Safety Auditor proposed to brief the ground handlers.\n- Operations Lead accepted the proposal to brief the ground handlers.\n- Catering confirmed the late delivery for gate 14.\n- Operations Lead proposed to rebook the missed connections.\n- Safety Auditor noted that brief the ground handlers had been raised earlier in the discussion.\n- Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  RECALL_CREW  HOLD_DEPARTURES  REBOOK_CONNECTIONS  SWAP_AIRCRAFT  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BRIEF_HANDLERS\", \"REBOOK_CONNECTIONS\", \"OPEN_LOUNGE\", \"HOLD_DEPARTURES\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-twochain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The weekly safety briefing moved to Thursday.\n- Catering confirmed the late delivery for gate 14.\n- Someone left the tow tractor by stand 22.\n\n## brief the ground handlers\n- proposed by Safety Auditor\n- accepted by Operations Lead\n- noted again by Safety Auditor: raised earlier in the discussion\n\n## rebook the missed connections\n- proposed by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  RECALL_CREW  HOLD_DEPARTURES  REBOOK_CONNECTIONS  SWAP_AIRCRAFT  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BRIEF_HANDLERS\", \"REBOOK_CONNECTIONS\", \"HOLD_DEPARTURES\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-twochain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: The weekly safety briefing moved to Thursday.\nSafety Auditor: I think we need to brief the ground handlers on this one; put it on the list.\nOperations Lead: I'd leave that out; it is not needed this time.\nSafety Auditor: Catering confirmed the late delivery for gate 14.\nOperations Lead: One more for the plan: rebook the missed connections.\nSafety Auditor: For the record, I did raise the written summary deadline earlier in this discussion.\nOperations Lead: Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  RECALL_CREW  HOLD_DEPARTURES  REBOOK_CONNECTIONS  SWAP_AIRCRAFT  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REBOOK_CONNECTIONS\", \"BRIEF_HANDLERS\", \"OPEN_LOUNGE\", \"HOLD_DEPARTURES\"], \"ready\": false}"
+ },
+ {
+  "instance": "airline-twochain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The weekly safety briefing moved to Thursday.\n- Safety Auditor proposed to brief the ground handlers; Operations Lead accepted it.\n- Catering confirmed the late delivery for gate 14.\n- Operations Lead proposed to rebook the missed connections.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  RECALL_CREW  HOLD_DEPARTURES  REBOOK_CONNECTIONS  SWAP_AIRCRAFT  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BRIEF_HANDLERS\", \"REBOOK_CONNECTIONS\", \"OPEN_LOUNGE\", \"HOLD_DEPARTURES\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-twochain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The weekly safety briefing moved to Thursday.\n- Safety Auditor proposed to brief the ground handlers.\n- Operations Lead accepted the proposal to brief the ground handlers.\n- Catering confirmed the late delivery for gate 14.\n- Operations Lead proposed to rebook the missed connections.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  RECALL_CREW  HOLD_DEPARTURES  REBOOK_CONNECTIONS  SWAP_AIRCRAFT  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BRIEF_HANDLERS\", \"REBOOK_CONNECTIONS\", \"OPEN_LOUNGE\", \"HOLD_DEPARTURES\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-twochain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The weekly safety briefing moved to Thursday.\n- Catering confirmed the late delivery for gate 14.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- Someone left the tow tractor by stand 22.\n\n## brief the ground handlers\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\n## rebook the missed connections\n- proposed by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  RECALL_CREW  HOLD_DEPARTURES  REBOOK_CONNECTIONS  SWAP_AIRCRAFT  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REBOOK_CONNECTIONS\", \"BRIEF_HANDLERS\", \"HOLD_DEPARTURES\", \"SWAP_AIRCRAFT\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-twochain",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Catering confirmed the late delivery for gate 14.\nSafety Auditor: One more for the plan: rebook the missed connections.\nOperations Lead: Agreed -- that stays in.\nSafety Auditor: Someone left the tow tractor by stand 22.\nOperations Lead: My suggestion is that we swap the delayed aircraft as part of the response.\nSafety Auditor: Not that one -- drop it for this case.\nOperations Lead: For the record, I did raise swap the delayed aircraft earlier in this discussion.\nSafety Auditor: The duty manager's phone is on the charger.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  RECALL_CREW  HOLD_DEPARTURES  REBOOK_CONNECTIONS  SWAP_AIRCRAFT  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REBOOK_CONNECTIONS\", \"HOLD_DEPARTURES\", \"OPEN_LOUNGE\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-twochain",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Catering confirmed the late delivery for gate 14.\n- Safety Auditor proposed to rebook the missed connections; Operations Lead accepted it.\n- Someone left the tow tractor by stand 22.\n- Operations Lead noted that swap the delayed aircraft had been raised earlier in the discussion.\n- The duty manager's phone is on the charger.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  RECALL_CREW  HOLD_DEPARTURES  REBOOK_CONNECTIONS  SWAP_AIRCRAFT  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REBOOK_CONNECTIONS\", \"SWAP_AIRCRAFT\", \"HOLD_DEPARTURES\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-twochain",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Catering confirmed the late delivery for gate 14.\n- Safety Auditor proposed to rebook the missed connections.\n- Operations Lead accepted the proposal to rebook the missed connections.\n- Someone left the tow tractor by stand 22.\n- Operations Lead proposed to swap the delayed aircraft.\n- Safety Auditor rejected the proposal to swap the delayed aircraft; it is not needed for this case.\n- Operations Lead noted that swap the delayed aircraft had been raised earlier in the discussion.\n- The duty manager's phone is on the charger.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  RECALL_CREW  HOLD_DEPARTURES  REBOOK_CONNECTIONS  SWAP_AIRCRAFT  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REBOOK_CONNECTIONS\", \"HOLD_DEPARTURES\", \"OPEN_LOUNGE\", \"RECALL_CREW\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-twochain",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- Catering confirmed the late delivery for gate 14.\n- Someone left the tow tractor by stand 22.\n- The duty manager's phone is on the charger.\n\n## rebook the missed connections\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\n## swap the delayed aircraft\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n- noted again by Operations Lead: raised earlier in the discussion\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  RECALL_CREW  HOLD_DEPARTURES  REBOOK_CONNECTIONS  SWAP_AIRCRAFT  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REBOOK_CONNECTIONS\", \"HOLD_DEPARTURES\", \"OPEN_LOUNGE\", \"RECALL_CREW\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-twochain",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Catering confirmed the late delivery for gate 14.\nSafety Auditor: One more for the plan: rebook the missed connections.\nOperations Lead: Agreed -- that stays in.\nSafety Auditor: Someone left the tow tractor by stand 22.\nOperations Lead: My suggestion is that we swap the delayed aircraft as part of the response.\nSafety Auditor: Not that one -- drop it for this case.\nOperations Lead: For the record, I did raise the written summary deadline earlier in this discussion.\nSafety Auditor: The duty manager's phone is on the charger.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  RECALL_CREW  HOLD_DEPARTURES  REBOOK_CONNECTIONS  SWAP_AIRCRAFT  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REBOOK_CONNECTIONS\", \"BRIEF_HANDLERS\", \"HOLD_DEPARTURES\", \"OPEN_LOUNGE\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-twochain",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Catering confirmed the late delivery for gate 14.\n- Safety Auditor proposed to rebook the missed connections; Operations Lead accepted it.\n- Someone left the tow tractor by stand 22.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The duty manager's phone is on the charger.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  RECALL_CREW  HOLD_DEPARTURES  REBOOK_CONNECTIONS  SWAP_AIRCRAFT  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REBOOK_CONNECTIONS\", \"BRIEF_HANDLERS\", \"HOLD_DEPARTURES\", \"SWAP_AIRCRAFT\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-twochain",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Catering confirmed the late delivery for gate 14.\n- Safety Auditor proposed to rebook the missed connections.\n- Operations Lead accepted the proposal to rebook the missed connections.\n- Someone left the tow tractor by stand 22.\n- Operations Lead proposed to swap the delayed aircraft.\n- Safety Auditor rejected the proposal to swap the delayed aircraft; it is not needed for this case.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The duty manager's phone is on the charger.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  RECALL_CREW  HOLD_DEPARTURES  REBOOK_CONNECTIONS  SWAP_AIRCRAFT  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REBOOK_CONNECTIONS\", \"HOLD_DEPARTURES\", \"OPEN_LOUNGE\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-twochain",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- Catering confirmed the late delivery for gate 14.\n- Someone left the tow tractor by stand 22.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The duty manager's phone is on the charger.\n\n## rebook the missed connections\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\n## swap the delayed aircraft\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  OPEN_LOUNGE  RECALL_CREW  HOLD_DEPARTURES  REBOOK_CONNECTIONS  SWAP_AIRCRAFT  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REBOOK_CONNECTIONS\", \"HOLD_DEPARTURES\", \"OPEN_LOUNGE\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-star",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Someone left the tow tractor by stand 22.\nSafety Auditor: The duty manager's phone is on the charger.\nOperations Lead: I think we need to open the overflow lounge on this one; put it on the list.\nSafety Auditor: One more for the plan: rebook the missed connections.\nOperations Lead: Yes, keep it.\nSafety Auditor: I think we need to swap the delayed aircraft on this one; put it on the list.\nOperations Lead: Not that one -- drop it for this case.\nSafety Auditor: For the record, I did raise swap the delayed aircraft earlier in this discussion.\nOperations Lead: The weekly safety briefing moved to Thursday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_AIRCRAFT  OPEN_LOUNGE  REBOOK_CONNECTIONS  RECALL_CREW  HOLD_DEPARTURES  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"OPEN_LOUNGE\", \"REBOOK_CONNECTIONS\", \"SWAP_AIRCRAFT\", \"HOLD_DEPARTURES\"], \"ready\": false}"
+ },
+ {
+  "instance": "airline-star",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Someone left the tow tractor by stand 22.\n- The duty manager's phone is on the charger.\n- Operations Lead proposed to open the overflow lounge.\n- Safety Auditor proposed to rebook the missed connections; Operations Lead accepted it.\n- Safety Auditor noted that swap the delayed aircraft had been raised earlier in the discussion.\n- The weekly safety briefing moved to Thursday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_AIRCRAFT  OPEN_LOUNGE  REBOOK_CONNECTIONS  RECALL_CREW  HOLD_DEPARTURES  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REBOOK_CONNECTIONS\", \"SWAP_AIRCRAFT\", \"OPEN_LOUNGE\", \"HOLD_DEPARTURES\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-star",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Someone left the tow tractor by stand 22.\n- The duty manager's phone is on the charger.\n- Operations Lead proposed to open the overflow lounge.\n- Safety Auditor proposed to rebook the missed connections.\n- Operations Lead accepted the proposal to rebook the missed connections.\n- Safety Auditor proposed to swap the delayed aircraft.\n- Operations Lead rejected the proposal to swap the delayed aircraft; it is not needed for this case.\n- Safety Auditor noted that swap the delayed aircraft had been raised earlier in the discussion.\n- The weekly safety briefing moved to Thursday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_AIRCRAFT  OPEN_LOUNGE  REBOOK_CONNECTIONS  RECALL_CREW  HOLD_DEPARTURES  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RECALL_CREW\", \"OPEN_LOUNGE\", \"REBOOK_CONNECTIONS\", \"HOLD_DEPARTURES\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-star",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- Someone left the tow tractor by stand 22.\n- The duty manager's phone is on the charger.\n- The weekly safety briefing moved to Thursday.\n\n## open the overflow lounge\n- proposed by Operations Lead\n\n## rebook the missed connections\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\n## swap the delayed aircraft\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n- noted again by Safety Auditor: raised earlier in the discussion\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_AIRCRAFT  OPEN_LOUNGE  REBOOK_CONNECTIONS  RECALL_CREW  HOLD_DEPARTURES  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"OPEN_LOUNGE\", \"REBOOK_CONNECTIONS\", \"HOLD_DEPARTURES\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-star",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Someone left the tow tractor by stand 22.\nSafety Auditor: The duty manager's phone is on the charger.\nOperations Lead: I think we need to open the overflow lounge on this one; put it on the list.\nSafety Auditor: One more for the plan: rebook the missed connections.\nOperations Lead: Yes, keep it.\nSafety Auditor: I think we need to swap the delayed aircraft on this one; put it on the list.\nOperations Lead: Not that one -- drop it for this case.\nSafety Auditor: For the record, I did raise the written summary deadline earlier in this discussion.\nOperations Lead: The weekly safety briefing moved to Thursday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_AIRCRAFT  OPEN_LOUNGE  REBOOK_CONNECTIONS  RECALL_CREW  HOLD_DEPARTURES  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"OPEN_LOUNGE\", \"REBOOK_CONNECTIONS\", \"SWAP_AIRCRAFT\", \"HOLD_DEPARTURES\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-star",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Someone left the tow tractor by stand 22.\n- The duty manager's phone is on the charger.\n- Operations Lead proposed to open the overflow lounge.\n- Safety Auditor proposed to rebook the missed connections; Operations Lead accepted it.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The weekly safety briefing moved to Thursday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_AIRCRAFT  OPEN_LOUNGE  REBOOK_CONNECTIONS  RECALL_CREW  HOLD_DEPARTURES  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REBOOK_CONNECTIONS\", \"OPEN_LOUNGE\", \"BRIEF_HANDLERS\", \"HOLD_DEPARTURES\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-star",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Someone left the tow tractor by stand 22.\n- The duty manager's phone is on the charger.\n- Operations Lead proposed to open the overflow lounge.\n- Safety Auditor proposed to rebook the missed connections.\n- Operations Lead accepted the proposal to rebook the missed connections.\n- Safety Auditor proposed to swap the delayed aircraft.\n- Operations Lead rejected the proposal to swap the delayed aircraft; it is not needed for this case.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The weekly safety briefing moved to Thursday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_AIRCRAFT  OPEN_LOUNGE  REBOOK_CONNECTIONS  RECALL_CREW  HOLD_DEPARTURES  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RECALL_CREW\", \"OPEN_LOUNGE\", \"REBOOK_CONNECTIONS\", \"HOLD_DEPARTURES\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-star",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- Someone left the tow tractor by stand 22.\n- The duty manager's phone is on the charger.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The weekly safety briefing moved to Thursday.\n\n## open the overflow lounge\n- proposed by Operations Lead\n\n## rebook the missed connections\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\n## swap the delayed aircraft\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_AIRCRAFT  OPEN_LOUNGE  REBOOK_CONNECTIONS  RECALL_CREW  HOLD_DEPARTURES  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REBOOK_CONNECTIONS\", \"OPEN_LOUNGE\", \"HOLD_DEPARTURES\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-star",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: The duty manager's phone is on the charger.\nSafety Auditor: Catering confirmed the late delivery for gate 14.\nOperations Lead: One more for the plan: rebook the missed connections.\nSafety Auditor: No, take that one off; we don't need it here.\nOperations Lead: I think we need to swap the delayed aircraft on this one; put it on the list.\nSafety Auditor: The weekly safety briefing moved to Thursday.\nOperations Lead: For the record, I did raise rebook the missed connections earlier in this discussion.\nSafety Auditor: Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_AIRCRAFT  OPEN_LOUNGE  REBOOK_CONNECTIONS  RECALL_CREW  HOLD_DEPARTURES  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"HOLD_DEPARTURES\", \"BRIEF_HANDLERS\", \"OPEN_LOUNGE\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-star",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The duty manager's phone is on the charger.\n- Catering confirmed the late delivery for gate 14.\n- Operations Lead proposed to swap the delayed aircraft.\n- The weekly safety briefing moved to Thursday.\n- Operations Lead noted that rebook the missed connections had been raised earlier in the discussion.\n- Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_AIRCRAFT  OPEN_LOUNGE  REBOOK_CONNECTIONS  RECALL_CREW  HOLD_DEPARTURES  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"REBOOK_CONNECTIONS\", \"HOLD_DEPARTURES\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-star",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The duty manager's phone is on the charger.\n- Catering confirmed the late delivery for gate 14.\n- Operations Lead proposed to rebook the missed connections.\n- Safety Auditor rejected the proposal to rebook the missed connections; it is not needed for this case.\n- Operations Lead proposed to swap the delayed aircraft.\n- The weekly safety briefing moved to Thursday.\n- Operations Lead noted that rebook the missed connections had been raised earlier in the discussion.\n- Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_AIRCRAFT  OPEN_LOUNGE  REBOOK_CONNECTIONS  RECALL_CREW  HOLD_DEPARTURES  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"HOLD_DEPARTURES\", \"BRIEF_HANDLERS\", \"OPEN_LOUNGE\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-star",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The duty manager's phone is on the charger.\n- Catering confirmed the late delivery for gate 14.\n- The weekly safety briefing moved to Thursday.\n- Someone left the tow tractor by stand 22.\n\n## rebook the missed connections\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n- noted again by Operations Lead: raised earlier in the discussion\n\n## swap the delayed aircraft\n- proposed by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_AIRCRAFT  OPEN_LOUNGE  REBOOK_CONNECTIONS  RECALL_CREW  HOLD_DEPARTURES  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"HOLD_DEPARTURES\", \"BRIEF_HANDLERS\", \"OPEN_LOUNGE\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-star",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: The duty manager's phone is on the charger.\nSafety Auditor: Catering confirmed the late delivery for gate 14.\nOperations Lead: One more for the plan: rebook the missed connections.\nSafety Auditor: No, take that one off; we don't need it here.\nOperations Lead: I think we need to swap the delayed aircraft on this one; put it on the list.\nSafety Auditor: The weekly safety briefing moved to Thursday.\nOperations Lead: For the record, I did raise the written summary deadline earlier in this discussion.\nSafety Auditor: Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_AIRCRAFT  OPEN_LOUNGE  REBOOK_CONNECTIONS  RECALL_CREW  HOLD_DEPARTURES  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"HOLD_DEPARTURES\", \"BRIEF_HANDLERS\", \"OPEN_LOUNGE\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-star",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The duty manager's phone is on the charger.\n- Catering confirmed the late delivery for gate 14.\n- Operations Lead proposed to swap the delayed aircraft.\n- The weekly safety briefing moved to Thursday.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_AIRCRAFT  OPEN_LOUNGE  REBOOK_CONNECTIONS  RECALL_CREW  HOLD_DEPARTURES  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"REBOOK_CONNECTIONS\", \"BRIEF_HANDLERS\", \"HOLD_DEPARTURES\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-star",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The duty manager's phone is on the charger.\n- Catering confirmed the late delivery for gate 14.\n- Operations Lead proposed to rebook the missed connections.\n- Safety Auditor rejected the proposal to rebook the missed connections; it is not needed for this case.\n- Operations Lead proposed to swap the delayed aircraft.\n- The weekly safety briefing moved to Thursday.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_AIRCRAFT  OPEN_LOUNGE  REBOOK_CONNECTIONS  RECALL_CREW  HOLD_DEPARTURES  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"HOLD_DEPARTURES\", \"BRIEF_HANDLERS\", \"RECALL_CREW\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-star",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The duty manager's phone is on the charger.\n- Catering confirmed the late delivery for gate 14.\n- The weekly safety briefing moved to Thursday.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Someone left the tow tractor by stand 22.\n\n## rebook the missed connections\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n\n## swap the delayed aircraft\n- proposed by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_AIRCRAFT  OPEN_LOUNGE  REBOOK_CONNECTIONS  RECALL_CREW  HOLD_DEPARTURES  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"HOLD_DEPARTURES\", \"BRIEF_HANDLERS\", \"RECALL_CREW\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-star",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: I think we need to open the overflow lounge on this one; put it on the list.\nSafety Auditor: Not that one -- drop it for this case.\nOperations Lead: The duty manager's phone is on the charger.\nSafety Auditor: I think we need to swap the delayed aircraft on this one; put it on the list.\nOperations Lead: Fine, that one is in.\nSafety Auditor: Catering confirmed the late delivery for gate 14.\nOperations Lead: For the record, I did raise open the overflow lounge earlier in this discussion.\nSafety Auditor: Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_AIRCRAFT  OPEN_LOUNGE  REBOOK_CONNECTIONS  RECALL_CREW  HOLD_DEPARTURES  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"OPEN_LOUNGE\", \"REBOOK_CONNECTIONS\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-star",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The duty manager's phone is on the charger.\n- Safety Auditor proposed to swap the delayed aircraft; Operations Lead accepted it.\n- Catering confirmed the late delivery for gate 14.\n- Operations Lead noted that open the overflow lounge had been raised earlier in the discussion.\n- Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_AIRCRAFT  OPEN_LOUNGE  REBOOK_CONNECTIONS  RECALL_CREW  HOLD_DEPARTURES  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"OPEN_LOUNGE\", \"REBOOK_CONNECTIONS\", \"HOLD_DEPARTURES\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-star",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to open the overflow lounge.\n- Safety Auditor rejected the proposal to open the overflow lounge; it is not needed for this case.\n- The duty manager's phone is on the charger.\n- Safety Auditor proposed to swap the delayed aircraft.\n- Operations Lead accepted the proposal to swap the delayed aircraft.\n- Catering confirmed the late delivery for gate 14.\n- Operations Lead noted that open the overflow lounge had been raised earlier in the discussion.\n- Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_AIRCRAFT  OPEN_LOUNGE  REBOOK_CONNECTIONS  RECALL_CREW  HOLD_DEPARTURES  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"REBOOK_CONNECTIONS\", \"RECALL_CREW\", \"HOLD_DEPARTURES\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-star",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## open the overflow lounge\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n- noted again by Operations Lead: raised earlier in the discussion\n\n## discussion log\n- The duty manager's phone is on the charger.\n- Catering confirmed the late delivery for gate 14.\n- Someone left the tow tractor by stand 22.\n\n## swap the delayed aircraft\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_AIRCRAFT  OPEN_LOUNGE  REBOOK_CONNECTIONS  RECALL_CREW  HOLD_DEPARTURES  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"REBOOK_CONNECTIONS\", \"HOLD_DEPARTURES\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-star",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: I think we need to open the overflow lounge on this one; put it on the list.\nSafety Auditor: Not that one -- drop it for this case.\nOperations Lead: The duty manager's phone is on the charger.\nSafety Auditor: I think we need to swap the delayed aircraft on this one; put it on the list.\nOperations Lead: Fine, that one is in.\nSafety Auditor: Catering confirmed the late delivery for gate 14.\nOperations Lead: For the record, I did raise the written summary deadline earlier in this discussion.\nSafety Auditor: Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_AIRCRAFT  OPEN_LOUNGE  REBOOK_CONNECTIONS  RECALL_CREW  HOLD_DEPARTURES  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"OPEN_LOUNGE\", \"REBOOK_CONNECTIONS\", \"RECALL_CREW\"], \"ready\": false}"
+ },
+ {
+  "instance": "airline-star",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The duty manager's phone is on the charger.\n- Safety Auditor proposed to swap the delayed aircraft; Operations Lead accepted it.\n- Catering confirmed the late delivery for gate 14.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_AIRCRAFT  OPEN_LOUNGE  REBOOK_CONNECTIONS  RECALL_CREW  HOLD_DEPARTURES  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"REBOOK_CONNECTIONS\", \"HOLD_DEPARTURES\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-star",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to open the overflow lounge.\n- Safety Auditor rejected the proposal to open the overflow lounge; it is not needed for this case.\n- The duty manager's phone is on the charger.\n- Safety Auditor proposed to swap the delayed aircraft.\n- Operations Lead accepted the proposal to swap the delayed aircraft.\n- Catering confirmed the late delivery for gate 14.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Someone left the tow tractor by stand 22.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_AIRCRAFT  OPEN_LOUNGE  REBOOK_CONNECTIONS  RECALL_CREW  HOLD_DEPARTURES  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"REBOOK_CONNECTIONS\", \"RECALL_CREW\", \"HOLD_DEPARTURES\"], \"ready\": true}"
+ },
+ {
+  "instance": "airline-star",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## open the overflow lounge\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n\n## discussion log\n- The duty manager's phone is on the charger.\n- Catering confirmed the late delivery for gate 14.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Someone left the tow tractor by stand 22.\n\n## swap the delayed aircraft\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_AIRCRAFT  OPEN_LOUNGE  REBOOK_CONNECTIONS  RECALL_CREW  HOLD_DEPARTURES  BRIEF_HANDLERS\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SWAP_AIRCRAFT\", \"REBOOK_CONNECTIONS\", \"HOLD_DEPARTURES\", \"BRIEF_HANDLERS\"], \"ready\": true}"
+ }
+]

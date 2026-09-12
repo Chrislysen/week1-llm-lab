@@ -137,3 +137,25 @@ three deciders is narrow and stated as such in E29: a partner's restatement of
 a dialogue-rejected step re-enters the plan through a hard-delete design and
 not through an add-only one, with merge-in-place in between on small deciders
 and flat on the 14B.
+
+### Third decider on the second corpus — `qwen2.5:14b-instruct`, run 2026-09-12
+
+768 of 768 calls in six chunks of 16, parse 1.000 in every cell, mean |plan|
+3.93–4.00, all cells valid. `results/e29n_qwen25-14b-instruct_o*.csv/.json`,
+`results/e29n_qwen25-14b-instruct_summary.json`.
+
+| design | restated | neutral | Δ | 95 % CI | DiD vs full | 95 % CI |
+|---|---|---|---|---|---|---|
+| full | 0.552 | 0.521 | +0.031 | [−0.052, +0.115] | reference | |
+| delete | 0.990 | 0.708 | +0.281 | [+0.198, +0.375] | **+0.250** | [+0.125, +0.385] |
+| addonly | 0.354 | 0.333 | +0.021 | [−0.031, +0.073] | −0.010 | [−0.115, +0.094] |
+| wiki | 0.406 | 0.344 | +0.062 | [+0.000, +0.125] | +0.031 | [−0.073, +0.135] |
+
+**DESIGN-DEPENDENT, delete DiD +0.250.** P1 holds; P2 holds (|DiD_addonly| =
+0.010); wiki flat, as on the first corpus for this decider; Δ_full +0.031,
+not significant, so the register effect is again absent on the 14B model;
+P5 holds (delete/neutral 0.708 against a never-mentioned rate of 0.646 in
+that cell). This is the cleanest of the three second-corpus readings: no
+prediction fails and no control fails. With it, the second corpus carries the
+E29 verdict on all three deciders, and the "no 14B run on this corpus yet"
+limit above is closed.

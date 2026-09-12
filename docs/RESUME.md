@@ -49,6 +49,12 @@ reading that does not depend on the reference arm. P5 (the never-mentioned
 control) fails on both deciders on this corpus: a step the store is silent
 about is enacted at 0.66–0.77 when the dialogue makes it plausible.
 
+**E29-N, third decider.** `qwen2.5:14b-instruct` on the second corpus:
+DESIGN-DEPENDENT, delete DiD +0.250 [+0.125, +0.385], add-only −0.010,
+wiki +0.031, Δ_full +0.031 n.s., every control holding — the cleanest of
+the three second-corpus readings. The second corpus now carries the E29
+verdict on all three deciders.
+
 **Paper draft.** `docs/paper/zombie-steps-draft.md` (`9456426`): abstract,
 related work from the gate table, setup, the three result tables, the
 register follow-up, the real write path, controls, limitations,
