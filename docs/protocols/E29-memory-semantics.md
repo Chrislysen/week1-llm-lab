@@ -123,6 +123,33 @@ Gemini flagged as covering the construct does not. Full-text reads marked.
 Coverage stays full-text on every lead that could plausibly overlap. The
 residual in §0.5 is unchanged.
 
+### 0.3c Leads from the second Gemini Deep Research scout, triaged 2026-09-12
+
+SINCE = 2026-09-01, corpora focus. Seven leads
+(`docs/gemini-research-log/2026-09-12-run2-triage.md`). One lands on a
+follow-up, none on the E29 residual.
+
+| paper | read | rejection in dialogue | partner restatement | design contrast | executable action | small local decider | verdict |
+|---|---|---|---|---|---|---|---|
+| **2609.08258** Revoked but Still Authoritative (Shen, Toyoda, Leung, 2026-09-08) | full HTML | no: developer-set expiry field, or an extractor detecting supersession in prose | **no**: §C.1 is agent write-back, §C.2 is cross-role retrieval; neither re-raises a rejected proposal | Graphiti / mem0 / Zep / langmem / cognee; soft revocation vs overwrite vs prune. **No arm stores the rejection as prose** | yes: one unsafe action per policy scenario | no: nine API and mid-tier models, smallest open weight Gemma-3-27B | **does not cover the residual; PREEMPTS the headline of E29-T.** Exposure 81/81 on the two exposed systems, unsafe-action 43.1 % pooled, store filter → 0. See §0.3d |
+| **2605.06527** STALE, re-flagged | the quoted method line | no | **no**: Premise Resistance is a misleading *query* presupposing a stale state | frontier LLMs, LiCoMemory, CUPMem | no: text answers | Qwen3.5-27B, Gemini-3.1-pro | does not cover; the run-1 row stands |
+| **2608.01619** StateAuditor | abstract | no | no | draft-anchored audit vs predecessor | no: draft responses, VTA | GPT-4o, gpt-5.5 | does not cover |
+| **2605.14175** Grounded Continuation | abstract | retraction as one of eight epistemic operations, single user | no | verifier vs budget-matched retrieval | no: QA | Qwen2.5-7B/14B among five | does not cover |
+| **2607.05844** StateFuse | abstract | no | no | flat multi-value / raw-log / provenance / collapsed / StateFuse | no: MemoryAgentBench QA | not stated | does not cover |
+| **2609.10263** RD-Forget | abstract | no | no | retained archive vs query-conditioned view | no | four models | does not cover |
+| **2606.01435** (retitled *Reliable Post-Retrieval Assembly for Agent Memory*, v2 2026-08-02) | abstract | no | no | two-stage assembly vs entangled generation | no: QA | GPT-4o, GPT-4o-mini | does not cover; corrects the title carried in §0.3 |
+
+### 0.3d Coverage miss, recorded 2026-09-12
+
+arXiv:2609.08258 was on arXiv from 2026-09-08. This gate ran 2026-09-11 over
+eighteen papers and did not surface it. It does not change this protocol's
+verdict or residual: it has no dialogue rejection, no partner restatement, and
+no arm that stores a rejection as prose, so every component of the conjunction
+in §0.5 stands. It does preempt the headline of the tombstone control declared
+the following day (`docs/protocols/E29X-reviewer-controls.md` §5), which is
+recorded there. The standing lesson from memory applies for the third time: a
+gate that has not searched the current fortnight has not searched.
+
 ### 0.4 Comparison against the strongest prior work
 
 | proposed contribution | closest prior result + section | same mechanism, estimand, assumptions? | substantive difference | what would test that difference |

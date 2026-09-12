@@ -149,3 +149,46 @@ answered by adding the mitigation they named: a soft-supersede flag is not a
 substitute for storing the rejection; on the largest decider it behaves like
 deletion as soon as the step is restated. Nothing here widens the E29
 residual; it removes two ways of explaining it away.
+
+## 5. Preemption of T1, recorded 2026-09-12 after the run
+
+The second Gemini Deep Research scout surfaced **arXiv:2609.08258, "Revoked
+but Still Authoritative: An Empirical Study of Revocation Enforcement in
+Agent-Memory Systems"** (Shen, Toyoda and Leung, submitted **2026-09-08**,
+three days before the E29 gate and four days before this run). Read in full.
+
+They load five shipped systems (Graphiti, mem0, Zep, langmem, cognee) with a
+revoked policy and its replacement across nine scenarios × nine models × six
+defence conditions, and find that no system enforces revocation by default:
+on the two systems that expose the flag the revoked fact is returned in 81/81
+scenarios, outranks its replacement, and produces the unsafe action in 43.1 %
+of 1,620 trials (15–60 % by model). A store-level filter takes it to zero.
+
+**T1's headline is theirs, published first.** "A rejection retained behind an
+invalidation flag is not honoured" is their result on shipped systems with
+nine models; ours is the same claim on an oracle store with three local
+deciders, run four days later and declared without knowledge of it. The
+declaration stands as written and is not rewritten; this section is the
+correction.
+
+**What survives as this protocol's own, checked against their §C.1 and §C.2.**
+They have no later re-mention of the revoked item by any party: §C.1 is the
+agent journalling its own decision, §C.2 is three roles querying one store.
+So Δ_tombstone under a partner's restatement (+0.021, +0.042, **+0.344**;
+DiD +0.104, +0.116, **+0.292** on the 3B, 7B, 14B) has no counterpart there,
+and neither does the finding that the flag partly protects the small deciders
+in the neutral arm and fails on the largest once the step is restated.
+Their failure is also partly a *ranking* failure — the revoked record
+outranks its replacement — which cannot arise here, because the whole store is
+rendered and nothing is retrieved.
+
+**What the two together support, and neither supports alone.** They test
+systems that delete, prune, or flag. None stores the rejection as prose beside
+the proposal. This protocol's add-only arm does, and it is the arm that
+protects: neutral-arm enactment 0.177 / 0.344 / 0.062 against tombstone's
+0.625 / 0.421 / 0.292. The claim that follows is about *encoding*, not
+presence, and it is carried into the paper draft:
+
+> A superseded step's fate is decided by how the rejection is written, not by
+> whether it is stored. The same rejection carried as a sentence is honoured;
+> carried as a metadata flag it is not.

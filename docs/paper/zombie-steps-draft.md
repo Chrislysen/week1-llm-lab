@@ -38,7 +38,10 @@ spelling out every reply's referent in the transcript does not move the
 full-context level, so the gap to add-only is design rather than rendering,
 and a soft-supersede flag that retains the rejected proposal as "[withdrawn]"
 is not read as a rejection and, on the largest decider, re-admits the step
-like a deletion once it is restated. We release the corpora, protocols,
+like a deletion once it is restated. Setting that flagged store beside the
+add-only store, which holds the same rejection as a sentence, isolates the
+operative variable: a superseded step's fate turns on how the rejection is
+encoded, not on whether it is retained. We release the corpora, protocols,
 prompts, and every store snapshot.
 
 ## 1. Introduction
@@ -125,6 +128,22 @@ each other. On the shipped side, Mem0's own issue tracker records the v3
 add-only behaviour we read from source: contradictory facts accumulate in
 parallel and the MD5 deduplication catches only exact duplicates (issues
 #4896 and #4956, April 2026).
+
+**Concurrent work.** *Revoked but Still Authoritative* (arXiv:2609.08258,
+submitted four days before our control run and found only afterwards) loads
+five shipped memory systems with a revoked policy and its replacement and
+finds that none enforces the revocation: where the flag is visible to the
+retrieval layer the revoked fact is returned in 81 of 81 scenarios, outranks
+its replacement, and yields the unsafe action in 43.1 % of 1,620 trials. That
+is the same finding as our tombstone control (§4.5), reached independently on
+shipped systems with nine API-scale models, and it has priority. Two things
+separate the results. Their revocation is a developer-set expiry field or an
+extractor's inference from contradicting prose, never a partner's rejection in
+dialogue, and nothing is re-mentioned afterwards, so the restatement effect we
+measure on the flagged store has no counterpart there. And none of their five
+systems stores the rejection as prose beside the proposal, so the contrast in
+§4.5 between a flagged rejection and a written one is not available to them.
+We read the two as halves of one result.
 
 What is new here is the conjunction: a partner's content-bearing restatement
 of a step rejected in dialogue, delivered through the designs that ship, read
@@ -336,7 +355,26 @@ small deciders are partly protected by the flag (0.646, 0.463 against
 delete's 0.958, 0.885), the 14B is not (0.635; DiD +0.292 [+0.177, +0.396]).
 We had predicted the reverse size ordering and record the miss. The ordering
 in the neutral arm is delete > tombstone > full ≈ explicit full > add-only on
-every decider.
+every decider. The first half of this — that a flagged rejection is not
+enforced — was published four days before we ran it (arXiv:2609.08258) and is
+theirs; we found it afterwards and say so.
+
+*What the tombstone arm suggests once it is set beside add-only, and what
+would settle it.* Both stores contain the rejection. Add-only carries it as a
+sentence, "Safety Auditor rejected the proposal to snapshot the store";
+tombstone carries the same information as a bracketed prefix on the proposal
+it negates. The neutral-arm gap between them is +0.448, +0.077 and +0.229 on
+the 3B, 7B and 14B, in the same direction every time, and the shared
+full-context cells of the two sessions agree to within 0.004, so the
+cross-session comparison is sound. The reading this invites is that a
+superseded step's fate turns on how the rejection is written rather than on
+whether it is stored.
+
+We do not make that claim yet, because the two stores differ in a second way:
+add-only holds 8.28 lines on average and tombstone 6.66, since add-only also
+keeps each acceptance as its own fact. A reviewer would say the prose version
+simply occupies more of the context, and on this evidence they could not be
+answered. Section 4.7 reports the arm that removes the difference.
 
 ### 4.6 Controls
 
@@ -362,8 +400,11 @@ within-design contrasts are compared. The compulsory course experiment this
 work sits beside (E1) turned out, on its own sanity arms, to be measuring plan
 plausibility under an action menu rather than retrieval; we record that there
 because it shaped the pinned-plan design here. Two controls an outside review
-asked for were run (§4.5); a control we still have not run is a free-length
-plan, which would trade the menu ceiling for length variance.
+asked for were run (§4.5); two we have not run are a free-length plan, which
+would trade the menu ceiling for length variance, and a replication on
+human-written dialogue. Of twelve objections raised across two independent
+adversarial scout passes, those two are the only ones the record does not
+already answer.
 
 ## 6. Reproducibility
 

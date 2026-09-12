@@ -75,6 +75,32 @@ wiki +0.031, Δ_full +0.031 n.s., every control holding — the cleanest of
 the three second-corpus readings. The second corpus now carries the E29
 verdict on all three deciders.
 
+**Gemini scout run 2 (2026-09-12, corpora focus).** Return and triage in
+`docs/gemini-research-log/`. **One lead lands on us**: arXiv:2609.08258,
+*Revoked but Still Authoritative* (2026-09-08), loads five shipped memory
+systems with a revoked policy and finds none enforces it — revoked fact
+returned 81/81 where the flag is visible, unsafe action in 43.1 % of 1,620
+trials. That **preempts the headline of E29-T**, which we declared three days
+later; recorded in `E29X-reviewer-controls.md` §5 and in the gate's new §0.3d
+coverage-miss note. The E29 residual is untouched: they have no dialogue
+rejection, no partner restatement, and no arm storing a rejection as prose.
+What the two together give, and neither alone: add-only and tombstone hold the
+same rejection, one as a sentence and one as a flag, and the enactment gap is
+0.45 / 0.08 / 0.23 — **the encoding decides, not the retention**. That is now
+the sharpened claim in the draft. Six leads besides: STALE re-flagged and
+re-refuted by the method quote the tightened brief forced Gemini to supply;
+StateAuditor, Grounded Continuation, StateFuse, RD-Forget, and 2606.01435
+(retitled) all do not cover. Of twelve adversarial objections across two runs,
+ten are answered from the record; the open two are a free-length plan and
+naturalistic dialogue.
+
+**Corpora for E30, assessed.** CaSiNo (Chawla et al., NAACL 2021; 1,030
+human-written negotiation dialogues; explicit offers accepted or rejected; the
+final allocation is a checkable outcome; on GitHub, HuggingFace and ConvoKit)
+is the best fit and the licence must be read before use. Deal or No Deal is a
+second option. **AMI is CC BY-NC-ND**, so a derived annotated corpus could not
+be released. ICSI needs LDC licensing and a secondary annotation pass.
+
 **Figure 1.** `docs/paper/fig1-delta-by-design.svg` / `.png` (`paper_fig.py`,
 from the same summaries the report reads): every design's Δ with its interval
 on every decider and both corpora, plus the two controls; the same figure is
