@@ -1118,6 +1118,22 @@ try:
         claim(f"E29-X {_slug} full_explicit/neutral equals it",
               _rate(f"e29x_{_slug}", "full_explicit", "neutral", complete_over=_XD), _lvl)
 
+    # 4.9, the structural 2x2 and its byte-identical control
+    from lineage_e29s import store_s as _ss
+    _same = 0
+    for _d in _ad():
+        _a, _ = _ss("addonly", _d["instance"], _d["arms"]["neutral"])
+        _m, _ = _ss("addonly_merged", _d["instance"], _d["arms"]["neutral"])
+        _same += (" ".join(_a).split() == " ".join(_m).split() and len(_m) == len(_a) - 1)
+    claim("E29-S: merged store is the same text with one bullet fewer, in all 96", _same, 96)
+    for _slug, _own_p, _same_p, _own_a, _same_a in (
+            ("llama32-3b", 0.156, 0.094, 0.198, 0.594),
+            ("qwen25-14b-instruct", 0.052, 0.042, 0.031, 0.323)):
+        for _X, _want in (("addonly", _own_p), ("addonly_merged", _same_p),
+                          ("addonly_meta", _own_a), ("addonly_flag", _same_a)):
+            claim(f"E29-S {_slug} {_X}/neutral",
+                  _rate(f"e29s_{_slug}", _X, "neutral"), _want)
+
     # 4.6, free length: complete-case over the four designs, as the analysis reads it
     _FD = ("full", "delete", "addonly", "addonly_flag")
     for _slug, _dn, _an, _fn in (("llama32-3b", 0.768, 0.105, 0.642),

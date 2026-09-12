@@ -38,13 +38,16 @@ spelling out every reply's referent in the transcript does not move the
 full-context level, so the gap to add-only is design rather than rendering,
 and a soft-supersede flag that retains the rejected proposal as "[withdrawn]"
 is not read as a rejection and, on the largest decider, re-admits the step
-like a deletion once it is restated. A third arm isolates why: holding the store
+like a deletion once it is restated. Two further arms isolate why. Holding the store
 fixed and changing only how the rejection is written, re-wording it from a
-sentence to a key-value assertion does nothing, but collapsing it from its own
-line onto the record it negates raises enactment by 0.39, 0.22 and 0.29 on the
-three deciders. The negation has to be its own record; as an attribute of the
-proposal it invalidates it is largely ignored, which is how every shipped
-soft-delete design we surveyed encodes it. We release the corpora, protocols,
+sentence to a key-value assertion does nothing, while collapsing it onto the
+record it negates raises enactment by 0.39, 0.22 and 0.29. A 2x2 then
+separates the two properties that collapse confounded, using a cell whose
+text is byte-identical to the protective one: neither merging a proposition
+nor re-wording within its own item has any effect, and only their conjunction
+does. A retraction is ignored precisely when it is a verb-less attribute of
+the record it retracts, which is how every shipped soft-delete design encodes
+revocation. We release the corpora, protocols,
 prompts, and every store snapshot.
 
 ## 1. Introduction
@@ -200,7 +203,8 @@ cell in every run below parsed at 1.000 with mean length 3.98–4.00.
 
 Figure 1 (`fig1-delta-by-design.svg`) shows every Δ in this section and the
 next with its interval; the tables give the levels. Figure 2
-(`fig2-encoding.svg`) shows the encoding result of section 4.8. Rejected-step inclusion,
+(`fig2-encoding.svg`) shows the encoding result of section 4.8 and Figure 3
+(`fig3-structure-2x2.svg`) the 2x2 of section 4.9. Rejected-step inclusion,
 n = 96 dialogues per cell.
 
 | decider | design | restated | neutral | Δ_X | DiD_X | 95 % CI |
@@ -423,13 +427,61 @@ the record structure did. Two of three deciders read PARTIAL under our
 pre-registered rule and one reads LENGTH, so we report the cross-decider
 agreement as an observation and do not upgrade it.
 
+### 4.9 Which structural property, exactly: the 2x2
+
+"Own record" names two things at once. Collapsing the rejection onto the
+proposal removed both its item boundary and its verb. E29-S separates them
+with a 2x2 over the same add-only store: item separation (its own bullet
+versus merged into the proposal's) crossed with form (a proposition with a
+verb versus a verb-less attribute). The proposition/merged cell is built from
+**text byte-identical** to the protective cell, the whole manipulation being
+that one `"
+- "` becomes `" "`. Two deciders, 1,536 calls, parse 1.000.
+
+Rejected-step inclusion, neutral arm, n = 96 (Figure 3):
+
+| | own item | same item | | own item | same item |
+|---|---|---|---|---|---|
+| **llama3.2:3b** | | | **qwen2.5:14b-instruct** | | |
+| proposition | 0.156 | 0.094 | | 0.052 | 0.042 |
+| attribute | 0.198 | **0.594** | | 0.031 | **0.323** |
+
+Three cells are indistinguishable and one is three to ten times higher, on
+both deciders. Merging a proposition changes nothing (−0.062 [−0.125, −0.010]
+and −0.010 [−0.031, +0.000]; on the 3B it is marginally *more* protective).
+Re-wording within its own item changes nothing (+0.042 [−0.052, +0.135] and
+−0.021 [−0.062, +0.021]). Only removing both properties matters: +0.500
+[+0.396, +0.604] and +0.281 [+0.188, +0.375]. The pre-registered rule returns
+INTERACTION on both deciders, and the restatement effect appears only in that
+same cell (Δ +0.240 [+0.156, +0.333] on the 14B, within noise of zero in the
+other three).
+
+The two byte-identical cells are what make this clean. They differ by one
+line break and they agree, which rules out token count, position and length.
+The attribute cell in its own item changes the words without changing the
+structure, and it agrees too, which rules out phrasing. What is left is the
+conjunction:
+
+> A retraction is ignored when it is written as a **non-propositional
+> attribute of the record it retracts**. Give it its own item, or give it a
+> verb, and it is honoured. Remove both and the model acts as though it were
+> not there.
+
 The deployment reading is uncomfortable and direct. Every soft-delete design
 we surveyed, and every one of the five shipped systems measured concurrently
-by arXiv:2609.08258, encodes revocation as an attribute of the record being
-revoked: a validity interval, an `invalid_at` edge, an `is_active` flag. On
-this evidence that is precisely the encoding a small decider is least likely
-to act on. Writing the retraction as its own record costs one line and, on
-the 14B, moves enactment of a restated zombie step from 0.04 to 0.56.
+by arXiv:2609.08258, encodes revocation exactly that way: a validity
+interval, an `invalid_at` edge, an `is_active` flag, each an attribute on the
+record being revoked. That is the losing cell of this 2x2, and it is the
+industry default. Writing the retraction as its own statement costs one line
+and, on the 14B, moves enactment of a restated zombie step from 0.03 to 0.56.
+
+Nothing in this manipulation is specific to memory. It is a list of
+statements in a prompt, and what varies is whether one of them is a separate
+item and whether it has a verb, so the result speaks to retrieved chunks,
+tool results and policy lists as much as to a store. The scope limit is the
+format: everything here is a markdown list, and replication in JSON, XML and
+numbered lists is required before the claim is stated more broadly than
+that.
 
 ### 4.6 Both effects survive an unpinned plan
 
@@ -539,3 +591,7 @@ live re-run of the decider checked against the record.
 | E29-F F2 | DiD_delete >= 0.15 unpinned | +0.284 and +0.323, both intervals excluding 0 |
 | E29-F F3 | the own-record effect survives unpinning | +0.537 and +0.219, both intervals excluding 0 |
 | E29-F F4 | accepted inclusion >= 0.95 | 0.983 minimum |
+| E29-S P1 | S_form_own reproduces E29-E within 0.10 | +0.042 vs +0.052, -0.021 vs -0.031 |
+| E29-S P2 | Delta_addonly reproduces E29 within 0.10 | +0.031 and -0.010; fifth replication |
+| E29-S P3 | lean: S_merge small, so FORM or INTERACTION | correct: S_merge -0.062 and -0.010; INTERACTION on both |
+| E29-S P4 | never/accepted within 0.10 across designs | misses by 0.004 and 0.025, same displacement as E29-E |

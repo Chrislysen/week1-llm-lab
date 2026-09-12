@@ -75,6 +75,36 @@ wiki +0.031, Δ_full +0.031 n.s., every control holding — the cleanest of
 the three second-corpus readings. The second corpus now carries the E29
 verdict on all three deciders.
 
+**E29-S: the 2x2 that isolates the mechanism (`5165467` -> run 2026-09-12/13,
+1,536 calls). The best result of the programme.** E29-E's "own-record effect"
+conflated two things: collapsing a rejection onto the proposal removed both
+its item boundary and its verb. The 2x2 separates them, with the
+proposition/same-item cell built from BYTE-IDENTICAL text to the protective
+cell (one "
+- " becomes " ").
+
+    llama3.2:3b            own item   same item        qwen2.5:14b-instruct
+      proposition            0.156       0.094           0.052      0.042
+      attribute              0.198     **0.594**         0.031    **0.323**
+
+Three cells are indistinguishable; one is 3-10x higher. S_merge -0.062 and
+-0.010 (a proposition keeps working merged, slightly MORE protective on the
+3B); S_form_own +0.042 and -0.021 (wording alone does nothing); S_flag +0.396
+and +0.292; S_form_same +0.500 and +0.281. **INTERACTION on both deciders by
+the declared rule.** The recorded lean was right for once. P1 and P2 hold
+(fifth replication of the add-only cells); P4 misses 0.10 by 0.004 and 0.025
+on displacement, reported.
+
+**The claim: a retraction is ignored when written as a non-propositional
+attribute of the record it retracts. Give it its own item, or give it a verb,
+and it is honoured; remove both and the model acts as if it were not there.**
+The restatement effect appears only in that cell (Delta +0.240 on the 14B,
+~0 in the other three). This is not a memory-systems fact -- nothing in the
+manipulation is memory-specific -- but it is exactly how every shipped
+soft-delete design encodes revocation (`invalid_at`, `is_active`, validity
+intervals): an attribute on the record being revoked, the losing cell.
+Scope until the format replication runs: markdown lists.
+
 **E29-F: both effects survive an unpinned plan (`da0add1` -> run
 2026-09-12, 1,536 calls).** The last of the twelve adversarial objections.
 DiD_delete +0.284 [+0.168, +0.400] on the 3B and +0.323 [+0.208, +0.437] on

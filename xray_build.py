@@ -289,6 +289,26 @@ def e29e_note():
             "negates — which is how every shipped soft-delete design encodes it — it is largely ignored.")
 
 
+def e29s_note():
+    """E29-S: the 2x2 that isolates the mechanism."""
+    parts = []
+    for slug_, name in (("llama32-3b", "llama3.2:3b"), ("qwen25-14b-instruct", "qwen2.5:14b-instruct")):
+        b = os.path.join(HERE, "results", f"e29s_{slug_}_summary.json")
+        if not os.path.exists(b):
+            continue
+        e = json.load(open(b, encoding="utf-8"))
+        p_ = e["p"]
+        parts.append(f"{name}: own item {p_['addonly|neutral']:.3f} as a sentence and {p_['addonly_meta|neutral']:.3f} as status(X) = WITHDRAWN; "
+                     f"merged into the proposal {p_['addonly_merged|neutral']:.3f} as a sentence but {p_['addonly_flag|neutral']:.3f} as a [withdrawn] prefix")
+    if not parts:
+        return ""
+    return ("E29-S then split the two things that collapse confounded, with a 2x2 whose merged-sentence cell is byte-identical "
+            "text to the protective cell (one newline and bullet become a space). Neither merging a sentence nor re-wording "
+            "within its own item changes anything; only doing both does. Neutral arm, 96 dialogues: " + " · ".join(parts)
+            + ". A retraction is ignored when it is a verb-less attribute of the record it retracts, which is how every shipped "
+            "soft-delete design encodes revocation.")
+
+
 def e29_dialogues():
     """The 96 E29 dialogues: turns per arm, the context block per design, and
     every recorded decider output, keyed by model."""
@@ -353,7 +373,7 @@ def build_data(live=False, live_models=None):
     agg, dias, showcase = e18_ladder()
     return {"corpus_hash": corpus_hash(), "e29_hash": e29_hash(), "models": MODELS, "agg": agg,
             "dialogues": dias, "showcase": showcase, "e29": e29_summaries(), "city": city_districts(dias),
-            "e29_caveat": E29_CAVEAT, "e29b_note": e29b_note(), "e29c_note": e29c_note(), "e29d_note": e29d_note(), "e29n_note": e29n_note(), "e29x_note": e29x_note(), "e29e_note": e29e_note(), "figure": figure_data(),
+            "e29_caveat": E29_CAVEAT, "e29b_note": e29b_note(), "e29c_note": e29c_note(), "e29d_note": e29d_note(), "e29n_note": e29n_note(), "e29x_note": e29x_note(), "e29e_note": e29e_note(), "e29s_note": e29s_note(), "figure": figure_data(),
             "e29_dialogues": e29_dialogues(), "e29_models": E29_MODELS, "e29b": e29b_snapshots(),
             "live": {"models": live_models or []} if live else None}
 
