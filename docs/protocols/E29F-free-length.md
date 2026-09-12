@@ -43,6 +43,38 @@ Deciders: `llama3.2:3b` and `qwen2.5:14b-instruct`, the two extremes of the
 range. 96 × 2 × 4 = **768 calls per decider**, chunked at 24 and 16
 dialogues, into `results/e29f_<model>_o<offset>.csv/.json`.
 
+## 1a. Amendment, 2026-09-12, after 44 of 96 dialogues on the first decider
+
+**What happened.** Unpinning the plan length let one prompt send the 3B
+decider into a runaway generation. Across the 352 calls completed to that
+point the median completion was 50 tokens, the 95th percentile 61 and the
+maximum 99; the median call took 2.5 s and the slowest ever recorded 7.0 s.
+Yet `pharmacy-twochain` rotation 3, restated arm, add-only store did not
+return in three separate attempts of 300, 540 and 540 s. This is a
+consequence of the manipulation, not an incident: the pinned plan was also
+bounding generation, and removing the pin removed that bound.
+
+**The amendment.** From this point every call is made through a wrapper that
+sets `num_predict = 512`. `ask_structured` does not expose the parameter, so
+the cap is applied by wrapping the client; nothing else changes.
+
+**Why it cannot affect a result.** 512 is 5.2 times the longest completion
+observed in the uncapped calls. No well-formed answer in this experiment
+comes near it. The cap's only effect is to bound a generation that has
+already run away, and a truncated response fails JSON validation and is
+counted as a parse failure in the validity table like any other, where it is
+visible rather than hidden.
+
+**What this means for the record.** The first 44 dialogues on `llama3.2:3b`
+ran uncapped and the remainder capped. The result files carry every call, so
+the split is recoverable; the outcome section states it. The cap is an
+operational bound on a pathology, not a change to the prompts, the stores or
+the scoring, and the block hash is unchanged.
+
+**Reported as a finding in its own right.** That a 3B decider can be driven
+into an unbounded generation by removing a length constraint is worth one
+line in the paper: it is a cost of unpinning that the pinned design hid.
+
 ## 2. Estimands and predictions, fixed before the first call
 
 Unpinning raises inclusion for everything, so every headline quantity is

@@ -39,6 +39,12 @@ from structured import MAX_ATTEMPTS, ask_structured
 #: the E29-E own-record contrast. Four designs, the argument's load-bearing set.
 DESIGNS_F = ("full", "delete", "addonly", "addonly_flag")
 LENGTH = "free"
+#: Runaway guard, added by the 2026-09-12 amendment (protocol section 1a).
+#: 512 is 5.2x the largest completion observed in the 352 uncapped calls of
+#: this experiment (99 tokens, median 50), so it cannot alter a well-formed
+#: answer; it only bounds a generation that has run away, which then fails
+#: validation and is counted as a parse failure like any other.
+NUM_PREDICT_CAP = 512
 E29F_HASH = "42de19f5bb6fd6df"
 
 
@@ -61,6 +67,17 @@ def blocks_hash():
 def build_user(design, instance, dialogue):
     return (block(design, instance, dialogue) + "\n\n"
             + plan_instruction(tuple(instance.actions), LENGTH))
+
+
+class CappedClient:
+    """RetryingOllamaClient with a fixed generation cap. `ask_structured`
+    does not expose num_predict, so the cap is applied by wrapping."""
+
+    def __init__(self, inner, num_predict):
+        self._inner, self._n = inner, num_predict
+
+    def chat(self, model, messages, temperature=0.7):
+        return self._inner.chat(model, messages, temperature, num_predict=self._n)
 
 
 def done_pairs(model):
@@ -95,7 +112,7 @@ def run(model, offset, limit, dry_run, resume=False):
     print(f"=== E29-F free-length: {model}, {len(ds)} dialogues x {len(ARMS)} arms x "
           f"{len(DESIGNS_F)} designs = {len(ds) * len(ARMS) * len(DESIGNS_F)} calls"
           f"{' (DRY RUN, no calls)' if dry_run else ''} ===\n")
-    client = None if dry_run else RetryingOllamaClient()
+    client = None if dry_run else CappedClient(RetryingOllamaClient(), NUM_PREDICT_CAP)
     validate, expected = make_validator("default"), schema_hint("default")
     rows, detail = [], []
     stem = None if dry_run else next_stem(model)
