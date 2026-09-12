@@ -7,11 +7,19 @@ instead of `pin4`: the decider chooses how many steps the plan has.
 
     python e29f_freelength.py --hash
     python e29f_freelength.py --model llama3.2:3b --dry-run
-    python e29f_freelength.py --model llama3.2:3b --offset 0 --limit 24
+    python e29f_freelength.py --model llama3.2:3b --resume
+
+Results are checkpointed after EVERY dialogue and `--resume` skips dialogues
+already complete in any existing result file, so a run killed mid-chunk costs
+one dialogue rather than the chunk. Chunking is operational; the block hash
+pins the prompts.
 """
 import argparse
+import csv as _csv
+import glob as _glob
 import hashlib
 import json
+import os
 import statistics
 
 from budget import Budget
@@ -55,16 +63,42 @@ def build_user(design, instance, dialogue):
             + plan_instruction(tuple(instance.actions), LENGTH))
 
 
-def run(model, offset, limit, dry_run):
+def done_pairs(model):
+    """(instance, rotation) already complete on all designs and both arms."""
+    have = {}
+    for fn in sorted(_glob.glob(f"results/e29f_{slug(model)}_*.csv")):
+        for r in _csv.DictReader(open(fn, encoding="utf-8")):
+            if r["parsed"] == "True":
+                have.setdefault((r["instance"], r["rotation"]), set()).add(
+                    (r["design"], r["arm"]))
+    need = {(X, a) for X in DESIGNS_F for a in ARMS}
+    return {k for k, v in have.items() if need <= v}
+
+
+def next_stem(model):
+    i = 0
+    while os.path.exists(f"results/e29f_{slug(model)}_r{i}.csv"):
+        i += 1
+    return f"results/e29f_{slug(model)}_r{i}"
+
+
+def run(model, offset, limit, dry_run, resume=False):
     assert e16_hash() == E16_HASH and corpus_hash() == E29_HASH, "E29 corpus disturbed"
     assert blocks_hash() == E29F_HASH, f"E29-F blocks disturbed: {blocks_hash()}"
-    ds = all_e29_dialogues()[offset:None if limit is None else offset + limit]
+    ds = all_e29_dialogues()
+    if resume:                     # drop finished dialogues BEFORE slicing
+        done = done_pairs(model)
+        before = len(ds)
+        ds = [d for d in ds if (d["instance"].id, str(d["rotation"])) not in done]
+        print(f"  resume: {before - len(ds)} of {before} already complete, {len(ds)} left")
+    ds = ds[offset:None if limit is None else offset + limit]
     print(f"=== E29-F free-length: {model}, {len(ds)} dialogues x {len(ARMS)} arms x "
           f"{len(DESIGNS_F)} designs = {len(ds) * len(ARMS) * len(DESIGNS_F)} calls"
           f"{' (DRY RUN, no calls)' if dry_run else ''} ===\n")
     client = None if dry_run else RetryingOllamaClient()
     validate, expected = make_validator("default"), schema_hint("default")
     rows, detail = [], []
+    stem = None if dry_run else next_stem(model)
     for i, d in enumerate(ds, 1):
         inst = d["instance"]
         system = SYSTEM.format(setting=inst.setting)
@@ -105,16 +139,18 @@ def run(model, offset, limit, dry_run):
                                "design": design, "prompt": user, "output": text})
                 if not dry_run:
                     print(f"  [{i:2}/{len(ds)}] {inst.id:20} r{d['rotation']} {arm:8} {design:13} "
-                          f"n={len(actions)}{'' if plan else '  PARSE-FAIL'}  {secs}s")
+                          f"n={len(actions)}{'' if plan else '  PARSE-FAIL'}  {secs}s", flush=True)
+        if not dry_run:                       # checkpoint after every dialogue
+            write_csv(stem + ".csv", rows, COLUMNS)
+            with open(stem + ".json", "w", encoding="utf-8") as f:
+                json.dump(detail, f, indent=1)
     if dry_run:
         d0 = detail[0]
         print(d0["prompt"].rsplit("\n\n", 2)[-2] + "\n\n" + d0["prompt"].rsplit("\n\n", 1)[-1])
         print(f"\n... {len(detail)} prompts assembled, none sent.")
         return
-    stem = f"results/e29f_{slug(model)}_o{offset}"
-    write_csv(stem + ".csv", rows, COLUMNS)
-    with open(stem + ".json", "w", encoding="utf-8") as f:
-        json.dump(detail, f, indent=1)
+    if not rows:
+        print("  nothing to do"); return
     print(f"\n  wrote {stem}.csv / .json")
     ok = [r for r in rows if r["parsed"]]
     summary = []
@@ -139,9 +175,10 @@ if __name__ == "__main__":
     ap.add_argument("--limit", type=int, default=None)
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--hash", action="store_true")
+    ap.add_argument("--resume", action="store_true")
     a = ap.parse_args()
     if a.hash:
         print(blocks_hash())
     else:
         assert a.model, "--model is required"
-        run(a.model, a.offset, a.limit, a.dry_run)
+        run(a.model, a.offset, a.limit, a.dry_run, a.resume)

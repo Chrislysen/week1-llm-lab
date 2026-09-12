@@ -33,8 +33,11 @@ def slug(s):
 
 def load(model):
     rows = []
-    for f in sorted(glob.glob(f"results/e29f_{slug(model)}_o*.csv")):
-        rows += list(csv.DictReader(open(f, encoding="utf-8")))
+    seen = {}
+    for f in sorted(glob.glob(f"results/e29f_{slug(model)}_*.csv")):
+        for r in csv.DictReader(open(f, encoding="utf-8")):
+            seen[(r["instance"], r["rotation"], r["design"], r["arm"], r["slot"])] = r
+    rows = list(seen.values())
     for r in rows:
         r["included"] = {"True": True, "False": False}.get(r["included"])
         r["parsed"] = r["parsed"] == "True"
