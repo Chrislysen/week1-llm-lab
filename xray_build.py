@@ -226,6 +226,39 @@ def e29x_note():
             + " · ".join(parts) + ".")
 
 
+DECIDERS = (("llama32-3b", "llama3.2:3b", "3B"), ("qwen25-7b-instruct", "qwen2.5:7b-instruct", "7B"),
+            ("qwen25-14b-instruct", "qwen2.5:14b-instruct", "14B"), ("gemma4-e4b", "gemma4:e4b", "~4B"))
+
+
+def figure_data():
+    """Every E29-family summary, flattened for the design-by-decider figure:
+    one row per (corpus, decider, design) with levels, Delta and DiD intervals."""
+    rows = []
+    for corpus, prefix in (("first corpus", "e29"), ("second corpus", "e29n")):
+        for slug_, name, size in DECIDERS:
+            b = os.path.join(HERE, "results", f"{prefix}_{slug_}_summary.json")
+            if not os.path.exists(b):
+                continue
+            e = json.load(open(b, encoding="utf-8"))
+            for X in ("full", "delete", "addonly", "wiki"):
+                rows.append({"corpus": corpus, "decider": name, "size": size, "design": X,
+                             "restated": e["p"][f"{X}|restated"], "neutral": e["p"][f"{X}|neutral"],
+                             "delta": e["delta"][X], "ci_delta": e["ci_delta"][X],
+                             "did": e["did"][X], "ci_did": e["ci_did"][X], "n": e["n_complete"],
+                             "verdict": e["verdict"].split(":")[0]})
+    for slug_, name, size in DECIDERS:
+        b = os.path.join(HERE, "results", f"e29x_{slug_}_summary.json")
+        if not os.path.exists(b):
+            continue
+        e = json.load(open(b, encoding="utf-8"))
+        for X in ("full_explicit", "tombstone"):
+            rows.append({"corpus": "first corpus (controls)", "decider": name, "size": size, "design": X,
+                         "restated": e["p"][f"{X}|restated"], "neutral": e["p"][f"{X}|neutral"],
+                         "delta": e["delta"][X], "ci_delta": e["ci_delta"][X],
+                         "did": e["did"][X], "ci_did": e["ci_did"][X], "n": e["n_complete"], "verdict": ""})
+    return rows
+
+
 def e29_dialogues():
     """The 96 E29 dialogues: turns per arm, the context block per design, and
     every recorded decider output, keyed by model."""
@@ -290,7 +323,7 @@ def build_data(live=False, live_models=None):
     agg, dias, showcase = e18_ladder()
     return {"corpus_hash": corpus_hash(), "e29_hash": e29_hash(), "models": MODELS, "agg": agg,
             "dialogues": dias, "showcase": showcase, "e29": e29_summaries(), "city": city_districts(dias),
-            "e29_caveat": E29_CAVEAT, "e29b_note": e29b_note(), "e29c_note": e29c_note(), "e29d_note": e29d_note(), "e29n_note": e29n_note(), "e29x_note": e29x_note(),
+            "e29_caveat": E29_CAVEAT, "e29b_note": e29b_note(), "e29c_note": e29c_note(), "e29d_note": e29d_note(), "e29n_note": e29n_note(), "e29x_note": e29x_note(), "figure": figure_data(),
             "e29_dialogues": e29_dialogues(), "e29_models": E29_MODELS, "e29b": e29b_snapshots(),
             "live": {"models": live_models or []} if live else None}
 

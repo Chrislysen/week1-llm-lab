@@ -20,6 +20,7 @@
     --never: #7D8A97;
     --never-soft: #E8ECF0;
     --focus: #3A5F9E;
+    --tomb: #B8781E;
     --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
     --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
     --mono: "IBM Plex Mono", "Consolas", "Menlo", monospace;
@@ -42,6 +43,7 @@
       --never: #8C99A6;
       --never-soft: #232D38;
       --focus: #7FA3E6;
+      --tomb: #F0B45C;
     }
   }
   :root[data-theme="dark"] {
@@ -164,6 +166,25 @@
   td.z { color: var(--zombie); font-weight: 500; }
   .table-wrap { overflow-x: auto; }
   tr.sub td { font-family: var(--display); font-weight: 600; font-size: 12.5px; letter-spacing: .03em; text-transform: uppercase; color: var(--proposed); padding-top: 16px; border-bottom: 1px solid var(--line-strong); }
+  .fig-wrap { margin: 18px 0 6px; overflow-x: auto; }
+  svg.fig { width: 100%; max-width: 960px; height: auto; display: block; font-family: var(--body); }
+  svg.fig .grid { stroke: var(--line); stroke-width: 1; }
+  svg.fig .zero { stroke: var(--ink); stroke-width: 1.2; }
+  svg.fig .band { fill: var(--line); opacity: 0.35; }
+  svg.fig .m { fill: var(--muted); font-size: 12px; }
+  svg.fig .lab { fill: var(--ink); font-size: 13px; font-weight: 600; }
+  svg.fig .grp { fill: var(--ink); font-size: 12.5px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+  svg.fig .ci { stroke-width: 2.2; stroke-linecap: round; }
+  svg.fig .pt { stroke: var(--surface); stroke-width: 1.5; }
+  svg.fig .d-full { stroke: var(--never); fill: var(--never); }
+  svg.fig .d-delete { stroke: var(--zombie); fill: var(--zombie); }
+  svg.fig .d-addonly { stroke: var(--proposed); fill: var(--proposed); }
+  svg.fig .d-wiki { stroke: var(--ok); fill: var(--ok); }
+  svg.fig .d-full_explicit { stroke: var(--muted); fill: var(--surface); }
+  svg.fig .d-tombstone { stroke: var(--tomb); fill: var(--tomb); }
+  .fig-legend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 4px 0 0; padding: 0; list-style: none; font-size: 13px; color: var(--muted); }
+  .fig-legend li::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; background: var(--c); border: 1.5px solid var(--c); }
+  .fig-legend li.hollow::before { background: var(--surface); }
   .e29notes { margin: 0; padding-left: 18px; max-width: 78ch; display: grid; gap: 4px; }
   .e29notes li { font-size: 14.5px; }
   .controls button.primary { background: var(--proposed); border-color: var(--proposed); color: #fff; font-weight: 600; padding: 6px 16px; }
@@ -400,6 +421,12 @@
           </tr></thead>
           <tbody></tbody>
         </table>
+      </div>
+      <div id="figblock" hidden>
+        <h3 id="h-fig" style="margin:22px 0 4px;font-size:16px">The restatement effect, by design, decider and corpus</h3>
+        <p class="muted" style="margin:0 0 6px;max-width:78ch">Each mark is Δ = P(rejected step in plan | restated) − P(… | neutral) for one design on one decider, with its paired-bootstrap 95% interval over dialogues. The grey band is the ±0.15 band the read rule uses; the distance of a design's mark from its row's full-context mark is that design's DiD.</p>
+        <div class="fig-wrap"><svg class="fig" id="fig" role="img" aria-label="Restatement effect per memory design, decider and corpus, with 95% intervals"></svg></div>
+        <ul class="fig-legend" id="fig-legend"></ul>
       </div>
       <ul class="e29notes" id="e29notes"></ul>
       <p class="muted" id="e29caveat"></p>
@@ -647,6 +674,58 @@
     });
   }
 
+  /* ---- the design-by-decider figure ---- */
+  function drawFigure(rows) {
+    var svg = document.getElementById('fig'); document.getElementById('figblock').hidden = false;
+    var DES = [['full', 'full raw context'], ['delete', 'write-time delete'], ['addonly', 'add-only'], ['wiki', 'merge-in-place page'], ['full_explicit', 'explicit-referent transcript (control)'], ['tombstone', 'tombstone, flagged withdrawn (control)']];
+    var groups = ['first corpus', 'second corpus', 'first corpus (controls)'];
+    var order = ['llama3.2:3b', 'qwen2.5:7b-instruct', 'qwen2.5:14b-instruct', 'gemma4:e4b'];
+    var lines = [];  // {kind:'group'|'row', label, rows}
+    groups.forEach(function (g) {
+      var present = order.filter(function (m) { return rows.some(function (r) { return r.corpus === g && r.decider === m; }); });
+      if (!present.length) return;
+      lines.push({ kind: 'group', label: g });
+      present.forEach(function (m) {
+        var rs = rows.filter(function (r) { return r.corpus === g && r.decider === m; });
+        rs.sort(function (a, b) { return DES.findIndex(function (d) { return d[0] === a.design; }) - DES.findIndex(function (d) { return d[0] === b.design; }); });
+        lines.push({ kind: 'row', label: m, size: rs[0].size, rows: rs });
+      });
+    });
+    var W = 960, left = 210, right = 70, top = 30, bottom = 40, sub = 13, gap = 10, grpH = 26;
+    var H = top + bottom; lines.forEach(function (l) { H += l.kind === 'group' ? grpH : l.rows.length * sub + gap; });
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    var xmin = -0.35, xmax = 0.65, plotW = W - left - right;
+    function x(v) { return left + (v - xmin) / (xmax - xmin) * plotW; }
+    svg.appendChild(s('rect', { x: x(-0.15), y: top - 8, width: x(0.15) - x(-0.15), height: H - top - bottom + 8, 'class': 'band' }));
+    for (var v = -0.3; v <= 0.61; v += 0.1) {
+      var vv = Math.round(v * 10) / 10, xx = x(vv);
+      svg.appendChild(s('line', { x1: xx, y1: top - 8, x2: xx, y2: H - bottom, 'class': vv === 0 ? 'zero' : 'grid' }));
+      svg.appendChild(s('text', { x: xx, y: H - bottom + 16, 'text-anchor': 'middle', 'class': 'm' }, (vv > 0 ? '+' : '') + vv.toFixed(1)));
+    }
+    svg.appendChild(s('text', { x: left + plotW / 2, y: H - 6, 'text-anchor': 'middle', 'class': 'm' }, 'Δ = restated − neutral, share of plans that include the rejected step'));
+    var y = top;
+    lines.forEach(function (l) {
+      if (l.kind === 'group') { svg.appendChild(s('text', { x: 12, y: y + 16, 'class': 'grp' }, l.label)); y += grpH; return; }
+      var cy0 = y + (l.rows.length * sub) / 2;
+      svg.appendChild(s('text', { x: 24, y: cy0 + 4, 'class': 'lab' }, l.label));
+      svg.appendChild(s('text', { x: left - 12, y: cy0 + 4, 'text-anchor': 'end', 'class': 'm' }, l.size));
+      l.rows.forEach(function (r, i) {
+        var cy = y + i * sub + sub / 2, cls = 'd-' + r.design;
+        svg.appendChild(s('line', { x1: x(r.ci_delta[0]), y1: cy, x2: x(r.ci_delta[1]), y2: cy, 'class': 'ci ' + cls }));
+        svg.appendChild(s('circle', { cx: x(r.delta), cy: cy, r: 4.2, 'class': 'pt ' + cls }));
+        svg.appendChild(s('text', { x: x(r.ci_delta[1]) + 8, y: cy + 3.5, 'class': 'm' }, (r.delta >= 0 ? '+' : '') + r.delta.toFixed(2)));
+      });
+      y += l.rows.length * sub + gap;
+    });
+    var lg = document.getElementById('fig-legend');
+    DES.forEach(function (d) {
+      if (!rows.some(function (r) { return r.design === d[0]; })) return;
+      var li = el('li', d[0] === 'full_explicit' ? 'hollow' : null, d[1]);
+      var col = { full: 'var(--never)', delete: 'var(--zombie)', addonly: 'var(--proposed)', wiki: 'var(--ok)', full_explicit: 'var(--muted)', tombstone: 'var(--tomb)' }[d[0]];
+      li.style.setProperty('--c', col); lg.appendChild(li);
+    });
+  }
+
   /* ---- E29 results, if present ---- */
   if (D.e29 && D.e29.length) {
     document.getElementById('e29block').hidden = false;
@@ -680,6 +759,7 @@
       etb.appendChild(tr);
     });
     });
+    if (D.figure && D.figure.length) drawFigure(D.figure);
     var nl = document.getElementById('e29notes'); nl.innerHTML = '';
     notes.forEach(function (n) { nl.appendChild(el('li', null, n)); });
     var cav = document.getElementById('e29caveat'); cav.textContent = D.e29_caveat || '';
