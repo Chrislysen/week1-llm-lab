@@ -34,10 +34,27 @@ enactment on the real store (0.50) is far above oracle add-only (0.17)
 although the rejection is usually present; the router's UPDATEs fold the
 rejection into the proposal's text and the 3B decider reads that as weaker.
 
-**Second corpus, E29-N (`333ad85`).** Six new domains (grid, airline,
-newsroom, water, checkout, telecom), a second sentence bank, same generator
-and rules; frozen corpora hash-asserted untouched (202 tests). Outcome
-recorded in `docs/protocols/E29N-second-corpus.md` as each decider completes.
+**Second corpus, E29-N (`333ad85` → `66397c0`): DESIGN-DEPENDENT on both
+deciders.** Six new domains (grid, airline, newsroom, water, checkout,
+telecom), a second sentence bank, same generator and rules; frozen corpora
+hash-asserted untouched (202 tests). Delete DiD +0.344 (llama) and +0.469
+(qwen 7B); wiki +0.271 / +0.260; add-only's own Δ is +0.010 / −0.062. Two
+cautions: absolute zombie rates are far higher on the new wording (under full
+context 0.76 and 0.68 in the neutral arm, against 0.28 and 0.31), so wording
+and domain set the level while the design sets the contrast; and Δ_full is
+−0.156 on both deciders, so every DiD inherits +0.156 from the reference arm
+and add-only's DiD trips P2 on llama although add-only did not respond. Report
+Δ_X beside DiD_X; the within-store contrast Δ_delete vs Δ_addonly is the
+reading that does not depend on the reference arm. P5 (the never-mentioned
+control) fails on both deciders on this corpus: a step the store is silent
+about is enacted at 0.66–0.77 when the dialogue makes it plausible.
+
+**Paper draft.** `docs/paper/zombie-steps-draft.md` (`9456426`): abstract,
+related work from the gate table, setup, the three result tables, the
+register follow-up, the real write path, controls, limitations,
+reproducibility, and a predictions-against-outcomes appendix. Every number is
+from a `results/*_summary.json`. The `gemma4:e4b` row is pending: that run
+is slow (about four times the 14B model per call) and is in the background.
 
 **What this changes in the score.** A larger decider, a working real-system
 leg and a second corpus were the three named gaps. They are closed in the
