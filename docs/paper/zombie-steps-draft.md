@@ -23,8 +23,9 @@ enactment of the rejected step to near certainty (difference-in-differences
 against full context +0.44, +0.38, +0.21, intervals excluding zero); through
 add-only it does nothing; merge-in-place sits between on the small deciders
 and is flat on the 14B. The ordering survives a second corpus of six new
-domains and new sentence wording, although absolute rates move by a factor
-of two with the wording. A real Mem0 update router fed by an operational
+domains and new sentence wording on all three deciders (hard-delete DiD
++0.34, +0.47, +0.25), although absolute rates move by a factor of two with
+the wording on the small deciders. A real Mem0 update router fed by an operational
 extractor reproduces the mechanism on the same dialogues (+0.17 [+0.04,
 +0.29], between the add-only and hard-delete ideals): it deletes on rejection
 one time in five and otherwise keeps the proposal, and the restatement enters
@@ -56,8 +57,9 @@ E18) with the raw transcript in front of the decider — but whether the
 Contributions. (1) A pre-registered experiment on 96 dialogues × 2 arms × 4
 designs × 3 deciders (2,304 calls) showing design dependence with the
 predicted sign and size for the hard-delete design. (2) Replication on a
-second corpus with new domains and wording (1,536 calls), which preserves the
-ordering across designs while moving absolute rates by a factor of two. (3) A
+second corpus with new domains and wording on the same three deciders (2,304
+calls), which preserves the ordering across designs while moving absolute
+rates by a factor of two on the small deciders. (3) A
 real-system leg: Mem0's update router, verbatim, fed by an extractor that
 stores operational facts, reproduces the mechanism on the same dialogues.
 (4) Two negative or cautionary results reported as such: the Mem0 paper's own
@@ -193,8 +195,12 @@ the frozen first corpus is hash-asserted untouched.
 | | delete | 0.969 | 0.656 | +0.312 | **+0.469** | [+0.344, +0.594] |
 | | addonly | 0.521 | 0.583 | −0.062 | +0.094 | [−0.021, +0.208] |
 | | wiki | 0.583 | 0.479 | +0.104 | +0.260 | [+0.146, +0.385] |
+| qwen2.5:14b-instruct | full | 0.552 | 0.521 | +0.031 | ref | |
+| | delete | 0.990 | 0.708 | +0.281 | **+0.250** | [+0.125, +0.385] |
+| | addonly | 0.354 | 0.333 | +0.021 | −0.010 | [−0.115, +0.094] |
+| | wiki | 0.406 | 0.344 | +0.062 | +0.031 | [−0.073, +0.135] |
 
-The ordering delete ≫ wiki > addonly ≈ 0 holds; the levels do not. Under full
+All three deciders read DESIGN-DEPENDENT on the second corpus as well; the 14B reading is the cleanest, with no prediction and no control failing. The ordering delete ≫ wiki > addonly ≈ 0 holds on the small deciders and delete ≫ addonly ≈ wiki ≈ 0 on the 14B; the levels do not. Under full
 context the rejected step comes back at 0.76 and 0.68 (neutral arm) against
 0.28 and 0.31 on the first corpus, with never-mentioned controls near 0.5 on
 both, so the new rejection wordings ("take that one off", "I'd leave that
@@ -274,10 +280,10 @@ Never-mentioned steps are enacted at 0.42–0.73 depending on decider, design
 and corpus; that band is the pinned-plan prior over the menu and is the reason
 Δ_delete has a ceiling. Under `delete`/neutral the rejected step's inclusion
 stays within 0.10 of its cell's never-mentioned rate on the first corpus for
-all three deciders and fails that control by 0.18–0.21 on the second, where a
-step the store is silent about is not treated as never mentioned when the
-surrounding dialogue makes it plausible; that is a limit of the control,
-stated.
+all three deciders and on the second for the 14B, and fails that control by
+0.18–0.21 for the two small deciders on the second corpus, where a step the
+store is silent about is not treated as never mentioned when the surrounding
+dialogue makes it plausible; that is a limit of the control, stated.
 
 ## 5. Limitations
 
@@ -320,5 +326,5 @@ live re-run of the decider checked against the record.
 | E29-C P1 | Δ_ftr replicates on 3B | −0.083 vs −0.083 |
 | E29-C P2 | H-frame vs H-mention | FRAMING (3B); NO-REPLICATION at the boundary (7B) |
 | E29-D P0–P3 | store ≥ 0.5; W1 < 0.5; 0 ≤ Δ_real < Δ_delete; W2 restated > neutral | 0.958; 0.217; +0.167 < +0.396; 0.854 > 0.750 |
-| E29-N P1 | DESIGN-DEPENDENT via delete on both deciders | +0.344, +0.469 |
-| E29-N P2 | |DiD_addonly| < 0.15 | holds on 7B (+0.094), fails on 3B (+0.167) through the reference arm |
+| E29-N P1 | DESIGN-DEPENDENT via delete on each decider | +0.344, +0.469, +0.250 |
+| E29-N P2 | |DiD_addonly| < 0.15 | holds on 7B (+0.094) and 14B (−0.010), fails on 3B (+0.167) through the reference arm |
