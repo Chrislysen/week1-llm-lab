@@ -120,6 +120,75 @@ pinned-plan objection for these effects; it says nothing about plan lengths a
 different instruction would produce, and nothing about the E29-C register
 result or the second corpus, which stay pinned.
 
-## 5. Outcome
+## 5. Outcome — run 2026-09-12, after `da0add1` and the §1a amendment
 
-_(empty at declaration)_
+768 calls per decider, 1,536 in total, run in resumable batches after the
+600-second tool cap and the runaway of §1a made fixed chunks unworkable.
+Parse 1.000 everywhere except `addonly` on the 3B, where the single truncated
+runaway the cap converted into a parse failure gives 0.989 and costs one
+dialogue (n = 95 there, 96 on the 14B). No VOID cell: the highest
+never-mentioned rate reached is 0.729, well under the 0.95 saturation gate.
+`results/e29f_<model>_r*.csv/.json`, `results/e29f_<model>_summary.json`.
+
+### Rejected-step inclusion, plan length unpinned
+
+| decider | design | restated | neutral | Δ | 95 % CI | DiD vs full | 95 % CI | mean \|plan\| |
+|---|---|---|---|---|---|---|---|---|
+| `llama3.2:3b` | full | 0.116 | 0.179 | −0.063 | [−0.137, +0.011] | reference | | 4.10 |
+| | delete | 0.989 | 0.768 | +0.221 | [+0.137, +0.305] | **+0.284** | [+0.168, +0.400] | 4.79 |
+| | addonly | 0.126 | 0.105 | +0.021 | [−0.032, +0.074] | +0.084 | [−0.011, +0.179] | 3.87 |
+| | addonly_flag | 0.611 | 0.642 | −0.032 | [−0.105, +0.042] | +0.032 | [−0.074, +0.126] | 4.22 |
+| `qwen2.5:14b-instruct` | full | 0.083 | 0.052 | +0.031 | [−0.010, +0.083] | reference | | 2.35 |
+| | delete | 0.896 | 0.542 | +0.354 | [+0.250, +0.469] | **+0.323** | [+0.208, +0.437] | 3.91 |
+| | addonly | 0.052 | 0.021 | +0.031 | [+0.000, +0.073] | +0.000 | [−0.062, +0.062] | 2.38 |
+| | addonly_flag | 0.427 | 0.240 | +0.187 | [+0.115, +0.271] | +0.156 | [+0.062, +0.250] | 2.94 |
+
+### Excess over the same cell's never-mentioned rate
+
+The quantity the objection cannot touch: how far the rejected step sits above
+or below a step the dialogue never mentioned, measured inside the same cell.
+
+| decider | design | arm | never | excess | 95 % CI |
+|---|---|---|---|---|---|
+| `llama3.2:3b` | full | neutral | 0.660 | −0.481 | [−0.640, −0.322] |
+| | addonly | neutral | 0.681 | **−0.576** | [−0.724, −0.416] |
+| | addonly_flag | neutral | 0.596 | **+0.046** | [−0.133, +0.216] |
+| | delete | restated | 0.702 | **+0.287** | [+0.160, +0.426] |
+| `qwen2.5:14b-instruct` | full | neutral | 0.354 | −0.302 | [−0.448, −0.167] |
+| | addonly | neutral | 0.271 | **−0.250** | [−0.385, −0.125] |
+| | addonly_flag | neutral | 0.354 | **−0.115** | [−0.271, +0.042] |
+| | delete | restated | 0.521 | **+0.375** | [+0.229, +0.521] |
+
+**Verdict on both deciders: SURVIVES.** F2 holds: DiD_delete +0.284
+[+0.168, +0.400] and +0.323 [+0.208, +0.437], both above the 0.15 threshold
+with intervals excluding zero, and both *larger* than the pinned values
+(+0.438 and +0.208 pinned — larger on the 14B, smaller on the 3B, so the
+author's lean that unpinning would raise it everywhere was half wrong).
+F3 holds: G_flag +0.537 [+0.442, +0.632] and +0.219 [+0.135, +0.302]. F4
+holds: accepted-step inclusion never falls below 0.983.
+
+**F1 fails on the 14B and is the most interesting thing here.** The
+prediction was that unpinning would lengthen plans. On the 3B it roughly
+holds (3.87–4.79 against the pinned 4). On the 14B plans get *shorter*:
+2.32–2.97 for three of the four designs, against the pinned 4. The larger
+decider, left to choose, writes a tighter plan than the pin forced on it. The
+objection assumed a fixed-length plan crowds items out; on the decider where
+that should bite hardest the constraint was padding the plan, not crowding it.
+
+**What the excess numbers settle.** Under add-only the rejected step sits
+0.58 and 0.25 *below* a step the dialogue never mentioned: the store's written
+rejection is doing real work, not merely losing a slot contest. Under the
+flag encoding it sits at +0.046 and −0.115, i.e. at or barely below chance —
+the decider treats a rejection carried as a prefix as though nothing had been
+said at all. Under delete with the restatement present it sits 0.29 and 0.38
+*above* chance: the restated step is actively promoted. None of that is
+available to a ceiling explanation, because each comparison is inside one
+cell against that cell's own baseline.
+
+**Standing.** The last of the twelve adversarial objections raised across the
+two scout passes is answered. The two effects the paper rests on — design
+dependence through hard delete, and the own-record encoding effect — both
+hold with the plan length unpinned, on both the smallest and the largest
+decider available here. The cost of unpinning, recorded in §1a, is that a 3B
+model can be driven into an unbounded generation, which is a reason to pin in
+a benchmark and not a reason to doubt the pinned results.

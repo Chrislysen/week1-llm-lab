@@ -75,6 +75,22 @@ wiki +0.031, Δ_full +0.031 n.s., every control holding — the cleanest of
 the three second-corpus readings. The second corpus now carries the E29
 verdict on all three deciders.
 
+**E29-F: both effects survive an unpinned plan (`da0add1` -> run
+2026-09-12, 1,536 calls).** The last of the twelve adversarial objections.
+DiD_delete +0.284 [+0.168, +0.400] on the 3B and +0.323 [+0.208, +0.437] on
+the 14B; G_flag +0.537 and +0.219. **SURVIVES on both.** Read as excess over
+each cell's own never-mentioned rate, which no ceiling argument can reach:
+add-only puts the rejected step 0.58 and 0.25 BELOW a never-mentioned step,
+the flag encoding puts it at chance (+0.05, -0.12), and delete-plus-
+restatement puts it 0.29 and 0.38 ABOVE chance. F1 failed informatively: the
+14B writes *shorter* plans unpinned (2.3-3.0 vs the pinned 4), so on the
+decider where crowding-out should bite hardest the pin was padding the plan.
+Amendment recorded (protocol section 1a): unpinning drove one prompt into an
+unbounded generation on the 3B, bounded by num_predict=512 (5.2x the largest
+completion otherwise seen), which surfaces as one parse failure. Runner made
+resumable with per-dialogue checkpoints after the 600s tool cap plus the
+runaway cost two whole chunks.
+
 **E29-E, the confound removal that changed the answer (`687c138` → run
 2026-09-12, 1,728 calls).** E29-X's tombstone-vs-add-only gap was confounded
 with store length (8.28 lines vs 6.66). E29-E holds the store fixed and varies

@@ -1,0 +1,130 @@
+[
+ {
+  "instance": "rail-star",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: We should ground the catenary as part of this; I want it on the list.\nSafety Auditor: Let's make sure we clear the section before we call this done.\nOperations Lead: Let's not; that one is not needed here.\nSafety Auditor: The timetable amendment takes effect on Sunday.\nOperations Lead: Weather is forecast dry until the evening.\nSafety Auditor: For the record, I did raise clear the section earlier in this discussion.\nOperations Lead: Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  INSPECT_POINTS  BLOCK_SECTION  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.",
+  "output": "{\"actions\": [\"GROUND_CATENARY\", \"REPLACE_RELAY\", \"TEST_INTERLOCK\", \"BLOCK_SECTION\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-star",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to ground the catenary.\n- The timetable amendment takes effect on Sunday.\n- Weather is forecast dry until the evening.\n- Safety Auditor noted that clear the section had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  INSPECT_POINTS  BLOCK_SECTION  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.",
+  "output": "{\"actions\": [\"BLOCK_SECTION\", \"CLEAR_SECTION\", \"GROUND_CATENARY\", \"TEST_INTERLOCK\", \"REPLACE_RELAY\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-star",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to ground the catenary.\n- Safety Auditor proposed to clear the section.\n- Operations Lead rejected the proposal to clear the section; it is not needed for this case.\n- The timetable amendment takes effect on Sunday.\n- Weather is forecast dry until the evening.\n- Safety Auditor noted that clear the section had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  INSPECT_POINTS  BLOCK_SECTION  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.",
+  "output": "{\"actions\": [\"GROUND_CATENARY\", \"TEST_INTERLOCK\", \"REPLACE_RELAY\", \"TEST_INTERLOCK\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-star",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to ground the catenary.\n- [withdrawn] Safety Auditor proposed to clear the section.\n- The timetable amendment takes effect on Sunday.\n- Weather is forecast dry until the evening.\n- Safety Auditor noted that clear the section had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  INSPECT_POINTS  BLOCK_SECTION  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.",
+  "output": "{\"actions\": [\"GROUND_CATENARY\", \"CLEAR_SECTION\", \"TEST_INTERLOCK\", \"REPLACE_RELAY\", \"TEST_INTERLOCK\", \"BLOCK_SECTION\", \"INSPECT_POINTS\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-star",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: We should ground the catenary as part of this; I want it on the list.\nSafety Auditor: Let's make sure we clear the section before we call this done.\nOperations Lead: Let's not; that one is not needed here.\nSafety Auditor: The timetable amendment takes effect on Sunday.\nOperations Lead: Weather is forecast dry until the evening.\nSafety Auditor: For the record, I did raise the written summary earlier in this discussion.\nOperations Lead: Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  INSPECT_POINTS  BLOCK_SECTION  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.",
+  "output": "{\"actions\": [\"GROUND_CATENARY\", \"TEST_INTERLOCK\", \"REPLACE_RELAY\", \"TEST_INTERLOCK\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-star",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to ground the catenary.\n- The timetable amendment takes effect on Sunday.\n- Weather is forecast dry until the evening.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  INSPECT_POINTS  BLOCK_SECTION  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.",
+  "output": "{\"actions\": [\"GROUND_CATENARY\", \"BLOCK_SECTION\", \"CLEAR_SECTION\", \"TEST_INTERLOCK\", \"REPLACE_RELAY\", \"TEST_INTERLOCK\", \"INSPECT_POINTS\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-star",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to ground the catenary.\n- Safety Auditor proposed to clear the section.\n- Operations Lead rejected the proposal to clear the section; it is not needed for this case.\n- The timetable amendment takes effect on Sunday.\n- Weather is forecast dry until the evening.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  INSPECT_POINTS  BLOCK_SECTION  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.",
+  "output": "{\"actions\": [\"GROUND_CATENARY\", \"TEST_INTERLOCK\", \"REPLACE_RELAY\", \"TEST_INTERLOCK\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-star",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to ground the catenary.\n- [withdrawn] Safety Auditor proposed to clear the section.\n- The timetable amendment takes effect on Sunday.\n- Weather is forecast dry until the evening.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- Two crews are already on site at the depot.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  INSPECT_POINTS  BLOCK_SECTION  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.",
+  "output": "{\"actions\": [\"GROUND_CATENARY\", \"CLEAR_SECTION\", \"TEST_INTERLOCK\", \"REPLACE_RELAY\", \"BLOCK_SECTION\", \"TEST_INTERLOCK\", \"INSPECT_POINTS\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-star",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: We should ground the catenary as part of this; I want it on the list.\nSafety Auditor: Yes, that one stays on the list.\nOperations Lead: Weather is forecast dry until the evening.\nSafety Auditor: I'd add block the section to the plan for this one.\nOperations Lead: No -- leave that out this time.\nSafety Auditor: Two crews are already on site at the depot.\nOperations Lead: The timetable amendment takes effect on Sunday.\nSafety Auditor: For the record, I did raise block the section earlier in this discussion.\nOperations Lead: The permanent way team logged this last year.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  INSPECT_POINTS  BLOCK_SECTION  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.",
+  "output": "{\"actions\": [\"INSPECT_POINTS\", \"GROUND_CATENARY\", \"TEST_INTERLOCK\", \"REPLACE_RELAY\", \"CLEAR_SECTION\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-star",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to ground the catenary; Safety Auditor accepted it.\n- Weather is forecast dry until the evening.\n- Two crews are already on site at the depot.\n- The timetable amendment takes effect on Sunday.\n- Safety Auditor noted that block the section had been raised earlier in the discussion.\n- The permanent way team logged this last year.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  INSPECT_POINTS  BLOCK_SECTION  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.",
+  "output": "{\"actions\": [\"BLOCK_SECTION\", \"GROUND_CATENARY\", \"INSPECT_POINTS\", \"REPLACE_RELAY\", \"TEST_INTERLOCK\", \"CLEAR_SECTION\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-star",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to ground the catenary.\n- Safety Auditor accepted the proposal to ground the catenary.\n- Weather is forecast dry until the evening.\n- Safety Auditor proposed to block the section.\n- Operations Lead rejected the proposal to block the section; it is not needed for this case.\n- Two crews are already on site at the depot.\n- The timetable amendment takes effect on Sunday.\n- Safety Auditor noted that block the section had been raised earlier in the discussion.\n- The permanent way team logged this last year.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  INSPECT_POINTS  BLOCK_SECTION  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.",
+  "output": "{\"actions\": [\"GROUND_CATENARY\", \"TEST_INTERLOCK\", \"REPLACE_RELAY\", \"CLEAR_SECTION\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-star",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to ground the catenary.\n- Safety Auditor accepted the proposal to ground the catenary.\n- Weather is forecast dry until the evening.\n- [withdrawn] Safety Auditor proposed to block the section.\n- Two crews are already on site at the depot.\n- The timetable amendment takes effect on Sunday.\n- Safety Auditor noted that block the section had been raised earlier in the discussion.\n- The permanent way team logged this last year.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  INSPECT_POINTS  BLOCK_SECTION  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.",
+  "output": "{\"actions\": [\"GROUND_CATENARY\", \"TEST_INTERLOCK\", \"REPLACE_RELAY\", \"CLEAR_SECTION\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-star",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: We should ground the catenary as part of this; I want it on the list.\nSafety Auditor: Yes, that one stays on the list.\nOperations Lead: Weather is forecast dry until the evening.\nSafety Auditor: I'd add block the section to the plan for this one.\nOperations Lead: No -- leave that out this time.\nSafety Auditor: Two crews are already on site at the depot.\nOperations Lead: The timetable amendment takes effect on Sunday.\nSafety Auditor: For the record, I did raise the written summary earlier in this discussion.\nOperations Lead: The permanent way team logged this last year.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  INSPECT_POINTS  BLOCK_SECTION  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.",
+  "output": "{\"actions\": [\"GROUND_CATENARY\", \"TEST_INTERLOCK\", \"REPLACE_RELAY\", \"CLEAR_SECTION\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-star",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to ground the catenary; Safety Auditor accepted it.\n- Weather is forecast dry until the evening.\n- Two crews are already on site at the depot.\n- The timetable amendment takes effect on Sunday.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- The permanent way team logged this last year.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  INSPECT_POINTS  BLOCK_SECTION  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.",
+  "output": "{\"actions\": [\"GROUND_CATENARY\", \"BLOCK_SECTION\", \"CLEAR_SECTION\", \"TEST_INTERLOCK\", \"REPLACE_RELAY\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-star",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to ground the catenary.\n- Safety Auditor accepted the proposal to ground the catenary.\n- Weather is forecast dry until the evening.\n- Safety Auditor proposed to block the section.\n- Operations Lead rejected the proposal to block the section; it is not needed for this case.\n- Two crews are already on site at the depot.\n- The timetable amendment takes effect on Sunday.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- The permanent way team logged this last year.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  INSPECT_POINTS  BLOCK_SECTION  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.",
+  "output": "{\"actions\": [\"GROUND_CATENARY\", \"TEST_INTERLOCK\", \"REPLACE_RELAY\", \"CLEAR_SECTION\"], \"ready\": true}"
+ },
+ {
+  "instance": "rail-star",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to ground the catenary.\n- Safety Auditor accepted the proposal to ground the catenary.\n- Weather is forecast dry until the evening.\n- [withdrawn] Safety Auditor proposed to block the section.\n- Two crews are already on site at the depot.\n- The timetable amendment takes effect on Sunday.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- The permanent way team logged this last year.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  INSPECT_POINTS  BLOCK_SECTION  CLEAR_SECTION  GROUND_CATENARY  TEST_INTERLOCK  REPLACE_RELAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.",
+  "output": "{\"actions\": [\"GROUND_CATENARY\", \"TEST_INTERLOCK\", \"REPLACE_RELAY\", \"CLEAR_SECTION\"], \"ready\": true}"
+ }
+]

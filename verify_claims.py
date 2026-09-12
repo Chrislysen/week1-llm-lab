@@ -1052,11 +1052,16 @@ try:
         """Per-call rows for one experiment. Untagged chunk files are read
         first and tagged re-runs (e.g. `_fix_o0`) override them, matching the
         loader the analyses use."""
-        files = sorted(_glob.glob(f"results/{prefix}_o*.csv"))
-        fixes = sorted(f for f in _glob.glob(f"results/{prefix}_*_o*.csv")
-                       if f not in files)
+        import os as _os
+        import re as _re
+        allf = sorted(_glob.glob(f"results/{prefix}_*.csv"))
+        # "plain" is prefix + _o<digits>.csv with nothing in between; anything
+        # else (a _fix_ or _r<n> file) is a later re-run and must win the dedupe.
+        _plain_re = _re.compile(_re.escape(prefix) + r"_o\d+\.csv$")
+        plain = [f for f in allf if _plain_re.fullmatch(_os.path.basename(f))]
+        rest = [f for f in allf if f not in plain]
         seen = {}
-        for fn in files + fixes:
+        for fn in plain + rest:
             for r in _csv.DictReader(open(fn, encoding="utf-8")):
                 seen[(r["instance"], r["rotation"], r.get("design", "-"),
                       r["arm"], r["slot"])] = r
@@ -1112,6 +1117,16 @@ try:
               _rate(f"e29x_{_slug}", "full", "neutral", complete_over=_XD), _lvl)
         claim(f"E29-X {_slug} full_explicit/neutral equals it",
               _rate(f"e29x_{_slug}", "full_explicit", "neutral", complete_over=_XD), _lvl)
+
+    # 4.6, free length: complete-case over the four designs, as the analysis reads it
+    _FD = ("full", "delete", "addonly", "addonly_flag")
+    for _slug, _dn, _an, _fn in (("llama32-3b", 0.768, 0.105, 0.642),
+                                 ("qwen25-14b-instruct", 0.542, 0.021, 0.240)):
+        for _X, _want in (("delete", _dn), ("addonly", _an), ("addonly_flag", _fn)):
+            claim(f"E29-F {_slug} {_X}/neutral",
+                  _rate(f"e29f_{_slug}", _X, "neutral", complete_over=_FD), _want)
+        claim(f"E29-F {_slug} accepted inclusion stays high",
+              _rate(f"e29f_{_slug}", "delete", "neutral", status="accepted") >= 0.95, True)
 
     # 4.4, the real write path
     _p = "e29d_qwen25-7b-instruct_llama32-3b"   # these rows carry no design column

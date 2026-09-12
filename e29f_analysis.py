@@ -59,12 +59,17 @@ def cells(rows, status):
     return out
 
 
-def stats(rej, nev, keys):
+def stats(rej, nev, keys, nkeys=None):
+    """`keys` are dialogues complete on the rejected unit; `nkeys` those
+    complete on a never-mentioned unit. Only about half the dialogues carry a
+    never-mentioned slot, so tying the two together would halve the n on the
+    headline quantities for no reason."""
+    nkeys = keys if nkeys is None else nkeys
     p, pn = {}, {}
     for X in DESIGNS:
         for arm in ("restated", "neutral"):
             vr = [rej[k][X][arm] for k in keys if rej[k][X].get(arm) is not None]
-            vn = [nev[k][X][arm] for k in keys if nev[k][X].get(arm) is not None]
+            vn = [nev[k][X][arm] for k in nkeys if nev[k][X].get(arm) is not None]
             p[(X, arm)] = statistics.mean(vr) if vr else float("nan")
             pn[(X, arm)] = statistics.mean(vn) if vn else float("nan")
     delta = {X: p[(X, "restated")] - p[(X, "neutral")] for X in DESIGNS}
@@ -83,10 +88,11 @@ def main(model):
     if not rows:
         print("no E29-F rows for", model); return
     rej, nev = cells(rows, "rejected"), cells(rows, "never")
-    complete = [k for k in rej
-                if all(rej[k][X].get(a) is not None and nev[k][X].get(a) is not None
-                       for X in DESIGNS for a in ("restated", "neutral"))]
+    _need = [(X, a) for X in DESIGNS for a in ("restated", "neutral")]
+    complete = [k for k in rej if all(rej[k][X].get(a) is not None for X, a in _need)]
+    ncomplete = [k for k in nev if all(nev[k][X].get(a) is not None for X, a in _need)]
     print(f"=== E29-F read: {model} — {len(rej)} dialogues seen, {len(complete)} complete ===\n")
+    print(f"  dialogues carrying a never-mentioned unit: {len(ncomplete)}")
     void = []
     print("  validity and plan length (length is an OUTCOME here, not a gate):")
     for X in DESIGNS:
@@ -101,12 +107,13 @@ def main(model):
             print(f"    {X:14} {arm:9} parse {parse:.3f}   |plan| {mp:.2f}   never {nv:.3f}"
                   f"{'   VOID' if bad else ''}")
 
-    p, pn, delta, did, excess, gflag = stats(rej, nev, complete)
+    p, pn, delta, did, excess, gflag = stats(rej, nev, complete, ncomplete)
     rng = random.Random(0)
     boots = defaultdict(list)
     for _ in range(B):
         sample = [complete[rng.randrange(len(complete))] for _ in complete]
-        _, _, dl, dd, ex, gf = stats(rej, nev, sample)
+        nsample = [ncomplete[rng.randrange(len(ncomplete))] for _ in ncomplete]
+        _, _, dl, dd, ex, gf = stats(rej, nev, sample, nsample)
         for X in DESIGNS:
             boots[("delta", X)].append(dl[X]); boots[("did", X)].append(dd[X])
             for a in ("restated", "neutral"):
@@ -147,7 +154,7 @@ def main(model):
     else:
         verdict = "CEILING-DEPENDENT (neither effect survives unpinning)"
     print(f"\n  VERDICT: {verdict}")
-    out = {"model": model, "n_complete": len(complete),
+    out = {"model": model, "n_complete": len(complete), "n_never": len(ncomplete),
            "p": {f"{X}|{a}": v for (X, a), v in p.items()},
            "never": {f"{X}|{a}": v for (X, a), v in pn.items()},
            "delta": delta, "did": did,

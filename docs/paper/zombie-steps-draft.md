@@ -200,7 +200,7 @@ cell in every run below parsed at 1.000 with mean length 3.98–4.00.
 
 Figure 1 (`fig1-delta-by-design.svg`) shows every Δ in this section and the
 next with its interval; the tables give the levels. Figure 2
-(`fig2-encoding.svg`) shows the §4.7 encoding result. Rejected-step inclusion,
+(`fig2-encoding.svg`) shows the encoding result of section 4.8. Rejected-step inclusion,
 n = 96 dialogues per cell.
 
 | decider | design | restated | neutral | Δ_X | DiD_X | 95 % CI |
@@ -380,10 +380,10 @@ We do not make that claim, because the two stores differ in a second way:
 add-only holds 8.28 lines on average and tombstone 6.66, since add-only also
 keeps each acceptance as its own fact. A reviewer would say the prose version
 simply occupies more of the context, and on this evidence they could not be
-answered. Section 4.7 reports the arm that removes the difference, and the
+answered. Section 4.8 reports the arm that removes the difference, and the
 answer is not the one we predicted.
 
-### 4.7 What actually decides it: the negation needs its own record
+### 4.8 What actually decides it: the negation needs its own record
 
 E29-E holds the store fixed and changes only how the rejection of the
 rejected proposal is written. All three designs are add-only stores over the
@@ -431,7 +431,37 @@ this evidence that is precisely the encoding a small decider is least likely
 to act on. Writing the retraction as its own record costs one line and, on
 the 14B, moves enactment of a restated zombie step from 0.04 to 0.56.
 
-### 4.6 Controls
+### 4.6 Both effects survive an unpinned plan
+
+Every result above pins the plan to four identifiers, and both adversarial
+passes objected that the effects could be an artefact of a saturated
+fixed-size output. E29-F reruns the four load-bearing designs with the length
+constraint removed, on the smallest and largest deciders, 1,536 calls.
+
+Design dependence survives: DiD_delete is +0.284 [+0.168, +0.400] on the 3B
+and +0.323 [+0.208, +0.437] on the 14B, against +0.438 and +0.208 pinned. So
+does the own-record effect: the flagged store exceeds the prose store by
++0.537 [+0.442, +0.632] and +0.219 [+0.135, +0.302] in the neutral arm.
+
+The cleanest way to read the unpinned data is the excess over each cell's own
+never-mentioned rate, which no ceiling argument can reach. Under add-only the
+rejected step sits 0.58 and 0.25 *below* a step the dialogue never mentioned;
+under the flag encoding it sits at +0.05 and −0.12, that is, at chance; under
+hard delete with the restatement present it sits 0.29 and 0.38 *above*
+chance. A written rejection suppresses; a flagged one does not; a deleted one
+plus a restatement promotes.
+
+One prediction failed, informatively. We expected unpinning to lengthen
+plans. On the 3B it roughly did (3.9–4.8). On the 14B plans got *shorter*,
+2.3–3.0 against the pinned 4: left to choose, the larger decider writes a
+tighter plan than the constraint imposed. On the decider where crowding-out
+should bite hardest, the pin was padding the plan rather than crowding it.
+Unpinning has one cost, recorded: a single prompt drove the 3B model into an
+unbounded generation, which we bounded with a generation cap five times the
+largest completion otherwise observed, and which then surfaces as one parse
+failure rather than being hidden.
+
+### 4.7 Controls
 
 Accepted steps are enacted at 0.97–1.00 in every cell of every run.
 Never-mentioned steps are enacted at 0.42–0.73 depending on decider, design
@@ -456,10 +486,12 @@ work sits beside (E1) turned out, on its own sanity arms, to be measuring plan
 plausibility under an action menu rather than retrieval; we record that there
 because it shaped the pinned-plan design here. Two controls an outside review
 asked for were run (§4.5) and a third arm was added to remove a confound they
-exposed (§4.7); two we have not run are a free-length plan, which would trade
-the menu ceiling for length variance, and a replication on human-written
-dialogue. Of twelve objections raised across two independent adversarial
-scout passes, those two are the only ones the record does not already answer.
+exposed (§4.7); the free-length control is now run
+too (§4.6), leaving one: a replication on human-written dialogue. Of twelve
+objections raised across two independent adversarial scout passes, that is
+the only one the record does not answer. A feasibility assessment for it is
+written up against the CaSiNo negotiation corpus, which is CC BY 4.0 and
+carries 176 dialogues with an explicit offer-then-decline pair.
 The §4.7 result is on oracle stores and says nothing about any system's
 retrieval layer; the shipped-system claim belongs to arXiv:2609.08258.
 
@@ -503,3 +535,7 @@ live re-run of the decider checked against the record.
 | E29-E P2 | G_flag ≥ G_meta | holds on all three |
 | E29-E P3 | Δ_addonly reproduces E29's within 0.10 | within 0.03 on all three; fourth replication |
 | E29-E P4 | never/accepted within 0.10 across designs | fails on the 3B (0.146, 0.188) and the 14B restated arm (0.125); displacement in a pinned plan, reported |
+| E29-F F1 | unpinning lengthens plans | holds on the 3B (3.9-4.8), fails on the 14B, which writes *shorter* plans unpinned (2.3-3.0 vs the pinned 4) |
+| E29-F F2 | DiD_delete >= 0.15 unpinned | +0.284 and +0.323, both intervals excluding 0 |
+| E29-F F3 | the own-record effect survives unpinning | +0.537 and +0.219, both intervals excluding 0 |
+| E29-F F4 | accepted inclusion >= 0.95 | 0.983 minimum |
