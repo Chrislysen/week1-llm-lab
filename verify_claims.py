@@ -993,6 +993,134 @@ except Exception as exc:                       # pragma: no cover
     skip("E6 similarity facts", f"encoder unavailable: {exc}")
 
 
+# ----------------------------------------------------------- E29 family ----
+# The draft's headline numbers, re-derived from the per-call CSVs rather than
+# from the summary JSONs, which are themselves derived. A summary that had
+# drifted from its rows would show up here as a mismatch.
+
+print("\n=== E29 family: corpora, stores and headline rates ===")
+try:
+    import csv as _csv
+    import glob as _glob
+
+    from lineage_bench import BENCH_DOMAINS as _BD, DOMAINS as _DOM, NEW_DOMAINS as _ND
+    from lineage_e29 import all_e29_dialogues as _ad, corpus_hash as _ch
+    from lineage_e29 import store_addonly as _sa, store_delete as _sd
+    from lineage_e29c import corpus_hash as _cch
+    from lineage_e29e import store_e as _se
+
+    claim("E29 corpus hash", _ch(), "187a426616f26598")
+    claim("E29-C corpus hash", _cch(), "979143b67049adf2")
+    claim("E29-N second-corpus hash (after the extractor correction)",
+          _ch(_ND), "e965c5fd022d6e37")
+    claim("E29 dialogues, one rejected slot each", len(_ad()), 96)
+    claim("second-corpus dialogues", len(_ad(_ND)), 96)
+    claim("the two domain sets are disjoint", bool(set(_BD) & set(_ND)), False)
+
+    def _verb(d, u):
+        return dict(_DOM[d["instance"].domain]["actions"])[u["action"]]
+
+    # store invariants the whole argument rests on, on BOTH corpora
+    for _label, _doms in (("first", None), ("second", _ND)):
+        _bad_del = _bad_add = 0
+        for _d in _ad(_doms):
+            _u = next(u for u in _d["units"] if u["status"] == "rejected")
+            _v = _verb(_d, _u)
+            _f, _ = _sd(_d["instance"], _d["arms"]["neutral"])
+            _bad_del += any(_v in x for x in _f)
+            _f, _ = _sa(_d["instance"], _d["arms"]["neutral"])
+            _bad_add += not any("rejected" in x and _v in x for x in _f)
+        claim(f"{_label} corpus: delete/neutral stores retaining the rejected step",
+              _bad_del, 0)
+        claim(f"{_label} corpus: addonly/neutral stores missing the rejection sentence",
+              _bad_add, 0)
+
+    # E29-E: the three encodings differ only where they are supposed to
+    _len_ok = _one_diff = 0
+    for _d in _ad():
+        _a, _ = _se("addonly", _d["instance"], _d["arms"]["neutral"])
+        _m, _ = _se("addonly_meta", _d["instance"], _d["arms"]["neutral"])
+        _g, _ = _se("addonly_flag", _d["instance"], _d["arms"]["neutral"])
+        _len_ok += (len(_a) == len(_m) and len(_g) == len(_a) - 1)
+        _one_diff += (sum(1 for x, y in zip(_a, _m) if x != y) == 1)
+    claim("E29-E: meta keeps the line count and flag drops exactly one, in all 96",
+          _len_ok, 96)
+    claim("E29-E: meta differs from prose on exactly one line, in all 96",
+          _one_diff, 96)
+
+    def _rows(prefix):
+        """Per-call rows for one experiment. Untagged chunk files are read
+        first and tagged re-runs (e.g. `_fix_o0`) override them, matching the
+        loader the analyses use."""
+        files = sorted(_glob.glob(f"results/{prefix}_o*.csv"))
+        fixes = sorted(f for f in _glob.glob(f"results/{prefix}_*_o*.csv")
+                       if f not in files)
+        seen = {}
+        for fn in files + fixes:
+            for r in _csv.DictReader(open(fn, encoding="utf-8")):
+                seen[(r["instance"], r["rotation"], r.get("design", "-"),
+                      r["arm"], r["slot"])] = r
+        return list(seen.values())
+
+    def _rate(prefix, design, arm, status="rejected", complete_over=None):
+        """Inclusion for one cell. `complete_over` mirrors the analyses'
+        complete-case rule: keep only dialogues present in every named design
+        and both arms, which is why one parse failure shifts a denominator."""
+        rows = _rows(prefix)
+        ok = [r for r in rows if r["parsed"] == "True"]
+        if complete_over:
+            have = {}
+            for r in ok:
+                have.setdefault((r["instance"], r["rotation"]), set()).add(
+                    (r.get("design", "-"), r["arm"]))
+            need = {(X, a) for X in complete_over for a in ("restated", "neutral")}
+            keep = {k for k, v in have.items() if need <= v}
+            ok = [r for r in ok if (r["instance"], r["rotation"]) in keep]
+        cell = [r["included"] == "True" for r in ok
+                if r.get("design", design) == design and r["arm"] == arm
+                and r["status"] == status]
+        return round(sum(cell) / len(cell), 3) if cell else None
+
+    # 4.1, first corpus: the delete cells on all four deciders
+    for _slug, _r, _n in (("llama32-3b", 0.958, 0.604),
+                          ("qwen25-7b-instruct", 0.885, 0.583),
+                          ("qwen25-14b-instruct", 0.896, 0.635),
+                          ("gemma4-e4b", 0.979, 0.490)):
+        claim(f"E29 {_slug} delete/restated", _rate(f"e29_{_slug}", "delete", "restated"), _r)
+        claim(f"E29 {_slug} delete/neutral", _rate(f"e29_{_slug}", "delete", "neutral"), _n)
+
+    # 4.2, second corpus after the correction: delete cells
+    for _slug, _r, _n in (("llama32-3b", 0.948, 0.677),
+                          ("qwen25-7b-instruct", 0.958, 0.531),
+                          ("qwen25-14b-instruct", 0.990, 0.646)):
+        claim(f"E29-N {_slug} delete/restated", _rate(f"e29n_{_slug}", "delete", "restated"), _r)
+        claim(f"E29-N {_slug} delete/neutral", _rate(f"e29n_{_slug}", "delete", "neutral"), _n)
+
+    # 4.7, the own-record contrast in the neutral arm
+    for _slug, _a, _m, _g in (("llama32-3b", 0.156, 0.208, 0.594),
+                              ("qwen25-7b-instruct", 0.354, 0.240, 0.458),
+                              ("qwen25-14b-instruct", 0.062, 0.031, 0.323)):
+        claim(f"E29-E {_slug} addonly/neutral", _rate(f"e29e_{_slug}", "addonly", "neutral"), _a)
+        claim(f"E29-E {_slug} addonly_meta/neutral", _rate(f"e29e_{_slug}", "addonly_meta", "neutral"), _m)
+        claim(f"E29-E {_slug} addonly_flag/neutral", _rate(f"e29e_{_slug}", "addonly_flag", "neutral"), _g)
+
+    # 4.5, the rendering control: explicit referents left the level untouched
+    _XD = ("full", "full_explicit", "tombstone")
+    for _slug, _lvl in (("llama32-3b", 0.281), ("qwen25-7b-instruct", 0.316),
+                        ("qwen25-14b-instruct", 0.167)):
+        claim(f"E29-X {_slug} full/neutral",
+              _rate(f"e29x_{_slug}", "full", "neutral", complete_over=_XD), _lvl)
+        claim(f"E29-X {_slug} full_explicit/neutral equals it",
+              _rate(f"e29x_{_slug}", "full_explicit", "neutral", complete_over=_XD), _lvl)
+
+    # 4.4, the real write path
+    _p = "e29d_qwen25-7b-instruct_llama32-3b"   # these rows carry no design column
+    claim("E29-D real store, restated", _rate(_p, "-", "restated"), 0.667)
+    claim("E29-D real store, neutral", _rate(_p, "-", "neutral"), 0.500)
+except Exception as exc:                       # pragma: no cover
+    skip("E29 family", f"could not re-derive: {type(exc).__name__} {exc}")
+
+
 # ------------------------------------------------- cross-corpus results ----
 # E1/E2/E4 were scored against EARLIER corpora. Saying so is the point.
 
