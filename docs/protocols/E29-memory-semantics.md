@@ -106,6 +106,23 @@ Search log: 19 field-vocabulary queries by the gate agents plus 9 in this
 session, 2026-09-11; queries and returns recorded in the session transcript
 and summarised in the table above.
 
+### 0.3b Leads from the first Gemini Deep Research scout, triaged 2026-09-12
+
+Nine new leads (`docs/gemini-research-log/2026-09-12-triage.md`); the one
+Gemini flagged as covering the construct does not. Full-text reads marked.
+
+| paper | read | rejection in dialogue | partner restatement | design contrast | executable action | small local decider | verdict |
+|---|---|---|---|---|---|---|---|
+| **2609.01852** Memory Trust Gap (Hu, Ramachandran, 2026-09-01) | full HTML | no: stale stored fact vs authoritative tool, single response | no: 2×2×2×2 over metadata features (date, label, position, framing) | no_memory / clean / stale / explicit_conflict; no store designs | yes: constrained action | Qwen3 0.6–8B, Llama 1–8B | **does not cover**; opposite scale direction under a different manipulation (framing fools larger models; our larger deciders honour an explicit rejection) |
+| **2607.23929** MemTX | full HTML | no: retraction events in a write trace | **no** | Cordon, Verified Concurrency, MemState, Collaborative Memory, TOKI vs MemTX | downstream harm on tool calls | Qwen3-8B, Qwen2.5-14B among five | does not cover |
+| **2608.12476** GPM | full PDF | no: single-user ledger | **no** | raw append / latest-first / flat conflict-preserving / GPM, contract match | no: deterministic release; LLM only as ungoverned comparison | Qwen2.5-7B (ungoverned arm) | does not cover |
+| **2606.06240** TOKI | full HTML | no | **no** | four write-time heuristics as bitemporal operators | no: LoCoMo QA | not stated | does not cover |
+| 2606.24535 · 2606.22030 · 2606.09483 · 2607.01071 | abstract | no | no | yes (various) | no | various | do not cover by abstract; none names a restatement |
+| ReviseQA (OpenReview Z4KBiAYXlI; Gemini's arXiv id was wrong) | abstract | premise edits, single agent | no | none | no | GPT-4o | does not cover |
+
+Coverage stays full-text on every lead that could plausibly overlap. The
+residual in §0.5 is unchanged.
+
 ### 0.4 Comparison against the strongest prior work
 
 | proposed contribution | closest prior result + section | same mechanism, estimand, assumptions? | substantive difference | what would test that difference |

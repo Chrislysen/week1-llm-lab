@@ -145,7 +145,10 @@ OUTPUT RULES
   claims as verified.
 - Do not pad. Omit background on what LLM memory is.
 - If you find a paper that manipulates a later re-mention of a rejected
-  dialogue item across memory designs, put it first and flag it.
+  dialogue item across memory designs, put it first and flag it. For any
+  paper you flag, quote the sentence from the paper's own method section
+  that describes the manipulation; do not flag on abstract wording, and
+  give the paper's exact title as printed on the paper.
 ```
 
 ## 5. Rotating focus block

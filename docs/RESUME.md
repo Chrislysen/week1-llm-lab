@@ -62,6 +62,18 @@ wiki +0.031, Δ_full +0.031 n.s., every control holding — the cleanest of
 the three second-corpus readings. The second corpus now carries the E29
 verdict on all three deciders.
 
+**Gemini Deep Research scout, run 1 (2026-09-12).** Brief in
+`docs/GEMINI-DEEP-RESEARCH-BRIEF.md`; return and triage in
+`docs/gemini-research-log/`. Nine new leads, five read in full text. The
+paper Gemini flagged as covering the construct (2609.01852, the Memory
+Trust Gap) is single-agent, single-response, metadata-framed staleness,
+no dialogue, no re-mention; Gemini mis-titled it and mis-described its
+manipulation while marking it VERIFIED, and gave a wrong arXiv id for
+ReviseQA. Residual unchanged; gate rows added (E29 protocol §0.3b). Two
+reviewer controls named as candidate follow-ups, neither run: **E29-R**
+(rendering control: the transcript's rejection in the store's explicit
+template) and **E29-T** (tombstone design as a fifth arm).
+
 **Paper draft.** `docs/paper/zombie-steps-draft.md` (`9456426`): abstract,
 related work from the gate table, setup, the three result tables, the
 register follow-up, the real write path, controls, limitations,

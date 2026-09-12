@@ -99,6 +99,27 @@ let a re-assertion re-supersede a retraction, but its triple model cannot
 record a negation. *MemoryArena* (arXiv:2602.16313) compares full context,
 Mem0 and RAG on executable plans without a restatement manipulation.
 
+Three 2026 papers move conflict resolution to the write or commit layer and
+are adjacent without overlapping: *TOKI* (arXiv:2606.06240) types four
+write-time heuristics as bitemporal operators and keeps the losing fact in
+an audit row; *MemTX* (arXiv:2607.23929) gates irreversible tool calls on a
+transactional belief state and measures downstream harm on a 90-case
+conformance suite with concurrent writers; *Governed Persistent Memory*
+(arXiv:2608.12476) makes non-revival after retraction an executable ledger
+clause and compares raw-append, latest-first and conflict-preserving
+policies by contract match. None constructs a rejection in dialogue or a
+partner's restatement. *The Memory Trust Gap* (arXiv:2609.01852) is the
+closest on decider size: across Qwen3 0.6B–8B, a stale stored fact is
+answered with 0.92–1.00 of the time, and *larger* models collapse most when
+metadata makes the stale note look current. Our larger deciders honour an
+explicit stored rejection better than the small ones; the two findings
+concern different quantities (a stale value framed as current versus a
+rejection rendered as a rejection) and are read side by side, not against
+each other. On the shipped side, Mem0's own issue tracker records the v3
+add-only behaviour we read from source: contradictory facts accumulate in
+parallel and the MD5 deduplication catches only exact duplicates (issues
+#4896 and #4956, April 2026).
+
 What is new here is the conjunction: a partner's content-bearing restatement
 of a step rejected in dialogue, delivered through the designs that ship, read
 on an executable plan by small local deciders, as a difference-in-differences
@@ -306,7 +327,12 @@ referent of a rejection where the transcript leaves it to adjacency), so only
 within-design contrasts are compared. The compulsory course experiment this
 work sits beside (E1) turned out, on its own sanity arms, to be measuring plan
 plausibility under an action menu rather than retrieval; we record that there
-because it shaped the pinned-plan design here.
+because it shaped the pinned-plan design here. Two controls a reviewer would
+reasonably ask for are not run and are named as follow-ups: a rendering
+control that presents the transcript's rejection in the store's explicit
+template, so that levels across designs could be compared and not only
+within-design contrasts; and a tombstone design (rejection retained but
+flagged inactive) as a fifth arm between add-only and hard delete.
 
 ## 6. Reproducibility
 
