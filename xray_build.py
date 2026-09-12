@@ -25,7 +25,7 @@ MODELS = ["gemma4:e4b", "llama3.2:3b", "qwen2.5:3b-instruct", "qwen2.5:7b-instru
           "aya-expanse:8b", "qwen2.5:14b-instruct"]
 SIZES = {"gemma4:e4b": "~4B", "llama3.2:3b": "3B", "qwen2.5:3b-instruct": "3B",
          "qwen2.5:7b-instruct": "7B", "aya-expanse:8b": "8B", "qwen2.5:14b-instruct": "14B"}
-E29_MODELS = ["llama3.2:3b", "qwen2.5:7b-instruct"]
+E29_MODELS = ["llama3.2:3b", "qwen2.5:7b-instruct", "qwen2.5:14b-instruct"]
 
 
 def slug(s):
@@ -171,6 +171,22 @@ def e29c_note():
             "The stores never saw that register; they saw a fact.")
 
 
+def e29d_note():
+    """E29-D: the real write path with an operational extractor."""
+    b = os.path.join(HERE, "results", "e29d_qwen25-7b-instruct_llama32-3b_summary.json")
+    if not os.path.exists(b):
+        return ""
+    e = json.load(open(b, encoding="utf-8"))
+    ref = e.get("e29_ref") or {}
+    dl = ref.get("delete", {}).get("delta"); ad = ref.get("addonly", {}).get("delta")
+    return (f"E29-D then ran the Mem0 write path for real with an extractor that stores operational facts "
+            f"(qwen2.5:7b-instruct for extraction and Mem0's own update router, verbatim), on {e['n']} of these dialogues, "
+            f"decider llama3.2:3b. The store held the proposed step in {e['w0']:.2f} of dialogues; the router deleted it on "
+            f"rejection in {e['w1']:.2f}; the restatement raised enactment on the real store by {e['delta_real']:+.3f} "
+            f"[{e['ci'][0]:+.3f}, {e['ci'][1]:+.3f}], between the oracle add-only ({ad:+.3f}) and delete ({dl:+.3f}) designs "
+            f"on the same dialogues — {e['verdict']}.")
+
+
 def e29_dialogues():
     """The 96 E29 dialogues: turns per arm, the context block per design, and
     every recorded decider output, keyed by model."""
@@ -235,7 +251,7 @@ def build_data(live=False, live_models=None):
     agg, dias, showcase = e18_ladder()
     return {"corpus_hash": corpus_hash(), "e29_hash": e29_hash(), "models": MODELS, "agg": agg,
             "dialogues": dias, "showcase": showcase, "e29": e29_summaries(), "city": city_districts(dias),
-            "e29_caveat": E29_CAVEAT, "e29b_note": e29b_note(), "e29c_note": e29c_note(),
+            "e29_caveat": E29_CAVEAT, "e29b_note": e29b_note(), "e29c_note": e29c_note(), "e29d_note": e29d_note(),
             "e29_dialogues": e29_dialogues(), "e29_models": E29_MODELS, "e29b": e29b_snapshots(),
             "live": {"models": live_models or []} if live else None}
 

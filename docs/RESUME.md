@@ -1,5 +1,49 @@
 # RESUME — where the work stands, and exactly what to do next
 
+# 2026-09-12 — the paper push: third decider, real write path, second corpus
+
+The author asked what would make E29 a paper rather than a workshop note and
+said "let's keep working towards that". The honest list was: a larger
+decider, a real-extractor stage that actually stores operational proposals,
+and a second corpus. All three were declared with zero outcomes and run the
+same night; every number below is in a `results/e29*_summary.json`.
+
+**Third decider, `qwen2.5:14b-instruct` (E29 addendum, `99d60fd` → `8e4aa63`).**
+DESIGN-DEPENDENT, delete DiD +0.208 [+0.094, +0.323]. Add-only and wiki go
+flat (0.06 inclusion): the larger decider reads a stored rejection and
+honours it, so only the design that *removes* the rejection re-admits the
+step. Δ_full turns positive and non-significant (+0.052), consistent with
+E29-C's reading that the negative sign was a 3B register effect. Under
+`delete`/neutral the step is enacted at 0.635 from a store that says nothing
+about it — the pinned four-step plan fills from the six-item menu — which caps
+Δ_delete on this decider; the smaller DiD is a ceiling of the estimand, not a
+weaker mechanism.
+
+**Real write path, E29-D (`8bce1ae` → `9f27286`): REAL-STORE EFFECT.** E29-B
+had failed its manipulation check because Mem0's personal-information
+extractor ignores operational steps. E29-D changes the extraction prompt
+only (operational facts, few-shot on a domain not in the corpus) and keeps
+Mem0's update router verbatim; extractor and router `qwen2.5:7b-instruct`,
+decider `llama3.2:3b`, the same 48 dialogues. W0 0.958 (passes), W1 0.217
+(the router deletes on rejection one time in five; otherwise it ADDs the
+rejection or UPDATEs the proposal's text to carry it), W2 0.854 vs 0.750,
+Δ_real +0.167 [+0.042, +0.292] — between the oracle add-only (+0.042) and
+delete (+0.396) designs on the same dialogues, as predicted (P0–P3 all
+hold). Zero malformed outputs in 48 dialogues. Observation: neutral-arm
+enactment on the real store (0.50) is far above oracle add-only (0.17)
+although the rejection is usually present; the router's UPDATEs fold the
+rejection into the proposal's text and the 3B decider reads that as weaker.
+
+**Second corpus, E29-N (`333ad85`).** Six new domains (grid, airline,
+newsroom, water, checkout, telecom), a second sentence bank, same generator
+and rules; frozen corpora hash-asserted untouched (202 tests). Outcome
+recorded in `docs/protocols/E29N-second-corpus.md` as each decider completes.
+
+**What this changes in the score.** A larger decider, a working real-system
+leg and a second corpus were the three named gaps. They are closed in the
+sense that each was run and read by its rule; whether the second corpus
+carries the same verdict on every decider is in the E29-N outcome.
+
 # 2026-09-11 — E29: first candidate through the repaired gate, run on two deciders, DESIGN-DEPENDENT
 
 **Where it came from.** A reading pass over four repositories the author
