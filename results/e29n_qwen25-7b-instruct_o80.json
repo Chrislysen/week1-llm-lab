@@ -1,0 +1,1026 @@
+[
+ {
+  "instance": "telecom-chain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: The site access badges expire at the end of the month.\nSafety Auditor: My suggestion is that we extend the change window as part of the response.\nOperations Lead: Not that one -- drop it for this case.\nSafety Auditor: One more for the plan: restart the subscriber register.\nOperations Lead: Fine, that one is in.\nSafety Auditor: The field team's vans get serviced on Wednesday.\nOperations Lead: The regulator's quarterly filing is due next week.\nSafety Auditor: For the record, I did raise extend the change window earlier in this discussion.\nOperations Lead: A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  DRAIN_PGW  EXTEND_WINDOW  BLOCK_ROAMING  RAISE_TICKET  REROUTE_SIGNALLING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"EXTEND_WINDOW\", \"RESTART_REGISTER\", \"BLOCK_ROAMING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-chain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The site access badges expire at the end of the month.\n- Safety Auditor proposed to restart the subscriber register; Operations Lead accepted it.\n- The field team's vans get serviced on Wednesday.\n- The regulator's quarterly filing is due next week.\n- Safety Auditor noted that extend the change window had been raised earlier in the discussion.\n- A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  DRAIN_PGW  EXTEND_WINDOW  BLOCK_ROAMING  RAISE_TICKET  REROUTE_SIGNALLING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RESTART_REGISTER\", \"EXTEND_WINDOW\", \"RAISE_TICKET\", \"REROUTE_SIGNALLING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-chain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The site access badges expire at the end of the month.\n- Safety Auditor proposed to extend the change window.\n- Operations Lead rejected the proposal to extend the change window; it is not needed for this case.\n- Safety Auditor proposed to restart the subscriber register.\n- Operations Lead accepted the proposal to restart the subscriber register.\n- The field team's vans get serviced on Wednesday.\n- The regulator's quarterly filing is due next week.\n- Safety Auditor noted that extend the change window had been raised earlier in the discussion.\n- A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  DRAIN_PGW  EXTEND_WINDOW  BLOCK_ROAMING  RAISE_TICKET  REROUTE_SIGNALLING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RESTART_REGISTER\", \"BLOCK_ROAMING\", \"RAISE_TICKET\", \"EXTEND_WINDOW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-chain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The site access badges expire at the end of the month.\n- The field team's vans get serviced on Wednesday.\n- The regulator's quarterly filing is due next week.\n- A customer forum thread is asking about coverage in the valley.\n\n## extend the change window\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n- noted again by Safety Auditor: raised earlier in the discussion\n\n## restart the subscriber register\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  DRAIN_PGW  EXTEND_WINDOW  BLOCK_ROAMING  RAISE_TICKET  REROUTE_SIGNALLING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RESTART_REGISTER\", \"RAISE_TICKET\", \"EXTEND_WINDOW\", \"BLOCK_ROAMING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-chain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: The site access badges expire at the end of the month.\nSafety Auditor: My suggestion is that we extend the change window as part of the response.\nOperations Lead: Not that one -- drop it for this case.\nSafety Auditor: One more for the plan: restart the subscriber register.\nOperations Lead: Fine, that one is in.\nSafety Auditor: The field team's vans get serviced on Wednesday.\nOperations Lead: The regulator's quarterly filing is due next week.\nSafety Auditor: For the record, I did raise the written summary deadline earlier in this discussion.\nOperations Lead: A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  DRAIN_PGW  EXTEND_WINDOW  BLOCK_ROAMING  RAISE_TICKET  REROUTE_SIGNALLING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"EXTEND_WINDOW\", \"RESTART_REGISTER\", \"RAISE_TICKET\", \"BLOCK_ROAMING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-chain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The site access badges expire at the end of the month.\n- Safety Auditor proposed to restart the subscriber register; Operations Lead accepted it.\n- The field team's vans get serviced on Wednesday.\n- The regulator's quarterly filing is due next week.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  DRAIN_PGW  EXTEND_WINDOW  BLOCK_ROAMING  RAISE_TICKET  REROUTE_SIGNALLING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RESTART_REGISTER\", \"EXTEND_WINDOW\", \"RAISE_TICKET\", \"BLOCK_ROAMING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-chain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The site access badges expire at the end of the month.\n- Safety Auditor proposed to extend the change window.\n- Operations Lead rejected the proposal to extend the change window; it is not needed for this case.\n- Safety Auditor proposed to restart the subscriber register.\n- Operations Lead accepted the proposal to restart the subscriber register.\n- The field team's vans get serviced on Wednesday.\n- The regulator's quarterly filing is due next week.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  DRAIN_PGW  EXTEND_WINDOW  BLOCK_ROAMING  RAISE_TICKET  REROUTE_SIGNALLING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RESTART_REGISTER\", \"RAISE_TICKET\", \"EXTEND_WINDOW\", \"BLOCK_ROAMING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-chain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The site access badges expire at the end of the month.\n- The field team's vans get serviced on Wednesday.\n- The regulator's quarterly filing is due next week.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- A customer forum thread is asking about coverage in the valley.\n\n## extend the change window\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n\n## restart the subscriber register\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  DRAIN_PGW  EXTEND_WINDOW  BLOCK_ROAMING  RAISE_TICKET  REROUTE_SIGNALLING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"RESTART_REGISTER\", \"EXTEND_WINDOW\", \"BLOCK_ROAMING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-chain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: The regulator's quarterly filing is due next week.\nSafety Auditor: My suggestion is that we extend the change window as part of the response.\nOperations Lead: One more for the plan: restart the subscriber register.\nSafety Auditor: Not that one -- drop it for this case.\nOperations Lead: The site access badges expire at the end of the month.\nSafety Auditor: The field team's vans get serviced on Wednesday.\nOperations Lead: For the record, I did raise restart the subscriber register earlier in this discussion.\nSafety Auditor: A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  DRAIN_PGW  EXTEND_WINDOW  BLOCK_ROAMING  RAISE_TICKET  REROUTE_SIGNALLING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"EXTEND_WINDOW\", \"DRAIN_PGW\", \"RAISE_TICKET\", \"REROUTE_SIGNALLING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-chain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The regulator's quarterly filing is due next week.\n- Safety Auditor proposed to extend the change window.\n- The site access badges expire at the end of the month.\n- The field team's vans get serviced on Wednesday.\n- Operations Lead noted that restart the subscriber register had been raised earlier in the discussion.\n- A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  DRAIN_PGW  EXTEND_WINDOW  BLOCK_ROAMING  RAISE_TICKET  REROUTE_SIGNALLING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"EXTEND_WINDOW\", \"RESTART_REGISTER\", \"BLOCK_ROAMING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-chain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The regulator's quarterly filing is due next week.\n- Safety Auditor proposed to extend the change window.\n- Operations Lead proposed to restart the subscriber register.\n- Safety Auditor rejected the proposal to restart the subscriber register; it is not needed for this case.\n- The site access badges expire at the end of the month.\n- The field team's vans get serviced on Wednesday.\n- Operations Lead noted that restart the subscriber register had been raised earlier in the discussion.\n- A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  DRAIN_PGW  EXTEND_WINDOW  BLOCK_ROAMING  RAISE_TICKET  REROUTE_SIGNALLING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"EXTEND_WINDOW\", \"REROUTE_SIGNALLING\", \"DRAIN_PGW\", \"RAISE_TICKET\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-chain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The regulator's quarterly filing is due next week.\n- The site access badges expire at the end of the month.\n- The field team's vans get serviced on Wednesday.\n- A customer forum thread is asking about coverage in the valley.\n\n## extend the change window\n- proposed by Safety Auditor\n\n## restart the subscriber register\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n- noted again by Operations Lead: raised earlier in the discussion\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  DRAIN_PGW  EXTEND_WINDOW  BLOCK_ROAMING  RAISE_TICKET  REROUTE_SIGNALLING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"EXTEND_WINDOW\", \"RAISE_TICKET\", \"REROUTE_SIGNALLING\", \"DRAIN_PGW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-chain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: The regulator's quarterly filing is due next week.\nSafety Auditor: My suggestion is that we extend the change window as part of the response.\nOperations Lead: One more for the plan: restart the subscriber register.\nSafety Auditor: Not that one -- drop it for this case.\nOperations Lead: The site access badges expire at the end of the month.\nSafety Auditor: The field team's vans get serviced on Wednesday.\nOperations Lead: For the record, I did raise the written summary deadline earlier in this discussion.\nSafety Auditor: A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  DRAIN_PGW  EXTEND_WINDOW  BLOCK_ROAMING  RAISE_TICKET  REROUTE_SIGNALLING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"EXTEND_WINDOW\", \"DRAIN_PGW\", \"BLOCK_ROAMING\", \"RAISE_TICKET\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-chain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The regulator's quarterly filing is due next week.\n- Safety Auditor proposed to extend the change window.\n- The site access badges expire at the end of the month.\n- The field team's vans get serviced on Wednesday.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  DRAIN_PGW  EXTEND_WINDOW  BLOCK_ROAMING  RAISE_TICKET  REROUTE_SIGNALLING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"EXTEND_WINDOW\", \"RAISE_TICKET\", \"RESTART_REGISTER\", \"REROUTE_SIGNALLING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-chain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The regulator's quarterly filing is due next week.\n- Safety Auditor proposed to extend the change window.\n- Operations Lead proposed to restart the subscriber register.\n- Safety Auditor rejected the proposal to restart the subscriber register; it is not needed for this case.\n- The site access badges expire at the end of the month.\n- The field team's vans get serviced on Wednesday.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  DRAIN_PGW  EXTEND_WINDOW  BLOCK_ROAMING  RAISE_TICKET  REROUTE_SIGNALLING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"EXTEND_WINDOW\", \"RAISE_TICKET\", \"REROUTE_SIGNALLING\", \"BLOCK_ROAMING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-chain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The regulator's quarterly filing is due next week.\n- The site access badges expire at the end of the month.\n- The field team's vans get serviced on Wednesday.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- A customer forum thread is asking about coverage in the valley.\n\n## extend the change window\n- proposed by Safety Auditor\n\n## restart the subscriber register\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  DRAIN_PGW  EXTEND_WINDOW  BLOCK_ROAMING  RAISE_TICKET  REROUTE_SIGNALLING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"EXTEND_WINDOW\", \"RAISE_TICKET\", \"BLOCK_ROAMING\", \"RESTART_REGISTER\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-fork",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: The regulator's quarterly filing is due next week.\nSafety Auditor: The site access badges expire at the end of the month.\nOperations Lead: One more for the plan: raise the vendor ticket.\nSafety Auditor: Fine, that one is in.\nOperations Lead: I think we need to block the inbound roaming on this one; put it on the list.\nSafety Auditor: Not that one -- drop it for this case.\nOperations Lead: For the record, I did raise block the inbound roaming earlier in this discussion.\nSafety Auditor: The field team's vans get serviced on Wednesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  DRAIN_PGW  BLOCK_ROAMING  EXTEND_WINDOW  RAISE_TICKET  RESTART_REGISTER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"BLOCK_ROAMING\", \"EXTEND_WINDOW\", \"RESTART_REGISTER\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-fork",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The regulator's quarterly filing is due next week.\n- The site access badges expire at the end of the month.\n- Operations Lead proposed to raise the vendor ticket; Safety Auditor accepted it.\n- Operations Lead noted that block the inbound roaming had been raised earlier in the discussion.\n- The field team's vans get serviced on Wednesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  DRAIN_PGW  BLOCK_ROAMING  EXTEND_WINDOW  RAISE_TICKET  RESTART_REGISTER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"BLOCK_ROAMING\", \"EXTEND_WINDOW\", \"RESTART_REGISTER\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-fork",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The regulator's quarterly filing is due next week.\n- The site access badges expire at the end of the month.\n- Operations Lead proposed to raise the vendor ticket.\n- Safety Auditor accepted the proposal to raise the vendor ticket.\n- Operations Lead proposed to block the inbound roaming.\n- Safety Auditor rejected the proposal to block the inbound roaming; it is not needed for this case.\n- Operations Lead noted that block the inbound roaming had been raised earlier in the discussion.\n- The field team's vans get serviced on Wednesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  DRAIN_PGW  BLOCK_ROAMING  EXTEND_WINDOW  RAISE_TICKET  RESTART_REGISTER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"EXTEND_WINDOW\", \"RESTART_REGISTER\", \"DRAIN_PGW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-fork",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The regulator's quarterly filing is due next week.\n- The site access badges expire at the end of the month.\n- The field team's vans get serviced on Wednesday.\n\n## raise the vendor ticket\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\n## block the inbound roaming\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n- noted again by Operations Lead: raised earlier in the discussion\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  DRAIN_PGW  BLOCK_ROAMING  EXTEND_WINDOW  RAISE_TICKET  RESTART_REGISTER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"EXTEND_WINDOW\", \"RESTART_REGISTER\", \"BLOCK_ROAMING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-fork",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: The regulator's quarterly filing is due next week.\nSafety Auditor: The site access badges expire at the end of the month.\nOperations Lead: One more for the plan: raise the vendor ticket.\nSafety Auditor: Fine, that one is in.\nOperations Lead: I think we need to block the inbound roaming on this one; put it on the list.\nSafety Auditor: Not that one -- drop it for this case.\nOperations Lead: For the record, I did raise the written summary deadline earlier in this discussion.\nSafety Auditor: The field team's vans get serviced on Wednesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  DRAIN_PGW  BLOCK_ROAMING  EXTEND_WINDOW  RAISE_TICKET  RESTART_REGISTER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"EXTEND_WINDOW\", \"RESTART_REGISTER\", \"BLOCK_ROAMING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-fork",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The regulator's quarterly filing is due next week.\n- The site access badges expire at the end of the month.\n- Operations Lead proposed to raise the vendor ticket; Safety Auditor accepted it.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The field team's vans get serviced on Wednesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  DRAIN_PGW  BLOCK_ROAMING  EXTEND_WINDOW  RAISE_TICKET  RESTART_REGISTER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"EXTEND_WINDOW\", \"RESTART_REGISTER\", \"BLOCK_ROAMING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-fork",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The regulator's quarterly filing is due next week.\n- The site access badges expire at the end of the month.\n- Operations Lead proposed to raise the vendor ticket.\n- Safety Auditor accepted the proposal to raise the vendor ticket.\n- Operations Lead proposed to block the inbound roaming.\n- Safety Auditor rejected the proposal to block the inbound roaming; it is not needed for this case.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The field team's vans get serviced on Wednesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  DRAIN_PGW  BLOCK_ROAMING  EXTEND_WINDOW  RAISE_TICKET  RESTART_REGISTER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"EXTEND_WINDOW\", \"RESTART_REGISTER\", \"DRAIN_PGW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-fork",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The regulator's quarterly filing is due next week.\n- The site access badges expire at the end of the month.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The field team's vans get serviced on Wednesday.\n\n## raise the vendor ticket\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\n## block the inbound roaming\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  DRAIN_PGW  BLOCK_ROAMING  EXTEND_WINDOW  RAISE_TICKET  RESTART_REGISTER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"EXTEND_WINDOW\", \"RESTART_REGISTER\", \"REROUTE_SIGNALLING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-fork",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: I think we need to block the inbound roaming on this one; put it on the list.\nSafety Auditor: One more for the plan: raise the vendor ticket.\nOperations Lead: No, take that one off; we don't need it here.\nSafety Auditor: A customer forum thread is asking about coverage in the valley.\nOperations Lead: The regulator's quarterly filing is due next week.\nSafety Auditor: For the record, I did raise raise the vendor ticket earlier in this discussion.\nOperations Lead: The field team's vans get serviced on Wednesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  DRAIN_PGW  BLOCK_ROAMING  EXTEND_WINDOW  RAISE_TICKET  RESTART_REGISTER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"RESTART_REGISTER\", \"RAISE_TICKET\", \"EXTEND_WINDOW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-fork",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to block the inbound roaming.\n- A customer forum thread is asking about coverage in the valley.\n- The regulator's quarterly filing is due next week.\n- Safety Auditor noted that raise the vendor ticket had been raised earlier in the discussion.\n- The field team's vans get serviced on Wednesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  DRAIN_PGW  BLOCK_ROAMING  EXTEND_WINDOW  RAISE_TICKET  RESTART_REGISTER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"RAISE_TICKET\", \"EXTEND_WINDOW\", \"RESTART_REGISTER\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-fork",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to block the inbound roaming.\n- Safety Auditor proposed to raise the vendor ticket.\n- Operations Lead rejected the proposal to raise the vendor ticket; it is not needed for this case.\n- A customer forum thread is asking about coverage in the valley.\n- The regulator's quarterly filing is due next week.\n- Safety Auditor noted that raise the vendor ticket had been raised earlier in the discussion.\n- The field team's vans get serviced on Wednesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  DRAIN_PGW  BLOCK_ROAMING  EXTEND_WINDOW  RAISE_TICKET  RESTART_REGISTER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"RESTART_REGISTER\", \"RAISE_TICKET\", \"EXTEND_WINDOW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-fork",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## block the inbound roaming\n- proposed by Operations Lead\n\n## raise the vendor ticket\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n- noted again by Safety Auditor: raised earlier in the discussion\n\n## discussion log\n- A customer forum thread is asking about coverage in the valley.\n- The regulator's quarterly filing is due next week.\n- The field team's vans get serviced on Wednesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  DRAIN_PGW  BLOCK_ROAMING  EXTEND_WINDOW  RAISE_TICKET  RESTART_REGISTER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"EXTEND_WINDOW\", \"RESTART_REGISTER\", \"RAISE_TICKET\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-fork",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: I think we need to block the inbound roaming on this one; put it on the list.\nSafety Auditor: One more for the plan: raise the vendor ticket.\nOperations Lead: No, take that one off; we don't need it here.\nSafety Auditor: A customer forum thread is asking about coverage in the valley.\nOperations Lead: The regulator's quarterly filing is due next week.\nSafety Auditor: For the record, I did raise the written summary deadline earlier in this discussion.\nOperations Lead: The field team's vans get serviced on Wednesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  DRAIN_PGW  BLOCK_ROAMING  EXTEND_WINDOW  RAISE_TICKET  RESTART_REGISTER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"RESTART_REGISTER\", \"RAISE_TICKET\", \"EXTEND_WINDOW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-fork",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to block the inbound roaming.\n- A customer forum thread is asking about coverage in the valley.\n- The regulator's quarterly filing is due next week.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The field team's vans get serviced on Wednesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  DRAIN_PGW  BLOCK_ROAMING  EXTEND_WINDOW  RAISE_TICKET  RESTART_REGISTER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"EXTEND_WINDOW\", \"RAISE_TICKET\", \"RESTART_REGISTER\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-fork",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to block the inbound roaming.\n- Safety Auditor proposed to raise the vendor ticket.\n- Operations Lead rejected the proposal to raise the vendor ticket; it is not needed for this case.\n- A customer forum thread is asking about coverage in the valley.\n- The regulator's quarterly filing is due next week.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The field team's vans get serviced on Wednesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  DRAIN_PGW  BLOCK_ROAMING  EXTEND_WINDOW  RAISE_TICKET  RESTART_REGISTER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"RAISE_TICKET\", \"EXTEND_WINDOW\", \"RESTART_REGISTER\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-fork",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## block the inbound roaming\n- proposed by Operations Lead\n\n## raise the vendor ticket\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n\n## discussion log\n- A customer forum thread is asking about coverage in the valley.\n- The regulator's quarterly filing is due next week.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The field team's vans get serviced on Wednesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  DRAIN_PGW  BLOCK_ROAMING  EXTEND_WINDOW  RAISE_TICKET  RESTART_REGISTER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"EXTEND_WINDOW\", \"RESTART_REGISTER\", \"RAEROUTE_SIGNALLING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-join",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: My suggestion is that we restart the subscriber register as part of the response.\nSafety Auditor: The regulator's quarterly filing is due next week.\nOperations Lead: I think we need to block the inbound roaming on this one; put it on the list.\nSafety Auditor: Yes, keep it.\nOperations Lead: A customer forum thread is asking about coverage in the valley.\nSafety Auditor: One more for the plan: raise the vendor ticket.\nOperations Lead: I'd leave that out; it is not needed this time.\nSafety Auditor: For the record, I did raise raise the vendor ticket earlier in this discussion.\nOperations Lead: The site access badges expire at the end of the month.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  REROUTE_SIGNALLING  DRAIN_PGW  RAISE_TICKET  BLOCK_ROAMING  EXTEND_WINDOW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RESTART_REGISTER\", \"BLOCK_ROAMING\", \"RAISE_TICKET\", \"EXTEND_WINDOW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-join",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to restart the subscriber register.\n- The regulator's quarterly filing is due next week.\n- Operations Lead proposed to block the inbound roaming; Safety Auditor accepted it.\n- A customer forum thread is asking about coverage in the valley.\n- Safety Auditor proposed to raise the vendor ticket; Operations Lead accepted it.\n- Safety Auditor noted that raise the vendor ticket had been raised earlier in the discussion.\n- The site access badges expire at the end of the month.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  REROUTE_SIGNALLING  DRAIN_PGW  RAISE_TICKET  BLOCK_ROAMING  EXTEND_WINDOW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"RAISE_TICKET\", \"RESTART_REGISTER\", \"EXTEND_WINDOW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-join",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to restart the subscriber register.\n- The regulator's quarterly filing is due next week.\n- Operations Lead proposed to block the inbound roaming.\n- Safety Auditor accepted the proposal to block the inbound roaming.\n- A customer forum thread is asking about coverage in the valley.\n- Safety Auditor proposed to raise the vendor ticket.\n- Operations Lead accepted the proposal to raise the vendor ticket.\n- Safety Auditor noted that raise the vendor ticket had been raised earlier in the discussion.\n- The site access badges expire at the end of the month.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  REROUTE_SIGNALLING  DRAIN_PGW  RAISE_TICKET  BLOCK_ROAMING  EXTEND_WINDOW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RESTART_REGISTER\", \"BLOCK_ROAMING\", \"RAISE_TICKET\", \"EXTEND_WINDOW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-join",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## restart the subscriber register\n- proposed by Operations Lead\n\n## discussion log\n- The regulator's quarterly filing is due next week.\n- A customer forum thread is asking about coverage in the valley.\n- The site access badges expire at the end of the month.\n\n## block the inbound roaming\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\n## raise the vendor ticket\n- proposed by Safety Auditor\n- accepted by Operations Lead\n- noted again by Safety Auditor: raised earlier in the discussion\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  REROUTE_SIGNALLING  DRAIN_PGW  RAISE_TICKET  BLOCK_ROAMING  EXTEND_WINDOW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"RESTART_REGISTER\", \"RAISE_TICKET\", \"EXTEND_WINDOW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-join",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: My suggestion is that we restart the subscriber register as part of the response.\nSafety Auditor: The regulator's quarterly filing is due next week.\nOperations Lead: I think we need to block the inbound roaming on this one; put it on the list.\nSafety Auditor: Yes, keep it.\nOperations Lead: A customer forum thread is asking about coverage in the valley.\nSafety Auditor: One more for the plan: raise the vendor ticket.\nOperations Lead: I'd leave that out; it is not needed this time.\nSafety Auditor: For the record, I did raise the written summary deadline earlier in this discussion.\nOperations Lead: The site access badges expire at the end of the month.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  REROUTE_SIGNALLING  DRAIN_PGW  RAISE_TICKET  BLOCK_ROAMING  EXTEND_WINDOW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RESTART_REGISTER\", \"BLOCK_ROAMING\", \"RAISE_TICKET\", \"EXTEND_WINDOW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-join",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to restart the subscriber register.\n- The regulator's quarterly filing is due next week.\n- Operations Lead proposed to block the inbound roaming; Safety Auditor accepted it.\n- A customer forum thread is asking about coverage in the valley.\n- Safety Auditor proposed to raise the vendor ticket; Operations Lead accepted it.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The site access badges expire at the end of the month.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  REROUTE_SIGNALLING  DRAIN_PGW  RAISE_TICKET  BLOCK_ROAMING  EXTEND_WINDOW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"RAISE_TICKET\", \"RESTART_REGISTER\", \"EXTEND_WINDOW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-join",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to restart the subscriber register.\n- The regulator's quarterly filing is due next week.\n- Operations Lead proposed to block the inbound roaming.\n- Safety Auditor accepted the proposal to block the inbound roaming.\n- A customer forum thread is asking about coverage in the valley.\n- Safety Auditor proposed to raise the vendor ticket.\n- Operations Lead accepted the proposal to raise the vendor ticket.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The site access badges expire at the end of the month.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  REROUTE_SIGNALLING  DRAIN_PGW  RAISE_TICKET  BLOCK_ROAMING  EXTEND_WINDOW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RESTART_REGISTER\", \"BLOCK_ROAMING\", \"RAISE_TICKET\", \"EXTEND_WINDOW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-join",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## restart the subscriber register\n- proposed by Operations Lead\n\n## discussion log\n- The regulator's quarterly filing is due next week.\n- A customer forum thread is asking about coverage in the valley.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The site access badges expire at the end of the month.\n\n## block the inbound roaming\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\n## raise the vendor ticket\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  REROUTE_SIGNALLING  DRAIN_PGW  RAISE_TICKET  BLOCK_ROAMING  EXTEND_WINDOW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RESTART_REGISTER\", \"BLOCK_ROAMING\", \"RAISE_TICKET\", \"EXTEND_WINDOW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-join",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: A customer forum thread is asking about coverage in the valley.\nSafety Auditor: One more for the plan: raise the vendor ticket.\nOperations Lead: I think we need to block the inbound roaming on this one; put it on the list.\nSafety Auditor: I'd leave that out; it is not needed this time.\nOperations Lead: The field team's vans get serviced on Wednesday.\nSafety Auditor: The site access badges expire at the end of the month.\nOperations Lead: For the record, I did raise block the inbound roaming earlier in this discussion.\nSafety Auditor: The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  REROUTE_SIGNALLING  DRAIN_PGW  RAISE_TICKET  BLOCK_ROAMING  EXTEND_WINDOW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"BLOCK_ROAMING\", \"EXTEND_WINDOW\", \"RESTART_REGISTER\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-join",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- A customer forum thread is asking about coverage in the valley.\n- Safety Auditor proposed to raise the vendor ticket.\n- Operations Lead proposed to block the inbound roaming; Safety Auditor accepted it.\n- The field team's vans get serviced on Wednesday.\n- The site access badges expire at the end of the month.\n- Operations Lead noted that block the inbound roaming had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  REROUTE_SIGNALLING  DRAIN_PGW  RAISE_TICKET  BLOCK_ROAMING  EXTEND_WINDOW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"RAISE_TICKET\", \"EXTEND_WINDOW\", \"RESTART_REGISTER\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-join",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- A customer forum thread is asking about coverage in the valley.\n- Safety Auditor proposed to raise the vendor ticket.\n- Operations Lead proposed to block the inbound roaming.\n- Safety Auditor accepted the proposal to block the inbound roaming.\n- The field team's vans get serviced on Wednesday.\n- The site access badges expire at the end of the month.\n- Operations Lead noted that block the inbound roaming had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  REROUTE_SIGNALLING  DRAIN_PGW  RAISE_TICKET  BLOCK_ROAMING  EXTEND_WINDOW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"RAISE_TICKET\", \"EXTEND_WINDOW\", \"RESTART_REGISTER\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-join",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- A customer forum thread is asking about coverage in the valley.\n- The field team's vans get serviced on Wednesday.\n- The site access badges expire at the end of the month.\n- The regulator's quarterly filing is due next week.\n\n## raise the vendor ticket\n- proposed by Safety Auditor\n\n## block the inbound roaming\n- proposed by Operations Lead\n- accepted by Safety Auditor\n- noted again by Operations Lead: raised earlier in the discussion\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  REROUTE_SIGNALLING  DRAIN_PGW  RAISE_TICKET  BLOCK_ROAMING  EXTEND_WINDOW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"RAISE_TICKET\", \"EXTEND_WINDOW\", \"RESTART_REGISTER\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-join",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: A customer forum thread is asking about coverage in the valley.\nSafety Auditor: One more for the plan: raise the vendor ticket.\nOperations Lead: I think we need to block the inbound roaming on this one; put it on the list.\nSafety Auditor: I'd leave that out; it is not needed this time.\nOperations Lead: The field team's vans get serviced on Wednesday.\nSafety Auditor: The site access badges expire at the end of the month.\nOperations Lead: For the record, I did raise the written summary deadline earlier in this discussion.\nSafety Auditor: The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  REROUTE_SIGNALLING  DRAIN_PGW  RAISE_TICKET  BLOCK_ROAMING  EXTEND_WINDOW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"BLOCK_ROAMING\", \"EXTEND_WINDOW\", \"RESTART_REGISTER\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-join",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- A customer forum thread is asking about coverage in the valley.\n- Safety Auditor proposed to raise the vendor ticket.\n- Operations Lead proposed to block the inbound roaming; Safety Auditor accepted it.\n- The field team's vans get serviced on Wednesday.\n- The site access badges expire at the end of the month.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  REROUTE_SIGNALLING  DRAIN_PGW  RAISE_TICKET  BLOCK_ROAMING  EXTEND_WINDOW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"RAISE_TICKET\", \"EXTEND_WINDOW\", \"RESTART_REGISTER\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-join",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- A customer forum thread is asking about coverage in the valley.\n- Safety Auditor proposed to raise the vendor ticket.\n- Operations Lead proposed to block the inbound roaming.\n- Safety Auditor accepted the proposal to block the inbound roaming.\n- The field team's vans get serviced on Wednesday.\n- The site access badges expire at the end of the month.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  REROUTE_SIGNALLING  DRAIN_PGW  RAISE_TICKET  BLOCK_ROAMING  EXTEND_WINDOW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"RAISE_TICKET\", \"EXTEND_WINDOW\", \"RESTART_REGISTER\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-join",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- A customer forum thread is asking about coverage in the valley.\n- The field team's vans get serviced on Wednesday.\n- The site access badges expire at the end of the month.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\n## raise the vendor ticket\n- proposed by Safety Auditor\n\n## block the inbound roaming\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  REROUTE_SIGNALLING  DRAIN_PGW  RAISE_TICKET  BLOCK_ROAMING  EXTEND_WINDOW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"BLOCK_ROAMING\", \"EXTEND_WINDOW\", \"RESTART_REGISTER\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-join",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: A customer forum thread is asking about coverage in the valley.\nSafety Auditor: One more for the plan: raise the vendor ticket.\nOperations Lead: Yes, keep it.\nSafety Auditor: My suggestion is that we restart the subscriber register as part of the response.\nOperations Lead: Not that one -- drop it for this case.\nSafety Auditor: The site access badges expire at the end of the month.\nOperations Lead: The field team's vans get serviced on Wednesday.\nSafety Auditor: For the record, I did raise restart the subscriber register earlier in this discussion.\nOperations Lead: The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  REROUTE_SIGNALLING  DRAIN_PGW  RAISE_TICKET  BLOCK_ROAMING  EXTEND_WINDOW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"EXTEND_WINDOW\", \"RESTART_REGISTER\", \"DRAIN_PGW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-join",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- A customer forum thread is asking about coverage in the valley.\n- Safety Auditor proposed to raise the vendor ticket; Operations Lead accepted it.\n- The site access badges expire at the end of the month.\n- The field team's vans get serviced on Wednesday.\n- Safety Auditor noted that restart the subscriber register had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  REROUTE_SIGNALLING  DRAIN_PGW  RAISE_TICKET  BLOCK_ROAMING  EXTEND_WINDOW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"RESTART_REGISTER\", \"BLOCK_ROAMING\", \"EXTEND_WINDOW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-join",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- A customer forum thread is asking about coverage in the valley.\n- Safety Auditor proposed to raise the vendor ticket.\n- Operations Lead accepted the proposal to raise the vendor ticket.\n- Safety Auditor proposed to restart the subscriber register.\n- Operations Lead rejected the proposal to restart the subscriber register; it is not needed for this case.\n- The site access badges expire at the end of the month.\n- The field team's vans get serviced on Wednesday.\n- Safety Auditor noted that restart the subscriber register had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  REROUTE_SIGNALLING  DRAIN_PGW  RAISE_TICKET  BLOCK_ROAMING  EXTEND_WINDOW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"RESTART_REGISTER\", \"EXTEND_WINDOW\", \"BLOCK_ROAMING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-join",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- A customer forum thread is asking about coverage in the valley.\n- The site access badges expire at the end of the month.\n- The field team's vans get serviced on Wednesday.\n- The regulator's quarterly filing is due next week.\n\n## raise the vendor ticket\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\n## restart the subscriber register\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n- noted again by Safety Auditor: raised earlier in the discussion\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  REROUTE_SIGNALLING  DRAIN_PGW  RAISE_TICKET  BLOCK_ROAMING  EXTEND_WINDOW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"EXTEND_WINDOW\", \"DRAIN_PGW\", \"RESTART_REGISTER\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-join",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: A customer forum thread is asking about coverage in the valley.\nSafety Auditor: One more for the plan: raise the vendor ticket.\nOperations Lead: Yes, keep it.\nSafety Auditor: My suggestion is that we restart the subscriber register as part of the response.\nOperations Lead: Not that one -- drop it for this case.\nSafety Auditor: The site access badges expire at the end of the month.\nOperations Lead: The field team's vans get serviced on Wednesday.\nSafety Auditor: For the record, I did raise the written summary deadline earlier in this discussion.\nOperations Lead: The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  REROUTE_SIGNALLING  DRAIN_PGW  RAISE_TICKET  BLOCK_ROAMING  EXTEND_WINDOW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"EXTEND_WINDOW\", \"RESTART_REGISTER\", \"BLOCK_ROAMING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-join",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- A customer forum thread is asking about coverage in the valley.\n- Safety Auditor proposed to raise the vendor ticket; Operations Lead accepted it.\n- The site access badges expire at the end of the month.\n- The field team's vans get serviced on Wednesday.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  REROUTE_SIGNALLING  DRAIN_PGW  RAISE_TICKET  BLOCK_ROAMING  EXTEND_WINDOW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"BLOCK_ROAMING\", \"DRAIN_PGW\", \"RESTART_REGISTER\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-join",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- A customer forum thread is asking about coverage in the valley.\n- Safety Auditor proposed to raise the vendor ticket.\n- Operations Lead accepted the proposal to raise the vendor ticket.\n- Safety Auditor proposed to restart the subscriber register.\n- Operations Lead rejected the proposal to restart the subscriber register; it is not needed for this case.\n- The site access badges expire at the end of the month.\n- The field team's vans get serviced on Wednesday.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  REROUTE_SIGNALLING  DRAIN_PGW  RAISE_TICKET  BLOCK_ROAMING  EXTEND_WINDOW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"EXTEND_WINDOW\", \"BLOCK_ROAMING\", \"RESTART_REGISTER\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-join",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- A customer forum thread is asking about coverage in the valley.\n- The site access badges expire at the end of the month.\n- The field team's vans get serviced on Wednesday.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\n## raise the vendor ticket\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\n## restart the subscriber register\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESTART_REGISTER  REROUTE_SIGNALLING  DRAIN_PGW  RAISE_TICKET  BLOCK_ROAMING  EXTEND_WINDOW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"EXTEND_WINDOW\", \"BLOCK_ROAMING\", \"RESTART_REGISTER\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-diamond",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: My suggestion is that we block the inbound roaming as part of the response.\nSafety Auditor: One more for the plan: restart the subscriber register.\nOperations Lead: Not that one -- drop it for this case.\nSafety Auditor: One more for the plan: reroute the signalling traffic.\nOperations Lead: Agreed -- that stays in.\nSafety Auditor: The site access badges expire at the end of the month.\nOperations Lead: The regulator's quarterly filing is due next week.\nSafety Auditor: For the record, I did raise restart the subscriber register earlier in this discussion.\nOperations Lead: The field team's vans get serviced on Wednesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  EXTEND_WINDOW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET  BLOCK_ROAMING  DRAIN_PGW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"REROUTE_SIGNALLING\", \"RESTART_REGISTER\", \"RAISE_TICKET\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-diamond",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to block the inbound roaming.\n- Safety Auditor proposed to reroute the signalling traffic; Operations Lead accepted it.\n- The site access badges expire at the end of the month.\n- The regulator's quarterly filing is due next week.\n- Safety Auditor noted that restart the subscriber register had been raised earlier in the discussion.\n- The field team's vans get serviced on Wednesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  EXTEND_WINDOW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET  BLOCK_ROAMING  DRAIN_PGW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REROUTE_SIGNALLING\", \"BLOCK_ROAMING\", \"RESTART_REGISTER\", \"EXTEND_WINDOW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-diamond",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to block the inbound roaming.\n- Safety Auditor proposed to restart the subscriber register.\n- Operations Lead rejected the proposal to restart the subscriber register; it is not needed for this case.\n- Safety Auditor proposed to reroute the signalling traffic.\n- Operations Lead accepted the proposal to reroute the signalling traffic.\n- The site access badges expire at the end of the month.\n- The regulator's quarterly filing is due next week.\n- Safety Auditor noted that restart the subscriber register had been raised earlier in the discussion.\n- The field team's vans get serviced on Wednesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  EXTEND_WINDOW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET  BLOCK_ROAMING  DRAIN_PGW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"REROUTE_SIGNALLING\", \"RAISE_TICKET\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-diamond",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## block the inbound roaming\n- proposed by Operations Lead\n\n## restart the subscriber register\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n- noted again by Safety Auditor: raised earlier in the discussion\n\n## reroute the signalling traffic\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\n## discussion log\n- The site access badges expire at the end of the month.\n- The regulator's quarterly filing is due next week.\n- The field team's vans get serviced on Wednesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  EXTEND_WINDOW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET  BLOCK_ROAMING  DRAIN_PGW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"REROUTE_SIGNALLING\", \"RESTART_REGISTER\", \"EXTEND_WINDOW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-diamond",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: My suggestion is that we block the inbound roaming as part of the response.\nSafety Auditor: One more for the plan: restart the subscriber register.\nOperations Lead: Not that one -- drop it for this case.\nSafety Auditor: One more for the plan: reroute the signalling traffic.\nOperations Lead: Agreed -- that stays in.\nSafety Auditor: The site access badges expire at the end of the month.\nOperations Lead: The regulator's quarterly filing is due next week.\nSafety Auditor: For the record, I did raise the written summary deadline earlier in this discussion.\nOperations Lead: The field team's vans get serviced on Wednesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  EXTEND_WINDOW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET  BLOCK_ROAMING  DRAIN_PGW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"REROUTE_SIGNALLING\", \"RESTART_REGISTER\", \"RAISE_TICKET\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-diamond",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to block the inbound roaming.\n- Safety Auditor proposed to reroute the signalling traffic; Operations Lead accepted it.\n- The site access badges expire at the end of the month.\n- The regulator's quarterly filing is due next week.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The field team's vans get serviced on Wednesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  EXTEND_WINDOW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET  BLOCK_ROAMING  DRAIN_PGW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REROUTE_SIGNALLING\", \"BLOCK_ROAMING\", \"EXTEND_WINDOW\", \"RAISE_TICKET\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-diamond",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to block the inbound roaming.\n- Safety Auditor proposed to restart the subscriber register.\n- Operations Lead rejected the proposal to restart the subscriber register; it is not needed for this case.\n- Safety Auditor proposed to reroute the signalling traffic.\n- Operations Lead accepted the proposal to reroute the signalling traffic.\n- The site access badges expire at the end of the month.\n- The regulator's quarterly filing is due next week.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The field team's vans get serviced on Wednesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  EXTEND_WINDOW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET  BLOCK_ROAMING  DRAIN_PGW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"REROUTE_SIGNALLING\", \"RAISE_TICKET\", \"EXTEND_WINDOW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-diamond",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## block the inbound roaming\n- proposed by Operations Lead\n\n## restart the subscriber register\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n\n## reroute the signalling traffic\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\n## discussion log\n- The site access badges expire at the end of the month.\n- The regulator's quarterly filing is due next week.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The field team's vans get serviced on Wednesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  EXTEND_WINDOW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET  BLOCK_ROAMING  DRAIN_PGW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"REROUTE_SIGNALLING\", \"BLOCK_ROAMING\", \"EXTEND_WINDOW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-diamond",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: The site access badges expire at the end of the month.\nSafety Auditor: A customer forum thread is asking about coverage in the valley.\nOperations Lead: One more for the plan: restart the subscriber register.\nSafety Auditor: One more for the plan: reroute the signalling traffic.\nOperations Lead: I'd leave that out; it is not needed this time.\nSafety Auditor: For the record, I did raise reroute the signalling traffic earlier in this discussion.\nOperations Lead: The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  EXTEND_WINDOW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET  BLOCK_ROAMING  DRAIN_PGW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"EXTEND_WINDOW\", \"RESTART_REGISTER\", \"RAISE_TICKET\", \"BLOCK_ROAMING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-diamond",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The site access badges expire at the end of the month.\n- A customer forum thread is asking about coverage in the valley.\n- Operations Lead proposed to restart the subscriber register.\n- Safety Auditor proposed to reroute the signalling traffic; Operations Lead accepted it.\n- Safety Auditor noted that reroute the signalling traffic had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  EXTEND_WINDOW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET  BLOCK_ROAMING  DRAIN_PGW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REROUTE_SIGNALLING\", \"RESTART_REGISTER\", \"EXTEND_WINDOW\", \"RAISE_TICKET\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-diamond",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The site access badges expire at the end of the month.\n- A customer forum thread is asking about coverage in the valley.\n- Operations Lead proposed to restart the subscriber register.\n- Safety Auditor proposed to reroute the signalling traffic.\n- Operations Lead accepted the proposal to reroute the signalling traffic.\n- Safety Auditor noted that reroute the signalling traffic had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  EXTEND_WINDOW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET  BLOCK_ROAMING  DRAIN_PGW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REROUTE_SIGNALLING\", \"EXTEND_WINDOW\", \"RAISE_TICKET\", \"BLOCK_ROAMING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-diamond",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The site access badges expire at the end of the month.\n- A customer forum thread is asking about coverage in the valley.\n- The regulator's quarterly filing is due next week.\n\n## restart the subscriber register\n- proposed by Operations Lead\n\n## reroute the signalling traffic\n- proposed by Safety Auditor\n- accepted by Operations Lead\n- noted again by Safety Auditor: raised earlier in the discussion\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  EXTEND_WINDOW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET  BLOCK_ROAMING  DRAIN_PGW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REROUTE_SIGNALLING\", \"RESTART_REGISTER\", \"EXTEND_WINDOW\", \"RAISE_TICKET\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-diamond",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: The site access badges expire at the end of the month.\nSafety Auditor: A customer forum thread is asking about coverage in the valley.\nOperations Lead: One more for the plan: restart the subscriber register.\nSafety Auditor: One more for the plan: reroute the signalling traffic.\nOperations Lead: I'd leave that out; it is not needed this time.\nSafety Auditor: For the record, I did raise the written summary deadline earlier in this discussion.\nOperations Lead: The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  EXTEND_WINDOW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET  BLOCK_ROAMING  DRAIN_PGW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"EXTEND_WINDOW\", \"RAISE_TICKET\", \"RESTART_REGISTER\", \"BLOCK_ROAMING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-diamond",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The site access badges expire at the end of the month.\n- A customer forum thread is asking about coverage in the valley.\n- Operations Lead proposed to restart the subscriber register.\n- Safety Auditor proposed to reroute the signalling traffic; Operations Lead accepted it.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  EXTEND_WINDOW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET  BLOCK_ROAMING  DRAIN_PGW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REROUTE_SIGNALLING\", \"RESTART_REGISTER\", \"BLOCK_ROAMING\", \"EXTEND_WINDOW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-diamond",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The site access badges expire at the end of the month.\n- A customer forum thread is asking about coverage in the valley.\n- Operations Lead proposed to restart the subscriber register.\n- Safety Auditor proposed to reroute the signalling traffic.\n- Operations Lead accepted the proposal to reroute the signalling traffic.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  EXTEND_WINDOW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET  BLOCK_ROAMING  DRAIN_PGW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REROUTE_SIGNALLING\", \"BLOCK_ROAMING\", \"EXTEND_WINDOW\", \"RAISE_TICKET\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-diamond",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The site access badges expire at the end of the month.\n- A customer forum thread is asking about coverage in the valley.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\n## restart the subscriber register\n- proposed by Operations Lead\n\n## reroute the signalling traffic\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  EXTEND_WINDOW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET  BLOCK_ROAMING  DRAIN_PGW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"RESTART_REGISTER\", \"REROUTE_SIGNALLING\", \"BLOCK_ROAMING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-diamond",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: My suggestion is that we block the inbound roaming as part of the response.\nSafety Auditor: I'd leave that out; it is not needed this time.\nOperations Lead: The site access badges expire at the end of the month.\nSafety Auditor: One more for the plan: restart the subscriber register.\nOperations Lead: Yes, keep it.\nSafety Auditor: The regulator's quarterly filing is due next week.\nOperations Lead: For the record, I did raise block the inbound roaming earlier in this discussion.\nSafety Auditor: A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  EXTEND_WINDOW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET  BLOCK_ROAMING  DRAIN_PGW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"RESTART_REGISTER\", \"BLOCK_ROAMING\", \"EXTEND_WINDOW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-diamond",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to block the inbound roaming; Safety Auditor accepted it.\n- The site access badges expire at the end of the month.\n- Safety Auditor proposed to restart the subscriber register; Operations Lead accepted it.\n- The regulator's quarterly filing is due next week.\n- Operations Lead noted that block the inbound roaming had been raised earlier in the discussion.\n- A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  EXTEND_WINDOW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET  BLOCK_ROAMING  DRAIN_PGW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"RESTART_REGISTER\", \"RAISE_TICKET\", \"EXTEND_WINDOW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-diamond",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to block the inbound roaming.\n- Safety Auditor accepted the proposal to block the inbound roaming.\n- The site access badges expire at the end of the month.\n- Safety Auditor proposed to restart the subscriber register.\n- Operations Lead accepted the proposal to restart the subscriber register.\n- The regulator's quarterly filing is due next week.\n- Operations Lead noted that block the inbound roaming had been raised earlier in the discussion.\n- A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  EXTEND_WINDOW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET  BLOCK_ROAMING  DRAIN_PGW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"RESTART_REGISTER\", \"RAISE_TICKET\", \"EXTEND_WINDOW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-diamond",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## block the inbound roaming\n- proposed by Operations Lead\n- accepted by Safety Auditor\n- noted again by Operations Lead: raised earlier in the discussion\n\n## discussion log\n- The site access badges expire at the end of the month.\n- The regulator's quarterly filing is due next week.\n- A customer forum thread is asking about coverage in the valley.\n\n## restart the subscriber register\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  EXTEND_WINDOW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET  BLOCK_ROAMING  DRAIN_PGW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"RESTART_REGISTER\", \"RAISE_TICKET\", \"EXTEND_WINDOW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-diamond",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: My suggestion is that we block the inbound roaming as part of the response.\nSafety Auditor: I'd leave that out; it is not needed this time.\nOperations Lead: The site access badges expire at the end of the month.\nSafety Auditor: One more for the plan: restart the subscriber register.\nOperations Lead: Yes, keep it.\nSafety Auditor: The regulator's quarterly filing is due next week.\nOperations Lead: For the record, I did raise the written summary deadline earlier in this discussion.\nSafety Auditor: A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  EXTEND_WINDOW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET  BLOCK_ROAMING  DRAIN_PGW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"RESTART_REGISTER\", \"EXTEND_WINDOW\", \"DRAIN_PGW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-diamond",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to block the inbound roaming; Safety Auditor accepted it.\n- The site access badges expire at the end of the month.\n- Safety Auditor proposed to restart the subscriber register; Operations Lead accepted it.\n- The regulator's quarterly filing is due next week.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  EXTEND_WINDOW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET  BLOCK_ROAMING  DRAIN_PGW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"RESTART_REGISTER\", \"RAISE_TICKET\", \"EXTEND_WINDOW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-diamond",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to block the inbound roaming.\n- Safety Auditor accepted the proposal to block the inbound roaming.\n- The site access badges expire at the end of the month.\n- Safety Auditor proposed to restart the subscriber register.\n- Operations Lead accepted the proposal to restart the subscriber register.\n- The regulator's quarterly filing is due next week.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  EXTEND_WINDOW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET  BLOCK_ROAMING  DRAIN_PGW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"RESTART_REGISTER\", \"RAISE_TICKET\", \"EXTEND_WINDOW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-diamond",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## block the inbound roaming\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\n## discussion log\n- The site access badges expire at the end of the month.\n- The regulator's quarterly filing is due next week.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- A customer forum thread is asking about coverage in the valley.\n\n## restart the subscriber register\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  EXTEND_WINDOW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET  BLOCK_ROAMING  DRAIN_PGW\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"RESTART_REGISTER\", \"RAISE_TICKET\", \"EXTEND_WINDOW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-twochain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: One more for the plan: restart the subscriber register.\nSafety Auditor: Yes, keep it.\nOperations Lead: The field team's vans get serviced on Wednesday.\nSafety Auditor: One more for the plan: block the inbound roaming.\nOperations Lead: Not that one -- drop it for this case.\nSafety Auditor: I think we need to extend the change window on this one; put it on the list.\nOperations Lead: A customer forum thread is asking about coverage in the valley.\nSafety Auditor: For the record, I did raise block the inbound roaming earlier in this discussion.\nOperations Lead: The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BLOCK_ROAMING  EXTEND_WINDOW  DRAIN_PGW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RESTART_REGISTER\", \"EXTEND_WINDOW\", \"RAISE_TICKET\", \"DRAIN_PGW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-twochain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to restart the subscriber register; Safety Auditor accepted it.\n- The field team's vans get serviced on Wednesday.\n- Safety Auditor proposed to extend the change window.\n- A customer forum thread is asking about coverage in the valley.\n- Safety Auditor noted that block the inbound roaming had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BLOCK_ROAMING  EXTEND_WINDOW  DRAIN_PGW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RESTART_REGISTER\", \"BLOCK_ROAMING\", \"EXTEND_WINDOW\", \"RAISE_TICKET\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-twochain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to restart the subscriber register.\n- Safety Auditor accepted the proposal to restart the subscriber register.\n- The field team's vans get serviced on Wednesday.\n- Safety Auditor proposed to block the inbound roaming.\n- Operations Lead rejected the proposal to block the inbound roaming; it is not needed for this case.\n- Safety Auditor proposed to extend the change window.\n- A customer forum thread is asking about coverage in the valley.\n- Safety Auditor noted that block the inbound roaming had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BLOCK_ROAMING  EXTEND_WINDOW  DRAIN_PGW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RESTART_REGISTER\", \"EXTEND_WINDOW\", \"RAISE_TICKET\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-twochain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## restart the subscriber register\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\n## discussion log\n- The field team's vans get serviced on Wednesday.\n- A customer forum thread is asking about coverage in the valley.\n- The regulator's quarterly filing is due next week.\n\n## block the inbound roaming\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n- noted again by Safety Auditor: raised earlier in the discussion\n\n## extend the change window\n- proposed by Safety Auditor\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BLOCK_ROAMING  EXTEND_WINDOW  DRAIN_PGW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RESTART_REGISTER\", \"EXTEND_WINDOW\", \"RAISE_TICKET\", \"DRAIN_PGW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-twochain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: One more for the plan: restart the subscriber register.\nSafety Auditor: Yes, keep it.\nOperations Lead: The field team's vans get serviced on Wednesday.\nSafety Auditor: One more for the plan: block the inbound roaming.\nOperations Lead: Not that one -- drop it for this case.\nSafety Auditor: I think we need to extend the change window on this one; put it on the list.\nOperations Lead: A customer forum thread is asking about coverage in the valley.\nSafety Auditor: For the record, I did raise the written summary deadline earlier in this discussion.\nOperations Lead: The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BLOCK_ROAMING  EXTEND_WINDOW  DRAIN_PGW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RESTART_REGISTER\", \"EXTEND_WINDOW\", \"RAISE_TICKET\", \"DRAIN_PGW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-twochain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to restart the subscriber register; Safety Auditor accepted it.\n- The field team's vans get serviced on Wednesday.\n- Safety Auditor proposed to extend the change window.\n- A customer forum thread is asking about coverage in the valley.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BLOCK_ROAMING  EXTEND_WINDOW  DRAIN_PGW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RESTART_REGISTER\", \"EXTEND_WINDOW\", \"RAISE_TICKET\", \"DRAIN_PGW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-twochain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to restart the subscriber register.\n- Safety Auditor accepted the proposal to restart the subscriber register.\n- The field team's vans get serviced on Wednesday.\n- Safety Auditor proposed to block the inbound roaming.\n- Operations Lead rejected the proposal to block the inbound roaming; it is not needed for this case.\n- Safety Auditor proposed to extend the change window.\n- A customer forum thread is asking about coverage in the valley.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BLOCK_ROAMING  EXTEND_WINDOW  DRAIN_PGW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RESTART_REGISTER\", \"EXTEND_WINDOW\", \"RAISE_TICKET\", \"BLOCK_ROAMING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-twochain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## restart the subscriber register\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\n## discussion log\n- The field team's vans get serviced on Wednesday.\n- A customer forum thread is asking about coverage in the valley.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\n## block the inbound roaming\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n\n## extend the change window\n- proposed by Safety Auditor\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BLOCK_ROAMING  EXTEND_WINDOW  DRAIN_PGW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RESTART_REGISTER\", \"EXTEND_WINDOW\", \"RAISE_TICKET\", \"DRAIN_PGW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-twochain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: The site access badges expire at the end of the month.\nSafety Auditor: A customer forum thread is asking about coverage in the valley.\nOperations Lead: One more for the plan: restart the subscriber register.\nSafety Auditor: No, take that one off; we don't need it here.\nOperations Lead: One more for the plan: block the inbound roaming.\nSafety Auditor: The regulator's quarterly filing is due next week.\nOperations Lead: For the record, I did raise restart the subscriber register earlier in this discussion.\nSafety Auditor: The field team's vans get serviced on Wednesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BLOCK_ROAMING  EXTEND_WINDOW  DRAIN_PGW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"EXTEND_WINDOW\", \"RAISE_TICKET\", \"BLOCK_ROAMING\", \"RESTART_REGISTER\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-twochain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The site access badges expire at the end of the month.\n- A customer forum thread is asking about coverage in the valley.\n- Operations Lead proposed to block the inbound roaming.\n- The regulator's quarterly filing is due next week.\n- Operations Lead noted that restart the subscriber register had been raised earlier in the discussion.\n- The field team's vans get serviced on Wednesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BLOCK_ROAMING  EXTEND_WINDOW  DRAIN_PGW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RESTART_REGISTER\", \"BLOCK_ROAMING\", \"DRAIN_PGW\", \"EXTEND_WINDOW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-twochain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The site access badges expire at the end of the month.\n- A customer forum thread is asking about coverage in the valley.\n- Operations Lead proposed to restart the subscriber register.\n- Safety Auditor rejected the proposal to restart the subscriber register; it is not needed for this case.\n- Operations Lead proposed to block the inbound roaming.\n- The regulator's quarterly filing is due next week.\n- Operations Lead noted that restart the subscriber register had been raised earlier in the discussion.\n- The field team's vans get serviced on Wednesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BLOCK_ROAMING  EXTEND_WINDOW  DRAIN_PGW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"BLOCK_ROAMING\", \"EXTEND_WINDOW\", \"DRAIN_PGW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-twochain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The site access badges expire at the end of the month.\n- A customer forum thread is asking about coverage in the valley.\n- The regulator's quarterly filing is due next week.\n- The field team's vans get serviced on Wednesday.\n\n## restart the subscriber register\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n- noted again by Operations Lead: raised earlier in the discussion\n\n## block the inbound roaming\n- proposed by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BLOCK_ROAMING  EXTEND_WINDOW  DRAIN_PGW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"EXTEND_WINDOW\", \"RAISE_TICKET\", \"RESTART_REGISTER\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-twochain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: The site access badges expire at the end of the month.\nSafety Auditor: A customer forum thread is asking about coverage in the valley.\nOperations Lead: One more for the plan: restart the subscriber register.\nSafety Auditor: No, take that one off; we don't need it here.\nOperations Lead: One more for the plan: block the inbound roaming.\nSafety Auditor: The regulator's quarterly filing is due next week.\nOperations Lead: For the record, I did raise the written summary deadline earlier in this discussion.\nSafety Auditor: The field team's vans get serviced on Wednesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BLOCK_ROAMING  EXTEND_WINDOW  DRAIN_PGW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"EXTEND_WINDOW\", \"RAISE_TICKET\", \"RESTART_REGISTER\", \"BLOCK_ROAMING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-twochain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The site access badges expire at the end of the month.\n- A customer forum thread is asking about coverage in the valley.\n- Operations Lead proposed to block the inbound roaming.\n- The regulator's quarterly filing is due next week.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The field team's vans get serviced on Wednesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BLOCK_ROAMING  EXTEND_WINDOW  DRAIN_PGW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"BLOCK_ROAMING\", \"DRAIN_PGW\", \"EXTEND_WINDOW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-twochain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The site access badges expire at the end of the month.\n- A customer forum thread is asking about coverage in the valley.\n- Operations Lead proposed to restart the subscriber register.\n- Safety Auditor rejected the proposal to restart the subscriber register; it is not needed for this case.\n- Operations Lead proposed to block the inbound roaming.\n- The regulator's quarterly filing is due next week.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The field team's vans get serviced on Wednesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BLOCK_ROAMING  EXTEND_WINDOW  DRAIN_PGW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"BLOCK_ROAMING\", \"EXTEND_WINDOW\", \"DRAIN_PGW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-twochain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The site access badges expire at the end of the month.\n- A customer forum thread is asking about coverage in the valley.\n- The regulator's quarterly filing is due next week.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The field team's vans get serviced on Wednesday.\n\n## restart the subscriber register\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n\n## block the inbound roaming\n- proposed by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BLOCK_ROAMING  EXTEND_WINDOW  DRAIN_PGW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RAISE_TICKET\", \"EXTEND_WINDOW\", \"BLOCK_ROAMING\", \"DRAIN_PGW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-twochain",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: The field team's vans get serviced on Wednesday.\nSafety Auditor: One more for the plan: block the inbound roaming.\nOperations Lead: Fine, that one is in.\nSafety Auditor: I think we need to extend the change window on this one; put it on the list.\nOperations Lead: I'd leave that out; it is not needed this time.\nSafety Auditor: The site access badges expire at the end of the month.\nOperations Lead: The regulator's quarterly filing is due next week.\nSafety Auditor: For the record, I did raise extend the change window earlier in this discussion.\nOperations Lead: A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BLOCK_ROAMING  EXTEND_WINDOW  DRAIN_PGW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RESTART_REGISTER\", \"REROUTE_SIGNALLING\", \"BLOCK_ROAMING\", \"EXTEND_WINDOW\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-twochain",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The field team's vans get serviced on Wednesday.\n- Safety Auditor proposed to block the inbound roaming; Operations Lead accepted it.\n- Safety Auditor proposed to extend the change window; Operations Lead accepted it.\n- The site access badges expire at the end of the month.\n- The regulator's quarterly filing is due next week.\n- Safety Auditor noted that extend the change window had been raised earlier in the discussion.\n- A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BLOCK_ROAMING  EXTEND_WINDOW  DRAIN_PGW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"EXTEND_WINDOW\", \"RAISE_TICKET\", \"RESTART_REGISTER\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-twochain",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The field team's vans get serviced on Wednesday.\n- Safety Auditor proposed to block the inbound roaming.\n- Operations Lead accepted the proposal to block the inbound roaming.\n- Safety Auditor proposed to extend the change window.\n- Operations Lead accepted the proposal to extend the change window.\n- The site access badges expire at the end of the month.\n- The regulator's quarterly filing is due next week.\n- Safety Auditor noted that extend the change window had been raised earlier in the discussion.\n- A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BLOCK_ROAMING  EXTEND_WINDOW  DRAIN_PGW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"EXTEND_WINDOW\", \"RAISE_TICKET\", \"RESTART_REGISTER\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-twochain",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The field team's vans get serviced on Wednesday.\n- The site access badges expire at the end of the month.\n- The regulator's quarterly filing is due next week.\n- A customer forum thread is asking about coverage in the valley.\n\n## block the inbound roaming\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\n## extend the change window\n- proposed by Safety Auditor\n- accepted by Operations Lead\n- noted again by Safety Auditor: raised earlier in the discussion\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BLOCK_ROAMING  EXTEND_WINDOW  DRAIN_PGW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"EXTEND_WINDOW\", \"RAISE_TICKET\", \"RESTART_REGISTER\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-twochain",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: The field team's vans get serviced on Wednesday.\nSafety Auditor: One more for the plan: block the inbound roaming.\nOperations Lead: Fine, that one is in.\nSafety Auditor: I think we need to extend the change window on this one; put it on the list.\nOperations Lead: I'd leave that out; it is not needed this time.\nSafety Auditor: The site access badges expire at the end of the month.\nOperations Lead: The regulator's quarterly filing is due next week.\nSafety Auditor: For the record, I did raise the written summary deadline earlier in this discussion.\nOperations Lead: A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BLOCK_ROAMING  EXTEND_WINDOW  DRAIN_PGW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RESTART_REGISTER\", \"DRAIN_PGW\", \"RAISE_TICKET\", \"BLOCK_ROAMING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-twochain",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The field team's vans get serviced on Wednesday.\n- Safety Auditor proposed to block the inbound roaming; Operations Lead accepted it.\n- Safety Auditor proposed to extend the change window; Operations Lead accepted it.\n- The site access badges expire at the end of the month.\n- The regulator's quarterly filing is due next week.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BLOCK_ROAMING  EXTEND_WINDOW  DRAIN_PGW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"EXTEND_WINDOW\", \"RAISE_TICKET\", \"RESTART_REGISTER\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-twochain",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The field team's vans get serviced on Wednesday.\n- Safety Auditor proposed to block the inbound roaming.\n- Operations Lead accepted the proposal to block the inbound roaming.\n- Safety Auditor proposed to extend the change window.\n- Operations Lead accepted the proposal to extend the change window.\n- The site access badges expire at the end of the month.\n- The regulator's quarterly filing is due next week.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BLOCK_ROAMING  EXTEND_WINDOW  DRAIN_PGW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"EXTEND_WINDOW\", \"RAISE_TICKET\", \"RESTART_REGISTER\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-twochain",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The field team's vans get serviced on Wednesday.\n- The site access badges expire at the end of the month.\n- The regulator's quarterly filing is due next week.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- A customer forum thread is asking about coverage in the valley.\n\n## block the inbound roaming\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\n## extend the change window\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  BLOCK_ROAMING  EXTEND_WINDOW  DRAIN_PGW  RESTART_REGISTER  REROUTE_SIGNALLING  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"BLOCK_ROAMING\", \"EXTEND_WINDOW\", \"RAISE_TICKET\", \"RESTART_REGISTER\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-star",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: My suggestion is that we extend the change window as part of the response.\nSafety Auditor: My suggestion is that we reroute the signalling traffic as part of the response.\nOperations Lead: Not that one -- drop it for this case.\nSafety Auditor: The field team's vans get serviced on Wednesday.\nOperations Lead: My suggestion is that we drain the packet gateway as part of the response.\nSafety Auditor: Agreed -- that stays in.\nOperations Lead: The site access badges expire at the end of the month.\nSafety Auditor: For the record, I did raise reroute the signalling traffic earlier in this discussion.\nOperations Lead: The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  RESTART_REGISTER  BLOCK_ROAMING  DRAIN_PGW  EXTEND_WINDOW  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"EXTEND_WINDOW\", \"DRAIN_PGW\", \"RAISE_TICKET\", \"BLOCK_ROAMING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-star",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to extend the change window.\n- The field team's vans get serviced on Wednesday.\n- Operations Lead proposed to drain the packet gateway; Safety Auditor accepted it.\n- The site access badges expire at the end of the month.\n- Safety Auditor noted that reroute the signalling traffic had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  RESTART_REGISTER  BLOCK_ROAMING  DRAIN_PGW  EXTEND_WINDOW  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"EXTEND_WINDOW\", \"DRAIN_PGW\", \"REROUTE_SIGNALLING\", \"RAISE_TICKET\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-star",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to extend the change window.\n- Safety Auditor proposed to reroute the signalling traffic.\n- Operations Lead rejected the proposal to reroute the signalling traffic; it is not needed for this case.\n- The field team's vans get serviced on Wednesday.\n- Operations Lead proposed to drain the packet gateway.\n- Safety Auditor accepted the proposal to drain the packet gateway.\n- The site access badges expire at the end of the month.\n- Safety Auditor noted that reroute the signalling traffic had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  RESTART_REGISTER  BLOCK_ROAMING  DRAIN_PGW  EXTEND_WINDOW  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"EXTEND_WINDOW\", \"DRAIN_PGW\", \"RAISE_TICKET\", \"BLOCK_ROAMING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-star",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## extend the change window\n- proposed by Operations Lead\n\n## reroute the signalling traffic\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n- noted again by Safety Auditor: raised earlier in the discussion\n\n## discussion log\n- The field team's vans get serviced on Wednesday.\n- The site access badges expire at the end of the month.\n- The regulator's quarterly filing is due next week.\n\n## drain the packet gateway\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  RESTART_REGISTER  BLOCK_ROAMING  DRAIN_PGW  EXTEND_WINDOW  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"EXTEND_WINDOW\", \"DRAIN_PGW\", \"RAISE_TICKET\", \"RESTART_REGISTER\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-star",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: My suggestion is that we extend the change window as part of the response.\nSafety Auditor: My suggestion is that we reroute the signalling traffic as part of the response.\nOperations Lead: Not that one -- drop it for this case.\nSafety Auditor: The field team's vans get serviced on Wednesday.\nOperations Lead: My suggestion is that we drain the packet gateway as part of the response.\nSafety Auditor: Agreed -- that stays in.\nOperations Lead: The site access badges expire at the end of the month.\nSafety Auditor: For the record, I did raise the written summary deadline earlier in this discussion.\nOperations Lead: The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  RESTART_REGISTER  BLOCK_ROAMING  DRAIN_PGW  EXTEND_WINDOW  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"EXTEND_WINDOW\", \"DRAIN_PGW\", \"RAISE_TICKET\", \"RESTART_REGISTER\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-star",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to extend the change window.\n- The field team's vans get serviced on Wednesday.\n- Operations Lead proposed to drain the packet gateway; Safety Auditor accepted it.\n- The site access badges expire at the end of the month.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  RESTART_REGISTER  BLOCK_ROAMING  DRAIN_PGW  EXTEND_WINDOW  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"EXTEND_WINDOW\", \"DRAIN_PGW\", \"RAISE_TICKET\", \"RESTART_REGISTER\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-star",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to extend the change window.\n- Safety Auditor proposed to reroute the signalling traffic.\n- Operations Lead rejected the proposal to reroute the signalling traffic; it is not needed for this case.\n- The field team's vans get serviced on Wednesday.\n- Operations Lead proposed to drain the packet gateway.\n- Safety Auditor accepted the proposal to drain the packet gateway.\n- The site access badges expire at the end of the month.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  RESTART_REGISTER  BLOCK_ROAMING  DRAIN_PGW  EXTEND_WINDOW  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"EXTEND_WINDOW\", \"DRAIN_PGW\", \"RAISE_TICKET\", \"BLOCK_ROAMING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-star",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## extend the change window\n- proposed by Operations Lead\n\n## reroute the signalling traffic\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n\n## discussion log\n- The field team's vans get serviced on Wednesday.\n- The site access badges expire at the end of the month.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\n## drain the packet gateway\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  RESTART_REGISTER  BLOCK_ROAMING  DRAIN_PGW  EXTEND_WINDOW  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"EXTEND_WINDOW\", \"DRAIN_PGW\", \"RAISE_TICKET\", \"BLOCK_ROAMING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-star",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: My suggestion is that we reroute the signalling traffic as part of the response.\nSafety Auditor: The regulator's quarterly filing is due next week.\nOperations Lead: The site access badges expire at the end of the month.\nSafety Auditor: My suggestion is that we drain the packet gateway as part of the response.\nOperations Lead: I'd leave that out; it is not needed this time.\nSafety Auditor: For the record, I did raise drain the packet gateway earlier in this discussion.\nOperations Lead: A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  RESTART_REGISTER  BLOCK_ROAMING  DRAIN_PGW  EXTEND_WINDOW  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REROUTE_SIGNALLING\", \"EXTEND_WINDOW\", \"RAISE_TICKET\", \"BLOCK_ROAMING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-star",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to reroute the signalling traffic.\n- The regulator's quarterly filing is due next week.\n- The site access badges expire at the end of the month.\n- Safety Auditor proposed to drain the packet gateway; Operations Lead accepted it.\n- Safety Auditor noted that drain the packet gateway had been raised earlier in the discussion.\n- A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  RESTART_REGISTER  BLOCK_ROAMING  DRAIN_PGW  EXTEND_WINDOW  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REROUTE_SIGNALLING\", \"DRAIN_PGW\", \"EXTEND_WINDOW\", \"RAISE_TICKET\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-star",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to reroute the signalling traffic.\n- The regulator's quarterly filing is due next week.\n- The site access badges expire at the end of the month.\n- Safety Auditor proposed to drain the packet gateway.\n- Operations Lead accepted the proposal to drain the packet gateway.\n- Safety Auditor noted that drain the packet gateway had been raised earlier in the discussion.\n- A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  RESTART_REGISTER  BLOCK_ROAMING  DRAIN_PGW  EXTEND_WINDOW  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"DRAIN_PGW\", \"RESTART_REGISTER\", \"EXTEND_WINDOW\", \"RAISE_TICKET\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-star",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## reroute the signalling traffic\n- proposed by Operations Lead\n\n## discussion log\n- The regulator's quarterly filing is due next week.\n- The site access badges expire at the end of the month.\n- A customer forum thread is asking about coverage in the valley.\n\n## drain the packet gateway\n- proposed by Safety Auditor\n- accepted by Operations Lead\n- noted again by Safety Auditor: raised earlier in the discussion\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  RESTART_REGISTER  BLOCK_ROAMING  DRAIN_PGW  EXTEND_WINDOW  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REROUTE_SIGNALLING\", \"DRAIN_PGW\", \"EXTEND_WINDOW\", \"RAISE_TICKET\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-star",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: My suggestion is that we reroute the signalling traffic as part of the response.\nSafety Auditor: The regulator's quarterly filing is due next week.\nOperations Lead: The site access badges expire at the end of the month.\nSafety Auditor: My suggestion is that we drain the packet gateway as part of the response.\nOperations Lead: I'd leave that out; it is not needed this time.\nSafety Auditor: For the record, I did raise the written summary deadline earlier in this discussion.\nOperations Lead: A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  RESTART_REGISTER  BLOCK_ROAMING  DRAIN_PGW  EXTEND_WINDOW  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REROUTE_SIGNALLING\", \"EXTEND_WINDOW\", \"RAISE_TICKET\", \"FORUM_RESPONSE\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-star",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to reroute the signalling traffic.\n- The regulator's quarterly filing is due next week.\n- The site access badges expire at the end of the month.\n- Safety Auditor proposed to drain the packet gateway; Operations Lead accepted it.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  RESTART_REGISTER  BLOCK_ROAMING  DRAIN_PGW  EXTEND_WINDOW  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REROUTE_SIGNALLING\", \"DRAIN_PGW\", \"EXTEND_WINDOW\", \"RAISE_TICKET\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-star",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to reroute the signalling traffic.\n- The regulator's quarterly filing is due next week.\n- The site access badges expire at the end of the month.\n- Safety Auditor proposed to drain the packet gateway.\n- Operations Lead accepted the proposal to drain the packet gateway.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- A customer forum thread is asking about coverage in the valley.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  RESTART_REGISTER  BLOCK_ROAMING  DRAIN_PGW  EXTEND_WINDOW  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"DRAIN_PGW\", \"RESTART_REGISTER\", \"EXTEND_WINDOW\", \"RAISE_TICKET\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-star",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## reroute the signalling traffic\n- proposed by Operations Lead\n\n## discussion log\n- The regulator's quarterly filing is due next week.\n- The site access badges expire at the end of the month.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- A customer forum thread is asking about coverage in the valley.\n\n## drain the packet gateway\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  RESTART_REGISTER  BLOCK_ROAMING  DRAIN_PGW  EXTEND_WINDOW  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REROUTE_SIGNALLING\", \"DRAIN_PGW\", \"EXTEND_WINDOW\", \"RAISE_TICKET\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-star",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: My suggestion is that we extend the change window as part of the response.\nSafety Auditor: I'd leave that out; it is not needed this time.\nOperations Lead: The site access badges expire at the end of the month.\nSafety Auditor: The field team's vans get serviced on Wednesday.\nOperations Lead: My suggestion is that we reroute the signalling traffic as part of the response.\nSafety Auditor: Fine, that one is in.\nOperations Lead: For the record, I did raise extend the change window earlier in this discussion.\nSafety Auditor: The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  RESTART_REGISTER  BLOCK_ROAMING  DRAIN_PGW  EXTEND_WINDOW  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REROUTE_SIGNALLING\", \"BLOCK_ROAMING\", \"EXTEND_WINDOW\", \"RAISE_TICKET\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-star",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to extend the change window; Safety Auditor accepted it.\n- The site access badges expire at the end of the month.\n- The field team's vans get serviced on Wednesday.\n- Operations Lead proposed to reroute the signalling traffic; Safety Auditor accepted it.\n- Operations Lead noted that extend the change window had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  RESTART_REGISTER  BLOCK_ROAMING  DRAIN_PGW  EXTEND_WINDOW  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"EXTEND_WINDOW\", \"REROUTE_SIGNALLING\", \"BLOCK_ROAMING\", \"RAISE_TICKET\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-star",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to extend the change window.\n- Safety Auditor accepted the proposal to extend the change window.\n- The site access badges expire at the end of the month.\n- The field team's vans get serviced on Wednesday.\n- Operations Lead proposed to reroute the signalling traffic.\n- Safety Auditor accepted the proposal to reroute the signalling traffic.\n- Operations Lead noted that extend the change window had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  RESTART_REGISTER  BLOCK_ROAMING  DRAIN_PGW  EXTEND_WINDOW  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"EXTEND_WINDOW\", \"REROUTE_SIGNALLING\", \"BLOCK_ROAMING\", \"RESTART_REGISTER\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-star",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## extend the change window\n- proposed by Operations Lead\n- accepted by Safety Auditor\n- noted again by Operations Lead: raised earlier in the discussion\n\n## discussion log\n- The site access badges expire at the end of the month.\n- The field team's vans get serviced on Wednesday.\n- The regulator's quarterly filing is due next week.\n\n## reroute the signalling traffic\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  RESTART_REGISTER  BLOCK_ROAMING  DRAIN_PGW  EXTEND_WINDOW  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"EXTEND_WINDOW\", \"RAISE_TICKET\", \"REROUTE_SIGNALLING\", \"BLOCK_ROAMING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-star",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: My suggestion is that we extend the change window as part of the response.\nSafety Auditor: I'd leave that out; it is not needed this time.\nOperations Lead: The site access badges expire at the end of the month.\nSafety Auditor: The field team's vans get serviced on Wednesday.\nOperations Lead: My suggestion is that we reroute the signalling traffic as part of the response.\nSafety Auditor: Fine, that one is in.\nOperations Lead: For the record, I did raise the written summary deadline earlier in this discussion.\nSafety Auditor: The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  RESTART_REGISTER  BLOCK_ROAMING  DRAIN_PGW  EXTEND_WINDOW  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REROUTE_SIGNALLING\", \"BLOCK_ROAMING\", \"EXTEND_WINDOW\", \"RAISE_TICKET\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-star",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to extend the change window; Safety Auditor accepted it.\n- The site access badges expire at the end of the month.\n- The field team's vans get serviced on Wednesday.\n- Operations Lead proposed to reroute the signalling traffic; Safety Auditor accepted it.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  RESTART_REGISTER  BLOCK_ROAMING  DRAIN_PGW  EXTEND_WINDOW  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"EXTEND_WINDOW\", \"REROUTE_SIGNALLING\", \"RAISE_TICKET\", \"BLOCK_ROAMING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-star",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to extend the change window.\n- Safety Auditor accepted the proposal to extend the change window.\n- The site access badges expire at the end of the month.\n- The field team's vans get serviced on Wednesday.\n- Operations Lead proposed to reroute the signalling traffic.\n- Safety Auditor accepted the proposal to reroute the signalling traffic.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  RESTART_REGISTER  BLOCK_ROAMING  DRAIN_PGW  EXTEND_WINDOW  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"EXTEND_WINDOW\", \"REROUTE_SIGNALLING\", \"RAISE_TICKET\", \"BLOCK_ROAMING\"], \"ready\": true}"
+ },
+ {
+  "instance": "telecom-star",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## extend the change window\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\n## discussion log\n- The site access badges expire at the end of the month.\n- The field team's vans get serviced on Wednesday.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The regulator's quarterly filing is due next week.\n\n## reroute the signalling traffic\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REROUTE_SIGNALLING  RESTART_REGISTER  BLOCK_ROAMING  DRAIN_PGW  EXTEND_WINDOW  RAISE_TICKET\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"EXTEND_WINDOW\", \"RAISE_TICKET\", \"REROUTE_SIGNALLING\", \"BLOCK_ROAMING\"], \"ready\": true}"
+ }
+]

@@ -67,6 +67,73 @@ templates are still templates. What this can rule out is that E29's result
 depends on one particular set of domain phrases and one set of sentence
 wordings. It cannot speak to naturalistic dialogue.
 
-## 5. Outcome
+## 5. Outcome — run 2026-09-12, after `333ad85`
 
-_(empty at declaration)_
+768 of 768 calls per decider (`llama3.2:3b` in four chunks of 24;
+`qwen2.5:7b-instruct` in two of 24 and three of 16), parse 1.000 in every
+cell, mean |plan| 3.98–4.00, all cells valid, zero transport retries.
+`results/e29n_<model>_o*.csv/.json`, `results/e29n_<model>_summary.json`.
+
+Rejected-step inclusion, n = 96 dialogues per cell:
+
+| decider | design | restated | neutral | Δ | 95 % CI | DiD vs full | 95 % CI |
+|---|---|---|---|---|---|---|---|
+| `llama3.2:3b` | full | 0.604 | 0.760 | −0.156 | [−0.240, −0.083] | reference | |
+| | delete | 0.958 | 0.771 | +0.188 | [+0.104, +0.271] | **+0.344** | [+0.240, +0.469] |
+| | addonly | 0.490 | 0.479 | +0.010 | [−0.031, +0.052] | +0.167 | [+0.073, +0.260] |
+| | wiki | 0.615 | 0.500 | +0.115 | [+0.052, +0.188] | +0.271 | [+0.156, +0.396] |
+| `qwen2.5:7b-instruct` | full | 0.521 | 0.677 | −0.156 | [−0.250, −0.073] | reference | |
+| | delete | 0.969 | 0.656 | +0.312 | [+0.219, +0.406] | **+0.469** | [+0.344, +0.594] |
+| | addonly | 0.521 | 0.583 | −0.062 | [−0.135, +0.010] | +0.094 | [−0.021, +0.208] |
+| | wiki | 0.583 | 0.479 | +0.104 | [+0.031, +0.187] | +0.260 | [+0.146, +0.385] |
+
+**Verdicts by E29's rule: DESIGN-DEPENDENT on both deciders**, carried by
+`delete` (llama +0.344, qwen +0.469; on the first corpus +0.438 and +0.375).
+P1 holds on both. P2 (|DiD_addonly| < 0.15) holds on qwen (+0.094) and
+**fails on llama (+0.167)**; see below for why that failure is the reference
+arm's, not add-only's. P3: wiki positive on both (+0.271, +0.260), as on the
+first corpus for these two deciders. P5 (control): under `delete`/neutral the
+rejected step's inclusion is within 0.10 of that cell's `never` rate on qwen
+(0.656 vs 0.479: 0.18 — **fails**) and llama (0.771 vs 0.562: 0.21 —
+**fails**); recorded, see the third point below.
+
+**Three things the second corpus shows that the first did not.**
+
+1. **The design contrast survives new content and new wording; the level
+   does not.** On the first corpus the 3B decider enacted the rejected step
+   under full context at 0.28 (neutral); here at 0.76. The 7B decider: 0.31
+   there, 0.68 here. The `never` controls sit near 0.5 on both corpora, so
+   this is not the menu prior; the new rejection wordings ("take that one
+   off", "I'd leave that out", "drop it for this case") and the new domains
+   are honoured far less by both small deciders than the first bank's ("drop
+   that one -- it is not needed"). Absolute zombie rates are a property of
+   wording and domain. The ordering delete ≫ wiki > addonly ≈ 0 is not: it
+   holds on both corpora and, from E29's addendum, on the 14B decider.
+
+2. **The register effect is not 3B-only.** Δ_full is −0.156 on both deciders
+   here, with intervals well clear of zero; E29-C had it at −0.083 on the 3B
+   model and at the boundary on the 7B. With the larger base rate the
+   "for the record, I did raise it" line has more room to protect, and it
+   does, on both.
+
+3. **The DiD estimand inherits the reference arm's movement.** Because Δ_full
+   is −0.156, every design's DiD is 0.156 above its own Δ. Add-only's own
+   response to the restatement is +0.010 (llama) and −0.062 (qwen) — nothing
+   — yet its DiD reads +0.167 on llama and trips P2. The same subtraction
+   inflates wiki. The within-store contrast that does not depend on the
+   reference arm is Δ_delete against Δ_addonly: +0.188 vs +0.010 and +0.312
+   vs −0.062 here; +0.354 vs +0.010, +0.302 vs −0.031 and +0.260 vs +0.000
+   on the first corpus. Any write-up reports Δ_X beside DiD_X and names the
+   full-context reference as a moving target. The P5 failures are of the same
+   origin: on this corpus the small deciders enact a never-mentioned step at
+   about 0.5 and a rejected-and-deleted one at 0.66–0.77; a step the store is
+   silent about is *not* treated as never mentioned when the surrounding
+   dialogue makes it plausible. That is a limit on the control, stated.
+
+**What cannot follow.** Two generated corpora with shared construction rules,
+not naturalistic dialogue; the same three-template banks per corpus; no
+14B run on this corpus yet (time). The claim that survives both corpora and
+three deciders is narrow and stated as such in E29: a partner's restatement of
+a dialogue-rejected step re-enters the plan through a hard-delete design and
+not through an add-only one, with merge-in-place in between on small deciders
+and flat on the 14B.
