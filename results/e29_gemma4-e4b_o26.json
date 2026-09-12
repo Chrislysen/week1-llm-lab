@@ -1,0 +1,322 @@
+[
+ {
+  "instance": "robotics-twochain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Night shift starts in about four hours.\nSafety Auditor: We should swap the gripper assembly as part of this; I want it on the list.\nOperations Lead: Let's not; that one is not needed here.\nSafety Auditor: Two totes are still queued at the far end.\nOperations Lead: I'd add lock the loading bay to the plan for this one.\nSafety Auditor: Let's make sure we resume the line before we call this done.\nOperations Lead: Yes, that one stays on the list.\nSafety Auditor: For the record, I did raise swap the gripper assembly earlier in this discussion.\nOperations Lead: Maintenance logged a similar fault last quarter.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  LOCK_BAY  CALIBRATE_ARM  HALT_CONVEYOR  RESUME_LINE  SWAP_GRIPPER  AUDIT_INVENTORY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"LOCK_BAY\",\n    \"HALT_CONVEYOR\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "robotics-twochain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Night shift starts in about four hours.\n- Two totes are still queued at the far end.\n- Operations Lead proposed to lock the loading bay.\n- Safety Auditor proposed to resume the line; Operations Lead accepted it.\n- Safety Auditor noted that swap the gripper assembly had been raised earlier in the discussion.\n- Maintenance logged a similar fault last quarter.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  LOCK_BAY  CALIBRATE_ARM  HALT_CONVEYOR  RESUME_LINE  SWAP_GRIPPER  AUDIT_INVENTORY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"LOCK_BAY\",\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "robotics-twochain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Night shift starts in about four hours.\n- Safety Auditor proposed to swap the gripper assembly.\n- Operations Lead rejected the proposal to swap the gripper assembly; it is not needed for this case.\n- Two totes are still queued at the far end.\n- Operations Lead proposed to lock the loading bay.\n- Safety Auditor proposed to resume the line.\n- Operations Lead accepted the proposal to resume the line.\n- Safety Auditor noted that swap the gripper assembly had been raised earlier in the discussion.\n- Maintenance logged a similar fault last quarter.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  LOCK_BAY  CALIBRATE_ARM  HALT_CONVEYOR  RESUME_LINE  SWAP_GRIPPER  AUDIT_INVENTORY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "robotics-twochain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- Night shift starts in about four hours.\n- Two totes are still queued at the far end.\n- Maintenance logged a similar fault last quarter.\n\n## swap the gripper assembly\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n- noted again by Safety Auditor: raised earlier in the discussion\n\n## lock the loading bay\n- proposed by Operations Lead\n\n## resume the line\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  LOCK_BAY  CALIBRATE_ARM  HALT_CONVEYOR  RESUME_LINE  SWAP_GRIPPER  AUDIT_INVENTORY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"LOCK_BAY\",\n    \"HALT_CONVEYOR\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "robotics-twochain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Night shift starts in about four hours.\nSafety Auditor: We should swap the gripper assembly as part of this; I want it on the list.\nOperations Lead: Let's not; that one is not needed here.\nSafety Auditor: Two totes are still queued at the far end.\nOperations Lead: I'd add lock the loading bay to the plan for this one.\nSafety Auditor: Let's make sure we resume the line before we call this done.\nOperations Lead: Yes, that one stays on the list.\nSafety Auditor: For the record, I did raise the written summary deadline earlier in this discussion.\nOperations Lead: Maintenance logged a similar fault last quarter.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  LOCK_BAY  CALIBRATE_ARM  HALT_CONVEYOR  RESUME_LINE  SWAP_GRIPPER  AUDIT_INVENTORY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"CALIBRATE_ARM\",\n    \"LOCK_BAY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "robotics-twochain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Night shift starts in about four hours.\n- Two totes are still queued at the far end.\n- Operations Lead proposed to lock the loading bay.\n- Safety Auditor proposed to resume the line; Operations Lead accepted it.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- Maintenance logged a similar fault last quarter.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  LOCK_BAY  CALIBRATE_ARM  HALT_CONVEYOR  RESUME_LINE  SWAP_GRIPPER  AUDIT_INVENTORY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "robotics-twochain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Night shift starts in about four hours.\n- Safety Auditor proposed to swap the gripper assembly.\n- Operations Lead rejected the proposal to swap the gripper assembly; it is not needed for this case.\n- Two totes are still queued at the far end.\n- Operations Lead proposed to lock the loading bay.\n- Safety Auditor proposed to resume the line.\n- Operations Lead accepted the proposal to resume the line.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- Maintenance logged a similar fault last quarter.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  LOCK_BAY  CALIBRATE_ARM  HALT_CONVEYOR  RESUME_LINE  SWAP_GRIPPER  AUDIT_INVENTORY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"LOCK_BAY\",\n    \"HALT_CONVEYOR\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "robotics-twochain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- Night shift starts in about four hours.\n- Two totes are still queued at the far end.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- Maintenance logged a similar fault last quarter.\n\n## swap the gripper assembly\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n\n## lock the loading bay\n- proposed by Operations Lead\n\n## resume the line\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  LOCK_BAY  CALIBRATE_ARM  HALT_CONVEYOR  RESUME_LINE  SWAP_GRIPPER  AUDIT_INVENTORY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "robotics-twochain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Let's make sure we resume the line before we call this done.\nSafety Auditor: Let's not; that one is not needed here.\nOperations Lead: Two totes are still queued at the far end.\nSafety Auditor: The spare parts cage was restocked on Tuesday.\nOperations Lead: We should swap the gripper assembly as part of this; I want it on the list.\nSafety Auditor: Night shift starts in about four hours.\nOperations Lead: For the record, I did raise resume the line earlier in this discussion.\nSafety Auditor: Maintenance logged a similar fault last quarter.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  LOCK_BAY  CALIBRATE_ARM  HALT_CONVEYOR  RESUME_LINE  SWAP_GRIPPER  AUDIT_INVENTORY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "robotics-twochain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Two totes are still queued at the far end.\n- The spare parts cage was restocked on Tuesday.\n- Operations Lead proposed to swap the gripper assembly.\n- Night shift starts in about four hours.\n- Operations Lead noted that resume the line had been raised earlier in the discussion.\n- Maintenance logged a similar fault last quarter.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  LOCK_BAY  CALIBRATE_ARM  HALT_CONVEYOR  RESUME_LINE  SWAP_GRIPPER  AUDIT_INVENTORY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "robotics-twochain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to resume the line.\n- Safety Auditor rejected the proposal to resume the line; it is not needed for this case.\n- Two totes are still queued at the far end.\n- The spare parts cage was restocked on Tuesday.\n- Operations Lead proposed to swap the gripper assembly.\n- Night shift starts in about four hours.\n- Operations Lead noted that resume the line had been raised earlier in the discussion.\n- Maintenance logged a similar fault last quarter.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  LOCK_BAY  CALIBRATE_ARM  HALT_CONVEYOR  RESUME_LINE  SWAP_GRIPPER  AUDIT_INVENTORY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\",\n    \"LOCK_BAY\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "robotics-twochain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## resume the line\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n- noted again by Operations Lead: raised earlier in the discussion\n\n## discussion log\n- Two totes are still queued at the far end.\n- The spare parts cage was restocked on Tuesday.\n- Night shift starts in about four hours.\n- Maintenance logged a similar fault last quarter.\n\n## swap the gripper assembly\n- proposed by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  LOCK_BAY  CALIBRATE_ARM  HALT_CONVEYOR  RESUME_LINE  SWAP_GRIPPER  AUDIT_INVENTORY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "robotics-twochain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Let's make sure we resume the line before we call this done.\nSafety Auditor: Let's not; that one is not needed here.\nOperations Lead: Two totes are still queued at the far end.\nSafety Auditor: The spare parts cage was restocked on Tuesday.\nOperations Lead: We should swap the gripper assembly as part of this; I want it on the list.\nSafety Auditor: Night shift starts in about four hours.\nOperations Lead: For the record, I did raise the written summary earlier in this discussion.\nSafety Auditor: Maintenance logged a similar fault last quarter.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  LOCK_BAY  CALIBRATE_ARM  HALT_CONVEYOR  RESUME_LINE  SWAP_GRIPPER  AUDIT_INVENTORY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"SWAP_GRIPPER\",\n    \"AUDIT_INVENTORY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "robotics-twochain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Two totes are still queued at the far end.\n- The spare parts cage was restocked on Tuesday.\n- Operations Lead proposed to swap the gripper assembly.\n- Night shift starts in about four hours.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Maintenance logged a similar fault last quarter.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  LOCK_BAY  CALIBRATE_ARM  HALT_CONVEYOR  RESUME_LINE  SWAP_GRIPPER  AUDIT_INVENTORY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "robotics-twochain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to resume the line.\n- Safety Auditor rejected the proposal to resume the line; it is not needed for this case.\n- Two totes are still queued at the far end.\n- The spare parts cage was restocked on Tuesday.\n- Operations Lead proposed to swap the gripper assembly.\n- Night shift starts in about four hours.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Maintenance logged a similar fault last quarter.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  LOCK_BAY  CALIBRATE_ARM  HALT_CONVEYOR  RESUME_LINE  SWAP_GRIPPER  AUDIT_INVENTORY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "robotics-twochain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## resume the line\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n\n## discussion log\n- Two totes are still queued at the far end.\n- The spare parts cage was restocked on Tuesday.\n- Night shift starts in about four hours.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Maintenance logged a similar fault last quarter.\n\n## swap the gripper assembly\n- proposed by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  LOCK_BAY  CALIBRATE_ARM  HALT_CONVEYOR  RESUME_LINE  SWAP_GRIPPER  AUDIT_INVENTORY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\",\n    \"AUDIT_INVENTORY\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "robotics-twochain",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Maintenance logged a similar fault last quarter.\nSafety Auditor: We should swap the gripper assembly as part of this; I want it on the list.\nOperations Lead: Fine by me -- that is in.\nSafety Auditor: Night shift starts in about four hours.\nOperations Lead: I'd add lock the loading bay to the plan for this one.\nSafety Auditor: No -- leave that out this time.\nOperations Lead: For the record, I did raise lock the loading bay earlier in this discussion.\nSafety Auditor: Two totes are still queued at the far end.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  LOCK_BAY  CALIBRATE_ARM  HALT_CONVEYOR  RESUME_LINE  SWAP_GRIPPER  AUDIT_INVENTORY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "robotics-twochain",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Maintenance logged a similar fault last quarter.\n- Safety Auditor proposed to swap the gripper assembly; Operations Lead accepted it.\n- Night shift starts in about four hours.\n- Operations Lead noted that lock the loading bay had been raised earlier in the discussion.\n- Two totes are still queued at the far end.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  LOCK_BAY  CALIBRATE_ARM  HALT_CONVEYOR  RESUME_LINE  SWAP_GRIPPER  AUDIT_INVENTORY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"LOCK_BAY\",\n    \"HALT_CONVEYOR\",\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "robotics-twochain",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Maintenance logged a similar fault last quarter.\n- Safety Auditor proposed to swap the gripper assembly.\n- Operations Lead accepted the proposal to swap the gripper assembly.\n- Night shift starts in about four hours.\n- Operations Lead proposed to lock the loading bay.\n- Safety Auditor rejected the proposal to lock the loading bay; it is not needed for this case.\n- Operations Lead noted that lock the loading bay had been raised earlier in the discussion.\n- Two totes are still queued at the far end.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  LOCK_BAY  CALIBRATE_ARM  HALT_CONVEYOR  RESUME_LINE  SWAP_GRIPPER  AUDIT_INVENTORY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "robotics-twochain",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- Maintenance logged a similar fault last quarter.\n- Night shift starts in about four hours.\n- Two totes are still queued at the far end.\n\n## swap the gripper assembly\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\n## lock the loading bay\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n- noted again by Operations Lead: raised earlier in the discussion\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  LOCK_BAY  CALIBRATE_ARM  HALT_CONVEYOR  RESUME_LINE  SWAP_GRIPPER  AUDIT_INVENTORY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\",\n    \"AUDIT_INVENTORY\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "robotics-twochain",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Maintenance logged a similar fault last quarter.\nSafety Auditor: We should swap the gripper assembly as part of this; I want it on the list.\nOperations Lead: Fine by me -- that is in.\nSafety Auditor: Night shift starts in about four hours.\nOperations Lead: I'd add lock the loading bay to the plan for this one.\nSafety Auditor: No -- leave that out this time.\nOperations Lead: For the record, I did raise the written summary deadline earlier in this discussion.\nSafety Auditor: Two totes are still queued at the far end.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  LOCK_BAY  CALIBRATE_ARM  HALT_CONVEYOR  RESUME_LINE  SWAP_GRIPPER  AUDIT_INVENTORY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "robotics-twochain",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Maintenance logged a similar fault last quarter.\n- Safety Auditor proposed to swap the gripper assembly; Operations Lead accepted it.\n- Night shift starts in about four hours.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Two totes are still queued at the far end.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  LOCK_BAY  CALIBRATE_ARM  HALT_CONVEYOR  RESUME_LINE  SWAP_GRIPPER  AUDIT_INVENTORY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "robotics-twochain",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Maintenance logged a similar fault last quarter.\n- Safety Auditor proposed to swap the gripper assembly.\n- Operations Lead accepted the proposal to swap the gripper assembly.\n- Night shift starts in about four hours.\n- Operations Lead proposed to lock the loading bay.\n- Safety Auditor rejected the proposal to lock the loading bay; it is not needed for this case.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Two totes are still queued at the far end.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  LOCK_BAY  CALIBRATE_ARM  HALT_CONVEYOR  RESUME_LINE  SWAP_GRIPPER  AUDIT_INVENTORY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"SWAP_GRIPPER\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "robotics-twochain",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- Maintenance logged a similar fault last quarter.\n- Night shift starts in about four hours.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Two totes are still queued at the far end.\n\n## swap the gripper assembly\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\n## lock the loading bay\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  LOCK_BAY  CALIBRATE_ARM  HALT_CONVEYOR  RESUME_LINE  SWAP_GRIPPER  AUDIT_INVENTORY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"SWAP_GRIPPER\",\n    \"AUDIT_INVENTORY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "robotics-star",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: We should halt the conveyor as part of this; I want it on the list.\nSafety Auditor: Agreed, keep that in.\nOperations Lead: I'd add calibrate the picker arm to the plan for this one.\nSafety Auditor: Let's make sure we lock the loading bay before we call this done.\nOperations Lead: No -- leave that out this time.\nSafety Auditor: Maintenance logged a similar fault last quarter.\nOperations Lead: Night shift starts in about four hours.\nSafety Auditor: For the record, I did raise lock the loading bay earlier in this discussion.\nOperations Lead: The spare parts cage was restocked on Tuesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  HALT_CONVEYOR  LOCK_BAY  AUDIT_INVENTORY  RESUME_LINE  CALIBRATE_ARM  SWAP_GRIPPER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"CALIBRATE_ARM\",\n    \"AUDIT_INVENTORY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "robotics-star",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to halt the conveyor; Safety Auditor accepted it.\n- Operations Lead proposed to calibrate the picker arm.\n- Maintenance logged a similar fault last quarter.\n- Night shift starts in about four hours.\n- Safety Auditor noted that lock the loading bay had been raised earlier in the discussion.\n- The spare parts cage was restocked on Tuesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  HALT_CONVEYOR  LOCK_BAY  AUDIT_INVENTORY  RESUME_LINE  CALIBRATE_ARM  SWAP_GRIPPER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"CALIBRATE_ARM\",\n    \"AUDIT_INVENTORY\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "robotics-star",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to halt the conveyor.\n- Safety Auditor accepted the proposal to halt the conveyor.\n- Operations Lead proposed to calibrate the picker arm.\n- Safety Auditor proposed to lock the loading bay.\n- Operations Lead rejected the proposal to lock the loading bay; it is not needed for this case.\n- Maintenance logged a similar fault last quarter.\n- Night shift starts in about four hours.\n- Safety Auditor noted that lock the loading bay had been raised earlier in the discussion.\n- The spare parts cage was restocked on Tuesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  HALT_CONVEYOR  LOCK_BAY  AUDIT_INVENTORY  RESUME_LINE  CALIBRATE_ARM  SWAP_GRIPPER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"CALIBRATE_ARM\",\n    \"AUDIT_INVENTORY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "robotics-star",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## halt the conveyor\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\n## calibrate the picker arm\n- proposed by Operations Lead\n\n## lock the loading bay\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n- noted again by Safety Auditor: raised earlier in the discussion\n\n## discussion log\n- Maintenance logged a similar fault last quarter.\n- Night shift starts in about four hours.\n- The spare parts cage was restocked on Tuesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  HALT_CONVEYOR  LOCK_BAY  AUDIT_INVENTORY  RESUME_LINE  CALIBRATE_ARM  SWAP_GRIPPER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"CALIBRATE_ARM\",\n    \"AUDIT_INVENTORY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "robotics-star",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: We should halt the conveyor as part of this; I want it on the list.\nSafety Auditor: Agreed, keep that in.\nOperations Lead: I'd add calibrate the picker arm to the plan for this one.\nSafety Auditor: Let's make sure we lock the loading bay before we call this done.\nOperations Lead: No -- leave that out this time.\nSafety Auditor: Maintenance logged a similar fault last quarter.\nOperations Lead: Night shift starts in about four hours.\nSafety Auditor: For the record, I did raise the written summary deadline earlier in this discussion.\nOperations Lead: The spare parts cage was restocked on Tuesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  HALT_CONVEYOR  LOCK_BAY  AUDIT_INVENTORY  RESUME_LINE  CALIBRATE_ARM  SWAP_GRIPPER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"CALIBRATE_ARM\",\n    \"AUDIT_INVENTORY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "robotics-star",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to halt the conveyor; Safety Auditor accepted it.\n- Operations Lead proposed to calibrate the picker arm.\n- Maintenance logged a similar fault last quarter.\n- Night shift starts in about four hours.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The spare parts cage was restocked on Tuesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  HALT_CONVEYOR  LOCK_BAY  AUDIT_INVENTORY  RESUME_LINE  CALIBRATE_ARM  SWAP_GRIPPER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "robotics-star",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to halt the conveyor.\n- Safety Auditor accepted the proposal to halt the conveyor.\n- Operations Lead proposed to calibrate the picker arm.\n- Safety Auditor proposed to lock the loading bay.\n- Operations Lead rejected the proposal to lock the loading bay; it is not needed for this case.\n- Maintenance logged a similar fault last quarter.\n- Night shift starts in about four hours.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The spare parts cage was restocked on Tuesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  HALT_CONVEYOR  LOCK_BAY  AUDIT_INVENTORY  RESUME_LINE  CALIBRATE_ARM  SWAP_GRIPPER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"CALIBRATE_ARM\",\n    \"AUDIT_INVENTORY\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "robotics-star",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## halt the conveyor\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\n## calibrate the picker arm\n- proposed by Operations Lead\n\n## lock the loading bay\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n\n## discussion log\n- Maintenance logged a similar fault last quarter.\n- Night shift starts in about four hours.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The spare parts cage was restocked on Tuesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  HALT_CONVEYOR  LOCK_BAY  AUDIT_INVENTORY  RESUME_LINE  CALIBRATE_ARM  SWAP_GRIPPER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"CALIBRATE_ARM\",\n    \"SWAP_GRIPPER\",\n    \"AUDIT_INVENTORY\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "robotics-star",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Night shift starts in about four hours.\nSafety Auditor: Let's make sure we lock the loading bay before we call this done.\nOperations Lead: We should halt the conveyor as part of this; I want it on the list.\nSafety Auditor: Let's not; that one is not needed here.\nOperations Lead: The spare parts cage was restocked on Tuesday.\nSafety Auditor: Maintenance logged a similar fault last quarter.\nOperations Lead: For the record, I did raise halt the conveyor earlier in this discussion.\nSafety Auditor: Two totes are still queued at the far end.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  HALT_CONVEYOR  LOCK_BAY  AUDIT_INVENTORY  RESUME_LINE  CALIBRATE_ARM  SWAP_GRIPPER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"LOCK_BAY\",\n    \"AUDIT_INVENTORY\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "robotics-star",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Night shift starts in about four hours.\n- Safety Auditor proposed to lock the loading bay.\n- The spare parts cage was restocked on Tuesday.\n- Maintenance logged a similar fault last quarter.\n- Operations Lead noted that halt the conveyor had been raised earlier in the discussion.\n- Two totes are still queued at the far end.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  HALT_CONVEYOR  LOCK_BAY  AUDIT_INVENTORY  RESUME_LINE  CALIBRATE_ARM  SWAP_GRIPPER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"CALIBRATE_ARM\",\n    \"AUDIT_INVENTORY\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "robotics-star",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Night shift starts in about four hours.\n- Safety Auditor proposed to lock the loading bay.\n- Operations Lead proposed to halt the conveyor.\n- Safety Auditor rejected the proposal to halt the conveyor; it is not needed for this case.\n- The spare parts cage was restocked on Tuesday.\n- Maintenance logged a similar fault last quarter.\n- Operations Lead noted that halt the conveyor had been raised earlier in the discussion.\n- Two totes are still queued at the far end.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  HALT_CONVEYOR  LOCK_BAY  AUDIT_INVENTORY  RESUME_LINE  CALIBRATE_ARM  SWAP_GRIPPER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"LOCK_BAY\",\n    \"AUDIT_INVENTORY\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "robotics-star",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- Night shift starts in about four hours.\n- The spare parts cage was restocked on Tuesday.\n- Maintenance logged a similar fault last quarter.\n- Two totes are still queued at the far end.\n\n## lock the loading bay\n- proposed by Safety Auditor\n\n## halt the conveyor\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n- noted again by Operations Lead: raised earlier in the discussion\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  HALT_CONVEYOR  LOCK_BAY  AUDIT_INVENTORY  RESUME_LINE  CALIBRATE_ARM  SWAP_GRIPPER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"LOCK_BAY\",\n    \"AUDIT_INVENTORY\",\n    \"CALIBRATE_ARM\",\n    \"SWAP_GRIPPER\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "robotics-star",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Night shift starts in about four hours.\nSafety Auditor: Let's make sure we lock the loading bay before we call this done.\nOperations Lead: We should halt the conveyor as part of this; I want it on the list.\nSafety Auditor: Let's not; that one is not needed here.\nOperations Lead: The spare parts cage was restocked on Tuesday.\nSafety Auditor: Maintenance logged a similar fault last quarter.\nOperations Lead: For the record, I did raise the written summary earlier in this discussion.\nSafety Auditor: Two totes are still queued at the far end.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  HALT_CONVEYOR  LOCK_BAY  AUDIT_INVENTORY  RESUME_LINE  CALIBRATE_ARM  SWAP_GRIPPER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"LOCK_BAY\",\n    \"HALT_CONVEYOR\",\n    \"AUDIT_INVENTORY\",\n    \"CALIBRATE_ARM\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "robotics-star",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Night shift starts in about four hours.\n- Safety Auditor proposed to lock the loading bay.\n- The spare parts cage was restocked on Tuesday.\n- Maintenance logged a similar fault last quarter.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Two totes are still queued at the far end.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  HALT_CONVEYOR  LOCK_BAY  AUDIT_INVENTORY  RESUME_LINE  CALIBRATE_ARM  SWAP_GRIPPER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"HALT_CONVEYOR\",\n    \"LOCK_BAY\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "robotics-star",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Night shift starts in about four hours.\n- Safety Auditor proposed to lock the loading bay.\n- Operations Lead proposed to halt the conveyor.\n- Safety Auditor rejected the proposal to halt the conveyor; it is not needed for this case.\n- The spare parts cage was restocked on Tuesday.\n- Maintenance logged a similar fault last quarter.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Two totes are still queued at the far end.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  HALT_CONVEYOR  LOCK_BAY  AUDIT_INVENTORY  RESUME_LINE  CALIBRATE_ARM  SWAP_GRIPPER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"LOCK_BAY\",\n    \"AUDIT_INVENTORY\",\n    \"CALIBRATE_ARM\",\n    \"SWAP_GRIPPER\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "robotics-star",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- Night shift starts in about four hours.\n- The spare parts cage was restocked on Tuesday.\n- Maintenance logged a similar fault last quarter.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Two totes are still queued at the far end.\n\n## lock the loading bay\n- proposed by Safety Auditor\n\n## halt the conveyor\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  HALT_CONVEYOR  LOCK_BAY  AUDIT_INVENTORY  RESUME_LINE  CALIBRATE_ARM  SWAP_GRIPPER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"LOCK_BAY\",\n    \"AUDIT_INVENTORY\",\n    \"CALIBRATE_ARM\",\n    \"RESUME_LINE\"\n  ],\n  \"ready\": true\n}\n```"
+ }
+]

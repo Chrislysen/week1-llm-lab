@@ -25,7 +25,7 @@ MODELS = ["gemma4:e4b", "llama3.2:3b", "qwen2.5:3b-instruct", "qwen2.5:7b-instru
           "aya-expanse:8b", "qwen2.5:14b-instruct"]
 SIZES = {"gemma4:e4b": "~4B", "llama3.2:3b": "3B", "qwen2.5:3b-instruct": "3B",
          "qwen2.5:7b-instruct": "7B", "aya-expanse:8b": "8B", "qwen2.5:14b-instruct": "14B"}
-E29_MODELS = ["llama3.2:3b", "qwen2.5:7b-instruct", "qwen2.5:14b-instruct"]
+E29_MODELS = ["llama3.2:3b", "qwen2.5:7b-instruct", "qwen2.5:14b-instruct", "gemma4:e4b"]
 
 
 def slug(s):

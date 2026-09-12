@@ -2,8 +2,8 @@
 
 *Working draft, 2026-09-12. Every number below is in a `results/*_summary.json`
 file and re-derives from the committed result CSVs; the protocols in
-`docs/protocols/` were declared with zero outcomes before each run. Sections
-marked ⟂ are places where the draft still depends on a run in progress.*
+`docs/protocols/` were declared with zero outcomes before each run. No run is
+pending; every table is complete.*
 
 ## Abstract
 
@@ -17,12 +17,13 @@ small local decider through four memory designs read from what is actually
 shipped: the full transcript, write-time hard delete (the Mem0 paper
 pipeline), add-only (Mem0 OSS v3), and merge-in-place wiki pages (the LLM-wiki
 pattern). The decider writes a fixed-length executable plan; the outcome is
-whether the rejected step is in it. On three deciders (3B, 7B, 14B) the
-restatement's effect is design-dependent: through hard delete it raises
-enactment of the rejected step to near certainty (difference-in-differences
-against full context +0.44, +0.38, +0.21, intervals excluding zero); through
-add-only it does nothing; merge-in-place sits between on the small deciders
-and is flat on the 14B. The ordering survives a second corpus of six new
+whether the rejected step is in it. On four deciders from three model
+families (3B, 7B, 14B, and a ~4B-effective Gemma) the restatement's effect is
+design-dependent: through hard delete it raises enactment of the rejected step
+to near certainty (difference-in-differences against full context +0.44,
++0.38, +0.21, +0.50, intervals excluding zero); through add-only it does
+nothing; merge-in-place sits between on the two small deciders and is flat on
+the other two. The ordering survives a second corpus of six new
 domains and new sentence wording on all three deciders (hard-delete DiD
 +0.34, +0.47, +0.25), although absolute rates move by a factor of two with
 the wording on the small deciders. A real Mem0 update router fed by an operational
@@ -55,7 +56,7 @@ E18) with the raw transcript in front of the decider — but whether the
 *memory design* changes what a later restatement does.
 
 Contributions. (1) A pre-registered experiment on 96 dialogues × 2 arms × 4
-designs × 3 deciders (2,304 calls) showing design dependence with the
+designs × 4 deciders (3,072 calls) showing design dependence with the
 predicted sign and size for the hard-delete design. (2) Replication on a
 second corpus with new domains and wording on the same three deciders (2,304
 calls), which preserves the ordering across designs while moving absolute
@@ -162,10 +163,16 @@ Rejected-step inclusion, n = 96 dialogues per cell.
 | | delete | 0.896 | 0.635 | +0.260 | **+0.208** | [+0.094, +0.323] |
 | | addonly | 0.062 | 0.062 | +0.000 | −0.052 | [−0.135, +0.021] |
 | | wiki | 0.062 | 0.094 | −0.031 | −0.083 | [−0.167, −0.000] |
-| gemma4:e4b | ⟂ running | | | | | |
+| gemma4:e4b | full | 0.125 | 0.135 | −0.010 | ref | |
+| | delete | 0.979 | 0.490 | +0.490 | **+0.500** | [+0.375, +0.625] |
+| | addonly | 0.000 | 0.000 | +0.000 | +0.010 | [−0.062, +0.094] |
+| | wiki | 0.000 | 0.000 | +0.000 | +0.010 | [−0.062, +0.094] |
 
-All three deciders read DESIGN-DEPENDENT by the pre-registered rule, carried
-by `delete`. The predicted size for `delete` on the 3B model (≈ +0.4, derived
+All four deciders read DESIGN-DEPENDENT by the pre-registered rule, carried
+by `delete`. On gemma4:e4b, a third model family, the dependence is absolute:
+in 384 add-only and wiki cells it never enacts a step whose rejection it can
+see, and under hard delete it enacts the step at the never-mentioned rate
+(0.49) until the restatement arrives and at 0.98 after it. The predicted size for `delete` on the 3B model (≈ +0.4, derived
 from that model's known rates for never-mentioned and proposed-only steps)
 landed at +0.354. The larger decider changes two things. Under add-only and
 wiki it almost never enacts the rejected step (0.06): it reads a stored
@@ -291,7 +298,7 @@ Two generated corpora with shared construction rules and three-template
 sentence banks, not naturalistic dialogue. Oracle stores are semantic ideals;
 the real-system leg uses one extractor prompt of ours, one extractor model,
 one decider, no embedder or vector store, and a keyword rule for "mentions"
-that undercounts paraphrase. Deciders are 3B–14B local instruct models. The
+that undercounts paraphrase. Deciders are 3B–14B local instruct models from three families. The
 DiD estimand is sensitive to the full-context reference, which moves with
 decider and corpus; we report Δ_X alongside. Levels across designs mix the
 design with the explicitness of the rendering (an oracle store spells out the
@@ -319,9 +326,9 @@ live re-run of the decider checked against the record.
 | protocol | prediction | outcome |
 |---|---|---|
 | E29 P1 | Δ_delete ≈ +0.4 on the 3B decider | +0.354 |
-| E29 P2 | DiD_delete ≥ 0.15, interval excludes 0 | +0.438, +0.375, +0.208 on three deciders |
+| E29 P2 | DiD_delete ≥ 0.15, interval excludes 0 | +0.438, +0.375, +0.208, +0.500 on four deciders |
 | E29 P3 | Δ_full small | small, but negative on 3B/7B: a miss on sign, followed up in E29-C |
-| E29 P4 | 0 ≤ DiD_addonly < DiD_delete | +0.094, +0.042, −0.052 |
+| E29 P4 | 0 ≤ DiD_addonly < DiD_delete | +0.094, +0.042, −0.052, +0.010 |
 | E29-B | manipulation check ≥ 0.5 | 0.11: UNINFORMATIVE, stopped |
 | E29-C P1 | Δ_ftr replicates on 3B | −0.083 vs −0.083 |
 | E29-C P2 | H-frame vs H-mention | FRAMING (3B); NO-REPLICATION at the boundary (7B) |

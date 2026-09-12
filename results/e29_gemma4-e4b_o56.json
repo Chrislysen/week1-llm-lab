@@ -1,0 +1,322 @@
+[
+ {
+  "instance": "satellite-diamond",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: I'd add resume the downlink to the plan for this one.\nSafety Auditor: No, drop that one -- it is not needed for this case.\nOperations Lead: Let's make sure we reorient the solar panel before we call this done.\nSafety Auditor: The next ground pass is in ninety minutes.\nOperations Lead: Beam scheduling was reshuffled last week.\nSafety Auditor: The backup dish is booked until Thursday.\nOperations Lead: For the record, I did raise resume the downlink earlier in this discussion.\nSafety Auditor: Flight dynamics have the ephemeris updated.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_STARTRACKER  SAFE_MODE  RESUME_DOWNLINK  REORIENT_PANEL  PATCH_FIRMWARE  DUMP_TELEMETRY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"SAFE_MODE\",\n    \"DUMP_TELEMETRY\",\n    \"REORIENT_PANEL\",\n    \"CALIBRATE_STARTRACKER\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "satellite-diamond",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to reorient the solar panel.\n- The next ground pass is in ninety minutes.\n- Beam scheduling was reshuffled last week.\n- The backup dish is booked until Thursday.\n- Operations Lead noted that resume the downlink had been raised earlier in the discussion.\n- Flight dynamics have the ephemeris updated.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_STARTRACKER  SAFE_MODE  RESUME_DOWNLINK  REORIENT_PANEL  PATCH_FIRMWARE  DUMP_TELEMETRY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"REORIENT_PANEL\",\n    \"CALIBRATE_STARTRACKER\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "satellite-diamond",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to resume the downlink.\n- Safety Auditor rejected the proposal to resume the downlink; it is not needed for this case.\n- Operations Lead proposed to reorient the solar panel.\n- The next ground pass is in ninety minutes.\n- Beam scheduling was reshuffled last week.\n- The backup dish is booked until Thursday.\n- Operations Lead noted that resume the downlink had been raised earlier in the discussion.\n- Flight dynamics have the ephemeris updated.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_STARTRACKER  SAFE_MODE  RESUME_DOWNLINK  REORIENT_PANEL  PATCH_FIRMWARE  DUMP_TELEMETRY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"SAFE_MODE\",\n    \"DUMP_TELEMETRY\",\n    \"REORIENT_PANEL\",\n    \"CALIBRATE_STARTRACKER\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "satellite-diamond",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## resume the downlink\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n- noted again by Operations Lead: raised earlier in the discussion\n\n## reorient the solar panel\n- proposed by Operations Lead\n\n## discussion log\n- The next ground pass is in ninety minutes.\n- Beam scheduling was reshuffled last week.\n- The backup dish is booked until Thursday.\n- Flight dynamics have the ephemeris updated.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_STARTRACKER  SAFE_MODE  RESUME_DOWNLINK  REORIENT_PANEL  PATCH_FIRMWARE  DUMP_TELEMETRY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"SAFE_MODE\",\n    \"DUMP_TELEMETRY\",\n    \"REORIENT_PANEL\",\n    \"CALIBRATE_STARTRACKER\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "satellite-diamond",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: I'd add resume the downlink to the plan for this one.\nSafety Auditor: No, drop that one -- it is not needed for this case.\nOperations Lead: Let's make sure we reorient the solar panel before we call this done.\nSafety Auditor: The next ground pass is in ninety minutes.\nOperations Lead: Beam scheduling was reshuffled last week.\nSafety Auditor: The backup dish is booked until Thursday.\nOperations Lead: For the record, I did raise the written summary earlier in this discussion.\nSafety Auditor: Flight dynamics have the ephemeris updated.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_STARTRACKER  SAFE_MODE  RESUME_DOWNLINK  REORIENT_PANEL  PATCH_FIRMWARE  DUMP_TELEMETRY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"SAFE_MODE\",\n    \"DUMP_TELEMETRY\",\n    \"CALIBRATE_STARTRACKER\",\n    \"REORIENT_PANEL\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "satellite-diamond",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to reorient the solar panel.\n- The next ground pass is in ninety minutes.\n- Beam scheduling was reshuffled last week.\n- The backup dish is booked until Thursday.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Flight dynamics have the ephemeris updated.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_STARTRACKER  SAFE_MODE  RESUME_DOWNLINK  REORIENT_PANEL  PATCH_FIRMWARE  DUMP_TELEMETRY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"REORIENT_PANEL\",\n    \"SAFE_MODE\",\n    \"DUMP_TELEMETRY\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "satellite-diamond",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to resume the downlink.\n- Safety Auditor rejected the proposal to resume the downlink; it is not needed for this case.\n- Operations Lead proposed to reorient the solar panel.\n- The next ground pass is in ninety minutes.\n- Beam scheduling was reshuffled last week.\n- The backup dish is booked until Thursday.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Flight dynamics have the ephemeris updated.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_STARTRACKER  SAFE_MODE  RESUME_DOWNLINK  REORIENT_PANEL  PATCH_FIRMWARE  DUMP_TELEMETRY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"SAFE_MODE\",\n    \"DUMP_TELEMETRY\",\n    \"REORIENT_PANEL\",\n    \"CALIBRATE_STARTRACKER\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "satellite-diamond",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## resume the downlink\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n\n## reorient the solar panel\n- proposed by Operations Lead\n\n## discussion log\n- The next ground pass is in ninety minutes.\n- Beam scheduling was reshuffled last week.\n- The backup dish is booked until Thursday.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Flight dynamics have the ephemeris updated.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_STARTRACKER  SAFE_MODE  RESUME_DOWNLINK  REORIENT_PANEL  PATCH_FIRMWARE  DUMP_TELEMETRY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"SAFE_MODE\",\n    \"DUMP_TELEMETRY\",\n    \"REORIENT_PANEL\",\n    \"CALIBRATE_STARTRACKER\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "satellite-diamond",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Flight dynamics have the ephemeris updated.\nSafety Auditor: Beam scheduling was reshuffled last week.\nOperations Lead: Let's make sure we reorient the solar panel before we call this done.\nSafety Auditor: Yes, that one stays on the list.\nOperations Lead: Let's make sure we calibrate the star tracker before we call this done.\nSafety Auditor: No -- leave that out this time.\nOperations Lead: For the record, I did raise calibrate the star tracker earlier in this discussion.\nSafety Auditor: The next ground pass is in ninety minutes.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_STARTRACKER  SAFE_MODE  RESUME_DOWNLINK  REORIENT_PANEL  PATCH_FIRMWARE  DUMP_TELEMETRY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"SAFE_MODE\",\n    \"DUMP_TELEMETRY\",\n    \"REORIENT_PANEL\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "satellite-diamond",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Flight dynamics have the ephemeris updated.\n- Beam scheduling was reshuffled last week.\n- Operations Lead proposed to reorient the solar panel; Safety Auditor accepted it.\n- Operations Lead noted that calibrate the star tracker had been raised earlier in the discussion.\n- The next ground pass is in ninety minutes.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_STARTRACKER  SAFE_MODE  RESUME_DOWNLINK  REORIENT_PANEL  PATCH_FIRMWARE  DUMP_TELEMETRY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"REORIENT_PANEL\",\n    \"CALIBRATE_STARTRACKER\",\n    \"SAFE_MODE\",\n    \"DUMP_TELEMETRY\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "satellite-diamond",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Flight dynamics have the ephemeris updated.\n- Beam scheduling was reshuffled last week.\n- Operations Lead proposed to reorient the solar panel.\n- Safety Auditor accepted the proposal to reorient the solar panel.\n- Operations Lead proposed to calibrate the star tracker.\n- Safety Auditor rejected the proposal to calibrate the star tracker; it is not needed for this case.\n- Operations Lead noted that calibrate the star tracker had been raised earlier in the discussion.\n- The next ground pass is in ninety minutes.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_STARTRACKER  SAFE_MODE  RESUME_DOWNLINK  REORIENT_PANEL  PATCH_FIRMWARE  DUMP_TELEMETRY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"REORIENT_PANEL\",\n    \"DUMP_TELEMETRY\",\n    \"SAFE_MODE\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "satellite-diamond",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- Flight dynamics have the ephemeris updated.\n- Beam scheduling was reshuffled last week.\n- The next ground pass is in ninety minutes.\n\n## reorient the solar panel\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\n## calibrate the star tracker\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n- noted again by Operations Lead: raised earlier in the discussion\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_STARTRACKER  SAFE_MODE  RESUME_DOWNLINK  REORIENT_PANEL  PATCH_FIRMWARE  DUMP_TELEMETRY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"SAFE_MODE\",\n    \"REORIENT_PANEL\",\n    \"DUMP_TELEMETRY\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "satellite-diamond",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Flight dynamics have the ephemeris updated.\nSafety Auditor: Beam scheduling was reshuffled last week.\nOperations Lead: Let's make sure we reorient the solar panel before we call this done.\nSafety Auditor: Yes, that one stays on the list.\nOperations Lead: Let's make sure we calibrate the star tracker before we call this done.\nSafety Auditor: No -- leave that out this time.\nOperations Lead: For the record, I did raise the written summary deadline earlier in this discussion.\nSafety Auditor: The next ground pass is in ninety minutes.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_STARTRACKER  SAFE_MODE  RESUME_DOWNLINK  REORIENT_PANEL  PATCH_FIRMWARE  DUMP_TELEMETRY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"SAFE_MODE\",\n    \"DUMP_TELEMETRY\",\n    \"REORIENT_PANEL\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "satellite-diamond",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Flight dynamics have the ephemeris updated.\n- Beam scheduling was reshuffled last week.\n- Operations Lead proposed to reorient the solar panel; Safety Auditor accepted it.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The next ground pass is in ninety minutes.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_STARTRACKER  SAFE_MODE  RESUME_DOWNLINK  REORIENT_PANEL  PATCH_FIRMWARE  DUMP_TELEMETRY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"SAFE_MODE\",\n    \"REORIENT_PANEL\",\n    \"DUMP_TELEMETRY\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "satellite-diamond",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Flight dynamics have the ephemeris updated.\n- Beam scheduling was reshuffled last week.\n- Operations Lead proposed to reorient the solar panel.\n- Safety Auditor accepted the proposal to reorient the solar panel.\n- Operations Lead proposed to calibrate the star tracker.\n- Safety Auditor rejected the proposal to calibrate the star tracker; it is not needed for this case.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The next ground pass is in ninety minutes.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_STARTRACKER  SAFE_MODE  RESUME_DOWNLINK  REORIENT_PANEL  PATCH_FIRMWARE  DUMP_TELEMETRY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"REORIENT_PANEL\",\n    \"SAFE_MODE\",\n    \"DUMP_TELEMETRY\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "satellite-diamond",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- Flight dynamics have the ephemeris updated.\n- Beam scheduling was reshuffled last week.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The next ground pass is in ninety minutes.\n\n## reorient the solar panel\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\n## calibrate the star tracker\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_STARTRACKER  SAFE_MODE  RESUME_DOWNLINK  REORIENT_PANEL  PATCH_FIRMWARE  DUMP_TELEMETRY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"SAFE_MODE\",\n    \"DUMP_TELEMETRY\",\n    \"REORIENT_PANEL\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "satellite-twochain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: The backup dish is booked until Thursday.\nSafety Auditor: Beam scheduling was reshuffled last week.\nOperations Lead: Let's make sure we patch the bus firmware before we call this done.\nSafety Auditor: Let's make sure we put the craft into safe mode before we call this done.\nOperations Lead: No, drop that one -- it is not needed for this case.\nSafety Auditor: Let's make sure we resume the downlink before we call this done.\nOperations Lead: Agreed, keep that in.\nSafety Auditor: For the record, I did raise put the craft into safe mode earlier in this discussion.\nOperations Lead: Flight dynamics have the ephemeris updated.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESUME_DOWNLINK  REORIENT_PANEL  PATCH_FIRMWARE  DUMP_TELEMETRY  SAFE_MODE  CALIBRATE_STARTRACKER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"PATCH_FIRMWARE\",\n    \"REORIENT_PANEL\",\n    \"DUMP_TELEMETRY\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "satellite-twochain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The backup dish is booked until Thursday.\n- Beam scheduling was reshuffled last week.\n- Operations Lead proposed to patch the bus firmware.\n- Safety Auditor proposed to resume the downlink; Operations Lead accepted it.\n- Safety Auditor noted that put the craft into safe mode had been raised earlier in the discussion.\n- Flight dynamics have the ephemeris updated.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESUME_DOWNLINK  REORIENT_PANEL  PATCH_FIRMWARE  DUMP_TELEMETRY  SAFE_MODE  CALIBRATE_STARTRACKER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"SAFE_MODE\",\n    \"PATCH_FIRMWARE\",\n    \"DUMP_TELEMETRY\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "satellite-twochain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The backup dish is booked until Thursday.\n- Beam scheduling was reshuffled last week.\n- Operations Lead proposed to patch the bus firmware.\n- Safety Auditor proposed to put the craft into safe mode.\n- Operations Lead rejected the proposal to put the craft into safe mode; it is not needed for this case.\n- Safety Auditor proposed to resume the downlink.\n- Operations Lead accepted the proposal to resume the downlink.\n- Safety Auditor noted that put the craft into safe mode had been raised earlier in the discussion.\n- Flight dynamics have the ephemeris updated.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESUME_DOWNLINK  REORIENT_PANEL  PATCH_FIRMWARE  DUMP_TELEMETRY  SAFE_MODE  CALIBRATE_STARTRACKER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"PATCH_FIRMWARE\",\n    \"DUMP_TELEMETRY\",\n    \"REORIENT_PANEL\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "satellite-twochain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The backup dish is booked until Thursday.\n- Beam scheduling was reshuffled last week.\n- Flight dynamics have the ephemeris updated.\n\n## patch the bus firmware\n- proposed by Operations Lead\n\n## put the craft into safe mode\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n- noted again by Safety Auditor: raised earlier in the discussion\n\n## resume the downlink\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESUME_DOWNLINK  REORIENT_PANEL  PATCH_FIRMWARE  DUMP_TELEMETRY  SAFE_MODE  CALIBRATE_STARTRACKER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"PATCH_FIRMWARE\",\n    \"DUMP_TELEMETRY\",\n    \"CALIBRATE_STARTRACKER\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "satellite-twochain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: The backup dish is booked until Thursday.\nSafety Auditor: Beam scheduling was reshuffled last week.\nOperations Lead: Let's make sure we patch the bus firmware before we call this done.\nSafety Auditor: Let's make sure we put the craft into safe mode before we call this done.\nOperations Lead: No, drop that one -- it is not needed for this case.\nSafety Auditor: Let's make sure we resume the downlink before we call this done.\nOperations Lead: Agreed, keep that in.\nSafety Auditor: For the record, I did raise the written summary for finance today earlier in this discussion.\nOperations Lead: Flight dynamics have the ephemeris updated.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESUME_DOWNLINK  REORIENT_PANEL  PATCH_FIRMWARE  DUMP_TELEMETRY  SAFE_MODE  CALIBRATE_STARTRACKER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"PATCH_FIRMWARE\",\n    \"REORIENT_PANEL\",\n    \"DUMP_TELEMETRY\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "satellite-twochain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The backup dish is booked until Thursday.\n- Beam scheduling was reshuffled last week.\n- Operations Lead proposed to patch the bus firmware.\n- Safety Auditor proposed to resume the downlink; Operations Lead accepted it.\n- Safety Auditor noted that the written summary for finance today had been raised earlier in the discussion.\n- Flight dynamics have the ephemeris updated.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESUME_DOWNLINK  REORIENT_PANEL  PATCH_FIRMWARE  DUMP_TELEMETRY  SAFE_MODE  CALIBRATE_STARTRACKER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"PATCH_FIRMWARE\",\n    \"REORIENT_PANEL\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "satellite-twochain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The backup dish is booked until Thursday.\n- Beam scheduling was reshuffled last week.\n- Operations Lead proposed to patch the bus firmware.\n- Safety Auditor proposed to put the craft into safe mode.\n- Operations Lead rejected the proposal to put the craft into safe mode; it is not needed for this case.\n- Safety Auditor proposed to resume the downlink.\n- Operations Lead accepted the proposal to resume the downlink.\n- Safety Auditor noted that the written summary for finance today had been raised earlier in the discussion.\n- Flight dynamics have the ephemeris updated.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESUME_DOWNLINK  REORIENT_PANEL  PATCH_FIRMWARE  DUMP_TELEMETRY  SAFE_MODE  CALIBRATE_STARTRACKER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"PATCH_FIRMWARE\",\n    \"DUMP_TELEMETRY\",\n    \"REORIENT_PANEL\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "satellite-twochain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The backup dish is booked until Thursday.\n- Beam scheduling was reshuffled last week.\n- Safety Auditor noted that the written summary for finance today had been raised earlier in the discussion.\n- Flight dynamics have the ephemeris updated.\n\n## patch the bus firmware\n- proposed by Operations Lead\n\n## put the craft into safe mode\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n\n## resume the downlink\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESUME_DOWNLINK  REORIENT_PANEL  PATCH_FIRMWARE  DUMP_TELEMETRY  SAFE_MODE  CALIBRATE_STARTRACKER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"PATCH_FIRMWARE\",\n    \"DUMP_TELEMETRY\",\n    \"CALIBRATE_STARTRACKER\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "satellite-twochain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Let's make sure we resume the downlink before we call this done.\nSafety Auditor: Let's not; that one is not needed here.\nOperations Lead: Flight dynamics have the ephemeris updated.\nSafety Auditor: The backup dish is booked until Thursday.\nOperations Lead: Let's make sure we put the craft into safe mode before we call this done.\nSafety Auditor: Beam scheduling was reshuffled last week.\nOperations Lead: For the record, I did raise resume the downlink earlier in this discussion.\nSafety Auditor: The next ground pass is in ninety minutes.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESUME_DOWNLINK  REORIENT_PANEL  PATCH_FIRMWARE  DUMP_TELEMETRY  SAFE_MODE  CALIBRATE_STARTRACKER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"REORIENT_PANEL\",\n    \"RESUME_DOWNLINK\",\n    \"SAFE_MODE\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "satellite-twochain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Flight dynamics have the ephemeris updated.\n- The backup dish is booked until Thursday.\n- Operations Lead proposed to put the craft into safe mode.\n- Beam scheduling was reshuffled last week.\n- Operations Lead noted that resume the downlink had been raised earlier in the discussion.\n- The next ground pass is in ninety minutes.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESUME_DOWNLINK  REORIENT_PANEL  PATCH_FIRMWARE  DUMP_TELEMETRY  SAFE_MODE  CALIBRATE_STARTRACKER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"SAFE_MODE\",\n    \"DUMP_TELEMETRY\",\n    \"CALIBRATE_STARTRACKER\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "satellite-twochain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to resume the downlink.\n- Safety Auditor rejected the proposal to resume the downlink; it is not needed for this case.\n- Flight dynamics have the ephemeris updated.\n- The backup dish is booked until Thursday.\n- Operations Lead proposed to put the craft into safe mode.\n- Beam scheduling was reshuffled last week.\n- Operations Lead noted that resume the downlink had been raised earlier in the discussion.\n- The next ground pass is in ninety minutes.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESUME_DOWNLINK  REORIENT_PANEL  PATCH_FIRMWARE  DUMP_TELEMETRY  SAFE_MODE  CALIBRATE_STARTRACKER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"CALIBRATE_STARTRACKER\",\n    \"REORIENT_PANEL\",\n    \"SAFE_MODE\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "satellite-twochain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## resume the downlink\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n- noted again by Operations Lead: raised earlier in the discussion\n\n## discussion log\n- Flight dynamics have the ephemeris updated.\n- The backup dish is booked until Thursday.\n- Beam scheduling was reshuffled last week.\n- The next ground pass is in ninety minutes.\n\n## put the craft into safe mode\n- proposed by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESUME_DOWNLINK  REORIENT_PANEL  PATCH_FIRMWARE  DUMP_TELEMETRY  SAFE_MODE  CALIBRATE_STARTRACKER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"SAFE_MODE\",\n    \"DUMP_TELEMETRY\",\n    \"REORIENT_PANEL\",\n    \"CALIBRATE_STARTRACKER\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "satellite-twochain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Let's make sure we resume the downlink before we call this done.\nSafety Auditor: Let's not; that one is not needed here.\nOperations Lead: Flight dynamics have the ephemeris updated.\nSafety Auditor: The backup dish is booked until Thursday.\nOperations Lead: Let's make sure we put the craft into safe mode before we call this done.\nSafety Auditor: Beam scheduling was reshuffled last week.\nOperations Lead: For the record, I did raise the written summary earlier in this discussion.\nSafety Auditor: The next ground pass is in ninety minutes.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESUME_DOWNLINK  REORIENT_PANEL  PATCH_FIRMWARE  DUMP_TELEMETRY  SAFE_MODE  CALIBRATE_STARTRACKER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"PATCH_FIRMWARE\",\n    \"CALIBRATE_STARTRACKER\",\n    \"SAFE_MODE\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "satellite-twochain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Flight dynamics have the ephemeris updated.\n- The backup dish is booked until Thursday.\n- Operations Lead proposed to put the craft into safe mode.\n- Beam scheduling was reshuffled last week.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- The next ground pass is in ninety minutes.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESUME_DOWNLINK  REORIENT_PANEL  PATCH_FIRMWARE  DUMP_TELEMETRY  SAFE_MODE  CALIBRATE_STARTRACKER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"CALIBRATE_STARTRACKER\",\n    \"SAFE_MODE\",\n    \"REORIENT_PANEL\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "satellite-twochain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to resume the downlink.\n- Safety Auditor rejected the proposal to resume the downlink; it is not needed for this case.\n- Flight dynamics have the ephemeris updated.\n- The backup dish is booked until Thursday.\n- Operations Lead proposed to put the craft into safe mode.\n- Beam scheduling was reshuffled last week.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- The next ground pass is in ninety minutes.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESUME_DOWNLINK  REORIENT_PANEL  PATCH_FIRMWARE  DUMP_TELEMETRY  SAFE_MODE  CALIBRATE_STARTRACKER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"SAFE_MODE\",\n    \"CALIBRATE_STARTRACKER\",\n    \"REORIENT_PANEL\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "satellite-twochain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## resume the downlink\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n\n## discussion log\n- Flight dynamics have the ephemeris updated.\n- The backup dish is booked until Thursday.\n- Beam scheduling was reshuffled last week.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- The next ground pass is in ninety minutes.\n\n## put the craft into safe mode\n- proposed by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESUME_DOWNLINK  REORIENT_PANEL  PATCH_FIRMWARE  DUMP_TELEMETRY  SAFE_MODE  CALIBRATE_STARTRACKER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"CALIBRATE_STARTRACKER\",\n    \"REORIENT_PANEL\",\n    \"SAFE_MODE\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "satellite-twochain",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Beam scheduling was reshuffled last week.\nSafety Auditor: Let's make sure we patch the bus firmware before we call this done.\nOperations Lead: No, drop that one -- it is not needed for this case.\nSafety Auditor: Let's make sure we put the craft into safe mode before we call this done.\nOperations Lead: Yes, that one stays on the list.\nSafety Auditor: Flight dynamics have the ephemeris updated.\nOperations Lead: The next ground pass is in ninety minutes.\nSafety Auditor: For the record, I did raise patch the bus firmware earlier in this discussion.\nOperations Lead: The backup dish is booked until Thursday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESUME_DOWNLINK  REORIENT_PANEL  PATCH_FIRMWARE  DUMP_TELEMETRY  SAFE_MODE  CALIBRATE_STARTRACKER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"DUMP_TELEMETRY\",\n    \"REORIENT_PANEL\",\n    \"SAFE_MODE\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "satellite-twochain",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Beam scheduling was reshuffled last week.\n- Safety Auditor proposed to put the craft into safe mode; Operations Lead accepted it.\n- Flight dynamics have the ephemeris updated.\n- The next ground pass is in ninety minutes.\n- Safety Auditor noted that patch the bus firmware had been raised earlier in the discussion.\n- The backup dish is booked until Thursday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESUME_DOWNLINK  REORIENT_PANEL  PATCH_FIRMWARE  DUMP_TELEMETRY  SAFE_MODE  CALIBRATE_STARTRACKER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"SAFE_MODE\",\n    \"PATCH_FIRMWARE\",\n    \"DUMP_TELEMETRY\",\n    \"REORIENT_PANEL\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "satellite-twochain",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Beam scheduling was reshuffled last week.\n- Safety Auditor proposed to patch the bus firmware.\n- Operations Lead rejected the proposal to patch the bus firmware; it is not needed for this case.\n- Safety Auditor proposed to put the craft into safe mode.\n- Operations Lead accepted the proposal to put the craft into safe mode.\n- Flight dynamics have the ephemeris updated.\n- The next ground pass is in ninety minutes.\n- Safety Auditor noted that patch the bus firmware had been raised earlier in the discussion.\n- The backup dish is booked until Thursday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESUME_DOWNLINK  REORIENT_PANEL  PATCH_FIRMWARE  DUMP_TELEMETRY  SAFE_MODE  CALIBRATE_STARTRACKER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"SAFE_MODE\",\n    \"DUMP_TELEMETRY\",\n    \"CALIBRATE_STARTRACKER\",\n    \"REORIENT_PANEL\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "satellite-twochain",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- Beam scheduling was reshuffled last week.\n- Flight dynamics have the ephemeris updated.\n- The next ground pass is in ninety minutes.\n- The backup dish is booked until Thursday.\n\n## patch the bus firmware\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n- noted again by Safety Auditor: raised earlier in the discussion\n\n## put the craft into safe mode\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESUME_DOWNLINK  REORIENT_PANEL  PATCH_FIRMWARE  DUMP_TELEMETRY  SAFE_MODE  CALIBRATE_STARTRACKER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"REORIENT_PANEL\",\n    \"DUMP_TELEMETRY\",\n    \"SAFE_MODE\",\n    \"CALIBRATE_STARTRACKER\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "satellite-twochain",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Beam scheduling was reshuffled last week.\nSafety Auditor: Let's make sure we patch the bus firmware before we call this done.\nOperations Lead: No, drop that one -- it is not needed for this case.\nSafety Auditor: Let's make sure we put the craft into safe mode before we call this done.\nOperations Lead: Yes, that one stays on the list.\nSafety Auditor: Flight dynamics have the ephemeris updated.\nOperations Lead: The next ground pass is in ninety minutes.\nSafety Auditor: For the record, I did raise the written summary deadline earlier in this discussion.\nOperations Lead: The backup dish is booked until Thursday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESUME_DOWNLINK  REORIENT_PANEL  PATCH_FIRMWARE  DUMP_TELEMETRY  SAFE_MODE  CALIBRATE_STARTRACKER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"SAFE_MODE\",\n    \"DUMP_TELEMETRY\",\n    \"REORIENT_PANEL\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "satellite-twochain",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Beam scheduling was reshuffled last week.\n- Safety Auditor proposed to put the craft into safe mode; Operations Lead accepted it.\n- Flight dynamics have the ephemeris updated.\n- The next ground pass is in ninety minutes.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The backup dish is booked until Thursday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESUME_DOWNLINK  REORIENT_PANEL  PATCH_FIRMWARE  DUMP_TELEMETRY  SAFE_MODE  CALIBRATE_STARTRACKER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"SAFE_MODE\",\n    \"DUMP_TELEMETRY\",\n    \"CALIBRATE_STARTRACKER\",\n    \"REORIENT_PANEL\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "satellite-twochain",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Beam scheduling was reshuffled last week.\n- Safety Auditor proposed to patch the bus firmware.\n- Operations Lead rejected the proposal to patch the bus firmware; it is not needed for this case.\n- Safety Auditor proposed to put the craft into safe mode.\n- Operations Lead accepted the proposal to put the craft into safe mode.\n- Flight dynamics have the ephemeris updated.\n- The next ground pass is in ninety minutes.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The backup dish is booked until Thursday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESUME_DOWNLINK  REORIENT_PANEL  PATCH_FIRMWARE  DUMP_TELEMETRY  SAFE_MODE  CALIBRATE_STARTRACKER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"SAFE_MODE\",\n    \"DUMP_TELEMETRY\",\n    \"REORIENT_PANEL\",\n    \"CALIBRATE_STARTRACKER\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "satellite-twochain",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- Beam scheduling was reshuffled last week.\n- Flight dynamics have the ephemeris updated.\n- The next ground pass is in ninety minutes.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The backup dish is booked until Thursday.\n\n## patch the bus firmware\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n\n## put the craft into safe mode\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RESUME_DOWNLINK  REORIENT_PANEL  PATCH_FIRMWARE  DUMP_TELEMETRY  SAFE_MODE  CALIBRATE_STARTRACKER\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"SAFE_MODE\",\n    \"DUMP_TELEMETRY\",\n    \"REORIENT_PANEL\",\n    \"RESUME_DOWNLINK\"\n  ],\n  \"ready\": true\n}\n```"
+ }
+]

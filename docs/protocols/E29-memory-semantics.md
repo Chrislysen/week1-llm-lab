@@ -572,3 +572,38 @@ an observation. P6: under `delete`/neutral the rejected step's inclusion
    effect of the estimand, not a weaker mechanism.
 3. Δ_full changes sign across deciders (−0.083, −0.073, +0.052), consistent
    with E29-C: a register effect specific to the 3B model.
+
+### Outcome — `gemma4:e4b`, run 2026-09-12 (morning), after `99d60fd`
+
+768 of 768 calls in nineteen foreground chunks of five or six dialogues
+(this model runs at about 11 s per call here; a first 16-dialogue chunk was
+killed by the background-task reaper after 40 minutes with nothing written and
+was re-run in the foreground). Parse 1.000 in every cell, mean |plan| 4.00,
+all cells valid. `results/e29_gemma4-e4b_o*.csv/.json`,
+`results/e29_gemma4-e4b_summary.json`.
+
+| design | restated | neutral | Δ | 95 % CI | DiD vs full | 95 % CI |
+|---|---|---|---|---|---|---|
+| full | 0.125 | 0.135 | −0.010 | [−0.094, +0.062] | reference | |
+| delete | 0.979 | 0.490 | +0.490 | [+0.385, +0.583] | **+0.500** | [+0.375, +0.625] |
+| addonly | 0.000 | 0.000 | +0.000 | [+0.000, +0.000] | +0.010 | [−0.062, +0.094] |
+| wiki | 0.000 | 0.000 | +0.000 | [+0.000, +0.000] | +0.010 | [−0.062, +0.094] |
+
+**Verdict by the declared rule: DESIGN-DEPENDENT, delete DiD +0.500.** P1
+and P2 hold with the largest Δ_delete of any decider (+0.490). P3 holds:
+Δ_full is −0.010, not significant. P4 holds (DiD_addonly +0.010). P5 holds
+(wiki = addonly = 0.000 exactly). P6 holds: under `delete`/neutral the
+rejected step's inclusion (0.490) is within 0.10 of that cell's `never` rate
+(0.500). This decider never enacts a step whose rejection it can see, in 384
+add-only and wiki cells, and enacts a step whose rejection was deleted at
+the never-mentioned rate until the restatement arrives, after which it
+enacts it almost always. The design dependence is absolute on this model:
+the rejected step comes back through write-time delete and through nothing
+else.
+
+**Standing after four deciders.** DESIGN-DEPENDENT on every decider run
+(3B, 7B, 14B, and a third family at ~4B effective), carried each time by
+`delete` (DiD +0.438, +0.375, +0.208, +0.500), with add-only inside the band
+every time (+0.094, +0.042, −0.052, +0.010) and wiki positive on the two
+small deciders and flat on the two larger ones. The residual claim in §0.5
+stands as stated there; nothing in the addendum widens it.

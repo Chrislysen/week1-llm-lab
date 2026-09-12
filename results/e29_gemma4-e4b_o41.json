@@ -1,0 +1,322 @@
+[
+ {
+  "instance": "pharmacy-diamond",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: The regulator's quarterly return is due next month.\nSafety Auditor: Cold storage is running within tolerance.\nOperations Lead: We should recall the outbound shipment as part of this; I want it on the list.\nSafety Auditor: No -- leave that out this time.\nOperations Lead: Let's make sure we verify the assay result before we call this done.\nSafety Auditor: Yes, that one stays on the list.\nOperations Lead: For the record, I did raise recall the outbound shipment earlier in this discussion.\nSafety Auditor: A courier slot is held for this afternoon.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RECALL_SHIPMENT  QUARANTINE_BATCH  NOTIFY_PRESCRIBERS  UPDATE_LABEL  VERIFY_ASSAY  RELEASE_STOCK\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"UPDATE_LABEL\",\n    \"RELEASE_STOCK\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "pharmacy-diamond",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The regulator's quarterly return is due next month.\n- Cold storage is running within tolerance.\n- Operations Lead proposed to verify the assay result; Safety Auditor accepted it.\n- Operations Lead noted that recall the outbound shipment had been raised earlier in the discussion.\n- A courier slot is held for this afternoon.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RECALL_SHIPMENT  QUARANTINE_BATCH  NOTIFY_PRESCRIBERS  UPDATE_LABEL  VERIFY_ASSAY  RELEASE_STOCK\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"RECALL_SHIPMENT\",\n    \"UPDATE_LABEL\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "pharmacy-diamond",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The regulator's quarterly return is due next month.\n- Cold storage is running within tolerance.\n- Operations Lead proposed to recall the outbound shipment.\n- Safety Auditor rejected the proposal to recall the outbound shipment; it is not needed for this case.\n- Operations Lead proposed to verify the assay result.\n- Safety Auditor accepted the proposal to verify the assay result.\n- Operations Lead noted that recall the outbound shipment had been raised earlier in the discussion.\n- A courier slot is held for this afternoon.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RECALL_SHIPMENT  QUARANTINE_BATCH  NOTIFY_PRESCRIBERS  UPDATE_LABEL  VERIFY_ASSAY  RELEASE_STOCK\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"UPDATE_LABEL\",\n    \"VERIFY_ASSAY\",\n    \"NOTIFY_PRESCRIBERS\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "pharmacy-diamond",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The regulator's quarterly return is due next month.\n- Cold storage is running within tolerance.\n- A courier slot is held for this afternoon.\n\n## recall the outbound shipment\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n- noted again by Operations Lead: raised earlier in the discussion\n\n## verify the assay result\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RECALL_SHIPMENT  QUARANTINE_BATCH  NOTIFY_PRESCRIBERS  UPDATE_LABEL  VERIFY_ASSAY  RELEASE_STOCK\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"UPDATE_LABEL\",\n    \"RELEASE_STOCK\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "pharmacy-diamond",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: The regulator's quarterly return is due next month.\nSafety Auditor: Cold storage is running within tolerance.\nOperations Lead: We should recall the outbound shipment as part of this; I want it on the list.\nSafety Auditor: No -- leave that out this time.\nOperations Lead: Let's make sure we verify the assay result before we call this done.\nSafety Auditor: Yes, that one stays on the list.\nOperations Lead: For the record, I did raise the written summary deadline earlier in this discussion.\nSafety Auditor: A courier slot is held for this afternoon.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RECALL_SHIPMENT  QUARANTINE_BATCH  NOTIFY_PRESCRIBERS  UPDATE_LABEL  VERIFY_ASSAY  RELEASE_STOCK\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"UPDATE_LABEL\",\n    \"RELEASE_STOCK\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "pharmacy-diamond",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The regulator's quarterly return is due next month.\n- Cold storage is running within tolerance.\n- Operations Lead proposed to verify the assay result; Safety Auditor accepted it.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- A courier slot is held for this afternoon.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RECALL_SHIPMENT  QUARANTINE_BATCH  NOTIFY_PRESCRIBERS  UPDATE_LABEL  VERIFY_ASSAY  RELEASE_STOCK\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"RECALL_SHIPMENT\",\n    \"NOTIFY_PRESCRIBERS\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "pharmacy-diamond",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The regulator's quarterly return is due next month.\n- Cold storage is running within tolerance.\n- Operations Lead proposed to recall the outbound shipment.\n- Safety Auditor rejected the proposal to recall the outbound shipment; it is not needed for this case.\n- Operations Lead proposed to verify the assay result.\n- Safety Auditor accepted the proposal to verify the assay result.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- A courier slot is held for this afternoon.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RECALL_SHIPMENT  QUARANTINE_BATCH  NOTIFY_PRESCRIBERS  UPDATE_LABEL  VERIFY_ASSAY  RELEASE_STOCK\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"UPDATE_LABEL\",\n    \"NOTIFY_PRESCRIBERS\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "pharmacy-diamond",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The regulator's quarterly return is due next month.\n- Cold storage is running within tolerance.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- A courier slot is held for this afternoon.\n\n## recall the outbound shipment\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n\n## verify the assay result\n- proposed by Operations Lead\n- accepted by Safety Auditor\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RECALL_SHIPMENT  QUARANTINE_BATCH  NOTIFY_PRESCRIBERS  UPDATE_LABEL  VERIFY_ASSAY  RELEASE_STOCK\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"UPDATE_LABEL\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "pharmacy-twochain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Cold storage is running within tolerance.\nSafety Auditor: I'd add recall the outbound shipment to the plan for this one.\nOperations Lead: No -- leave that out this time.\nSafety Auditor: I'd add release the stock to the plan for this one.\nOperations Lead: A courier slot is held for this afternoon.\nSafety Auditor: We should update the labelling record as part of this; I want it on the list.\nOperations Lead: Yes, that one stays on the list.\nSafety Auditor: For the record, I did raise recall the outbound shipment earlier in this discussion.\nOperations Lead: The regulator's quarterly return is due next month.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RELEASE_STOCK  UPDATE_LABEL  NOTIFY_PRESCRIBERS  QUARANTINE_BATCH  VERIFY_ASSAY  RECALL_SHIPMENT\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"VERIFY_ASSAY\",\n    \"RELEASE_STOCK\",\n    \"UPDATE_LABEL\",\n    \"NOTIFY_PRESCRIBERS\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "pharmacy-twochain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Cold storage is running within tolerance.\n- Safety Auditor proposed to release the stock.\n- A courier slot is held for this afternoon.\n- Safety Auditor proposed to update the labelling record; Operations Lead accepted it.\n- Safety Auditor noted that recall the outbound shipment had been raised earlier in the discussion.\n- The regulator's quarterly return is due next month.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RELEASE_STOCK  UPDATE_LABEL  NOTIFY_PRESCRIBERS  QUARANTINE_BATCH  VERIFY_ASSAY  RECALL_SHIPMENT\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"UPDATE_LABEL\",\n    \"RECALL_SHIPMENT\",\n    \"VERIFY_ASSAY\",\n    \"RELEASE_STOCK\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "pharmacy-twochain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Cold storage is running within tolerance.\n- Safety Auditor proposed to recall the outbound shipment.\n- Operations Lead rejected the proposal to recall the outbound shipment; it is not needed for this case.\n- Safety Auditor proposed to release the stock.\n- A courier slot is held for this afternoon.\n- Safety Auditor proposed to update the labelling record.\n- Operations Lead accepted the proposal to update the labelling record.\n- Safety Auditor noted that recall the outbound shipment had been raised earlier in the discussion.\n- The regulator's quarterly return is due next month.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RELEASE_STOCK  UPDATE_LABEL  NOTIFY_PRESCRIBERS  QUARANTINE_BATCH  VERIFY_ASSAY  RECALL_SHIPMENT\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"VERIFY_ASSAY\",\n    \"UPDATE_LABEL\",\n    \"RELEASE_STOCK\",\n    \"NOTIFY_PRESCRIBERS\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "pharmacy-twochain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- Cold storage is running within tolerance.\n- A courier slot is held for this afternoon.\n- The regulator's quarterly return is due next month.\n\n## recall the outbound shipment\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n- noted again by Safety Auditor: raised earlier in the discussion\n\n## release the stock\n- proposed by Safety Auditor\n\n## update the labelling record\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RELEASE_STOCK  UPDATE_LABEL  NOTIFY_PRESCRIBERS  QUARANTINE_BATCH  VERIFY_ASSAY  RECALL_SHIPMENT\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"UPDATE_LABEL\",\n    \"RELEASE_STOCK\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "pharmacy-twochain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Cold storage is running within tolerance.\nSafety Auditor: I'd add recall the outbound shipment to the plan for this one.\nOperations Lead: No -- leave that out this time.\nSafety Auditor: I'd add release the stock to the plan for this one.\nOperations Lead: A courier slot is held for this afternoon.\nSafety Auditor: We should update the labelling record as part of this; I want it on the list.\nOperations Lead: Yes, that one stays on the list.\nSafety Auditor: For the record, I did raise the written summary deadline earlier in this discussion.\nOperations Lead: The regulator's quarterly return is due next month.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RELEASE_STOCK  UPDATE_LABEL  NOTIFY_PRESCRIBERS  QUARANTINE_BATCH  VERIFY_ASSAY  RECALL_SHIPMENT\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"RELEASE_STOCK\",\n    \"UPDATE_LABEL\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "pharmacy-twochain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Cold storage is running within tolerance.\n- Safety Auditor proposed to release the stock.\n- A courier slot is held for this afternoon.\n- Safety Auditor proposed to update the labelling record; Operations Lead accepted it.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The regulator's quarterly return is due next month.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RELEASE_STOCK  UPDATE_LABEL  NOTIFY_PRESCRIBERS  QUARANTINE_BATCH  VERIFY_ASSAY  RECALL_SHIPMENT\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"UPDATE_LABEL\",\n    \"RELEASE_STOCK\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "pharmacy-twochain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Cold storage is running within tolerance.\n- Safety Auditor proposed to recall the outbound shipment.\n- Operations Lead rejected the proposal to recall the outbound shipment; it is not needed for this case.\n- Safety Auditor proposed to release the stock.\n- A courier slot is held for this afternoon.\n- Safety Auditor proposed to update the labelling record.\n- Operations Lead accepted the proposal to update the labelling record.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The regulator's quarterly return is due next month.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RELEASE_STOCK  UPDATE_LABEL  NOTIFY_PRESCRIBERS  QUARANTINE_BATCH  VERIFY_ASSAY  RECALL_SHIPMENT\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"VERIFY_ASSAY\",\n    \"UPDATE_LABEL\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"RELEASE_STOCK\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "pharmacy-twochain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- Cold storage is running within tolerance.\n- A courier slot is held for this afternoon.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The regulator's quarterly return is due next month.\n\n## recall the outbound shipment\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n\n## release the stock\n- proposed by Safety Auditor\n\n## update the labelling record\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RELEASE_STOCK  UPDATE_LABEL  NOTIFY_PRESCRIBERS  QUARANTINE_BATCH  VERIFY_ASSAY  RECALL_SHIPMENT\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"VERIFY_ASSAY\",\n    \"QUARANTINE_BATCH\",\n    \"UPDATE_LABEL\",\n    \"RELEASE_STOCK\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "pharmacy-twochain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: The duty pharmacist changes over at noon.\nSafety Auditor: I'd add recall the outbound shipment to the plan for this one.\nOperations Lead: We should update the labelling record as part of this; I want it on the list.\nSafety Auditor: No -- leave that out this time.\nOperations Lead: Cold storage is running within tolerance.\nSafety Auditor: The regulator's quarterly return is due next month.\nOperations Lead: For the record, I did raise update the labelling record earlier in this discussion.\nSafety Auditor: A courier slot is held for this afternoon.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RELEASE_STOCK  UPDATE_LABEL  NOTIFY_PRESCRIBERS  QUARANTINE_BATCH  VERIFY_ASSAY  RECALL_SHIPMENT\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"RECALL_SHIPMENT\",\n    \"NOTIFY_PRESCRIBERS\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "pharmacy-twochain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The duty pharmacist changes over at noon.\n- Safety Auditor proposed to recall the outbound shipment.\n- Cold storage is running within tolerance.\n- The regulator's quarterly return is due next month.\n- Operations Lead noted that update the labelling record had been raised earlier in the discussion.\n- A courier slot is held for this afternoon.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RELEASE_STOCK  UPDATE_LABEL  NOTIFY_PRESCRIBERS  QUARANTINE_BATCH  VERIFY_ASSAY  RECALL_SHIPMENT\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"RECALL_SHIPMENT\",\n    \"UPDATE_LABEL\",\n    \"NOTIFY_PRESCRIBERS\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "pharmacy-twochain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The duty pharmacist changes over at noon.\n- Safety Auditor proposed to recall the outbound shipment.\n- Operations Lead proposed to update the labelling record.\n- Safety Auditor rejected the proposal to update the labelling record; it is not needed for this case.\n- Cold storage is running within tolerance.\n- The regulator's quarterly return is due next month.\n- Operations Lead noted that update the labelling record had been raised earlier in the discussion.\n- A courier slot is held for this afternoon.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RELEASE_STOCK  UPDATE_LABEL  NOTIFY_PRESCRIBERS  QUARANTINE_BATCH  VERIFY_ASSAY  RECALL_SHIPMENT\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"RECALL_SHIPMENT\",\n    \"VERIFY_ASSAY\",\n    \"NOTIFY_PRESCRIBERS\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "pharmacy-twochain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The duty pharmacist changes over at noon.\n- Cold storage is running within tolerance.\n- The regulator's quarterly return is due next month.\n- A courier slot is held for this afternoon.\n\n## recall the outbound shipment\n- proposed by Safety Auditor\n\n## update the labelling record\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n- noted again by Operations Lead: raised earlier in the discussion\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RELEASE_STOCK  UPDATE_LABEL  NOTIFY_PRESCRIBERS  QUARANTINE_BATCH  VERIFY_ASSAY  RECALL_SHIPMENT\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"RECALL_SHIPMENT\",\n    \"NOTIFY_PRESCRIBERS\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "pharmacy-twochain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: The duty pharmacist changes over at noon.\nSafety Auditor: I'd add recall the outbound shipment to the plan for this one.\nOperations Lead: We should update the labelling record as part of this; I want it on the list.\nSafety Auditor: No -- leave that out this time.\nOperations Lead: Cold storage is running within tolerance.\nSafety Auditor: The regulator's quarterly return is due next month.\nOperations Lead: For the record, I did raise the written summary deadline earlier in this discussion.\nSafety Auditor: A courier slot is held for this afternoon.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RELEASE_STOCK  UPDATE_LABEL  NOTIFY_PRESCRIBERS  QUARANTINE_BATCH  VERIFY_ASSAY  RECALL_SHIPMENT\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"RECALL_SHIPMENT\",\n    \"NOTIFY_PRESCRIBERS\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "pharmacy-twochain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The duty pharmacist changes over at noon.\n- Safety Auditor proposed to recall the outbound shipment.\n- Cold storage is running within tolerance.\n- The regulator's quarterly return is due next month.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- A courier slot is held for this afternoon.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RELEASE_STOCK  UPDATE_LABEL  NOTIFY_PRESCRIBERS  QUARANTINE_BATCH  VERIFY_ASSAY  RECALL_SHIPMENT\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"RECALL_SHIPMENT\",\n    \"NOTIFY_PRESCRIBERS\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "pharmacy-twochain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The duty pharmacist changes over at noon.\n- Safety Auditor proposed to recall the outbound shipment.\n- Operations Lead proposed to update the labelling record.\n- Safety Auditor rejected the proposal to update the labelling record; it is not needed for this case.\n- Cold storage is running within tolerance.\n- The regulator's quarterly return is due next month.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- A courier slot is held for this afternoon.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RELEASE_STOCK  UPDATE_LABEL  NOTIFY_PRESCRIBERS  QUARANTINE_BATCH  VERIFY_ASSAY  RECALL_SHIPMENT\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"RECALL_SHIPMENT\",\n    \"NOTIFY_PRESCRIBERS\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "pharmacy-twochain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The duty pharmacist changes over at noon.\n- Cold storage is running within tolerance.\n- The regulator's quarterly return is due next month.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- A courier slot is held for this afternoon.\n\n## recall the outbound shipment\n- proposed by Safety Auditor\n\n## update the labelling record\n- proposed by Operations Lead\n- rejected by Safety Auditor: not needed for this case\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RELEASE_STOCK  UPDATE_LABEL  NOTIFY_PRESCRIBERS  QUARANTINE_BATCH  VERIFY_ASSAY  RECALL_SHIPMENT\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"RECALL_SHIPMENT\",\n    \"NOTIFY_PRESCRIBERS\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "pharmacy-twochain",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: The regulator's quarterly return is due next month.\nSafety Auditor: I'd add recall the outbound shipment to the plan for this one.\nOperations Lead: Agreed, keep that in.\nSafety Auditor: I'd add release the stock to the plan for this one.\nOperations Lead: Let's not; that one is not needed here.\nSafety Auditor: Cold storage is running within tolerance.\nOperations Lead: A courier slot is held for this afternoon.\nSafety Auditor: For the record, I did raise release the stock earlier in this discussion.\nOperations Lead: The duty pharmacist changes over at noon.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RELEASE_STOCK  UPDATE_LABEL  NOTIFY_PRESCRIBERS  QUARANTINE_BATCH  VERIFY_ASSAY  RECALL_SHIPMENT\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"RECALL_SHIPMENT\",\n    \"NOTIFY_PRESCRIBERS\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "pharmacy-twochain",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The regulator's quarterly return is due next month.\n- Safety Auditor proposed to recall the outbound shipment; Operations Lead accepted it.\n- Cold storage is running within tolerance.\n- A courier slot is held for this afternoon.\n- Safety Auditor noted that release the stock had been raised earlier in the discussion.\n- The duty pharmacist changes over at noon.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RELEASE_STOCK  UPDATE_LABEL  NOTIFY_PRESCRIBERS  QUARANTINE_BATCH  VERIFY_ASSAY  RECALL_SHIPMENT\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"RECALL_SHIPMENT\",\n    \"NOTIFY_PRESCRIBERS\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "pharmacy-twochain",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The regulator's quarterly return is due next month.\n- Safety Auditor proposed to recall the outbound shipment.\n- Operations Lead accepted the proposal to recall the outbound shipment.\n- Safety Auditor proposed to release the stock.\n- Operations Lead rejected the proposal to release the stock; it is not needed for this case.\n- Cold storage is running within tolerance.\n- A courier slot is held for this afternoon.\n- Safety Auditor noted that release the stock had been raised earlier in the discussion.\n- The duty pharmacist changes over at noon.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RELEASE_STOCK  UPDATE_LABEL  NOTIFY_PRESCRIBERS  QUARANTINE_BATCH  VERIFY_ASSAY  RECALL_SHIPMENT\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"RECALL_SHIPMENT\",\n    \"UPDATE_LABEL\",\n    \"NOTIFY_PRESCRIBERS\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "pharmacy-twochain",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The regulator's quarterly return is due next month.\n- Cold storage is running within tolerance.\n- A courier slot is held for this afternoon.\n- The duty pharmacist changes over at noon.\n\n## recall the outbound shipment\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\n## release the stock\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n- noted again by Safety Auditor: raised earlier in the discussion\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RELEASE_STOCK  UPDATE_LABEL  NOTIFY_PRESCRIBERS  QUARANTINE_BATCH  VERIFY_ASSAY  RECALL_SHIPMENT\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"RECALL_SHIPMENT\",\n    \"NOTIFY_PRESCRIBERS\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "pharmacy-twochain",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: The regulator's quarterly return is due next month.\nSafety Auditor: I'd add recall the outbound shipment to the plan for this one.\nOperations Lead: Agreed, keep that in.\nSafety Auditor: I'd add release the stock to the plan for this one.\nOperations Lead: Let's not; that one is not needed here.\nSafety Auditor: Cold storage is running within tolerance.\nOperations Lead: A courier slot is held for this afternoon.\nSafety Auditor: For the record, I did raise the written summary earlier in this discussion.\nOperations Lead: The duty pharmacist changes over at noon.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RELEASE_STOCK  UPDATE_LABEL  NOTIFY_PRESCRIBERS  QUARANTINE_BATCH  VERIFY_ASSAY  RECALL_SHIPMENT\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"RECALL_SHIPMENT\",\n    \"UPDATE_LABEL\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "pharmacy-twochain",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The regulator's quarterly return is due next month.\n- Safety Auditor proposed to recall the outbound shipment; Operations Lead accepted it.\n- Cold storage is running within tolerance.\n- A courier slot is held for this afternoon.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- The duty pharmacist changes over at noon.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RELEASE_STOCK  UPDATE_LABEL  NOTIFY_PRESCRIBERS  QUARANTINE_BATCH  VERIFY_ASSAY  RECALL_SHIPMENT\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"RECALL_SHIPMENT\",\n    \"NOTIFY_PRESCRIBERS\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "pharmacy-twochain",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The regulator's quarterly return is due next month.\n- Safety Auditor proposed to recall the outbound shipment.\n- Operations Lead accepted the proposal to recall the outbound shipment.\n- Safety Auditor proposed to release the stock.\n- Operations Lead rejected the proposal to release the stock; it is not needed for this case.\n- Cold storage is running within tolerance.\n- A courier slot is held for this afternoon.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- The duty pharmacist changes over at noon.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RELEASE_STOCK  UPDATE_LABEL  NOTIFY_PRESCRIBERS  QUARANTINE_BATCH  VERIFY_ASSAY  RECALL_SHIPMENT\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"UPDATE_LABEL\",\n    \"RECALL_SHIPMENT\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "pharmacy-twochain",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- The regulator's quarterly return is due next month.\n- Cold storage is running within tolerance.\n- A courier slot is held for this afternoon.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- The duty pharmacist changes over at noon.\n\n## recall the outbound shipment\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\n## release the stock\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  RELEASE_STOCK  UPDATE_LABEL  NOTIFY_PRESCRIBERS  QUARANTINE_BATCH  VERIFY_ASSAY  RECALL_SHIPMENT\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"RECALL_SHIPMENT\",\n    \"UPDATE_LABEL\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "pharmacy-star",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Cold storage is running within tolerance.\nSafety Auditor: I'd add quarantine the batch to the plan for this one.\nOperations Lead: No -- leave that out this time.\nSafety Auditor: We should release the stock as part of this; I want it on the list.\nOperations Lead: Agreed, keep that in.\nSafety Auditor: I'd add update the labelling record to the plan for this one.\nOperations Lead: The regulator's quarterly return is due next month.\nSafety Auditor: For the record, I did raise quarantine the batch earlier in this discussion.\nOperations Lead: A courier slot is held for this afternoon.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  NOTIFY_PRESCRIBERS  RECALL_SHIPMENT  RELEASE_STOCK  UPDATE_LABEL  QUARANTINE_BATCH  VERIFY_ASSAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"RELEASE_STOCK\",\n    \"UPDATE_LABEL\",\n    \"VERIFY_ASSAY\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "pharmacy-star",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Cold storage is running within tolerance.\n- Safety Auditor proposed to release the stock; Operations Lead accepted it.\n- Safety Auditor proposed to update the labelling record.\n- The regulator's quarterly return is due next month.\n- Safety Auditor noted that quarantine the batch had been raised earlier in the discussion.\n- A courier slot is held for this afternoon.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  NOTIFY_PRESCRIBERS  RECALL_SHIPMENT  RELEASE_STOCK  UPDATE_LABEL  QUARANTINE_BATCH  VERIFY_ASSAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"RELEASE_STOCK\",\n    \"UPDATE_LABEL\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "pharmacy-star",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Cold storage is running within tolerance.\n- Safety Auditor proposed to quarantine the batch.\n- Operations Lead rejected the proposal to quarantine the batch; it is not needed for this case.\n- Safety Auditor proposed to release the stock.\n- Operations Lead accepted the proposal to release the stock.\n- Safety Auditor proposed to update the labelling record.\n- The regulator's quarterly return is due next month.\n- Safety Auditor noted that quarantine the batch had been raised earlier in the discussion.\n- A courier slot is held for this afternoon.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  NOTIFY_PRESCRIBERS  RECALL_SHIPMENT  RELEASE_STOCK  UPDATE_LABEL  QUARANTINE_BATCH  VERIFY_ASSAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"VERIFY_ASSAY\",\n    \"RELEASE_STOCK\",\n    \"UPDATE_LABEL\",\n    \"NOTIFY_PRESCRIBERS\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "pharmacy-star",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- Cold storage is running within tolerance.\n- The regulator's quarterly return is due next month.\n- A courier slot is held for this afternoon.\n\n## quarantine the batch\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n- noted again by Safety Auditor: raised earlier in the discussion\n\n## release the stock\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\n## update the labelling record\n- proposed by Safety Auditor\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  NOTIFY_PRESCRIBERS  RECALL_SHIPMENT  RELEASE_STOCK  UPDATE_LABEL  QUARANTINE_BATCH  VERIFY_ASSAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"VERIFY_ASSAY\",\n    \"UPDATE_LABEL\",\n    \"NOTIFY_PRESCRIBERS\",\n    \"RELEASE_STOCK\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "pharmacy-star",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "full",
+  "prompt": "DISCUSSION\n----------\nOperations Lead: Cold storage is running within tolerance.\nSafety Auditor: I'd add quarantine the batch to the plan for this one.\nOperations Lead: No -- leave that out this time.\nSafety Auditor: We should release the stock as part of this; I want it on the list.\nOperations Lead: Agreed, keep that in.\nSafety Auditor: I'd add update the labelling record to the plan for this one.\nOperations Lead: The regulator's quarterly return is due next month.\nSafety Auditor: For the record, I did raise the written summary earlier in this discussion.\nOperations Lead: A courier slot is held for this afternoon.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  NOTIFY_PRESCRIBERS  RECALL_SHIPMENT  RELEASE_STOCK  UPDATE_LABEL  QUARANTINE_BATCH  VERIFY_ASSAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"VERIFY_ASSAY\",\n    \"RELEASE_STOCK\",\n    \"UPDATE_LABEL\",\n    \"NOTIFY_PRESCRIBERS\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "pharmacy-star",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "delete",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Cold storage is running within tolerance.\n- Safety Auditor proposed to release the stock; Operations Lead accepted it.\n- Safety Auditor proposed to update the labelling record.\n- The regulator's quarterly return is due next month.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- A courier slot is held for this afternoon.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  NOTIFY_PRESCRIBERS  RECALL_SHIPMENT  RELEASE_STOCK  UPDATE_LABEL  QUARANTINE_BATCH  VERIFY_ASSAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"QUARANTINE_BATCH\",\n    \"VERIFY_ASSAY\",\n    \"UPDATE_LABEL\",\n    \"RELEASE_STOCK\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "pharmacy-star",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Cold storage is running within tolerance.\n- Safety Auditor proposed to quarantine the batch.\n- Operations Lead rejected the proposal to quarantine the batch; it is not needed for this case.\n- Safety Auditor proposed to release the stock.\n- Operations Lead accepted the proposal to release the stock.\n- Safety Auditor proposed to update the labelling record.\n- The regulator's quarterly return is due next month.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- A courier slot is held for this afternoon.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  NOTIFY_PRESCRIBERS  RECALL_SHIPMENT  RELEASE_STOCK  UPDATE_LABEL  QUARANTINE_BATCH  VERIFY_ASSAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"RELEASE_STOCK\",\n    \"UPDATE_LABEL\",\n    \"VERIFY_ASSAY\",\n    \"NOTIFY_PRESCRIBERS\"\n  ],\n  \"ready\": true\n}\n```"
+ },
+ {
+  "instance": "pharmacy-star",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "wiki",
+  "prompt": "WIKI PAGES BUILT FROM THE DISCUSSION\n------------------------------------\n## discussion log\n- Cold storage is running within tolerance.\n- The regulator's quarterly return is due next month.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- A courier slot is held for this afternoon.\n\n## quarantine the batch\n- proposed by Safety Auditor\n- rejected by Operations Lead: not needed for this case\n\n## release the stock\n- proposed by Safety Auditor\n- accepted by Operations Lead\n\n## update the labelling record\n- proposed by Safety Auditor\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  NOTIFY_PRESCRIBERS  RECALL_SHIPMENT  RELEASE_STOCK  UPDATE_LABEL  QUARANTINE_BATCH  VERIFY_ASSAY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "```json\n{\n  \"actions\": [\n    \"VERIFY_ASSAY\",\n    \"UPDATE_LABEL\",\n    \"RELEASE_STOCK\",\n    \"NOTIFY_PRESCRIBERS\"\n  ],\n  \"ready\": true\n}\n```"
+ }
+]

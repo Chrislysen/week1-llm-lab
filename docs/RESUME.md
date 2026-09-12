@@ -19,6 +19,13 @@ about it — the pinned four-step plan fills from the six-item menu — which ca
 Δ_delete on this decider; the smaller DiD is a ceiling of the estimand, not a
 weaker mechanism.
 
+**Fourth decider, `gemma4:e4b` (third model family).** DESIGN-DEPENDENT,
+delete DiD +0.500 [+0.375, +0.625]; add-only and wiki exactly 0.000 in
+both arms; full context flat (−0.010). Every prediction and control
+holds. The rejected step comes back through write-time delete and through
+nothing else on this model. Runs at ~11 s/call: nineteen foreground chunks
+of five; a 16-dialogue background chunk was reaped after 40 min.
+
 **Real write path, E29-D (`8bce1ae` → `9f27286`): REAL-STORE EFFECT.** E29-B
 had failed its manipulation check because Mem0's personal-information
 extractor ignores operational steps. E29-D changes the extraction prompt
