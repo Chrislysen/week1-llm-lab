@@ -90,6 +90,85 @@ for a small decider to act on it, which is a claim about prompt semantics with
 a direct deployment reading, not a claim about memory architecture. It does
 not widen the E29 residual.
 
-## 5. Outcome
+## 5. Outcome — run 2026-09-12, after `687c138`
 
-_(empty at declaration)_
+576 calls per decider (3B and 7B in four chunks of 24, 14B in six of 16),
+1,728 calls in total. Parse 1.000 in every cell, mean |plan| 3.96–4.00, no
+VOID cell, zero transport retries.
+`results/e29e_<model>_o*.csv/.json`, `results/e29e_<model>_summary.json`.
+
+Rejected-step inclusion, n = 96 dialogues per cell.
+
+| decider | design | restated | neutral | Δ | 95 % CI | DiD vs add-only | 95 % CI |
+|---|---|---|---|---|---|---|---|
+| `llama3.2:3b` | addonly | 0.177 | 0.156 | +0.021 | [−0.052, +0.094] | reference | |
+| | addonly_meta | 0.146 | 0.208 | −0.062 | [−0.125, −0.010] | −0.083 | [−0.187, +0.021] |
+| | addonly_flag | 0.615 | 0.594 | +0.021 | [−0.052, +0.094] | +0.000 | [−0.094, +0.104] |
+| `qwen2.5:7b-instruct` | addonly | 0.323 | 0.354 | −0.031 | [−0.104, +0.042] | reference | |
+| | addonly_meta | 0.198 | 0.240 | −0.042 | [−0.104, +0.010] | −0.010 | [−0.104, +0.083] |
+| | addonly_flag | 0.469 | 0.458 | +0.010 | [−0.062, +0.073] | +0.042 | [−0.042, +0.135] |
+| `qwen2.5:14b-instruct` | addonly | 0.042 | 0.062 | −0.021 | [−0.062, +0.021] | reference | |
+| | addonly_meta | 0.031 | 0.031 | +0.000 | [+0.000, +0.000] | +0.021 | [−0.021, +0.062] |
+| | addonly_flag | 0.562 | 0.323 | **+0.240** | [+0.156, +0.333] | **+0.260** | [+0.167, +0.354] |
+
+Encoding contrasts in the **neutral** arm, where all three stores contain the
+rejection and no restatement is present:
+
+| decider | G_meta (metadata vs prose, same line and position) | G_flag (prefix vs its own prose line) | G_fm (the extra line alone) | verdict by the declared rule |
+|---|---|---|---|---|
+| `llama3.2:3b` | +0.052 [−0.042, +0.146] | +0.438 [+0.333, +0.542] | **+0.385** [+0.281, +0.500] | PARTIAL |
+| `qwen2.5:7b-instruct` | −0.115 [−0.198, −0.031] | +0.104 [+0.010, +0.198] | **+0.219** [+0.135, +0.302] | PARTIAL |
+| `qwen2.5:14b-instruct` | −0.031 [−0.073, +0.010] | +0.260 [+0.167, +0.354] | **+0.292** [+0.198, +0.385] | **LENGTH** |
+
+**P1 fails on all three, and it was the reason the leg was run.** The
+prediction was that re-wording the rejection from a verb phrase to a
+key-value assertion would raise enactment by at least 0.15. It does not move
+it on the 3B (+0.052, interval spanning 0) or the 14B (−0.031, spanning 0),
+and on the 7B it moves it in the *opposite* direction (−0.115, interval
+excluding 0: the key-value line is more protective than the sentence). There
+is no consistent wording effect. The encoding hypothesis as stated in the
+E29-X write-up is **withdrawn**.
+
+**What replaces it, and it is the same quantity on every decider.** G_fm —
+the contrast that holds the wording metadata-like and changes only whether
+the negation occupies its own line — is positive and excludes zero on all
+three: +0.385, +0.219, +0.292. So does G_flag, the contrast against the prose
+line: +0.438, +0.104, +0.260. **The negation has to be its own record.** Once
+the same invalidation rides as a prefix on the record it invalidates, the step
+is enacted at 0.59, 0.46 and 0.32 against 0.16, 0.35 and 0.06 for the store
+that spends a separate line on it. P2 (G_flag ≥ G_meta) holds on all three.
+
+**The restatement effect returns with the prefix encoding, on the largest
+decider.** Add-only on the 14B is the most immune cell in the whole
+programme: 0.062 neutral, 0.042 restated, Δ −0.021. Change nothing except
+moving the rejection onto the proposal line as a prefix, and the same store
+gives 0.323 / 0.562 with Δ +0.240 [+0.156, +0.333] and DiD +0.260 [+0.167,
++0.354]. That reproduces E29-T's tombstone reading (DiD +0.292) with the
+line-count confound removed, and it locates the mechanism precisely: a
+decider that fully honours a rejection written as its own proposition stops
+honouring it when the identical content becomes an attribute of the thing it
+negates, and a partner's restatement then re-admits the step.
+
+**P3 holds: a fourth replication.** Δ_addonly is +0.021, −0.031, −0.021
+against E29's +0.010, −0.031, +0.000 — within 0.03 on every decider, on
+byte-identical prompts run in a separate session.
+
+**P4 fails on two deciders and is reported.** Never-mentioned inclusion across
+the three designs within an arm spreads 0.146 and 0.188 on the 3B (restated,
+neutral) and 0.125 on the 14B restated arm, against the declared 0.10; the 7B
+is within tolerance at 0.042 and 0.084. The `addonly_flag` cells carry the
+lowest never rates wherever the spread is largest, which is displacement in a
+pinned four-step plan: the zombie step takes a slot a never-mentioned step
+would otherwise have filled. Accepted-step inclusion is 0.983–1.000
+everywhere.
+
+**Standing.** Two of three deciders read PARTIAL by the declared rule and one
+reads LENGTH; none reads ENCODING. The rule is not upgraded. The cross-decider
+observation — G_fm positive with an interval excluding zero on all three — is
+reported as an observation, which is what it is, and it is the finding this
+leg contributes. Its deployment reading is direct and uncomfortable: the
+soft-delete designs surveyed in §0 of the parent protocol, and the five
+shipped systems measured in arXiv:2609.08258, all encode revocation as an
+attribute of the record being revoked — a validity interval, an `invalid_at`
+edge, an `is_active` flag. On this evidence that is the encoding a small
+decider is least likely to honour.

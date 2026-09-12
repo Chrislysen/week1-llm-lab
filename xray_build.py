@@ -256,7 +256,37 @@ def figure_data():
                          "restated": e["p"][f"{X}|restated"], "neutral": e["p"][f"{X}|neutral"],
                          "delta": e["delta"][X], "ci_delta": e["ci_delta"][X],
                          "did": e["did"][X], "ci_did": e["ci_did"][X], "n": e["n_complete"], "verdict": ""})
+    for slug_, name, size in DECIDERS:
+        b = os.path.join(HERE, "results", f"e29e_{slug_}_summary.json")
+        if not os.path.exists(b):
+            continue
+        e = json.load(open(b, encoding="utf-8"))
+        for X in ("addonly_meta", "addonly_flag"):
+            rows.append({"corpus": "first corpus (encoding)", "decider": name, "size": size, "design": X,
+                         "restated": e["p"][f"{X}|restated"], "neutral": e["p"][f"{X}|neutral"],
+                         "delta": e["delta"][X], "ci_delta": e["ci_delta"][X],
+                         "did": e["did"][X], "ci_did": e["ci_did"][X], "n": e["n_complete"], "verdict": ""})
     return rows
+
+
+def e29e_note():
+    """E29-E: the encoding isolation."""
+    parts = []
+    for slug_, name in (("llama32-3b", "llama3.2:3b"), ("qwen25-7b-instruct", "qwen2.5:7b-instruct"), ("qwen25-14b-instruct", "qwen2.5:14b-instruct")):
+        b = os.path.join(HERE, "results", f"e29e_{slug_}_summary.json")
+        if not os.path.exists(b):
+            continue
+        e = json.load(open(b, encoding="utf-8"))
+        parts.append(f"{name}: own line as a sentence {e['p']['addonly|neutral']:.3f}, own line as status(X) = WITHDRAWN "
+                     f"{e['p']['addonly_meta|neutral']:.3f}, as a [withdrawn] prefix {e['p']['addonly_flag|neutral']:.3f} "
+                     f"(own-line effect {e['g']['fm']:+.3f} [{e['ci_g']['fm'][0]:+.3f}, {e['ci_g']['fm'][1]:+.3f}])")
+    if not parts:
+        return ""
+    return ("E29-E then removed a confound the tombstone control had left behind, holding the store fixed and changing only how "
+            "the rejection is written. Re-wording it from a sentence to a key-value assertion in the same position does nothing; "
+            "collapsing it from its own line onto the proposal it negates does. Neutral arm, 96 dialogues: "
+            + " · ".join(parts) + ". A retraction has to be its own record. Carried as an attribute of the record it "
+            "negates — which is how every shipped soft-delete design encodes it — it is largely ignored.")
 
 
 def e29_dialogues():
@@ -323,7 +353,7 @@ def build_data(live=False, live_models=None):
     agg, dias, showcase = e18_ladder()
     return {"corpus_hash": corpus_hash(), "e29_hash": e29_hash(), "models": MODELS, "agg": agg,
             "dialogues": dias, "showcase": showcase, "e29": e29_summaries(), "city": city_districts(dias),
-            "e29_caveat": E29_CAVEAT, "e29b_note": e29b_note(), "e29c_note": e29c_note(), "e29d_note": e29d_note(), "e29n_note": e29n_note(), "e29x_note": e29x_note(), "figure": figure_data(),
+            "e29_caveat": E29_CAVEAT, "e29b_note": e29b_note(), "e29c_note": e29c_note(), "e29d_note": e29d_note(), "e29n_note": e29n_note(), "e29x_note": e29x_note(), "e29e_note": e29e_note(), "figure": figure_data(),
             "e29_dialogues": e29_dialogues(), "e29_models": E29_MODELS, "e29b": e29b_snapshots(),
             "live": {"models": live_models or []} if live else None}
 

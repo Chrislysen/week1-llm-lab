@@ -38,10 +38,13 @@ spelling out every reply's referent in the transcript does not move the
 full-context level, so the gap to add-only is design rather than rendering,
 and a soft-supersede flag that retains the rejected proposal as "[withdrawn]"
 is not read as a rejection and, on the largest decider, re-admits the step
-like a deletion once it is restated. Setting that flagged store beside the
-add-only store, which holds the same rejection as a sentence, isolates the
-operative variable: a superseded step's fate turns on how the rejection is
-encoded, not on whether it is retained. We release the corpora, protocols,
+like a deletion once it is restated. A third arm isolates why: holding the store
+fixed and changing only how the rejection is written, re-wording it from a
+sentence to a key-value assertion does nothing, but collapsing it from its own
+line onto the record it negates raises enactment by 0.39, 0.22 and 0.29 on the
+three deciders. The negation has to be its own record; as an attribute of the
+proposal it invalidates it is largely ignored, which is how every shipped
+soft-delete design we surveyed encodes it. We release the corpora, protocols,
 prompts, and every store snapshot.
 
 ## 1. Introduction
@@ -66,7 +69,9 @@ E18) with the raw transcript in front of the decider — but whether the
 
 Contributions. (1) A pre-registered experiment on 96 dialogues × 2 arms × 4
 designs × 4 deciders (3,072 calls) showing design dependence with the
-predicted sign and size for the hard-delete design. (2) Replication on a
+predicted sign and size for the hard-delete design. (1b) An isolation showing
+that what a decider honours is a rejection written as its own record, not the
+same rejection carried as an attribute of the record it negates. (2) Replication on a
 second corpus with new domains and wording on the same three deciders (2,304
 calls), which preserves the ordering across designs while moving absolute
 rates by a factor of two on the small deciders. (3) A
@@ -194,7 +199,8 @@ cell in every run below parsed at 1.000 with mean length 3.98–4.00.
 ### 4.1 Design dependence on four deciders (first corpus)
 
 Figure 1 (`fig1-delta-by-design.svg`) shows every Δ in this section and the
-next with its interval; the tables give the levels. Rejected-step inclusion,
+next with its interval; the tables give the levels. Figure 2
+(`fig2-encoding.svg`) shows the §4.7 encoding result. Rejected-step inclusion,
 n = 96 dialogues per cell.
 
 | decider | design | restated | neutral | Δ_X | DiD_X | 95 % CI |
@@ -370,11 +376,60 @@ cross-session comparison is sound. The reading this invites is that a
 superseded step's fate turns on how the rejection is written rather than on
 whether it is stored.
 
-We do not make that claim yet, because the two stores differ in a second way:
+We do not make that claim, because the two stores differ in a second way:
 add-only holds 8.28 lines on average and tombstone 6.66, since add-only also
 keeps each acceptance as its own fact. A reviewer would say the prose version
 simply occupies more of the context, and on this evidence they could not be
-answered. Section 4.7 reports the arm that removes the difference.
+answered. Section 4.7 reports the arm that removes the difference, and the
+answer is not the one we predicted.
+
+### 4.7 What actually decides it: the negation needs its own record
+
+E29-E holds the store fixed and changes only how the rejection of the
+rejected proposal is written. All three designs are add-only stores over the
+same fact stream, with every other line byte-identical and the same header.
+`addonly` writes the rejection as a sentence, "Safety Auditor rejected the
+proposal to snapshot the store; it is not needed for this case".
+`addonly_meta` puts a key-value assertion in the same position with the same
+trailing clause, "status(snapshot the store) = WITHDRAWN; it is not needed
+for this case", so the line count and position are identical and only the
+wording changes. `addonly_flag` deletes that line and prefixes the proposal
+it negates with "[withdrawn] ", one line fewer. Three deciders, 1,728 calls,
+parse 1.000 throughout.
+
+Neutral-arm enactment of the rejected step, with the paired-bootstrap
+interval on each contrast:
+
+| decider | prose line | key-value line | prefix, no line | wording effect | own-line effect |
+|---|---|---|---|---|---|
+| llama3.2:3b | 0.156 | 0.208 | 0.594 | +0.052 [−0.042, +0.146] | **+0.385** [+0.281, +0.500] |
+| qwen2.5:7b-instruct | 0.354 | 0.240 | 0.458 | −0.115 [−0.198, −0.031] | **+0.219** [+0.135, +0.302] |
+| qwen2.5:14b-instruct | 0.062 | 0.031 | 0.323 | −0.031 [−0.073, +0.010] | **+0.292** [+0.198, +0.385] |
+
+We predicted the wording effect would be large and positive. It is not: it
+spans zero on two deciders and runs the other way on the third, where the
+key-value line is the more protective of the two. The prose-versus-metadata
+reading of §4.5 is withdrawn. What survives is the contrast that changes only
+whether the negation occupies a line of its own, and it is positive with an
+interval excluding zero on every decider.
+
+The sharpest case is the 14B, which is the most rejection-respecting cell in
+the programme: reading an add-only store it enacts the rejected step 0.062 of
+the time and the restatement does nothing (Δ −0.021). Move the identical
+invalidation onto the proposal line as a prefix and the same store yields
+0.323 in the neutral arm and 0.562 with the restatement, Δ +0.240 [+0.156,
++0.333]. Nothing about the information content changed; only its position in
+the record structure did. Two of three deciders read PARTIAL under our
+pre-registered rule and one reads LENGTH, so we report the cross-decider
+agreement as an observation and do not upgrade it.
+
+The deployment reading is uncomfortable and direct. Every soft-delete design
+we surveyed, and every one of the five shipped systems measured concurrently
+by arXiv:2609.08258, encodes revocation as an attribute of the record being
+revoked: a validity interval, an `invalid_at` edge, an `is_active` flag. On
+this evidence that is precisely the encoding a small decider is least likely
+to act on. Writing the retraction as its own record costs one line and, on
+the 14B, moves enactment of a restated zombie step from 0.04 to 0.56.
 
 ### 4.6 Controls
 
@@ -400,11 +455,13 @@ within-design contrasts are compared. The compulsory course experiment this
 work sits beside (E1) turned out, on its own sanity arms, to be measuring plan
 plausibility under an action menu rather than retrieval; we record that there
 because it shaped the pinned-plan design here. Two controls an outside review
-asked for were run (§4.5); two we have not run are a free-length plan, which
-would trade the menu ceiling for length variance, and a replication on
-human-written dialogue. Of twelve objections raised across two independent
-adversarial scout passes, those two are the only ones the record does not
-already answer.
+asked for were run (§4.5) and a third arm was added to remove a confound they
+exposed (§4.7); two we have not run are a free-length plan, which would trade
+the menu ceiling for length variance, and a replication on human-written
+dialogue. Of twelve objections raised across two independent adversarial
+scout passes, those two are the only ones the record does not already answer.
+The §4.7 result is on oracle stores and says nothing about any system's
+retrieval layer; the shipped-system claim belongs to arXiv:2609.08258.
 
 ## 6. Reproducibility
 
@@ -442,3 +499,7 @@ live re-run of the decider checked against the record.
 | E29-N P2 | |DiD_addonly| < 0.15 | holds on 7B (+0.073) and 14B (0.000), fails on 3B (+0.177) through the reference arm |
 | E29-X R1 | explicit referents move the full-context level toward add-only (lean: yes on 3B) | no, on all three: level unchanged to the third decimal |
 | E29-X T1 | tombstone between add-only and delete; lean: flag not honoured on 3B, honoured on 14B | between on 3B and 7B; NOT honoured on 14B (DiD +0.292): the lean was reversed |
+| E29-E P1 | re-wording the rejection as a key-value line raises enactment by ≥ 0.15 | fails on all three: +0.052, −0.115, −0.031. The encoding-as-wording hypothesis is withdrawn |
+| E29-E P2 | G_flag ≥ G_meta | holds on all three |
+| E29-E P3 | Δ_addonly reproduces E29's within 0.10 | within 0.03 on all three; fourth replication |
+| E29-E P4 | never/accepted within 0.10 across designs | fails on the 3B (0.146, 0.188) and the 14B restated arm (0.125); displacement in a pinned plan, reported |

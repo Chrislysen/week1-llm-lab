@@ -75,6 +75,26 @@ wiki +0.031, Δ_full +0.031 n.s., every control holding — the cleanest of
 the three second-corpus readings. The second corpus now carries the E29
 verdict on all three deciders.
 
+**E29-E, the confound removal that changed the answer (`687c138` → run
+2026-09-12, 1,728 calls).** E29-X's tombstone-vs-add-only gap was confounded
+with store length (8.28 lines vs 6.66). E29-E holds the store fixed and varies
+only how the rejection is written: a prose sentence, a key-value line in the
+same position with the same trailing clause, or a `[withdrawn]` prefix on the
+proposal with the line removed. **P1 fails on all three deciders**: re-wording
+does nothing (+0.052, −0.115, −0.031; the 7B runs the other way). The
+encoding-as-wording hypothesis is withdrawn. What is robust is the own-line
+contrast: +0.385, +0.219, +0.292, every interval excluding zero. The 14B is
+the clean case — reading an add-only store it enacts the rejected step 0.062
+of the time with Δ −0.021; move the identical invalidation onto the proposal
+line and it enacts 0.323 neutral, 0.562 restated, Δ +0.240 [+0.156, +0.333].
+Verdicts PARTIAL / PARTIAL / LENGTH by the declared rule, not upgraded; the
+cross-decider agreement is reported as an observation. P3 holds (Δ_addonly
+within 0.03 of E29 — fourth replication); P4 fails on the 3B and the 14B
+restated arm, reported as displacement in a pinned plan. **The finding: a
+retraction must be its own record. As an attribute of the record it negates —
+which is how every shipped soft-delete design encodes it — it is largely
+ignored.**
+
 **Gemini scout run 2 (2026-09-12, corpora focus).** Return and triage in
 `docs/gemini-research-log/`. **One lead lands on us**: arXiv:2609.08258,
 *Revoked but Still Authoritative* (2026-09-08), loads five shipped memory

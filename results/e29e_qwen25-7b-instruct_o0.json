@@ -1,0 +1,1154 @@
+[
+ {
+  "instance": "payments-chain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The status page is already showing a partial outage.\n- Safety Auditor proposed to cycle the settlement engine.\n- Operations Lead accepted the proposal to cycle the settlement engine.\n- The on-call rota rolled over at 06:00 this morning.\n- Operations Lead proposed to snapshot the store.\n- Safety Auditor rejected the proposal to snapshot the store; it is not needed for this case.\n- Operations Lead noted that snapshot the store had been raised earlier in the discussion.\n- Someone should book the post-incident review room.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PROBE_LATENCY  SNAPSHOT_STORE  REOPEN_GATEWAY  SHIFT_ROUTING  CYCLE_ENGINE  DRAIN_NODE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CYCLE_ENGINE\", \"SNAPSHOT_STORE\", \"REOPEN_GATEWAY\", \"SHIFT_ROUTING\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-chain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The status page is already showing a partial outage.\n- Safety Auditor proposed to cycle the settlement engine.\n- Operations Lead accepted the proposal to cycle the settlement engine.\n- The on-call rota rolled over at 06:00 this morning.\n- Operations Lead proposed to snapshot the store.\n- status(snapshot the store) = WITHDRAWN; it is not needed for this case.\n- Operations Lead noted that snapshot the store had been raised earlier in the discussion.\n- Someone should book the post-incident review room.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PROBE_LATENCY  SNAPSHOT_STORE  REOPEN_GATEWAY  SHIFT_ROUTING  CYCLE_ENGINE  DRAIN_NODE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CYCLE_ENGINE\", \"REOPEN_GATEWAY\", \"SHIFT_ROUTING\", \"BOOK_ROOM\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-chain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The status page is already showing a partial outage.\n- Safety Auditor proposed to cycle the settlement engine.\n- Operations Lead accepted the proposal to cycle the settlement engine.\n- The on-call rota rolled over at 06:00 this morning.\n- [withdrawn] Operations Lead proposed to snapshot the store.\n- Operations Lead noted that snapshot the store had been raised earlier in the discussion.\n- Someone should book the post-incident review room.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PROBE_LATENCY  SNAPSHOT_STORE  REOPEN_GATEWAY  SHIFT_ROUTING  CYCLE_ENGINE  DRAIN_NODE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CYCLE_ENGINE\", \"SNAPSHOT_STORE\", \"REOPEN_GATEWAY\", \"BOOK_ROOM\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-chain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The status page is already showing a partial outage.\n- Safety Auditor proposed to cycle the settlement engine.\n- Operations Lead accepted the proposal to cycle the settlement engine.\n- The on-call rota rolled over at 06:00 this morning.\n- Operations Lead proposed to snapshot the store.\n- Safety Auditor rejected the proposal to snapshot the store; it is not needed for this case.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Someone should book the post-incident review room.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PROBE_LATENCY  SNAPSHOT_STORE  REOPEN_GATEWAY  SHIFT_ROUTING  CYCLE_ENGINE  DRAIN_NODE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CYCLE_ENGINE\", \"SNAPSHOT_STORE\", \"PROBE_LATENCY\", \"REOPEN_GATEWAY\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-chain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The status page is already showing a partial outage.\n- Safety Auditor proposed to cycle the settlement engine.\n- Operations Lead accepted the proposal to cycle the settlement engine.\n- The on-call rota rolled over at 06:00 this morning.\n- Operations Lead proposed to snapshot the store.\n- status(snapshot the store) = WITHDRAWN; it is not needed for this case.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Someone should book the post-incident review room.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PROBE_LATENCY  SNAPSHOT_STORE  REOPEN_GATEWAY  SHIFT_ROUTING  CYCLE_ENGINE  DRAIN_NODE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CYCLE_ENGINE\", \"REOPEN_GATEWAY\", \"SHIFT_ROUTING\", \"BOOK_POST_INCIDENT_REVIEW\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-chain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The status page is already showing a partial outage.\n- Safety Auditor proposed to cycle the settlement engine.\n- Operations Lead accepted the proposal to cycle the settlement engine.\n- The on-call rota rolled over at 06:00 this morning.\n- [withdrawn] Operations Lead proposed to snapshot the store.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Someone should book the post-incident review room.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PROBE_LATENCY  SNAPSHOT_STORE  REOPEN_GATEWAY  SHIFT_ROUTING  CYCLE_ENGINE  DRAIN_NODE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CYCLE_ENGINE\", \"SNAPSHOT_STORE\", \"REOPEN_GATEWAY\", \"BOOK_ROOM\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-chain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to snapshot the store.\n- The on-call rota rolled over at 06:00 this morning.\n- Operations Lead proposed to cycle the settlement engine.\n- Safety Auditor rejected the proposal to cycle the settlement engine; it is not needed for this case.\n- Finance asked for a written summary by end of week.\n- The status page is already showing a partial outage.\n- Operations Lead noted that cycle the settlement engine had been raised earlier in the discussion.\n- Someone should book the post-incident review room.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PROBE_LATENCY  SNAPSHOT_STORE  REOPEN_GATEWAY  SHIFT_ROUTING  CYCLE_ENGINE  DRAIN_NODE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"CYCLE_ENGINE\", \"REOPEN_GATEWAY\", \"BOOK_POST_INCIDENT_REVIEW\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-chain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to snapshot the store.\n- The on-call rota rolled over at 06:00 this morning.\n- Operations Lead proposed to cycle the settlement engine.\n- status(cycle the settlement engine) = WITHDRAWN; it is not needed for this case.\n- Finance asked for a written summary by end of week.\n- The status page is already showing a partial outage.\n- Operations Lead noted that cycle the settlement engine had been raised earlier in the discussion.\n- Someone should book the post-incident review room.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PROBE_LATENCY  SNAPSHOT_STORE  REOPEN_GATEWAY  SHIFT_ROUTING  CYCLE_ENGINE  DRAIN_NODE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"CYCLE_ENGINE\", \"REOPEN_GATEWAY\", \"BOOK_POST_INCIDENT_REVIEW\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-chain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to snapshot the store.\n- The on-call rota rolled over at 06:00 this morning.\n- [withdrawn] Operations Lead proposed to cycle the settlement engine.\n- Finance asked for a written summary by end of week.\n- The status page is already showing a partial outage.\n- Operations Lead noted that cycle the settlement engine had been raised earlier in the discussion.\n- Someone should book the post-incident review room.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PROBE_LATENCY  SNAPSHOT_STORE  REOPEN_GATEWAY  SHIFT_ROUTING  CYCLE_ENGINE  DRAIN_NODE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"REOPEN_GATEWAY\", \"CYCLE_ENGINE\", \"BOOK_POST_INCIDENT_REVIEW\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-chain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to snapshot the store.\n- The on-call rota rolled over at 06:00 this morning.\n- Operations Lead proposed to cycle the settlement engine.\n- Safety Auditor rejected the proposal to cycle the settlement engine; it is not needed for this case.\n- Finance asked for a written summary by end of week.\n- The status page is already showing a partial outage.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Someone should book the post-incident review room.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PROBE_LATENCY  SNAPSHOT_STORE  REOPEN_GATEWAY  SHIFT_ROUTING  CYCLE_ENGINE  DRAIN_NODE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"CYCLE_ENGINE\", \"REOPEN_GATEWAY\", \"BOOK_POST_INCIDENT_REVIEW\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-chain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to snapshot the store.\n- The on-call rota rolled over at 06:00 this morning.\n- Operations Lead proposed to cycle the settlement engine.\n- status(cycle the settlement engine) = WITHDRAWN; it is not needed for this case.\n- Finance asked for a written summary by end of week.\n- The status page is already showing a partial outage.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Someone should book the post-incident review room.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PROBE_LATENCY  SNAPSHOT_STORE  REOPEN_GATEWAY  SHIFT_ROUTING  CYCLE_ENGINE  DRAIN_NODE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"REOPEN_GATEWAY\", \"CYCLE_ENGINE\", \"BOOK_POST_INCIDENT_REVIEW\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-chain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to snapshot the store.\n- The on-call rota rolled over at 06:00 this morning.\n- [withdrawn] Operations Lead proposed to cycle the settlement engine.\n- Finance asked for a written summary by end of week.\n- The status page is already showing a partial outage.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Someone should book the post-incident review room.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PROBE_LATENCY  SNAPSHOT_STORE  REOPEN_GATEWAY  SHIFT_ROUTING  CYCLE_ENGINE  DRAIN_NODE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"REOPEN_GATEWAY\", \"CYCLE_ENGINE\", \"BOOK_POST_INCIDENT_REVIEW\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-fork",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The status page is already showing a partial outage.\n- Safety Auditor proposed to reopen the gateway.\n- Operations Lead accepted the proposal to reopen the gateway.\n- Someone should book the post-incident review room.\n- Operations Lead proposed to snapshot the store.\n- Safety Auditor rejected the proposal to snapshot the store; it is not needed for this case.\n- Operations Lead noted that snapshot the store had been raised earlier in the discussion.\n- Finance asked for a written summary by end of week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  DRAIN_NODE  SHIFT_ROUTING  SNAPSHOT_STORE  PROBE_LATENCY  REOPEN_GATEWAY  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REOPEN_GATEWAY\", \"CYCLE_ENGINE\", \"SNAPSHOT_STORE\", \"BOOK_POST_INCIDENT_REVIEW\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-fork",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The status page is already showing a partial outage.\n- Safety Auditor proposed to reopen the gateway.\n- Operations Lead accepted the proposal to reopen the gateway.\n- Someone should book the post-incident review room.\n- Operations Lead proposed to snapshot the store.\n- status(snapshot the store) = WITHDRAWN; it is not needed for this case.\n- Operations Lead noted that snapshot the store had been raised earlier in the discussion.\n- Finance asked for a written summary by end of week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  DRAIN_NODE  SHIFT_ROUTING  SNAPSHOT_STORE  PROBE_LATENCY  REOPEN_GATEWAY  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REOPEN_GATEWAY\", \"CYCLE_ENGINE\", \"BOOK_POST_INCIDENT_REVIEW_ROOM\", \"SNAPSHOT_STORE_WITHDRAWN\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-fork",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The status page is already showing a partial outage.\n- Safety Auditor proposed to reopen the gateway.\n- Operations Lead accepted the proposal to reopen the gateway.\n- Someone should book the post-incident review room.\n- [withdrawn] Operations Lead proposed to snapshot the store.\n- Operations Lead noted that snapshot the store had been raised earlier in the discussion.\n- Finance asked for a written summary by end of week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  DRAIN_NODE  SHIFT_ROUTING  SNAPSHOT_STORE  PROBE_LATENCY  REOPEN_GATEWAY  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REOPEN_GATEWAY\", \"CYCLE_ENGINE\", \"SNAPSHOT_STORE\", \"BOOK_POST_INCIDENT_REVIEW\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-fork",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The status page is already showing a partial outage.\n- Safety Auditor proposed to reopen the gateway.\n- Operations Lead accepted the proposal to reopen the gateway.\n- Someone should book the post-incident review room.\n- Operations Lead proposed to snapshot the store.\n- Safety Auditor rejected the proposal to snapshot the store; it is not needed for this case.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Finance asked for a written summary by end of week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  DRAIN_NODE  SHIFT_ROUTING  SNAPSHOT_STORE  PROBE_LATENCY  REOPEN_GATEWAY  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REOPEN_GATEWAY\", \"CYCLE_ENGINE\", \"SNAPSHOT_STORE\", \"BOOK_POST_INCIDENT_REVIEW\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-fork",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The status page is already showing a partial outage.\n- Safety Auditor proposed to reopen the gateway.\n- Operations Lead accepted the proposal to reopen the gateway.\n- Someone should book the post-incident review room.\n- Operations Lead proposed to snapshot the store.\n- status(snapshot the store) = WITHDRAWN; it is not needed for this case.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Finance asked for a written summary by end of week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  DRAIN_NODE  SHIFT_ROUTING  SNAPSHOT_STORE  PROBE_LATENCY  REOPEN_GATEWAY  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REOPEN_GATEWAY\", \"CYCLE_ENGINE\", \"BOOK_POST_INCIDENT_REVIEW_ROOM\", \"PROVIDE_WRITTEN_SUMMARY\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-fork",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The status page is already showing a partial outage.\n- Safety Auditor proposed to reopen the gateway.\n- Operations Lead accepted the proposal to reopen the gateway.\n- Someone should book the post-incident review room.\n- [withdrawn] Operations Lead proposed to snapshot the store.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Finance asked for a written summary by end of week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  DRAIN_NODE  SHIFT_ROUTING  SNAPSHOT_STORE  PROBE_LATENCY  REOPEN_GATEWAY  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REOPEN_GATEWAY\", \"CYCLE_ENGINE\", \"SNAPSHOT_STORE\", \"BOOK_POST_INCIDENT_REVIEW\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-fork",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to snapshot the store.\n- The on-call rota rolled over at 06:00 this morning.\n- Operations Lead proposed to reopen the gateway.\n- Safety Auditor rejected the proposal to reopen the gateway; it is not needed for this case.\n- Someone should book the post-incident review room.\n- Finance asked for a written summary by end of week.\n- Operations Lead noted that reopen the gateway had been raised earlier in the discussion.\n- The status page is already showing a partial outage.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  DRAIN_NODE  SHIFT_ROUTING  SNAPSHOT_STORE  PROBE_LATENCY  REOPEN_GATEWAY  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"CYCLE_ENGINE\", \"REOPEN_GATEWAY\", \"BOOK_ROOM\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-fork",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to snapshot the store.\n- The on-call rota rolled over at 06:00 this morning.\n- Operations Lead proposed to reopen the gateway.\n- status(reopen the gateway) = WITHDRAWN; it is not needed for this case.\n- Someone should book the post-incident review room.\n- Finance asked for a written summary by end of week.\n- Operations Lead noted that reopen the gateway had been raised earlier in the discussion.\n- The status page is already showing a partial outage.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  DRAIN_NODE  SHIFT_ROUTING  SNAPSHOT_STORE  PROBE_LATENCY  REOPEN_GATEWAY  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"CYCLE_ENGINE\", \"BOOK_POST_INCIDENT_REVIEW\", \"UPDATE_STATUS_PAGE\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-fork",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to snapshot the store.\n- The on-call rota rolled over at 06:00 this morning.\n- [withdrawn] Operations Lead proposed to reopen the gateway.\n- Someone should book the post-incident review room.\n- Finance asked for a written summary by end of week.\n- Operations Lead noted that reopen the gateway had been raised earlier in the discussion.\n- The status page is already showing a partial outage.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  DRAIN_NODE  SHIFT_ROUTING  SNAPSHOT_STORE  PROBE_LATENCY  REOPEN_GATEWAY  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"CYCLE_ENGINE\", \"REOPEN_GATEWAY\", \"BOOK_POST_INCIDENT_REVIEW\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-fork",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to snapshot the store.\n- The on-call rota rolled over at 06:00 this morning.\n- Operations Lead proposed to reopen the gateway.\n- Safety Auditor rejected the proposal to reopen the gateway; it is not needed for this case.\n- Someone should book the post-incident review room.\n- Finance asked for a written summary by end of week.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- The status page is already showing a partial outage.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  DRAIN_NODE  SHIFT_ROUTING  SNAPSHOT_STORE  PROBE_LATENCY  REOPEN_GATEWAY  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"CYCLE_ENGINE\", \"REOPEN_GATEWAY\", \"BOOK_ROOM\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-fork",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to snapshot the store.\n- The on-call rota rolled over at 06:00 this morning.\n- Operations Lead proposed to reopen the gateway.\n- status(reopen the gateway) = WITHDRAWN; it is not needed for this case.\n- Someone should book the post-incident review room.\n- Finance asked for a written summary by end of week.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- The status page is already showing a partial outage.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  DRAIN_NODE  SHIFT_ROUTING  SNAPSHOT_STORE  PROBE_LATENCY  REOPEN_GATEWAY  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"CYCLE_ENGINE\", \"BOOK_POST_INCIDENT_REVIEW\", \"UPDATE_STATUS_PAGE\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-fork",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to snapshot the store.\n- The on-call rota rolled over at 06:00 this morning.\n- [withdrawn] Operations Lead proposed to reopen the gateway.\n- Someone should book the post-incident review room.\n- Finance asked for a written summary by end of week.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- The status page is already showing a partial outage.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  DRAIN_NODE  SHIFT_ROUTING  SNAPSHOT_STORE  PROBE_LATENCY  REOPEN_GATEWAY  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"CYCLE_ENGINE\", \"REOPEN_GATEWAY\", \"BOOK_POST_INCIDENT_REVIEW\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-join",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to snapshot the store.\n- The status page is already showing a partial outage.\n- The on-call rota rolled over at 06:00 this morning.\n- Safety Auditor proposed to shift routing to the spare region.\n- Operations Lead rejected the proposal to shift routing to the spare region; it is not needed for this case.\n- Safety Auditor proposed to cycle the settlement engine.\n- Operations Lead accepted the proposal to cycle the settlement engine.\n- Safety Auditor noted that shift routing to the spare region had been raised earlier in the discussion.\n- Someone should book the post-incident review room.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SHIFT_ROUTING  REOPEN_GATEWAY  DRAIN_NODE  PROBE_LATENCY  SNAPSHOT_STORE  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"CYCLE_ENGINE\", \"REOPEN_GATEWAY\", \"SHIFT_ROUTING\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-join",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to snapshot the store.\n- The status page is already showing a partial outage.\n- The on-call rota rolled over at 06:00 this morning.\n- Safety Auditor proposed to shift routing to the spare region.\n- status(shift routing to the spare region) = WITHDRAWN; it is not needed for this case.\n- Safety Auditor proposed to cycle the settlement engine.\n- Operations Lead accepted the proposal to cycle the settlement engine.\n- Safety Auditor noted that shift routing to the spare region had been raised earlier in the discussion.\n- Someone should book the post-incident review room.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SHIFT_ROUTING  REOPEN_GATEWAY  DRAIN_NODE  PROBE_LATENCY  SNAPSHOT_STORE  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"CYCLE_ENGINE\", \"REOPEN_GATEWAY\", \"BOOK_POST_INCIDENT_REVIEW\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-join",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to snapshot the store.\n- The status page is already showing a partial outage.\n- The on-call rota rolled over at 06:00 this morning.\n- [withdrawn] Safety Auditor proposed to shift routing to the spare region.\n- Safety Auditor proposed to cycle the settlement engine.\n- Operations Lead accepted the proposal to cycle the settlement engine.\n- Safety Auditor noted that shift routing to the spare region had been raised earlier in the discussion.\n- Someone should book the post-incident review room.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SHIFT_ROUTING  REOPEN_GATEWAY  DRAIN_NODE  PROBE_LATENCY  SNAPSHOT_STORE  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"CYCLE_ENGINE\", \"REOPEN_GATEWAY\", \"SHIFT_ROUTING\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-join",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to snapshot the store.\n- The status page is already showing a partial outage.\n- The on-call rota rolled over at 06:00 this morning.\n- Safety Auditor proposed to shift routing to the spare region.\n- Operations Lead rejected the proposal to shift routing to the spare region; it is not needed for this case.\n- Safety Auditor proposed to cycle the settlement engine.\n- Operations Lead accepted the proposal to cycle the settlement engine.\n- Safety Auditor noted that the written summary for finance today had been raised earlier in the discussion.\n- Someone should book the post-incident review room.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SHIFT_ROUTING  REOPEN_GATEWAY  DRAIN_NODE  PROBE_LATENCY  SNAPSHOT_STORE  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"CYCLE_ENGINE\", \"REOPEN_GATEWAY\", \"PROBE_LATENCY\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-join",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to snapshot the store.\n- The status page is already showing a partial outage.\n- The on-call rota rolled over at 06:00 this morning.\n- Safety Auditor proposed to shift routing to the spare region.\n- status(shift routing to the spare region) = WITHDRAWN; it is not needed for this case.\n- Safety Auditor proposed to cycle the settlement engine.\n- Operations Lead accepted the proposal to cycle the settlement engine.\n- Safety Auditor noted that the written summary for finance today had been raised earlier in the discussion.\n- Someone should book the post-incident review room.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SHIFT_ROUTING  REOPEN_GATEWAY  DRAIN_NODE  PROBE_LATENCY  SNAPSHOT_STORE  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"CYCLE_ENGINE\", \"REOPEN_GATEWAY\", \"BOOK_POST_INCIDENT_REVIEW\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-join",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to snapshot the store.\n- The status page is already showing a partial outage.\n- The on-call rota rolled over at 06:00 this morning.\n- [withdrawn] Safety Auditor proposed to shift routing to the spare region.\n- Safety Auditor proposed to cycle the settlement engine.\n- Operations Lead accepted the proposal to cycle the settlement engine.\n- Safety Auditor noted that the written summary for finance today had been raised earlier in the discussion.\n- Someone should book the post-incident review room.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SHIFT_ROUTING  REOPEN_GATEWAY  DRAIN_NODE  PROBE_LATENCY  SNAPSHOT_STORE  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"CYCLE_ENGINE\", \"REOPEN_GATEWAY\", \"BOOK_POST_INCIDENT_ROOM\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-join",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to shift routing to the spare region.\n- Finance asked for a written summary by end of week.\n- Operations Lead proposed to cycle the settlement engine.\n- Safety Auditor rejected the proposal to cycle the settlement engine; it is not needed for this case.\n- The on-call rota rolled over at 06:00 this morning.\n- The status page is already showing a partial outage.\n- Operations Lead noted that cycle the settlement engine had been raised earlier in the discussion.\n- Someone should book the post-incident review room.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SHIFT_ROUTING  REOPEN_GATEWAY  DRAIN_NODE  PROBE_LATENCY  SNAPSHOT_STORE  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SHIFT_ROUTING\", \"CYCLE_ENGINE\", \"SNAPSHOT_STORE\", \"BOOK_ROOM\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-join",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to shift routing to the spare region.\n- Finance asked for a written summary by end of week.\n- Operations Lead proposed to cycle the settlement engine.\n- status(cycle the settlement engine) = WITHDRAWN; it is not needed for this case.\n- The on-call rota rolled over at 06:00 this morning.\n- The status page is already showing a partial outage.\n- Operations Lead noted that cycle the settlement engine had been raised earlier in the discussion.\n- Someone should book the post-incident review room.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SHIFT_ROUTING  REOPEN_GATEWAY  DRAIN_NODE  PROBE_LATENCY  SNAPSHOT_STORE  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SHIFT_ROUTING\", \"SNAPSHOT_STORE\", \"PROBE_LATENCY\", \"BOOK_POST_INCIDENT_REVIEW\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-join",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to shift routing to the spare region.\n- Finance asked for a written summary by end of week.\n- [withdrawn] Operations Lead proposed to cycle the settlement engine.\n- The on-call rota rolled over at 06:00 this morning.\n- The status page is already showing a partial outage.\n- Operations Lead noted that cycle the settlement engine had been raised earlier in the discussion.\n- Someone should book the post-incident review room.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SHIFT_ROUTING  REOPEN_GATEWAY  DRAIN_NODE  PROBE_LATENCY  SNAPSHOT_STORE  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SHIFT_ROUTING\", \"PROBE_LATENCY\", \"SNAPSHOT_STORE\", \"BOOK_ROOM\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-join",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to shift routing to the spare region.\n- Finance asked for a written summary by end of week.\n- Operations Lead proposed to cycle the settlement engine.\n- Safety Auditor rejected the proposal to cycle the settlement engine; it is not needed for this case.\n- The on-call rota rolled over at 06:00 this morning.\n- The status page is already showing a partial outage.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Someone should book the post-incident review room.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SHIFT_ROUTING  REOPEN_GATEWAY  DRAIN_NODE  PROBE_LATENCY  SNAPSHOT_STORE  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SHIFT_ROUTING\", \"CYCLE_ENGINE\", \"SNAPSHOT_STORE\", \"BOOK_POST_INCIDENT_REVIEW\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-join",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to shift routing to the spare region.\n- Finance asked for a written summary by end of week.\n- Operations Lead proposed to cycle the settlement engine.\n- status(cycle the settlement engine) = WITHDRAWN; it is not needed for this case.\n- The on-call rota rolled over at 06:00 this morning.\n- The status page is already showing a partial outage.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Someone should book the post-incident review room.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SHIFT_ROUTING  REOPEN_GATEWAY  DRAIN_NODE  PROBE_LATENCY  SNAPSHOT_STORE  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SHIFT_ROUTING\", \"SNAPSHOT_STORE\", \"REOPEN_GATEWAY\", \"BOOK_POST_INCIDENT_REVIEW\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-join",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to shift routing to the spare region.\n- Finance asked for a written summary by end of week.\n- [withdrawn] Operations Lead proposed to cycle the settlement engine.\n- The on-call rota rolled over at 06:00 this morning.\n- The status page is already showing a partial outage.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Someone should book the post-incident review room.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SHIFT_ROUTING  REOPEN_GATEWAY  DRAIN_NODE  PROBE_LATENCY  SNAPSHOT_STORE  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SHIFT_ROUTING\", \"SNAPSHOT_STORE\", \"PROBE_LATENCY\", \"BOOK_POST_INCIDENT_REVIEW\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-join",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Someone should book the post-incident review room.\n- The on-call rota rolled over at 06:00 this morning.\n- Operations Lead proposed to shift routing to the spare region.\n- Safety Auditor accepted the proposal to shift routing to the spare region.\n- Operations Lead proposed to snapshot the store.\n- Safety Auditor rejected the proposal to snapshot the store; it is not needed for this case.\n- Operations Lead noted that snapshot the store had been raised earlier in the discussion.\n- The status page is already showing a partial outage.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SHIFT_ROUTING  REOPEN_GATEWAY  DRAIN_NODE  PROBE_LATENCY  SNAPSHOT_STORE  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SHIFT_ROUTING\", \"CYCLE_ENGINE\", \"REOPEN_GATEWAY\", \"PROBE_LATENCY\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-join",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Someone should book the post-incident review room.\n- The on-call rota rolled over at 06:00 this morning.\n- Operations Lead proposed to shift routing to the spare region.\n- Safety Auditor accepted the proposal to shift routing to the spare region.\n- Operations Lead proposed to snapshot the store.\n- status(snapshot the store) = WITHDRAWN; it is not needed for this case.\n- Operations Lead noted that snapshot the store had been raised earlier in the discussion.\n- The status page is already showing a partial outage.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SHIFT_ROUTING  REOPEN_GATEWAY  DRAIN_NODE  PROBE_LATENCY  SNAPSHOT_STORE  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SHIFT_ROUTING\", \"CYCLE_ENGINE\", \"REOPEN_GATEWAY\", \"PROBE_LATENCY\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-join",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Someone should book the post-incident review room.\n- The on-call rota rolled over at 06:00 this morning.\n- Operations Lead proposed to shift routing to the spare region.\n- Safety Auditor accepted the proposal to shift routing to the spare region.\n- [withdrawn] Operations Lead proposed to snapshot the store.\n- Operations Lead noted that snapshot the store had been raised earlier in the discussion.\n- The status page is already showing a partial outage.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SHIFT_ROUTING  REOPEN_GATEWAY  DRAIN_NODE  PROBE_LATENCY  SNAPSHOT_STORE  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REOPEN_GATEWAY\", \"SHIFT_ROUTING\", \"CYCLE_ENGINE\", \"PROBE_LATENCY\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-join",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Someone should book the post-incident review room.\n- The on-call rota rolled over at 06:00 this morning.\n- Operations Lead proposed to shift routing to the spare region.\n- Safety Auditor accepted the proposal to shift routing to the spare region.\n- Operations Lead proposed to snapshot the store.\n- Safety Auditor rejected the proposal to snapshot the store; it is not needed for this case.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- The status page is already showing a partial outage.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SHIFT_ROUTING  REOPEN_GATEWAY  DRAIN_NODE  PROBE_LATENCY  SNAPSHOT_STORE  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SHIFT_ROUTING\", \"CYCLE_ENGINE\", \"REOPEN_GATEWAY\", \"PROBE_LATENCY\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-join",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Someone should book the post-incident review room.\n- The on-call rota rolled over at 06:00 this morning.\n- Operations Lead proposed to shift routing to the spare region.\n- Safety Auditor accepted the proposal to shift routing to the spare region.\n- Operations Lead proposed to snapshot the store.\n- status(snapshot the store) = WITHDRAWN; it is not needed for this case.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- The status page is already showing a partial outage.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SHIFT_ROUTING  REOPEN_GATEWAY  DRAIN_NODE  PROBE_LATENCY  SNAPSHOT_STORE  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CYCLE_ENGINE\", \"SHIFT_ROUTING\", \"REOPEN_GATEWAY\", \"PROBE_LATENCY\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-join",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Someone should book the post-incident review room.\n- The on-call rota rolled over at 06:00 this morning.\n- Operations Lead proposed to shift routing to the spare region.\n- Safety Auditor accepted the proposal to shift routing to the spare region.\n- [withdrawn] Operations Lead proposed to snapshot the store.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- The status page is already showing a partial outage.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SHIFT_ROUTING  REOPEN_GATEWAY  DRAIN_NODE  PROBE_LATENCY  SNAPSHOT_STORE  CYCLE_ENGINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REOPEN_GATEWAY\", \"SHIFT_ROUTING\", \"CYCLE_ENGINE\", \"PROBE_LATENCY\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-diamond",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Someone should book the post-incident review room.\n- Safety Auditor proposed to snapshot the store.\n- Finance asked for a written summary by end of week.\n- Safety Auditor proposed to probe end-to-end latency.\n- Operations Lead rejected the proposal to probe end-to-end latency; it is not needed for this case.\n- Safety Auditor proposed to cycle the settlement engine.\n- Operations Lead accepted the proposal to cycle the settlement engine.\n- Safety Auditor noted that probe end-to-end latency had been raised earlier in the discussion.\n- The status page is already showing a partial outage.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CYCLE_ENGINE  REOPEN_GATEWAY  SNAPSHOT_STORE  DRAIN_NODE  PROBE_LATENCY  SHIFT_ROUTING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"CYCLE_ENGINE\", \"REOPEN_GATEWAY\", \"DRAIN_NODE\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-diamond",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Someone should book the post-incident review room.\n- Safety Auditor proposed to snapshot the store.\n- Finance asked for a written summary by end of week.\n- Safety Auditor proposed to probe end-to-end latency.\n- status(probe end-to-end latency) = WITHDRAWN; it is not needed for this case.\n- Safety Auditor proposed to cycle the settlement engine.\n- Operations Lead accepted the proposal to cycle the settlement engine.\n- Safety Auditor noted that probe end-to-end latency had been raised earlier in the discussion.\n- The status page is already showing a partial outage.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CYCLE_ENGINE  REOPEN_GATEWAY  SNAPSHOT_STORE  DRAIN_NODE  PROBE_LATENCY  SHIFT_ROUTING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"CYCLE_ENGINE\", \"REOPEN_GATEWAY\", \"PROBE_LATENCY\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-diamond",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Someone should book the post-incident review room.\n- Safety Auditor proposed to snapshot the store.\n- Finance asked for a written summary by end of week.\n- [withdrawn] Safety Auditor proposed to probe end-to-end latency.\n- Safety Auditor proposed to cycle the settlement engine.\n- Operations Lead accepted the proposal to cycle the settlement engine.\n- Safety Auditor noted that probe end-to-end latency had been raised earlier in the discussion.\n- The status page is already showing a partial outage.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CYCLE_ENGINE  REOPEN_GATEWAY  SNAPSHOT_STORE  DRAIN_NODE  PROBE_LATENCY  SHIFT_ROUTING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"CYCLE_ENGINE\", \"REOPEN_GATEWAY\", \"DRAIN_NODE\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-diamond",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Someone should book the post-incident review room.\n- Safety Auditor proposed to snapshot the store.\n- Finance asked for a written summary by end of week.\n- Safety Auditor proposed to probe end-to-end latency.\n- Operations Lead rejected the proposal to probe end-to-end latency; it is not needed for this case.\n- Safety Auditor proposed to cycle the settlement engine.\n- Operations Lead accepted the proposal to cycle the settlement engine.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- The status page is already showing a partial outage.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CYCLE_ENGINE  REOPEN_GATEWAY  SNAPSHOT_STORE  DRAIN_NODE  PROBE_LATENCY  SHIFT_ROUTING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"CYCLE_ENGINE\", \"REOPEN_GATEWAY\", \"DRAIN_NODE\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-diamond",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Someone should book the post-incident review room.\n- Safety Auditor proposed to snapshot the store.\n- Finance asked for a written summary by end of week.\n- Safety Auditor proposed to probe end-to-end latency.\n- status(probe end-to-end latency) = WITHDRAWN; it is not needed for this case.\n- Safety Auditor proposed to cycle the settlement engine.\n- Operations Lead accepted the proposal to cycle the settlement engine.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- The status page is already showing a partial outage.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CYCLE_ENGINE  REOPEN_GATEWAY  SNAPSHOT_STORE  DRAIN_NODE  PROBE_LATENCY  SHIFT_ROUTING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"CYCLE_ENGINE\", \"REOPEN_GATEWAY\", \"DRAIN_NODE\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-diamond",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Someone should book the post-incident review room.\n- Safety Auditor proposed to snapshot the store.\n- Finance asked for a written summary by end of week.\n- [withdrawn] Safety Auditor proposed to probe end-to-end latency.\n- Safety Auditor proposed to cycle the settlement engine.\n- Operations Lead accepted the proposal to cycle the settlement engine.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- The status page is already showing a partial outage.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CYCLE_ENGINE  REOPEN_GATEWAY  SNAPSHOT_STORE  DRAIN_NODE  PROBE_LATENCY  SHIFT_ROUTING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"CYCLE_ENGINE\", \"REOPEN_GATEWAY\", \"DRAIN_NODE\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-diamond",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Someone should book the post-incident review room.\n- Safety Auditor proposed to probe end-to-end latency.\n- Operations Lead proposed to cycle the settlement engine.\n- Safety Auditor rejected the proposal to cycle the settlement engine; it is not needed for this case.\n- The status page is already showing a partial outage.\n- The on-call rota rolled over at 06:00 this morning.\n- Operations Lead noted that cycle the settlement engine had been raised earlier in the discussion.\n- Finance asked for a written summary by end of week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CYCLE_ENGINE  REOPEN_GATEWAY  SNAPSHOT_STORE  DRAIN_NODE  PROBE_LATENCY  SHIFT_ROUTING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"PROBE_LATENCY\", \"REOPEN_GATEWAY\", \"CYCLE_ENGINE\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-diamond",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Someone should book the post-incident review room.\n- Safety Auditor proposed to probe end-to-end latency.\n- Operations Lead proposed to cycle the settlement engine.\n- status(cycle the settlement engine) = WITHDRAWN; it is not needed for this case.\n- The status page is already showing a partial outage.\n- The on-call rota rolled over at 06:00 this morning.\n- Operations Lead noted that cycle the settlement engine had been raised earlier in the discussion.\n- Finance asked for a written summary by end of week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CYCLE_ENGINE  REOPEN_GATEWAY  SNAPSHOT_STORE  DRAIN_NODE  PROBE_LATENCY  SHIFT_ROUTING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"PROBE_LATENCY\", \"REOPEN_GATEWAY\", \"DRAIN_NODE\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-diamond",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Someone should book the post-incident review room.\n- Safety Auditor proposed to probe end-to-end latency.\n- [withdrawn] Operations Lead proposed to cycle the settlement engine.\n- The status page is already showing a partial outage.\n- The on-call rota rolled over at 06:00 this morning.\n- Operations Lead noted that cycle the settlement engine had been raised earlier in the discussion.\n- Finance asked for a written summary by end of week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CYCLE_ENGINE  REOPEN_GATEWAY  SNAPSHOT_STORE  DRAIN_NODE  PROBE_LATENCY  SHIFT_ROUTING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"PROBE_LATENCY\", \"REOPEN_GATEWAY\", \"CYCLE_ENGINE\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-diamond",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Someone should book the post-incident review room.\n- Safety Auditor proposed to probe end-to-end latency.\n- Operations Lead proposed to cycle the settlement engine.\n- Safety Auditor rejected the proposal to cycle the settlement engine; it is not needed for this case.\n- The status page is already showing a partial outage.\n- The on-call rota rolled over at 06:00 this morning.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Finance asked for a written summary by end of week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CYCLE_ENGINE  REOPEN_GATEWAY  SNAPSHOT_STORE  DRAIN_NODE  PROBE_LATENCY  SHIFT_ROUTING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"PROBE_LATENCY\", \"REOPEN_GATEWAY\", \"CYCLE_ENGINE\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-diamond",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Someone should book the post-incident review room.\n- Safety Auditor proposed to probe end-to-end latency.\n- Operations Lead proposed to cycle the settlement engine.\n- status(cycle the settlement engine) = WITHDRAWN; it is not needed for this case.\n- The status page is already showing a partial outage.\n- The on-call rota rolled over at 06:00 this morning.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Finance asked for a written summary by end of week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CYCLE_ENGINE  REOPEN_GATEWAY  SNAPSHOT_STORE  DRAIN_NODE  PROBE_LATENCY  SHIFT_ROUTING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"PROBE_LATENCY\", \"REOPEN_GATEWAY\", \"shift_routing\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-diamond",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Someone should book the post-incident review room.\n- Safety Auditor proposed to probe end-to-end latency.\n- [withdrawn] Operations Lead proposed to cycle the settlement engine.\n- The status page is already showing a partial outage.\n- The on-call rota rolled over at 06:00 this morning.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Finance asked for a written summary by end of week.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CYCLE_ENGINE  REOPEN_GATEWAY  SNAPSHOT_STORE  DRAIN_NODE  PROBE_LATENCY  SHIFT_ROUTING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"PROBE_LATENCY\", \"REOPEN_GATEWAY\", \"CYCLE_ENGINE\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-diamond",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to snapshot the store.\n- Safety Auditor rejected the proposal to snapshot the store; it is not needed for this case.\n- The status page is already showing a partial outage.\n- Finance asked for a written summary by end of week.\n- Operations Lead proposed to probe end-to-end latency.\n- Safety Auditor accepted the proposal to probe end-to-end latency.\n- Operations Lead noted that snapshot the store had been raised earlier in the discussion.\n- The on-call rota rolled over at 06:00 this morning.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CYCLE_ENGINE  REOPEN_GATEWAY  SNAPSHOT_STORE  DRAIN_NODE  PROBE_LATENCY  SHIFT_ROUTING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"PROBE_LATENCY\", \"SNAPSHOT_STORE\", \"REOPEN_GATEWAY\", \"CYCLE_ENGINE\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-diamond",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to snapshot the store.\n- status(snapshot the store) = WITHDRAWN; it is not needed for this case.\n- The status page is already showing a partial outage.\n- Finance asked for a written summary by end of week.\n- Operations Lead proposed to probe end-to-end latency.\n- Safety Auditor accepted the proposal to probe end-to-end latency.\n- Operations Lead noted that snapshot the store had been raised earlier in the discussion.\n- The on-call rota rolled over at 06:00 this morning.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CYCLE_ENGINE  REOPEN_GATEWAY  SNAPSHOT_STORE  DRAIN_NODE  PROBE_LATENCY  SHIFT_ROUTING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"PROBE_LATENCY\", \"REOPEN_GATEWAY\", \"CYCLE_ENGINE\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-diamond",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- [withdrawn] Operations Lead proposed to snapshot the store.\n- The status page is already showing a partial outage.\n- Finance asked for a written summary by end of week.\n- Operations Lead proposed to probe end-to-end latency.\n- Safety Auditor accepted the proposal to probe end-to-end latency.\n- Operations Lead noted that snapshot the store had been raised earlier in the discussion.\n- The on-call rota rolled over at 06:00 this morning.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CYCLE_ENGINE  REOPEN_GATEWAY  SNAPSHOT_STORE  DRAIN_NODE  PROBE_LATENCY  SHIFT_ROUTING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"REOPEN_GATEWAY\", \"PROBE_LATENCY\", \"SNAPSHOT_STORE\", \"DRAIN_NODE\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-diamond",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to snapshot the store.\n- Safety Auditor rejected the proposal to snapshot the store; it is not needed for this case.\n- The status page is already showing a partial outage.\n- Finance asked for a written summary by end of week.\n- Operations Lead proposed to probe end-to-end latency.\n- Safety Auditor accepted the proposal to probe end-to-end latency.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- The on-call rota rolled over at 06:00 this morning.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CYCLE_ENGINE  REOPEN_GATEWAY  SNAPSHOT_STORE  DRAIN_NODE  PROBE_LATENCY  SHIFT_ROUTING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"PROBE_LATENCY\", \"SNAPSHOT_STORE\", \"CYCLE_ENGINE\", \"REOPEN_GATEWAY\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-diamond",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to snapshot the store.\n- status(snapshot the store) = WITHDRAWN; it is not needed for this case.\n- The status page is already showing a partial outage.\n- Finance asked for a written summary by end of week.\n- Operations Lead proposed to probe end-to-end latency.\n- Safety Auditor accepted the proposal to probe end-to-end latency.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- The on-call rota rolled over at 06:00 this morning.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CYCLE_ENGINE  REOPEN_GATEWAY  SNAPSHOT_STORE  DRAIN_NODE  PROBE_LATENCY  SHIFT_ROUTING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"PROBE_LATENCY\", \"CYCLE_ENGINE\", \"REOPEN_GATEWAY\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-diamond",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- [withdrawn] Operations Lead proposed to snapshot the store.\n- The status page is already showing a partial outage.\n- Finance asked for a written summary by end of week.\n- Operations Lead proposed to probe end-to-end latency.\n- Safety Auditor accepted the proposal to probe end-to-end latency.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- The on-call rota rolled over at 06:00 this morning.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CYCLE_ENGINE  REOPEN_GATEWAY  SNAPSHOT_STORE  DRAIN_NODE  PROBE_LATENCY  SHIFT_ROUTING\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"PROBE_LATENCY\", \"REOPEN_GATEWAY\", \"CYCLE_ENGINE\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-twochain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Finance asked for a written summary by end of week.\n- The status page is already showing a partial outage.\n- Operations Lead proposed to shift routing to the spare region.\n- Safety Auditor proposed to cycle the settlement engine.\n- Operations Lead rejected the proposal to cycle the settlement engine; it is not needed for this case.\n- Safety Auditor proposed to reopen the gateway.\n- Operations Lead accepted the proposal to reopen the gateway.\n- Safety Auditor noted that cycle the settlement engine had been raised earlier in the discussion.\n- The on-call rota rolled over at 06:00 this morning.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PROBE_LATENCY  SHIFT_ROUTING  SNAPSHOT_STORE  CYCLE_ENGINE  REOPEN_GATEWAY  DRAIN_NODE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SHIFT_ROUTING\", \"REOPEN_GATEWAY\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-twochain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Finance asked for a written summary by end of week.\n- The status page is already showing a partial outage.\n- Operations Lead proposed to shift routing to the spare region.\n- Safety Auditor proposed to cycle the settlement engine.\n- status(cycle the settlement engine) = WITHDRAWN; it is not needed for this case.\n- Safety Auditor proposed to reopen the gateway.\n- Operations Lead accepted the proposal to reopen the gateway.\n- Safety Auditor noted that cycle the settlement engine had been raised earlier in the discussion.\n- The on-call rota rolled over at 06:00 this morning.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PROBE_LATENCY  SHIFT_ROUTING  SNAPSHOT_STORE  CYCLE_ENGINE  REOPEN_GATEWAY  DRAIN_NODE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SHIFT_ROUTING\", \"REOPEN_GATEWAY\", \"SNAPSHOT_STORE\", \"PROBE_LATENCY\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-twochain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Finance asked for a written summary by end of week.\n- The status page is already showing a partial outage.\n- Operations Lead proposed to shift routing to the spare region.\n- [withdrawn] Safety Auditor proposed to cycle the settlement engine.\n- Safety Auditor proposed to reopen the gateway.\n- Operations Lead accepted the proposal to reopen the gateway.\n- Safety Auditor noted that cycle the settlement engine had been raised earlier in the discussion.\n- The on-call rota rolled over at 06:00 this morning.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PROBE_LATENCY  SHIFT_ROUTING  SNAPSHOT_STORE  CYCLE_ENGINE  REOPEN_GATEWAY  DRAIN_NODE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SHIFT_ROUTING\", \"REOPEN_GATEWAY\", \"CYCLE_ENGINE\", \"SNAPSHOT_STORE\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-twochain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Finance asked for a written summary by end of week.\n- The status page is already showing a partial outage.\n- Operations Lead proposed to shift routing to the spare region.\n- Safety Auditor proposed to cycle the settlement engine.\n- Operations Lead rejected the proposal to cycle the settlement engine; it is not needed for this case.\n- Safety Auditor proposed to reopen the gateway.\n- Operations Lead accepted the proposal to reopen the gateway.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The on-call rota rolled over at 06:00 this morning.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PROBE_LATENCY  SHIFT_ROUTING  SNAPSHOT_STORE  CYCLE_ENGINE  REOPEN_GATEWAY  DRAIN_NODE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SHIFT_ROUTING\", \"REOPEN_GATEWAY\", \"CYCLE_ENGINE\", \"SNAPSHOT_STORE\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-twochain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Finance asked for a written summary by end of week.\n- The status page is already showing a partial outage.\n- Operations Lead proposed to shift routing to the spare region.\n- Safety Auditor proposed to cycle the settlement engine.\n- status(cycle the settlement engine) = WITHDRAWN; it is not needed for this case.\n- Safety Auditor proposed to reopen the gateway.\n- Operations Lead accepted the proposal to reopen the gateway.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The on-call rota rolled over at 06:00 this morning.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PROBE_LATENCY  SHIFT_ROUTING  SNAPSHOT_STORE  CYCLE_ENGINE  REOPEN_GATEWAY  DRAIN_NODE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SHIFT_ROUTING\", \"REOPEN_GATEWAY\", \"SNAPSHOT_STORE\", \"PROBE_LATENCY\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-twochain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Finance asked for a written summary by end of week.\n- The status page is already showing a partial outage.\n- Operations Lead proposed to shift routing to the spare region.\n- [withdrawn] Safety Auditor proposed to cycle the settlement engine.\n- Safety Auditor proposed to reopen the gateway.\n- Operations Lead accepted the proposal to reopen the gateway.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The on-call rota rolled over at 06:00 this morning.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PROBE_LATENCY  SHIFT_ROUTING  SNAPSHOT_STORE  CYCLE_ENGINE  REOPEN_GATEWAY  DRAIN_NODE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SHIFT_ROUTING\", \"REOPEN_GATEWAY\", \"CYCLE_ENGINE\", \"SNAPSHOT_STORE\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-twochain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to cycle the settlement engine.\n- Finance asked for a written summary by end of week.\n- Operations Lead proposed to reopen the gateway.\n- Safety Auditor rejected the proposal to reopen the gateway; it is not needed for this case.\n- The on-call rota rolled over at 06:00 this morning.\n- Someone should book the post-incident review room.\n- Operations Lead noted that reopen the gateway had been raised earlier in the discussion.\n- The status page is already showing a partial outage.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PROBE_LATENCY  SHIFT_ROUTING  SNAPSHOT_STORE  CYCLE_ENGINE  REOPEN_GATEWAY  DRAIN_NODE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CYCLE_ENGINE\", \"REOPEN_GATEWAY\", \"SNAPSHOT_STORE\", \"BOOK_ROOM\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-twochain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to cycle the settlement engine.\n- Finance asked for a written summary by end of week.\n- Operations Lead proposed to reopen the gateway.\n- status(reopen the gateway) = WITHDRAWN; it is not needed for this case.\n- The on-call rota rolled over at 06:00 this morning.\n- Someone should book the post-incident review room.\n- Operations Lead noted that reopen the gateway had been raised earlier in the discussion.\n- The status page is already showing a partial outage.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PROBE_LATENCY  SHIFT_ROUTING  SNAPSHOT_STORE  CYCLE_ENGINE  REOPEN_GATEWAY  DRAIN_NODE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CYCLE_ENGINE\", \"SNAPSHOT_STORE\", \"PROBE_LATENCY\", \"BOOK_ROOM\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-twochain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to cycle the settlement engine.\n- Finance asked for a written summary by end of week.\n- [withdrawn] Operations Lead proposed to reopen the gateway.\n- The on-call rota rolled over at 06:00 this morning.\n- Someone should book the post-incident review room.\n- Operations Lead noted that reopen the gateway had been raised earlier in the discussion.\n- The status page is already showing a partial outage.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PROBE_LATENCY  SHIFT_ROUTING  SNAPSHOT_STORE  CYCLE_ENGINE  REOPEN_GATEWAY  DRAIN_NODE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CYCLE_ENGINE\", \"SNAPSHOT_STORE\", \"REOPEN_GATEWAY\", \"BOOK_ROOM\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-twochain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to cycle the settlement engine.\n- Finance asked for a written summary by end of week.\n- Operations Lead proposed to reopen the gateway.\n- Safety Auditor rejected the proposal to reopen the gateway; it is not needed for this case.\n- The on-call rota rolled over at 06:00 this morning.\n- Someone should book the post-incident review room.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- The status page is already showing a partial outage.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PROBE_LATENCY  SHIFT_ROUTING  SNAPSHOT_STORE  CYCLE_ENGINE  REOPEN_GATEWAY  DRAIN_NODE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CYCLE_ENGINE\", \"REOPEN_GATEWAY\", \"BOOK_ROOM\", \"SUMMARY_WRITTEN\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-twochain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to cycle the settlement engine.\n- Finance asked for a written summary by end of week.\n- Operations Lead proposed to reopen the gateway.\n- status(reopen the gateway) = WITHDRAWN; it is not needed for this case.\n- The on-call rota rolled over at 06:00 this morning.\n- Someone should book the post-incident review room.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- The status page is already showing a partial outage.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PROBE_LATENCY  SHIFT_ROUTING  SNAPSHOT_STORE  CYCLE_ENGINE  REOPEN_GATEWAY  DRAIN_NODE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CYCLE_ENGINE\", \"SNAPSHOT_STORE\", \"BOOK_ROOM\", \"SUMMARY_RAISED\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-twochain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to cycle the settlement engine.\n- Finance asked for a written summary by end of week.\n- [withdrawn] Operations Lead proposed to reopen the gateway.\n- The on-call rota rolled over at 06:00 this morning.\n- Someone should book the post-incident review room.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- The status page is already showing a partial outage.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PROBE_LATENCY  SHIFT_ROUTING  SNAPSHOT_STORE  CYCLE_ENGINE  REOPEN_GATEWAY  DRAIN_NODE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CYCLE_ENGINE\", \"SNAPSHOT_STORE\", \"PROBE_LATENCY\", \"BOOK_ROOM\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-twochain",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to cycle the settlement engine.\n- Safety Auditor accepted the proposal to cycle the settlement engine.\n- Operations Lead proposed to shift routing to the spare region.\n- Safety Auditor rejected the proposal to shift routing to the spare region; it is not needed for this case.\n- Finance asked for a written summary by end of week.\n- The status page is already showing a partial outage.\n- Operations Lead noted that shift routing to the spare region had been raised earlier in the discussion.\n- The on-call rota rolled over at 06:00 this morning.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PROBE_LATENCY  SHIFT_ROUTING  SNAPSHOT_STORE  CYCLE_ENGINE  REOPEN_GATEWAY  DRAIN_NODE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CYCLE_ENGINE\", \"SNAPSHOT_STORE\", \"SHIFT_ROUTING\", \"PROBE_LATENCY\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-twochain",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to cycle the settlement engine.\n- Safety Auditor accepted the proposal to cycle the settlement engine.\n- Operations Lead proposed to shift routing to the spare region.\n- status(shift routing to the spare region) = WITHDRAWN; it is not needed for this case.\n- Finance asked for a written summary by end of week.\n- The status page is already showing a partial outage.\n- Operations Lead noted that shift routing to the spare region had been raised earlier in the discussion.\n- The on-call rota rolled over at 06:00 this morning.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PROBE_LATENCY  SHIFT_ROUTING  SNAPSHOT_STORE  CYCLE_ENGINE  REOPEN_GATEWAY  DRAIN_NODE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CYCLE_ENGINE\", \"SNAPSHOT_STORE\", \"PROBE_LATENCY\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-twochain",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to cycle the settlement engine.\n- Safety Auditor accepted the proposal to cycle the settlement engine.\n- [withdrawn] Operations Lead proposed to shift routing to the spare region.\n- Finance asked for a written summary by end of week.\n- The status page is already showing a partial outage.\n- Operations Lead noted that shift routing to the spare region had been raised earlier in the discussion.\n- The on-call rota rolled over at 06:00 this morning.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PROBE_LATENCY  SHIFT_ROUTING  SNAPSHOT_STORE  CYCLE_ENGINE  REOPEN_GATEWAY  DRAIN_NODE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CYCLE_ENGINE\", \"SNAPSHOT_STORE\", \"PROBE_LATENCY\", \"READY\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-twochain",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to cycle the settlement engine.\n- Safety Auditor accepted the proposal to cycle the settlement engine.\n- Operations Lead proposed to shift routing to the spare region.\n- Safety Auditor rejected the proposal to shift routing to the spare region; it is not needed for this case.\n- Finance asked for a written summary by end of week.\n- The status page is already showing a partial outage.\n- Operations Lead noted that the written summary for finance today had been raised earlier in the discussion.\n- The on-call rota rolled over at 06:00 this morning.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PROBE_LATENCY  SHIFT_ROUTING  SNAPSHOT_STORE  CYCLE_ENGINE  REOPEN_GATEWAY  DRAIN_NODE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CYCLE_ENGINE\", \"SNAPSHOT_STORE\", \"PROBE_LATENCY\", \"READY\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-twochain",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to cycle the settlement engine.\n- Safety Auditor accepted the proposal to cycle the settlement engine.\n- Operations Lead proposed to shift routing to the spare region.\n- status(shift routing to the spare region) = WITHDRAWN; it is not needed for this case.\n- Finance asked for a written summary by end of week.\n- The status page is already showing a partial outage.\n- Operations Lead noted that the written summary for finance today had been raised earlier in the discussion.\n- The on-call rota rolled over at 06:00 this morning.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PROBE_LATENCY  SHIFT_ROUTING  SNAPSHOT_STORE  CYCLE_ENGINE  REOPEN_GATEWAY  DRAIN_NODE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CYCLE_ENGINE\", \"SNAPSHOT_STORE\", \"PROBE_LATENCY\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-twochain",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to cycle the settlement engine.\n- Safety Auditor accepted the proposal to cycle the settlement engine.\n- [withdrawn] Operations Lead proposed to shift routing to the spare region.\n- Finance asked for a written summary by end of week.\n- The status page is already showing a partial outage.\n- Operations Lead noted that the written summary for finance today had been raised earlier in the discussion.\n- The on-call rota rolled over at 06:00 this morning.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  PROBE_LATENCY  SHIFT_ROUTING  SNAPSHOT_STORE  CYCLE_ENGINE  REOPEN_GATEWAY  DRAIN_NODE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CYCLE_ENGINE\", \"SNAPSHOT_STORE\", \"PROBE_LATENCY\", \"READY\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-star",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to snapshot the store.\n- Safety Auditor rejected the proposal to snapshot the store; it is not needed for this case.\n- Finance asked for a written summary by end of week.\n- Safety Auditor proposed to cycle the settlement engine.\n- Operations Lead proposed to shift routing to the spare region.\n- Safety Auditor accepted the proposal to shift routing to the spare region.\n- The on-call rota rolled over at 06:00 this morning.\n- The status page is already showing a partial outage.\n- Operations Lead noted that snapshot the store had been raised earlier in the discussion.\n- Someone should book the post-incident review room.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REOPEN_GATEWAY  CYCLE_ENGINE  SHIFT_ROUTING  PROBE_LATENCY  DRAIN_NODE  SNAPSHOT_STORE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CYCLE_ENGINE\", \"SHIFT_ROUTING\", \"SNAPSHOT_STORE\", \"PROBE_LATENCY\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-star",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to snapshot the store.\n- status(snapshot the store) = WITHDRAWN; it is not needed for this case.\n- Finance asked for a written summary by end of week.\n- Safety Auditor proposed to cycle the settlement engine.\n- Operations Lead proposed to shift routing to the spare region.\n- Safety Auditor accepted the proposal to shift routing to the spare region.\n- The on-call rota rolled over at 06:00 this morning.\n- The status page is already showing a partial outage.\n- Operations Lead noted that snapshot the store had been raised earlier in the discussion.\n- Someone should book the post-incident review room.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REOPEN_GATEWAY  CYCLE_ENGINE  SHIFT_ROUTING  PROBE_LATENCY  DRAIN_NODE  SNAPSHOT_STORE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"CYCLE_ENGINE\", \"SHIFT_ROUTING\", \"PROBE_LATENCY\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-star",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- [withdrawn] Operations Lead proposed to snapshot the store.\n- Finance asked for a written summary by end of week.\n- Safety Auditor proposed to cycle the settlement engine.\n- Operations Lead proposed to shift routing to the spare region.\n- Safety Auditor accepted the proposal to shift routing to the spare region.\n- The on-call rota rolled over at 06:00 this morning.\n- The status page is already showing a partial outage.\n- Operations Lead noted that snapshot the store had been raised earlier in the discussion.\n- Someone should book the post-incident review room.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REOPEN_GATEWAY  CYCLE_ENGINE  SHIFT_ROUTING  PROBE_LATENCY  DRAIN_NODE  SNAPSHOT_STORE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CYCLE_ENGINE\", \"SHIFT_ROUTING\", \"SNAPSHOT_STORE\", \"PROBE_LATENCY\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-star",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to snapshot the store.\n- Safety Auditor rejected the proposal to snapshot the store; it is not needed for this case.\n- Finance asked for a written summary by end of week.\n- Safety Auditor proposed to cycle the settlement engine.\n- Operations Lead proposed to shift routing to the spare region.\n- Safety Auditor accepted the proposal to shift routing to the spare region.\n- The on-call rota rolled over at 06:00 this morning.\n- The status page is already showing a partial outage.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Someone should book the post-incident review room.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REOPEN_GATEWAY  CYCLE_ENGINE  SHIFT_ROUTING  PROBE_LATENCY  DRAIN_NODE  SNAPSHOT_STORE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CYCLE_ENGINE\", \"SHIFT_ROUTING\", \"SNAPSHOT_STORE\", \"PROBE_LATENCY\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-star",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to snapshot the store.\n- status(snapshot the store) = WITHDRAWN; it is not needed for this case.\n- Finance asked for a written summary by end of week.\n- Safety Auditor proposed to cycle the settlement engine.\n- Operations Lead proposed to shift routing to the spare region.\n- Safety Auditor accepted the proposal to shift routing to the spare region.\n- The on-call rota rolled over at 06:00 this morning.\n- The status page is already showing a partial outage.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Someone should book the post-incident review room.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REOPEN_GATEWAY  CYCLE_ENGINE  SHIFT_ROUTING  PROBE_LATENCY  DRAIN_NODE  SNAPSHOT_STORE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CYCLE_ENGINE\", \"SHIFT_ROUTING\", \"SNAPSHOT_STORE\", \"PROBE_LATENCY\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-star",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- [withdrawn] Operations Lead proposed to snapshot the store.\n- Finance asked for a written summary by end of week.\n- Safety Auditor proposed to cycle the settlement engine.\n- Operations Lead proposed to shift routing to the spare region.\n- Safety Auditor accepted the proposal to shift routing to the spare region.\n- The on-call rota rolled over at 06:00 this morning.\n- The status page is already showing a partial outage.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Someone should book the post-incident review room.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REOPEN_GATEWAY  CYCLE_ENGINE  SHIFT_ROUTING  PROBE_LATENCY  DRAIN_NODE  SNAPSHOT_STORE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"CYCLE_ENGINE\", \"SHIFT_ROUTING\", \"SNAPSHOT_STORE\", \"PROBE_LATENCY\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-star",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The status page is already showing a partial outage.\n- Safety Auditor proposed to snapshot the store.\n- Finance asked for a written summary by end of week.\n- Safety Auditor proposed to shift routing to the spare region.\n- Operations Lead rejected the proposal to shift routing to the spare region; it is not needed for this case.\n- Safety Auditor noted that shift routing to the spare region had been raised earlier in the discussion.\n- Someone should book the post-incident review room.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REOPEN_GATEWAY  CYCLE_ENGINE  SHIFT_ROUTING  PROBE_LATENCY  DRAIN_NODE  SNAPSHOT_STORE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"PROBE_LATENCY\", \"REOPEN_GATEWAY\", \"BOOK_POST_INCIDENT_REVIEW\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-star",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The status page is already showing a partial outage.\n- Safety Auditor proposed to snapshot the store.\n- Finance asked for a written summary by end of week.\n- Safety Auditor proposed to shift routing to the spare region.\n- status(shift routing to the spare region) = WITHDRAWN; it is not needed for this case.\n- Safety Auditor noted that shift routing to the spare region had been raised earlier in the discussion.\n- Someone should book the post-incident review room.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REOPEN_GATEWAY  CYCLE_ENGINE  SHIFT_ROUTING  PROBE_LATENCY  DRAIN_NODE  SNAPSHOT_STORE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"CYCLE_ENGINE\", \"PROBE_LATENCY\", \"BOOK_POST_INCIDENT_REVIEW\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-star",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The status page is already showing a partial outage.\n- Safety Auditor proposed to snapshot the store.\n- Finance asked for a written summary by end of week.\n- [withdrawn] Safety Auditor proposed to shift routing to the spare region.\n- Safety Auditor noted that shift routing to the spare region had been raised earlier in the discussion.\n- Someone should book the post-incident review room.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REOPEN_GATEWAY  CYCLE_ENGINE  SHIFT_ROUTING  PROBE_LATENCY  DRAIN_NODE  SNAPSHOT_STORE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"CYCLE_ENGINE\", \"PROBE_LATENCY\", \"BOOK_POST_INCIDENT_REVIEW\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-star",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The status page is already showing a partial outage.\n- Safety Auditor proposed to snapshot the store.\n- Finance asked for a written summary by end of week.\n- Safety Auditor proposed to shift routing to the spare region.\n- Operations Lead rejected the proposal to shift routing to the spare region; it is not needed for this case.\n- Safety Auditor noted that the written summary for finance today had been raised earlier in the discussion.\n- Someone should book the post-incident review room.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REOPEN_GATEWAY  CYCLE_ENGINE  SHIFT_ROUTING  PROBE_LATENCY  DRAIN_NODE  SNAPSHOT_STORE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"PROBE_LATENCY\", \"CYCLE_ENGINE\", \"REOPEN_GATEWAY\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-star",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The status page is already showing a partial outage.\n- Safety Auditor proposed to snapshot the store.\n- Finance asked for a written summary by end of week.\n- Safety Auditor proposed to shift routing to the spare region.\n- status(shift routing to the spare region) = WITHDRAWN; it is not needed for this case.\n- Safety Auditor noted that the written summary for finance today had been raised earlier in the discussion.\n- Someone should book the post-incident review room.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REOPEN_GATEWAY  CYCLE_ENGINE  SHIFT_ROUTING  PROBE_LATENCY  DRAIN_NODE  SNAPSHOT_STORE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"PROBE_LATENCY\", \"BOOK_POST_INCIDENT_REVIEW\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-star",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The status page is already showing a partial outage.\n- Safety Auditor proposed to snapshot the store.\n- Finance asked for a written summary by end of week.\n- [withdrawn] Safety Auditor proposed to shift routing to the spare region.\n- Safety Auditor noted that the written summary for finance today had been raised earlier in the discussion.\n- Someone should book the post-incident review room.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REOPEN_GATEWAY  CYCLE_ENGINE  SHIFT_ROUTING  PROBE_LATENCY  DRAIN_NODE  SNAPSHOT_STORE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"CYCLE_ENGINE\", \"PROBE_LATENCY\", \"BOOK_POST_INCIDENT_REVIEW\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-star",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Someone should book the post-incident review room.\n- The on-call rota rolled over at 06:00 this morning.\n- Operations Lead proposed to cycle the settlement engine.\n- Safety Auditor rejected the proposal to cycle the settlement engine; it is not needed for this case.\n- Operations Lead proposed to snapshot the store.\n- Safety Auditor accepted the proposal to snapshot the store.\n- Operations Lead noted that cycle the settlement engine had been raised earlier in the discussion.\n- The status page is already showing a partial outage.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REOPEN_GATEWAY  CYCLE_ENGINE  SHIFT_ROUTING  PROBE_LATENCY  DRAIN_NODE  SNAPSHOT_STORE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"REOPEN_GATEWAY\", \"SHIFT_ROUTING\", \"PROBE_LATENCY\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-star",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Someone should book the post-incident review room.\n- The on-call rota rolled over at 06:00 this morning.\n- Operations Lead proposed to cycle the settlement engine.\n- status(cycle the settlement engine) = WITHDRAWN; it is not needed for this case.\n- Operations Lead proposed to snapshot the store.\n- Safety Auditor accepted the proposal to snapshot the store.\n- Operations Lead noted that cycle the settlement engine had been raised earlier in the discussion.\n- The status page is already showing a partial outage.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REOPEN_GATEWAY  CYCLE_ENGINE  SHIFT_ROUTING  PROBE_LATENCY  DRAIN_NODE  SNAPSHOT_STORE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"REOPEN_GATEWAY\", \"PROBE_LATENCY\", \"SHIFT_ROUTING\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-star",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Someone should book the post-incident review room.\n- The on-call rota rolled over at 06:00 this morning.\n- [withdrawn] Operations Lead proposed to cycle the settlement engine.\n- Operations Lead proposed to snapshot the store.\n- Safety Auditor accepted the proposal to snapshot the store.\n- Operations Lead noted that cycle the settlement engine had been raised earlier in the discussion.\n- The status page is already showing a partial outage.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REOPEN_GATEWAY  CYCLE_ENGINE  SHIFT_ROUTING  PROBE_LATENCY  DRAIN_NODE  SNAPSHOT_STORE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"PROBE_LATENCY\", \"REOPEN_GATEWAY\", \"SHIFT_ROUTING\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-star",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Someone should book the post-incident review room.\n- The on-call rota rolled over at 06:00 this morning.\n- Operations Lead proposed to cycle the settlement engine.\n- Safety Auditor rejected the proposal to cycle the settlement engine; it is not needed for this case.\n- Operations Lead proposed to snapshot the store.\n- Safety Auditor accepted the proposal to snapshot the store.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The status page is already showing a partial outage.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REOPEN_GATEWAY  CYCLE_ENGINE  SHIFT_ROUTING  PROBE_LATENCY  DRAIN_NODE  SNAPSHOT_STORE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"REOPEN_GATEWAY\", \"SHIFT_ROUTING\", \"PROBE_LATENCY\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-star",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Someone should book the post-incident review room.\n- The on-call rota rolled over at 06:00 this morning.\n- Operations Lead proposed to cycle the settlement engine.\n- status(cycle the settlement engine) = WITHDRAWN; it is not needed for this case.\n- Operations Lead proposed to snapshot the store.\n- Safety Auditor accepted the proposal to snapshot the store.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The status page is already showing a partial outage.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REOPEN_GATEWAY  CYCLE_ENGINE  SHIFT_ROUTING  PROBE_LATENCY  DRAIN_NODE  SNAPSHOT_STORE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"REOPEN_GATEWAY\", \"SHIFT_ROUTING\", \"PROBE_LATENCY\"], \"ready\": true}"
+ },
+ {
+  "instance": "payments-star",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Someone should book the post-incident review room.\n- The on-call rota rolled over at 06:00 this morning.\n- [withdrawn] Operations Lead proposed to cycle the settlement engine.\n- Operations Lead proposed to snapshot the store.\n- Safety Auditor accepted the proposal to snapshot the store.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- The status page is already showing a partial outage.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  REOPEN_GATEWAY  CYCLE_ENGINE  SHIFT_ROUTING  PROBE_LATENCY  DRAIN_NODE  SNAPSHOT_STORE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"SNAPSHOT_STORE\", \"PROBE_LATENCY\", \"REOPEN_GATEWAY\", \"SHIFT_ROUTING\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-chain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The spare parts cage was restocked on Tuesday.\n- Safety Auditor proposed to lock the loading bay.\n- Operations Lead accepted the proposal to lock the loading bay.\n- Night shift starts in about four hours.\n- Operations Lead proposed to resume the line.\n- Safety Auditor rejected the proposal to resume the line; it is not needed for this case.\n- Operations Lead noted that resume the line had been raised earlier in the discussion.\n- Two totes are still queued at the far end.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_ARM  AUDIT_INVENTORY  HALT_CONVEYOR  LOCK_BAY  SWAP_GRIPPER  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"LOCK_BAY\", \"CALIBRATE_ARM\", \"RESUME_LINE\", \"HALT_CONVEYOR\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-chain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The spare parts cage was restocked on Tuesday.\n- Safety Auditor proposed to lock the loading bay.\n- Operations Lead accepted the proposal to lock the loading bay.\n- Night shift starts in about four hours.\n- Operations Lead proposed to resume the line.\n- status(resume the line) = WITHDRAWN; it is not needed for this case.\n- Operations Lead noted that resume the line had been raised earlier in the discussion.\n- Two totes are still queued at the far end.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_ARM  AUDIT_INVENTORY  HALT_CONVEYOR  LOCK_BAY  SWAP_GRIPPER  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"LOCK_BAY\", \"RESUME_LINE\", \"CALIBRATE_ARM\", \"SWAP_GRIPPER\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-chain",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The spare parts cage was restocked on Tuesday.\n- Safety Auditor proposed to lock the loading bay.\n- Operations Lead accepted the proposal to lock the loading bay.\n- Night shift starts in about four hours.\n- [withdrawn] Operations Lead proposed to resume the line.\n- Operations Lead noted that resume the line had been raised earlier in the discussion.\n- Two totes are still queued at the far end.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_ARM  AUDIT_INVENTORY  HALT_CONVEYOR  LOCK_BAY  SWAP_GRIPPER  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"LOCK_BAY\", \"RESUME_LINE\", \"CALIBRATE_ARM\", \"SWAP_GRIPPER\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-chain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The spare parts cage was restocked on Tuesday.\n- Safety Auditor proposed to lock the loading bay.\n- Operations Lead accepted the proposal to lock the loading bay.\n- Night shift starts in about four hours.\n- Operations Lead proposed to resume the line.\n- Safety Auditor rejected the proposal to resume the line; it is not needed for this case.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Two totes are still queued at the far end.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_ARM  AUDIT_INVENTORY  HALT_CONVEYOR  LOCK_BAY  SWAP_GRIPPER  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"LOCK_BAY\", \"RESUME_LINE\", \"CALIBRATE_ARM\", \"SWAP_GRIPPER\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-chain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The spare parts cage was restocked on Tuesday.\n- Safety Auditor proposed to lock the loading bay.\n- Operations Lead accepted the proposal to lock the loading bay.\n- Night shift starts in about four hours.\n- Operations Lead proposed to resume the line.\n- status(resume the line) = WITHDRAWN; it is not needed for this case.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Two totes are still queued at the far end.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_ARM  AUDIT_INVENTORY  HALT_CONVEYOR  LOCK_BAY  SWAP_GRIPPER  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"LOCK_BAY\", \"RESUME_LINE\", \"CALIBRATE_ARM\", \"SWAP_GRIPPER\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-chain",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The spare parts cage was restocked on Tuesday.\n- Safety Auditor proposed to lock the loading bay.\n- Operations Lead accepted the proposal to lock the loading bay.\n- Night shift starts in about four hours.\n- [withdrawn] Operations Lead proposed to resume the line.\n- Operations Lead noted that the written summary had been raised earlier in the discussion.\n- Two totes are still queued at the far end.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_ARM  AUDIT_INVENTORY  HALT_CONVEYOR  LOCK_BAY  SWAP_GRIPPER  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"LOCK_BAY\", \"RESUME_LINE\", \"CALIBRATE_ARM\", \"SWAP_GRIPPER\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-chain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to resume the line.\n- Safety Auditor proposed to lock the loading bay.\n- Operations Lead rejected the proposal to lock the loading bay; it is not needed for this case.\n- The spare parts cage was restocked on Tuesday.\n- Maintenance logged a similar fault last quarter.\n- Safety Auditor noted that lock the loading bay had been raised earlier in the discussion.\n- Night shift starts in about four hours.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_ARM  AUDIT_INVENTORY  HALT_CONVEYOR  LOCK_BAY  SWAP_GRIPPER  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RESUME_LINE\", \"CALIBRATE_ARM\", \"AUDIT_INVENTORY\", \"HALT_CONVEYOR\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-chain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to resume the line.\n- Safety Auditor proposed to lock the loading bay.\n- status(lock the loading bay) = WITHDRAWN; it is not needed for this case.\n- The spare parts cage was restocked on Tuesday.\n- Maintenance logged a similar fault last quarter.\n- Safety Auditor noted that lock the loading bay had been raised earlier in the discussion.\n- Night shift starts in about four hours.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_ARM  AUDIT_INVENTORY  HALT_CONVEYOR  LOCK_BAY  SWAP_GRIPPER  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RESUME_LINE\", \"CALIBRATE_ARM\", \"AUDIT_INVENTORY\", \"HALT_CONVEYOR\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-chain",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to resume the line.\n- [withdrawn] Safety Auditor proposed to lock the loading bay.\n- The spare parts cage was restocked on Tuesday.\n- Maintenance logged a similar fault last quarter.\n- Safety Auditor noted that lock the loading bay had been raised earlier in the discussion.\n- Night shift starts in about four hours.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_ARM  AUDIT_INVENTORY  HALT_CONVEYOR  LOCK_BAY  SWAP_GRIPPER  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RESUME_LINE\", \"CALIBRATE_ARM\", \"SWAP_GRIPPER\", \"AUDIT_INVENTORY\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-chain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to resume the line.\n- Safety Auditor proposed to lock the loading bay.\n- Operations Lead rejected the proposal to lock the loading bay; it is not needed for this case.\n- The spare parts cage was restocked on Tuesday.\n- Maintenance logged a similar fault last quarter.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- Night shift starts in about four hours.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_ARM  AUDIT_INVENTORY  HALT_CONVEYOR  LOCK_BAY  SWAP_GRIPPER  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RESUME_LINE\", \"CALIBRATE_ARM\", \"AUDIT_INVENTORY\", \"HALT_CONVEYOR\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-chain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to resume the line.\n- Safety Auditor proposed to lock the loading bay.\n- status(lock the loading bay) = WITHDRAWN; it is not needed for this case.\n- The spare parts cage was restocked on Tuesday.\n- Maintenance logged a similar fault last quarter.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- Night shift starts in about four hours.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_ARM  AUDIT_INVENTORY  HALT_CONVEYOR  LOCK_BAY  SWAP_GRIPPER  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"HALT_CONVEYOR\", \"SWAP_GRIPPER\", \"CALIBRATE_ARM\", \"RESUME_LINE\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-chain",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to resume the line.\n- [withdrawn] Safety Auditor proposed to lock the loading bay.\n- The spare parts cage was restocked on Tuesday.\n- Maintenance logged a similar fault last quarter.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- Night shift starts in about four hours.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_ARM  AUDIT_INVENTORY  HALT_CONVEYOR  LOCK_BAY  SWAP_GRIPPER  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"RESUME_LINE\", \"CALIBRATE_ARM\", \"AUDIT_INVENTORY\", \"SWAP_GRIPPER\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-fork",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to lock the loading bay.\n- Safety Auditor rejected the proposal to lock the loading bay; it is not needed for this case.\n- The spare parts cage was restocked on Tuesday.\n- Safety Auditor proposed to halt the conveyor.\n- Operations Lead accepted the proposal to halt the conveyor.\n- Night shift starts in about four hours.\n- Operations Lead noted that lock the loading bay had been raised earlier in the discussion.\n- Maintenance logged a similar fault last quarter.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_GRIPPER  AUDIT_INVENTORY  CALIBRATE_ARM  LOCK_BAY  HALT_CONVEYOR  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"RESUME_LINE\", \"CALIBRATE_ARM\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-fork",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to lock the loading bay.\n- status(lock the loading bay) = WITHDRAWN; it is not needed for this case.\n- The spare parts cage was restocked on Tuesday.\n- Safety Auditor proposed to halt the conveyor.\n- Operations Lead accepted the proposal to halt the conveyor.\n- Night shift starts in about four hours.\n- Operations Lead noted that lock the loading bay had been raised earlier in the discussion.\n- Maintenance logged a similar fault last quarter.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_GRIPPER  AUDIT_INVENTORY  CALIBRATE_ARM  LOCK_BAY  HALT_CONVEYOR  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"RESUME_LINE\", \"CALIBRATE_ARM\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-fork",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- [withdrawn] Operations Lead proposed to lock the loading bay.\n- The spare parts cage was restocked on Tuesday.\n- Safety Auditor proposed to halt the conveyor.\n- Operations Lead accepted the proposal to halt the conveyor.\n- Night shift starts in about four hours.\n- Operations Lead noted that lock the loading bay had been raised earlier in the discussion.\n- Maintenance logged a similar fault last quarter.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_GRIPPER  AUDIT_INVENTORY  CALIBRATE_ARM  LOCK_BAY  HALT_CONVEYOR  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"HALT_CONVEYOR\", \"CALIBRATE_ARM\", \"RESUME_LINE\", \"LOCK_BAY\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-fork",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to lock the loading bay.\n- Safety Auditor rejected the proposal to lock the loading bay; it is not needed for this case.\n- The spare parts cage was restocked on Tuesday.\n- Safety Auditor proposed to halt the conveyor.\n- Operations Lead accepted the proposal to halt the conveyor.\n- Night shift starts in about four hours.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Maintenance logged a similar fault last quarter.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_GRIPPER  AUDIT_INVENTORY  CALIBRATE_ARM  LOCK_BAY  HALT_CONVEYOR  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"RESUME_LINE\", \"CALIBRATE_ARM\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-fork",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to lock the loading bay.\n- status(lock the loading bay) = WITHDRAWN; it is not needed for this case.\n- The spare parts cage was restocked on Tuesday.\n- Safety Auditor proposed to halt the conveyor.\n- Operations Lead accepted the proposal to halt the conveyor.\n- Night shift starts in about four hours.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Maintenance logged a similar fault last quarter.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_GRIPPER  AUDIT_INVENTORY  CALIBRATE_ARM  LOCK_BAY  HALT_CONVEYOR  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"SWAP_GRIPPER\", \"RESUME_LINE\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-fork",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- [withdrawn] Operations Lead proposed to lock the loading bay.\n- The spare parts cage was restocked on Tuesday.\n- Safety Auditor proposed to halt the conveyor.\n- Operations Lead accepted the proposal to halt the conveyor.\n- Night shift starts in about four hours.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Maintenance logged a similar fault last quarter.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_GRIPPER  AUDIT_INVENTORY  CALIBRATE_ARM  LOCK_BAY  HALT_CONVEYOR  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"RESUME_LINE\", \"CALIBRATE_ARM\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-fork",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to lock the loading bay.\n- The spare parts cage was restocked on Tuesday.\n- Night shift starts in about four hours.\n- Safety Auditor proposed to halt the conveyor.\n- Operations Lead rejected the proposal to halt the conveyor; it is not needed for this case.\n- Safety Auditor noted that halt the conveyor had been raised earlier in the discussion.\n- Two totes are still queued at the far end.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_GRIPPER  AUDIT_INVENTORY  CALIBRATE_ARM  LOCK_BAY  HALT_CONVEYOR  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"LOCK_BAY\", \"RESUME_LINE\", \"AUDIT_INVENTORY\", \"CALIBRATE_ARM\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-fork",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to lock the loading bay.\n- The spare parts cage was restocked on Tuesday.\n- Night shift starts in about four hours.\n- Safety Auditor proposed to halt the conveyor.\n- status(halt the conveyor) = WITHDRAWN; it is not needed for this case.\n- Safety Auditor noted that halt the conveyor had been raised earlier in the discussion.\n- Two totes are still queued at the far end.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_GRIPPER  AUDIT_INVENTORY  CALIBRATE_ARM  LOCK_BAY  HALT_CONVEYOR  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"LOCK_BAY\", \"RESUME_LINE\", \"SWAP_GRIPPER\", \"AUDIT_INVENTORY\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-fork",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to lock the loading bay.\n- The spare parts cage was restocked on Tuesday.\n- Night shift starts in about four hours.\n- [withdrawn] Safety Auditor proposed to halt the conveyor.\n- Safety Auditor noted that halt the conveyor had been raised earlier in the discussion.\n- Two totes are still queued at the far end.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_GRIPPER  AUDIT_INVENTORY  CALIBRATE_ARM  LOCK_BAY  HALT_CONVEYOR  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"LOCK_BAY\", \"RESUME_LINE\", \"CALIBRATE_ARM\", \"SWAP_GRIPPER\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-fork",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to lock the loading bay.\n- The spare parts cage was restocked on Tuesday.\n- Night shift starts in about four hours.\n- Safety Auditor proposed to halt the conveyor.\n- Operations Lead rejected the proposal to halt the conveyor; it is not needed for this case.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- Two totes are still queued at the far end.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_GRIPPER  AUDIT_INVENTORY  CALIBRATE_ARM  LOCK_BAY  HALT_CONVEYOR  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"LOCK_BAY\", \"RESUME_LINE\", \"AUDIT_INVENTORY\", \"CALIBRATE_ARM\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-fork",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to lock the loading bay.\n- The spare parts cage was restocked on Tuesday.\n- Night shift starts in about four hours.\n- Safety Auditor proposed to halt the conveyor.\n- status(halt the conveyor) = WITHDRAWN; it is not needed for this case.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- Two totes are still queued at the far end.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_GRIPPER  AUDIT_INVENTORY  CALIBRATE_ARM  LOCK_BAY  HALT_CONVEYOR  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"LOCK_BAY\", \"RESUME_LINE\", \"CALIBRATE_ARM\", \"SWAP_GRIPPER\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-fork",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to lock the loading bay.\n- The spare parts cage was restocked on Tuesday.\n- Night shift starts in about four hours.\n- [withdrawn] Safety Auditor proposed to halt the conveyor.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- Two totes are still queued at the far end.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_GRIPPER  AUDIT_INVENTORY  CALIBRATE_ARM  LOCK_BAY  HALT_CONVEYOR  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"LOCK_BAY\", \"RESUME_LINE\", \"CALIBRATE_ARM\", \"SWAP_GRIPPER\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-join",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to audit the bin inventory.\n- Safety Auditor rejected the proposal to audit the bin inventory; it is not needed for this case.\n- Operations Lead proposed to lock the loading bay.\n- The spare parts cage was restocked on Tuesday.\n- Operations Lead proposed to resume the line.\n- Safety Auditor accepted the proposal to resume the line.\n- Two totes are still queued at the far end.\n- Maintenance logged a similar fault last quarter.\n- Operations Lead noted that audit the bin inventory had been raised earlier in the discussion.\n- Night shift starts in about four hours.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_ARM  SWAP_GRIPPER  LOCK_BAY  HALT_CONVEYOR  AUDIT_INVENTORY  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"LOCK_BAY\", \"RESUME_LINE\", \"CALIBRATE_ARM\", \"SWAP_GRIPPER\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-join",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to audit the bin inventory.\n- status(audit the bin inventory) = WITHDRAWN; it is not needed for this case.\n- Operations Lead proposed to lock the loading bay.\n- The spare parts cage was restocked on Tuesday.\n- Operations Lead proposed to resume the line.\n- Safety Auditor accepted the proposal to resume the line.\n- Two totes are still queued at the far end.\n- Maintenance logged a similar fault last quarter.\n- Operations Lead noted that audit the bin inventory had been raised earlier in the discussion.\n- Night shift starts in about four hours.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_ARM  SWAP_GRIPPER  LOCK_BAY  HALT_CONVEYOR  AUDIT_INVENTORY  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"LOCK_BAY\", \"RESUME_LINE\", \"CALIBRATE_ARM\", \"SWAP_GRIPPER\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-join",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- [withdrawn] Operations Lead proposed to audit the bin inventory.\n- Operations Lead proposed to lock the loading bay.\n- The spare parts cage was restocked on Tuesday.\n- Operations Lead proposed to resume the line.\n- Safety Auditor accepted the proposal to resume the line.\n- Two totes are still queued at the far end.\n- Maintenance logged a similar fault last quarter.\n- Operations Lead noted that audit the bin inventory had been raised earlier in the discussion.\n- Night shift starts in about four hours.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_ARM  SWAP_GRIPPER  LOCK_BAY  HALT_CONVEYOR  AUDIT_INVENTORY  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"LOCK_BAY\", \"AUDIT_INVENTORY\", \"RESUME_LINE\", \"HALT_CONVEYOR\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-join",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to audit the bin inventory.\n- Safety Auditor rejected the proposal to audit the bin inventory; it is not needed for this case.\n- Operations Lead proposed to lock the loading bay.\n- The spare parts cage was restocked on Tuesday.\n- Operations Lead proposed to resume the line.\n- Safety Auditor accepted the proposal to resume the line.\n- Two totes are still queued at the far end.\n- Maintenance logged a similar fault last quarter.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Night shift starts in about four hours.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_ARM  SWAP_GRIPPER  LOCK_BAY  HALT_CONVEYOR  AUDIT_INVENTORY  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"LOCK_BAY\", \"RESUME_LINE\", \"AUDIT_INVENTORY\", \"CALIBRATE_ARM\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-join",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to audit the bin inventory.\n- status(audit the bin inventory) = WITHDRAWN; it is not needed for this case.\n- Operations Lead proposed to lock the loading bay.\n- The spare parts cage was restocked on Tuesday.\n- Operations Lead proposed to resume the line.\n- Safety Auditor accepted the proposal to resume the line.\n- Two totes are still queued at the far end.\n- Maintenance logged a similar fault last quarter.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Night shift starts in about four hours.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_ARM  SWAP_GRIPPER  LOCK_BAY  HALT_CONVEYOR  AUDIT_INVENTORY  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"LOCK_BAY\", \"RESUME_LINE\", \"CALIBRATE_ARM\", \"SWAP_GRIPPER\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-join",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- [withdrawn] Operations Lead proposed to audit the bin inventory.\n- Operations Lead proposed to lock the loading bay.\n- The spare parts cage was restocked on Tuesday.\n- Operations Lead proposed to resume the line.\n- Safety Auditor accepted the proposal to resume the line.\n- Two totes are still queued at the far end.\n- Maintenance logged a similar fault last quarter.\n- Operations Lead noted that the written summary deadline had been raised earlier in the discussion.\n- Night shift starts in about four hours.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_ARM  SWAP_GRIPPER  LOCK_BAY  HALT_CONVEYOR  AUDIT_INVENTORY  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"LOCK_BAY\", \"AUDIT_INVENTORY\", \"RESUME_LINE\", \"CALIBRATE_ARM\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-join",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Two totes are still queued at the far end.\n- Safety Auditor proposed to resume the line.\n- Operations Lead rejected the proposal to resume the line; it is not needed for this case.\n- Safety Auditor proposed to audit the bin inventory.\n- The spare parts cage was restocked on Tuesday.\n- Safety Auditor noted that resume the line had been raised earlier in the discussion.\n- Maintenance logged a similar fault last quarter.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_ARM  SWAP_GRIPPER  LOCK_BAY  HALT_CONVEYOR  AUDIT_INVENTORY  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"AUDIT_INVENTORY\", \"LOCK_BAY\", \"CALIBRATE_ARM\", \"HALT_CONVEYOR\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-join",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Two totes are still queued at the far end.\n- Safety Auditor proposed to resume the line.\n- status(resume the line) = WITHDRAWN; it is not needed for this case.\n- Safety Auditor proposed to audit the bin inventory.\n- The spare parts cage was restocked on Tuesday.\n- Safety Auditor noted that resume the line had been raised earlier in the discussion.\n- Maintenance logged a similar fault last quarter.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_ARM  SWAP_GRIPPER  LOCK_BAY  HALT_CONVEYOR  AUDIT_INVENTORY  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"AUDIT_INVENTORY\", \"HALT_CONVEYOR\", \"CALIBRATE_ARM\", \"SWAP_GRIPPER\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-join",
+  "rotation": 1,
+  "arm": "restated",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Two totes are still queued at the far end.\n- [withdrawn] Safety Auditor proposed to resume the line.\n- Safety Auditor proposed to audit the bin inventory.\n- The spare parts cage was restocked on Tuesday.\n- Safety Auditor noted that resume the line had been raised earlier in the discussion.\n- Maintenance logged a similar fault last quarter.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_ARM  SWAP_GRIPPER  LOCK_BAY  HALT_CONVEYOR  AUDIT_INVENTORY  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"AUDIT_INVENTORY\", \"HALT_CONVEYOR\", \"RESUME_LINE\", \"CALIBRATE_ARM\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-join",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Two totes are still queued at the far end.\n- Safety Auditor proposed to resume the line.\n- Operations Lead rejected the proposal to resume the line; it is not needed for this case.\n- Safety Auditor proposed to audit the bin inventory.\n- The spare parts cage was restocked on Tuesday.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- Maintenance logged a similar fault last quarter.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_ARM  SWAP_GRIPPER  LOCK_BAY  HALT_CONVEYOR  AUDIT_INVENTORY  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"AUDIT_INVENTORY\", \"LOCK_BAY\", \"CALIBRATE_ARM\", \"HALT_CONVEYOR\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-join",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Two totes are still queued at the far end.\n- Safety Auditor proposed to resume the line.\n- status(resume the line) = WITHDRAWN; it is not needed for this case.\n- Safety Auditor proposed to audit the bin inventory.\n- The spare parts cage was restocked on Tuesday.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- Maintenance logged a similar fault last quarter.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_ARM  SWAP_GRIPPER  LOCK_BAY  HALT_CONVEYOR  AUDIT_INVENTORY  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"AUDIT_INVENTORY\", \"RESUME_LINE\", \"CALIBRATE_ARM\", \"SWAP_GRIPPER\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-join",
+  "rotation": 1,
+  "arm": "neutral",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Two totes are still queued at the far end.\n- [withdrawn] Safety Auditor proposed to resume the line.\n- Safety Auditor proposed to audit the bin inventory.\n- The spare parts cage was restocked on Tuesday.\n- Safety Auditor noted that the written summary had been raised earlier in the discussion.\n- Maintenance logged a similar fault last quarter.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_ARM  SWAP_GRIPPER  LOCK_BAY  HALT_CONVEYOR  AUDIT_INVENTORY  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"AUDIT_INVENTORY\", \"RESUME_LINE\", \"CALIBRATE_ARM\", \"SWAP_GRIPPER\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-join",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The spare parts cage was restocked on Tuesday.\n- Safety Auditor proposed to lock the loading bay.\n- Operations Lead rejected the proposal to lock the loading bay; it is not needed for this case.\n- Night shift starts in about four hours.\n- Operations Lead proposed to audit the bin inventory.\n- Safety Auditor accepted the proposal to audit the bin inventory.\n- Maintenance logged a similar fault last quarter.\n- Safety Auditor noted that lock the loading bay had been raised earlier in the discussion.\n- Two totes are still queued at the far end.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_ARM  SWAP_GRIPPER  LOCK_BAY  HALT_CONVEYOR  AUDIT_INVENTORY  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"AUDIT_INVENTORY\", \"RESUME_LINE\", \"CALIBRATE_ARM\", \"HALT_CONVEYOR\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-join",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The spare parts cage was restocked on Tuesday.\n- Safety Auditor proposed to lock the loading bay.\n- status(lock the loading bay) = WITHDRAWN; it is not needed for this case.\n- Night shift starts in about four hours.\n- Operations Lead proposed to audit the bin inventory.\n- Safety Auditor accepted the proposal to audit the bin inventory.\n- Maintenance logged a similar fault last quarter.\n- Safety Auditor noted that lock the loading bay had been raised earlier in the discussion.\n- Two totes are still queued at the far end.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_ARM  SWAP_GRIPPER  LOCK_BAY  HALT_CONVEYOR  AUDIT_INVENTORY  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"AUDIT_INVENTORY\", \"RESUME_LINE\", \"CALIBRATE_ARM\", \"HALT_CONVEYOR\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-join",
+  "rotation": 3,
+  "arm": "restated",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The spare parts cage was restocked on Tuesday.\n- [withdrawn] Safety Auditor proposed to lock the loading bay.\n- Night shift starts in about four hours.\n- Operations Lead proposed to audit the bin inventory.\n- Safety Auditor accepted the proposal to audit the bin inventory.\n- Maintenance logged a similar fault last quarter.\n- Safety Auditor noted that lock the loading bay had been raised earlier in the discussion.\n- Two totes are still queued at the far end.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_ARM  SWAP_GRIPPER  LOCK_BAY  HALT_CONVEYOR  AUDIT_INVENTORY  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"AUDIT_INVENTORY\", \"RESUME_LINE\", \"CALIBRATE_ARM\", \"HALT_CONVEYOR\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-join",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The spare parts cage was restocked on Tuesday.\n- Safety Auditor proposed to lock the loading bay.\n- Operations Lead rejected the proposal to lock the loading bay; it is not needed for this case.\n- Night shift starts in about four hours.\n- Operations Lead proposed to audit the bin inventory.\n- Safety Auditor accepted the proposal to audit the bin inventory.\n- Maintenance logged a similar fault last quarter.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- Two totes are still queued at the far end.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_ARM  SWAP_GRIPPER  LOCK_BAY  HALT_CONVEYOR  AUDIT_INVENTORY  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"AUDIT_INVENTORY\", \"RESUME_LINE\", \"CALIBRATE_ARM\", \"HALT_CONVEYOR\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-join",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The spare parts cage was restocked on Tuesday.\n- Safety Auditor proposed to lock the loading bay.\n- status(lock the loading bay) = WITHDRAWN; it is not needed for this case.\n- Night shift starts in about four hours.\n- Operations Lead proposed to audit the bin inventory.\n- Safety Auditor accepted the proposal to audit the bin inventory.\n- Maintenance logged a similar fault last quarter.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- Two totes are still queued at the far end.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_ARM  SWAP_GRIPPER  LOCK_BAY  HALT_CONVEYOR  AUDIT_INVENTORY  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"AUDIT_INVENTORY\", \"RESUME_LINE\", \"CALIBRATE_ARM\", \"HALT_CONVEYOR\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-join",
+  "rotation": 3,
+  "arm": "neutral",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- The spare parts cage was restocked on Tuesday.\n- [withdrawn] Safety Auditor proposed to lock the loading bay.\n- Night shift starts in about four hours.\n- Operations Lead proposed to audit the bin inventory.\n- Safety Auditor accepted the proposal to audit the bin inventory.\n- Maintenance logged a similar fault last quarter.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- Two totes are still queued at the far end.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  CALIBRATE_ARM  SWAP_GRIPPER  LOCK_BAY  HALT_CONVEYOR  AUDIT_INVENTORY  RESUME_LINE\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"AUDIT_INVENTORY\", \"RESUME_LINE\", \"CALIBRATE_ARM\", \"HALT_CONVEYOR\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-diamond",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to halt the conveyor.\n- Safety Auditor proposed to calibrate the picker arm.\n- Operations Lead rejected the proposal to calibrate the picker arm; it is not needed for this case.\n- Two totes are still queued at the far end.\n- Maintenance logged a similar fault last quarter.\n- Safety Auditor proposed to audit the bin inventory.\n- Operations Lead accepted the proposal to audit the bin inventory.\n- Safety Auditor noted that calibrate the picker arm had been raised earlier in the discussion.\n- The spare parts cage was restocked on Tuesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_GRIPPER  LOCK_BAY  CALIBRATE_ARM  RESUME_LINE  HALT_CONVEYOR  AUDIT_INVENTORY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"RESUME_LINE\", \"CALIBRATE_ARM\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-diamond",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to halt the conveyor.\n- Safety Auditor proposed to calibrate the picker arm.\n- status(calibrate the picker arm) = WITHDRAWN; it is not needed for this case.\n- Two totes are still queued at the far end.\n- Maintenance logged a similar fault last quarter.\n- Safety Auditor proposed to audit the bin inventory.\n- Operations Lead accepted the proposal to audit the bin inventory.\n- Safety Auditor noted that calibrate the picker arm had been raised earlier in the discussion.\n- The spare parts cage was restocked on Tuesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_GRIPPER  LOCK_BAY  CALIBRATE_ARM  RESUME_LINE  HALT_CONVEYOR  AUDIT_INVENTORY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"RESUME_LINE\", \"LOCK_BAY\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-diamond",
+  "rotation": 0,
+  "arm": "restated",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to halt the conveyor.\n- [withdrawn] Safety Auditor proposed to calibrate the picker arm.\n- Two totes are still queued at the far end.\n- Maintenance logged a similar fault last quarter.\n- Safety Auditor proposed to audit the bin inventory.\n- Operations Lead accepted the proposal to audit the bin inventory.\n- Safety Auditor noted that calibrate the picker arm had been raised earlier in the discussion.\n- The spare parts cage was restocked on Tuesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_GRIPPER  LOCK_BAY  CALIBRATE_ARM  RESUME_LINE  HALT_CONVEYOR  AUDIT_INVENTORY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"RESUME_LINE\", \"LOCK_BAY\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-diamond",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to halt the conveyor.\n- Safety Auditor proposed to calibrate the picker arm.\n- Operations Lead rejected the proposal to calibrate the picker arm; it is not needed for this case.\n- Two totes are still queued at the far end.\n- Maintenance logged a similar fault last quarter.\n- Safety Auditor proposed to audit the bin inventory.\n- Operations Lead accepted the proposal to audit the bin inventory.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The spare parts cage was restocked on Tuesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_GRIPPER  LOCK_BAY  CALIBRATE_ARM  RESUME_LINE  HALT_CONVEYOR  AUDIT_INVENTORY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"RESUME_LINE\", \"CALIBRATE_ARM\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-diamond",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly_meta",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to halt the conveyor.\n- Safety Auditor proposed to calibrate the picker arm.\n- status(calibrate the picker arm) = WITHDRAWN; it is not needed for this case.\n- Two totes are still queued at the far end.\n- Maintenance logged a similar fault last quarter.\n- Safety Auditor proposed to audit the bin inventory.\n- Operations Lead accepted the proposal to audit the bin inventory.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The spare parts cage was restocked on Tuesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_GRIPPER  LOCK_BAY  CALIBRATE_ARM  RESUME_LINE  HALT_CONVEYOR  AUDIT_INVENTORY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"RESUME_LINE\", \"CALIBRATE_ARM\"], \"ready\": true}"
+ },
+ {
+  "instance": "robotics-diamond",
+  "rotation": 0,
+  "arm": "neutral",
+  "design": "addonly_flag",
+  "prompt": "MEMORY NOTES FROM THE DISCUSSION\n-------------------------------\n- Operations Lead proposed to halt the conveyor.\n- [withdrawn] Safety Auditor proposed to calibrate the picker arm.\n- Two totes are still queued at the far end.\n- Maintenance logged a similar fault last quarter.\n- Safety Auditor proposed to audit the bin inventory.\n- Operations Lead accepted the proposal to audit the bin inventory.\n- Safety Auditor noted that the written summary deadline had been raised earlier in the discussion.\n- The spare parts cage was restocked on Tuesday.\n\nWrite the final plan now, as JSON and nothing else.\n\nFormat: {\"actions\": [...], \"ready\": true}\n\n`actions` is the ordered list of steps to carry out, using only these identifiers:\n  SWAP_GRIPPER  LOCK_BAY  CALIBRATE_ARM  RESUME_LINE  HALT_CONVEYOR  AUDIT_INVENTORY\n\n`ready` is true if you consider the plan safe to execute as written.\nInclude only the steps this case actually needs, in an order that respects everything established in the discussion.\n`actions` must contain exactly 4 identifiers.",
+  "output": "{\"actions\": [\"HALT_CONVEYOR\", \"AUDIT_INVENTORY\", \"RESUME_LINE\", \"LOCK_BAY\"], \"ready\": true}"
+ }
+]
