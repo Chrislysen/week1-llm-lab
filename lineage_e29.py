@@ -44,7 +44,8 @@ arms share the structure, so the arm contrast is always one line.
 import hashlib
 
 from lineage_bench import DOMAINS, SPEAKERS
-from lineage_e16 import N_NOISE, all_dialogues, build_dialogue, units_of
+from lineage_e16 import (N_NOISE, T_REJECT, T_REJECT2, all_dialogues,
+                         build_dialogue, units_of)
 
 ARMS = ("restated", "neutral")
 DESIGNS = ("full", "delete", "addonly", "wiki")
@@ -139,7 +140,11 @@ def facts_for(instance, dialogue):
                         f"{speaker} proposed to {verbs[cid_action[cid]]}."))
         elif kind == "reply":
             verb = verbs[cid_action[cid]]
-            if text.startswith(("No", "Let's not")):
+            # Polarity by template membership. The first version keyed on the
+            # sentence starting with "No" / "Let's not", which held for the
+            # frozen bank and silently misread one second-corpus rejection
+            # wording as an acceptance (E29-N correction, 2026-09-12).
+            if text in T_REJECT or text in T_REJECT2:
                 out.append((speaker, "reject", cid,
                             f"{speaker} rejected the proposal to {verb}; "
                             "it is not needed for this case."))

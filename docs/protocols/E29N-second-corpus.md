@@ -67,7 +67,11 @@ templates are still templates. What this can rule out is that E29's result
 depends on one particular set of domain phrases and one set of sentence
 wordings. It cannot speak to naturalistic dialogue.
 
-## 5. Outcome — run 2026-09-12, after `333ad85`
+## 5. Outcome — run 2026-09-12, after `333ad85` — SUPERSEDED, see §6
+
+> The three store designs' cells for 24 of the 96 dialogues were built from
+> a mis-stored rejection (§6). The tables below are the v1 record and are
+> kept as written; the corrected outcome is in §7.
 
 768 of 768 calls per decider (`llama3.2:3b` in four chunks of 24;
 `qwen2.5:7b-instruct` in two of 24 and three of 16), parse 1.000 in every
@@ -159,3 +163,49 @@ that cell). This is the cleanest of the three second-corpus readings: no
 prediction fails and no control fails. With it, the second corpus carries the
 E29 verdict on all three deciders, and the "no 14B run on this corpus yet"
 limit above is closed.
+
+## 6. Correction — declared 2026-09-12 before the re-run, zero new outcomes
+
+**What was wrong.** `lineage_e29.facts_for` decided a reply's polarity by
+whether its text started with "No" or "Let's not". That held for the frozen
+bank (all three rejection wordings start so) and was never tested against
+the unit status. The second bank's wording "I'd leave that out; it is not
+needed this time." starts with neither, so the oracle extractor stored it as
+an *acceptance*. Found by the author's own check on 2026-09-12 while reading
+the extractor to add a fifth design, not by a test and not by a reviewer.
+
+**Scope, exact.** First corpus: 0 of 192 rejection lines misread; every
+context block byte-identical before and after the fix (hash-compared over
+all 96 × 2 × 4 blocks; the E29 hash `187a426616f26598` is unchanged).
+Second corpus: 48 of 192 rejection lines misread, in **24 of 96 dialogues**
+(`results/e29n_affected.json`). Only the three store designs are affected
+(`delete`, `addonly`, `wiki`); the `full` design renders the transcript and
+never called the extractor, and the 48 recorded `full` prompts of the first
+chunk were re-compared byte for byte against the rebuilt corpus: identical.
+E29-C, E29-D and the first-corpus runs are untouched. Because the corpus hash
+covers every design's rendered block, the E29-N hash moved from
+`7d33038c6c1a9912` (contaminated rendering) to `e965c5fd022d6e37`; both are
+recorded in the runner and the test.
+
+**Direction of the contamination.** In the 24 dialogues the store said the
+step was accepted, so under `delete` the proposal was UPDATEd rather than
+DELETEd in both arms, and under all three designs the neutral-arm level was
+pushed up. The reported second-corpus levels are therefore too high and the
+delete Δ too small; the verdicts may or may not change and are not
+predicted here.
+
+**Fix.** Polarity by template membership (`text in T_REJECT or T_REJECT2`).
+New test `test_oracle_reply_polarity_matches_unit_status_on_both_corpora`
+asserts, for both corpora and both arms, that every reply's stored event
+matches the unit's status. 203 tests pass.
+
+**Re-run, declared.** Only the prompts that changed are re-run: the 24
+affected dialogues × 3 store designs × 2 arms = 144 calls per decider, on
+the same three deciders, with the runner's `--subset` and `--tag fix`
+options; the re-run rows replace the originals for the same cells in
+`e29_analysis.py` (tagged files override). The 72 unaffected dialogues'
+store cells and all 96 `full` cells are byte-identical prompts and stand.
+Read rule, validity rule and predictions in §2–3 are unchanged. The
+contaminated summary files are kept under `results/e29n_v1_contaminated/`
+for the record. The outcome below supersedes §5's tables; §5 is left in
+place with a pointer here.

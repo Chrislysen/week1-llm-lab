@@ -9,7 +9,7 @@ from lineage_e29 import E16_HASH, NEUTRAL_BY_WORDS, all_e29_dialogues, corpus_ha
 
 STOP = {"the", "a", "an", "to", "of", "and", "on", "in", "for", "at", "by", "with"}
 E29_HASH = "187a426616f26598"
-E29N_HASH = "7d33038c6c1a9912"
+E29N_HASH = "e965c5fd022d6e37"   # 7d33038c6c1a9912 before the 2026-09-12 extractor correction
 
 
 def words(s):
@@ -82,3 +82,18 @@ def test_e29n_arms_follow_the_e29_rules():
         assert len(a[i][1].split()) == len(b[i][1].split())
         assert a[-1][2][0] == "noise" and b[-1][2][0] == "noise"
         assert sum(u["status"] == "rejected" for u in d["units"]) == 1
+
+
+def test_oracle_reply_polarity_matches_unit_status_on_both_corpora():
+    """The E29-N correction: a rejection wording in the second bank was stored
+    as an acceptance by a prefix rule. Polarity must follow the unit status."""
+    from lineage_e29 import facts_for
+    for doms in (None, NEW_DOMAINS):
+        for d in all_e29_dialogues(doms):
+            status = {u["constraint"]: u["status"] for u in d["units"]}
+            for arm in ("restated", "neutral"):
+                dia = d["arms"][arm]
+                for (_, text, tag), (_, ev, cid, _) in zip(dia, facts_for(d["instance"], dia)):
+                    if tag[0] == "reply":
+                        want = "reject" if status[cid] == "rejected" else "accept"
+                        assert ev == want, (d["instance"].id, d["rotation"], text, ev)

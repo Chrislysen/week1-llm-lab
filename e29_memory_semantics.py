@@ -32,8 +32,10 @@ from robust_client import RetryingOllamaClient
 from structured import MAX_ATTEMPTS, ask_structured
 
 E29_HASH = "187a426616f26598"
-#: E29-N, the second corpus (docs/protocols/E29N-second-corpus.md), pinned at declaration.
-E29N_HASH = "7d33038c6c1a9912"
+#: E29-N, the second corpus (docs/protocols/E29N-second-corpus.md). The hash covers
+#: every design's rendered block; it was 7d33038c6c1a9912 at declaration and moved to
+#: the value below with the 2026-09-12 extractor correction (§6 of the protocol).
+E29N_HASH = "e965c5fd022d6e37"
 CORPORA = {"e16": (None, "e29"), "new": (NEW_DOMAINS, "e29n")}
 COLUMNS = ["model", "design", "arm", "instance", "rotation", "slot", "constraint",
            "action", "status", "parsed", "included", "n_actions", "ready",
@@ -49,14 +51,18 @@ def build_user(design, instance, dialogue):
             + plan_instruction(tuple(instance.actions), "pin4"))
 
 
-def run(model, offset, limit, designs, arms, dry_run, corpus="e16"):
+def run(model, offset, limit, designs, arms, dry_run, corpus="e16", subset=None, tag=""):
     domains, stem_prefix = CORPORA[corpus]
     assert e16_hash() == E16_HASH, "E16 corpus disturbed"
     assert corpus_hash() == E29_HASH, "E29 corpus disturbed"
     if corpus == "new":
         assert corpus_hash(domains) == E29N_HASH, f"E29-N corpus disturbed: {corpus_hash(domains)}"
-    ds = all_e29_dialogues(domains)[offset:None if limit is None else offset + limit]
-    print(f"=== E29 memory semantics [{corpus}]: {model}, {len(ds)} dialogues x "
+    ds = all_e29_dialogues(domains)
+    if subset:
+        keep = {tuple(x) for x in json.load(open(subset, encoding="utf-8"))}
+        ds = [d for d in ds if (d["instance"].id, d["rotation"]) in keep]
+    ds = ds[offset:None if limit is None else offset + limit]
+    print(f"=== E29 memory semantics [{corpus}{'/' + tag if tag else ''}]: {model}, {len(ds)} dialogues x "
           f"{len(arms)} arms x {len(designs)} designs = {len(ds)*len(arms)*len(designs)} calls"
           f"{' (DRY RUN, no calls)' if dry_run else ''} ===\n")
     client = None if dry_run else RetryingOllamaClient()
@@ -109,7 +115,7 @@ def run(model, offset, limit, designs, arms, dry_run, corpus="e16"):
         d0 = detail[0]
         print(d0["prompt"]); print(f"\n... {len(detail)} prompts assembled, none sent.")
         return
-    stem = f"results/{stem_prefix}_{slug(model)}_o{offset}"
+    stem = f"results/{stem_prefix}_{slug(model)}_{tag + '_' if tag else ''}o{offset}"
     write_csv(stem + ".csv", rows, COLUMNS)
     with open(stem + ".json", "w", encoding="utf-8") as f:
         json.dump(detail, f, indent=1)
@@ -135,8 +141,10 @@ if __name__ == "__main__":
     ap.add_argument("--arms", default=",".join(ARMS))
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--corpus", default="e16", choices=sorted(CORPORA))
+    ap.add_argument("--subset", default=None, help="JSON list of [instance_id, rotation] to run")
+    ap.add_argument("--tag", default="", help="result-file tag, e.g. fix; the analysis lets tagged rows override")
     a = ap.parse_args()
     designs = tuple(x for x in a.designs.split(",") if x)
     arms = tuple(x for x in a.arms.split(",") if x)
     assert set(designs) <= set(DESIGNS) and set(arms) <= set(ARMS)
-    run(a.model, a.offset, a.limit, designs, arms, a.dry_run, a.corpus)
+    run(a.model, a.offset, a.limit, designs, arms, a.dry_run, a.corpus, a.subset, a.tag)

@@ -28,9 +28,19 @@ def slug(s):
 
 
 def load(model, prefix="e29"):
+    """Untagged chunk files first, then tagged re-runs (e.g. `_fix_o*`), so a
+    re-run row replaces the original for the same (dialogue, design, arm, unit)."""
     rows = []
-    for f in sorted(glob.glob(f"results/{prefix}_{slug(model)}_o*.csv")):
+    files = sorted(glob.glob(f"results/{prefix}_{slug(model)}_o*.csv"))
+    fixes = sorted(glob.glob(f"results/{prefix}_{slug(model)}_*_o*.csv"))
+    for f in files + fixes:
         rows += list(csv.DictReader(open(f, encoding="utf-8")))
+    seen = {}
+    for r in rows:
+        seen[(r["instance"], r["rotation"], r["design"], r["arm"], r["slot"])] = r
+    rows = list(seen.values())
+    if fixes:
+        print(f"  ({len(fixes)} tagged re-run file(s) override the originals)")
     for r in rows:
         r["included"] = {"True": True, "False": False}.get(r["included"])
         r["parsed"] = r["parsed"] == "True"
