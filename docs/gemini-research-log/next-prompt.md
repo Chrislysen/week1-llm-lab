@@ -108,3 +108,27 @@ size. Include corpora built for other purposes (meeting transcripts,
 negotiation, incident channels, code review threads) if they contain
 proposal-then-rejection exchanges that could be annotated.
 ```
+
+## Run 3 additions (prepared 2026-09-12 after triaging run 2)
+
+Change SINCE to the date of run 2 and append, after the OUTPUT RULES block:
+
+```
+- Before claiming a search returned nothing, state the date range you
+  searched and confirm you covered the fourteen days before today. Run 2
+  omitted from its landscape a paper dated three days before the run that
+  its own recent-delta list then named.
+```
+
+Focus block for run 3 (Week B, deciders):
+
+```
+FOCUS FOR THIS RUN
+
+Focus this run on evidence about how model size and family change
+adherence to a stored rejection or negation, in memory or retrieval
+settings, including any results with models under 15B. Report, for each,
+whether the negation was written as its own record or as an attribute of
+the record it negates, since that distinction is rarely stated and
+changes what the result means.
+```
