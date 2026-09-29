@@ -61,6 +61,19 @@ reported. Paper §2.4 and Appendix A are filled, and `verify_claims.py` passes
 `python run_queue.py --log results/e29s_families_run.log -- "python -u e29k_recognition.py --all" "python -u e29s_structure.py --model gemma4:e4b --resume" "python -u e29s_structure.py --model aya-expanse:8b --resume"`
 once E29-T is done.
 
+**23:10 — E29-T is complete: MOST-FAIL on both deciders (`a19c168`,
+`ebe3158`).** `[is_active: false]` and `[invalid_at: …]` leave the rejected
+step in the plan at 0.73–0.91 (the sentence gives 0.06–0.16, and no rejection
+at all gives 0.93–1.00). The trailing `(withdrawn)` suffix does not fail on
+either decider (UNCLEAR 3B, HONOURED 14B). The paper now says the conjunction
+is not sufficient: spelling decides how much is lost. P2 misses on both. The
+narrowing stop rule did not fire. The paper has §2.5 (`c5ea088`) and Figure 4
+(`5ab12d0`, `paper_fig_idioms.py`), plus Figure 3 for the formats (`ac8d5c6`).
+`verify_claims.py` passes 267 of 267. E29-K started automatically at 23:10
+(3B, then 14B), followed by gemma then aya (`results/e29s_families_run.log`).
+Read E29-K with `python e29k_recognition.py --analyse`. The verifier loaders
+for its cells are already in place (`6bcded1`).
+
 The compulsory (branch `core-frozen`, worktree `C:\Users\chris\week1-core`) is
 separate and must not be touched from here.
 
