@@ -119,7 +119,7 @@ Three deciders, 1,728 calls:
 | qwen2.5:7b-instruct | 0.354 | 0.240 | 0.458 | −0.115 [−0.198, −0.031] | **+0.219** [+0.135, +0.302] |
 | qwen2.5:14b-instruct | 0.062 | 0.031 | 0.323 | −0.031 [−0.073, +0.010] | **+0.292** [+0.198, +0.385] |
 
-Figure 2 (`fig2-encoding.svg`). We had predicted a large positive wording
+Figure 1 (`fig2-encoding.svg`). We had predicted a large positive wording
 effect, and that hypothesis is withdrawn: re-wording spans zero on two deciders
 and runs the other way on the third. What survives is the contrast that
 changes only whether the negation has a line of its own. But that contrast
@@ -128,7 +128,7 @@ changed two things at once: the negation lost its item boundary *and* its verb.
 ### 2.3 The 2×2
 
 E29-S separates the two properties over the same add-only fact stream
-(Figure 1, `fig3-structure-2x2.svg`):
+(Figure 2, `fig3-structure-2x2.svg`):
 
 | | **own item** | **same item as the proposal** |
 |---|---|---|
@@ -186,7 +186,8 @@ E29-S's items, and that the markdown rendering is byte-identical to the
 prompts E29-S sent. That is 4,608 calls, and every cell passes the validity
 rule.
 
-Neutral-arm rejected-step inclusion, the tagged cell against the other three:
+Neutral-arm rejected-step inclusion, the tagged cell against the other three
+(Figure 3, `fig4-formats.svg`, drawn by `paper_fig_formats.py`):
 
 | format | llama3.2:3b tag | other three | qwen2.5:14b tag | other three |
 |---|---|---|---|---|
@@ -255,7 +256,7 @@ neutral, X) and DiD_X = Δ_X − Δ_full. A decider is DESIGN-DEPENDENT if some
 
 ### 3.2 Design dependence on four deciders
 
-Figure 3 (`fig1-delta-by-design.svg`). n = 96 dialogues per cell.
+Figure 4 (`fig1-delta-by-design.svg`). n = 96 dialogues per cell.
 
 | decider | design | restated | neutral | Δ_X | DiD_X | 95 % CI |
 |---|---|---|---|---|---|---|
