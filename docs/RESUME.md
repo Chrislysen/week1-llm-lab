@@ -50,6 +50,17 @@ Queue: E29-R's process (`results/e29r_run.log`) → E29-T (`results/e29t_run.log
 If the machine restarts, rerun each command. Every runner resumes from its
 checkpoints.
 
+**22:16 — E29-R is complete and GENERAL on both deciders (`ec3d7ff`).** On
+qwen2.5:14b the tag cell is 0.354 / 0.302 / 0.354 (JSON / XML / numbered),
+against ≤ 0.073 for the other three encodings. The conjunction holds in 3 of 3
+formats on each decider. P2 misses by up to 0.025 in three cells, which is
+reported. Paper §2.4 and Appendix A are filled, and `verify_claims.py` passes
+252 of 252. The MARKDOWN-SPECIFIC stop rule did not fire. E29-T is running
+(3B first). To resume if the machine restarted:
+`python e29t_idioms.py --detach` (it resumes from its checkpoints). Then run
+`python run_queue.py --log results/e29s_families_run.log -- "python -u e29k_recognition.py --all" "python -u e29s_structure.py --model gemma4:e4b --resume" "python -u e29s_structure.py --model aya-expanse:8b --resume"`
+once E29-T is done.
+
 The compulsory (branch `core-frozen`, worktree `C:\Users\chris\week1-core`) is
 separate and must not be touched from here.
 
