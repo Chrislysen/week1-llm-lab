@@ -1183,7 +1183,8 @@ try:
         keys = [k for k, v in rej.items() if all(i in v for i in _ID)]
         return round(sum(rej[k][idiom] for k in keys) / len(keys), 3) if keys else None
 
-    for _slug, _vals in ():                    # filled from e29t_analysis once each decider is read
+    for _slug, _vals in (                      # from e29t_analysis, in IDIOMS order
+            ("llama32-3b", (0.156, 0.604, 0.250, 0.469, 0.906, 0.812, 0.417)),):
         for _i, _want in zip(_ID, _vals):
             claim(f"E29-T {_slug} {_i}/neutral", _rate_t(_slug, _i), _want)
 
