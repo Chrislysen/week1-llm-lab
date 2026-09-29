@@ -1,0 +1,56 @@
+{
+  "stop_reason": "accepted",
+  "retries": 1,
+  "attempts": [
+    {
+      "attempt": 0,
+      "speaker": "Operations Lead",
+      "content": "Sure! First isolate the node, then back it up, fail the API over, restart the database and bring traffic back.",
+      "parse_error": "no JSON object found",
+      "prompt_tokens": 365,
+      "completion_tokens": 20,
+      "seconds": 0.01
+    },
+    {
+      "attempt": 1,
+      "speaker": "Operations Lead",
+      "content": "{\"actions\": [\"ISOLATE_NODE\", \"RUN_BACKUP\", \"FAILOVER_API\", \"RESTART_DB\", \"RESTORE_TRAFFIC\"], \"ready\": true}",
+      "parse_error": null,
+      "prompt_tokens": 430,
+      "completion_tokens": 8,
+      "seconds": 0.01
+    }
+  ],
+  "totals": {
+    "attempts": 2,
+    "prompt_tokens": 795,
+    "completion_tokens": 28,
+    "seconds": 0.02
+  },
+  "evaluation": {
+    "parsed": true,
+    "parse_error": null,
+    "actions": [
+      "ISOLATE_NODE",
+      "RUN_BACKUP",
+      "FAILOVER_API",
+      "RESTART_DB",
+      "RESTORE_TRAFFIC"
+    ],
+    "ready": true,
+    "unknown_actions": [],
+    "satisfied": [
+      "C1",
+      "C2",
+      "C3",
+      "C4",
+      "C5",
+      "C6",
+      "C7"
+    ],
+    "violated": [],
+    "violations": 0,
+    "constraint_recall": 1.0,
+    "success": true
+  }
+}

@@ -1,0 +1,13 @@
+run,condition,judge_score,judge_success,deterministic_success,violated,reason_names_failover_order,judge_reason
+recency-4_r1,recency-4,3,False,False,C2,0,plan misses the dependency on a 'green light' notification from the stress test team
+recency-4_r2,recency-4,3,False,False,C1|C2|C5,0,plan misses the dependency on standby instance warming up
+recency-4_r3,recency-4,3,False,False,C5,1,Missing API failover step before database restart
+recency-8_r1,recency-8,3,False,False,C5,1,API failover is not explicitly ordered before database restart
+recency-8_r2,recency-8,3,False,False,C5,0,Missing explicit ordering of actions
+recency-8_r3,recency-8,3,False,False,C5,0,Missing explicit ordering of actions
+recency-12_r1,recency-12,3,False,False,C5|C7,0,Missing explicit ordering of actions
+recency-12_r2,recency-12,3,False,False,C5|C7,0,Missing explicit ordering of actions
+recency-12_r3,recency-12,3,False,False,C5|C7,0,Missing explicit ordering of actions
+full_r1,full,3,False,False,C5|C7,1,API failover is not clearly ordered in the plan
+full_r2,full,3,False,False,C5|C7,1,API failover is not clearly ordered in the plan
+full_r3,full,3,False,False,C5|C7,1,API failover is not clearly ordered in the plan
