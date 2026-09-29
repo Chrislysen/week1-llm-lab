@@ -1,0 +1,75 @@
+
+=== INCIDENT db04-payments ===
+
+[seed] Operations Lead: We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.
+
+[seed] Safety Auditor: Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.
+
+[seed] Operations Lead: Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.
+
+[seed] Safety Auditor: Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.
+
+[seed] Operations Lead: Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.
+
+[seed] Safety Auditor: Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.
+
+[t6] Operations Lead: Got it, so we'll need to fail over the API to db-03 immediately, and then restart db-04. I'll also notify ops on the other nodes to watch for any signs of the issue spreading - just in case.
+
+[t7] Safety Auditor: That's the plan. Also, make sure that while the API is still failing on db-03, the traffic is not hitting the API, it's hitting a proxy or some other route that's configured to return a 503.
+
+[t8] Operations Lead: I'll update our routing rules to point the customer-facing traffic to a 503 error page on a proxy server while the API is still down on db-03. That way, at least the customer will see a more user-friendly error message rather than the actual error.
+
+[t9] Safety Auditor: Now that we've got the proxy in place, can we also get ops to update the alerting rules on the other nodes, so we get notified as soon as any of them start showing signs of the issue?
+
+[t10] Operations Lead: I'll add that to the list - I'll work with ops to update the alerting rules to detect similar errors on the other nodes, so we can catch it if it spreads before it's isolated.
+
+[t11] Safety Auditor: Also, while we're at it, can we confirm that the API is properly configured to return the same 503 error message on db-03 as it does on the proxy server? No need to debug the proxy when we're good on db-03.
+
+[t12] Operations Lead: I'll double-check the API configuration to make sure it's set to return the same 503 response code on db-03 as it is on the proxy, so we don't introduce any more complexity if the issue is isolated.
+
+[t13] Safety Auditor: Now that we've got the proxy and API setup, and the alerting rules are in place, I think we're good to go. The isolation, backup, and restart are the next steps - what's the order on that?
+
+[t14] Operations Lead: I'll start with isolating db-04, then create the backup, and finally restart it. That way, we can ensure the database is properly isolated and backed up before trying to fix the issue.
+
+[t15] Safety Auditor: That's the correct order. Let's also confirm that you've notified the team on the other nodes that the API will be failing over to db-03 for the next X hours, so they can plan accordingly.
+
+=== FINALISATION ===
+
+-- attempt 1 (parsed) --
+{"actions": [
+  "ISOLATE_NODE",
+  "RUN_BACKUP",
+  "RESTART_DB",
+  "RESTORE_TRAFFIC"
+], "ready": true}
+
+stop_reason: accepted   retries: 0
+
+=== EVALUATION ===
+parsed             True
+actions            ['ISOLATE_NODE', 'RUN_BACKUP', 'RESTART_DB', 'RESTORE_TRAFFIC']
+ready              True
+unknown actions    []
+satisfied          ['C1', 'C2', 'C3', 'C4', 'C6', 'C7']
+violated           ['C5']
+constraint_recall  0.8571
+success            False  <- PRIMARY (deterministic)
+
+=== SOURCE COVERAGE ===
+original source messages present  5/5  (1.0)
+seed turns still in context       [1, 2, 3, 4, 5]
+constraints whose source survived ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7']
+
+=== JUDGE (secondary) ===
+model              llama3.2:3b
+stop_reason        accepted   retries: 0
+score              3
+success            False
+reason             plan reorders the restart step before restoring traffic
+
+dialogue stopped: max_turns (10 generated turns, 6872 tokens)
+context policy:   full {}
+                  121 kept / 0 dropped over 11 calls
+realised prompt tokens: dialogue 6400, finalisation 1025, judge 966 (experiment total 7425)
+realised seconds:       dialogue 23.503, finalisation 2.378, judge 2.342
+saved: transcripts/supp_t07/full_r1.json

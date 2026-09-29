@@ -1,0 +1,348 @@
+{
+  "meta": {
+    "scenario": "db04-payments",
+    "seeded_turns": 6,
+    "mock": false,
+    "context": {
+      "policy": "recency",
+      "label": "recency-0",
+      "config": {
+        "max_messages": 0
+      },
+      "calls": [
+        {
+          "available": 6,
+          "kept": 0,
+          "dropped": 6
+        },
+        {
+          "available": 7,
+          "kept": 0,
+          "dropped": 7
+        },
+        {
+          "available": 8,
+          "kept": 0,
+          "dropped": 8
+        },
+        {
+          "available": 9,
+          "kept": 0,
+          "dropped": 9
+        },
+        {
+          "available": 10,
+          "kept": 0,
+          "dropped": 10
+        },
+        {
+          "available": 11,
+          "kept": 0,
+          "dropped": 11
+        },
+        {
+          "available": 12,
+          "kept": 0,
+          "dropped": 12
+        },
+        {
+          "available": 13,
+          "kept": 0,
+          "dropped": 13
+        },
+        {
+          "available": 14,
+          "kept": 0,
+          "dropped": 14
+        },
+        {
+          "available": 15,
+          "kept": 0,
+          "dropped": 15
+        },
+        {
+          "available": 16,
+          "kept": 0,
+          "dropped": 16
+        }
+      ],
+      "totals": {
+        "calls": 11,
+        "messages_available": 121,
+        "messages_kept": 0,
+        "messages_dropped": 121
+      }
+    },
+    "source_coverage": {
+      "source_messages_present": 0,
+      "source_messages_total": 5,
+      "coverage": 0.0,
+      "present_turns": [],
+      "constraints_with_source_present": []
+    },
+    "realised": {
+      "dialogue": {
+        "prompt_tokens": 1255,
+        "completion_tokens": 746,
+        "seconds": 24.493
+      },
+      "finalisation": {
+        "prompt_tokens": 664,
+        "completion_tokens": 149,
+        "seconds": 4.905
+      },
+      "judge": {
+        "prompt_tokens": 1222,
+        "completion_tokens": 36,
+        "seconds": 2.408
+      },
+      "experiment_total": {
+        "prompt_tokens": 1919,
+        "completion_tokens": 895,
+        "seconds": 29.398
+      }
+    },
+    "finalisation": {
+      "stop_reason": "accepted",
+      "retries": 1,
+      "attempts": [
+        {
+          "attempt": 0,
+          "speaker": "Operations Lead",
+          "content": "{\"actions\": [{\"RUN_DIAGNOSTICS\": \"Investigate the cause of errors on db-04 and get feedback from the team\"}, {\"RUN_BACKUP\": \"Perform a full backup of the affected database to prevent data loss\"}, {\"RESTART_DB\": \"Restart node db-04 and wait for it to come online\"}, {\"FAILOVER_API\": \"Redirect customer traffic to the standby API node\"}, {\"RESTORE_TRAFFIC\": \"Gradually restore normal traffic to the affected API service\"}], \"ready\": true}",
+          "parse_error": "actions is not a list of strings",
+          "prompt_tokens": 243,
+          "completion_tokens": 109,
+          "seconds": 2.621
+        },
+        {
+          "attempt": 1,
+          "speaker": "Operations Lead",
+          "content": "{\"actions\": [\"RUN_DIAGNOSTICS\", \"RUN_BACKUP\", \"RESTART_DB\", \"FAILOVER_API\", \"RESTORE_TRAFFIC\"], \"ready\": true}",
+          "parse_error": null,
+          "prompt_tokens": 421,
+          "completion_tokens": 40,
+          "seconds": 2.285
+        }
+      ],
+      "totals": {
+        "attempts": 2,
+        "prompt_tokens": 664,
+        "completion_tokens": 149,
+        "seconds": 4.905
+      },
+      "evaluation": {
+        "parsed": true,
+        "parse_error": null,
+        "actions": [
+          "RUN_DIAGNOSTICS",
+          "RUN_BACKUP",
+          "RESTART_DB",
+          "FAILOVER_API",
+          "RESTORE_TRAFFIC"
+        ],
+        "ready": true,
+        "unknown_actions": [],
+        "satisfied": [
+          "C3",
+          "C4",
+          "C6",
+          "C7"
+        ],
+        "violated": [
+          "C1",
+          "C2",
+          "C5"
+        ],
+        "violations": 3,
+        "constraint_recall": 0.5714,
+        "success": false
+      }
+    },
+    "judge": {
+      "stop_reason": "accepted",
+      "retries": 0,
+      "attempts": [
+        {
+          "attempt": 0,
+          "speaker": "Judge",
+          "content": "{\"score\": 3, \"success\": false, \"reason\": \"plan reorders actions, missing 'ISOLATE_NODE' and 'CONFIRM_RESOURCE_USAGE'\"}",
+          "parse_error": null,
+          "prompt_tokens": 1222,
+          "completion_tokens": 36,
+          "seconds": 2.408
+        }
+      ],
+      "totals": {
+        "attempts": 1,
+        "prompt_tokens": 1222,
+        "completion_tokens": 36,
+        "seconds": 2.408
+      },
+      "model": "llama3.2:3b",
+      "score": 3,
+      "success": false,
+      "reason": "plan reorders actions, missing 'ISOLATE_NODE' and 'CONFIRM_RESOURCE_USAGE'",
+      "note": "secondary evidence; the deterministic evaluator is primary"
+    }
+  },
+  "agents": [
+    {
+      "name": "Operations Lead",
+      "model": "llama3.2:3b",
+      "temperature": 0.7
+    },
+    {
+      "name": "Safety Auditor",
+      "model": "llama3.2:3b",
+      "temperature": 0.7
+    }
+  ],
+  "budget": {
+    "stop_reason": "max_turns",
+    "turns": 10,
+    "tokens": 2001,
+    "seconds": 31.811,
+    "limits": {
+      "max_turns": 10,
+      "max_tokens": 100000,
+      "max_seconds": 600
+    }
+  },
+  "totals": {
+    "turns": 16,
+    "prompt_tokens": 1255,
+    "completion_tokens": 746,
+    "seconds": 24.493
+  },
+  "messages": [
+    {
+      "speaker": "Operations Lead",
+      "content": "We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 0
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 1
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 2
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 3
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 4
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 5
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "assistant\n\n\"Alright, so we've got a degraded API and errors on the DB, what's the priority here? Should we start by trying to isolate the issue on the DB or try to work around the API to get some basic functionality back?\"",
+      "prompt_tokens": 123,
+      "completion_tokens": 53,
+      "seconds": 2.3922118000045884,
+      "turn_index": 6
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "assistant\n\nI agree that we need to isolate the database to prevent further degradation, but before we do that, can we confirm that we've checked the database logs to see if there are any specific errors that might give us a clue about what's causing the issue? Have we also checked the node's resource usage to ensure we're not introducing any new bottlenecks?",
+      "prompt_tokens": 128,
+      "completion_tokens": 77,
+      "seconds": 2.4855065000010654,
+      "turn_index": 7
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "assistant\n\n\"Alright, so we need to prioritize the database error, it's the root cause of the issue. I'd like to request a backup of the database from db-04 to a secondary location, just in case we need to restore the production environment. Can we get the IT team to start the backup process now?\"",
+      "prompt_tokens": 123,
+      "completion_tokens": 69,
+      "seconds": 2.41436419999809,
+      "turn_index": 8
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "assistant\n\nI think we need to revisit the plan for database backups. We were scheduled to run the weekly full backups in 30 minutes, but with the current load, it's going to be a challenge to get them done quickly enough. Do we need to adjust the window for those backups or consider a different approach to minimize downtime?",
+      "prompt_tokens": 128,
+      "completion_tokens": 70,
+      "seconds": 2.4382308999920497,
+      "turn_index": 9
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "assistant\n\nWe need to get a handle on the root cause of the issue with db-04 ASAP. Have we agreed on a primary objective for the recovery plan, such as minimizing downtime and ensuring business continuity?",
+      "prompt_tokens": 123,
+      "completion_tokens": 45,
+      "seconds": 2.3015083000063896,
+      "turn_index": 10
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "assistant\n\nI've got the alert from the ops team saying that the database errors are causing a cascade failure, so we need to get the database back online ASAP. I agree that we can't keep the API down, but we need to prioritize the database to prevent further degradation. Can you walk me through the current database status and what our options are for getting it back online?",
+      "prompt_tokens": 128,
+      "completion_tokens": 79,
+      "seconds": 2.4588693999976385,
+      "turn_index": 11
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "assistant\n\n\"Okay, so we agree that we need to stabilize the database to prevent further errors and then redirect the customer-facing API to a standby node. I'll go ahead and alert our DBA team to take the node db-04 offline and perform a quick check to identify the root cause of the issue. Can you coordinate with the API team to prepare a temporary API endpoint on node db-01 as a fallback?\"",
+      "prompt_tokens": 123,
+      "completion_tokens": 88,
+      "seconds": 2.513671799999429,
+      "turn_index": 12
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "assistant\n\n\"I agree that we need to identify the root cause of the issue, but before we start troubleshooting, let's confirm with ops that the database is running at 90% capacity and there are no known scheduled maintenance windows that could be contributing to the errors. We also need to confirm that the API is still returning any data, even if it's just a 500 error, to ensure we're not masking a more serious issue.\"",
+      "prompt_tokens": 128,
+      "completion_tokens": 91,
+      "seconds": 2.5106961999990745,
+      "turn_index": 13
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "assistant\n\nI've reviewed the logs and it looks like the errors are related to the high connection count on db-04. I think our best bet is to isolate db-04 and redirect all payment-related requests to db-03 until we can resolve the issue. What are your thoughts on implementing a traffic split to move the load to db-03, and should we also notify the customer support team about the degradation of the API?",
+      "prompt_tokens": 123,
+      "completion_tokens": 90,
+      "seconds": 2.5063063999987207,
+      "turn_index": 14
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "assistant\n\n\"I agree that we need to get the API back up ASAP, but let's not forget that we're still operating under our 'Database Load Threshold' plan. We need to assess the impact of our actions on the performance of the other nodes, like db-03 and the analytics server. Can you check if the errors on db-04 are causing a cascading effect on the other databases?\"",
+      "prompt_tokens": 128,
+      "completion_tokens": 84,
+      "seconds": 2.4716483000083826,
+      "turn_index": 15
+    }
+  ]
+}

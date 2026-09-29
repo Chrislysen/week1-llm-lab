@@ -1,0 +1,82 @@
+
+=== INCIDENT db04-payments ===
+
+[seed] Operations Lead: We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.
+
+[seed] Safety Auditor: Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.
+
+[seed] Operations Lead: Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.
+
+[seed] Safety Auditor: Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.
+
+[seed] Operations Lead: Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.
+
+[seed] Safety Auditor: Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.
+
+[t6] Operations Lead: Got it, so we need to fail over to the secondary database node for db-04 and ensure it's healthy before restarting the primary. And we'll keep the traffic off until the primary node is back online, no matter what.
+
+[t7] Safety Auditor: Exactly, and don't forget to verify the secondary node is healthy and properly configured for high availability before failing over to it. We also need to check the API service is properly set up to route to the secondary node until the primary is back online.
+
+[t8] Operations Lead: Will check the configuration files and network settings for both nodes, and also verify the API's service definition points to the secondary node for now, and then switches back to the primary once it's back up.
+
+[t9] Safety Auditor: That's the plan, and also don't forget to verify the health checks on both nodes - we need to confirm both are coming back green before we even think about restarting the primary node.
+
+[t10] Operations Lead: I'll add that to the list - both nodes need to be coming back green on all health checks before we attempt to restart the primary database, and then fail over to the secondary.
+
+[t11] Safety Auditor: Let's also make sure we've got an updated alerting setup to notify ops of the status change, and that we're documenting everything in the incident report, including the steps taken and the recovery outcome.
+
+[t12] Operations Lead: I'll update the alerting setup to notify ops as soon as the primary node is back online and the secondary node is in its place, and also document everything in the incident report, including the initial issues, the steps we took to recover, and the outcome - including any lessons learned.
+
+[t13] Safety Auditor: And don't forget to also document the recovery plan for this type of incident, so that we can reference it in future recovery situations and make sure our process is properly documented and communicated to the team.
+
+[t14] Operations Lead: Will add a section to the incident report outlining the recovery plan, including the steps we took, the decisions we made, and the outcome, and also suggest a minor tweak to our existing recovery plan to reflect the changes we made here.
+
+[t15] Safety Auditor: Also, let's make sure we're updating our incident report with the latest time and date, so we can keep track of the timeline of events and the progress of the recovery efforts.
+
+=== FINALISATION ===
+
+-- attempt 1 (parsed) --
+{
+  "actions": [
+    "ISOLATE_NODE",
+    "RUN_BACKUP",
+    "VERIFY Secondary_NODE",
+    "VERIFY API",
+    "VERIFY Health_checks",
+    "FAILOVER_API",
+    "RESTART_DB",
+    "RESTORE_TRAFFIC"
+  ],
+  "ready": true
+}
+
+stop_reason: accepted   retries: 0
+
+=== EVALUATION ===
+parsed             True
+actions            ['ISOLATE_NODE', 'RUN_BACKUP', 'VERIFY Secondary_NODE', 'VERIFY API', 'VERIFY Health_checks', 'FAILOVER_API', 'RESTART_DB', 'RESTORE_TRAFFIC']
+ready              True
+unknown actions    ['VERIFY Secondary_NODE', 'VERIFY API', 'VERIFY Health_checks']
+satisfied          ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7']
+violated           []
+constraint_recall  1.0000
+success            True  <- PRIMARY (deterministic)
+
+=== SOURCE COVERAGE ===
+original source messages present  5/5  (1.0)
+seed turns still in context       [1, 2, 3, 4, 5]
+constraints whose source survived ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7']
+
+=== JUDGE (secondary) ===
+model              llama3.2:3b
+stop_reason        accepted   retries: 0
+score              5
+success            False
+reason             plan follows all agreed actions in a safe order
+
+dialogue stopped: max_turns (10 generated turns, 6704 tokens)
+context policy:   full {}
+                  121 kept / 0 dropped over 11 calls
+realised prompt tokens: dialogue 6258, finalisation 999, judge 970 (experiment total 7257)
+realised seconds:       dialogue 23.133, finalisation 2.476, judge 2.804
+saved: transcripts/supp_t07/full_r4.json

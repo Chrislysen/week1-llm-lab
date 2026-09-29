@@ -1,0 +1,80 @@
+
+=== INCIDENT db04-payments ===
+
+[seed] Operations Lead: We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.
+
+[seed] Safety Auditor: Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.
+
+[seed] Operations Lead: Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.
+
+[seed] Safety Auditor: Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.
+
+[seed] Operations Lead: Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.
+
+[seed] Safety Auditor: Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.
+
+[t6] Operations Lead: I'll arrange for the API to be routed to a secondary node that's already healthy, and we can then restart the problematic node without taking the API offline. That way, we can ensure the API stays available to customers while we work on the database. And we should also consider escalating this to the DBA team to get them to investigate why db-04 was in this state in the first place.
+
+[t7] Safety Auditor: Good thinking on the API failover, and I'll add that to the plan. For the DBA team, let's make it clear that we don't want to impose new constraints on the system, but we do want them to investigate the underlying cause of the issues on db-04. So, no new restrictions or workarounds, just root cause analysis.
+
+[t8] Operations Lead: I'll make sure the communication to the DBA team is clear on that. Also, I'll assign our colleague, Alex, to help coordinate with the DBA team and get an update on when they'll have their findings, so we can plan the restart and API failover accordingly.
+
+[t9] Safety Auditor: That's a good plan, and I'll add Alex to the team's communication loop too. We should also make sure that Alex is aware of the plan and timeline, so they can keep us updated and make sure we're aligned on any changes to the investigation or proposed fixes.
+
+[t10] Operations Lead: I'll add Alex to the plan document and make sure it's reviewed by them before we implement. Also, I'll give them a call to confirm they're on the same page and have a good understanding of the plan and the expected timeline for the DBA team's findings.
+
+[t11] Safety Auditor: Before we finalize the plan, let's review it one more time as a team to make sure everyone is comfortable with the approach and the dependencies. We don't want to move forward with implementing the plan without a clear head on the process.
+
+[t12] Operations Lead: Sounds good to me. I'll review the plan document and make sure everything is accurate and up-to-date. Then I'll summarize the plan and timeline, and we can go through it one more time to make sure we're all on the same page before moving forward.
+
+[t13] Safety Auditor: Once you've summarized the plan, I'll review it and add any final thoughts or comments. Then, let's schedule a debrief with the team to review the outcome, identify any lessons learned, and document the process for future reference.
+
+[t14] Operations Lead: That sounds like a solid next step. I'll propose a time for the debrief, probably within the next 24 hours, and make sure all team members are aware of it so we can get everyone's input and reflection on the recovery process.
+
+[t15] Safety Auditor: I'll add the debrief to the recovery plan document, so it's clear for everyone what's expected and when. And, just to confirm, we'll make sure to document everything, including the root cause analysis, proposed fixes, and the outcome of the recovery process, so we can learn from it and improve our incident response plan.
+
+=== FINALISATION ===
+
+-- attempt 1 (parsed) --
+{
+  "actions": [
+    "RUN_DIAGNOSTICS",
+    "ISOLATE_NODE",
+    "RUN_BACKUP",
+    "RESTART_DB",
+    "FAILOVER_API",
+    "RESTORE_TRAFFIC"
+  ],
+  "ready": true
+}
+
+stop_reason: accepted   retries: 0
+
+=== EVALUATION ===
+parsed             True
+actions            ['RUN_DIAGNOSTICS', 'ISOLATE_NODE', 'RUN_BACKUP', 'RESTART_DB', 'FAILOVER_API', 'RESTORE_TRAFFIC']
+ready              True
+unknown actions    []
+satisfied          ['C1', 'C3', 'C4', 'C6', 'C7']
+violated           ['C2', 'C5']
+constraint_recall  0.7143
+success            False  <- PRIMARY (deterministic)
+
+=== SOURCE COVERAGE ===
+original source messages present  2/5  (0.4)
+seed turns still in context       [4, 5]
+constraints whose source survived ['C5', 'C6', 'C7']
+
+=== JUDGE (secondary) ===
+model              llama3.2:3b
+stop_reason        accepted   retries: 0
+score              5
+success            False
+reason             plan follows agreed actions in a safe order
+
+dialogue stopped: max_turns (10 generated turns, 7471 tokens)
+context policy:   recency-12 {'max_messages': 12}
+                  111 kept / 10 dropped over 11 calls
+realised prompt tokens: dialogue 6868, finalisation 988, judge 1118 (experiment total 7856)
+realised seconds:       dialogue 24.582, finalisation 2.516, judge 2.341
+saved: transcripts/supp_t07/recency-12_r3.json

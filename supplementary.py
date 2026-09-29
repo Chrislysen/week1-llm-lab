@@ -133,12 +133,71 @@ def summarise():
                          [{"id": i, "prediction": p, "holds": h, "observed": o}
                           for i, p, h, o in checks], ["id", "prediction", "holds", "observed"])
 
+    figure(rows, f"{RESULTS_DIR}/fig_recall_t0_vs_t07.png")
+
     print("=== per-condition summary ===")
     experiment.show(per_cond, list(per_cond[0].keys()))
     print("\n=== declared predictions ===")
     for i, p, h, o in checks:
         print(f"  {i} {'HOLDS ' if h else 'FAILS '} {p}  ({o})")
     print(f"\nwrote {RESULTS_DIR}/")
+
+
+def figure(rows, path):
+    """Recall of every run: frozen (temperature 0) beside supplementary (0.7)."""
+    import csv
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    frozen = []
+    for name in ("runs.csv", "ceiling.csv"):
+        with open(f"results/{name}", newline="") as fh:
+            frozen += [(r["condition"], float(r["constraint_recall"]))
+                       for r in csv.DictReader(fh)]
+    supp = [(r["condition"], r["constraint_recall"]) for r in rows]
+
+    ink, ink2, muted, grid, surface = "#0b0b0b", "#52514e", "#898781", "#e1e0d9", "#fcfcfb"
+    series = [("frozen, temperature 0 (3 runs; mostly identical copies)", frozen, "#2a78d6", -0.17),
+              ("supplementary, temperature 0.7 (5 independent runs)", supp, "#eb6834", 0.17)]
+    plt.rcParams.update({"font.family": ["Segoe UI", "DejaVu Sans", "sans-serif"],
+                         "font.size": 9, "text.color": ink, "axes.labelcolor": ink2,
+                         "xtick.color": muted, "ytick.color": muted, "axes.edgecolor": "#c3c2b7"})
+    fig, ax = plt.subplots(figsize=(7.2, 4.0), facecolor=surface)
+    ax.set_facecolor(surface)
+    conds = list(CONDITIONS)
+    for label, data, color, dx in series:
+        for i, cond in enumerate(conds):
+            vals = [v for c, v in data if c == cond]
+            if not vals:
+                continue
+            # Stack repeated values sideways so identical runs stay countable.
+            seen = {}
+            for v in vals:
+                k = seen.get(v, 0)
+                seen[v] = k + 1
+                ax.scatter(i + dx + (k - 1) * 0.045, v, s=34, color=color,
+                           edgecolors=surface, linewidths=1.2, zorder=3)
+            m = statistics.mean(vals)
+            ax.plot([i + dx - 0.11, i + dx + 0.11], [m, m], color=color, linewidth=2.5, zorder=4)
+        ax.scatter([], [], s=34, color=color, label=label)
+    ax.set_xticks(range(len(conds)))
+    ax.set_xticklabels(["recency-0\n(no context)", "recency-4", "recency-8", "recency-12",
+                        "full history"])
+    ax.set_ylabel("constraint recall (bar = mean)")
+    ax.set_ylim(-0.04, 1.06)
+    ax.grid(axis="y", color=grid, linewidth=0.8)
+    ax.set_axisbelow(True)
+    for sp in ("top", "right"):
+        ax.spines[sp].set_visible(False)
+    ax.legend(frameon=False, loc="lower right", fontsize=8.5)
+    ax.set_title("Recall per run: the frozen ordering does not survive independent repeats",
+                 loc="left", fontsize=11, fontweight="bold", color=ink)
+    fig.text(0.01, 0.01, "recall 0.0 = plan never parsed (recency-4 r2). Frozen runs had "
+             "no recency-0 condition.", fontsize=7.5, color=ink2)
+    fig.tight_layout(rect=(0, 0.03, 1, 1))
+    fig.savefig(path, dpi=200, facecolor=surface)
+    plt.close(fig)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,78 @@
+
+=== INCIDENT db04-payments ===
+
+[seed] Operations Lead: We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.
+
+[seed] Safety Auditor: Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.
+
+[seed] Operations Lead: Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.
+
+[seed] Safety Auditor: Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.
+
+[seed] Operations Lead: Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.
+
+[seed] Safety Auditor: Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.
+
+[t6] Operations Lead: Got it, we need a manual failover of the API to a standby instance before the database restart. And we'll also need a clear plan for communicating this to our customers, so we're transparent about what's going on and when they can expect things to come back online.
+
+[t7] Safety Auditor: Transparency is key here. We need to craft an update message that acknowledges the issue, explains what we're doing to fix it, and provides a clear timeline for when we expect the service to be back online.
+
+[t8] Operations Lead: I'll work on drafting that message, and we should also make sure our ops team is on the same page and can support the message with any necessary updates or additional information.
+
+[t9] Safety Auditor: I'll get a quick check-in with the ops team to confirm their role in supporting the communication and to make sure they have all the necessary info to provide accurate updates.
+
+[t10] Operations Lead: Also, while you're checking in with the ops team, can you also confirm that we have the necessary resources in place to get the database backed up and restarted as quickly as possible, and that we're not going to hit any other infrastructure bottlenecks along the way?
+
+[t11] Safety Auditor: I'll add that to the ops team check-in, and also ask to confirm that the network team is aware of the potential for increased load and is prepared to handle any additional traffic that might come in while we're working on the database, just in case.
+
+[t12] Operations Lead: Good thinking, we don't want any surprises when we do finally get the database back up. I'll also make a note to review the incident's impact on our monitoring and alerting systems, just to make sure we're capturing any relevant error metrics and can provide timely insights to our customers.
+
+[t13] Safety Auditor: I'll add that to the incident report and make sure to review the system logs ourselves to get a better sense of what was happening before the database went down, so we can understand what might have caused the overload.
+
+[t14] Operations Lead: That's a good idea, getting a firsthand look at the system logs will help us identify potential root causes and prevent similar issues from happening in the future. I'll also reach out to our DevOps team to see if they can provide any insights on the database configuration or recent changes that might have contributed to the overload.
+
+[t15] Safety Auditor: I'll ask them to share their thoughts on the database configuration and any recent updates or changes that might have affected performance, and also see if they can provide any information on the current load on the node and the queue sizes for the database.
+
+=== FINALISATION ===
+
+-- attempt 1 (parsed) --
+{"actions": [
+  "ISOLATE_NODE",
+  "RUN_DIAGNOSTICS",
+  "RUN_BACKUP",
+  "RESTART_DB",
+  "RESTORE_TRAFFIC",
+  "FAILOVER_API"
+], 
+"ready": true}
+
+stop_reason: accepted   retries: 0
+
+=== EVALUATION ===
+parsed             True
+actions            ['ISOLATE_NODE', 'RUN_DIAGNOSTICS', 'RUN_BACKUP', 'RESTART_DB', 'RESTORE_TRAFFIC', 'FAILOVER_API']
+ready              True
+unknown actions    []
+satisfied          ['C1', 'C2', 'C3', 'C4', 'C6', 'C7']
+violated           ['C5']
+constraint_recall  0.8571
+success            False  <- PRIMARY (deterministic)
+
+=== SOURCE COVERAGE ===
+original source messages present  0/5  (0.0)
+seed turns still in context       []
+constraints whose source survived []
+
+=== JUDGE (secondary) ===
+model              llama3.2:3b
+stop_reason        accepted   retries: 0
+score              3
+success            False
+reason             Missing 'MANUAL_RESTART' action in the plan
+
+dialogue stopped: max_turns (10 generated turns, 5642 tokens)
+context policy:   recency-8 {'max_messages': 8}
+                  85 kept / 36 dropped over 11 calls
+realised prompt tokens: dialogue 5143, finalisation 668, judge 1009 (experiment total 5811)
+realised seconds:       dialogue 23.9, finalisation 2.468, judge 2.313
+saved: transcripts/supp_t07/recency-8_r3.json

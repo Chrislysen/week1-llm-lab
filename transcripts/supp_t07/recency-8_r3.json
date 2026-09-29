@@ -1,0 +1,340 @@
+{
+  "meta": {
+    "scenario": "db04-payments",
+    "seeded_turns": 6,
+    "mock": false,
+    "context": {
+      "policy": "recency",
+      "label": "recency-8",
+      "config": {
+        "max_messages": 8
+      },
+      "calls": [
+        {
+          "available": 6,
+          "kept": 6,
+          "dropped": 0
+        },
+        {
+          "available": 7,
+          "kept": 7,
+          "dropped": 0
+        },
+        {
+          "available": 8,
+          "kept": 8,
+          "dropped": 0
+        },
+        {
+          "available": 9,
+          "kept": 8,
+          "dropped": 1
+        },
+        {
+          "available": 10,
+          "kept": 8,
+          "dropped": 2
+        },
+        {
+          "available": 11,
+          "kept": 8,
+          "dropped": 3
+        },
+        {
+          "available": 12,
+          "kept": 8,
+          "dropped": 4
+        },
+        {
+          "available": 13,
+          "kept": 8,
+          "dropped": 5
+        },
+        {
+          "available": 14,
+          "kept": 8,
+          "dropped": 6
+        },
+        {
+          "available": 15,
+          "kept": 8,
+          "dropped": 7
+        },
+        {
+          "available": 16,
+          "kept": 8,
+          "dropped": 8
+        }
+      ],
+      "totals": {
+        "calls": 11,
+        "messages_available": 121,
+        "messages_kept": 85,
+        "messages_dropped": 36
+      }
+    },
+    "source_coverage": {
+      "source_messages_present": 0,
+      "source_messages_total": 5,
+      "coverage": 0.0,
+      "present_turns": [],
+      "constraints_with_source_present": []
+    },
+    "realised": {
+      "dialogue": {
+        "prompt_tokens": 5143,
+        "completion_tokens": 499,
+        "seconds": 23.9
+      },
+      "finalisation": {
+        "prompt_tokens": 668,
+        "completion_tokens": 55,
+        "seconds": 2.468
+      },
+      "judge": {
+        "prompt_tokens": 1009,
+        "completion_tokens": 28,
+        "seconds": 2.313
+      },
+      "experiment_total": {
+        "prompt_tokens": 5811,
+        "completion_tokens": 554,
+        "seconds": 26.368
+      }
+    },
+    "finalisation": {
+      "stop_reason": "accepted",
+      "retries": 0,
+      "attempts": [
+        {
+          "attempt": 0,
+          "speaker": "Operations Lead",
+          "content": "{\"actions\": [\n  \"ISOLATE_NODE\",\n  \"RUN_DIAGNOSTICS\",\n  \"RUN_BACKUP\",\n  \"RESTART_DB\",\n  \"RESTORE_TRAFFIC\",\n  \"FAILOVER_API\"\n], \n\"ready\": true}",
+          "parse_error": null,
+          "prompt_tokens": 668,
+          "completion_tokens": 55,
+          "seconds": 2.468
+        }
+      ],
+      "totals": {
+        "attempts": 1,
+        "prompt_tokens": 668,
+        "completion_tokens": 55,
+        "seconds": 2.468
+      },
+      "evaluation": {
+        "parsed": true,
+        "parse_error": null,
+        "actions": [
+          "ISOLATE_NODE",
+          "RUN_DIAGNOSTICS",
+          "RUN_BACKUP",
+          "RESTART_DB",
+          "RESTORE_TRAFFIC",
+          "FAILOVER_API"
+        ],
+        "ready": true,
+        "unknown_actions": [],
+        "satisfied": [
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C6",
+          "C7"
+        ],
+        "violated": [
+          "C5"
+        ],
+        "violations": 1,
+        "constraint_recall": 0.8571,
+        "success": false
+      }
+    },
+    "judge": {
+      "stop_reason": "accepted",
+      "retries": 0,
+      "attempts": [
+        {
+          "attempt": 0,
+          "speaker": "Judge",
+          "content": "{\"score\": 3, \"success\": false, \"reason\": \"Missing 'MANUAL_RESTART' action in the plan\"}",
+          "parse_error": null,
+          "prompt_tokens": 1009,
+          "completion_tokens": 28,
+          "seconds": 2.313
+        }
+      ],
+      "totals": {
+        "attempts": 1,
+        "prompt_tokens": 1009,
+        "completion_tokens": 28,
+        "seconds": 2.313
+      },
+      "model": "llama3.2:3b",
+      "score": 3,
+      "success": false,
+      "reason": "Missing 'MANUAL_RESTART' action in the plan",
+      "note": "secondary evidence; the deterministic evaluator is primary"
+    }
+  },
+  "agents": [
+    {
+      "name": "Operations Lead",
+      "model": "llama3.2:3b",
+      "temperature": 0.7
+    },
+    {
+      "name": "Safety Auditor",
+      "model": "llama3.2:3b",
+      "temperature": 0.7
+    }
+  ],
+  "budget": {
+    "stop_reason": "max_turns",
+    "turns": 10,
+    "tokens": 5642,
+    "seconds": 28.718,
+    "limits": {
+      "max_turns": 10,
+      "max_tokens": 100000,
+      "max_seconds": 600
+    }
+  },
+  "totals": {
+    "turns": 16,
+    "prompt_tokens": 5143,
+    "completion_tokens": 499,
+    "seconds": 23.9
+  },
+  "messages": [
+    {
+      "speaker": "Operations Lead",
+      "content": "We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 0
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 1
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 2
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 3
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 4
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 5
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "Got it, we need a manual failover of the API to a standby instance before the database restart. And we'll also need a clear plan for communicating this to our customers, so we're transparent about what's going on and when they can expect things to come back online.",
+      "prompt_tokens": 402,
+      "completion_tokens": 57,
+      "seconds": 2.387635399994906,
+      "turn_index": 6
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Transparency is key here. We need to craft an update message that acknowledges the issue, explains what we're doing to fix it, and provides a clear timeline for when we expect the service to be back online.",
+      "prompt_tokens": 468,
+      "completion_tokens": 44,
+      "seconds": 2.3404441999882692,
+      "turn_index": 7
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "I'll work on drafting that message, and we should also make sure our ops team is on the same page and can support the message with any necessary updates or additional information.",
+      "prompt_tokens": 511,
+      "completion_tokens": 36,
+      "seconds": 2.2920256999932462,
+      "turn_index": 8
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "I'll get a quick check-in with the ops team to confirm their role in supporting the communication and to make sure they have all the necessary info to provide accurate updates.",
+      "prompt_tokens": 524,
+      "completion_tokens": 35,
+      "seconds": 2.3454567000007955,
+      "turn_index": 9
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "Also, while you're checking in with the ops team, can you also confirm that we have the necessary resources in place to get the database backed up and restarted as quickly as possible, and that we're not going to hit any other infrastructure bottlenecks along the way?",
+      "prompt_tokens": 504,
+      "completion_tokens": 56,
+      "seconds": 2.4080508000042755,
+      "turn_index": 10
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "I'll add that to the ops team check-in, and also ask to confirm that the network team is aware of the potential for increased load and is prepared to handle any additional traffic that might come in while we're working on the database, just in case.",
+      "prompt_tokens": 528,
+      "completion_tokens": 53,
+      "seconds": 2.4060365999903297,
+      "turn_index": 11
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "Good thinking, we don't want any surprises when we do finally get the database back up. I'll also make a note to review the incident's impact on our monitoring and alerting systems, just to make sure we're capturing any relevant error metrics and can provide timely insights to our customers.",
+      "prompt_tokens": 539,
+      "completion_tokens": 60,
+      "seconds": 2.4620737000077497,
+      "turn_index": 12
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "I'll add that to the incident report and make sure to review the system logs ourselves to get a better sense of what was happening before the database went down, so we can understand what might have caused the overload.",
+      "prompt_tokens": 566,
+      "completion_tokens": 44,
+      "seconds": 2.3451356000005035,
+      "turn_index": 13
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "That's a good idea, getting a firsthand look at the system logs will help us identify potential root causes and prevent similar issues from happening in the future. I'll also reach out to our DevOps team to see if they can provide any insights on the database configuration or recent changes that might have contributed to the overload.",
+      "prompt_tokens": 544,
+      "completion_tokens": 65,
+      "seconds": 2.496658000003663,
+      "turn_index": 14
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "I'll ask them to share their thoughts on the database configuration and any recent updates or changes that might have affected performance, and also see if they can provide any information on the current load on the node and the queue sizes for the database.",
+      "prompt_tokens": 557,
+      "completion_tokens": 49,
+      "seconds": 2.416269800000009,
+      "turn_index": 15
+    }
+  ]
+}

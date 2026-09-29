@@ -1,0 +1,83 @@
+
+=== INCIDENT db04-payments ===
+
+[seed] Operations Lead: We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.
+
+[seed] Safety Auditor: Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.
+
+[seed] Operations Lead: Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.
+
+[seed] Safety Auditor: Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.
+
+[seed] Operations Lead: Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.
+
+[seed] Safety Auditor: Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.
+
+[t6] Operations Lead: Got it, so we need to fail over the API to another database node before restarting the problematic one. And once db-04 is back online, we'll bring it back into the cluster and restart it, keeping the API online the whole time.
+
+[t7] Safety Auditor: That's the plan. Also, I'll need a confirmation that we're sticking to the agreed-upon communication cadence for the recovery process, and that we're not doing anything behind the scenes without each other's knowledge.
+
+[t8] Operations Lead: Confirmed, we're in sync on that. If anything changes, I'll update you immediately, and you do the same. I'll also send a summary of our plan to our on-call engineer so they're aware of the steps we're taking.
+
+[t9] Safety Auditor: That's good. One more thing: I'll reach out to ops to let them know that we're going through a controlled restart of node db-04, so they can keep an eye on the cluster metrics and alert us if anything looks out of the ordinary.
+
+[t10] Operations Lead: That's a good idea, keeping ops in the loop will help us catch any red flags. I'll also send a similar update to our incident response team, just to keep them informed.
+
+[t11] Safety Auditor: Good, that's good to know that we've got the right people informed. I'll just double-check that our incident is still logged and up-to-date with the current status, and we're good to go.
+
+[t12] Operations Lead: Let's make sure our incident is up-to-date, and that our recovery plan is reflected in the incident log. Once that's done, we can consider this a green light to start the controlled restart of node db-04.
+
+[t13] Safety Auditor: Sounds good, once we've got that all updated, I'll give you the thumbs up and you can go ahead and initiate the restart.
+
+[t14] Operations Lead: I'll take it from there. Once I've confirmed the API is live and the backup is complete, I'll restart db-04 and bring it back online. We'll be back up and running within the hour, hopefully.
+
+[t15] Safety Auditor: Sounds good, I'll stand by while you run the restart sequence. If anything goes sideways, don't hesitate to call me out - but I'm hoping it's a smooth ride and we'll be back up in no time.
+
+=== FINALISATION ===
+
+-- attempt 1 (parsed) --
+```
+{
+  "actions": [
+    "FAILOVER_API",
+    "RUN_BACKUP",
+    "RUN_DIAGNOSTICS",
+    "RESTART_DB",
+    "RESTORE_TRAFFIC"
+  ],
+  "ready": true
+}
+```
+
+Note: I've removed the "ISOLATE_NODE" step since we've agreed to fail over the API before restarting the database.
+
+stop_reason: accepted   retries: 0
+
+=== EVALUATION ===
+parsed             True
+actions            ['FAILOVER_API', 'RUN_BACKUP', 'RUN_DIAGNOSTICS', 'RESTART_DB', 'RESTORE_TRAFFIC']
+ready              True
+unknown actions    []
+satisfied          ['C3', 'C4', 'C5', 'C6', 'C7']
+violated           ['C1', 'C2']
+constraint_recall  0.7143
+success            False  <- PRIMARY (deterministic)
+
+=== SOURCE COVERAGE ===
+original source messages present  2/5  (0.4)
+seed turns still in context       [4, 5]
+constraints whose source survived ['C5', 'C6', 'C7']
+
+=== JUDGE (secondary) ===
+model              llama3.2:3b
+stop_reason        accepted   retries: 0
+score              5
+success            False
+reason             plan fails to isolate node before running diagnostics
+
+dialogue stopped: max_turns (10 generated turns, 6560 tokens)
+context policy:   recency-12 {'max_messages': 12}
+                  111 kept / 10 dropped over 11 calls
+realised prompt tokens: dialogue 6105, finalisation 840, judge 995 (experiment total 6945)
+realised seconds:       dialogue 23.553, finalisation 2.593, judge 2.332
+saved: transcripts/supp_t07/recency-12_r5.json

@@ -1,0 +1,90 @@
+
+=== INCIDENT db04-payments ===
+
+[seed] Operations Lead: We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.
+
+[seed] Safety Auditor: Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.
+
+[seed] Operations Lead: Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.
+
+[seed] Safety Auditor: Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.
+
+[seed] Operations Lead: Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.
+
+[seed] Safety Auditor: Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.
+
+[t6] Operations Lead: assistant
+
+"I've checked the db-04 node's logs, and it looks like we're running low on disk space. I agree that we need to prioritize the database's recovery over the API. Can we start by isolating the affected database node and running a disk clean-up to free up some space?"
+
+[t7] Safety Auditor: assistant
+
+"I think we need to get the API back online ASAP, but before we do that, can we confirm that we're not compromising the integrity of the database by taking it offline? Are we okay with potentially losing some transactions in the process of getting the API back up?"
+
+[t8] Operations Lead: assistant
+
+"Alright, so we need to prioritize the fix for the payments database. Can you review the error logs and see if there's a specific pattern or message that might give us a clue about what's going on? And have you checked the database's performance metrics to see if we can identify any underlying issues?"
+
+[t9] Safety Auditor: assistant
+
+"What's the current plan for bringing db-04 back online, and are we considering running a database backup to restore the payments database before we do?"
+
+[t10] Operations Lead: assistant
+
+"Alright, so it sounds like we need to prioritize the database on db-04 since it's the root cause of the issue. Have you checked if there are any maintenance or upgrade tasks scheduled for that server that could be contributing to the errors?"
+
+[t11] Safety Auditor: assistant
+
+I think we need to acknowledge that this is a critical failure, and we need to act quickly to minimize downtime. Before we start with recovery, can we confirm that we're not going to attempt to scale the database or increase the load on db-04?
+
+[t12] Operations Lead: assistant
+
+"We need to acknowledge that the high load on db-04 is a major contributor to the issue. I think we should first try to isolate the issue by checking the database logs and running some diagnostics on the server to understand the root cause of the problem."
+
+[t13] Safety Auditor: assistant
+
+I think we should take a closer look at the database node's configuration and see if there's an option to increase the connection pool size or add more resources to handle the load. Have we already checked the resource constraints on node db-04 and are we sure we're not hitting the limits of the allocated CPU or RAM?
+
+[t14] Operations Lead: assistant
+
+"I think we need to prioritize the API first, since the customers are impacted. Can you confirm if we have any backup APIs in place that we can switch to while we work on resolving the issue with db-04? Also, have we confirmed which customers are being affected and what's the current level of service degradation?"
+
+[t15] Safety Auditor: assistant
+
+"I agree that we need to get the API up and running ASAP, but before we start taking drastic measures, have we confirmed that the errors are indeed due to the database load and not something else? Let's check the DB-04 logs to see if there's any other indication of what's going on. Also, have we checked the node's resource utilization and memory usage to see if it's reached its capacity?"
+
+=== FINALISATION ===
+
+-- attempt 1 (parsed) --
+{"actions": ["ISOLATE_NODE", "RUN_DIAGNOSTICS", "RUN_BACKUP", "RESTART_DB", "FAILOVER_API", "RESTORE_TRAFFIC"], "ready": true}
+
+stop_reason: accepted   retries: 0
+
+=== EVALUATION ===
+parsed             True
+actions            ['ISOLATE_NODE', 'RUN_DIAGNOSTICS', 'RUN_BACKUP', 'RESTART_DB', 'FAILOVER_API', 'RESTORE_TRAFFIC']
+ready              True
+unknown actions    []
+satisfied          ['C1', 'C2', 'C3', 'C4', 'C6', 'C7']
+violated           ['C5']
+constraint_recall  0.8571
+success            False  <- PRIMARY (deterministic)
+
+=== SOURCE COVERAGE ===
+original source messages present  0/5  (0.0)
+seed turns still in context       []
+constraints whose source survived []
+
+=== JUDGE (secondary) ===
+model              llama3.2:3b
+stop_reason        accepted   retries: 0
+score              3
+success            False
+reason             plan reorders the API failover before the database restart
+
+dialogue stopped: max_turns (10 generated turns, 1877 tokens)
+context policy:   recency-0 {'max_messages': 0}
+                  0 kept / 121 dropped over 11 calls
+realised prompt tokens: dialogue 1255, finalisation 243, judge 1104 (experiment total 1498)
+realised seconds:       dialogue 23.856, finalisation 2.344, judge 2.33
+saved: transcripts/supp_t07/recency-0_r1.json

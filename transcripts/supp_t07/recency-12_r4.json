@@ -1,0 +1,355 @@
+{
+  "meta": {
+    "scenario": "db04-payments",
+    "seeded_turns": 6,
+    "mock": false,
+    "context": {
+      "policy": "recency",
+      "label": "recency-12",
+      "config": {
+        "max_messages": 12
+      },
+      "calls": [
+        {
+          "available": 6,
+          "kept": 6,
+          "dropped": 0
+        },
+        {
+          "available": 7,
+          "kept": 7,
+          "dropped": 0
+        },
+        {
+          "available": 8,
+          "kept": 8,
+          "dropped": 0
+        },
+        {
+          "available": 9,
+          "kept": 9,
+          "dropped": 0
+        },
+        {
+          "available": 10,
+          "kept": 10,
+          "dropped": 0
+        },
+        {
+          "available": 11,
+          "kept": 11,
+          "dropped": 0
+        },
+        {
+          "available": 12,
+          "kept": 12,
+          "dropped": 0
+        },
+        {
+          "available": 13,
+          "kept": 12,
+          "dropped": 1
+        },
+        {
+          "available": 14,
+          "kept": 12,
+          "dropped": 2
+        },
+        {
+          "available": 15,
+          "kept": 12,
+          "dropped": 3
+        },
+        {
+          "available": 16,
+          "kept": 12,
+          "dropped": 4
+        }
+      ],
+      "totals": {
+        "calls": 11,
+        "messages_available": 121,
+        "messages_kept": 111,
+        "messages_dropped": 10
+      }
+    },
+    "source_coverage": {
+      "source_messages_present": 2,
+      "source_messages_total": 5,
+      "coverage": 0.4,
+      "present_turns": [
+        4,
+        5
+      ],
+      "constraints_with_source_present": [
+        "C5",
+        "C6",
+        "C7"
+      ]
+    },
+    "realised": {
+      "dialogue": {
+        "prompt_tokens": 6473,
+        "completion_tokens": 535,
+        "seconds": 24.052
+      },
+      "finalisation": {
+        "prompt_tokens": 2073,
+        "completion_tokens": 203,
+        "seconds": 5.255
+      },
+      "judge": {
+        "prompt_tokens": 1030,
+        "completion_tokens": 40,
+        "seconds": 2.424
+      },
+      "experiment_total": {
+        "prompt_tokens": 8546,
+        "completion_tokens": 738,
+        "seconds": 29.307
+      }
+    },
+    "finalisation": {
+      "stop_reason": "accepted",
+      "retries": 1,
+      "attempts": [
+        {
+          "attempt": 0,
+          "speaker": "Operations Lead",
+          "content": "Here is the final recovery plan:\n\n{\"actions\": [\n  {\"action\": \"ISOLATE_NODE\", \"description\": \"Isolate db-04 and stop accepting new writes\"},\n  {\"action\": \"RUN_DIAGNOSTICS\", \"description\": \"Run diagnostics on db-04 to understand the issue\"},\n  {\"action\": \"RUN_BACKUP\", \"description\": \"Create a backup of db-04\"},\n  {\"action\": \"FAILOVER_API\", \"description\": \"Reroute API traffic to db-05\"},\n  {\"action\": \"RESTART_DB\", \"description\": \"Restart db-04 with the backup\"},\n  {\"action\": \"RESTORE_TRAFFIC\", \"description\": \"Restore traffic to the API once db-04 is back online\"}\n], \"ready\": true}",
+          "parse_error": "actions is not a list of strings",
+          "prompt_tokens": 920,
+          "completion_tokens": 164,
+          "seconds": 3.009
+        },
+        {
+          "attempt": 1,
+          "speaker": "Operations Lead",
+          "content": "{\"actions\": [\"ISOLATE_NODE\", \"RUN_BACKUP\", \"RESTART_DB\", \"FAILOVER_API\", \"RESTORE_TRAFFIC\"], \"ready\": true}",
+          "parse_error": null,
+          "prompt_tokens": 1153,
+          "completion_tokens": 39,
+          "seconds": 2.246
+        }
+      ],
+      "totals": {
+        "attempts": 2,
+        "prompt_tokens": 2073,
+        "completion_tokens": 203,
+        "seconds": 5.255
+      },
+      "evaluation": {
+        "parsed": true,
+        "parse_error": null,
+        "actions": [
+          "ISOLATE_NODE",
+          "RUN_BACKUP",
+          "RESTART_DB",
+          "FAILOVER_API",
+          "RESTORE_TRAFFIC"
+        ],
+        "ready": true,
+        "unknown_actions": [],
+        "satisfied": [
+          "C1",
+          "C2",
+          "C3",
+          "C4",
+          "C6",
+          "C7"
+        ],
+        "violated": [
+          "C5"
+        ],
+        "violations": 1,
+        "constraint_recall": 0.8571,
+        "success": false
+      }
+    },
+    "judge": {
+      "stop_reason": "accepted",
+      "retries": 0,
+      "attempts": [
+        {
+          "attempt": 0,
+          "speaker": "Judge",
+          "content": "{\"score\": 3, \"success\": false, \"reason\": \"The plan does not explicitly state the isolation of db-04 and the backup and restart sequence in a safe order.\"}",
+          "parse_error": null,
+          "prompt_tokens": 1030,
+          "completion_tokens": 40,
+          "seconds": 2.424
+        }
+      ],
+      "totals": {
+        "attempts": 1,
+        "prompt_tokens": 1030,
+        "completion_tokens": 40,
+        "seconds": 2.424
+      },
+      "model": "llama3.2:3b",
+      "score": 3,
+      "success": false,
+      "reason": "The plan does not explicitly state the isolation of db-04 and the backup and restart sequence in a safe order.",
+      "note": "secondary evidence; the deterministic evaluator is primary"
+    }
+  },
+  "agents": [
+    {
+      "name": "Operations Lead",
+      "model": "llama3.2:3b",
+      "temperature": 0.7
+    },
+    {
+      "name": "Safety Auditor",
+      "model": "llama3.2:3b",
+      "temperature": 0.7
+    }
+  ],
+  "budget": {
+    "stop_reason": "max_turns",
+    "turns": 10,
+    "tokens": 7008,
+    "seconds": 31.735,
+    "limits": {
+      "max_turns": 10,
+      "max_tokens": 100000,
+      "max_seconds": 600
+    }
+  },
+  "totals": {
+    "turns": 16,
+    "prompt_tokens": 6473,
+    "completion_tokens": 535,
+    "seconds": 24.052
+  },
+  "messages": [
+    {
+      "speaker": "Operations Lead",
+      "content": "We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 0
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 1
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 2
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 3
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 4
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 5
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "Got it, so the API will be rerouted to db-05, and we'll keep db-04 isolated and backed up. Also, before we start the backup, I'll want to check if there are any pending cluster upgrades or maintenance windows that might impact our window for the recovery.",
+      "prompt_tokens": 402,
+      "completion_tokens": 60,
+      "seconds": 2.4337878999940585,
+      "turn_index": 6
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Good thinking on checking the upgrades and maintenance windows - we don't want to schedule a backup during a planned downtime that we can't control. I'll check on the current status of the upgrade and maintenance windows, and we can decide how to handle the backup scheduling accordingly.",
+      "prompt_tokens": 471,
+      "completion_tokens": 55,
+      "seconds": 2.4084319999965373,
+      "turn_index": 7
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "Keep me posted on the status. In the meantime, I'll start coordinating with our team to get db-05 ready for the API failover, and I'll also start notifying our incident response team and relevant stakeholders about the plan.",
+      "prompt_tokens": 525,
+      "completion_tokens": 48,
+      "seconds": 2.362329299998237,
+      "turn_index": 8
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "I'll also start updating our incident management platform with the plan, including the timeline and the steps we've agreed on. I'll also keep an eye on the cluster logs to make sure nothing else pops up during this window - we don't want to be dealing with another crisis while we're trying to recover from this one.",
+      "prompt_tokens": 582,
+      "completion_tokens": 66,
+      "seconds": 2.431747599999653,
+      "turn_index": 9
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "That's a good call. I'll also want a status update from our network team to confirm that they can reroute the traffic to db-05 without any issues, and to get an idea of the expected latency during the failover.",
+      "prompt_tokens": 647,
+      "completion_tokens": 49,
+      "seconds": 2.3820812000049045,
+      "turn_index": 10
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "I'll give our network team a call to confirm the rerouting and get that latency estimate - we need to make sure we're not just shifting one bottleneck to another. And let's also confirm that they're aware of the backup and the planned restart, so we're all on the same page.",
+      "prompt_tokens": 705,
+      "completion_tokens": 61,
+      "seconds": 2.389458099991316,
+      "turn_index": 11
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "While you're on the phone with the network team, I'll send an email to our team and stakeholders confirming the plan and timeline, so we can all be aware of what's happening and what to expect.",
+      "prompt_tokens": 765,
+      "completion_tokens": 43,
+      "seconds": 2.347902499997872,
+      "turn_index": 12
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Make sure to include the key points, like the isolation of db-04, the backup and restart, and the API failover to db-05 - we want everyone to be aware of the plan and the steps we're taking to get back online. Also, mention that we're expecting some latency during the failover process.",
+      "prompt_tokens": 785,
+      "completion_tokens": 67,
+      "seconds": 2.499630399994203,
+      "turn_index": 13
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "I'll also CC our incident response team on the email, so they're aware of the plan and can provide support and updates as needed.",
+      "prompt_tokens": 797,
+      "completion_tokens": 29,
+      "seconds": 2.343892999997479,
+      "turn_index": 14
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "That's a good idea - having the incident response team in the loop will help ensure that we're coordinating with the right people and getting the right level of support. I'll also CC them on my follow-up call with the network team, so we can keep each other informed.",
+      "prompt_tokens": 794,
+      "completion_tokens": 57,
+      "seconds": 2.452859900004114,
+      "turn_index": 15
+    }
+  ]
+}

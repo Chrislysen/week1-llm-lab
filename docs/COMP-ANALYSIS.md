@@ -8,6 +8,22 @@ table beside them. Nothing frozen was modified.
 
 Reproduce with `python comp_analysis.py`.
 
+> **Correction, 2026-09-29.** A supplementary run with independent repeats
+> (agents at temperature 0.7, 5 runs per condition; `docs/SUPPLEMENTARY-T07.md`)
+> overturns three claims below. They were true of the frozen runs but do not
+> generalise:
+>
+> - "more context scored worse" (§0, §6): at temperature 0.7 **full history is
+>   best** (mean recall 0.943, 3/5 successes), not worst;
+> - "C5 broke in 11 of 12" (§3–4) overstates it: at temperature 0.7 C5 broke in 2 of 5
+>   runs in every condition with context, including full history, and 4 of 5 with none;
+> - "no run succeeded" (§0): 5 of 25 supplementary runs succeeded.
+>
+> Still standing: the repeats were copies (§1), the early rules C1/C2 are lost
+> under small windows (§5, now 4/5 recency-4 runs vs 0/5 full), the judge carries
+> no signal (§9), and `ready` is always true (§7). The sections below are kept as
+> an accurate description of the frozen runs.
+
 ---
 
 ## 0. The headline numbers (unchanged from the frozen results)
@@ -146,7 +162,9 @@ to measure. It is weak evidence, though. recency-8 also lost turn 1 and also had
 isolation mention in its final context (turns 8–15), yet its one trajectory kept C1
 and C2. Losing the source may be necessary for these violations, but it was not sufficient.
 
-## 6. Topic drift, invented content, and why more context scored worse
+## 6. Topic drift, invented content, and why more context scored worse *in the frozen runs*
+
+*(Not replicated with independent repeats; see the correction at the top.)*
 
 **The agents drift off the task.** Between 20% and 60% of generated turns (2 to 6 of
 10 per run) mention none of the six plan actions (keyword check). The conversations

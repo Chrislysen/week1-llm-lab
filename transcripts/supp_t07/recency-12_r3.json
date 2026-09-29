@@ -1,0 +1,347 @@
+{
+  "meta": {
+    "scenario": "db04-payments",
+    "seeded_turns": 6,
+    "mock": false,
+    "context": {
+      "policy": "recency",
+      "label": "recency-12",
+      "config": {
+        "max_messages": 12
+      },
+      "calls": [
+        {
+          "available": 6,
+          "kept": 6,
+          "dropped": 0
+        },
+        {
+          "available": 7,
+          "kept": 7,
+          "dropped": 0
+        },
+        {
+          "available": 8,
+          "kept": 8,
+          "dropped": 0
+        },
+        {
+          "available": 9,
+          "kept": 9,
+          "dropped": 0
+        },
+        {
+          "available": 10,
+          "kept": 10,
+          "dropped": 0
+        },
+        {
+          "available": 11,
+          "kept": 11,
+          "dropped": 0
+        },
+        {
+          "available": 12,
+          "kept": 12,
+          "dropped": 0
+        },
+        {
+          "available": 13,
+          "kept": 12,
+          "dropped": 1
+        },
+        {
+          "available": 14,
+          "kept": 12,
+          "dropped": 2
+        },
+        {
+          "available": 15,
+          "kept": 12,
+          "dropped": 3
+        },
+        {
+          "available": 16,
+          "kept": 12,
+          "dropped": 4
+        }
+      ],
+      "totals": {
+        "calls": 11,
+        "messages_available": 121,
+        "messages_kept": 111,
+        "messages_dropped": 10
+      }
+    },
+    "source_coverage": {
+      "source_messages_present": 2,
+      "source_messages_total": 5,
+      "coverage": 0.4,
+      "present_turns": [
+        4,
+        5
+      ],
+      "constraints_with_source_present": [
+        "C5",
+        "C6",
+        "C7"
+      ]
+    },
+    "realised": {
+      "dialogue": {
+        "prompt_tokens": 6868,
+        "completion_tokens": 603,
+        "seconds": 24.582
+      },
+      "finalisation": {
+        "prompt_tokens": 988,
+        "completion_tokens": 59,
+        "seconds": 2.516
+      },
+      "judge": {
+        "prompt_tokens": 1118,
+        "completion_tokens": 25,
+        "seconds": 2.341
+      },
+      "experiment_total": {
+        "prompt_tokens": 7856,
+        "completion_tokens": 662,
+        "seconds": 27.098
+      }
+    },
+    "finalisation": {
+      "stop_reason": "accepted",
+      "retries": 0,
+      "attempts": [
+        {
+          "attempt": 0,
+          "speaker": "Operations Lead",
+          "content": "{\n  \"actions\": [\n    \"RUN_DIAGNOSTICS\",\n    \"ISOLATE_NODE\",\n    \"RUN_BACKUP\",\n    \"RESTART_DB\",\n    \"FAILOVER_API\",\n    \"RESTORE_TRAFFIC\"\n  ],\n  \"ready\": true\n}",
+          "parse_error": null,
+          "prompt_tokens": 988,
+          "completion_tokens": 59,
+          "seconds": 2.516
+        }
+      ],
+      "totals": {
+        "attempts": 1,
+        "prompt_tokens": 988,
+        "completion_tokens": 59,
+        "seconds": 2.516
+      },
+      "evaluation": {
+        "parsed": true,
+        "parse_error": null,
+        "actions": [
+          "RUN_DIAGNOSTICS",
+          "ISOLATE_NODE",
+          "RUN_BACKUP",
+          "RESTART_DB",
+          "FAILOVER_API",
+          "RESTORE_TRAFFIC"
+        ],
+        "ready": true,
+        "unknown_actions": [],
+        "satisfied": [
+          "C1",
+          "C3",
+          "C4",
+          "C6",
+          "C7"
+        ],
+        "violated": [
+          "C2",
+          "C5"
+        ],
+        "violations": 2,
+        "constraint_recall": 0.7143,
+        "success": false
+      }
+    },
+    "judge": {
+      "stop_reason": "accepted",
+      "retries": 0,
+      "attempts": [
+        {
+          "attempt": 0,
+          "speaker": "Judge",
+          "content": "{\"score\": 5, \"success\": false, \"reason\": \"plan follows agreed actions in a safe order\"}",
+          "parse_error": null,
+          "prompt_tokens": 1118,
+          "completion_tokens": 25,
+          "seconds": 2.341
+        }
+      ],
+      "totals": {
+        "attempts": 1,
+        "prompt_tokens": 1118,
+        "completion_tokens": 25,
+        "seconds": 2.341
+      },
+      "model": "llama3.2:3b",
+      "score": 5,
+      "success": false,
+      "reason": "plan follows agreed actions in a safe order",
+      "note": "secondary evidence; the deterministic evaluator is primary"
+    }
+  },
+  "agents": [
+    {
+      "name": "Operations Lead",
+      "model": "llama3.2:3b",
+      "temperature": 0.7
+    },
+    {
+      "name": "Safety Auditor",
+      "model": "llama3.2:3b",
+      "temperature": 0.7
+    }
+  ],
+  "budget": {
+    "stop_reason": "max_turns",
+    "turns": 10,
+    "tokens": 7471,
+    "seconds": 29.441,
+    "limits": {
+      "max_turns": 10,
+      "max_tokens": 100000,
+      "max_seconds": 600
+    }
+  },
+  "totals": {
+    "turns": 16,
+    "prompt_tokens": 6868,
+    "completion_tokens": 603,
+    "seconds": 24.582
+  },
+  "messages": [
+    {
+      "speaker": "Operations Lead",
+      "content": "We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 0
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 1
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 2
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 3
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 4
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 5
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "I'll arrange for the API to be routed to a secondary node that's already healthy, and we can then restart the problematic node without taking the API offline. That way, we can ensure the API stays available to customers while we work on the database. And we should also consider escalating this to the DBA team to get them to investigate why db-04 was in this state in the first place.",
+      "prompt_tokens": 402,
+      "completion_tokens": 82,
+      "seconds": 2.5347636999940732,
+      "turn_index": 6
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Good thinking on the API failover, and I'll add that to the plan. For the DBA team, let's make it clear that we don't want to impose new constraints on the system, but we do want them to investigate the underlying cause of the issues on db-04. So, no new restrictions or workarounds, just root cause analysis.",
+      "prompt_tokens": 493,
+      "completion_tokens": 75,
+      "seconds": 2.4896231000020634,
+      "turn_index": 7
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "I'll make sure the communication to the DBA team is clear on that. Also, I'll assign our colleague, Alex, to help coordinate with the DBA team and get an update on when they'll have their findings, so we can plan the restart and API failover accordingly.",
+      "prompt_tokens": 567,
+      "completion_tokens": 59,
+      "seconds": 2.3936646999936784,
+      "turn_index": 8
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "That's a good plan, and I'll add Alex to the team's communication loop too. We should also make sure that Alex is aware of the plan and timeline, so they can keep us updated and make sure we're aligned on any changes to the investigation or proposed fixes.",
+      "prompt_tokens": 635,
+      "completion_tokens": 57,
+      "seconds": 2.4037303000077372,
+      "turn_index": 9
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "I'll add Alex to the plan document and make sure it's reviewed by them before we implement. Also, I'll give them a call to confirm they're on the same page and have a good understanding of the plan and the expected timeline for the DBA team's findings.",
+      "prompt_tokens": 691,
+      "completion_tokens": 57,
+      "seconds": 2.4818487000011373,
+      "turn_index": 10
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Before we finalize the plan, let's review it one more time as a team to make sure everyone is comfortable with the approach and the dependencies. We don't want to move forward with implementing the plan without a clear head on the process.",
+      "prompt_tokens": 757,
+      "completion_tokens": 49,
+      "seconds": 2.4136149999976624,
+      "turn_index": 11
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "Sounds good to me. I'll review the plan document and make sure everything is accurate and up-to-date. Then I'll summarize the plan and timeline, and we can go through it one more time to make sure we're all on the same page before moving forward.",
+      "prompt_tokens": 805,
+      "completion_tokens": 55,
+      "seconds": 2.4374818000069354,
+      "turn_index": 12
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Once you've summarized the plan, I'll review it and add any final thoughts or comments. Then, let's schedule a debrief with the team to review the outcome, identify any lessons learned, and document the process for future reference.",
+      "prompt_tokens": 837,
+      "completion_tokens": 49,
+      "seconds": 2.4401505999994697,
+      "turn_index": 13
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "That sounds like a solid next step. I'll propose a time for the debrief, probably within the next 24 hours, and make sure all team members are aware of it so we can get everyone's input and reflection on the recovery process.",
+      "prompt_tokens": 831,
+      "completion_tokens": 51,
+      "seconds": 2.4504428999935044,
+      "turn_index": 14
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "I'll add the debrief to the recovery plan document, so it's clear for everyone what's expected and when. And, just to confirm, we'll make sure to document everything, including the root cause analysis, proposed fixes, and the outcome of the recovery process, so we can learn from it and improve our incident response plan.",
+      "prompt_tokens": 850,
+      "completion_tokens": 69,
+      "seconds": 2.5365572000009706,
+      "turn_index": 15
+    }
+  ]
+}

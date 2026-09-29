@@ -1,0 +1,99 @@
+
+=== INCIDENT db04-payments ===
+
+[seed] Operations Lead: We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.
+
+[seed] Safety Auditor: Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.
+
+[seed] Operations Lead: Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.
+
+[seed] Safety Auditor: Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.
+
+[seed] Operations Lead: Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.
+
+[seed] Safety Auditor: Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.
+
+[t6] Operations Lead: assistant
+
+I've been reviewing the error logs and it seems like the database is experiencing a high volume of concurrent connections, causing the errors. I think we should first isolate the issue on the db-04 node to prevent further degradation of the API. Can you start by shutting down the node and running a quick database dump to take a snapshot of the current state?
+
+[t7] Safety Auditor: assistant
+
+"I was thinking we could move the customer-facing API to the standby node, but we need to make sure that's not going to overload db-04 further. What's the estimated CPU usage on db-04 right now, and how much time do we have before the errors escalate?"
+
+[t8] Operations Lead: assistant
+
+I've taken a look at the error logs and it seems the database is experiencing a resource constraint issue, likely due to the sudden spike in traffic. Have you checked if we have any capacity reserved for the database in our load balancer, and if so, can we scale that up to alleviate the pressure?
+
+[t9] Safety Auditor: assistant
+
+"I think we need to take a closer look at what's happening with the database errors. Have we checked the logs to see if there are any repeated errors or patterns that might give us a clue about what's causing the problem?"
+
+[t10] Operations Lead: assistant
+
+"Alright, let's prioritize the issue. We need to get the API up and running ASAP, so we should focus on resolving the issue with db-04 first. Can you check the database logs to see if there are any error patterns or connections that we can identify as the root cause?"
+
+[t11] Safety Auditor: assistant
+
+We need to get the database back online ASAP, but I'm concerned about the potential for more errors if we just restart the service without checking the underlying causes. Can we first confirm that restarting the service won't trigger any other issues, like losing session data or other concurrent connections?
+
+[t12] Operations Lead: assistant
+
+I've got a team of developers on standby, ready to assist with a potential database restore or API redeployment if needed. Our first priority is to understand the root cause of the issue on db-04. Have we confirmed the error messages on the database, and are we getting any error logs that might give us a clue?
+
+[t13] Safety Auditor: assistant
+
+"Okay, so we need to get the API back up ASAP. Have we reviewed the DB-04 instance's configuration to see if we can adjust any settings or add more resources to help with the load?"
+
+[t14] Operations Lead: assistant
+
+I've got the production incident report on my screen, and it looks like we've got a high-priority alert from the monitoring team. The errors are coming from the `db-04` node, and our load testing shows that the API is indeed experiencing significant performance issues. What's the current assessment of the impact on our customers, is it causing any significant downtime or data loss?
+
+[t15] Safety Auditor: assistant
+
+I just got the alert from the monitoring system, so I'm assuming our colleague in ops has already escalated this to the team. Can we confirm what's happening with the errors on db-04 - is it a known issue or something that just started happening now?
+
+=== FINALISATION ===
+
+-- attempt 1 (parsed) --
+{
+  "actions": [
+    "RUN_DIAGNOSTICS",
+    "RUN_BACKUP",
+    "RESTART_DB",
+    "FAILOVER_API",
+    "RESTORE_TRAFFIC"
+  ],
+  "ready": true
+}
+
+stop_reason: accepted   retries: 0
+
+=== EVALUATION ===
+parsed             True
+actions            ['RUN_DIAGNOSTICS', 'RUN_BACKUP', 'RESTART_DB', 'FAILOVER_API', 'RESTORE_TRAFFIC']
+ready              True
+unknown actions    []
+satisfied          ['C3', 'C4', 'C6', 'C7']
+violated           ['C1', 'C2', 'C5']
+constraint_recall  0.5714
+success            False  <- PRIMARY (deterministic)
+
+=== SOURCE COVERAGE ===
+original source messages present  0/5  (0.0)
+seed turns still in context       []
+constraints whose source survived []
+
+=== JUDGE (secondary) ===
+model              llama3.2:3b
+stop_reason        accepted   retries: 0
+score              3
+success            False
+reason             Missing 'ISOLATE_NODE' action
+
+dialogue stopped: max_turns (10 generated turns, 1895 tokens)
+context policy:   recency-0 {'max_messages': 0}
+                  0 kept / 121 dropped over 11 calls
+realised prompt tokens: dialogue 1255, finalisation 243, judge 1128 (experiment total 1498)
+realised seconds:       dialogue 24.001, finalisation 2.34, judge 2.317
+saved: transcripts/supp_t07/recency-0_r2.json

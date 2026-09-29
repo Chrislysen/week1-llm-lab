@@ -1,0 +1,84 @@
+
+=== INCIDENT db04-payments ===
+
+[seed] Operations Lead: We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.
+
+[seed] Safety Auditor: Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.
+
+[seed] Operations Lead: Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.
+
+[seed] Safety Auditor: Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.
+
+[seed] Operations Lead: Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.
+
+[seed] Safety Auditor: Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.
+
+[t6] Operations Lead: Right, so we need to fail over the API to db-05, and then restart db-04. Also, while we're waiting for the backup to complete, can you confirm what's the status of the team on db-05 - are they aware of the failure and ready to take on the API?
+
+[t7] Safety Auditor: The team on db-05 has been paged, and they confirm they're ready to take over, but I need to confirm that they understand the implications of running the API on a backup database.
+
+[t8] Operations Lead: I'll send them a quick summary of the situation, just to make sure they know what's at stake. In the meantime, I'll go ahead and get the failover script ready, just in case we need to move fast. Can you also check with ops-orchestra to see if there are any automated failover options available for us to use?
+
+[t9] Safety Auditor: I'll also check with ops-orchestra to see if they can script out the failover and restart for us, but I'm not expecting it - we're already running the failover script, so that's the next step. I'll confirm with them that we're good to go with the manual failover.
+
+[t10] Operations Lead: I'll update the incident page to reflect the manual failover plan, just in case anyone else needs to know the status. Can you also get in touch with the customer support team to let them know what's going on and when we expect the API to be back online?
+
+[t11] Safety Auditor: I'll also make sure to pass on the expected downtime to them, so they can prepare the customers for the outage, but I'm still waiting on confirmation from ops-orchestra that the failover script is correct and won't introduce any additional errors. We should also review the script again to make sure it's properly tested.
+
+[t12] Operations Lead: I'll review the script with you to ensure it's correct, and we can also add a sanity check to make sure the database is properly configured before restarting it. Once we're confident in the script, I'll schedule the failover for 15 minutes from now, so we can make sure everything is in place before actually switching.
+
+[t13] Safety Auditor: That sounds good, but before we schedule the failover, can we confirm that we've communicated the expected downtime to the customer support team and that they're aware of our plan to manually failover the API? We should also make sure we've got a clear escalation path in case something goes wrong during the failover.
+
+[t14] Operations Lead: I've just checked in with the customer support team, and they're aware of the expected downtime and our plan to manually failover the API. We've also established a clear escalation path, with the on-call engineer being notified in case anything goes wrong during the failover. I'll also send a follow-up email to the customer support team to confirm.
+
+[t15] Safety Auditor: I'll review the email to ensure it's clear and concise, and that we're not releasing any new information that could impact the situation. I'll also make sure to CC the on-call engineer on the email, so they're aware of the plan and can be prepared to jump in if needed.
+
+=== FINALISATION ===
+
+-- attempt 1 (PARSE FAILED: actions is not a list of strings) --
+{"actions": [
+  {"id": "COMMUNICATE_WITH_CUSTOMER_SUPPORT", "description": "Inform customer support team of expected downtime and manual API failover"},
+  {"id": "CONFIRM_ESCALATION_PATH", "description": "Establish clear escalation path with on-call engineer"},
+  {"id": "REVIEW_EMAIL", "description": "Review and confirm email to customer support team"},
+  {"id": "CC_ON_CALL_ENGINEER", "description": "CC on-call engineer on email to ensure they're aware of the plan"},
+  {"id": "SCHEDULE_FAILOVER", "description": "Schedule manual API failover for 15 minutes from now"},
+  {"id": "ISOLATE_NODE_DB-04", "description": "Isolate node db-04"},
+  {"id": "RUN_DIAGNOSTICS", "description": "Run diagnostics on isolated node"},
+  {"id": "RUN_BACKUP", "description": "Run backup of database"},
+  {"id": "RESTART_DB", "description": "Restart database"},
+  {"id": "RESTORE_TRAFFIC", "description": "Restore traffic to API"}
+], "ready": true}
+
+-- attempt 2 (parsed) --
+{"actions": ["COMMUNICATE_WITH_CUSTOMER_SUPPORT", "CONFIRM_ESCALATION_PATH", "REVIEW_EMAIL", "CC_ON_CALL_ENGINEER", "SCHEDULE_FAILOVER", "ISOLATE_NODE_DB-04", "RUN_DIAGNOSTICS", "RUN_BACKUP", "RESTART_DB", "RESTORE_TRAFFIC"], "ready": true}
+
+stop_reason: accepted   retries: 1
+
+=== EVALUATION ===
+parsed             True
+actions            ['COMMUNICATE_WITH_CUSTOMER_SUPPORT', 'CONFIRM_ESCALATION_PATH', 'REVIEW_EMAIL', 'CC_ON_CALL_ENGINEER', 'SCHEDULE_FAILOVER', 'ISOLATE_NODE_DB-04', 'RUN_DIAGNOSTICS', 'RUN_BACKUP', 'RESTART_DB', 'RESTORE_TRAFFIC']
+ready              True
+unknown actions    ['COMMUNICATE_WITH_CUSTOMER_SUPPORT', 'CONFIRM_ESCALATION_PATH', 'REVIEW_EMAIL', 'CC_ON_CALL_ENGINEER', 'SCHEDULE_FAILOVER', 'ISOLATE_NODE_DB-04']
+satisfied          ['C3', 'C4', 'C6', 'C7']
+violated           ['C1', 'C2', 'C5']
+constraint_recall  0.5714
+success            False  <- PRIMARY (deterministic)
+
+=== SOURCE COVERAGE ===
+original source messages present  0/5  (0.0)
+seed turns still in context       []
+constraints whose source survived []
+
+=== JUDGE (secondary) ===
+model              llama3.2:3b
+stop_reason        accepted   retries: 0
+score              3
+success            False
+reason             plan misses the dependency on the backup completion before restarting the database
+
+dialogue stopped: max_turns (10 generated turns, 4441 tokens)
+context policy:   recency-4 {'max_messages': 4}
+                  44 kept / 77 dropped over 11 calls
+realised prompt tokens: dialogue 3806, finalisation 1354, judge 1170 (experiment total 5160)
+realised seconds:       dialogue 24.322, finalisation 5.766, judge 2.386
+saved: transcripts/supp_t07/recency-4_r3.json

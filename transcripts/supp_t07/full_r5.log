@@ -1,0 +1,82 @@
+
+=== INCIDENT db04-payments ===
+
+[seed] Operations Lead: We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.
+
+[seed] Safety Auditor: Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.
+
+[seed] Operations Lead: Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.
+
+[seed] Safety Auditor: Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.
+
+[seed] Operations Lead: Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.
+
+[seed] Safety Auditor: Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.
+
+[t6] Operations Lead: So we need to failover the API to another node, ideally one that's less loaded than the others. Let's check which node is available to take over the API and if it has the capacity to handle the load. I'll get our team to script the failover, can you get the node availability?
+
+[t7] Safety Auditor: Before doing that, make sure the script fails over to a node that's not already at 100% capacity -- we don't want to overload the system even further. And also double-check that the available node has all the necessary dependencies up and running.
+
+[t8] Operations Lead: I'll make sure to script the failover to a node that's currently underutilized and has all its dependencies online. I'll also add a check to ensure the node has the required resources to handle the increased load, to avoid overloading the system further.
+
+[t9] Safety Auditor: One more thing: have we got the monitoring system reporting on the current CPU, RAM, and I/O usage on the node that will take over the API, so we can gauge the actual capacity?
+
+[t10] Operations Lead: I was about to ask that. Let me check the monitoring system real quick. We've got the usual dashboards set up, so I should be able to pull up the node's metrics to see how it's doing.
+
+[t11] Safety Auditor: Just a heads up: if the node's metrics don't look good, we can't just assume it can handle the increased load without a thorough analysis. I'm thinking we should also check the node's configuration and recent updates, if any, to ensure it's not caught out with a bug or something.
+
+[t12] Operations Lead: Good call, don't want to assume a healthy node when it might be hiding a problem. I'll add a check to the failover script to run a quick health check on the node, including a configuration check and a metrics analysis, to make sure we're not bringing another issue online.
+
+[t13] Safety Auditor: That's a good sanity check, but I'd also like to see that the node is still within its recommended resource limits, so I'd add a check for that as well, to avoid stressing the system further.
+
+[t14] Operations Lead: I'll add that to the script as well, so we can ensure the node is within its recommended limits before failover. That way, we can be even more confident it can handle the increased load.
+
+[t15] Safety Auditor: Sounds good, now that we've got the script refined, let's review it with the team and make sure everyone's on the same page before we execute the failover.
+
+=== FINALISATION ===
+
+-- attempt 1 (parsed) --
+{
+  "actions": [
+    "ISOLATE_NODE",
+    "RUN_BACKUP",
+    "CHECK_NODE_METRICS",
+    "CHECK_NODE_CONFIG",
+    "CHECK_NODE_RESOURCE_LIMITS",
+    "FAILOVER_API",
+    "RESTART_DB",
+    "RESTORE_TRAFFIC"
+  ],
+  "ready": true
+}
+
+stop_reason: accepted   retries: 0
+
+=== EVALUATION ===
+parsed             True
+actions            ['ISOLATE_NODE', 'RUN_BACKUP', 'CHECK_NODE_METRICS', 'CHECK_NODE_CONFIG', 'CHECK_NODE_RESOURCE_LIMITS', 'FAILOVER_API', 'RESTART_DB', 'RESTORE_TRAFFIC']
+ready              True
+unknown actions    ['CHECK_NODE_METRICS', 'CHECK_NODE_CONFIG', 'CHECK_NODE_RESOURCE_LIMITS']
+satisfied          ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7']
+violated           []
+constraint_recall  1.0000
+success            True  <- PRIMARY (deterministic)
+
+=== SOURCE COVERAGE ===
+original source messages present  5/5  (1.0)
+seed turns still in context       [1, 2, 3, 4, 5]
+constraints whose source survived ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7']
+
+=== JUDGE (secondary) ===
+model              llama3.2:3b
+stop_reason        accepted   retries: 0
+score              3
+success            False
+reason             Plan does not explicitly state the order of actions, which could lead to inconsistencies in the execution process.
+
+dialogue stopped: max_turns (10 generated turns, 7135 tokens)
+context policy:   full {}
+                  121 kept / 0 dropped over 11 calls
+realised prompt tokens: dialogue 6633, finalisation 1055, judge 1030 (experiment total 7688)
+realised seconds:       dialogue 23.455, finalisation 2.452, judge 2.381
+saved: transcripts/supp_t07/full_r5.json

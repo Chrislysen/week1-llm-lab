@@ -1,0 +1,77 @@
+
+=== INCIDENT db04-payments ===
+
+[seed] Operations Lead: We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.
+
+[seed] Safety Auditor: Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.
+
+[seed] Operations Lead: Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.
+
+[seed] Safety Auditor: Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.
+
+[seed] Operations Lead: Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.
+
+[seed] Safety Auditor: Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.
+
+[t6] Operations Lead: So the API needs to be failed over to db-05 or db-06, whichever is available, before we restart db-04. And once db-04 is back up, we'll reroute the traffic back to it. Do you think db-05 is available to take over API traffic now?
+
+[t7] Safety Auditor: Let's check the current load on db-05 before we start, but if it's still under acceptable limits, it should be able to take on the API load. I'll check the metrics real quick.
+
+[t8] Operations Lead: I'll keep the isolation and backup process going while you check the metrics on db-05. Can you also just confirm the current customer load and any other critical traffic that's still being routed to db-04?
+
+[t9] Safety Auditor: I've got the current customer load at 500 concurrent requests, and we've also got 200 requests coming in on the reporting API, all of it still routing to db-04.
+
+[t10] Operations Lead: That's not great. With 700 concurrent requests, db-05 is probably still under the load it can handle. I think we should start the backup on db-04, though, to ensure we've got a good recovery point in case something else goes wrong.
+
+[t11] Safety Auditor: I agree, starting the backup on db-04 makes sense, but let's also confirm that the isolation is properly in place to prevent any new data from being written to the database until it's fully backed up.
+
+[t12] Operations Lead: I'll check the isolation rules to make sure we're blocking all writes to db-04 until it's back up and the API is running on db-05. Can you confirm that the isolation rules are set to "db-04 read-only" for now?
+
+[t13] Safety Auditor: That's the correct isolation rule, so db-04 is read-only, but the write rule is still set to use db-05, so writes to the database will automatically be routed to db-05 until we restore it.
+
+[t14] Operations Lead: Got it, that means we've got the isolation rule in place, and writes to db-04 will go to db-05. Now, I'll just go ahead and start the backup process on db-04, and we'll get it fully backed up before restoring it to read-write status.
+
+[t15] Safety Auditor: Before we start the restoration process, let's confirm that the DBA has acknowledged the changes and that the backup process is properly configured to ensure a clean restore.
+
+=== FINALISATION ===
+
+-- attempt 1 (parsed) --
+{"actions": [
+  "ISOLATE_NODE",
+  "RUN_BACKUP",
+  "RUN_DIAGNOSTICS",
+  "FAILOVER_API",
+  "RESTART_DB",
+  "RESTORE_TRAFFIC"
+], "ready": true}
+
+stop_reason: accepted   retries: 0
+
+=== EVALUATION ===
+parsed             True
+actions            ['ISOLATE_NODE', 'RUN_BACKUP', 'RUN_DIAGNOSTICS', 'FAILOVER_API', 'RESTART_DB', 'RESTORE_TRAFFIC']
+ready              True
+unknown actions    []
+satisfied          ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7']
+violated           []
+constraint_recall  1.0000
+success            True  <- PRIMARY (deterministic)
+
+=== SOURCE COVERAGE ===
+original source messages present  0/5  (0.0)
+seed turns still in context       []
+constraints whose source survived []
+
+=== JUDGE (secondary) ===
+model              llama3.2:3b
+stop_reason        accepted   retries: 0
+score              3
+success            False
+reason             API failover was not explicitly ordered before restarting db-04
+
+dialogue stopped: max_turns (10 generated turns, 5689 tokens)
+context policy:   recency-8 {'max_messages': 8}
+                  85 kept / 36 dropped over 11 calls
+realised prompt tokens: dialogue 5206, finalisation 647, judge 993 (experiment total 5853)
+realised seconds:       dialogue 23.738, finalisation 2.448, judge 2.359
+saved: transcripts/supp_t07/recency-8_r2.json

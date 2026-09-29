@@ -1,0 +1,353 @@
+{
+  "meta": {
+    "scenario": "db04-payments",
+    "seeded_turns": 6,
+    "mock": false,
+    "context": {
+      "policy": "recency",
+      "label": "recency-12",
+      "config": {
+        "max_messages": 12
+      },
+      "calls": [
+        {
+          "available": 6,
+          "kept": 6,
+          "dropped": 0
+        },
+        {
+          "available": 7,
+          "kept": 7,
+          "dropped": 0
+        },
+        {
+          "available": 8,
+          "kept": 8,
+          "dropped": 0
+        },
+        {
+          "available": 9,
+          "kept": 9,
+          "dropped": 0
+        },
+        {
+          "available": 10,
+          "kept": 10,
+          "dropped": 0
+        },
+        {
+          "available": 11,
+          "kept": 11,
+          "dropped": 0
+        },
+        {
+          "available": 12,
+          "kept": 12,
+          "dropped": 0
+        },
+        {
+          "available": 13,
+          "kept": 12,
+          "dropped": 1
+        },
+        {
+          "available": 14,
+          "kept": 12,
+          "dropped": 2
+        },
+        {
+          "available": 15,
+          "kept": 12,
+          "dropped": 3
+        },
+        {
+          "available": 16,
+          "kept": 12,
+          "dropped": 4
+        }
+      ],
+      "totals": {
+        "calls": 11,
+        "messages_available": 121,
+        "messages_kept": 111,
+        "messages_dropped": 10
+      }
+    },
+    "source_coverage": {
+      "source_messages_present": 2,
+      "source_messages_total": 5,
+      "coverage": 0.4,
+      "present_turns": [
+        4,
+        5
+      ],
+      "constraints_with_source_present": [
+        "C5",
+        "C6",
+        "C7"
+      ]
+    },
+    "realised": {
+      "dialogue": {
+        "prompt_tokens": 5884,
+        "completion_tokens": 432,
+        "seconds": 23.374
+      },
+      "finalisation": {
+        "prompt_tokens": 817,
+        "completion_tokens": 71,
+        "seconds": 2.542
+      },
+      "judge": {
+        "prompt_tokens": 959,
+        "completion_tokens": 28,
+        "seconds": 2.334
+      },
+      "experiment_total": {
+        "prompt_tokens": 6701,
+        "completion_tokens": 503,
+        "seconds": 25.916
+      }
+    },
+    "finalisation": {
+      "stop_reason": "accepted",
+      "retries": 0,
+      "attempts": [
+        {
+          "attempt": 0,
+          "speaker": "Operations Lead",
+          "content": "{\"actions\": [\n  \"RUN_DIAGNOSTICS\",\n  \"CHECK_DB Capacities\",\n  \"CHECK_API_LOGS\",\n  \"CHECK_DB_Availability_FOR_RESTART\",\n  \"FAILOVER_API\",\n  \"RUN_BACKUP\",\n  \"RESTART_DB\",\n  \"RESTORE_TRAFFIC\"\n], \"ready\": true}",
+          "parse_error": null,
+          "prompt_tokens": 817,
+          "completion_tokens": 71,
+          "seconds": 2.542
+        }
+      ],
+      "totals": {
+        "attempts": 1,
+        "prompt_tokens": 817,
+        "completion_tokens": 71,
+        "seconds": 2.542
+      },
+      "evaluation": {
+        "parsed": true,
+        "parse_error": null,
+        "actions": [
+          "RUN_DIAGNOSTICS",
+          "CHECK_DB Capacities",
+          "CHECK_API_LOGS",
+          "CHECK_DB_Availability_FOR_RESTART",
+          "FAILOVER_API",
+          "RUN_BACKUP",
+          "RESTART_DB",
+          "RESTORE_TRAFFIC"
+        ],
+        "ready": true,
+        "unknown_actions": [
+          "CHECK_DB Capacities",
+          "CHECK_API_LOGS",
+          "CHECK_DB_Availability_FOR_RESTART"
+        ],
+        "satisfied": [
+          "C3",
+          "C4",
+          "C5",
+          "C6",
+          "C7"
+        ],
+        "violated": [
+          "C1",
+          "C2"
+        ],
+        "violations": 2,
+        "constraint_recall": 0.7143,
+        "success": false
+      }
+    },
+    "judge": {
+      "stop_reason": "accepted",
+      "retries": 0,
+      "attempts": [
+        {
+          "attempt": 0,
+          "speaker": "Judge",
+          "content": "{\"score\": 3, \"success\": false, \"reason\": \"Missing 'CHECK_DB_CAPACITY' action in the final plan\"}",
+          "parse_error": null,
+          "prompt_tokens": 959,
+          "completion_tokens": 28,
+          "seconds": 2.334
+        }
+      ],
+      "totals": {
+        "attempts": 1,
+        "prompt_tokens": 959,
+        "completion_tokens": 28,
+        "seconds": 2.334
+      },
+      "model": "llama3.2:3b",
+      "score": 3,
+      "success": false,
+      "reason": "Missing 'CHECK_DB_CAPACITY' action in the final plan",
+      "note": "secondary evidence; the deterministic evaluator is primary"
+    }
+  },
+  "agents": [
+    {
+      "name": "Operations Lead",
+      "model": "llama3.2:3b",
+      "temperature": 0.7
+    },
+    {
+      "name": "Safety Auditor",
+      "model": "llama3.2:3b",
+      "temperature": 0.7
+    }
+  ],
+  "budget": {
+    "stop_reason": "max_turns",
+    "turns": 10,
+    "tokens": 6316,
+    "seconds": 28.253,
+    "limits": {
+      "max_turns": 10,
+      "max_tokens": 100000,
+      "max_seconds": 600
+    }
+  },
+  "totals": {
+    "turns": 16,
+    "prompt_tokens": 5884,
+    "completion_tokens": 432,
+    "seconds": 23.374
+  },
+  "messages": [
+    {
+      "speaker": "Operations Lead",
+      "content": "We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 0
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 1
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 2
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 3
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 4
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 5
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "Got it, so the failover is on the API side, and then we restart the database. That means we need to route all traffic to the other database, db-05, until we can get db-04 fixed.",
+      "prompt_tokens": 402,
+      "completion_tokens": 47,
+      "seconds": 2.3416445999901043,
+      "turn_index": 6
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Not so fast, we need to check if db-05 can actually handle the traffic - we can't just dump all traffic on it without checking its capacity.",
+      "prompt_tokens": 458,
+      "completion_tokens": 33,
+      "seconds": 2.2866416000033496,
+      "turn_index": 7
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "We should check the current load on db-05 and compare it to the expected load if we route all traffic to it. If it's already at max capacity, we need to escalate or come up with a plan B.",
+      "prompt_tokens": 490,
+      "completion_tokens": 46,
+      "seconds": 2.317249299987452,
+      "turn_index": 8
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "And we need to check the expected load as well - if the expected load is significantly higher than what db-05 can handle, then we're still in a spot of trouble.",
+      "prompt_tokens": 545,
+      "completion_tokens": 37,
+      "seconds": 2.268115700004273,
+      "turn_index": 9
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "So we need to check both the current load and the expected load to determine if db-05 can handle the traffic without overloading. I'll go ahead and check the current load on db-05.",
+      "prompt_tokens": 581,
+      "completion_tokens": 42,
+      "seconds": 2.3172567000001436,
+      "turn_index": 10
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Once you have that, we can also check the API's logging to see how many concurrent requests are being made to the current API endpoint - that should give us a better idea of what to expect.",
+      "prompt_tokens": 632,
+      "completion_tokens": 41,
+      "seconds": 2.316952699999092,
+      "turn_index": 11
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "That's a good point, checking the API's logging will give us a more accurate picture of the actual traffic being sent to the current endpoint. I'll also look into the current number of active sessions and query counts on db-04 to understand the root cause of the problem.",
+      "prompt_tokens": 672,
+      "completion_tokens": 57,
+      "seconds": 2.3848895999981323,
+      "turn_index": 12
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "And while you're doing that, I'll check on the DBA to see if we can get an estimate of when a database restart would be possible without causing too much disruption to our nightly maintenance tasks.",
+      "prompt_tokens": 706,
+      "completion_tokens": 42,
+      "seconds": 2.3672048000007635,
+      "turn_index": 13
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "That's a good plan. I'll also check the current queue on our incident response tool to see if anyone else is aware of the situation and can provide any additional insights or resources to help us recover the service.",
+      "prompt_tokens": 693,
+      "completion_tokens": 44,
+      "seconds": 2.398202599986689,
+      "turn_index": 14
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "And don't forget to update the incident response tool with our current plan, so that it reflects the current status and our intentions for resolving the issue, in case anyone from ops or management needs to follow along.",
+      "prompt_tokens": 705,
+      "completion_tokens": 43,
+      "seconds": 2.3754845000075875,
+      "turn_index": 15
+    }
+  ]
+}

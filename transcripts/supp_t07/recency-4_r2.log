@@ -1,0 +1,85 @@
+
+=== INCIDENT db04-payments ===
+
+[seed] Operations Lead: We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.
+
+[seed] Safety Auditor: Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.
+
+[seed] Operations Lead: Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.
+
+[seed] Safety Auditor: Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.
+
+[seed] Operations Lead: Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.
+
+[seed] Safety Auditor: Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.
+
+[t6] Operations Lead: Got it, so the failed over API can't be the same one that's failing, that's a no-go. I'll start failing over the API to the secondary node db-05, and get that up and running. Can you check on the status of the secondary node, and also check on the latest error messages from the primary node?
+
+[t7] Safety Auditor: I'll pull up the secondary node's status, but just to confirm, we're only failing over the API, not the database itself, right? And I'll also pull the latest error logs from the primary node, but I should note that we need to confirm the error messages don't indicate the same root cause on the secondary node.
+
+[t8] Operations Lead: We're failing over the API, not the database, to minimize downtime. I agree, we need to verify the root cause isn't the same, so we can diagnose the issue on the secondary node separately. Go ahead and pull the error logs, and I'll start configuring the API to route requests to the secondary node.
+
+[t9] Safety Auditor: I've pulled the error logs, and they're pretty standard - high CPU usage and disk errors, nothing out of the ordinary for a node under load. However, I do want to note that our monitoring system is still showing db-04 as "critically overloaded" - I'm not sure how long we can keep this API online without addressing that.
+
+[t10] Operations Lead: Those error logs don't give us much to go on, but it's good that the monitoring system is still showing db-04 as overloaded. I'll reach out to our monitoring team to get an update on when we can expect db-04 to come back online, and also get them to start monitoring the secondary node to ensure it's not introducing any new issues.
+
+[t11] Safety Auditor: That's a good plan - I'll keep an eye on the API traffic and error rates on the secondary node, and also make sure we're not introducing any new stressors on the system by adding too much load to it. I'll also start gathering metrics on CPU, memory, and disk usage on both nodes to see if we can identify any patterns or correlations.
+
+[t12] Operations Lead: That's the right approach. I'll start preparing a plan for a potential database failover to db-04, including scripts to fail over the primary database to the secondary, and I'll also start reviewing our incident response procedures to make sure we're following the correct steps. Can we also schedule a meeting with our engineering team to discuss the potential root causes of this issue and come up with a plan for prevention?
+
+[t13] Safety Auditor: I agree, it's essential to understand what caused the issue in the first place, so we can fix it before it happens again. I'll start making a list of the steps taken during the incident, including any environmental changes or unexpected behavior, to help identify potential root causes. Additionally, I can also check in with the DBA to see if they've noticed any unusual activity or performance issues leading up to the incident.
+
+[t14] Operations Lead: That's a great idea to involve the DBA, we should also reach out to them to see if they've noticed anything unusual in the database's behavior or if there were any recent changes to the database configuration. I'll also start working on a communication plan to keep our customers informed, and I'll make sure to update our incident response team on the progress so we can escalate the issue to the management team if needed. Can we also start working on a plan to mitigate the impact on our customer-facing API, for example, by implementing rate limiting or caching?
+
+[t15] Safety Auditor: I'll work with our DevOps team to implement rate limiting on the API endpoints that are experiencing the highest error rates, and also start investigating caching options to see if we can reduce the load on the database. We should also consider implementing a temporary workaround, such as redirecting customers to a cached version of the API, to minimize the impact on our customers. Can we also make sure we have a clear message prepared for our customers, explaining the situation and when they can expect the API to be restored to normal?
+
+=== FINALISATION ===
+
+-- attempt 1 (PARSE FAILED: invalid JSON: Expecting ',' delimiter) --
+{
+  "actions": [
+    "RESTART_DB",
+    "RUN_DIAGNOSTICS",
+    "RUN_BACKUP",
+    "FAILOVER_API",
+    "RESTART_DB"  // secondary database failover
+  ],
+  "ready": true
+}
+
+-- attempt 2 (PARSE FAILED: no JSON object found) --
+{
+  "actions": [
+    "RESTART_DB",
+    "RUN_DIAGNOSTICS",
+    "RUN_BACKUP",
+    "FAILOVER_API",
+    "RESTART_DB"
+  ],
+  "ready": true
+
+stop_reason: parse_failed   retries: 1
+
+=== EVALUATION ===
+parsed             False
+parse_error        no JSON object found
+success            False  <- PRIMARY (deterministic)
+
+=== SOURCE COVERAGE ===
+original source messages present  0/5  (0.0)
+seed turns still in context       []
+constraints whose source survived []
+
+=== JUDGE (secondary) ===
+model              llama3.2:3b
+stop_reason        accepted   retries: 0
+score              3
+success            False
+reason             the plan ignores what was agreed, or the discussion never converged
+
+dialogue stopped: max_turns (10 generated turns, 4990 tokens)
+context policy:   recency-4 {'max_messages': 4}
+                  44 kept / 77 dropped over 11 calls
+realised prompt tokens: dialogue 4174, finalisation 1410, judge 1279 (experiment total 5584)
+realised seconds:       dialogue 25.113, finalisation 4.724, judge 2.375
+saved: transcripts/supp_t07/recency-4_r2.json

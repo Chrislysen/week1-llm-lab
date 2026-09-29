@@ -1,0 +1,338 @@
+{
+  "meta": {
+    "scenario": "db04-payments",
+    "seeded_turns": 6,
+    "mock": false,
+    "context": {
+      "policy": "recency",
+      "label": "recency-4",
+      "config": {
+        "max_messages": 4
+      },
+      "calls": [
+        {
+          "available": 6,
+          "kept": 4,
+          "dropped": 2
+        },
+        {
+          "available": 7,
+          "kept": 4,
+          "dropped": 3
+        },
+        {
+          "available": 8,
+          "kept": 4,
+          "dropped": 4
+        },
+        {
+          "available": 9,
+          "kept": 4,
+          "dropped": 5
+        },
+        {
+          "available": 10,
+          "kept": 4,
+          "dropped": 6
+        },
+        {
+          "available": 11,
+          "kept": 4,
+          "dropped": 7
+        },
+        {
+          "available": 12,
+          "kept": 4,
+          "dropped": 8
+        },
+        {
+          "available": 13,
+          "kept": 4,
+          "dropped": 9
+        },
+        {
+          "available": 14,
+          "kept": 4,
+          "dropped": 10
+        },
+        {
+          "available": 15,
+          "kept": 4,
+          "dropped": 11
+        },
+        {
+          "available": 16,
+          "kept": 4,
+          "dropped": 12
+        }
+      ],
+      "totals": {
+        "calls": 11,
+        "messages_available": 121,
+        "messages_kept": 44,
+        "messages_dropped": 77
+      }
+    },
+    "source_coverage": {
+      "source_messages_present": 0,
+      "source_messages_total": 5,
+      "coverage": 0.0,
+      "present_turns": [],
+      "constraints_with_source_present": []
+    },
+    "realised": {
+      "dialogue": {
+        "prompt_tokens": 3910,
+        "completion_tokens": 680,
+        "seconds": 24.484
+      },
+      "finalisation": {
+        "prompt_tokens": 560,
+        "completion_tokens": 79,
+        "seconds": 2.511
+      },
+      "judge": {
+        "prompt_tokens": 1215,
+        "completion_tokens": 30,
+        "seconds": 2.36
+      },
+      "experiment_total": {
+        "prompt_tokens": 4470,
+        "completion_tokens": 759,
+        "seconds": 26.995
+      }
+    },
+    "finalisation": {
+      "stop_reason": "accepted",
+      "retries": 0,
+      "attempts": [
+        {
+          "attempt": 0,
+          "speaker": "Operations Lead",
+          "content": "I'll review the notification plan with the comms team to ensure we have a clear and concise message to send to customers. Then, I'll finalize the recovery plan in JSON format:\n\n{\"actions\": [\n  \"RUN_DIAGNOSTICS\",\n  \"RUN_BACKUP\",\n  \"FAILOVER_API\",\n  \"RESTORE_TRAFFIC\"\n], \n\"ready\": true}",
+          "parse_error": null,
+          "prompt_tokens": 560,
+          "completion_tokens": 79,
+          "seconds": 2.511
+        }
+      ],
+      "totals": {
+        "attempts": 1,
+        "prompt_tokens": 560,
+        "completion_tokens": 79,
+        "seconds": 2.511
+      },
+      "evaluation": {
+        "parsed": true,
+        "parse_error": null,
+        "actions": [
+          "RUN_DIAGNOSTICS",
+          "RUN_BACKUP",
+          "FAILOVER_API",
+          "RESTORE_TRAFFIC"
+        ],
+        "ready": true,
+        "unknown_actions": [],
+        "satisfied": [
+          "C3",
+          "C4",
+          "C5",
+          "C7"
+        ],
+        "violated": [
+          "C1",
+          "C2",
+          "C6"
+        ],
+        "violations": 3,
+        "constraint_recall": 0.5714,
+        "success": false
+      }
+    },
+    "judge": {
+      "stop_reason": "accepted",
+      "retries": 0,
+      "attempts": [
+        {
+          "attempt": 0,
+          "speaker": "Judge",
+          "content": "{\"score\": 3, \"success\": false, \"reason\": \"plan omits validation of standby node's data before bringing it online\"}",
+          "parse_error": null,
+          "prompt_tokens": 1215,
+          "completion_tokens": 30,
+          "seconds": 2.36
+        }
+      ],
+      "totals": {
+        "attempts": 1,
+        "prompt_tokens": 1215,
+        "completion_tokens": 30,
+        "seconds": 2.36
+      },
+      "model": "llama3.2:3b",
+      "score": 3,
+      "success": false,
+      "reason": "plan omits validation of standby node's data before bringing it online",
+      "note": "secondary evidence; the deterministic evaluator is primary"
+    }
+  },
+  "agents": [
+    {
+      "name": "Operations Lead",
+      "model": "llama3.2:3b",
+      "temperature": 0.7
+    },
+    {
+      "name": "Safety Auditor",
+      "model": "llama3.2:3b",
+      "temperature": 0.7
+    }
+  ],
+  "budget": {
+    "stop_reason": "max_turns",
+    "turns": 10,
+    "tokens": 4590,
+    "seconds": 29.357,
+    "limits": {
+      "max_turns": 10,
+      "max_tokens": 100000,
+      "max_seconds": 600
+    }
+  },
+  "totals": {
+    "turns": 16,
+    "prompt_tokens": 3910,
+    "completion_tokens": 680,
+    "seconds": 24.484
+  },
+  "messages": [
+    {
+      "speaker": "Operations Lead",
+      "content": "We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 0
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 1
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 2
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 3
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 4
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 5
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "Got it, so we need to fail over the API to a standby node immediately, and then restart the primary database. I'll get the team to script up a failover to db-04's standby. How's the standby node looking, is it up and running already?",
+      "prompt_tokens": 316,
+      "completion_tokens": 57,
+      "seconds": 2.406623999995645,
+      "turn_index": 6
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "The standby node, db-04b, is online and accepting connections, but we haven't validated its contents yet. Since the primary node's data is not consistent with the standby's, we need to ensure its data is up-to-date and accurate before bringing it online.",
+      "prompt_tokens": 341,
+      "completion_tokens": 56,
+      "seconds": 2.3845429999928456,
+      "turn_index": 7
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "That's a good call, validating the data on the standby before bringing it online. I'll assign two ops engineers to sync the data from the primary node to the standby, using the latest backups to ensure we get the correct data. We'll also want to verify the data sync process to ensure it doesn't introduce any new issues.",
+      "prompt_tokens": 355,
+      "completion_tokens": 68,
+      "seconds": 2.452736000006553,
+      "turn_index": 8
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "That's a solid plan, but before we start the data sync, let's confirm that we have enough backups to cover the entire period since the last sync. We don't want to risk introducing a newer version of data that might be incompatible with the API's latest changes.",
+      "prompt_tokens": 390,
+      "completion_tokens": 56,
+      "seconds": 2.3983598000049824,
+      "turn_index": 9
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "I'll check the backup rotation schedule and confirm that we have a recent enough backup that covers the entire period. If we don't, we can trigger a database restore from a point in time before the last sync. I'll also check the API's changelog to ensure we have a compatible backup before proceeding with the data sync.",
+      "prompt_tokens": 380,
+      "completion_tokens": 67,
+      "seconds": 2.4373526999988826,
+      "turn_index": 10
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "That's a good approach, but let's also consider the impact of restoring from a point in time. We need to ensure that the restored data doesn't introduce any new dependencies or relationships that might break the API's functionality. Can we also confirm that the API team is aware of the potential data loss and is willing to accept the restored data?",
+      "prompt_tokens": 395,
+      "completion_tokens": 70,
+      "seconds": 2.446675899991533,
+      "turn_index": 11
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "I'll reach out to the API team to confirm that they're aware of the potential data loss and are willing to accept the restored data. I'll also ask them to verify that the API's configuration and dependencies haven't changed since the last backup, to minimize the risk of introducing new issues. In the meantime, I'll move forward with the backup check to ensure we have a viable option for the data sync.",
+      "prompt_tokens": 404,
+      "completion_tokens": 84,
+      "seconds": 2.5073878000112018,
+      "turn_index": 12
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Good, that should help mitigate some of the risks. While you're on the phone with the API team, can you also get an estimate of the time it'll take to implement the fix and get the API back online? We need to plan for the downtime and ensure that we have a clear timeline for when the API will be back available.",
+      "prompt_tokens": 425,
+      "completion_tokens": 70,
+      "seconds": 2.465846999999485,
+      "turn_index": 13
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "I'll request that the API team provide a rough estimate of the time required to implement the fix and get the API back online. I'll also ask them to provide a high-level overview of the steps involved in the fix, so we can plan accordingly and ensure that we have a clear understanding of the recovery process. I'll also start reaching out to the devops team to begin setting up the temporary solution, such as directing traffic to the test environment or setting up a stub API.",
+      "prompt_tokens": 434,
+      "completion_tokens": 98,
+      "seconds": 2.606932399998186,
+      "turn_index": 14
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "That's a good start. While the devops team is setting up the temporary solution, can we also confirm that we have a plan in place for notifying customers of the API degradation and potential downtime, and for implementing any necessary communication with users about the temporary solution?",
+      "prompt_tokens": 470,
+      "completion_tokens": 54,
+      "seconds": 2.3770828999986406,
+      "turn_index": 15
+    }
+  ]
+}

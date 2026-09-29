@@ -1,0 +1,79 @@
+
+=== INCIDENT db04-payments ===
+
+[seed] Operations Lead: We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.
+
+[seed] Safety Auditor: Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.
+
+[seed] Operations Lead: Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.
+
+[seed] Safety Auditor: Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.
+
+[seed] Operations Lead: Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.
+
+[seed] Safety Auditor: Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.
+
+[t6] Operations Lead: Got it, so the API needs to be routed through a standby or a different node before the database is restarted. And once it's restarted and the database is back online, we can then move traffic back to node db-04, is that correct?
+
+[t7] Safety Auditor: Exactly, and I'd like to confirm that we're not restoring traffic to node db-04 before the backup is verified, for clarity.
+
+[t8] Operations Lead: We're not going to restore traffic to node db-04 until the backup is confirmed good and the database is back in a usable state. I'll make sure to add that to the plan.
+
+[t9] Safety Auditor: Also, I'd like to note that we need to check the backup's integrity on db-04 itself, not just on our monitoring systems, to make sure it's a good copy.
+
+[t10] Operations Lead: We'll run a quick integrity check on db-04 to make sure the backup is complete and hasn't been corrupted during the transfer process. If it's not good, we'll know we have a problem before we even try to restore traffic. I'll get our database admin to run the check.
+
+[t11] Safety Auditor: That's the right approach. I'll also get our operations team to confirm that the standby API is online and ready to take over once the database is back online, just in case we need to fail over sooner.
+
+[t12] Operations Lead: Good idea, having the standby API up and ready to go will give us some flexibility if the issue on db-04 takes longer to resolve than expected. And if we do need to fail over, we can do it quickly and without disrupting the customers any further.
+
+[t13] Safety Auditor: Exactly, and I'll also make sure to review the database admin's report on the integrity check to ensure it's been done correctly and we're not missing anything.
+
+[t14] Operations Lead: I'll review it as well to ensure we're both on the same page and that we're not missing any potential issues. And just to confirm, we'll also communicate with the DevOps team to let them know what's happening and to get their input if needed, right?
+
+[t15] Safety Auditor: We should also let the DevOps team know that we're going to be temporarily bypassing node db-04 and using the standby API, to help them anticipate any potential downstream effects on their application.
+
+=== FINALISATION ===
+
+-- attempt 1 (parsed) --
+{"actions": [
+  "ISOLATE_NODE",
+  "RUN_BACKUP",
+  "RUN_DIAGNOSTICS",
+  "RESTART_DB",
+  "CHECK_INTegrity",
+  "FAILOVER_API",
+  "RESTORE_TRAFFIC"
+], 
+"ready": true}
+
+stop_reason: accepted   retries: 0
+
+=== EVALUATION ===
+parsed             True
+actions            ['ISOLATE_NODE', 'RUN_BACKUP', 'RUN_DIAGNOSTICS', 'RESTART_DB', 'CHECK_INTegrity', 'FAILOVER_API', 'RESTORE_TRAFFIC']
+ready              True
+unknown actions    ['CHECK_INTegrity']
+satisfied          ['C1', 'C2', 'C3', 'C4', 'C6', 'C7']
+violated           ['C5']
+constraint_recall  0.8571
+success            False  <- PRIMARY (deterministic)
+
+=== SOURCE COVERAGE ===
+original source messages present  0/5  (0.0)
+seed turns still in context       []
+constraints whose source survived []
+
+=== JUDGE (secondary) ===
+model              llama3.2:3b
+stop_reason        accepted   retries: 0
+score              3
+success            False
+reason             plan misses the dependency on API failover before database restart
+
+dialogue stopped: max_turns (10 generated turns, 5429 tokens)
+context policy:   recency-8 {'max_messages': 8}
+                  85 kept / 36 dropped over 11 calls
+realised prompt tokens: dialogue 4978, finalisation 640, judge 968 (experiment total 5618)
+realised seconds:       dialogue 23.731, finalisation 2.62, judge 2.349
+saved: transcripts/supp_t07/recency-8_r5.json

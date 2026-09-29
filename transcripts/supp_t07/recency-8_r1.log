@@ -1,0 +1,77 @@
+
+=== INCIDENT db04-payments ===
+
+[seed] Operations Lead: We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.
+
+[seed] Safety Auditor: Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.
+
+[seed] Operations Lead: Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.
+
+[seed] Safety Auditor: Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.
+
+[seed] Operations Lead: Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.
+
+[seed] Safety Auditor: Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.
+
+[t6] Operations Lead: Got it, so we're looking at a two-step process then: failover of the API and then restart of the database. And I'll also make sure to notify the dev team that we're expecting the API to be back up before the database is available for normal traffic again.
+
+[t7] Safety Auditor: I'd like to add that the notification to the dev team should include the estimated time for the database to come back online, so they're not caught off guard when the API is restored, but the database is still down.
+
+[t8] Operations Lead: That's a good point, so I'll add that to the notification. Also, I'll make sure to coordinate with ops, support, and the dev team to ensure everyone is aligned on the timeline and what to expect.
+
+[t9] Safety Auditor: We should also coordinate with the customer support team, they'll be impacted by this downtime and need to know what to tell customers. I'll make sure to add them to the loop as well, just to confirm we're all on the same page.
+
+[t10] Operations Lead: Good call, I'll also add the customer support team to the notification thread, and we can make sure they're aware of the expected downtime and can provide a clear message to customers when they reach out. And just to confirm, I'll summarize the plan: API failover, estimated 15-minute delay, followed by database restart, estimated 20-30 minutes.
+
+[t11] Safety Auditor: That sounds good, I'll take a look at the notification thread and make sure it's clear and concise. And just one more thing: I'll also confirm that we have a clear message ready for customers in case the database restart is delayed, we don't want to give them false hope or misinformation.
+
+[t12] Operations Lead: That's crucial, a clear message for delayed database restart is essential to manage expectations. I'll review the customer support script and make sure it's up-to-date, and we can also use the notification thread as a reference point if we need to adjust it on the fly.
+
+[t13] Safety Auditor: I'll also review the incident report and update the incident status with the latest information, so it's clear what's happening and what's expected.
+
+[t14] Operations Lead: I'll review the incident report as well and make sure it's accurate and up-to-date, then I'll update the incident status to reflect the planned API failover and database restart, and also set a tentative recovery time.
+
+[t15] Safety Auditor: Let's also ensure that the IT management is informed, they'll likely want to know about the incident and the planned recovery, so we can keep them in the loop.
+
+=== FINALISATION ===
+
+-- attempt 1 (parsed) --
+{"actions": [
+  "ISOLATE_NODE",
+  "RUN_DIAGNOSTICS",
+  "RUN_BACKUP",
+  "FAILOVER_API",
+  "RESTORE_TRAFFIC"
+], 
+"ready": true}
+
+stop_reason: accepted   retries: 0
+
+=== EVALUATION ===
+parsed             True
+actions            ['ISOLATE_NODE', 'RUN_DIAGNOSTICS', 'RUN_BACKUP', 'FAILOVER_API', 'RESTORE_TRAFFIC']
+ready              True
+unknown actions    []
+satisfied          ['C1', 'C2', 'C3', 'C4', 'C5', 'C7']
+violated           ['C6']
+constraint_recall  0.8571
+success            False  <- PRIMARY (deterministic)
+
+=== SOURCE COVERAGE ===
+original source messages present  0/5  (0.0)
+seed turns still in context       []
+constraints whose source survived []
+
+=== JUDGE (secondary) ===
+model              llama3.2:3b
+stop_reason        accepted   retries: 0
+score              3
+success            False
+reason             Missing explicit ordering of actions
+
+dialogue stopped: max_turns (10 generated turns, 5910 tokens)
+context policy:   recency-8 {'max_messages': 8}
+                  85 kept / 36 dropped over 11 calls
+realised prompt tokens: dialogue 5405, finalisation 671, judge 1010 (experiment total 6076)
+realised seconds:       dialogue 24.101, finalisation 2.429, judge 2.464
+saved: transcripts/supp_t07/recency-8_r1.json

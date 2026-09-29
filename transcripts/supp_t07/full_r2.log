@@ -1,0 +1,70 @@
+
+=== INCIDENT db04-payments ===
+
+[seed] Operations Lead: We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.
+
+[seed] Safety Auditor: Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.
+
+[seed] Operations Lead: Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.
+
+[seed] Safety Auditor: Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.
+
+[seed] Operations Lead: Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.
+
+[seed] Safety Auditor: Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.
+
+[t6] Operations Lead: Alright, so the API needs to be failed over to another node before the database is restarted. And we'll need to communicate that to the team so they know why traffic's not coming back online yet.
+
+[t7] Safety Auditor: Communication is key here - let's make sure we're using clear, concise language, like we're expecting traffic to return once the database is back online and the API is on a different node.
+
+[t8] Operations Lead: I'll draft a quick message to the team - let's say something like "Traffic currently suspended due to DB issue, API on node db-02. Restart of db-04 in progress, expected to be back online shortly."
+
+[t9] Safety Auditor: That's a good start, but let's add "isolation" to the message to give people some context - something like "Traffic currently suspended due to DB issue, API on node db-02. db-04 isolated for restart, expected to be back online shortly".
+
+[t10] Operations Lead: I agree, adding the "isolated" phrase gives a clear understanding of why traffic's not coming back online yet. I'll send that out to the team and make sure they're all on the same page.
+
+[t11] Safety Auditor: I'll review the plan with the ops team and make sure we're all good to go with the steps we've outlined so far, and then we can start on the recovery plan once db-04 is back online.
+
+[t12] Operations Lead: I'll keep the recovery plan ready to go, with the steps we've discussed, and we can execute on the plan as soon as db-04 comes back online and we've confirmed the API is stable on node db-02.
+
+[t13] Safety Auditor: Sounds good, I'll get the ops team prepped to restart db-04 as soon as it's good to, and we can execute the recovery plan in sequence.
+
+[t14] Operations Lead: I'll keep an eye on db-04's status and notify you as soon as it's ready to be restarted, and we can proceed with the recovery plan.
+
+[t15] Safety Auditor: I'll also keep the team informed of the status, and as soon as db-04 is live and we've confirmed the API is stable, we can give the green light to start taking traffic back online, one by one.
+
+=== FINALISATION ===
+
+-- attempt 1 (parsed) --
+{"actions": ["ISOLATE_NODE", "RUN_BACKUP", "RESTART_DB", "FAILOVER_API", "RESTORE_TRAFFIC"], "ready": true}
+
+stop_reason: accepted   retries: 0
+
+=== EVALUATION ===
+parsed             True
+actions            ['ISOLATE_NODE', 'RUN_BACKUP', 'RESTART_DB', 'FAILOVER_API', 'RESTORE_TRAFFIC']
+ready              True
+unknown actions    []
+satisfied          ['C1', 'C2', 'C3', 'C4', 'C6', 'C7']
+violated           ['C5']
+constraint_recall  0.8571
+success            False  <- PRIMARY (deterministic)
+
+=== SOURCE COVERAGE ===
+original source messages present  5/5  (1.0)
+seed turns still in context       [1, 2, 3, 4, 5]
+constraints whose source survived ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7']
+
+=== JUDGE (secondary) ===
+model              llama3.2:3b
+stop_reason        accepted   retries: 0
+score              3
+success            False
+reason             Missing explicit ordering of actions
+
+dialogue stopped: max_turns (10 generated turns, 6674 tokens)
+context policy:   full {}
+                  121 kept / 0 dropped over 11 calls
+realised prompt tokens: dialogue 6236, finalisation 991, judge 933 (experiment total 7227)
+realised seconds:       dialogue 23.338, finalisation 2.309, judge 2.302
+saved: transcripts/supp_t07/full_r2.json

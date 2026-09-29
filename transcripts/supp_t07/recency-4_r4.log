@@ -1,0 +1,78 @@
+
+=== INCIDENT db04-payments ===
+
+[seed] Operations Lead: We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.
+
+[seed] Safety Auditor: Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.
+
+[seed] Operations Lead: Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.
+
+[seed] Safety Auditor: Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.
+
+[seed] Operations Lead: Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.
+
+[seed] Safety Auditor: Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.
+
+[t6] Operations Lead: Got it, so we need to fail over the API to a standby node immediately, and then restart the primary database. I'll get the team to script up a failover to db-04's standby. How's the standby node looking, is it up and running already?
+
+[t7] Safety Auditor: The standby node, db-04b, is online and accepting connections, but we haven't validated its contents yet. Since the primary node's data is not consistent with the standby's, we need to ensure its data is up-to-date and accurate before bringing it online.
+
+[t8] Operations Lead: That's a good call, validating the data on the standby before bringing it online. I'll assign two ops engineers to sync the data from the primary node to the standby, using the latest backups to ensure we get the correct data. We'll also want to verify the data sync process to ensure it doesn't introduce any new issues.
+
+[t9] Safety Auditor: That's a solid plan, but before we start the data sync, let's confirm that we have enough backups to cover the entire period since the last sync. We don't want to risk introducing a newer version of data that might be incompatible with the API's latest changes.
+
+[t10] Operations Lead: I'll check the backup rotation schedule and confirm that we have a recent enough backup that covers the entire period. If we don't, we can trigger a database restore from a point in time before the last sync. I'll also check the API's changelog to ensure we have a compatible backup before proceeding with the data sync.
+
+[t11] Safety Auditor: That's a good approach, but let's also consider the impact of restoring from a point in time. We need to ensure that the restored data doesn't introduce any new dependencies or relationships that might break the API's functionality. Can we also confirm that the API team is aware of the potential data loss and is willing to accept the restored data?
+
+[t12] Operations Lead: I'll reach out to the API team to confirm that they're aware of the potential data loss and are willing to accept the restored data. I'll also ask them to verify that the API's configuration and dependencies haven't changed since the last backup, to minimize the risk of introducing new issues. In the meantime, I'll move forward with the backup check to ensure we have a viable option for the data sync.
+
+[t13] Safety Auditor: Good, that should help mitigate some of the risks. While you're on the phone with the API team, can you also get an estimate of the time it'll take to implement the fix and get the API back online? We need to plan for the downtime and ensure that we have a clear timeline for when the API will be back available.
+
+[t14] Operations Lead: I'll request that the API team provide a rough estimate of the time required to implement the fix and get the API back online. I'll also ask them to provide a high-level overview of the steps involved in the fix, so we can plan accordingly and ensure that we have a clear understanding of the recovery process. I'll also start reaching out to the devops team to begin setting up the temporary solution, such as directing traffic to the test environment or setting up a stub API.
+
+[t15] Safety Auditor: That's a good start. While the devops team is setting up the temporary solution, can we also confirm that we have a plan in place for notifying customers of the API degradation and potential downtime, and for implementing any necessary communication with users about the temporary solution?
+
+=== FINALISATION ===
+
+-- attempt 1 (parsed) --
+I'll review the notification plan with the comms team to ensure we have a clear and concise message to send to customers. Then, I'll finalize the recovery plan in JSON format:
+
+{"actions": [
+  "RUN_DIAGNOSTICS",
+  "RUN_BACKUP",
+  "FAILOVER_API",
+  "RESTORE_TRAFFIC"
+], 
+"ready": true}
+
+stop_reason: accepted   retries: 0
+
+=== EVALUATION ===
+parsed             True
+actions            ['RUN_DIAGNOSTICS', 'RUN_BACKUP', 'FAILOVER_API', 'RESTORE_TRAFFIC']
+ready              True
+unknown actions    []
+satisfied          ['C3', 'C4', 'C5', 'C7']
+violated           ['C1', 'C2', 'C6']
+constraint_recall  0.5714
+success            False  <- PRIMARY (deterministic)
+
+=== SOURCE COVERAGE ===
+original source messages present  0/5  (0.0)
+seed turns still in context       []
+constraints whose source survived []
+
+=== JUDGE (secondary) ===
+model              llama3.2:3b
+stop_reason        accepted   retries: 0
+score              3
+success            False
+reason             plan omits validation of standby node's data before bringing it online
+
+dialogue stopped: max_turns (10 generated turns, 4590 tokens)
+context policy:   recency-4 {'max_messages': 4}
+                  44 kept / 77 dropped over 11 calls
+realised prompt tokens: dialogue 3910, finalisation 560, judge 1215 (experiment total 4470)
+realised seconds:       dialogue 24.484, finalisation 2.511, judge 2.36
+saved: transcripts/supp_t07/recency-4_r4.json

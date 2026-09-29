@@ -1,0 +1,82 @@
+
+=== INCIDENT db04-payments ===
+
+[seed] Operations Lead: We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.
+
+[seed] Safety Auditor: Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.
+
+[seed] Operations Lead: Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.
+
+[seed] Safety Auditor: Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.
+
+[seed] Operations Lead: Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.
+
+[seed] Safety Auditor: Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.
+
+[t6] Operations Lead: Got it, so the API will be rerouted to db-05, and we'll keep db-04 isolated and backed up. Also, before we start the backup, I'll want to check if there are any pending cluster upgrades or maintenance windows that might impact our window for the recovery.
+
+[t7] Safety Auditor: Good thinking on checking the upgrades and maintenance windows - we don't want to schedule a backup during a planned downtime that we can't control. I'll check on the current status of the upgrade and maintenance windows, and we can decide how to handle the backup scheduling accordingly.
+
+[t8] Operations Lead: Keep me posted on the status. In the meantime, I'll start coordinating with our team to get db-05 ready for the API failover, and I'll also start notifying our incident response team and relevant stakeholders about the plan.
+
+[t9] Safety Auditor: I'll also start updating our incident management platform with the plan, including the timeline and the steps we've agreed on. I'll also keep an eye on the cluster logs to make sure nothing else pops up during this window - we don't want to be dealing with another crisis while we're trying to recover from this one.
+
+[t10] Operations Lead: That's a good call. I'll also want a status update from our network team to confirm that they can reroute the traffic to db-05 without any issues, and to get an idea of the expected latency during the failover.
+
+[t11] Safety Auditor: I'll give our network team a call to confirm the rerouting and get that latency estimate - we need to make sure we're not just shifting one bottleneck to another. And let's also confirm that they're aware of the backup and the planned restart, so we're all on the same page.
+
+[t12] Operations Lead: While you're on the phone with the network team, I'll send an email to our team and stakeholders confirming the plan and timeline, so we can all be aware of what's happening and what to expect.
+
+[t13] Safety Auditor: Make sure to include the key points, like the isolation of db-04, the backup and restart, and the API failover to db-05 - we want everyone to be aware of the plan and the steps we're taking to get back online. Also, mention that we're expecting some latency during the failover process.
+
+[t14] Operations Lead: I'll also CC our incident response team on the email, so they're aware of the plan and can provide support and updates as needed.
+
+[t15] Safety Auditor: That's a good idea - having the incident response team in the loop will help ensure that we're coordinating with the right people and getting the right level of support. I'll also CC them on my follow-up call with the network team, so we can keep each other informed.
+
+=== FINALISATION ===
+
+-- attempt 1 (PARSE FAILED: actions is not a list of strings) --
+Here is the final recovery plan:
+
+{"actions": [
+  {"action": "ISOLATE_NODE", "description": "Isolate db-04 and stop accepting new writes"},
+  {"action": "RUN_DIAGNOSTICS", "description": "Run diagnostics on db-04 to understand the issue"},
+  {"action": "RUN_BACKUP", "description": "Create a backup of db-04"},
+  {"action": "FAILOVER_API", "description": "Reroute API traffic to db-05"},
+  {"action": "RESTART_DB", "description": "Restart db-04 with the backup"},
+  {"action": "RESTORE_TRAFFIC", "description": "Restore traffic to the API once db-04 is back online"}
+], "ready": true}
+
+-- attempt 2 (parsed) --
+{"actions": ["ISOLATE_NODE", "RUN_BACKUP", "RESTART_DB", "FAILOVER_API", "RESTORE_TRAFFIC"], "ready": true}
+
+stop_reason: accepted   retries: 1
+
+=== EVALUATION ===
+parsed             True
+actions            ['ISOLATE_NODE', 'RUN_BACKUP', 'RESTART_DB', 'FAILOVER_API', 'RESTORE_TRAFFIC']
+ready              True
+unknown actions    []
+satisfied          ['C1', 'C2', 'C3', 'C4', 'C6', 'C7']
+violated           ['C5']
+constraint_recall  0.8571
+success            False  <- PRIMARY (deterministic)
+
+=== SOURCE COVERAGE ===
+original source messages present  2/5  (0.4)
+seed turns still in context       [4, 5]
+constraints whose source survived ['C5', 'C6', 'C7']
+
+=== JUDGE (secondary) ===
+model              llama3.2:3b
+stop_reason        accepted   retries: 0
+score              3
+success            False
+reason             The plan does not explicitly state the isolation of db-04 and the backup and restart sequence in a safe order.
+
+dialogue stopped: max_turns (10 generated turns, 7008 tokens)
+context policy:   recency-12 {'max_messages': 12}
+                  111 kept / 10 dropped over 11 calls
+realised prompt tokens: dialogue 6473, finalisation 2073, judge 1030 (experiment total 8546)
+realised seconds:       dialogue 24.052, finalisation 5.255, judge 2.424
+saved: transcripts/supp_t07/recency-12_r4.json

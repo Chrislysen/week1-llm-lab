@@ -1,0 +1,346 @@
+{
+  "meta": {
+    "scenario": "db04-payments",
+    "seeded_turns": 6,
+    "mock": false,
+    "context": {
+      "policy": "recency",
+      "label": "recency-8",
+      "config": {
+        "max_messages": 8
+      },
+      "calls": [
+        {
+          "available": 6,
+          "kept": 6,
+          "dropped": 0
+        },
+        {
+          "available": 7,
+          "kept": 7,
+          "dropped": 0
+        },
+        {
+          "available": 8,
+          "kept": 8,
+          "dropped": 0
+        },
+        {
+          "available": 9,
+          "kept": 8,
+          "dropped": 1
+        },
+        {
+          "available": 10,
+          "kept": 8,
+          "dropped": 2
+        },
+        {
+          "available": 11,
+          "kept": 8,
+          "dropped": 3
+        },
+        {
+          "available": 12,
+          "kept": 8,
+          "dropped": 4
+        },
+        {
+          "available": 13,
+          "kept": 8,
+          "dropped": 5
+        },
+        {
+          "available": 14,
+          "kept": 8,
+          "dropped": 6
+        },
+        {
+          "available": 15,
+          "kept": 8,
+          "dropped": 7
+        },
+        {
+          "available": 16,
+          "kept": 8,
+          "dropped": 8
+        }
+      ],
+      "totals": {
+        "calls": 11,
+        "messages_available": 121,
+        "messages_kept": 85,
+        "messages_dropped": 36
+      }
+    },
+    "source_coverage": {
+      "source_messages_present": 0,
+      "source_messages_total": 5,
+      "coverage": 0.0,
+      "present_turns": [],
+      "constraints_with_source_present": []
+    },
+    "realised": {
+      "dialogue": {
+        "prompt_tokens": 6014,
+        "completion_tokens": 673,
+        "seconds": 24.896
+      },
+      "finalisation": {
+        "prompt_tokens": 834,
+        "completion_tokens": 76,
+        "seconds": 2.575
+      },
+      "judge": {
+        "prompt_tokens": 1208,
+        "completion_tokens": 41,
+        "seconds": 2.444
+      },
+      "experiment_total": {
+        "prompt_tokens": 6848,
+        "completion_tokens": 749,
+        "seconds": 27.471
+      }
+    },
+    "finalisation": {
+      "stop_reason": "accepted",
+      "retries": 0,
+      "attempts": [
+        {
+          "attempt": 0,
+          "speaker": "Operations Lead",
+          "content": "```\n{\n  \"actions\": [\n    \"RUN_DIAGNOSTICS\",\n    \"FAILOVER_API\",\n    \"RUN_BACKUP\",\n    \"RESTART_DB\",\n    \"TEST_FAILOVER\",\n    \"RESTORE_TRAFFIC\",\n    \"REVIEW Dokumentation\",\n    \"CONFIGURATION_REVIEW\"\n  ],\n  \"ready\": true\n}\n```",
+          "parse_error": null,
+          "prompt_tokens": 834,
+          "completion_tokens": 76,
+          "seconds": 2.575
+        }
+      ],
+      "totals": {
+        "attempts": 1,
+        "prompt_tokens": 834,
+        "completion_tokens": 76,
+        "seconds": 2.575
+      },
+      "evaluation": {
+        "parsed": true,
+        "parse_error": null,
+        "actions": [
+          "RUN_DIAGNOSTICS",
+          "FAILOVER_API",
+          "RUN_BACKUP",
+          "RESTART_DB",
+          "TEST_FAILOVER",
+          "RESTORE_TRAFFIC",
+          "REVIEW Dokumentation",
+          "CONFIGURATION_REVIEW"
+        ],
+        "ready": true,
+        "unknown_actions": [
+          "TEST_FAILOVER",
+          "REVIEW Dokumentation",
+          "CONFIGURATION_REVIEW"
+        ],
+        "satisfied": [
+          "C3",
+          "C4",
+          "C5",
+          "C6",
+          "C7"
+        ],
+        "violated": [
+          "C1",
+          "C2"
+        ],
+        "violations": 2,
+        "constraint_recall": 0.7143,
+        "success": false
+      }
+    },
+    "judge": {
+      "stop_reason": "accepted",
+      "retries": 0,
+      "attempts": [
+        {
+          "attempt": 0,
+          "speaker": "Judge",
+          "content": "{\"score\": 3, \"success\": false, \"reason\": \"Plan reorders actions, missing 'REVIEW Dokumentation' and 'CONFIGURATION_REVIEW' in the correct order\"}",
+          "parse_error": null,
+          "prompt_tokens": 1208,
+          "completion_tokens": 41,
+          "seconds": 2.444
+        }
+      ],
+      "totals": {
+        "attempts": 1,
+        "prompt_tokens": 1208,
+        "completion_tokens": 41,
+        "seconds": 2.444
+      },
+      "model": "llama3.2:3b",
+      "score": 3,
+      "success": false,
+      "reason": "Plan reorders actions, missing 'REVIEW Dokumentation' and 'CONFIGURATION_REVIEW' in the correct order",
+      "note": "secondary evidence; the deterministic evaluator is primary"
+    }
+  },
+  "agents": [
+    {
+      "name": "Operations Lead",
+      "model": "llama3.2:3b",
+      "temperature": 0.7
+    },
+    {
+      "name": "Safety Auditor",
+      "model": "llama3.2:3b",
+      "temperature": 0.7
+    }
+  ],
+  "budget": {
+    "stop_reason": "max_turns",
+    "turns": 10,
+    "tokens": 6687,
+    "seconds": 29.919,
+    "limits": {
+      "max_turns": 10,
+      "max_tokens": 100000,
+      "max_seconds": 600
+    }
+  },
+  "totals": {
+    "turns": 16,
+    "prompt_tokens": 6014,
+    "completion_tokens": 673,
+    "seconds": 24.896
+  },
+  "messages": [
+    {
+      "speaker": "Operations Lead",
+      "content": "We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 0
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 1
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 2
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 3
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 4
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.",
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "seconds": 0.0,
+      "turn_index": 5
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "So the plan is to fail over the API to node db-05, and then restart db-04 once it's backed up. And we need to get a team to monitor the database and API closely during this process, in case things come up.",
+      "prompt_tokens": 402,
+      "completion_tokens": 52,
+      "seconds": 2.370305999997072,
+      "turn_index": 6
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "That's the plan. Also, while we're waiting for db-04 to come back online, db-05 will need to be kept at a lower traffic load than normal, to avoid overwhelming it with the failed API traffic -- we don't want to become the new bottleneck.",
+      "prompt_tokens": 463,
+      "completion_tokens": 57,
+      "seconds": 2.427499199999147,
+      "turn_index": 7
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "I'll talk to the team managing db-05 about implementing some traffic throttling to keep the load reasonable. And to confirm, our goal is to get the database back online and the API serving normal traffic, not just the failed API, so we'll need to monitor the traffic load and potentially rebalance it once the API is fully restored.",
+      "prompt_tokens": 519,
+      "completion_tokens": 70,
+      "seconds": 2.4712144999939483,
+      "turn_index": 8
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "We also need to make sure the API is restored to a working state, not just the failed endpoint that brought us here, so we'll be monitoring the API's performance post-restart, not just the traffic that's coming in. And, let's not forget to test the failover and restore process on a non-production environment first, to make sure this works as expected.",
+      "prompt_tokens": 566,
+      "completion_tokens": 77,
+      "seconds": 2.5493563000054564,
+      "turn_index": 9
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "I'll coordinate with the dev team to run a test failover on the dev environment before we proceed with the live failover, to make sure we're not introducing any new issues into production. And you're right, we need to focus on getting the API fully restored and tested, not just the individual endpoint that failed. We'll also want to document the entire process, including the failed endpoint's functionality and any known issues, to avoid repeating the same mistakes.",
+      "prompt_tokens": 588,
+      "completion_tokens": 94,
+      "seconds": 2.65092659999209,
+      "turn_index": 10
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "That's a great idea, and I'll coordinate with the dev team to get the test failover set up as soon as possible. Also, I'll make sure to document the root cause of the failure, the steps taken to recover, and any mitigation strategies, so we can use this as a learning opportunity for future incidents.",
+      "prompt_tokens": 650,
+      "completion_tokens": 67,
+      "seconds": 2.5031676000071457,
+      "turn_index": 11
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "I'll work on getting the recovery documentation ready, including any metrics and logs that might be relevant, and we can share it with the team once the test failover is complete. We'll also want to review the documentation with the dev team and make sure everyone understands what was done and how to prevent similar issues in the future.",
+      "prompt_tokens": 675,
+      "completion_tokens": 67,
+      "seconds": 2.5008512000058545,
+      "turn_index": 12
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "I'll review the documentation as well, and make sure I've got a clear understanding of what happened, and what steps we took to recover from it. And, let's also use this opportunity to discuss the database's configuration and performance, and see if there are any changes that can be made to prevent similar issues in the future.",
+      "prompt_tokens": 709,
+      "completion_tokens": 68,
+      "seconds": 2.496761599992169,
+      "turn_index": 13
+    },
+    {
+      "speaker": "Operations Lead",
+      "content": "I'll reach out to the database team and schedule a meeting to discuss the configuration and performance of db-04, and see if there are any changes that can be made to prevent similar issues in the future. We can also discuss potential upgrades or patches that may have been missed, and get a plan in place to address them.",
+      "prompt_tokens": 711,
+      "completion_tokens": 67,
+      "seconds": 2.4940404999942984,
+      "turn_index": 14
+    },
+    {
+      "speaker": "Safety Auditor",
+      "content": "That sounds like a good plan, and I'll reach out to the operations team to get an update on the current maintenance schedule for db-04 and the API, to see if there's any planned maintenance that's coming up soon that could impact our recovery timeline.",
+      "prompt_tokens": 731,
+      "completion_tokens": 54,
+      "seconds": 2.4320834999962244,
+      "turn_index": 15
+    }
+  ]
+}

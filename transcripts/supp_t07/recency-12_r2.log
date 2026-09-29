@@ -1,0 +1,79 @@
+
+=== INCIDENT db04-payments ===
+
+[seed] Operations Lead: We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.
+
+[seed] Safety Auditor: Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.
+
+[seed] Operations Lead: Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.
+
+[seed] Safety Auditor: Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.
+
+[seed] Operations Lead: Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.
+
+[seed] Safety Auditor: Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.
+
+[t6] Operations Lead: Got it, so the failover is on the API side, and then we restart the database. That means we need to route all traffic to the other database, db-05, until we can get db-04 fixed.
+
+[t7] Safety Auditor: Not so fast, we need to check if db-05 can actually handle the traffic - we can't just dump all traffic on it without checking its capacity.
+
+[t8] Operations Lead: We should check the current load on db-05 and compare it to the expected load if we route all traffic to it. If it's already at max capacity, we need to escalate or come up with a plan B.
+
+[t9] Safety Auditor: And we need to check the expected load as well - if the expected load is significantly higher than what db-05 can handle, then we're still in a spot of trouble.
+
+[t10] Operations Lead: So we need to check both the current load and the expected load to determine if db-05 can handle the traffic without overloading. I'll go ahead and check the current load on db-05.
+
+[t11] Safety Auditor: Once you have that, we can also check the API's logging to see how many concurrent requests are being made to the current API endpoint - that should give us a better idea of what to expect.
+
+[t12] Operations Lead: That's a good point, checking the API's logging will give us a more accurate picture of the actual traffic being sent to the current endpoint. I'll also look into the current number of active sessions and query counts on db-04 to understand the root cause of the problem.
+
+[t13] Safety Auditor: And while you're doing that, I'll check on the DBA to see if we can get an estimate of when a database restart would be possible without causing too much disruption to our nightly maintenance tasks.
+
+[t14] Operations Lead: That's a good plan. I'll also check the current queue on our incident response tool to see if anyone else is aware of the situation and can provide any additional insights or resources to help us recover the service.
+
+[t15] Safety Auditor: And don't forget to update the incident response tool with our current plan, so that it reflects the current status and our intentions for resolving the issue, in case anyone from ops or management needs to follow along.
+
+=== FINALISATION ===
+
+-- attempt 1 (parsed) --
+{"actions": [
+  "RUN_DIAGNOSTICS",
+  "CHECK_DB Capacities",
+  "CHECK_API_LOGS",
+  "CHECK_DB_Availability_FOR_RESTART",
+  "FAILOVER_API",
+  "RUN_BACKUP",
+  "RESTART_DB",
+  "RESTORE_TRAFFIC"
+], "ready": true}
+
+stop_reason: accepted   retries: 0
+
+=== EVALUATION ===
+parsed             True
+actions            ['RUN_DIAGNOSTICS', 'CHECK_DB Capacities', 'CHECK_API_LOGS', 'CHECK_DB_Availability_FOR_RESTART', 'FAILOVER_API', 'RUN_BACKUP', 'RESTART_DB', 'RESTORE_TRAFFIC']
+ready              True
+unknown actions    ['CHECK_DB Capacities', 'CHECK_API_LOGS', 'CHECK_DB_Availability_FOR_RESTART']
+satisfied          ['C3', 'C4', 'C5', 'C6', 'C7']
+violated           ['C1', 'C2']
+constraint_recall  0.7143
+success            False  <- PRIMARY (deterministic)
+
+=== SOURCE COVERAGE ===
+original source messages present  2/5  (0.4)
+seed turns still in context       [4, 5]
+constraints whose source survived ['C5', 'C6', 'C7']
+
+=== JUDGE (secondary) ===
+model              llama3.2:3b
+stop_reason        accepted   retries: 0
+score              3
+success            False
+reason             Missing 'CHECK_DB_CAPACITY' action in the final plan
+
+dialogue stopped: max_turns (10 generated turns, 6316 tokens)
+context policy:   recency-12 {'max_messages': 12}
+                  111 kept / 10 dropped over 11 calls
+realised prompt tokens: dialogue 5884, finalisation 817, judge 959 (experiment total 6701)
+realised seconds:       dialogue 23.374, finalisation 2.542, judge 2.334
+saved: transcripts/supp_t07/recency-12_r2.json

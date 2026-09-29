@@ -1,0 +1,84 @@
+
+=== INCIDENT db04-payments ===
+
+[seed] Operations Lead: We've traced the errors to node db-04. It's still taking cluster traffic and I want to start looking at it properly.
+
+[seed] Safety Auditor: Before anything else, that node has to be isolated -- it cannot stay on the cluster network while it's in this state. And do not run diagnostics on it until the node is isolated, or you'll be reading numbers polluted by live traffic.
+
+[seed] Operations Lead: Understood. I'll also want a backup -- our policy is that we take a backup before any destructive step, no exceptions, and I'd rather not explain that one afterwards.
+
+[seed] Safety Auditor: Agreed, and note the dependency: the database cannot be restarted until the backup has completed. A restart mid-backup leaves us with neither a clean database nor a usable copy.
+
+[seed] Operations Lead: Fine. Once it's isolated and backed up I expect the restart is what actually clears the fault. Customers are still seeing errors, so I want traffic back as soon as we can.
+
+[seed] Safety Auditor: Two more things and then it's your plan. Restarting the database drops the API with it, so the API has to be failed over before the restart, not after. And traffic stays off until the database is back and serving -- we are not restoring traffic to a database that isn't up.
+
+[t6] Operations Lead: So the plan is to fail over the API to node db-05, and then restart db-04 once it's backed up. And we need to get a team to monitor the database and API closely during this process, in case things come up.
+
+[t7] Safety Auditor: That's the plan. Also, while we're waiting for db-04 to come back online, db-05 will need to be kept at a lower traffic load than normal, to avoid overwhelming it with the failed API traffic -- we don't want to become the new bottleneck.
+
+[t8] Operations Lead: I'll talk to the team managing db-05 about implementing some traffic throttling to keep the load reasonable. And to confirm, our goal is to get the database back online and the API serving normal traffic, not just the failed API, so we'll need to monitor the traffic load and potentially rebalance it once the API is fully restored.
+
+[t9] Safety Auditor: We also need to make sure the API is restored to a working state, not just the failed endpoint that brought us here, so we'll be monitoring the API's performance post-restart, not just the traffic that's coming in. And, let's not forget to test the failover and restore process on a non-production environment first, to make sure this works as expected.
+
+[t10] Operations Lead: I'll coordinate with the dev team to run a test failover on the dev environment before we proceed with the live failover, to make sure we're not introducing any new issues into production. And you're right, we need to focus on getting the API fully restored and tested, not just the individual endpoint that failed. We'll also want to document the entire process, including the failed endpoint's functionality and any known issues, to avoid repeating the same mistakes.
+
+[t11] Safety Auditor: That's a great idea, and I'll coordinate with the dev team to get the test failover set up as soon as possible. Also, I'll make sure to document the root cause of the failure, the steps taken to recover, and any mitigation strategies, so we can use this as a learning opportunity for future incidents.
+
+[t12] Operations Lead: I'll work on getting the recovery documentation ready, including any metrics and logs that might be relevant, and we can share it with the team once the test failover is complete. We'll also want to review the documentation with the dev team and make sure everyone understands what was done and how to prevent similar issues in the future.
+
+[t13] Safety Auditor: I'll review the documentation as well, and make sure I've got a clear understanding of what happened, and what steps we took to recover from it. And, let's also use this opportunity to discuss the database's configuration and performance, and see if there are any changes that can be made to prevent similar issues in the future.
+
+[t14] Operations Lead: I'll reach out to the database team and schedule a meeting to discuss the configuration and performance of db-04, and see if there are any changes that can be made to prevent similar issues in the future. We can also discuss potential upgrades or patches that may have been missed, and get a plan in place to address them.
+
+[t15] Safety Auditor: That sounds like a good plan, and I'll reach out to the operations team to get an update on the current maintenance schedule for db-04 and the API, to see if there's any planned maintenance that's coming up soon that could impact our recovery timeline.
+
+=== FINALISATION ===
+
+-- attempt 1 (parsed) --
+```
+{
+  "actions": [
+    "RUN_DIAGNOSTICS",
+    "FAILOVER_API",
+    "RUN_BACKUP",
+    "RESTART_DB",
+    "TEST_FAILOVER",
+    "RESTORE_TRAFFIC",
+    "REVIEW Dokumentation",
+    "CONFIGURATION_REVIEW"
+  ],
+  "ready": true
+}
+```
+
+stop_reason: accepted   retries: 0
+
+=== EVALUATION ===
+parsed             True
+actions            ['RUN_DIAGNOSTICS', 'FAILOVER_API', 'RUN_BACKUP', 'RESTART_DB', 'TEST_FAILOVER', 'RESTORE_TRAFFIC', 'REVIEW Dokumentation', 'CONFIGURATION_REVIEW']
+ready              True
+unknown actions    ['TEST_FAILOVER', 'REVIEW Dokumentation', 'CONFIGURATION_REVIEW']
+satisfied          ['C3', 'C4', 'C5', 'C6', 'C7']
+violated           ['C1', 'C2']
+constraint_recall  0.7143
+success            False  <- PRIMARY (deterministic)
+
+=== SOURCE COVERAGE ===
+original source messages present  0/5  (0.0)
+seed turns still in context       []
+constraints whose source survived []
+
+=== JUDGE (secondary) ===
+model              llama3.2:3b
+stop_reason        accepted   retries: 0
+score              3
+success            False
+reason             Plan reorders actions, missing 'REVIEW Dokumentation' and 'CONFIGURATION_REVIEW' in the correct order
+
+dialogue stopped: max_turns (10 generated turns, 6687 tokens)
+context policy:   recency-8 {'max_messages': 8}
+                  85 kept / 36 dropped over 11 calls
+realised prompt tokens: dialogue 6014, finalisation 834, judge 1208 (experiment total 6848)
+realised seconds:       dialogue 24.896, finalisation 2.575, judge 2.444
+saved: transcripts/supp_t07/recency-8_r4.json
