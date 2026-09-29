@@ -29,10 +29,11 @@ from budget import Budget
 from e10_independence import SYSTEM
 from e13_recognition import TEMPERATURE, make_validator, schema_hint
 from e29_memory_semantics import build_user
+from e29s_structure import build_user as build_user_s
 from lineage_e29 import ARMS, DESIGNS, all_e29_dialogues, store_timeline
 from lineage_eval import parse_plan
 from structured import MAX_ATTEMPTS, ask_structured
-from xray_build import E29_MODELS, build_data, render_city_page, render_page
+from xray_build import E29_MODELS, STRUCT_DESIGNS, build_data, render_city_page, render_page
 
 OLLAMA = "http://localhost:11434"
 
@@ -60,14 +61,14 @@ class State:
         d = self.dialogues[i]
         inst = d["instance"]
         return [{"role": "system", "content": SYSTEM.format(setting=inst.setting)},
-                {"role": "user", "content": build_user(design, inst, d["arms"][arm])}]
+                {"role": "user", "content": (build_user_s if design in STRUCT_DESIGNS else build_user)(design, inst, d["arms"][arm])}]
 
     def timeline(self, i, arm):
         d = self.dialogues[i]
         dia = d["arms"][arm]
         return {"instance": d["instance"].id, "rotation": d["rotation"], "arm": arm,
                 "lines": [{"speaker": s, "text": t, "tag": tag[0], "cid": tag[1]} for s, t, tag in dia],
-                "stores": {X: store_timeline(X, d["instance"], dia) for X in DESIGNS}}
+                "stores": {X: store_timeline(X, d["instance"], dia) for X in DESIGNS + STRUCT_DESIGNS}}
 
     def run_live(self, i, arm, design, model):
         from robust_client import RetryingOllamaClient
@@ -147,7 +148,7 @@ class Handler(BaseHTTPRequestHandler):
 
     def _validate(self, req):
         i = int(req["i"]); arm = req["arm"]; design = req["design"]; model = req["model"]
-        if not (0 <= i < len(STATE.dialogues)) or arm not in ARMS or design not in DESIGNS:
+        if not (0 <= i < len(STATE.dialogues)) or arm not in ARMS or design not in DESIGNS + STRUCT_DESIGNS:
             return None, "bad dialogue, arm or design"
         if model not in ollama_models():
             return None, f"model {model!r} is not installed in Ollama"

@@ -309,6 +309,19 @@ def e29s_note():
             "soft-delete design encodes revocation.")
 
 
+#: E29-S's three re-structured rejections (its fourth cell, `addonly`, is E29's own design).
+STRUCT_DESIGNS = ("addonly_merged", "addonly_meta", "addonly_flag")
+
+
+def e29s_summaries():
+    """E29-S's per-decider reads: rejected-step inclusion per design and arm."""
+    out = []
+    for path in sorted(glob.glob(os.path.join(HERE, "results", "e29s_*_summary.json"))):
+        e = json.load(open(path, encoding="utf-8"))
+        out.append({"model": e["model"], "p": e["p"], "verdict": e["verdict"], "n": e["n_complete"]})
+    return out
+
+
 def e29_dialogues():
     """The 96 E29 dialogues: turns per arm, the context block per design, and
     every recorded decider output, keyed by model."""
@@ -316,6 +329,9 @@ def e29_dialogues():
     for m in E29_MODELS:
         for d in _json(f"results/e29_{slug(m)}_o*.json"):
             recorded[(d["instance"], d["rotation"], d["arm"], d["design"])][m] = d["output"]
+        for d in _json(f"results/e29s_{slug(m)}_r*.json"):            # E29-S: all four of its cells;
+            key = d["design"] if d["design"] in STRUCT_DESIGNS else d["design"] + "_s"   # its add-only as addonly_s
+            recorded[(d["instance"], d["rotation"], d["arm"], key)][m] = d["output"]
     out = []
     for d in all_e29_dialogues():
         inst, rot = d["instance"], d["rotation"]
@@ -331,7 +347,7 @@ def e29_dialogues():
             dia = d["arms"][arm]
             rec["arms"][arm] = [{"speaker": s, "text": t, "tag": tag[0], "cid": tag[1]} for s, t, tag in dia]
             rec["blocks"][arm] = {X: context_block(X, inst, dia) for X in DESIGNS}
-            rec["recorded"][arm] = {X: recorded.get((inst.id, rot, arm, X), {}) for X in DESIGNS}
+            rec["recorded"][arm] = {X: recorded.get((inst.id, rot, arm, X), {}) for X in DESIGNS + STRUCT_DESIGNS + ("addonly_s",)}
         out.append(rec)
     return out
 
@@ -372,7 +388,7 @@ def city_districts(dias):
 def build_data(live=False, live_models=None):
     agg, dias, showcase = e18_ladder()
     return {"corpus_hash": corpus_hash(), "e29_hash": e29_hash(), "models": MODELS, "agg": agg,
-            "dialogues": dias, "showcase": showcase, "e29": e29_summaries(), "city": city_districts(dias),
+            "dialogues": dias, "showcase": showcase, "e29": e29_summaries(), "e29s": e29s_summaries(), "city": city_districts(dias),
             "e29_caveat": E29_CAVEAT, "e29b_note": e29b_note(), "e29c_note": e29c_note(), "e29d_note": e29d_note(), "e29n_note": e29n_note(), "e29x_note": e29x_note(), "e29e_note": e29e_note(), "e29s_note": e29s_note(), "figure": figure_data(),
             "e29_dialogues": e29_dialogues(), "e29_models": E29_MODELS, "e29b": e29b_snapshots(),
             "live": {"models": live_models or []} if live else None}

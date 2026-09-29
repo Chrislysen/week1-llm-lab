@@ -11,7 +11,7 @@
   }
   * { box-sizing: border-box; }
   html, body { height: 100%; }
-  body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 14px; line-height: 1.45; overflow: hidden; display: grid; grid-template-rows: 56px minmax(0, 1fr) auto; -webkit-font-smoothing: antialiased; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 14px; line-height: 1.45; overflow: hidden; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; -webkit-font-smoothing: antialiased; }
   a { color: var(--cyan); text-decoration: none; }
   button, select { font: inherit; color: var(--ink); background: var(--panel2); border: 1px solid var(--line2); border-radius: 4px; padding: 6px 10px; }
   button { cursor: pointer; } button:hover { border-color: var(--cyan); } button:disabled { opacity: .45; cursor: not-allowed; }
@@ -20,7 +20,7 @@
   .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); }
 
   /* ---- top bar ---- */
-  .top { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 24px; padding: 0 16px; border-bottom: 1px solid var(--line); background: var(--panel); }
+  .top { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 16px 24px; padding: 8px 16px; min-height: 56px; border-bottom: 1px solid var(--line); background: var(--panel); }
   .brand { display: flex; align-items: center; gap: 10px; }
   .brand .mark { width: 22px; height: 22px; border-radius: 50%; border: 5px solid var(--amber); }
   .brand b { font-family: var(--display); font-weight: 700; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; }
@@ -28,7 +28,8 @@
   .picks { display: flex; align-items: center; gap: 8px 16px; flex-wrap: wrap; justify-content: center; }
   .picks .grp { display: flex; align-items: center; gap: 8px; }
   .picks label { font-family: var(--mono); font-size: 11.5px; color: var(--dim); text-transform: uppercase; letter-spacing: .06em; }
-  .picks select { max-width: 360px; }
+  .picks select { max-width: 300px; }
+  @media (max-width: 1760px) { .brand span { display: none; } }
   .top .right { display: flex; gap: 8px; align-items: center; }
   .top .right a { font-family: var(--mono); font-size: 12px; padding: 6px 10px; border: 1px solid var(--line2); border-radius: 4px; }
 
@@ -44,6 +45,7 @@
   .lbl .n.on { display: inline-flex; }
   .lbl .n.rej { background: var(--amber); }
   .lbl.agent { background: none; border: 0; color: var(--muted); font-size: 11.5px; transform: translate(-50%, 0); }
+  .lbl.district { font-size: 10.5px; letter-spacing: .08em; color: #6F87A6; opacity: .75; backdrop-filter: none; }
   .lbl.step { transform: translate(-50%, -50%); font-size: 10.5px; padding: 1px 6px; min-width: 20px; justify-content: center; color: var(--dim); border-color: var(--line); background: rgba(12, 19, 28, .7); }
   .lbl.step.done { color: var(--ink); border-color: var(--line2); }
   .lbl.step.cur { color: #0A1018; background: var(--white); border-color: var(--white); font-weight: 600; }
@@ -80,8 +82,9 @@
   .keys { margin-left: auto; font-family: var(--mono); font-size: 11px; color: var(--dim); white-space: nowrap; }
   .keys kbd { font: inherit; border: 1px solid var(--line2); border-radius: 3px; padding: 0 5px; color: var(--muted); }
   @media (prefers-reduced-motion: reduce) { .lbl.flash { animation: none; } .interstitial, .interstitial .box { transition: none; } }
-  .vignette { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 58%, rgba(3,6,10,0) 40%, rgba(3,6,10,.82) 100%); }
-  .state { position: absolute; right: 16px; top: 16px; font-family: var(--mono); font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 8px; background: rgba(12, 19, 28, .7); border: 1px solid var(--line); border-radius: 3px; padding: 5px 10px; }
+  .vignette { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to bottom, rgba(3,6,10,.78) 0%, rgba(3,6,10,.35) 16%, rgba(3,6,10,0) 32%), radial-gradient(ellipse at 50% 58%, rgba(3,6,10,0) 48%, rgba(3,6,10,.55) 100%); }
+  .scene .viewseg.in3d { position: absolute; right: 16px; top: 16px; z-index: 3; background: rgba(12, 19, 28, .85); }
+  .state { position: absolute; right: 16px; top: 58px; font-family: var(--mono); font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 8px; background: rgba(12, 19, 28, .7); border: 1px solid var(--line); border-radius: 3px; padding: 5px 10px; }
   .state i { width: 8px; height: 8px; border-radius: 50%; background: var(--dim); display: inline-block; }
   .state.on i { background: var(--teal); box-shadow: 0 0 10px var(--teal); }
   .state.busy i { background: var(--amber); box-shadow: 0 0 10px var(--amber); }
@@ -168,6 +171,67 @@
   .err { font-family: var(--mono); font-size: 12px; color: var(--red); }
   @media (max-width: 980px) { .main { grid-template-columns: 1fr; grid-template-rows: minmax(0, 1fr) auto; } .rail { border-left: 0; border-top: 1px solid var(--line); grid-template-rows: auto; grid-template-columns: 1fr 1fr 1fr; } .tally { grid-template-columns: 1fr; } }
   @media (prefers-reduced-motion: reduce) { .memory li, .scrub .dot, .bar .fill { transition: none; } }
+  /* ---- side-by-side view (default): the same conversation next to two memories ---- */
+  .main { position: relative; }
+  .main.view-flat { grid-template-columns: minmax(0, 1fr); }
+  .main.view-flat .scene, .main.view-flat .rail { display: none; }
+  .main:not(.view-flat) .flat { display: none; }
+  .main > .interstitial { z-index: 5; }
+  .flat { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: 12px; padding: 14px 24px 14px; min-height: 0; }
+  .fhead { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; }
+  .fhead h2 { margin: 0; font-family: var(--display); font-weight: 700; font-size: 19px; letter-spacing: -.01em; }
+  .fsub { margin: 4px 0 0; color: var(--muted); font-size: 15px; line-height: 1.45; max-width: 150ch; }
+  .fsub b { color: var(--amber); font-weight: 600; }
+  .fright { display: flex; align-items: center; gap: 14px; flex: none; }
+  .viewseg button { white-space: nowrap; }
+  .fpos { font-family: var(--mono); font-size: 12px; color: var(--dim); white-space: nowrap; }
+  .fgrid, .frate { display: grid; grid-template-columns: 34px minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1fr); }
+  .fgrid { overflow: auto; min-height: 0; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); align-content: start; }
+  .fgrid > div { padding: 7px 14px; border-bottom: 1px solid var(--line); min-width: 0; }
+  .fgrid > div.c2, .fgrid > div.c3 { border-left: 1px solid var(--line); }
+  .fgrid .h { position: sticky; top: 0; z-index: 2; background: var(--panel2); padding-top: 9px; padding-bottom: 9px; }
+  .fgrid .h .eyebrow { color: var(--muted); }
+  .fgrid .h .rule { font-size: 13px; color: var(--muted); margin-top: 3px; line-height: 1.35; }
+  .fgrid .h .rule b { color: var(--ink); font-weight: 600; }
+  .fgrid .no { font-family: var(--mono); font-size: 11.5px; color: var(--dim); text-align: right; padding-left: 0; padding-right: 2px; }
+  .fgrid .cur { background: rgba(232, 241, 255, .055); }
+  .fgrid .fut { color: var(--line2); }
+  .fgrid .key { box-shadow: inset 3px 0 0 var(--amber); }
+  .fgrid .who { font-family: var(--display); font-weight: 600; font-size: 12.5px; color: var(--c, var(--ink)); }
+  .fgrid .kind { font-family: var(--mono); font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-left: 8px; }
+  .fgrid .kind.rejected { color: var(--red); } .fgrid .kind.restate { color: var(--amber); }
+  .fgrid .txt { margin: 2px 0 0; font-size: 14px; line-height: 1.38; }
+  .op { display: flex; gap: 7px; font-size: 13.5px; line-height: 1.4; }
+  .op + .op { margin-top: 4px; }
+  .op .sym { font-family: var(--mono); font-size: 12px; flex: none; width: 70px; color: var(--dim); padding-top: 1px; }
+  .op.add .sym { color: var(--teal); } .op.upd .sym { color: var(--blue); }
+  .op.del { color: var(--red); } .op.del .sym { color: var(--red); } .op.del .t { text-decoration: line-through; text-decoration-thickness: 1px; }
+  .op.none { color: var(--dim); font-size: 13px; }
+  .note { font-family: var(--mono); font-size: 11.5px; line-height: 1.35; margin: 3px 0 0 77px; }
+  .note.bad { color: var(--amber); } .note.ok { color: var(--teal); }
+  mark.rj { background: none; color: var(--amber); font-weight: 600; }
+  .op.del mark.rj { color: var(--red); }
+  .fgrid .pl { position: sticky; bottom: 0; z-index: 2; background: var(--panel2); border-top: 1px solid var(--line2); border-bottom: 0; }
+  .fgrid .pl .eyebrow { color: var(--muted); }
+  .fgrid .pl .sub { font-size: 12.5px; color: var(--dim); margin-top: 3px; line-height: 1.35; }
+  .fgrid .pl .chip { font-size: 11px; padding: 3px 6px; }
+  .pverdict { font-family: var(--mono); font-size: 12px; margin-top: 6px; }
+  .pverdict.back { color: var(--amber); } .pverdict.out { color: var(--teal); } .pverdict.wait { color: var(--dim); margin-top: 0; }
+  .plive { margin-top: 10px; padding-top: 8px; border-top: 1px dashed var(--line2); }
+  .plive .sub { margin: 0 0 5px; }
+  .frate { align-items: start; row-gap: 4px; }
+  .frate .lab { padding: 0 14px; font-size: 13px; color: var(--muted); line-height: 1.4; }
+  .frate .lab b { color: var(--ink); font-weight: 600; }
+  .frate .col { padding: 0 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .rbar { display: grid; grid-template-columns: auto minmax(30px, 1fr) 36px; gap: 8px; align-items: center; font-size: 12.5px; color: var(--muted); white-space: nowrap; }
+  .rbar .tr { height: 10px; background: var(--panel2); border: 1px solid var(--line); border-radius: 5px; overflow: hidden; }
+  .rbar .fi { height: 100%; border-radius: 4px; background: var(--amber); }
+  .rbar.neu .fi { background: var(--dim); }
+  .rbar .pc { font-family: var(--mono); color: var(--ink); text-align: right; }
+  .enter { animation: fin .45s ease both; }
+  @keyframes fin { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .enter { animation: none; } }
+  @media (max-width: 980px) { .fgrid, .frate { grid-template-columns: 26px minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr); } .op .sym { width: 14px; } .op .sym b { display: none; } .note { margin-left: 21px; } }
 </style>
 
 <header class="top">
@@ -178,20 +242,26 @@
     <select id="pk-dialogue" aria-label="dialogue"></select>
     <button class="tbtn" id="pk-next" type="button" title="next dialogue">›</button></span>
     <span class="grp"><label for="pk-design">memory design</label>
-    <select id="pk-design"><option value="delete">write-time delete</option><option value="full">full context</option><option value="addonly">add-only</option><option value="wiki">merge-in-place page</option></select></span>
+    <select id="pk-design"><optgroup label="memory design"><option value="delete">write-time delete</option><option value="full">full context</option><option value="addonly">add-only</option><option value="wiki">merge-in-place page</option></optgroup><optgroup label="how the rejection is written (add-only, E29-S)"><option value="addonly_merged">rejection merged onto the proposal</option><option value="addonly_meta">rejection as a status line</option><option value="addonly_flag">rejection as a tag on the proposal</option></optgroup></select></span>
     <span class="grp"><label for="pk-model">decides with</label>
     <select id="pk-model"></select></span>
   </div>
   <div class="right"><a href="/" title="the report this player belongs to">Report</a><button type="button" id="full">Fullscreen</button></div>
 </header>
 
-<main class="main">
+<main class="main view-flat" id="main">
+  <section class="flat" id="flat" aria-label="The same conversation next to two memories">
+    <header class="fhead"><div><h2>Same conversation, two memories</h2><p class="fsub" id="f-sub">Loading the dialogue…</p></div><div class="fright"><div class="fpos" id="f-pos"></div><div class="seg viewseg" role="group" aria-label="view"><button type="button" data-view="flat">side by side</button><button type="button" data-view="3d">3D city</button></div></div></header>
+    <div class="fgrid" id="f-grid"></div>
+    <div class="frate" id="f-rate"></div>
+  </section>
+  <div class="interstitial" id="inter"><div class="box"><div class="it" id="inter-t"></div><div class="is" id="inter-s"></div></div></div>
   <section class="scene" id="scene" aria-label="Memory City scene">
     <canvas id="c"></canvas>
     <div class="vignette"></div>
     <div class="labels" id="labels"></div>
-    <div class="interstitial" id="inter"><div class="box"><div class="it" id="inter-t"></div><div class="is" id="inter-s"></div></div></div>
     <div class="cap"><div class="t" id="cap-t">Memory City</div><div class="s" id="cap-s">pick a dialogue and press play</div><div class="set" id="cap-set"></div><div class="how">thread = the conversation, left to right, on the speaker's side · tower height = how often the step appeared in recorded plans</div></div>
+    <div class="seg viewseg in3d" role="group" aria-label="view"><button type="button" data-view="flat">side by side</button><button type="button" data-view="3d">3D city</button></div>
     <div class="state" id="state"><i></i><span>checking the local model…</span></div>
     <div class="legend">
       <span><i style="background:#5B8DEF"></i>proposal</span><span><i style="background:#2FBFA3"></i>accepted</span>
@@ -239,17 +309,247 @@
 <script>
 (function () {
   var D = JSON.parse(document.getElementById('xray-data').textContent);
-  var IDX = D.e29_index || [], DIST = D.city || [], E29 = D.e29 || [];
+  var IDX = D.e29_index || [], DIST = D.city || [], E29 = D.e29 || [], E29S = D.e29s || [];
+  function isStruct(X) { return /^addonly_(merged|meta|flag)$/.test(X); }
+  function rateFor(model, X, arm, fromS) { /* recorded rejected-step inclusion over all 96, or null; fromS reads E29-S's session */
+    var src = (fromS || isStruct(X)) ? E29S : E29, v = null;
+    src.forEach(function (E) { if (E.model === model && E.p && E.p[X + '|' + arm] != null) v = E.p[X + '|' + arm]; });
+    return v;
+  }
   var $ = function (id) { return document.getElementById(id); };
   function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
-  var DESIGN_NAME = { full: 'full context', delete: 'write-time delete', addonly: 'add-only', wiki: 'merge-in-place page' };
+  var DESIGN_NAME = { full: 'full context', delete: 'write-time delete', addonly: 'add-only', wiki: 'merge-in-place page',
+                      addonly_merged: 'add-only, rejection merged onto the proposal', addonly_meta: 'add-only, rejection as a status line',
+                      addonly_flag: 'add-only, rejection as a tag' };
   var DESIGN_RULE = { delete: 'A rejection DELETEs the proposal and stores nothing itself. A later mention finds nothing to contradict and is added as a fresh fact.',
                       addonly: 'Every fact is kept and nothing is ever updated or deleted. Proposal, rejection and restatement sit side by side.',
                       wiki: 'One page per step, merged in place. Contradictions are queued for a human reviewer who never comes, so both claims stay on the page.',
-                      full: 'No memory layer. The Operator reads the whole transcript and has to resolve the conflict itself.' };
+                      full: 'No memory layer. The Operator reads the whole transcript and has to resolve the conflict itself.',
+                      addonly_merged: 'Add-only, but the rejection sentence is joined onto the proposal\'s own line. Same words as add-only, one line break fewer.',
+                      addonly_meta: 'Add-only, but the rejection is a separate status line with no verb: status(X) = WITHDRAWN.',
+                      addonly_flag: 'Add-only, but the rejection is only a [withdrawn] tag on the proposal. This is how shipped soft-delete designs mark revocation.' };
   var ROLE_TEXT = { 'Operations Lead': 'proposes steps and keeps the plan', 'Safety Auditor': 'holds the plan to what was agreed' };
   var ROLE_COLOR = { 'Operations Lead': '#7FA3E6', 'Safety Auditor': '#3CC5AE' };
   var KIND_LABEL = { proposal: 'proposes a step', accepted: 'accepts it', rejected: 'rejects it', restate: 'brings the rejected step up again', neutral: 'says something unrelated', noise: 'says something unrelated' };
+
+  /* ================= environment: the rest of Memory City, at night =================
+     Scenery only, kept dim so the hero district reads first. A sky dome whose horizon is
+     exactly the fog colour (no seam where the ground ends), a street grid to the horizon,
+     a lit plaza under the hero district, the other domains' districts as smaller neighbours
+     (same tower-height encoding as the hero, from the same data), and generic blocks with
+     lit windows that fade into the haze. Seeded, so the city is identical on every load. */
+  function makeCity(T, scene, reduced) {
+    /* Colour note: fog is blended after tone mapping and sRGB encoding, so the fog hex is exactly what shows
+       at the horizon. Unlit scenery therefore skips tone mapping and uses sRGB textures and colours, so every
+       colour written below is the colour on screen, and the sky's horizon matches the fog with no seam. */
+    var seed = 29;
+    function rnd() { seed |= 0; seed = seed + 0x6D2B79F5 | 0; var t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }
+    var ENV = {
+      fog: new T.Color(0x0A1321), density: 0.016,    /* the haze the city dissolves into; also the horizon */
+      zenith: new T.Color(0x020409), high: new T.Color(0x050A13),
+      block: 9, street: 1.5, plaza: 12.5, clear: 22   /* street grid pitch, street width, plaza radius, no-build radius */
+    };
+    scene.fog = new T.FogExp2(ENV.fog.getHex(), ENV.density);
+    function canvas(w, h) { var c = document.createElement('canvas'); c.width = w; c.height = h; return c; }
+    function tex(c, srgb) { var t = new T.CanvasTexture(c); if (srgb) t.encoding = T.sRGBEncoding; t.anisotropy = 8; return t; }
+
+    /* sky: vertex-coloured dome, horizon = fog colour, darkening to the zenith; faint stars */
+    (function () {
+      var R = 560, geo = new T.SphereGeometry(R, 48, 96), pos = geo.attributes.position, col = [], c = new T.Color();
+      for (var i = 0; i < pos.count; i++) {
+        var e = Math.max(0, pos.getY(i) / R);
+        if (e < 0.08) c.copy(ENV.fog).lerp(ENV.high, Math.pow(e / 0.08, 0.7));
+        else c.copy(ENV.high).lerp(ENV.zenith, Math.min(1, (e - 0.08) / 0.5));
+        c.convertSRGBToLinear(); col.push(c.r, c.g, c.b);                                   /* encoded back to exactly these on screen */
+      }
+      geo.setAttribute('color', new T.Float32BufferAttribute(col, 3));
+      var dome = new T.Mesh(geo, new T.MeshBasicMaterial({ vertexColors: true, side: T.BackSide, fog: false, depthWrite: false, toneMapped: false }));
+      dome.renderOrder = -10; scene.add(dome);
+      var sp = [];
+      for (var s = 0; s < 420; s++) { var az = rnd() * Math.PI * 2, el = 0.06 + Math.pow(rnd(), 1.6) * 1.2; sp.push(Math.cos(az) * Math.cos(el) * 520, Math.sin(el) * 520, Math.sin(az) * Math.cos(el) * 520); }
+      var sg = new T.BufferGeometry(); sg.setAttribute('position', new T.Float32BufferAttribute(sp, 3));
+      scene.add(new T.Points(sg, new T.PointsMaterial({ color: 0x9FB8D8, size: 1.3, sizeAttenuation: false, transparent: true, opacity: 0.55, fog: false, depthWrite: false })));
+    })();
+
+    /* ground: one street-grid tile, repeated to the horizon; tile edges are street centrelines */
+    (function () {
+      var P = 512, c = canvas(P, P), g = c.getContext('2d'), s = ENV.street / ENV.block * P / 2;
+      g.fillStyle = '#0F151E'; g.fillRect(0, 0, P, P);                               /* street asphalt */
+      g.fillStyle = '#0B1017'; g.fillRect(s, s, P - 2 * s, P - 2 * s);                   /* block */
+      g.strokeStyle = 'rgba(120,150,190,.16)'; g.lineWidth = 3; g.strokeRect(s + 2, s + 2, P - 2 * s - 4, P - 2 * s - 4);   /* kerb */
+      g.strokeStyle = 'rgba(150,175,210,.14)'; g.lineWidth = 2; g.setLineDash([18, 22]);
+      g.beginPath(); g.moveTo(0, 1); g.lineTo(P, 1); g.moveTo(1, 0); g.lineTo(1, P); g.stroke();   /* lane dashes on the centrelines */
+      var t = tex(c, true); t.wrapS = t.wrapT = T.RepeatWrapping;
+      var span = ENV.block * 160; t.repeat.set(span / ENV.block, span / ENV.block);
+      var ground = new T.Mesh(new T.PlaneGeometry(span, span), new T.MeshBasicMaterial({ map: t, toneMapped: false }));   /* unlit: the agents' lights leave no stains */
+      ground.rotation.x = -Math.PI / 2; ground.position.set(ENV.block / 2, -0.02, ENV.block / 2); scene.add(ground);
+    })();
+
+    /* plaza under the hero district: paved, with a soft light pool, fading into the streets at its edge */
+    (function () {
+      var P = 1024, c = canvas(P, P), g = c.getContext('2d'), h = P / 2;
+      var rg = g.createRadialGradient(h, h * 0.94, 10, h, h, h); rg.addColorStop(0, '#1B283A'); rg.addColorStop(0.45, '#141E2C'); rg.addColorStop(1, '#10171F');
+      g.fillStyle = rg; g.fillRect(0, 0, P, P);
+      var cell = P / (ENV.plaza * 2 / 1.25);                                               /* 1.25-unit paving */
+      g.strokeStyle = 'rgba(150,180,220,.07)'; g.lineWidth = 1.5;
+      for (var q = h % cell; q < P; q += cell) { g.beginPath(); g.moveTo(q, 0); g.lineTo(q, P); g.moveTo(0, q); g.lineTo(P, q); g.stroke(); }
+      g.globalCompositeOperation = 'destination-in';                                         /* soft edge: fade out over the last quarter */
+      var fade = g.createRadialGradient(h, h, h * 0.72, h, h, h); fade.addColorStop(0, 'rgba(0,0,0,1)'); fade.addColorStop(1, 'rgba(0,0,0,0)');
+      g.fillStyle = fade; g.fillRect(0, 0, P, P); g.globalCompositeOperation = 'source-over';
+      var disc = new T.Mesh(new T.PlaneGeometry(ENV.plaza * 2, ENV.plaza * 2), new T.MeshBasicMaterial({ map: tex(c, true), transparent: true, depthWrite: false, toneMapped: false }));
+      disc.rotation.x = -Math.PI / 2; disc.position.y = 0.01; scene.add(disc);
+    })();
+
+    /* soft contact shadow, shared by everything that stands on the ground */
+    var shadowTex = (function () {
+      var c = canvas(128, 128), g = c.getContext('2d'), rg = g.createRadialGradient(64, 64, 4, 64, 64, 64);
+      rg.addColorStop(0, 'rgba(0,0,0,.75)'); rg.addColorStop(0.55, 'rgba(0,0,0,.35)'); rg.addColorStop(1, 'rgba(0,0,0,0)');
+      g.fillStyle = rg; g.fillRect(0, 0, 128, 128); return tex(c, false);
+    })();
+    function shadow(x, z, w, d) {
+      var m = new T.Mesh(new T.PlaneGeometry(w, d), new T.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false, color: 0x000000 }));
+      m.rotation.x = -Math.PI / 2; m.position.set(x, 0.035, z); m.renderOrder = 1; return m;
+    }
+
+    /* the other districts: one per domain, from the same data as the hero. Five slots in a row behind
+       the hero's labels and right of the caption; whichever domain is on stage leaves the row. */
+    var NB = [], SLOTS = [-11, -0.5, 10, 20, 29].map(function (x) { return { x: x, z: -45 - Math.abs(x - 9) * 0.06 }; });
+    function faceColours(geo, base) {                                                         /* flat shading baked per face */
+      var F = [0.62, 0.62, 1.0, 0.3, 0.84, 0.5], col = [], c = new T.Color(base).convertSRGBToLinear();
+      for (var i = 0; i < geo.attributes.position.count; i++) { var k = F[Math.floor(i / 4)]; col.push(c.r * k, c.g * k, c.b * k); }
+      geo.setAttribute('color', new T.Float32BufferAttribute(col, 3)); return geo;
+    }
+    DIST.forEach(function (d) {
+      var grp = new T.Group(); grp.scale.setScalar(1.3); scene.add(grp);
+      var pad = new T.Mesh(new T.CircleGeometry(3.7, 64), new T.MeshBasicMaterial({ color: new T.Color(0x142033).convertSRGBToLinear(), toneMapped: false })); pad.rotation.x = -Math.PI / 2; pad.position.y = 0.01; grp.add(pad);
+      var ring = new T.Mesh(new T.RingGeometry(3.64, 3.76, 96), new T.MeshBasicMaterial({ color: 0x3F77B8, transparent: true, opacity: 0.45, blending: T.AdditiveBlending, depthWrite: false })); ring.rotation.x = -Math.PI / 2; ring.position.y = 0.03; grp.add(ring);
+      var n = d.actions.length;
+      d.actions.forEach(function (a, i) {
+        var t = n > 1 ? i / (n - 1) : 0.5, aa = -Math.PI / 2 + (t - 0.5) * Math.PI * 0.62, x = Math.cos(aa) * 2.5, z = Math.sin(aa) * 1.5 + 0.9;
+        var h = 0.6 + 2.2 * (d.heights[a] || 0.3), geo = faceColours(new T.BoxGeometry(0.8, h, 0.8), 0x3A5475); geo.translate(0, h / 2, 0);
+        var m = new T.Mesh(geo, new T.MeshBasicMaterial({ vertexColors: true, toneMapped: false })); m.position.set(x, 0, z); grp.add(m);
+        var cap = new T.Mesh(new T.BoxGeometry(0.82, 0.07, 0.82), new T.MeshBasicMaterial({ color: new T.Color(0x7FB0E6).convertSRGBToLinear(), toneMapped: false })); cap.position.set(x, h + 0.035, z); grp.add(cap);
+        grp.add(shadow(x, z, 1.6, 1.6));
+      });
+      NB.push({ domain: d.domain, group: grp, x: 0, z: 0, label: null });
+    });
+    function layout(heroDomain) {
+      var k = 0;
+      NB.forEach(function (nb) {
+        var show = nb.domain !== heroDomain && k < SLOTS.length; nb.group.visible = show;
+        if (show) { var sl = SLOTS[k++]; nb.x = sl.x; nb.z = sl.z; nb.group.position.set(sl.x, 0, sl.z); }
+      });
+    }
+    layout(null);
+
+    /* generic blocks: lots on the street grid, low near the plaza and taller toward the horizon */
+    var WIN = { cols: 32, rows: 16, uw: 9.6, uh: 8.0 };                                      /* texture spans 9.6 x 8 world units */
+    var winTex = (function () {
+      var W = 512, Hh = 512, c = canvas(W, Hh), g = c.getContext('2d'), cw = W / WIN.cols, ch = Hh / WIN.rows;
+      g.fillStyle = '#0A0F16'; g.fillRect(0, 0, W, Hh);
+      g.fillStyle = '#161F2B'; g.fillRect(0, 0, 6, 6);                                    /* roof texel (top-left) */
+      var lit = ['#9FBEE3', '#C3D6EE', '#86A9D6', '#DCD4BD', '#AFC4DE'];
+      for (var r = 0; r < WIN.rows; r++) {
+        var floorLit = rnd() < 0.3 ? 0.26 : 0.06;                                            /* some floors busier than others */
+        for (var k = 0; k < WIN.cols - 1; k++) {
+          var on = rnd() < floorLit;
+          g.globalAlpha = on ? 0.35 + rnd() * 0.5 : 1;
+          g.fillStyle = on ? lit[Math.floor(rnd() * lit.length)] : '#0F1722';
+          if (r === 0 && k === 0) continue;                                                     /* keep the roof texel clean */
+          g.fillRect(k * cw + cw * 0.22, r * ch + ch * 0.28, cw * 0.56, ch * 0.5);
+        }
+      }
+      g.globalAlpha = 1; var t = tex(c, true); t.wrapS = t.wrapT = T.RepeatWrapping; return t;
+    })();
+    var lots = [], B = ENV.block, S = ENV.street;
+    function onPad(x, z) { for (var i = 0; i < SLOTS.length; i++) if (Math.hypot(x - SLOTS[i].x, z - SLOTS[i].z) < 5.4) return true; return false; }
+    function blocked(x, z, r) {
+      if (Math.hypot(x, z) < ENV.clear + r) return true;
+      if (z > -4 && Math.abs(x) < 22) return true;                                           /* keep the foreground and the agents' sides open */
+      if (z > 16) return true;                                                                /* behind the camera */
+      if (Math.abs(x) > 0.72 * (24 - z) + 14) return true;                                   /* outside the view */
+      for (var i = 0; i < SLOTS.length; i++) if (Math.hypot(x - SLOTS[i].x, z - SLOTS[i].z) < 6.4 + r) return true;
+      return false;
+    }
+    for (var bx = -22; bx <= 22; bx++) for (var bz = -22; bz <= 2; bz++) {
+      var cx0 = bx * B, cz0 = bz * B, inner = B - S, dist = Math.hypot(cx0, cz0);
+      if (dist > 190) continue;
+      var split = rnd() < 0.55 ? 2 : 1, cell = inner / split;
+      for (var ix = 0; ix < split; ix++) for (var iz = 0; iz < split; iz++) {
+        if (rnd() < 0.08) continue;                                                           /* the odd empty lot */
+        var w = cell * (0.62 + rnd() * 0.28), dd = cell * (0.62 + rnd() * 0.28);
+        var x = cx0 - inner / 2 + cell * (ix + 0.5), z = cz0 - inner / 2 + cell * (iz + 0.5), d0 = Math.hypot(x, z);
+        if (blocked(x, z, Math.max(w, dd) / 2)) continue;
+        var q = rnd(), h = d0 < 30 ? 0.7 + q * 1.8 : d0 < 55 ? 1.2 + Math.pow(q, 1.4) * 5 : d0 < 110 ? 2 + Math.pow(q, 1.8) * 11 : 3 + Math.pow(q, 1.6) * 18;
+        if (z > -41 && z < -20 && x > -24 && x < 40) h = Math.min(h, 0.5 + q * 0.6);             /* low belt in front of the districts keeps them in view */
+        lots.push({ x: x, z: z, w: w, d: dd, h: h, u: Math.floor(rnd() * WIN.cols) / WIN.cols, v: Math.floor(rnd() * WIN.rows) / WIN.rows });
+      }
+    }
+    (function () {
+      var P = [], U = [], C = [], I = [], base = 0, FACE = [0.62, 0.62, 1.0, 0.3, 0.82, 0.5];   /* +x -x roof floor front back */
+      lots.forEach(function (b) {
+        var g = new T.BoxGeometry(b.w, b.h, b.d), pos = g.attributes.position, uv = g.attributes.uv, idx = g.index;
+        for (var i = 0; i < pos.count; i++) {
+          P.push(pos.getX(i) + b.x, pos.getY(i) + b.h / 2, pos.getZ(i) + b.z);
+          var f = Math.floor(i / 4);                                                          /* faces: +x -x +y -y +z -z */
+          if (f === 2 || f === 3) U.push(0.004, 0.996);                                       /* roof and floor: the roof texel */
+          else U.push(b.u + uv.getX(i) * (f < 2 ? b.d : b.w) / WIN.uw, b.v + uv.getY(i) * b.h / WIN.uh);
+          C.push(FACE[f], FACE[f], FACE[f]);
+        }
+        for (var j = 0; j < idx.count; j++) I.push(idx.getX(j) + base);
+        base += pos.count; g.dispose();
+      });
+      var geo = new T.BufferGeometry();
+      geo.setAttribute('position', new T.Float32BufferAttribute(P, 3)); geo.setAttribute('uv', new T.Float32BufferAttribute(U, 2)); geo.setAttribute('color', new T.Float32BufferAttribute(C, 3)); geo.setIndex(I);
+      scene.add(new T.Mesh(geo, new T.MeshBasicMaterial({ map: winTex, vertexColors: true, toneMapped: false })));   /* unlit: shading is baked per face */
+    })();
+
+    /* street lights: dotted along every street centreline, which is what draws the grid at night */
+    (function () {
+      var pts = [], step = 3;
+      for (var k = -22; k <= 22; k++) {
+        var line = k * B + B / 2;
+        for (var t = -200; t <= 20; t += step) {
+          [[line, t], [t, line]].forEach(function (p) {
+            var r = Math.hypot(p[0], p[1]);
+            if (r < ENV.plaza + 1.2 || r > 170 || p[1] > 14 || Math.abs(p[0]) > 0.72 * (24 - p[1]) + 16 || onPad(p[0], p[1])) return;
+            pts.push(p[0], 0.12, p[1]);
+          });
+        }
+      }
+      var c = canvas(64, 64), g = c.getContext('2d'), rg = g.createRadialGradient(32, 32, 1, 32, 32, 31);
+      rg.addColorStop(0, 'rgba(255,255,255,1)'); rg.addColorStop(0.3, 'rgba(255,255,255,.5)'); rg.addColorStop(1, 'rgba(255,255,255,0)'); g.fillStyle = rg; g.fillRect(0, 0, 64, 64);
+      var geo = new T.BufferGeometry(); geo.setAttribute('position', new T.Float32BufferAttribute(pts, 3));
+      scene.add(new T.Points(geo, new T.PointsMaterial({ map: tex(c, false), color: 0xB9CDE6, size: 0.4, transparent: true, opacity: 0.6, depthWrite: false, blending: T.AdditiveBlending })));
+    })();
+
+    /* traffic: a few dim lights drifting along the far streets, so the city is not frozen */
+    var cars = [], carPos = new Float32Array(90 * 3);
+    for (var ci = 0; ci < 90; ci++) {
+      var alongX = rnd() < 0.5;                                                               /* east-west runs use streets behind the plaza only */
+      var line = alongX ? -(3 + Math.floor(rnd() * 14)) * B - B / 2 : (Math.floor(rnd() * 16) - 8) * B + B / 2;
+      var lo = alongX ? -70 : -150, hi = alongX ? 70 : -24;
+      cars.push({ alongX: alongX, line: line, lo: lo, hi: hi, t: lo + rnd() * (hi - lo), v: (rnd() < 0.5 ? -1 : 1) * (1.4 + rnd() * 1.8) });
+    }
+    var carGeo = new T.BufferGeometry(); carGeo.setAttribute('position', new T.BufferAttribute(carPos, 3));
+    var carMat = new T.PointsMaterial({ color: 0xD8E8FF, size: 0.34, transparent: true, opacity: 0.5, depthWrite: false, blending: T.AdditiveBlending });
+    var dot = canvas(32, 32), dg = dot.getContext('2d'), drg = dg.createRadialGradient(16, 16, 1, 16, 16, 15); drg.addColorStop(0, 'rgba(255,255,255,1)'); drg.addColorStop(1, 'rgba(255,255,255,0)'); dg.fillStyle = drg; dg.fillRect(0, 0, 32, 32); carMat.map = tex(dot, false);
+    scene.add(new T.Points(carGeo, carMat));
+    function drive(dt) {
+      cars.forEach(function (c, i) {
+        if (!reduced) { c.t += c.v * dt; if (c.t > c.hi) c.t = c.lo; if (c.t < c.lo) c.t = c.hi; }
+        var x = c.alongX ? c.t : c.line + (c.v > 0 ? 0.35 : -0.35), z = c.alongX ? c.line + (c.v > 0 ? 0.35 : -0.35) : c.t;
+        carPos[i * 3] = x; carPos[i * 3 + 1] = onPad(x, z) ? -5 : 0.14; carPos[i * 3 + 2] = z;                  /* dips under a district's pad */
+      });
+      carGeo.attributes.position.needsUpdate = true;
+    }
+    drive(0);
+
+    return {
+      shadow: shadow, districts: NB, drive: drive,
+      setHero: layout
+    };
+  }
 
   /* ================= scene ================= */
   function makeScene(host, canvas, labels) {
@@ -261,34 +561,14 @@
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
     renderer.setClearColor(0x000000, 0); renderer.toneMapping = T.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.0; renderer.outputEncoding = T.sRGBEncoding;
     var scene = new T.Scene();
-    scene.background = (function () {
-      var c = document.createElement('canvas'); c.width = 4; c.height = 512; var g = c.getContext('2d');
-      var lg = g.createLinearGradient(0, 0, 0, 512); lg.addColorStop(0, '#02040A'); lg.addColorStop(0.42, '#060C17'); lg.addColorStop(0.62, '#0D1A30'); lg.addColorStop(0.72, '#0A1526'); lg.addColorStop(1, '#03060B');
-      g.fillStyle = lg; g.fillRect(0, 0, 4, 512); var t = new T.CanvasTexture(c); t.encoding = T.sRGBEncoding; return t;
-    })();
-    scene.fog = new T.FogExp2(0x060C17, 0.018);
-    var camera = new T.PerspectiveCamera(40, 2, 0.1, 200);
+    var camera = new T.PerspectiveCamera(40, 2, 0.5, 900);
     scene.add(new T.HemisphereLight(0x5F86B8, 0x04070C, 0.32));
     var keyL = new T.DirectionalLight(0xBFD5EE, 0.28); keyL.position.set(-9, 18, 9); scene.add(keyL);
     var rimL = new T.DirectionalLight(0x5F92D8, 0.22); rimL.position.set(10, 8, -14); scene.add(rimL);
     var composer = null, bloom = null;
     try { if (T.EffectComposer && T.UnrealBloomPass) { composer = new T.EffectComposer(renderer); composer.addPass(new T.RenderPass(scene, camera)); bloom = new T.UnrealBloomPass(new T.Vector2(900, 540), 0.32, 0.25, 0.88); composer.addPass(bloom); } } catch (e) { composer = null; }
-    var groundTex = (function () {
-      var c = document.createElement('canvas'); c.width = c.height = 1024; var g = c.getContext('2d');
-      var rg = g.createRadialGradient(512, 500, 8, 512, 500, 150); rg.addColorStop(0, '#0B1526'); rg.addColorStop(0.45, '#060B14'); rg.addColorStop(1, '#02040A');
-      g.fillStyle = rg; g.fillRect(0, 0, 1024, 1024);
-      for (var i = 0; i <= 64; i++) {
-        var q = i * 16, d = Math.abs(q - 512) / 150;
-        g.strokeStyle = 'rgba(110, 155, 215,' + (0.075 * Math.max(0, 1 - d * 1.15)).toFixed(3) + ')'; g.lineWidth = 1;
-        g.beginPath(); g.moveTo(q, 0); g.lineTo(q, 1024); g.stroke(); g.beginPath(); g.moveTo(0, q); g.lineTo(1024, q); g.stroke();
-      }
-      var t = new T.CanvasTexture(c); t.minFilter = T.LinearMipmapLinearFilter; t.anisotropy = 4; t.encoding = T.sRGBEncoding; return t;
-    })();
-    var ground = new T.Mesh(new T.PlaneGeometry(240, 240), new T.MeshBasicMaterial({ map: groundTex })); ground.rotation.x = -Math.PI / 2; ground.position.set(0, -0.02, 0); scene.add(ground);
-    var pN = 320, pPos = new Float32Array(pN * 3);
-    for (var i = 0; i < pN; i++) { pPos[i * 3] = (Math.random() - .5) * 48; pPos[i * 3 + 1] = Math.random() * 12 + 0.5; pPos[i * 3 + 2] = (Math.random() - .5) * 34 - 4; }
-    var pGeo = new T.BufferGeometry(); pGeo.setAttribute('position', new T.BufferAttribute(pPos, 3));
-    scene.add(new T.Points(pGeo, new T.PointsMaterial({ color: 0x7FB0E6, size: 0.055, transparent: true, opacity: 0.45, depthWrite: false })));
+    var neighbours = makeCity(T, scene, reduced);
+    neighbours.districts.forEach(function (n) { n.label = el('div', 'lbl agent district', n.domain); labels.appendChild(n.label); });
     var glowTex = (function () {
       var c = document.createElement('canvas'); c.width = c.height = 128; var g = c.getContext('2d');
       var rg = g.createRadialGradient(64, 64, 2, 64, 64, 62); rg.addColorStop(0, 'rgba(255,255,255,1)'); rg.addColorStop(0.25, 'rgba(255,255,255,.55)'); rg.addColorStop(0.6, 'rgba(255,255,255,.12)'); rg.addColorStop(1, 'rgba(255,255,255,0)');
@@ -299,7 +579,8 @@
     var hero = new T.Group(); scene.add(hero);
     var towers = {}, order = [], labelEls = {}, comets = [], flashes = [], planObjs = [], column = null, ring = null, rejRing = null, rejected = null;
     window.__city = { get towers() { return towers; }, scene: scene, renderer: renderer, tick: function () { frame(); } };
-    var pad = new T.Mesh(new T.CylinderGeometry(0.62, 0.62, 0.08, 40), new T.MeshStandardMaterial({ color: 0x0F1A28, emissive: 0x13233A, emissiveIntensity: 0.6 })); pad.position.set(-3.8, 0.05, 3.1); scene.add(pad);
+    var pad = new T.Mesh(new T.CylinderGeometry(0.62, 0.62, 0.05, 48), new T.MeshBasicMaterial({ color: new T.Color(0x0E1622).convertSRGBToLinear(), toneMapped: false })); pad.position.set(-3.8, 0.03, 3.1); scene.add(pad);
+    var padRim = new T.Mesh(new T.RingGeometry(0.6, 0.66, 64), new T.MeshBasicMaterial({ color: 0x3B6EA5, transparent: true, opacity: 0.45, blending: T.AdditiveBlending, depthWrite: false })); padRim.rotation.x = -Math.PI / 2; padRim.position.set(-3.8, 0.07, 3.1); scene.add(padRim);
     var padLbl = el('div', 'lbl agent', 'aside'); padLbl.style.opacity = '.6'; labels.appendChild(padLbl);
     var ROLES = { 'Operations Lead': { color: '#7FA3E6', hex: PAL.agentA, role: 'proposes steps and keeps the plan', x: -8.8, z: 1.4 },
                   'Safety Auditor': { color: '#3CC5AE', hex: PAL.agentB, role: 'holds the plan to what was agreed', x: 8.8, z: 1.4 },
@@ -382,7 +663,8 @@
     var H = 1.4;
     function clearList(list) { list.forEach(function (o) { scene.remove(o); hero.remove(o); }); list.length = 0; }
     function setDistrict(dom, actions, heights, rejectedAction) {
-      order.forEach(function (a) { var tw = towers[a]; hero.remove(tw.mesh); hero.remove(tw.edges); hero.remove(tw.cap); tw.lamps.forEach(function (l) { scene.remove(l.mesh); scene.remove(l.halo); }); if (labelEls[a]) labels.removeChild(labelEls[a]); });
+      if (neighbours) neighbours.setHero(dom);
+      order.forEach(function (a) { var tw = towers[a]; hero.remove(tw.mesh); hero.remove(tw.edges); hero.remove(tw.cap); if (tw.shadow) hero.remove(tw.shadow); tw.lamps.forEach(function (l) { scene.remove(l.mesh); scene.remove(l.halo); }); if (labelEls[a]) labels.removeChild(labelEls[a]); });
       towers = {}; order = []; labelEls = {}; clearList(planObjs); comets.forEach(function (c) { scene.remove(c.head); c.tail.forEach(function (t) { scene.remove(t); }); }); comets = []; flashes = [];
       if (rejRing) { scene.remove(rejRing); rejRing = null; }
       rejected = rejectedAction; camDist = 22.0; camH = 10.2; camDistGoal = 19.5; camHGoal = 9.0;
@@ -396,9 +678,10 @@
         mesh.position.set(x, 0, z); mesh.scale.y = 0.01; hero.add(mesh);
         var edges = new T.LineSegments(new T.EdgesGeometry(geo), new T.LineBasicMaterial({ color: 0x2A4B72, transparent: true, opacity: 0.9 })); edges.position.copy(mesh.position); edges.scale.y = 0.01; hero.add(edges);
         var cap = new T.Mesh(new T.BoxGeometry(1.74, 0.1, 1.74), new T.MeshStandardMaterial({ color: 0x0F1C2E, emissive: new T.Color(0x16304F), emissiveIntensity: 0.4, roughness: 0.4 })); cap.position.set(x, 0.05, z); hero.add(cap);
+        var sh = neighbours ? neighbours.shadow(x, z + 0.25, 3.6, 3.6) : null; if (sh) hero.add(sh);
         var lb = el('div', 'lbl' + (a === rejected ? ' rej' : '')); var nb = el('span', 'n'); lb.appendChild(nb); lb.appendChild(el('span', null, a)); labels.appendChild(lb);
-        towers[a] = { mesh: mesh, edges: edges, cap: cap, x: x, z: z, h: h, lamps: [], glow: 0, base: 0x07101C, baseI: 0.35, capBase: 0x16304F, capI: 0.4, badge: nb, rise: 0, riseAt: performance.now() + i * 110 }; labelEls[a] = lb; order.push(a);
-        if (a === rejected) { rejRing = new T.Mesh(new T.RingGeometry(1.28, 1.38, 64), new T.MeshBasicMaterial({ color: PAL.mention, side: T.DoubleSide, transparent: true, opacity: 0.9, blending: T.AdditiveBlending, depthWrite: false })); rejRing.rotation.x = -Math.PI / 2; rejRing.position.set(x, 0.02, z); scene.add(rejRing); }
+        towers[a] = { mesh: mesh, edges: edges, cap: cap, shadow: sh, x: x, z: z, h: h, lamps: [], glow: 0, base: 0x07101C, baseI: 0.35, capBase: 0x16304F, capI: 0.4, badge: nb, rise: 0, riseAt: performance.now() + i * 110 }; labelEls[a] = lb; order.push(a);
+        if (a === rejected) { rejRing = new T.Mesh(new T.RingGeometry(1.28, 1.38, 64), new T.MeshBasicMaterial({ color: PAL.mention, side: T.DoubleSide, transparent: true, opacity: 0.9, blending: T.AdditiveBlending, depthWrite: false })); rejRing.rotation.x = -Math.PI / 2; rejRing.position.set(x, 0.05, z); rejRing.renderOrder = 2; scene.add(rejRing); }
       });
     }
     function towerTop(a) { var tw = towers[a]; return tw ? new T.Vector3(tw.x, tw.h + 0.3 + tw.lamps.length * 0.36, tw.z) : new T.Vector3(0, 0.5, 2.6); }
@@ -439,7 +722,7 @@
       var op = agents['Operator'];
       if (on && !column) {
         column = new T.Mesh(new T.CylinderGeometry(2.2, 3.2, 12, 40, 1, true), new T.MeshBasicMaterial({ color: PAL.column, transparent: true, opacity: 0.1, side: T.DoubleSide, blending: T.AdditiveBlending, depthWrite: false })); column.position.set(0, 6, -1); scene.add(column);
-        ring = new T.Mesh(new T.RingGeometry(0.4, 0.7, 64), new T.MeshBasicMaterial({ color: PAL.column, side: T.DoubleSide, transparent: true, opacity: 0.8, blending: T.AdditiveBlending, depthWrite: false })); ring.rotation.x = -Math.PI / 2; ring.position.set(0, 0.03, -1); ring.userData.start = performance.now(); scene.add(ring);
+        ring = new T.Mesh(new T.RingGeometry(0.4, 0.7, 64), new T.MeshBasicMaterial({ color: PAL.column, side: T.DoubleSide, transparent: true, opacity: 0.8, blending: T.AdditiveBlending, depthWrite: false })); ring.rotation.x = -Math.PI / 2; ring.position.set(0, 0.05, -1); ring.renderOrder = 2; ring.userData.start = performance.now(); scene.add(ring);
         var a = op.mesh.position.clone(), b = new T.Vector3(0, 1.2, -1), mid = a.clone().lerp(b, 0.5), len = a.distanceTo(b);
         beam = new T.Mesh(new T.CylinderGeometry(0.06, 0.06, len, 8, 1, true), new T.MeshBasicMaterial({ color: PAL.column, transparent: true, opacity: 0.55, blending: T.AdditiveBlending, depthWrite: false }));
         beam.position.copy(mid); beam.quaternion.setFromUnitVectors(new T.Vector3(0, 1, 0), b.clone().sub(a).normalize()); scene.add(beam);
@@ -474,7 +757,7 @@
     function zombie(action) {
       var tw = towers[action]; if (!tw) return;
       var rg = new T.Mesh(new T.RingGeometry(0.5, 0.8, 64), new T.MeshBasicMaterial({ color: PAL.mention, side: T.DoubleSide, transparent: true, opacity: 0.9, blending: T.AdditiveBlending, depthWrite: false }));
-      rg.rotation.x = -Math.PI / 2; rg.position.set(tw.x, 0.04, tw.z); scene.add(rg); flashes.push({ burst: rg, start: performance.now() });
+      rg.rotation.x = -Math.PI / 2; rg.position.set(tw.x, 0.05, tw.z); rg.renderOrder = 2; scene.add(rg); flashes.push({ burst: rg, start: performance.now() });
       tw.glow = 1.6; tw.mesh.material.emissive.setHex(PAL.mention);
       if (labelEls[action]) { labelEls[action].classList.remove('flash'); void labelEls[action].offsetWidth; labelEls[action].classList.add('flash'); }
     }
@@ -513,6 +796,8 @@
         var bp = (bubbleAt && ag.bubble.classList.contains('show')) ? new T.Vector3(bubbleAt.x, LANE.y + 0.9, bubbleAt.z) : new T.Vector3(ag.mesh.position.x, ag.mesh.position.y + 0.9, ag.mesh.position.z);
         place(ag.bubble, bp, 0); });
       place(padLbl, pad.position, 10);
+      neighbours.drive(dt);
+      neighbours.districts.forEach(function (n) { if (n.group.visible) place(n.label, new T.Vector3(n.x, 0, n.z + 5.2), 2); else n.label.style.display = 'none'; });
       if (planAnim) {
         var pp = Math.min(1, (now - planAnim.start) / planAnim.dur), pe = pp < 0.5 ? 2 * pp * pp : -1 + (4 - 2 * pp) * pp;
         if (planAnim.tube) planAnim.tube.geometry.setDrawRange(0, Math.floor(planAnim.total * pe));
@@ -529,7 +814,6 @@
       if (column) column.material.opacity = 0.07 + 0.06 * (0.5 + 0.5 * Math.sin(t * 5));
       if (ring) { var r = ((now - ring.userData.start) % 1600) / 1600, sc = 1 + r * 12; ring.scale.set(sc, sc, sc); ring.material.opacity = 0.8 * (1 - r); }
       if (rejRing) rejRing.material.opacity = 0.65 + 0.3 * (0.5 + 0.5 * Math.sin(t * 3));
-      var pa = pGeo.attributes.position.array; for (var i = 1; i < pa.length; i += 3) { pa[i] += 0.24 * dt; if (pa[i] > 15) pa[i] = 0.5; } pGeo.attributes.position.needsUpdate = true;
       if (composer) composer.render(); else renderer.render(scene, camera);
       rafPending = false; kick();
     }
@@ -576,7 +860,7 @@
       Object.keys(d.phrases).forEach(function (a) {
         var ph = d.phrases[a].toLowerCase();
         if (X === 'wiki') { if (page !== ph) return; pieces.slice(1).forEach(function (b) { var bl = b.toLowerCase(); out[a].push(/rejected/.test(bl) ? 'rejected' : /accepted/.test(bl) ? 'accepted' : /noted again/.test(bl) ? 'mention' : 'proposal'); }); }
-        else if (low.indexOf(ph) >= 0) out[a].push(/rejected/.test(low) ? 'rejected' : /accepted it/.test(low) ? 'accepted' : /noted that|raised earlier/.test(low) ? 'mention' : 'proposal');
+        else if (low.indexOf(ph) >= 0) out[a].push(/rejected|withdrawn/.test(low) ? 'rejected' : /accepted it/.test(low) ? 'accepted' : /noted that|raised earlier/.test(low) ? 'mention' : 'proposal');
       });
     });
     return out;
@@ -663,6 +947,7 @@
     if (stepwise && scene3) { setTimeout(function () { if (seq === gotoSeq) { renderMemory(true); var lnz = S.tl.lines[S.k]; if (lnz && lnz.tag === 'restate') scene3.zombie(d.rejected_action); } }, flight); }
     else renderMemory(false);
     $('cap-s').innerHTML = '<b>' + d.phrase + '</b> was proposed and then rejected · ' + S.arm + ' arm · ' + DESIGN_NAME[S.design];
+    flatRender();
   }
   function load(i, arm, keepK) {
     S.i = i; S.arm = arm; pk.value = i;
@@ -688,7 +973,7 @@
   }
   function sawLine(d) {
     var X = S.design, items = S.tl.stores[X][S.n - 1] || [], ph = d.phrase.toLowerCase(), el2 = $('dec-saw');
-    var sawRej = X === 'full' ? true : items.some(function (it) { var l = it.toLowerCase(); return l.indexOf(ph) >= 0 && /rejected/.test(l); });
+    var sawRej = X === 'full' ? true : items.some(function (it) { var l = it.toLowerCase(); return l.indexOf(ph) >= 0 && /rejected|withdrawn/.test(l); });
     var sawMention = items.some(function (it) { var l = it.toLowerCase(); return l.indexOf(ph) >= 0 && /noted|raised earlier|for the record/.test(l); });
     el2.hidden = false; el2.innerHTML = '';
     el2.appendChild(document.createTextNode('The Operator could see ' + items.length + (X === 'full' ? ' lines' : ' items') + '. The rejection of '));
@@ -722,11 +1007,11 @@
     if (S.k < S.n - 1) goto(S.n - 1, false);
     var d = IDX[S.i]; S.deciding = true; S.decided = null; paintScrub(); $('err').textContent = '';
     $('dec-meta').textContent = 'streaming · ' + S.model; $('dec-who').textContent = S.model + ' · reading the ' + (S.design === 'full' ? 'transcript' : 'memory store'); $('dec-out').textContent = ''; $('dec-plan').innerHTML = ''; $('dec-verdict').textContent = '';
-    setState('deciding · ' + S.model, 'busy'); if (scene3) scene3.setDeciding(true);
+    setState('deciding · ' + S.model, 'busy'); if (scene3) scene3.setDeciding(true); flatRender();
     var res;
     try { res = await streamDecider($('dec-out')); } catch (e) { res = { error: String(e.message || e) }; }
     if (scene3) scene3.setDeciding(false); S.deciding = false;
-    if (res.error && !res.plan) { $('err').textContent = res.error; $('dec-meta').textContent = 'failed'; setState('local model ready', 'on'); paintScrub(); return false; }
+    if (res.error && !res.plan) { $('err').textContent = res.error; $('dec-meta').textContent = 'failed'; setState('local model ready', 'on'); paintScrub(); flatRender(); return false; }
     var det = null; try { det = await detail(S.i); } catch (e) { det = null; }
     var recPlan = det ? safePlan((det.recorded[S.arm][S.design] || {})[S.model]) : null;
     var carries = planRow(d, res.plan, ''); var same = !!(recPlan && res.plan && JSON.stringify(recPlan.actions) === JSON.stringify(res.plan.actions));
@@ -738,12 +1023,12 @@
     S.decided = { plan: res.plan, carries: carries, same: same };
     if (scene3) scene3.showPlan(res.plan ? res.plan.actions : [], carries);
     if (res.plan) { S.tally[S.arm][1] += 1; if (carries) S.tally[S.arm][0] += 1; S.plans += 1; if (carries) S.carried += 1; if (same) S.same += 1; }
-    renderTally(); paintScrub(); setState('local model ready', 'on');
+    renderTally(); paintScrub(); setState('local model ready', 'on'); flatRender();
     return true;
   }
   function renderTally() {
-    var rec = null; E29.forEach(function (E) { if (E.model === S.model) rec = E; });
     ['restated', 'neutral'].forEach(function (arm) {
+      var rv = rateFor(S.model, S.design, arm), rec = rv == null ? null : { p: {} }; if (rec) rec.p[S.design + '|' + arm] = rv;
       var k = S.tally[arm][0], n = S.tally[arm][1], p = n ? k / n : 0, s = arm === 'restated' ? 'r' : 'n';
       $('b-' + s).style.width = (p * 100).toFixed(1) + '%';
       $('v-' + s).textContent = n ? k + '/' + n + ' · ' + p.toFixed(2) + (rec ? ' · recorded ' + rec.p[S.design + '|' + arm].toFixed(2) : '') : (rec ? 'recorded ' + rec.p[S.design + '|' + arm].toFixed(2) + ' over 96' : 'no runs yet');
@@ -789,10 +1074,174 @@
   pk.addEventListener('change', function () { stop(); load(parseInt(pk.value, 10), S.arm, false); });
   $('pk-prev').addEventListener('click', function () { stop(); load((S.i - 1 + IDX.length) % IDX.length, S.arm, false); });
   $('pk-next').addEventListener('click', function () { stop(); load((S.i + 1) % IDX.length, S.arm, false); });
-  $('pk-design').addEventListener('change', function () { stop(); S.design = $('pk-design').value; S.tally = { restated: [0, 0], neutral: [0, 0] }; if (S.tl) { S.decided = null; if (scene3) scene3.clearPlan(); renderDecision(); lastStore = []; renderMemory(false); paintScrub(); $('cap-s').innerHTML = '<b>' + IDX[S.i].phrase + '</b> was proposed and rejected · ' + S.arm + ' arm · ' + DESIGN_NAME[S.design]; } renderTally(); });
-  pm.addEventListener('change', function () { S.model = pm.value; renderTally(); });
+  $('pk-design').addEventListener('change', function () { stop(); S.design = $('pk-design').value; S.tally = { restated: [0, 0], neutral: [0, 0] }; if (S.tl) { S.decided = null; if (scene3) scene3.clearPlan(); renderDecision(); lastStore = []; renderMemory(false); paintScrub(); $('cap-s').innerHTML = '<b>' + IDX[S.i].phrase + '</b> was proposed and rejected · ' + S.arm + ' arm · ' + DESIGN_NAME[S.design]; } renderTally(); flatRender(); });
+  pm.addEventListener('change', function () { S.model = pm.value; renderTally(); flatRender(); });
   $('full').addEventListener('click', function () { if (document.fullscreenElement) document.exitFullscreen(); else if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen(); });
   document.addEventListener('keydown', function (e) { if (e.target.tagName === 'SELECT' || e.target.tagName === 'INPUT') return; if (e.key === ' ') { e.preventDefault(); play(); } else if (e.key === 'ArrowRight') { stop(); goto(S.k + 1, true); } else if (e.key === 'ArrowLeft') { stop(); goto(S.k - 1, false); } else if (e.key === 'Enter') { stop(); decideNow(); } });
+
+  /* ================= side by side: the same conversation next to two memories =================
+     The default view. One row per line of the conversation; for each memory, what that line did to
+     it (added, updated, erased). The rejected step is the one amber phrase, so the eye can follow
+     it down the table. After the last line: the plan each memory produced, as recorded, and the
+     rate over all 96 dialogues. Everything shown is read from the same data as the 3D view. */
+  var DESIGN_SHORT = { delete: 'A <b>no</b> erases the step. Nothing records that it was rejected.',
+                       addonly: 'Keeps every line, the <b>no</b> included. Nothing is ever deleted.',
+                       wiki: 'One page per step. The <b>no</b> is added to that step&rsquo;s page.',
+                       full: 'No memory layer. The Operator reads the whole conversation.',
+                       addonly_merged: 'The <b>no</b> is kept as a sentence, but joined onto the proposal&rsquo;s line.',
+                       addonly_meta: 'The <b>no</b> is kept as a status line of its own, with no verb.',
+                       addonly_flag: 'The <b>no</b> becomes a <b>[withdrawn]</b> tag on the proposal. Nothing else records it.' };
+  function otherDesign(X) { return X === 'addonly' ? 'delete' : 'addonly'; }
+  function hl(parent, text, phrase) {
+    var low = text.toLowerCase(), ph = phrase.toLowerCase(), i = 0, j;
+    while (ph && (j = low.indexOf(ph, i)) >= 0) { if (j > i) parent.appendChild(document.createTextNode(text.slice(i, j))); parent.appendChild(el('mark', 'rj', text.slice(j, j + ph.length))); i = j + ph.length; }
+    if (i < text.length) parent.appendChild(document.createTextNode(text.slice(i)));
+    return parent;
+  }
+  function entries(X, items) {
+    var out = [];
+    (items || []).forEach(function (it) {
+      if (X !== 'wiki') { out.push({ key: it, text: it }); return; }
+      var ls = it.split('\n'), title = (ls[0] || '').replace(/^##\s*/, '');
+      ls.slice(1).forEach(function (b) { var t = b.replace(/^-\s*/, ''); out.push({ key: title + '::' + t, text: title === 'discussion log' ? t : title + ': ' + t }); });
+    });
+    return out;
+  }
+  function changesAt(X, k) {
+    var now = entries(X, S.tl.stores[X][k]), before = k > 0 ? entries(X, S.tl.stores[X][k - 1]) : [];
+    var bk = before.map(function (e) { return e.key; }), nk = now.map(function (e) { return e.key; });
+    var added = now.filter(function (e) { return bk.indexOf(e.key) < 0; }), removed = before.filter(function (e) { return nk.indexOf(e.key) < 0; }), ops = [];
+    removed.forEach(function (r) {
+      var stem = r.text.replace(/\.$/, ''), up = null;
+      added.forEach(function (a) { if (!up && a.text.indexOf(stem) >= 0) up = a; });
+      if (up) { ops.push({ op: 'upd', text: up.text }); added.splice(added.indexOf(up), 1); } else ops.push({ op: 'del', text: r.text });
+    });
+    added.forEach(function (a) { ops.push({ op: 'add', text: a.text }); });
+    return ops;
+  }
+  function rejectionTrace(X, k, d, rejLine) {   /* how the no survives in memory X after line k */
+    if (X === 'full') return rejLine >= 0 && rejLine <= k ? 'sentence' : 'none';
+    var ph = d.phrase.toLowerCase(), rank = { none: 0, tag: 1, status: 2, sentence: 3 }, best = 'none';
+    entries(X, S.tl.stores[X][k]).forEach(function (e) {
+      var l = e.text.toLowerCase(), kind = 'none'; if (l.indexOf(ph) < 0) return;
+      if (/reject/.test(l)) kind = 'sentence'; else if (/status\(.*withdrawn/.test(l)) kind = 'status'; else if (/\[withdrawn\]/.test(l)) kind = 'tag';
+      if (rank[kind] > rank[best]) best = kind;
+    });
+    return best;
+  }
+  function chipsFor(box, d, actions) {
+    var c = el('div', 'chips'); actions.forEach(function (a) { c.appendChild(el('span', 'chip' + (a === d.rejected_action ? ' z' : ''), a)); }); box.appendChild(c);
+    var back = actions.indexOf(d.rejected_action) >= 0;
+    box.appendChild(el('div', 'pverdict ' + (back ? 'back' : 'out'), back ? '← the rejected step is back in the plan' : '✓ the rejected step stayed out'));
+  }
+  var flatLastK = null, flatLastKey = null;
+  function flatRender() {
+    if (!S.tl) return;
+    var d = IDX[S.i], A = S.design, B = otherDesign(A), grid = $('f-grid'), lines = S.tl.lines, n = lines.length;
+    var key = S.i + '|' + S.arm + '|' + A + '|' + S.model, stepped = key === flatLastKey && flatLastK !== null && S.k === flatLastK + 1;
+    flatLastK = S.k; flatLastKey = key;
+    var rejCid = null; d.units.forEach(function (u) { if (u.status === 'rejected') rejCid = u.constraint; });
+    var rejLine = -1, backLine = -1;
+    lines.forEach(function (ln, i) { if (ln.cid === rejCid && ln.tag === 'reply') rejLine = i; if (ln.tag === 'restate' || ln.tag === 'neutral') backLine = i; });
+    /* the sentence that says what to watch */
+    var sub = $('f-sub'); sub.innerHTML = '';
+    var rej = rejLine >= 0 ? lines[rejLine] : null;
+    sub.appendChild(document.createTextNode((rej ? rej.speaker : 'Someone') + ' rejects ')); sub.appendChild(el('b', null, d.phrase));
+    sub.appendChild(document.createTextNode(rej ? ' at line ' + (rejLine + 1) + '. ' : '. '));
+    if (backLine >= 0) sub.appendChild(document.createTextNode(S.arm === 'restated' ? 'At line ' + (backLine + 1) + ', ' + lines[backLine].speaker + ' brings it up again. ' : 'In this version nobody brings it up again: line ' + (backLine + 1) + ' is an unrelated remark. '));
+    sub.appendChild(document.createTextNode('Follow the amber step down both memories, then check the plan.'));
+    $('f-pos').textContent = (S.k >= 0 ? 'line ' + (S.k + 1) + ' of ' + n : 'press play or →') + ' · ' + (S.arm === 'restated' ? 'mentioned again' : 'not mentioned again');
+    grid.innerHTML = '';
+    function cell(cls, parent) { var c = el('div', cls); (parent || grid).appendChild(c); return c; }
+    /* header row */
+    cell('h no');
+    var h1 = cell('h'); h1.appendChild(el('div', 'eyebrow', 'The conversation')); h1.appendChild(el('div', 'rule', d.instance + ' · ' + d.domain));
+    [A, B].forEach(function (X, ci) { var h = cell('h c' + (ci + 2)); h.appendChild(el('div', 'eyebrow', 'Memory · ' + DESIGN_NAME[X])); var r = el('div', 'rule'); r.innerHTML = DESIGN_SHORT[X]; h.appendChild(r); });
+    /* one row per line */
+    lines.forEach(function (ln, i) {
+      var seen = i <= S.k, cur = i === S.k, kind = kindOf(d, ln), keyRow = seen && ln.cid === rejCid && !!rejCid;
+      var rc = (seen ? '' : ' fut') + (cur ? ' cur' : '') + (cur && stepped ? ' enter' : '');
+      cell('no' + rc + (keyRow ? ' key' : '')).textContent = String(i + 1);
+      var c1 = cell('c1' + rc);
+      if (!seen) { c1.textContent = '·'; cell('c2' + rc); cell('c3' + rc); return; }
+      var hd = el('div'); var who = el('span', 'who', ln.speaker); who.style.setProperty('--c', ROLE_COLOR[ln.speaker] || '#8FA3B8'); hd.appendChild(who);
+      hd.appendChild(el('span', 'kind ' + kind, KIND_LABEL[kind] || kind)); c1.appendChild(hd);
+      c1.appendChild(hl(el('p', 'txt'), ln.text, d.phrase));
+      [A, B].forEach(function (X, ci) {
+        var c = cell('c' + (ci + 2) + rc), ops = changesAt(X, i);
+        if (!ops.length) c.appendChild(el('div', 'op none', X === 'wiki' ? '— no page changed' : '— nothing changed'));
+        ops.forEach(function (o) {
+          var row = el('div', 'op ' + o.op), sym = el('span', 'sym');
+          sym.appendChild(document.createTextNode(o.op === 'add' ? '+ ' : o.op === 'upd' ? '✎ ' : '✕ ')); sym.appendChild(el('b', null, o.op === 'add' ? 'added' : o.op === 'upd' ? 'updated' : 'erased'));
+          row.appendChild(sym); row.appendChild(hl(el('span', 't'), o.text, d.phrase)); c.appendChild(row);
+        });
+        if (keyRow) {
+          var mentions = X === 'full' || ops.some(function (o) { return o.op !== 'del' && o.text.toLowerCase().indexOf(d.phrase.toLowerCase()) >= 0; });
+          var tr = rejectionTrace(X, i, d, rejLine), note = null;
+          if (i === rejLine) {
+            if (ops.some(function (o) { return o.op === 'del'; })) note = ['bad', 'the proposal is gone, and so is any trace of the no'];
+            else if (tr === 'tag') note = ['bad', 'the no is now only a [withdrawn] tag on the proposal'];
+            else if (tr === 'status') note = ['ok', 'the no is kept, as a status line of its own'];
+            else if (tr === 'sentence') note = ['ok', X === 'addonly_merged' ? 'the no is kept as a sentence, on the proposal\'s own line' : 'the no is kept'];
+          } else if (i === backLine && S.arm === 'restated' && mentions) {
+            if (tr === 'tag') note = ['bad', 'the only trace of the no is the tag on the old line'];
+            else if (tr === 'none') note = ['bad', 'looks like a fresh fact: nothing here says it was rejected'];
+            else note = ['ok', 'the no is still in this memory, a few lines up'];
+          }
+          if (note) c.appendChild(el('div', 'note ' + note[0], note[1]));
+        }
+      });
+    });
+    /* the plan, pinned to the bottom of the table */
+    var done = S.k >= n - 1;
+    cell('pl no');
+    var p1 = cell('pl'); p1.appendChild(el('div', 'eyebrow', 'The plan'));
+    p1.appendChild(el('div', 'sub', done ? 'written from each memory by ' + S.model + ' · as recorded' : 'the Operator writes a four-step plan from its memory after the last line'));
+    var det = dcache[S.i];
+    if (done && !det) detail(S.i).then(flatRender).catch(function () {});
+    [A, B].forEach(function (X, ci) {
+      var c = cell('pl c' + (ci + 2));
+      if (!done) { c.appendChild(el('div', 'pverdict wait', 'waiting for the last line')); return; }
+      var rkey = (X === 'addonly' && (isStruct(A) || isStruct(B))) ? 'addonly_s' : X;   /* E29-S's own add-only cell */
+      var rec = det ? safePlan(((det.recorded[S.arm] || {})[rkey] || {})[S.model]) : null;
+      if (!det) c.appendChild(el('div', 'pverdict wait', 'loading the recorded plan…'));
+      else if (!rec) c.appendChild(el('div', 'pverdict wait', 'no recorded plan for ' + S.model));
+      else chipsFor(c, d, rec.actions);
+      if (X === A && (S.deciding || (S.decided && S.decided.plan))) {
+        var lv = el('div', 'plive'); lv.appendChild(el('div', 'sub', S.deciding ? 'asking ' + S.model + ' live…' : 'live run just now'));
+        if (S.decided && S.decided.plan) chipsFor(lv, d, S.decided.plan.actions);
+        c.appendChild(lv);
+      }
+    });
+    var curCell = grid.querySelector('.cur'); if (curCell && curCell.scrollIntoView) curCell.scrollIntoView({ block: 'nearest' });
+    /* the rate over the whole corpus, under the memory it belongs to */
+    var fr = $('f-rate'); fr.innerHTML = '';
+    fr.appendChild(el('div'));
+    var lab = el('div', 'lab'); fr.appendChild(lab);
+    var fromS = isStruct(A) || isStruct(B);   /* the 2x2 is read within E29-S's own session */
+    if (rateFor(S.model, A, 'neutral', fromS) == null && rateFor(S.model, B, 'neutral', fromS) == null) { lab.textContent = 'No recorded runs for ' + S.model + ' on these designs; pick a recorded decider to see the rates.'; return; }
+    lab.innerHTML = 'How often the rejected step ends up in the plan, over <b>all 96 dialogues</b> (' + S.model + '):';
+    [A, B].forEach(function (X) {
+      var col = el('div', 'col');
+      [['restated', 'mentioned again'], ['neutral', 'not mentioned']].forEach(function (a) {
+        var v = rateFor(S.model, X, a[0], fromS), row = el('div', 'rbar' + (a[0] === 'neutral' ? ' neu' : ''));
+        if (v == null) { row.appendChild(el('span', null, a[1])); row.appendChild(el('span', 'pc', '—')); col.appendChild(row); return; }
+        row.appendChild(el('span', null, a[1])); var tr = el('div', 'tr'), fi = el('div', 'fi'); fi.style.width = (v * 100).toFixed(1) + '%'; tr.appendChild(fi); row.appendChild(tr);
+        row.appendChild(el('span', 'pc', Math.round(v * 100) + '%')); col.appendChild(row);
+      });
+      fr.appendChild(col);
+    });
+  }
+  var VIEW = 'flat'; try { VIEW = localStorage.getItem('memory-city-view') || 'flat'; } catch (e) { VIEW = 'flat'; }
+  function setView(v) {
+    VIEW = v === '3d' ? '3d' : 'flat';
+    $('main').classList.toggle('view-flat', VIEW === 'flat');
+    document.querySelectorAll('.viewseg button').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-view') === VIEW); });
+    try { localStorage.setItem('memory-city-view', VIEW); } catch (e) {}
+    if (VIEW === 'flat') flatRender(); else window.dispatchEvent(new Event('resize'));
+  }
+  document.querySelectorAll('.viewseg').forEach(function (g) { g.addEventListener('click', function (e) { var b = e.target.closest('button'); if (b) setView(b.getAttribute('data-view')); }); });
+  setView(VIEW);
 
   renderTally();
   load(0, 'restated', false);

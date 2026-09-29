@@ -251,6 +251,9 @@ def store_timeline(design, instance, dialogue):
             out.append(store_addonly(instance, part)[0])
         elif design == "wiki":
             out.append(store_wiki(instance, part)[0])
+        elif design in ("addonly_merged", "addonly_meta", "addonly_flag"):
+            from lineage_e29s import store_s          # local: lineage_e29s imports this module
+            out.append(store_s(design, instance, part)[0])
         else:
             raise ValueError(design)
     return out
