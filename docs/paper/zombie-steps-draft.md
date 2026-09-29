@@ -12,6 +12,9 @@ Agent memories and tool registries mark a revoked record in place: a validity
 interval, an `invalid_at` edge, an `is_active` flag, a `[withdrawn]` or
 `[DEPRECATED]` prefix. We find that this in-place, verb-less encoding is the one
 form of revocation that small open deciders act as though they had not seen.
+Written as `[is_active: false]` or `[invalid_at: …]`, a rejection leaves the
+rejected step in the plan 73–91 % of the time, against 6–16 % when the same
+rejection is a sentence.
 
 Over one add-only memory we cross two properties of the rejection of a
 proposal: whether it occupies its own list item, and whether it is a
@@ -34,7 +37,10 @@ store that keeps the rejected proposal flagged `[withdrawn]` is not read as a
 rejection, and on the largest decider it behaves like the deletion. The design
 dependence survives a second corpus, an unpinned plan and a real Mem0 update
 router. The 2×2 replicates in JSON, XML and numbered lists on both deciders, so
-the effect is about list structure, not markdown. We release
+the effect is about list structure, not markdown. Of five revocation idioms in
+deployed use, four fail on the 3B and three on the 14B. The exception, a
+trailing `(withdrawn)`, shows that the structure alone does not decide it.
+We release
 the corpora, protocols, prompts and every store snapshot.
 
 ## 1. Introduction
@@ -58,7 +64,10 @@ We ask that question directly. Holding the information fixed, does the
 from a fixed-intervention 2×2 in which one cell is byte-identical text to
 another. It is yes, and specifically: a revocation is ignored when it is
 **both** subordinate to the record it revokes **and** verb-less. Either
-property alone is harmless. Their conjunction is the industry default.
+property alone is harmless. Their conjunction is the industry default, and
+the fields that implement it (`is_active`, `invalid_at`) are the worst we
+tested (§2.5). The conjunction is not sufficient on its own: one spelling of
+it, a trailing `(withdrawn)`, is mostly read.
 
 **Contributions.**
 1. The structural dissociation, pre-registered on two deciders (§2).
@@ -66,9 +75,9 @@ property alone is harmless. Their conjunction is the industry default.
    that re-enter an executable plan when the proposer restates them. They come
    back through memory designs that delete a rejection or flag the rejected
    record, and not through designs that keep the rejection as a sentence (§3).
-3. Robustness across four list formats (§2.4), four deciders from three
-   families, two corpora, pinned and unpinned output, and oracle and real
-   write paths (§4).
+3. Robustness across four list formats (§2.4) and five deployed revocation
+   idioms (§2.5), four deciders from three families, two corpora, pinned and
+   unpinned output, and oracle and real write paths (§4).
 4. Negative and cautionary results reported as such (Appendix A and B).
 
 ## 2. The structural result
@@ -218,6 +227,64 @@ The recorded lean was GENERAL, which held. Its guess that JSON would separate
 least was wrong: JSON's S_flag is the largest of the three new formats on the
 3B.
 
+### 2.5 The idioms shipped systems use (E29-T)
+
+E29-S measured one spelling of an in-place revocation, a `[withdrawn] ` prefix.
+Deployed designs use others. E29-T was declared in `4d8bff1` with zero
+outcomes. It keeps E29-S's add-only stream and records the rejection only as
+one idiom on the rejected proposal's own item, with nothing else recording
+it. Tests assert two things:
+- the sentence control and the prefix anchor are E29-S's blocks byte for byte;
+- every other idiom's store differs from the anchor's on exactly one item.
+
+This is the neutral arm, 96 dialogues and 1,344 calls. Every cell is valid
+(parse 1.000, mean |plan| 4.00).
+
+| the rejection, written as | llama3.2:3b | qwen2.5:14b |
+|---|---|---|
+| its own item, `- B rejected the proposal to X; …` (control) | 0.156 | 0.062 |
+| `- [withdrawn] A proposed to X.` (E29-S's tag, anchor) | 0.604 fails | 0.312 fails |
+| `- A proposed to X. (withdrawn)` | 0.250 unclear | 0.135 honoured |
+| `- A proposed to X. [status: revoked]` | 0.469 fails | 0.156 unclear |
+| `- A proposed to X. [is_active: false]` | **0.906** fails | **0.729** fails |
+| `- A proposed to X. [invalid_at: 2026-09-12 10:04]` | **0.812** fails | **0.896** fails |
+| `- ~~A proposed to X.~~` | 0.417 fails | 0.375 fails |
+| *for scale: a step proposed and never decided* | *0.93–0.98* | *0.95–1.00* |
+
+The classes follow the declared rule, with G = P(idiom) − P(control):
+- **fails:** G ≥ 0.15 with an interval excluding zero;
+- **honoured:** the interval's upper bound is below 0.15;
+- **unclear:** anything else.
+
+Four of the five real-world idioms fail on the 3B and three on the 14B. That
+is **MOST-FAIL on both deciders**, which by the declared rule leaves the
+deployment reading standing for the idioms in use (§3.5).
+- **The machine-readable fields are the worst on both deciders.** With
+  `[is_active: false]` or `[invalid_at: …]` the rejected step is planned at
+  0.73–0.91. That is close to where a step nobody rejected sits (0.93–1.00),
+  so the rejection barely registers. The `[withdrawn]` tag, by comparison,
+  is partly read.
+- **Strikethrough fails on both**, although it is markdown's own mark for
+  deleted text.
+- **One idiom fails on neither decider: the `(withdrawn)` suffix.** It is the
+  anchor's own word, placed after the proposal in parentheses, and it is
+  honoured on the 14B and unclear on the 3B. This is a limit on the
+  structural claim. In E29-S, a revocation is ignored only when it is both
+  subordinate and verb-less: removing either property restores the
+  sentence's level. E29-T shows the conjunction is not sufficient, because
+  the spelling decides how much is lost. The suffix cell changes position
+  and bracket together, so which of the two matters is not identified.
+- **`[status: revoked]` splits:** it fails on the 3B and is unclear on the
+  14B.
+
+Two things are reported plainly. P2 misses on both deciders: never-mentioned
+inclusion spans 0.479–0.667 (3B) and 0.500–0.708 (14B) across the seven
+cells, against a 0.10 band, while accepted inclusion is 0.983–1.000. P1
+holds: the anchor and the control reproduce E29-S within 0.011. The recorded
+lean was MOST-FAIL, with `invalid_at` the most ignored and strikethrough the
+most honoured. The verdict held. `invalid_at` was the most ignored on the 14B
+only, and strikethrough was not the most honoured on either decider.
+
 ## 3. Why it matters: zombie steps
 
 ### 3.1 The memory designs
@@ -325,9 +392,14 @@ without it (0.615 with it).
 Every soft-delete design we surveyed encodes revocation as an attribute on the
 record being revoked: a validity interval, an `invalid_at` edge, an
 `is_active` flag. So does every one of the five shipped systems measured by
-arXiv:2609.08258. That is the losing cell of the 2×2. Writing the retraction
-as its own statement costs one line, and on the 14B it moves enactment of a
-restated zombie step from 0.56 to 0.04.
+arXiv:2609.08258. That is the losing cell of the 2×2, and E29-T tests those
+idioms directly (§2.5).
+- `[is_active: false]` and `[invalid_at: …]` are the two worst on both
+  deciders (0.73–0.91).
+- A trailing `(withdrawn)` is the one idiom that does not fail on either.
+
+Writing the retraction as its own statement costs one line, and on the 14B
+it moves enactment of a restated zombie step from 0.56 to 0.04.
 
 ## 4. Robustness
 
@@ -454,8 +526,10 @@ balance across the 2×2's four stores misses its ±0.10 band by 0.004 (3B) and
   extractor prompt, one extractor model, one decider, and no retrieval layer.
 - **Format.** Four list containers (markdown, JSON, XML, numbered). Prose
   paragraphs, tables and tool-call schemas are untested.
-- **Tag spelling.** One tag, `[withdrawn]`. Structured flags such as
-  `is_active: false` or an `invalid_at` timestamp are the named next step.
+- **Tag spelling.** Seven spellings on two deciders, in markdown lists, in
+  the neutral arm only (§2.5). Why a trailing `(withdrawn)` is read while a
+  leading `[withdrawn]` is not (position, bracket, or both) is not
+  identified. The formats of §2.4 were run with the prefix only.
 - **Levels.** Levels across memory designs mix the design with the
   explicitness of the rendering, so only within-design contrasts are compared.
 
@@ -516,11 +590,11 @@ named in each.
 
 Corpus hashes: E16 `70f136a47f5779c8`, E29 `187a426616f26598`, E29-C
 `979143b67049adf2`, E29-N `7d33038c6c1a9912`. Prompt-block hashes: E29-S
-`f25719fc5d4a268c`, E29-R `8a9412801fc2bae1`. Runners refuse to start if a hash
-moves. `verify_claims.py` re-derives the headline numbers from the per-call CSVs.
+`f25719fc5d4a268c`, E29-R `8a9412801fc2bae1`, E29-T `69c8d207f3993086`. Runners
+refuse to start if a hash moves. `verify_claims.py` re-derives the headline numbers from the per-call CSVs.
 
 Runs re-execute with the matching runner (`e29_memory_semantics.py`,
-`e29e_encoding.py`, `e29s_structure.py`, `e29r_formats.py`,
+`e29e_encoding.py`, `e29s_structure.py`, `e29r_formats.py`, `e29t_idioms.py`,
 `e29d_ops_extractor.py`), and analyses with the matching `*_analysis.py`, with
 zero model calls. `python xray_server.py` serves a side-by-side view of any
 dialogue through any two memory designs, and a live re-run of the decider
@@ -557,6 +631,9 @@ checked against the record.
 | E29-R P1 | every cell valid (parse ≥ 0.95, \|plan\| in range) | holds: no VOID cell on either decider |
 | E29-R P2 | never/accepted within 0.10 across designs, per format | misses by up to 0.025 in three cells (3B JSON and numbered, 14B numbered); pinned-plan displacement, reported |
 | E29-R P3 | lean: GENERAL, smallest separation in JSON | GENERAL on both deciders (conjunction in 3/3 formats each); JSON separated most on the 3B, not least |
+| E29-T P1 | anchor and control reproduce E29-S within 0.10 | holds: within 0.011 on both deciders |
+| E29-T P2 | never/accepted within 0.10 across the seven cells | misses on both: never spans 0.479–0.667 (3B) and 0.500–0.708 (14B); accepted 0.983–1.000 |
+| E29-T P3 | lean: MOST-FAIL on both; `invalid_at` most ignored; strikethrough most honoured | MOST-FAIL on both (4/5, 3/5); `invalid_at` most ignored on the 14B only (the 3B: `is_active`); strikethrough fails on both, and the `(withdrawn)` suffix is the most honoured |
 
 ## Appendix B. Process record
 
