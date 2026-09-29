@@ -238,7 +238,8 @@ it. Tests assert two things:
 - every other idiom's store differs from the anchor's on exactly one item.
 
 This is the neutral arm, 96 dialogues and 1,344 calls. Every cell is valid
-(parse 1.000, mean |plan| 4.00).
+(parse 1.000, mean |plan| 4.00). Figure 4 (`fig5-idioms.svg`, drawn by
+`paper_fig_idioms.py`) shows the table below.
 
 | the rejection, written as | llama3.2:3b | qwen2.5:14b |
 |---|---|---|
@@ -323,7 +324,7 @@ neutral, X) and DiD_X = Δ_X − Δ_full. A decider is DESIGN-DEPENDENT if some
 
 ### 3.2 Design dependence on four deciders
 
-Figure 4 (`fig1-delta-by-design.svg`). n = 96 dialogues per cell.
+Figure 5 (`fig1-delta-by-design.svg`). n = 96 dialogues per cell.
 
 | decider | design | restated | neutral | Δ_X | DiD_X | 95 % CI |
 |---|---|---|---|---|---|---|
