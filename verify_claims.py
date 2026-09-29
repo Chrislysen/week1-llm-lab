@@ -1163,6 +1163,44 @@ try:
             for _X, _want in zip(_S4, _vals):
                 claim(f"E29-R {_slug} {_fmt} {_X}/neutral", _rate_r(_slug, _fmt, _X), _want)
 
+    # 2.5, E29-T: shipped revocation idioms on the proposal's own item. Neutral
+    # arm only, complete-case over the seven idioms, as e29t_analysis reads it.
+    from lineage_e29t import IDIOMS as _ID, context_block_t as _cbt
+    _anch = sum(_cbt("sentence", _d["instance"], _d["arms"]["neutral"]) == _cbs("addonly", _d["instance"], _d["arms"]["neutral"])
+                and _cbt("withdrawn_prefix", _d["instance"], _d["arms"]["neutral"])
+                == _cbs("addonly_flag", _d["instance"], _d["arms"]["neutral"]) for _d in _ad())
+    claim("E29-T: control and anchor blocks byte-identical to E29-S's, all 96", _anch, 96)
+
+    def _rate_t(slug, idiom):
+        seen = {}
+        for fn in sorted(_glob.glob(f"results/e29t_{slug}_*.csv")):
+            for r in _csv.DictReader(open(fn, encoding="utf-8")):
+                seen[(r["instance"], r["rotation"], r["design"], r["arm"], r["slot"])] = r
+        rej = {}
+        for r in seen.values():
+            if r["status"] == "rejected" and r["arm"] == "neutral" and r["included"] in ("True", "False"):
+                rej.setdefault((r["instance"], r["rotation"]), {})[r["design"]] = r["included"] == "True"
+        keys = [k for k, v in rej.items() if all(i in v for i in _ID)]
+        return round(sum(rej[k][idiom] for k in keys) / len(keys), 3) if keys else None
+
+    for _slug, _vals in ():                    # filled from e29t_analysis once each decider is read
+        for _i, _want in zip(_ID, _vals):
+            claim(f"E29-T {_slug} {_i}/neutral", _rate_t(_slug, _i), _want)
+
+    # 2.6, E29-K: "has this step been rejected?" -- the rate of "yes" per store
+    # and target, over dialogues with all eight answers, as e29k_recognition reads it.
+    def _rate_k(slug, design, target):
+        cell = {}
+        for r in _csv.DictReader(open(f"results/e29k_{slug}.csv", encoding="utf-8")):
+            cell.setdefault((r["instance"], r["rotation"]), {})[(r["design"], r["target"])] = r["yes"] == "True"
+        keys = [k for k, v in cell.items() if len(v) == len(_S4) * 2]
+        return round(sum(cell[k][(design, target)] for k in keys) / len(keys), 3) if keys else None
+
+    for _slug, _yes in ():                     # filled from e29k_recognition --analyse
+        for _X, (_want_rej, _want_ctl) in zip(_S4, _yes):
+            claim(f"E29-K {_slug} {_X} yes/rejected", _rate_k(_slug, _X, "rejected"), _want_rej)
+            claim(f"E29-K {_slug} {_X} yes/control", _rate_k(_slug, _X, "control"), _want_ctl)
+
     # 4.6, free length: complete-case over the four designs, as the analysis reads it
     _FD = ("full", "delete", "addonly", "addonly_flag")
     for _slug, _dn, _an, _fn in (("llama32-3b", 0.768, 0.105, 0.642),
