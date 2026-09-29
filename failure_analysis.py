@@ -6,7 +6,7 @@ behaved. Evidence goes to transcripts/failures/, the summary table to
 results/failures/summary.csv. The frozen experiment (transcripts/exp and the
 CSVs in results/) is never touched.
 
-    python failure_analysis.py              # every case (6 need Ollama, ~4 min)
+    python failure_analysis.py              # every case (7 need Ollama, ~4 min)
     python failure_analysis.py --offline    # only the cases that need no model
     python failure_analysis.py --case window_zero
 
@@ -282,6 +282,33 @@ def case_context_overflow():
                        f"believes it sent full history; {plan_summary(r['ev'])}"), r["path"]
 
 
+def case_overflow_probe():
+    """Which messages does Ollama drop? A secret in the system prompt, a codename
+    in the first user message, then filler until the prompt no longer fits."""
+    filler = [{"role": "user" if i % 2 == 0 else "assistant",
+               "content": f"Filler message number {i}. " + "The weather report "
+               "says clouds, wind and some rain later today. " * 3} for i in range(24)]
+    messages = ([{"role": "system", "content": "The secret word is PINEAPPLE. If "
+                  "asked for the secret word, answer with it."},
+                 {"role": "user", "content": "Remember: the codename of the project is BLUEFINCH."},
+                 {"role": "assistant", "content": "Noted, BLUEFINCH."}]
+                + filler
+                + [{"role": "user", "content": "What is the secret word, and what "
+                    "is the project codename? Answer in one line."}])
+    record = {}
+    for num_ctx in (4096, 256):
+        reply = SmallContextClient(num_ctx).chat("llama3.2:3b", messages, temperature=0)
+        record[num_ctx] = {"prompt_tokens": reply.prompt_tokens, "reply": reply.text,
+                           "system_kept": "PINEAPPLE" in reply.text,
+                           "first_user_message_kept": "BLUEFINCH" in reply.text}
+    path = save_json("overflow_probe", {"messages": messages, "results": record})
+    small, big = record[256], record[4096]
+    return "finding", (f"num_ctx 4096: {big['prompt_tokens']} tokens, both facts kept; "
+                       f"num_ctx 256: {small['prompt_tokens']} tokens, system prompt "
+                       f"kept={small['system_kept']}, first user message "
+                       f"kept={small['first_user_message_kept']}"), path
+
+
 def case_rules_in_system_prompt():
     """Design rule 1 broken: the seed rules are copied into both system prompts."""
     rules = "\n".join(f"- {text}" for _, text in INCIDENT.seed_dialogue[1:])
@@ -322,6 +349,8 @@ CASES = [
      "(probe) how much does the plan depend on context?"),
     ("context_overflow", True, "num_ctx=512 with full history",
      "(probe) what does Ollama do with a prompt that does not fit?"),
+    ("overflow_probe", True, "num_ctx=256 with a planted secret and codename",
+     "(probe) which messages does Ollama drop?"),
     ("rules_in_system_prompt", True, "rules moved into system prompts",
      "(probe) do the rules hold when they can never be forgotten?"),
 ]
