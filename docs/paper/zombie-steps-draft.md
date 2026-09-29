@@ -4,8 +4,7 @@
 (`docs/paper/reframe-v2.md` §5). Every number below is in a
 `results/*_summary.json` file and re-derives from the committed per-call CSVs
 (`verify_claims.py`). Every protocol in `docs/protocols/` was committed with
-zero outcomes before its first call. One leg, E29-R (list formats, §2.4), is
-running as this is written. Its section is marked and holds no numbers yet.*
+zero outcomes before its first call.*
 
 ## Abstract
 
@@ -34,7 +33,8 @@ differences against full context +0.21 to +0.50) and not through add-only. A
 store that keeps the rejected proposal flagged `[withdrawn]` is not read as a
 rejection, and on the largest decider it behaves like the deletion. The design
 dependence survives a second corpus, an unpinned plan and a real Mem0 update
-router. *[E29-R, the 2×2 in JSON, XML and numbered lists: pending.]* We release
+router. The 2×2 replicates in JSON, XML and numbered lists on both deciders, so
+the effect is about list structure, not markdown. We release
 the corpora, protocols, prompts and every store snapshot.
 
 ## 1. Introduction
@@ -66,9 +66,9 @@ property alone is harmless. Their conjunction is the industry default.
    that re-enter an executable plan when the proposer restates them. They come
    back through memory designs that delete a rejection or flag the rejected
    record, and not through designs that keep the rejection as a sentence (§3).
-3. Robustness across four deciders from three families, two corpora, pinned
-   and unpinned output, oracle and real write paths, and (pending) four list
-   formats (§4).
+3. Robustness across four list formats (§2.4), four deciders from three
+   families, two corpora, pinned and unpinned output, and oracle and real
+   write paths (§4).
 4. Negative and cautionary results reported as such (Appendix A and B).
 
 ## 2. The structural result
@@ -174,21 +174,48 @@ in a prompt, and what varies is whether one of them is a separate item and
 whether it has a verb. So the result bears on retrieved chunks, tool results and
 policy lists as much as on a store, provided it is not a fact about markdown.
 
-### 2.4 Four list formats (E29-R) — *running, no numbers yet*
+### 2.4 Four list formats (E29-R)
 
-Every store above is a markdown bullet list. E29-R (declared in `5a36082`
-after a prior-art gate with web search, `docs/protocols/E29R-gate.md`)
-re-renders E29-S's four stores, item for item and character for character, as
-a JSON string array, XML `<note>` items and a numbered list. Everything else is
-E29-S's, and the markdown column is E29-S's own data. The read rule is
-CONJUNCTION per format when S_flag and S_form_same reach 0.15 with intervals
-excluding zero and S_merge and S_form_own do not. It returns **GENERAL**,
-**FORMAT-DEPENDENT** or **MARKDOWN-SPECIFIC** per decider
-(`docs/protocols/E29R-formats.md`). The recorded lean is GENERAL.
+Every store in §2.3 is a markdown bullet list, so the pattern could be a fact
+about markdown. E29-R was declared in `5a36082`, after a prior-art gate with web
+search (`docs/protocols/E29R-gate.md`). It re-renders E29-S's four stores, item
+for item and character for character, as a JSON string array, as XML `<note>`
+items and as a numbered list. Everything else is E29-S's, and the markdown
+column is E29-S's own data. A test asserts that every rendering parses back to
+E29-S's items, and that the markdown rendering is byte-identical to the
+prompts E29-S sent. That is 4,608 calls, and every cell passes the validity
+rule.
 
-*This section will report the outcome whichever way it falls. A
-MARKDOWN-SPECIFIC result withdraws the structural claim, and the paper would
-then be about markdown lists.*
+Neutral-arm rejected-step inclusion, the tagged cell against the other three:
+
+| format | llama3.2:3b tag | other three | qwen2.5:14b tag | other three |
+|---|---|---|---|---|
+| markdown (E29-S) | **0.594** | 0.094–0.198 | **0.323** | 0.031–0.052 |
+| JSON array | **0.604** | 0.094–0.177 | **0.354** | 0.031–0.073 |
+| XML items | **0.510** | 0.052–0.135 | **0.302** | 0.031–0.052 |
+| numbered list | **0.625** | 0.094–0.302 | **0.354** | 0.031–0.062 |
+
+By the declared rule, the conjunction holds in all three new formats on both
+deciders: S_flag and S_form_same reach 0.15 with intervals excluding zero,
+and S_merge and S_form_own do not. The verdict is **GENERAL** on both.
+- S_flag (JSON, XML, numbered) is +0.427, +0.375 and +0.323 on the 3B, and
+  +0.323, +0.271 and +0.323 on the 14B.
+- S_merge is negative in every format on both deciders, and on the 3B its
+  interval excludes zero in all three new formats (for example, JSON −0.083
+  [−0.146, −0.021]). Writing the rejection as a sentence on the proposal's
+  own line does not raise enactment; it lowers it. Subordination is harmful
+  only without a verb.
+
+Two things are reported plainly. In the numbered list on the 3B, the status
+line alone is somewhat less honoured (S_form_own +0.115 [+0.031, +0.208]).
+That is below the threshold and does not change the read, but it is a real
+form effect in that one format. And the never/accepted control (P2) misses its
+0.10 band in three format-by-decider cells, by up to 0.025. This is the same
+pinned-plan displacement as E29-E and E29-S.
+
+The recorded lean was GENERAL, which held. Its guess that JSON would separate
+least was wrong: JSON's S_flag is the largest of the three new formats on the
+3B.
 
 ## 3. Why it matters: zombie steps
 
@@ -424,7 +451,8 @@ balance across the 2×2's four stores misses its ±0.10 band by 0.004 (3B) and
   assessed as the human-dialogue replication and has not been run.
 - **Stores.** Oracle stores are semantic ideals. The real-system leg uses one
   extractor prompt, one extractor model, one decider, and no retrieval layer.
-- **Format.** Markdown lists only, until E29-R reports (§2.4).
+- **Format.** Four list containers (markdown, JSON, XML, numbered). Prose
+  paragraphs, tables and tool-call schemas are untested.
 - **Tag spelling.** One tag, `[withdrawn]`. Structured flags such as
   `is_active: false` or an `invalid_at` timestamp are the named next step.
 - **Levels.** Levels across memory designs mix the design with the
@@ -525,7 +553,9 @@ checked against the record.
 | E29-S P2 | Delta_addonly reproduces E29 within 0.10 | +0.031 and -0.010; fifth replication |
 | E29-S P3 | lean: S_merge small, so FORM or INTERACTION | correct: S_merge -0.062 and -0.010; INTERACTION on both |
 | E29-S P4 | never/accepted within 0.10 across designs | misses by 0.004 and 0.025, same displacement as E29-E |
-| E29-R P1–P3 | validity; controls within 0.10; lean GENERAL | *running* |
+| E29-R P1 | every cell valid (parse ≥ 0.95, \|plan\| in range) | holds: no VOID cell on either decider |
+| E29-R P2 | never/accepted within 0.10 across designs, per format | misses by up to 0.025 in three cells (3B JSON and numbered, 14B numbered); pinned-plan displacement, reported |
+| E29-R P3 | lean: GENERAL, smallest separation in JSON | GENERAL on both deciders (conjunction in 3/3 formats each); JSON separated most on the 3B, not least |
 
 ## Appendix B. Process record
 

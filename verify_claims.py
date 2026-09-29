@@ -1155,7 +1155,10 @@ try:
 
     for _slug, _cells in (("llama32-3b", {"json": (0.177, 0.094, 0.177, 0.604),
                                            "xml": (0.115, 0.052, 0.135, 0.510),
-                                           "numbered": (0.188, 0.094, 0.302, 0.625)}),):
+                                           "numbered": (0.188, 0.094, 0.302, 0.625)}),
+                          ("qwen25-14b-instruct", {"json": (0.073, 0.031, 0.031, 0.354),
+                                                    "xml": (0.052, 0.031, 0.031, 0.302),
+                                                    "numbered": (0.062, 0.052, 0.031, 0.354)})):
         for _fmt, _vals in _cells.items():
             for _X, _want in zip(_S4, _vals):
                 claim(f"E29-R {_slug} {_fmt} {_X}/neutral", _rate_r(_slug, _fmt, _X), _want)
