@@ -1,5 +1,39 @@
 # RESUME — where the work stands, and exactly what to do next
 
+# 2026-09-29 — the structural claim: gate, format replication, paper and page
+
+The author asked for a loop over the reframe-v2 plan "until there is something
+genuinely good to show off". Order and state:
+
+- **(a) Prior-art gate, with web search, done: `0cee694`,
+  `docs/protocols/E29R-gate.md`.** CANDIDATE FOR TESTING, residual NARROW.
+  arXiv:2609.08258 shows visible revocation flags are ignored on shipped
+  systems, but never varies how the flag is written. 2026 practitioner posts
+  report `[DEPRECATED]` tags being under-read, with no controls.
+  arXiv:2406.09834 has no annotation-on-item condition. No controlled encoding
+  study was found.
+- **(b) E29-R format replication: declared `5a36082`, running.** It re-renders
+  E29-S's four stores as JSON / XML / numbered lists (markdown is E29-S's own
+  data), with both arms, llama3.2:3b then qwen2.5:14b-instruct, 2,304 calls
+  each. It runs detached (`python e29r_formats.py --detach`, log
+  `results/e29r_run.log`), checkpoints per dialogue, and resumes with the same
+  command. Read with `python e29r_analysis.py --all`: GENERAL /
+  FORMAT-DEPENDENT / MARKDOWN-SPECIFIC per decider. **MARKDOWN-SPECIFIC on both
+  withdraws the structural claim and stops the programme.**
+- **(c) Paper restructured, done: `c311410`.** The claim leads, the memory
+  study is motivation, robustness has its own section, and E29-B/C/N are in
+  Appendix B. §2.4 and the E29-R row of Appendix A wait for (b).
+- **(d) Side-by-side page, done: `fa8abcf`.** `/city` now opens a 2D view by
+  default (the 3D city is behind a toggle). E29-S's three encodings are in the
+  design picker. Showcase: dialogue 2, restated arm, "rejection as a tag on the
+  proposal".
+
+**Still to do when (b) finishes:** run the analysis, extend `verify_claims.py`,
+fill paper §2.4 and Appendix A, and commit the results with numbers.
+
+The compulsory (branch `core-frozen`, worktree `C:\Users\chris\week1-core`) is
+separate and must not be touched from here.
+
 # 2026-09-12 — the paper push: third decider, real write path, second corpus
 
 The author asked what would make E29 a paper rather than a workshop note and
