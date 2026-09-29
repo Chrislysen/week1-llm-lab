@@ -31,6 +31,25 @@ genuinely good to show off". Order and state:
 **Still to do when (b) finishes:** run the analysis, extend `verify_claims.py`,
 fill paper §2.4 and Appendix A, and commit the results with numbers.
 
+**Later on 2026-09-29 — the 3B's E29-R read is GENERAL (`5f40cdc`)**, and the
+author asked to keep going. Three more legs were declared with zero outcomes
+and queued so the GPU runs them one after another:
+- **E29-T** (`4d8bff1`): do real-world revocation idioms fail like the tag?
+  They are `(withdrawn)`, `[status: revoked]`, `[is_active: false]`,
+  `[invalid_at: …]` and `~~strikethrough~~`. Read with
+  `python e29t_analysis.py --all`.
+- **E29-K** (`7b2cf20`): does the decider *know* the tagged step was rejected?
+  The verdict is NOT-READ or READ-NOT-USED. Read with
+  `python e29k_recognition.py --analyse`.
+- **E29-S+** (`4d30b5a`): the 2×2 on gemma4:e4b and aya-expanse:8b, two more
+  families. Read with `python e29s_analysis.py --model M`, plus the E29-R
+  conjunction rule.
+
+Queue: E29-R's process (`results/e29r_run.log`) → E29-T (`results/e29t_run.log`)
+→ `run_queue.py` running E29-K, gemma, then aya (`results/e29s_families_run.log`).
+If the machine restarts, rerun each command. Every runner resumes from its
+checkpoints.
+
 The compulsory (branch `core-frozen`, worktree `C:\Users\chris\week1-core`) is
 separate and must not be touched from here.
 
