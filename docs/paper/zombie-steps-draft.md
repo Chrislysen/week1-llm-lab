@@ -1,211 +1,234 @@
-# Zombie steps: the memory design decides whether a rejected proposal comes back
+# A tag is not a retraction: language models ignore a revocation written as an attribute of the record it revokes
 
-*Working draft, 2026-09-12. Every number below is in a `results/*_summary.json`
-file and re-derives from the committed result CSVs; the protocols in
-`docs/protocols/` were declared with zero outcomes before each run. No run is
-pending; every table is complete.*
+*Working draft, restructured 2026-09-29 around the structural claim
+(`docs/paper/reframe-v2.md` §5). Every number below is in a
+`results/*_summary.json` file and re-derives from the committed per-call CSVs
+(`verify_claims.py`). Every protocol in `docs/protocols/` was committed with
+zero outcomes before its first call. One leg, E29-R (list formats, §2.4), is
+running as this is written. Its section is marked and holds no numbers yet.*
 
 ## Abstract
 
-Agents that talk to each other and act through a memory layer face a
-supersession problem the memory literature has not measured: a step proposed
-in dialogue, rejected by a partner, and later mentioned again by its proposer.
-We construct 96 two-speaker incident dialogues with exactly one such rejected
-step, in two arms that differ by one line — the proposer's later restatement
-of the rejected step, or a length-matched neutral line — and deliver each to a
-small local decider through four memory designs read from what is actually
-shipped: the full transcript, write-time hard delete (the Mem0 paper
-pipeline), add-only (Mem0 OSS v3), and merge-in-place wiki pages (the LLM-wiki
-pattern). The decider writes a fixed-length executable plan; the outcome is
-whether the rejected step is in it. On four deciders from three model
-families (3B, 7B, 14B, and a ~4B-effective Gemma) the restatement's effect is
-design-dependent: through hard delete it raises enactment of the rejected step
-to near certainty (difference-in-differences against full context +0.44,
-+0.38, +0.21, +0.50, intervals excluding zero); through add-only it does
-nothing; merge-in-place sits between on the two small deciders and is flat on
-the other two. The ordering survives a second corpus of six new
-domains and new sentence wording on all three deciders (hard-delete DiD
-+0.43, +0.58, +0.31), although absolute rates move by a factor of two with
-the wording on the small deciders. A real Mem0 update router fed by an operational
-extractor reproduces the mechanism on the same dialogues (+0.17 [+0.04,
-+0.29], between the add-only and hard-delete ideals): it deletes on rejection
-one time in five and otherwise keeps the proposal, and the restatement enters
-as a fresh fact with no rejection attached. Under full context the same
-restatement is protective on small deciders, and a follow-up shows this is the
-"for the record, I did raise it" register rather than the mention itself. Two
-controls an outside adversarial review asked for leave the picture intact:
-spelling out every reply's referent in the transcript does not move the
-full-context level, so the gap to add-only is design rather than rendering,
-and a soft-supersede flag that retains the rejected proposal as "[withdrawn]"
-is not read as a rejection and, on the largest decider, re-admits the step
-like a deletion once it is restated. Two further arms isolate why. Holding the store
-fixed and changing only how the rejection is written, re-wording it from a
-sentence to a key-value assertion does nothing, while collapsing it onto the
-record it negates raises enactment by 0.39, 0.22 and 0.29. A 2x2 then
-separates the two properties that collapse confounded, using a cell whose
-text is byte-identical to the protective one: neither merging a proposition
-nor re-wording within its own item has any effect, and only their conjunction
-does. A retraction is ignored precisely when it is a verb-less attribute of
-the record it retracts, which is how every shipped soft-delete design encodes
-revocation. We release the corpora, protocols,
-prompts, and every store snapshot.
+Agent memories and tool registries mark a revoked record in place: a validity
+interval, an `invalid_at` edge, an `is_active` flag, a `[withdrawn]` or
+`[DEPRECATED]` prefix. We find that this in-place, verb-less encoding is the one
+form of revocation that small open deciders act as though they had not seen.
+
+Over one add-only memory we cross two properties of the rejection of a
+proposal: whether it occupies its own list item, and whether it is a
+proposition with a verb.
+- Merging the rejection sentence onto the proposal's item changes nothing. The
+  text is byte-identical; one line break is removed.
+- Rewriting the rejection as a verb-less status line in its own item changes
+  nothing.
+- Doing both, so the rejection is a tag on the rejected record, raises
+  enactment of the rejected step from 0.09–0.20 to 0.59 on llama3.2:3b, and
+  from 0.03–0.05 to 0.32 on qwen2.5:14b-instruct.
+
+The pre-registered verdict is INTERACTION on both deciders.
+
+The finding came out of a memory-design study that motivates it. Across four
+deciders from three model families, a partner's later restatement of a
+rejected step re-admits it through write-time hard delete (difference-in-
+differences against full context +0.21 to +0.50) and not through add-only. A
+store that keeps the rejected proposal flagged `[withdrawn]` is not read as a
+rejection, and on the largest decider it behaves like the deletion. The design
+dependence survives a second corpus, an unpinned plan and a real Mem0 update
+router. *[E29-R, the 2×2 in JSON, XML and numbered lists: pending.]* We release
+the corpora, protocols, prompts and every store snapshot.
 
 ## 1. Introduction
 
-Multi-agent systems increasingly put a memory layer between the dialogue and
-the decision. The three designs that ship do different things with a proposal
-that was later rejected. The Mem0 paper's pipeline (arXiv:2504.19413) routes
-every extracted fact through ADD / UPDATE / DELETE and, by its own DELETE
-example, consumes a rejection by deleting the proposal and storing nothing.
-Mem0's open-source v3 (April 2026) dropped that router for an add-only store
-with no recency ranking, citing lost context. The LLM-wiki pattern
-(nashsu/llm_wiki) merges new information into an existing page for the same
-entity and queues contradictions for a human rather than resolving them.
+Systems that let an agent act on remembered facts have to represent the fact
+that something is no longer true. The designs that ship do it in place, as an
+attribute of the record that was revoked:
+- a validity interval or `invalid_at` edge on a knowledge-graph fact;
+- an `is_active` or `deleted` field on a row;
+- a status label beside a memory entry;
+- a `[DEPRECATED]` prefix on a tool description.
 
-None of these designs was measured on the case that matters for a planning
-agent: a step that was proposed, rejected in the conversation, and then
-brought up again by its proposer. We call a rejected step that re-enters the
-plan a *zombie step*. The question is not whether small models forget
-rejections — earlier work on this corpus measured that (revocation inertia,
-E18) with the raw transcript in front of the decider — but whether the
-*memory design* changes what a later restatement does.
+Concurrent work shows this does not stop agents: on five shipped memory
+systems, a visible revocation label left the revoked policy retrievable and
+acted on in 43.1 % of trials (arXiv:2609.08258). Practitioners report the same
+for deprecated tools in 2026 (§6). Neither isolates **how** the revocation is
+written from **whether** it is visible.
 
-Contributions. (1) A pre-registered experiment on 96 dialogues × 2 arms × 4
-designs × 4 deciders (3,072 calls) showing design dependence with the
-predicted sign and size for the hard-delete design. (1b) An isolation showing
-that what a decider honours is a rejection written as its own record, not the
-same rejection carried as an attribute of the record it negates. (2) Replication on a
-second corpus with new domains and wording on the same three deciders (2,304
-calls), which preserves the ordering across designs while moving absolute
-rates by a factor of two on the small deciders. (3) A
-real-system leg: Mem0's update router, verbatim, fed by an extractor that
-stores operational facts, reproduces the mechanism on the same dialogues.
-(4) Two negative or cautionary results reported as such: the Mem0 paper's own
-extraction prompt does not store operational proposals at all, so a first
-real-system attempt was uninformative by its declared rule; and under full
-context the restatement lowers enactment on small deciders, which a follow-up
-attributes to the authorship register of the line rather than the mention.
+We ask that question directly. Holding the information fixed, does the
+*structure* of a revocation decide whether a model honours it? The answer comes
+from a fixed-intervention 2×2 in which one cell is byte-identical text to
+another. It is yes, and specifically: a revocation is ignored when it is
+**both** subordinate to the record it revokes **and** verb-less. Either
+property alone is harmless. Their conjunction is the industry default.
 
-## 2. Related work
+**Contributions.**
+1. The structural dissociation, pre-registered on two deciders (§2).
+2. The setting that makes it consequential: *zombie steps*, rejected proposals
+   that re-enter an executable plan when the proposer restates them. They come
+   back through memory designs that delete a rejection or flag the rejected
+   record, and not through designs that keep the rejection as a sentence (§3).
+3. Robustness across four deciders from three families, two corpora, pinned
+   and unpinned output, oracle and real write paths, and (pending) four list
+   formats (§4).
+4. Negative and cautionary results reported as such (Appendix A and B).
 
-Eighteen papers were read in full text under a written novelty gate before
-the first model call (`docs/protocols/E29-memory-semantics.md` §0). The
-components of the construct are each occupied; the conjunction was found
-nowhere.
+## 2. The structural result
 
-*Forgetting Without Restarting* (arXiv:2609.04875) measures ten forget
-mechanisms after an operator-issued revocation and finds that deleting the
-memory record while the transcript persists does not stop action on the
-revoked preference (B1 = B0 = 1.00, Table 3); its re-mention is a same-agent
-introspection probe, not a partner's restatement, and it has no add-only or
-merge design. *LatticeMind* (arXiv:2608.08236) compares concatenation,
-LLM-merge and a state memory under late stale notes and finds concatenation
-hurt most (§4.5); the stale notes are not a rejected proposal, the increment
-is never isolated, and there is no delete arm or full-context reference.
-*STALE* (arXiv:2605.06527) excludes contradictory dialogue by construction
-(Axiom 2). *Control-plane placement* (arXiv:2606.15903) compares thirteen
-memory configurations including add-only, tombstone and the Mem0 router, at
-the retrieval layer, with no full-context arm; its Appendix P reports that the
-Mem0 router under-deletes in practice, which our real-system leg confirms at
-the action layer. *Memora / FAMA* (arXiv:2604.20006) deliberately excludes
-restatements (App. B.5). *MemOps* (arXiv:2607.12893) reports Mem0's stale
-value rate at 0.102 against 0.016 for long context with no restatement, the
-closest quantitative support for the delete ≫ full ordering we find.
-*MemStrata* (arXiv:2606.26511) has a supersede-or-reinforce rule that would
-let a re-assertion re-supersede a retraction, but its triple model cannot
-record a negation. *MemoryArena* (arXiv:2602.16313) compares full context,
-Mem0 and RAG on executable plans without a restatement manipulation.
+### 2.1 Setup
 
-Three 2026 papers move conflict resolution to the write or commit layer and
-are adjacent without overlapping: *TOKI* (arXiv:2606.06240) types four
-write-time heuristics as bitemporal operators and keeps the losing fact in
-an audit row; *MemTX* (arXiv:2607.23929) gates irreversible tool calls on a
-transactional belief state and measures downstream harm on a 90-case
-conformance suite with concurrent writers; *Governed Persistent Memory*
-(arXiv:2608.12476) makes non-revival after retraction an executable ledger
-clause and compares raw-append, latest-first and conflict-preserving
-policies by contract match. None constructs a rejection in dialogue or a
-partner's restatement. *The Memory Trust Gap* (arXiv:2609.01852) is the
-closest on decider size: across Qwen3 0.6B–8B, a stale stored fact is
-answered with 0.92–1.00 of the time, and *larger* models collapse most when
-metadata makes the stale note look current. Our larger deciders honour an
-explicit stored rejection better than the small ones; the two findings
-concern different quantities (a stale value framed as current versus a
-rejection rendered as a rejection) and are read side by side, not against
-each other. On the shipped side, Mem0's own issue tracker records the v3
-add-only behaviour we read from source: contradictory facts accumulate in
-parallel and the MD5 deduplication catches only exact duplicates (issues
-#4896 and #4956, April 2026).
+**Corpus.** The E29 corpus (hash `187a426616f26598`) is 96 two-speaker incident
+dialogues, each carrying exactly one proposal that the partner rejects, plus
+accepted proposals and unrelated lines. Scorer tags never enter the prompt.
 
-**Concurrent work.** *Revoked but Still Authoritative* (arXiv:2609.08258,
-submitted four days before our control run and found only afterwards) loads
-five shipped memory systems with a revoked policy and its replacement and
-finds that none enforces the revocation: where the flag is visible to the
-retrieval layer the revoked fact is returned in 81 of 81 scenarios, outranks
-its replacement, and yields the unsafe action in 43.1 % of 1,620 trials. That
-is the same finding as our tombstone control (§4.5), reached independently on
-shipped systems with nine API-scale models, and it has priority. Two things
-separate the results. Their revocation is a developer-set expiry field or an
-extractor's inference from contradicting prose, never a partner's rejection in
-dialogue, and nothing is re-mentioned afterwards, so the restatement effect we
-measure on the flagged store has no counterpart there. And none of their five
-systems stores the rejection as prose beside the proposal, so the contrast in
-§4.5 between a flagged rejection and a written one is not available to them.
-We read the two as halves of one result.
+**Store.** Every store in this section is add-only: every fact from the
+dialogue kept in order, rendered from the scorer's tags by fixed templates. So
+the manipulation is the rejection's structure and nothing an extractor did. It
+is shown to the decider as a list under the header `MEMORY NOTES FROM THE
+DISCUSSION`.
 
-What is new here is the conjunction: a partner's content-bearing restatement
-of a step rejected in dialogue, delivered through the designs that ship, read
-on an executable plan by small local deciders, as a difference-in-differences
-against a length-matched neutral line.
+**Decider.** A fixed system prompt (the E10 Operator), the store, and a frozen
+plan instruction. The instruction pins the plan to four identifiers from a
+six-item menu (E17 `pin4`), at temperature 0. The plan is parsed
+deterministically, and the outcome per dialogue is whether the rejected step's
+identifier is in it.
 
-## 3. Setup
+**Arm.** Every contrast in this section uses the *neutral* arm, where no line
+brings the rejected step up again, so every store contains the rejection and
+nothing that contradicts it.
 
-**Corpus.** The E16 benchmark generates two-speaker incident dialogues from
-six domains × six constraint graphs × four rotations. Each dialogue contains
-proposals with an acceptance or a rejection reply, plus noise lines; scorer
-tags never enter the prompt. The 96 dialogues carrying exactly one rejected
-step form the E29 corpus (hash `187a426616f26598`). Each is rendered in two
-arms differing by one line, spoken by the original proposer as late as speaker
-alternation allows:
+**Read rule, fixed before the first call.** A paired bootstrap over dialogues,
+seed 0, B = 2000, percentile 95 % intervals. A cell is void if its parse rate is
+< 0.95 or its mean plan length falls outside [3.9, 4.1]. Every cell in every run
+parsed at 1.000.
+
+### 2.2 First pass: it is not the wording
+
+E29-E held the store fixed and changed only how the rejection was written.
+- `addonly` writes it as a sentence: "Safety Auditor rejected the proposal to
+  snapshot the store; it is not needed for this case".
+- `addonly_meta` puts a key-value line in the same position with the same
+  trailing clause: "status(snapshot the store) = WITHDRAWN; it is not needed
+  for this case".
+- `addonly_flag` removes that line and prefixes the proposal with
+  "[withdrawn] ".
+
+Three deciders, 1,728 calls:
+
+| decider | prose line | key-value line | prefix, no line | wording effect | own-line effect |
+|---|---|---|---|---|---|
+| llama3.2:3b | 0.156 | 0.208 | 0.594 | +0.052 [−0.042, +0.146] | **+0.385** [+0.281, +0.500] |
+| qwen2.5:7b-instruct | 0.354 | 0.240 | 0.458 | −0.115 [−0.198, −0.031] | **+0.219** [+0.135, +0.302] |
+| qwen2.5:14b-instruct | 0.062 | 0.031 | 0.323 | −0.031 [−0.073, +0.010] | **+0.292** [+0.198, +0.385] |
+
+Figure 2 (`fig2-encoding.svg`). We had predicted a large positive wording
+effect, and that hypothesis is withdrawn: re-wording spans zero on two deciders
+and runs the other way on the third. What survives is the contrast that
+changes only whether the negation has a line of its own. But that contrast
+changed two things at once: the negation lost its item boundary *and* its verb.
+
+### 2.3 The 2×2
+
+E29-S separates the two properties over the same add-only fact stream
+(Figure 1, `fig3-structure-2x2.svg`):
+
+| | **own item** | **same item as the proposal** |
+|---|---|---|
+| **proposition** | `- A proposed to X.` / `- B rejected the proposal to X; …` | `- A proposed to X. B rejected the proposal to X; …` |
+| **attribute** | `- status(X) = WITHDRAWN; …` | `- [withdrawn] A proposed to X.` |
+
+The two proposition cells contain **byte-identical text**. The whole
+manipulation is that one `"\n- "` becomes `" "`, and a test asserts it. Two
+deciders, the extremes of the range, 1,536 calls, parse 1.000.
+
+Rejected-step inclusion, neutral arm, n = 96 per cell:
+
+| | own item | same item | | own item | same item |
+|---|---|---|---|---|---|
+| **llama3.2:3b** | | | **qwen2.5:14b-instruct** | | |
+| proposition | 0.156 | 0.094 | | 0.052 | 0.042 |
+| attribute | 0.198 | **0.594** | | 0.031 | **0.323** |
+
+| contrast | isolates | llama3.2:3b | qwen2.5:14b-instruct |
+|---|---|---|---|
+| S_merge | separation, proposition held | −0.062 [−0.125, −0.010] | −0.010 [−0.031, +0.000] |
+| S_flag | separation, attribute held | **+0.396** [+0.281, +0.510] | **+0.292** [+0.198, +0.385] |
+| S_form_own | form, own item held | +0.042 [−0.052, +0.135] | −0.021 [−0.062, +0.021] |
+| S_form_same | form, same item held | **+0.500** [+0.396, +0.604] | **+0.281** [+0.188, +0.375] |
+
+Three cells are indistinguishable and one is three to ten times higher, on
+both deciders. The pre-registered rule returns INTERACTION on both.
+- The byte-identical pair differs by one line break and agrees, which rules
+  out token count, position and length. On the 3B, merging is marginally
+  *more* protective.
+- The attribute cell in its own item changes the words without changing the
+  structure, and it agrees too, which rules out phrasing.
+
+What remains is the conjunction:
+
+> A retraction is ignored when it is written as a **non-propositional
+> attribute of the record it retracts**. Give it its own item, or give it a
+> verb, and it is honoured. Remove both and the model acts as though it were
+> not there.
+
+Nothing in the manipulation is specific to memory. It is a list of statements
+in a prompt, and what varies is whether one of them is a separate item and
+whether it has a verb. So the result bears on retrieved chunks, tool results and
+policy lists as much as on a store, provided it is not a fact about markdown.
+
+### 2.4 Four list formats (E29-R) — *running, no numbers yet*
+
+Every store above is a markdown bullet list. E29-R (declared in `5a36082`
+after a prior-art gate with web search, `docs/protocols/E29R-gate.md`)
+re-renders E29-S's four stores, item for item and character for character, as
+a JSON string array, XML `<note>` items and a numbered list. Everything else is
+E29-S's, and the markdown column is E29-S's own data. The read rule is
+CONJUNCTION per format when S_flag and S_form_same reach 0.15 with intervals
+excluding zero and S_merge and S_form_own do not. It returns **GENERAL**,
+**FORMAT-DEPENDENT** or **MARKDOWN-SPECIFIC** per decider
+(`docs/protocols/E29R-formats.md`). The recorded lean is GENERAL.
+
+*This section will report the outcome whichever way it falls. A
+MARKDOWN-SPECIFIC result withdraws the structural claim, and the paper would
+then be about markdown lists.*
+
+## 3. Why it matters: zombie steps
+
+### 3.1 The memory designs
+
+The structural result was found inside a study of what memory layers do with a
+proposal that was rejected in dialogue. We call a rejected step that re-enters
+the plan a *zombie step*. Three shipped designs treat that proposal
+differently:
+- The Mem0 paper's pipeline (arXiv:2504.19413) routes every extracted fact
+  through ADD / UPDATE / DELETE, and by its own DELETE example consumes a
+  rejection by deleting the proposal and storing nothing.
+- Mem0's open-source v3 (April 2026) replaced that router with an add-only
+  store.
+- The LLM-wiki pattern (nashsu/llm_wiki) merges new information into one page
+  per entity and queues contradictions for a human.
+
+Each E29 dialogue is rendered in two arms differing by one line, spoken by the
+original proposer as late as speaker alternation allows:
 
     restated   For the record, I did raise {action phrase} earlier in this discussion.
     neutral    For the record, I did raise {neutral referent of equal word count} earlier in this discussion.
 
-Tests enforce the one-line difference, same speaker, same word count, and that
-base lines are byte-identical to the benchmark.
+Tests enforce the one-line difference, the same speaker and the same word
+count.
 
-**Designs.** Stores are rendered from the scorer's tags by fixed templates —
-the design's semantic ideal, so what is measured is the decider's response to
-each design, not an extractor's reliability (the real extractor is §4.4).
-`full`: the transcript. `delete`: ADD on proposal, UPDATE on acceptance, on
-rejection DELETE the proposal and store nothing; a later restatement is ADDed.
-`addonly`: every fact kept in insertion order. `wiki`: one page per action
-with chronological bullets plus a discussion-log page. Tests assert, per
-dialogue, that under `delete`/neutral no trace of the rejected step remains
-and under `delete`/restated exactly one mention and no rejection.
+The designs, as oracle stores rendered from the scorer's tags:
+- `full`: the transcript.
+- `delete`: ADD on a proposal, UPDATE on an acceptance, and on a rejection
+  DELETE the proposal and store nothing. A later restatement is ADDed.
+- `addonly`: every fact in insertion order.
+- `wiki`: one page per action, with chronological bullets.
 
-**Decider.** A fixed system prompt (the E10 Operator), the design's context
-block, and a frozen plan instruction that pins the plan to four steps from a
-six-item action vocabulary (E17 `pin4`), temperature 0. The plan is parsed
-deterministically; the outcome per dialogue is whether the rejected step's
-identifier is in the plan.
+The estimands are Δ_X = P(rejected step in plan | restated, X) − P(… |
+neutral, X) and DiD_X = Δ_X − Δ_full. A decider is DESIGN-DEPENDENT if some
+|DiD_X| ≥ 0.15 with an interval excluding zero.
 
-**Estimands and read rule, fixed before the first call.** Δ_X = P(rejected
-step in plan | restated, X) − P(… | neutral, X); DiD_X = Δ_X − Δ_full. Paired
-bootstrap over dialogues, seed 0, B = 2000, percentile 95 % intervals.
-DESIGN-DEPENDENT if some |DiD_X| ≥ 0.15 with an interval excluding 0; a cell
-is void if parse rate < 0.95 or mean plan length outside [3.9, 4.1]. Every
-cell in every run below parsed at 1.000 with mean length 3.98–4.00.
+### 3.2 Design dependence on four deciders
 
-## 4. Results
-
-### 4.1 Design dependence on four deciders (first corpus)
-
-Figure 1 (`fig1-delta-by-design.svg`) shows every Δ in this section and the
-next with its interval; the tables give the levels. Figure 2
-(`fig2-encoding.svg`) shows the encoding result of section 4.8 and Figure 3
-(`fig3-structure-2x2.svg`) the 2x2 of section 4.9. Rejected-step inclusion,
-n = 96 dialogues per cell.
+Figure 3 (`fig1-delta-by-design.svg`). n = 96 dialogues per cell.
 
 | decider | design | restated | neutral | Δ_X | DiD_X | 95 % CI |
 |---|---|---|---|---|---|---|
@@ -226,29 +249,65 @@ n = 96 dialogues per cell.
 | | addonly | 0.000 | 0.000 | +0.000 | +0.010 | [−0.062, +0.094] |
 | | wiki | 0.000 | 0.000 | +0.000 | +0.010 | [−0.062, +0.094] |
 
-All four deciders read DESIGN-DEPENDENT by the pre-registered rule, carried
-by `delete`. On gemma4:e4b, a third model family, the dependence is absolute:
-in 384 add-only and wiki cells it never enacts a step whose rejection it can
-see, and under hard delete it enacts the step at the never-mentioned rate
-(0.49) until the restatement arrives and at 0.98 after it. The predicted size for `delete` on the 3B model (≈ +0.4, derived
-from that model's known rates for never-mentioned and proposed-only steps)
-landed at +0.354. The larger decider changes two things. Under add-only and
-wiki it almost never enacts the rejected step (0.06): it reads a stored
-rejection and honours it, where the small deciders partly do not, so only the
-design that removes the rejection re-admits the step. And under
-`delete`/neutral it enacts the step at 0.635 from a store that says nothing
-about it, because a pinned four-step plan over a six-item menu is completed
-from the menu (the never-mentioned control in that cell is 0.54). That caps
-Δ_delete on the 14B decider; the smaller DiD is a ceiling of the estimand, not
-a weaker mechanism.
+All four deciders read DESIGN-DEPENDENT, carried by `delete`. On gemma4:e4b,
+a third model family, the dependence is absolute: in 384 add-only and wiki
+cells it never enacts a step whose rejection it can see. Under hard delete it
+enacts the step at the never-mentioned rate (0.49) until the restatement
+arrives, and at 0.98 after it.
 
-### 4.2 A second corpus
+The 14B decider almost never enacts a rejected step it can read (0.06 under
+add-only and wiki). Under `delete`/neutral it enacts the step at 0.635 from a
+store that says nothing about it, because a pinned four-step plan over a
+six-item menu is completed from the menu (the never-mentioned control there is
+0.54). That caps Δ_delete on the 14B. The smaller DiD is a ceiling of the
+estimand, not a weaker mechanism.
 
-Six new domains (a grid substation fault, an airline hub disruption, a
-newsroom CMS outage, a water-plant fault, an e-commerce checkout failure, a
-mobile-core degradation) with new action phrases and a second bank of
-sentence templates, generated by the same rules (hash `7d33038c6c1a9912`);
-the frozen first corpus is hash-asserted untouched.
+### 3.3 A flag behaves like a deletion
+
+The soft-supersede design an outside review proposed as the industry
+mitigation (E29-X) keeps the rejected proposal flagged "[withdrawn]" and
+stores nothing else for the rejection. In the neutral arm the flagged proposal
+is enacted at 0.625, 0.421 and 0.292 on the 3B, 7B and 14B, against add-only's
+0.177, 0.344 and 0.062. A bracket is not read as a rejection.
+
+With the restatement present, the small deciders are partly protected by the
+flag (0.646 and 0.463, against delete's 0.958 and 0.885). The 14B is not
+(0.635; DiD +0.292 [+0.177, +0.396]). We had predicted the reverse size
+ordering and record the miss.
+
+That a visible flag is not enforced was published four days before this arm
+ran, on shipped systems (arXiv:2609.08258), and is theirs. What §2 adds is
+*which property of the flag* makes it fail.
+
+### 3.4 The restatement effect lives in the tagged cell
+
+On the 14B, a partner's restatement moves enactment only in the tagged cell of
+the 2×2: Δ +0.240 [+0.156, +0.333], from 0.323 to 0.562. In the other three
+cells it is within noise of zero (−0.010, −0.010, 0.000). Read through an
+add-only store with the rejection as its own sentence, this decider enacts the
+rejected step 0.052 of the time and ignores the restatement (Δ −0.010). Move
+the same rejection onto the proposal as a tag, and the restatement becomes a
+zombie trigger.
+
+On the 3B the restatement raises no cell. The tagged cell is already at 0.594
+without it (0.615 with it).
+
+### 3.5 The deployment reading
+
+Every soft-delete design we surveyed encodes revocation as an attribute on the
+record being revoked: a validity interval, an `invalid_at` edge, an
+`is_active` flag. So does every one of the five shipped systems measured by
+arXiv:2609.08258. That is the losing cell of the 2×2. Writing the retraction
+as its own statement costs one line, and on the 14B it moves enactment of a
+restated zombie step from 0.56 to 0.04.
+
+## 4. Robustness
+
+### 4.1 A second corpus
+
+Six new domains (grid substation, airline hub, newsroom CMS, water plant,
+e-commerce checkout, mobile core), with new action phrases and a second bank
+of sentence templates, generated by the same rules (hash `7d33038c6c1a9912`).
 
 | decider | design | restated | neutral | Δ_X | DiD_X | 95 % CI |
 |---|---|---|---|---|---|---|
@@ -265,57 +324,55 @@ the frozen first corpus is hash-asserted untouched.
 | | addonly | 0.146 | 0.115 | +0.031 | +0.000 | [−0.104, +0.104] |
 | | wiki | 0.177 | 0.104 | +0.073 | +0.042 | [−0.062, +0.146] |
 
-All three deciders read DESIGN-DEPENDENT on the second corpus as well; the 14B reading is the cleanest, with no prediction and no control failing. The ordering delete ≫ wiki > addonly ≈ 0 holds on the small deciders and delete ≫ addonly ≈ wiki ≈ 0 on the 14B; the levels do not. Under full
-context the rejected step comes back at 0.76 and 0.68 (neutral arm) against
-0.28 and 0.31 on the first corpus, with never-mentioned controls near 0.5 on
-both, so the new rejection wordings ("take that one off", "I'd leave that
-out") are honoured far less by small deciders than the first bank's ("drop
-that one — it is not needed"). Absolute zombie rates are a property of wording
-and domain; the design contrast is not. Two cautions the second corpus makes
-visible: the DiD estimand inherits the reference arm's movement, so with
-Δ_full at −0.156 every design's DiD sits 0.156 above its own Δ and add-only's
-DiD trips the pre-registered band on the 3B model although add-only itself
-did not respond (+0.010); we therefore report Δ_X beside DiD_X throughout, and
-the within-store contrast Δ_delete vs Δ_addonly (+0.271 vs +0.021, +0.427 vs
-−0.083, +0.344 vs +0.031 here; +0.354 vs +0.010, +0.302 vs −0.031, +0.260 vs +0.000 on the first
-corpus) is the reading that does not depend on the reference arm.
+All three deciders read DESIGN-DEPENDENT. The ordering holds and the levels do
+not. Under full context the rejected step comes back at 0.76 and 0.68 (neutral
+arm), against 0.28 and 0.31 on the first corpus, so the new rejection wordings
+("take that one off", "I'd leave that out") are honoured far less by small
+deciders. Absolute zombie rates are a property of wording and domain; the
+design contrast is not.
 
-### 4.3 The full-context register effect
+With Δ_full at −0.156, every DiD sits 0.156 above its own Δ, and add-only's
+DiD trips the band on the 3B although add-only itself did not respond
+(+0.021). The within-store contrast Δ_delete vs Δ_addonly does not depend on
+the reference arm:
 
-Under full context the restatement *lowered* enactment on the 3B and 7B
-deciders (−0.083 and −0.073 on the first corpus, −0.156 on both on the
-second), against a prediction of "small". A follow-up (E29-C, 768 calls)
-re-ran the two E29 lines beside a plain late mention with no authorship claim
-("Just to note it, X came up earlier in this discussion") and its own neutral
-control, ten words plus the referent in every arm. On the 3B decider the E29
-number replicated to the third decimal (−0.083 [−0.156, −0.010]), the plain
-mention did nothing (+0.062 [−0.010, +0.135]), and the difference between the
-two framings excluded zero (−0.146 [−0.240, −0.062]): FRAMING by the
-pre-registered rule. On the 7B decider the interval's upper bound landed
-exactly on zero (−0.062 [−0.135, +0.000]) and the declared verdict is
-NO-REPLICATION, not upgraded; the shape is the same. The protective effect,
-where it exists, comes from the "for the record, I did raise it" register,
-which sends a full-context reader back to the exchange where the step was
-rejected. The stores never see that register; they see a fact. This sharpens
-the main result rather than qualifying it.
+| | 3B | 7B | 14B |
+|---|---|---|---|
+| second corpus | +0.271 vs +0.021 | +0.427 vs −0.083 | +0.344 vs +0.031 |
+| first corpus | +0.354 vs +0.010 | +0.302 vs −0.031 | +0.260 vs +0.000 |
 
-### 4.4 The real write path
+### 4.2 An unpinned plan
 
-**A first attempt that failed by its own rule.** E29-B ran the Mem0 paper's
-`FACT_RETRIEVAL_PROMPT` and `DEFAULT_UPDATE_MEMORY_PROMPT` verbatim with a 3B
-model on 48 of the dialogues. The manipulation check declared in advance
-(the store must mention the proposed step after its proposal line in ≥ 0.5 of
-dialogues) failed at 0.11: a personal-information extractor does not store
-operational proposals. The stage was stopped at 18 dialogues and recorded as
-uninformative.
+E29-F removes the four-step pin on the smallest and largest deciders (1,536
+calls).
+- Design dependence survives: DiD_delete +0.284 [+0.168, +0.400] on the 3B and
+  +0.323 [+0.208, +0.437] on the 14B.
+- The own-record effect survives: the flagged store exceeds the prose store by
+  +0.537 [+0.442, +0.632] and +0.219 [+0.135, +0.302] in the neutral arm.
 
-**E29-D.** One change: an extraction prompt in the same form asking for
-operational facts (steps proposed and by whom, decisions on steps resolved
-against the step named in the previous message, references back), with
-few-shot examples on a domain that appears nowhere in the corpus. The update
-router is Mem0's, verbatim, with the whole live store as old memories.
-Extractor and router qwen2.5:7b-instruct, decider llama3.2:3b, the same 48
-dialogues, every store snapshot kept.
+The cleanest reading is the excess over each cell's own never-mentioned rate,
+which no ceiling argument can reach:
+- Under add-only the rejected step sits 0.58 and 0.25 *below* a step the
+  dialogue never mentioned.
+- Under the flag encoding it sits at +0.05 and −0.12, that is, at chance.
+- Under hard delete with the restatement present it sits 0.29 and 0.38
+  *above* chance.
+
+A written rejection suppresses; a flagged one does not; a deleted one plus a
+restatement promotes.
+
+One prediction failed. The 14B writes *shorter* plans when unpinned (2.3–3.0
+against the pinned 4), so on that decider the pin was padding the plan, not
+crowding it. One prompt drove the 3B into an unbounded generation. It was
+bounded by a declared cap five times the largest completion otherwise
+observed, and surfaces as one parse failure.
+
+### 4.3 A real update router
+
+E29-D feeds Mem0's update router, verbatim, from an extraction prompt of ours
+that asks for operational facts, with few-shot examples on a domain absent
+from the corpus. Extractor and router are qwen2.5:7b-instruct, the decider is
+llama3.2:3b, on 48 dialogues.
 
 | quantity | value |
 |---|---|
@@ -328,244 +385,117 @@ dialogues, every store snapshot kept.
 | E29 oracle delete / addonly / full on the same 48 dialogues | +0.396 / +0.042 / −0.125 |
 
 REAL-STORE EFFECT by the pre-registered rule, with all four predictions
-holding: the extractor stores the step; the router under-deletes (one
-rejection in five becomes a DELETE, the rest become an ADD of the rejection or
-an UPDATE of the proposal's text); the restatement enters as a fresh fact; and
-the real store lands between the add-only and hard-delete ideals. One
-observation beyond the predictions: neutral-arm enactment on the real store
-(0.50) is far above oracle add-only (0.17) although the rejection is usually
-present, because the router's UPDATEs fold the rejection into the proposal's
-own text and the 3B decider reads the merged line as weaker than a separate
-rejection.
+holding. The router under-deletes: one rejection in five becomes a DELETE.
+Otherwise it ADDs the rejection or UPDATEs the proposal's text to carry it.
+The restatement enters as a fresh fact.
 
-### 4.5 Two reviewer controls
+Neutral-arm enactment on the real store (0.50) is far above oracle add-only
+(0.17), although the rejection is usually present. The router's UPDATEs fold
+the rejection into the proposal's own text, which is the losing structure of
+§2 arising on its own.
 
-An outside adversarial review (a research-scout run whose brief withheld our
-design) raised two objections we had not tested: that the level differences
-across designs could be an artefact of how explicitly each rendering names
-the rejection's referent, and that add-only is a straw baseline against
-which a soft-supersede flag is the industry mitigation. We ran both as E29-X
-on the first corpus with a same-session full-context reference on the three
-Qwen and Llama deciders (1,728 calls).
+### 4.4 Rendering
 
-*Rendering.* A transcript in which every accept and reject reply names its
-referent as the store does ("No, drop the proposal to snapshot the store")
-leaves the neutral-arm level exactly where the plain transcript had it on all
-three deciders (0.281 → 0.281, 0.316 → 0.316, 0.167 → 0.167). The gap to
-add-only is not rendering. On the 3B decider the explicit transcript also
-loses the register effect (−0.010 against −0.083), which fits E29-C: once
-referents are spelt out, "I did raise it" has nowhere new to send the reader.
+A transcript in which every accept and reject reply names its referent as the
+store does ("No, drop the proposal to snapshot the store") leaves the
+neutral-arm full-context level exactly where the plain transcript had it on
+three deciders (0.281 → 0.281, 0.316 → 0.316, 0.167 → 0.167). The gap between
+full context and add-only is not an artefact of how explicitly the referent is
+rendered.
 
-*Tombstone.* A fifth design keeps the rejected proposal flagged
-"[withdrawn]" instead of deleting it, with nothing else stored for the
-rejection. In the neutral arm the flagged proposal is enacted at 0.625,
-0.421 and 0.292 on the 3B, 7B and 14B, against add-only's 0.177, 0.344 and
-0.062: a bracket is not read as a rejection. With the restatement present the
-small deciders are partly protected by the flag (0.646, 0.463 against
-delete's 0.958, 0.885), the 14B is not (0.635; DiD +0.292 [+0.177, +0.396]).
-We had predicted the reverse size ordering and record the miss. The ordering
-in the neutral arm is delete > tombstone > full ≈ explicit full > add-only on
-every decider. The first half of this — that a flagged rejection is not
-enforced — was published four days before we ran it (arXiv:2609.08258) and is
-theirs; we found it afterwards and say so.
-
-*What the tombstone arm suggests once it is set beside add-only, and what
-would settle it.* Both stores contain the rejection. Add-only carries it as a
-sentence, "Safety Auditor rejected the proposal to snapshot the store";
-tombstone carries the same information as a bracketed prefix on the proposal
-it negates. The neutral-arm gap between them is +0.448, +0.077 and +0.229 on
-the 3B, 7B and 14B, in the same direction every time, and the shared
-full-context cells of the two sessions agree to within 0.004, so the
-cross-session comparison is sound. The reading this invites is that a
-superseded step's fate turns on how the rejection is written rather than on
-whether it is stored.
-
-We do not make that claim, because the two stores differ in a second way:
-add-only holds 8.28 lines on average and tombstone 6.66, since add-only also
-keeps each acceptance as its own fact. A reviewer would say the prose version
-simply occupies more of the context, and on this evidence they could not be
-answered. Section 4.8 reports the arm that removes the difference, and the
-answer is not the one we predicted.
-
-### 4.8 What actually decides it: the negation needs its own record
-
-E29-E holds the store fixed and changes only how the rejection of the
-rejected proposal is written. All three designs are add-only stores over the
-same fact stream, with every other line byte-identical and the same header.
-`addonly` writes the rejection as a sentence, "Safety Auditor rejected the
-proposal to snapshot the store; it is not needed for this case".
-`addonly_meta` puts a key-value assertion in the same position with the same
-trailing clause, "status(snapshot the store) = WITHDRAWN; it is not needed
-for this case", so the line count and position are identical and only the
-wording changes. `addonly_flag` deletes that line and prefixes the proposal
-it negates with "[withdrawn] ", one line fewer. Three deciders, 1,728 calls,
-parse 1.000 throughout.
-
-Neutral-arm enactment of the rejected step, with the paired-bootstrap
-interval on each contrast:
-
-| decider | prose line | key-value line | prefix, no line | wording effect | own-line effect |
-|---|---|---|---|---|---|
-| llama3.2:3b | 0.156 | 0.208 | 0.594 | +0.052 [−0.042, +0.146] | **+0.385** [+0.281, +0.500] |
-| qwen2.5:7b-instruct | 0.354 | 0.240 | 0.458 | −0.115 [−0.198, −0.031] | **+0.219** [+0.135, +0.302] |
-| qwen2.5:14b-instruct | 0.062 | 0.031 | 0.323 | −0.031 [−0.073, +0.010] | **+0.292** [+0.198, +0.385] |
-
-We predicted the wording effect would be large and positive. It is not: it
-spans zero on two deciders and runs the other way on the third, where the
-key-value line is the more protective of the two. The prose-versus-metadata
-reading of §4.5 is withdrawn. What survives is the contrast that changes only
-whether the negation occupies a line of its own, and it is positive with an
-interval excluding zero on every decider.
-
-The sharpest case is the 14B, which is the most rejection-respecting cell in
-the programme: reading an add-only store it enacts the rejected step 0.062 of
-the time and the restatement does nothing (Δ −0.021). Move the identical
-invalidation onto the proposal line as a prefix and the same store yields
-0.323 in the neutral arm and 0.562 with the restatement, Δ +0.240 [+0.156,
-+0.333]. Nothing about the information content changed; only its position in
-the record structure did. Two of three deciders read PARTIAL under our
-pre-registered rule and one reads LENGTH, so we report the cross-decider
-agreement as an observation and do not upgrade it.
-
-### 4.9 Which structural property, exactly: the 2x2
-
-"Own record" names two things at once. Collapsing the rejection onto the
-proposal removed both its item boundary and its verb. E29-S separates them
-with a 2x2 over the same add-only store: item separation (its own bullet
-versus merged into the proposal's) crossed with form (a proposition with a
-verb versus a verb-less attribute). The proposition/merged cell is built from
-**text byte-identical** to the protective cell, the whole manipulation being
-that one `"
-- "` becomes `" "`. Two deciders, 1,536 calls, parse 1.000.
-
-Rejected-step inclusion, neutral arm, n = 96 (Figure 3):
-
-| | own item | same item | | own item | same item |
-|---|---|---|---|---|---|
-| **llama3.2:3b** | | | **qwen2.5:14b-instruct** | | |
-| proposition | 0.156 | 0.094 | | 0.052 | 0.042 |
-| attribute | 0.198 | **0.594** | | 0.031 | **0.323** |
-
-Three cells are indistinguishable and one is three to ten times higher, on
-both deciders. Merging a proposition changes nothing (−0.062 [−0.125, −0.010]
-and −0.010 [−0.031, +0.000]; on the 3B it is marginally *more* protective).
-Re-wording within its own item changes nothing (+0.042 [−0.052, +0.135] and
-−0.021 [−0.062, +0.021]). Only removing both properties matters: +0.500
-[+0.396, +0.604] and +0.281 [+0.188, +0.375]. The pre-registered rule returns
-INTERACTION on both deciders, and the restatement effect appears only in that
-same cell (Δ +0.240 [+0.156, +0.333] on the 14B, within noise of zero in the
-other three).
-
-The two byte-identical cells are what make this clean. They differ by one
-line break and they agree, which rules out token count, position and length.
-The attribute cell in its own item changes the words without changing the
-structure, and it agrees too, which rules out phrasing. What is left is the
-conjunction:
-
-> A retraction is ignored when it is written as a **non-propositional
-> attribute of the record it retracts**. Give it its own item, or give it a
-> verb, and it is honoured. Remove both and the model acts as though it were
-> not there.
-
-The deployment reading is uncomfortable and direct. Every soft-delete design
-we surveyed, and every one of the five shipped systems measured concurrently
-by arXiv:2609.08258, encodes revocation exactly that way: a validity
-interval, an `invalid_at` edge, an `is_active` flag, each an attribute on the
-record being revoked. That is the losing cell of this 2x2, and it is the
-industry default. Writing the retraction as its own statement costs one line
-and, on the 14B, moves enactment of a restated zombie step from 0.03 to 0.56.
-
-Nothing in this manipulation is specific to memory. It is a list of
-statements in a prompt, and what varies is whether one of them is a separate
-item and whether it has a verb, so the result speaks to retrieved chunks,
-tool results and policy lists as much as to a store. The scope limit is the
-format: everything here is a markdown list, and replication in JSON, XML and
-numbered lists is required before the claim is stated more broadly than
-that.
-
-### 4.6 Both effects survive an unpinned plan
-
-Every result above pins the plan to four identifiers, and both adversarial
-passes objected that the effects could be an artefact of a saturated
-fixed-size output. E29-F reruns the four load-bearing designs with the length
-constraint removed, on the smallest and largest deciders, 1,536 calls.
-
-Design dependence survives: DiD_delete is +0.284 [+0.168, +0.400] on the 3B
-and +0.323 [+0.208, +0.437] on the 14B, against +0.438 and +0.208 pinned. So
-does the own-record effect: the flagged store exceeds the prose store by
-+0.537 [+0.442, +0.632] and +0.219 [+0.135, +0.302] in the neutral arm.
-
-The cleanest way to read the unpinned data is the excess over each cell's own
-never-mentioned rate, which no ceiling argument can reach. Under add-only the
-rejected step sits 0.58 and 0.25 *below* a step the dialogue never mentioned;
-under the flag encoding it sits at +0.05 and −0.12, that is, at chance; under
-hard delete with the restatement present it sits 0.29 and 0.38 *above*
-chance. A written rejection suppresses; a flagged one does not; a deleted one
-plus a restatement promotes.
-
-One prediction failed, informatively. We expected unpinning to lengthen
-plans. On the 3B it roughly did (3.9–4.8). On the 14B plans got *shorter*,
-2.3–3.0 against the pinned 4: left to choose, the larger decider writes a
-tighter plan than the constraint imposed. On the decider where crowding-out
-should bite hardest, the pin was padding the plan rather than crowding it.
-Unpinning has one cost, recorded: a single prompt drove the 3B model into an
-unbounded generation, which we bounded with a generation cap five times the
-largest completion otherwise observed, and which then surfaces as one parse
-failure rather than being hidden.
-
-### 4.7 Controls
+### 4.5 Controls
 
 Accepted steps are enacted at 0.97–1.00 in every cell of every run.
-Never-mentioned steps are enacted at 0.42–0.73 depending on decider, design
-and corpus; that band is the pinned-plan prior over the menu and is the reason
-Δ_delete has a ceiling. Under `delete`/neutral the rejected step's inclusion
-stays within 0.10 of its cell's never-mentioned rate on both corpora for
-every decider run.
+Never-mentioned steps are enacted at 0.42–0.73, depending on decider, design and
+corpus. That band is the pinned-plan prior over the menu. The never/accepted
+balance across the 2×2's four stores misses its ±0.10 band by 0.004 (3B) and
+0.025 (14B). This is a displacement in a pinned plan, reported as such.
 
-## 5. Limitations
+## 5. What this is not
 
-Two generated corpora with shared construction rules and three-template
-sentence banks, not naturalistic dialogue. Oracle stores are semantic ideals;
-the real-system leg uses one extractor prompt of ours, one extractor model,
-one decider, no embedder or vector store, and a keyword rule for "mentions"
-that undercounts paraphrase. Deciders are 3B–14B local instruct models from three families. The
-DiD estimand is sensitive to the full-context reference, which moves with
-decider and corpus; we report Δ_X alongside. Levels across designs mix the
-design with the explicitness of the rendering (an oracle store spells out the
-referent of a rejection where the transcript leaves it to adjacency), so only
-within-design contrasts are compared. The compulsory course experiment this
-work sits beside (E1) turned out, on its own sanity arms, to be measuring plan
-plausibility under an action menu rather than retrieval; we record that there
-because it shaped the pinned-plan design here. Two controls an outside review
-asked for were run (§4.5) and a third arm was added to remove a confound they
-exposed (§4.7); the free-length control is now run
-too (§4.6), leaving one: a replication on human-written dialogue. Of twelve
-objections raised across two independent adversarial scout passes, that is
-the only one the record does not answer. A feasibility assessment for it is
-written up against the CaSiNo negotiation corpus, which is CC BY 4.0 and
-carries 176 dialogues with an explicit offer-then-decline pair.
-The §4.7 result is on oracle stores and says nothing about any system's
-retrieval layer; the shipped-system claim belongs to arXiv:2609.08258.
+- **Scope.** Two to four local deciders of 3B–14B from three families, no
+  frontier model. The first question a reviewer will ask, whether the effect
+  vanishes with capability, cannot be answered here without an API budget.
+  arXiv:2609.08258's nine API-scale models failing on visible flags suggest it
+  does not vanish, but they did not vary the encoding.
+- **Corpora.** Two generated corpora with shared construction rules and
+  three-template sentence banks, not naturalistic dialogue. The CaSiNo corpus
+  (CC BY 4.0, 176 dialogues with an explicit offer-then-decline pair) is
+  assessed as the human-dialogue replication and has not been run.
+- **Stores.** Oracle stores are semantic ideals. The real-system leg uses one
+  extractor prompt, one extractor model, one decider, and no retrieval layer.
+- **Format.** Markdown lists only, until E29-R reports (§2.4).
+- **Tag spelling.** One tag, `[withdrawn]`. Structured flags such as
+  `is_active: false` or an `invalid_at` timestamp are the named next step.
+- **Levels.** Levels across memory designs mix the design with the
+  explicitness of the rendering, so only within-design contrasts are compared.
 
-## 6. Reproducibility
+## 6. Related work
+
+**Revocation in agent memory.** *Revoked but Still Authoritative*
+(arXiv:2609.08258, 2026-09-08) is the closest. It loads five shipped memory
+systems with a revoked policy and its replacement. Where the revocation label
+is visible to the retrieval layer, the revoked fact is returned, outranks its
+replacement, and yields the unsafe action in 43.1 % of 1,620 trials across nine
+models. Prompt hardening reduces that only to 37.2 %, and a store-level filter
+removes it. It varies whether the label is exposed, never how it is encoded.
+It explains the failure by the two policies' equal standing and the revoked
+one's more absolute phrasing. Our §2 is the controlled encoding comparison it
+does not run, and our §3.3 reproduces its central observation on oracle
+stores.
+
+**Memory designs.** Eighteen papers were read in full text under the E29
+novelty gate (`docs/protocols/E29-memory-semantics.md` §0), each occupying a
+component of the construct without the conjunction:
+- *Forgetting Without Restarting* (arXiv:2609.04875): revocation with
+  same-agent re-mention.
+- *LatticeMind* (arXiv:2608.08236): late stale notes, concatenation hurt most.
+- *STALE* (arXiv:2605.06527): excludes contradiction by construction.
+- *Control-plane placement* (arXiv:2606.15903): thirteen configurations at the
+  retrieval layer. Its Appendix P reports that the Mem0 router under-deletes,
+  which our §4.3 confirms at the action layer.
+- *MemOps* (arXiv:2607.12893): stale value rate, Mem0 0.102 vs long context
+  0.016.
+- *MemStrata* (arXiv:2606.26511): cannot record a negation.
+- *TOKI* (arXiv:2606.06240), *MemTX* (arXiv:2607.23929) and *Governed
+  Persistent Memory* (arXiv:2608.12476): write- and commit-layer resolution.
+- *The Memory Trust Gap* (arXiv:2609.01852): Qwen3 0.6–8B answer a stale stored
+  fact 0.92–1.00 of the time, and metadata helps capable models.
+
+**Deprecation and negation.** Practitioner reports from 2026 (Tian Pan, "MCP
+Tool Deprecation", May; "The Deprecation Notice Your Agent Can't Read", July)
+describe `[DEPRECATED]` tags on tool descriptions being under-read and a
+separate explicit line helping, without controlled measurement. The 2×2
+refines that folklore: separation alone is not the fix, since a separate
+verb-less status line works just as well. It is the conjunction that fails.
+
+For code models, *LLMs Meet Library Evolution* (arXiv:2406.09834, ICSE'25)
+inserts a natural-language deprecation comment into the prompt (fixing 25.7–
+97.2 % of deprecated uses across models) but has no annotation-on-item
+condition. The negation literature establishes that language models are weak
+on negation and its scope (arXiv:2306.08189, arXiv:2408.03070). None of it
+varies a revocation's structural position in a list context.
+
+The prior-art gate for §2, with its search log, is
+`docs/protocols/E29R-gate.md`.
+
+## 7. Reproducibility
 
 Every protocol in `docs/protocols/` was committed with zero outcomes before
-its first call and appended with the outcome afterwards; commit hashes are
-named in each. Corpus hashes: E16 `70f136a47f5779c8`, E29 `187a426616f26598`,
-E29-C `979143b67049adf2`, E29-N `7d33038c6c1a9912`; runners refuse to start if
-a hash moves. `pytest` runs 203 tests, including the store invariants. One extractor bug
-reached a run: the oracle extractor keyed reply polarity on a sentence prefix
-and mis-stored one second-corpus rejection wording as an acceptance in 24 of
-96 dialogues (store designs only). It was found by reading, fixed by template
-membership with a test, and the 144 affected cells per decider were re-run;
-the first-corpus blocks were hash-verified byte-identical before and after,
-and both versions of every second-corpus number are on disk
-(`docs/protocols/E29N-second-corpus.md` §6–7). Runs
-re-execute with `python e29_memory_semantics.py --model M [--corpus new]`,
-`python e29c_framing.py`, `python e29d_ops_extractor.py`; analyses with the
-matching `*_analysis.py`, zero model calls. `python xray_server.py` serves an
-interactive report and a replay of any dialogue through any design, with a
-live re-run of the decider checked against the record.
+its first call and appended with the outcome afterwards. Commit hashes are
+named in each.
+
+Corpus hashes: E16 `70f136a47f5779c8`, E29 `187a426616f26598`, E29-C
+`979143b67049adf2`, E29-N `7d33038c6c1a9912`. Prompt-block hashes: E29-S
+`f25719fc5d4a268c`, E29-R `8a9412801fc2bae1`. Runners refuse to start if a hash
+moves. `verify_claims.py` re-derives the headline numbers from the per-call CSVs.
+
+Runs re-execute with the matching runner (`e29_memory_semantics.py`,
+`e29e_encoding.py`, `e29s_structure.py`, `e29r_formats.py`,
+`e29d_ops_extractor.py`), and analyses with the matching `*_analysis.py`, with
+zero model calls. `python xray_server.py` serves a side-by-side view of any
+dialogue through any two memory designs, and a live re-run of the decider
+checked against the record.
 
 ## Appendix A. Predictions against outcomes
 
@@ -573,14 +503,14 @@ live re-run of the decider checked against the record.
 |---|---|---|
 | E29 P1 | Δ_delete ≈ +0.4 on the 3B decider | +0.354 |
 | E29 P2 | DiD_delete ≥ 0.15, interval excludes 0 | +0.438, +0.375, +0.208, +0.500 on four deciders |
-| E29 P3 | Δ_full small | small, but negative on 3B/7B: a miss on sign, followed up in E29-C |
+| E29 P3 | Δ_full small | small, but negative on 3B/7B: a miss on sign, followed up in E29-C (Appendix B.2) |
 | E29 P4 | 0 ≤ DiD_addonly < DiD_delete | +0.094, +0.042, −0.052, +0.010 |
-| E29-B | manipulation check ≥ 0.5 | 0.11: UNINFORMATIVE, stopped |
+| E29-B | manipulation check ≥ 0.5 | 0.11: UNINFORMATIVE, stopped (Appendix B.1) |
 | E29-C P1 | Δ_ftr replicates on 3B | −0.083 vs −0.083 |
 | E29-C P2 | H-frame vs H-mention | FRAMING (3B); NO-REPLICATION at the boundary (7B) |
 | E29-D P0–P3 | store ≥ 0.5; W1 < 0.5; 0 ≤ Δ_real < Δ_delete; W2 restated > neutral | 0.958; 0.217; +0.167 < +0.396; 0.854 > 0.750 |
 | E29-N P1 | DESIGN-DEPENDENT via delete on each decider | +0.427, +0.583, +0.312 (after the extractor correction; +0.344, +0.469, +0.250 before) |
-| E29-N P2 | |DiD_addonly| < 0.15 | holds on 7B (+0.073) and 14B (0.000), fails on 3B (+0.177) through the reference arm |
+| E29-N P2 | \|DiD_addonly\| < 0.15 | holds on 7B (+0.073) and 14B (0.000), fails on 3B (+0.177) through the reference arm |
 | E29-X R1 | explicit referents move the full-context level toward add-only (lean: yes on 3B) | no, on all three: level unchanged to the third decimal |
 | E29-X T1 | tombstone between add-only and delete; lean: flag not honoured on 3B, honoured on 14B | between on 3B and 7B; NOT honoured on 14B (DiD +0.292): the lean was reversed |
 | E29-E P1 | re-wording the rejection as a key-value line raises enactment by ≥ 0.15 | fails on all three: +0.052, −0.115, −0.031. The encoding-as-wording hypothesis is withdrawn |
@@ -595,3 +525,49 @@ live re-run of the decider checked against the record.
 | E29-S P2 | Delta_addonly reproduces E29 within 0.10 | +0.031 and -0.010; fifth replication |
 | E29-S P3 | lean: S_merge small, so FORM or INTERACTION | correct: S_merge -0.062 and -0.010; INTERACTION on both |
 | E29-S P4 | never/accepted within 0.10 across designs | misses by 0.004 and 0.025, same displacement as E29-E |
+| E29-R P1–P3 | validity; controls within 0.10; lean GENERAL | *running* |
+
+## Appendix B. Process record
+
+These legs make the work trustworthy rather than interesting. They are kept
+whole here, not in the argument.
+
+### B.1 A real-extractor attempt that failed by its own rule (E29-B)
+
+E29-B ran the Mem0 paper's `FACT_RETRIEVAL_PROMPT` and
+`DEFAULT_UPDATE_MEMORY_PROMPT` verbatim with a 3B model on 48 of the dialogues.
+The manipulation check declared in advance required the store to mention the
+proposed step after its proposal line in ≥ 0.5 of dialogues, and it failed at
+0.11. A personal-information extractor does not store operational proposals.
+The stage was stopped at 18 dialogues and recorded as uninformative. E29-D
+(§4.3) is the leg that replaced it.
+
+### B.2 The full-context register effect (E29-C)
+
+Under full context the restatement *lowered* enactment on the 3B and 7B
+deciders (−0.083 and −0.073 on the first corpus, −0.156 on both on the
+second), against a prediction of "small".
+
+E29-C (768 calls) re-ran the two E29 lines beside a plain late mention with no
+authorship claim ("Just to note it, X came up earlier in this discussion") and
+its own neutral control. On the 3B:
+- The E29 number replicated to the third decimal (−0.083 [−0.156, −0.010]).
+- The plain mention did nothing (+0.062 [−0.010, +0.135]).
+- The difference between the two framings excluded zero (−0.146 [−0.240,
+  −0.062]): FRAMING by the pre-registered rule.
+
+On the 7B the interval's upper bound landed exactly on zero (−0.062 [−0.135,
++0.000]), so the declared verdict is NO-REPLICATION, not upgraded. The
+protective effect, where it exists, comes from the "for the record, I did raise
+it" register, which sends a full-context reader back to the exchange where the
+step was rejected. The stores never see that register; they see a fact.
+
+### B.3 The second-corpus extractor correction (E29-N)
+
+One extractor bug reached a run. The oracle extractor keyed reply polarity on
+a sentence prefix, and mis-stored one second-corpus rejection wording as an
+acceptance in 24 of 96 dialogues (store designs only). It was found by reading,
+and fixed by template membership with a test. The 144 affected cells per
+decider were re-run. The first-corpus blocks were hash-verified byte-identical
+before and after, and both versions of every second-corpus number are on disk
+(`docs/protocols/E29N-second-corpus.md` §6–7).
