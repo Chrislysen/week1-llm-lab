@@ -1184,7 +1184,8 @@ try:
         return round(sum(rej[k][idiom] for k in keys) / len(keys), 3) if keys else None
 
     for _slug, _vals in (                      # from e29t_analysis, in IDIOMS order
-            ("llama32-3b", (0.156, 0.604, 0.250, 0.469, 0.906, 0.812, 0.417)),):
+            ("llama32-3b", (0.156, 0.604, 0.250, 0.469, 0.906, 0.812, 0.417)),
+            ("qwen25-14b-instruct", (0.062, 0.312, 0.135, 0.156, 0.729, 0.896, 0.375))):
         for _i, _want in zip(_ID, _vals):
             claim(f"E29-T {_slug} {_i}/neutral", _rate_t(_slug, _i), _want)
 
