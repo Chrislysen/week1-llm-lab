@@ -1134,6 +1134,32 @@ try:
             claim(f"E29-S {_slug} {_X}/neutral",
                   _rate(f"e29s_{_slug}", _X, "neutral"), _want)
 
+    # 2.4, E29-R: the same 2x2 in three more list formats. Its rows carry a
+    # format column the shared dedupe key above does not, so they are read here.
+    from lineage_e29r import context_block_r as _cbr
+    from lineage_e29s import context_block_s as _cbs
+    _S4 = ("addonly", "addonly_merged", "addonly_meta", "addonly_flag")
+    _ident = sum(_cbr("markdown", _X, _d["instance"], _d["arms"][_a]) == _cbs(_X, _d["instance"], _d["arms"][_a])
+                 for _d in _ad() for _a in ("restated", "neutral") for _X in _S4)
+    claim("E29-R: markdown rendering byte-identical to E29-S's block, all 768", _ident, 768)
+
+    def _rate_r(slug, fmt, design, arm="neutral"):
+        seen = {}
+        for fn in sorted(_glob.glob(f"results/e29r_{slug}_*.csv")):
+            for r in _csv.DictReader(open(fn, encoding="utf-8")):
+                seen[(r["instance"], r["rotation"], r["format"], r["design"], r["arm"], r["slot"])] = r
+        cell = [r["included"] == "True" for r in seen.values()
+                if r["parsed"] == "True" and r["format"] == fmt and r["design"] == design
+                and r["arm"] == arm and r["status"] == "rejected"]
+        return round(sum(cell) / len(cell), 3) if cell else None
+
+    for _slug, _cells in (("llama32-3b", {"json": (0.177, 0.094, 0.177, 0.604),
+                                           "xml": (0.115, 0.052, 0.135, 0.510),
+                                           "numbered": (0.188, 0.094, 0.302, 0.625)}),):
+        for _fmt, _vals in _cells.items():
+            for _X, _want in zip(_S4, _vals):
+                claim(f"E29-R {_slug} {_fmt} {_X}/neutral", _rate_r(_slug, _fmt, _X), _want)
+
     # 4.6, free length: complete-case over the four designs, as the analysis reads it
     _FD = ("full", "delete", "addonly", "addonly_flag")
     for _slug, _dn, _an, _fn in (("llama32-3b", 0.768, 0.105, 0.642),
