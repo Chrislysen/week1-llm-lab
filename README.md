@@ -64,6 +64,13 @@ The delete effect replicated on a second set of dialogues (three models), with t
 length unpinned (two models), and through Mem0's real update router (one model, 48
 dialogues).
 
+![One dialogue through four memory designs](docs/media/designs.gif)
+
+*One dialogue through four memory designs (recorded plans from qwen2.5:14b; the partner
+restates the rejected step at line 7). Write-time delete and the `[withdrawn]` tag bring the
+rejected step back; add-only and the merge-in-place page keep it out. The bars give the
+rate over all 96 dialogues.*
+
 ## How it was done
 
 - **Declared before running.** Every E29 experiment has a protocol in `docs/protocols/` with
@@ -107,6 +114,16 @@ python -m pytest -q                  # offline tests
 In the viewer, pick dialogue 2 and the memory design "rejection as a tag on the proposal",
 click outside the menus, then step with the ← and → keys (Space plays). With Ollama running,
 the viewer can also re-run a plan live.
+
+<details>
+<summary>The same dialogue in the viewer's 3D city view</summary>
+
+![The dialogue as a 3D city](docs/media/city-3d.gif)
+
+*Each tower is a step the plan could contain. The rejected step's lamp turns red at the
+rejection (line 4), and its label glows amber when it is brought up again (line 7).*
+
+</details>
 
 ## Where things are
 
