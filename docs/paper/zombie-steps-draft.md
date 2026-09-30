@@ -40,6 +40,9 @@ router. The 2×2 replicates in JSON, XML and numbered lists on both deciders, so
 the effect is about list structure, not markdown. Of five revocation idioms in
 deployed use, four fail on the 3B and three on the 14B. The exception, a
 trailing `(withdrawn)`, shows that the structure alone does not decide it.
+Appending one sentence ("The proposal to X was withdrawn.") when the record is
+rendered removes 79–91 % of the effect on both deciders, and the field does no harm
+once the sentence is there.
 We release
 the corpora, protocols, prompts and every store snapshot.
 
@@ -75,10 +78,12 @@ it, a trailing `(withdrawn)`, is mostly read.
    that re-enter an executable plan when the proposer restates them. They come
    back through memory designs that delete a rejection or flag the rejected
    record, and not through designs that keep the rejection as a sentence (§3).
-3. Robustness across four list formats (§2.4) and five deployed revocation
+3. A read-time fix that removes most of the effect without changing storage, and
+   evidence that the model recognises the tag it ignores (§2.6–2.7).
+4. Robustness across four list formats (§2.4) and five deployed revocation
    idioms (§2.5), four deciders from three families, two corpora, pinned and
    unpinned output, and oracle and real write paths (§4).
-4. Negative and cautionary results reported as such (Appendix A and B).
+5. Negative and cautionary results reported as such (Appendix A and B).
 
 ## 2. The structural result
 
@@ -285,6 +290,70 @@ holds: the anchor and the control reproduce E29-S within 0.011. The recorded
 lean was MOST-FAIL, with `invalid_at` the most ignored and strikethrough the
 most honoured. The verdict held. `invalid_at` was the most ignored on the 14B
 only, and strikethrough was not the most honoured on either decider.
+
+### 2.6 The model knows (E29-K)
+
+Two explanations fit the tag result: the model does not read `[withdrawn]` as a
+rejection, or it reads it and plans the step anyway. E29-K (declared in `7b2cf20`
+with zero outcomes) asks the same decider, with the same system prompt and the same
+four E29-S stores, one direct question instead of the plan instruction: "has the step
+X been rejected or withdrawn in this discussion?" It asks about the rejected step and
+about a step that was not rejected, as a control for a bias toward "yes".
+
+| store (llama3.2:3b, neutral arm) | says "rejected": rejected step | says "rejected": control step | plans the rejected step (E29-S) |
+|---|---|---|---|
+| sentence, own item | 0.812 | 0.052 | 0.156 |
+| sentence, merged | 0.729 | 0.073 | 0.094 |
+| status line, own item | 1.000 | 0.115 | 0.198 |
+| `[withdrawn]` tag | 0.865 | 0.146 | **0.594** |
+
+On llama3.2:3b the tag is recognised as a rejection as often as the sentence (gap
+−0.052 [−0.146, +0.042]), yet the tagged step is planned at 0.594 against 0.156. By
+the declared rule this is **READ-NOT-USED**: the failure lies between knowing and
+acting, not in reading the tag. The recorded lean (NOT-READ on the 3B) was wrong.
+Two caveats: recognition and planning are different prompts, so the dissociation is
+across tasks; and the control's "yes" rate is highest for the tag store (0.146, under
+the declared 0.20 limit). qwen2.5:14b-instruct's half is running.
+
+### 2.7 A one-sentence fix (E29-M)
+
+If the failure is in the form of the revocation, a memory system should be able to
+fix it when it renders a record into the prompt, without changing its storage. E29-M
+(declared in `3a2d54b` with zero outcomes, after an independent methods review) writes
+the revoked record's field as a sentence, "The proposal to X was withdrawn.", either
+replacing the field (rewrite) or keeping it (annotate). The rewrite store is E29-T's
+control with one item re-worded in place. Neutral arm, 96 dialogues, 1,152 calls;
+every cell parses 1.000, and the control and both anchors reproduce E29-T to the third
+decimal. Figure 6 (`fig6-fix.svg`, drawn by `paper_fig_fix.py`):
+
+| the rejected record is rendered as | llama3.2:3b | qwen2.5:14b |
+|---|---|---|
+| its own sentence (control) | 0.156 | 0.062 |
+| `[is_active: false]` | 0.906 | 0.729 |
+| `[invalid_at: …]` | 0.812 | 0.896 |
+| field removed, sentence added (rewrite) | 0.292 partial | 0.135 fixed |
+| `[is_active: false]` kept, sentence added | 0.292 partial | 0.146 partial |
+| `[invalid_at: …]` kept, sentence added | 0.250 partial | 0.135 fixed |
+
+Read by the declared rule, the rewrite is **FIXED on the 14B and PARTIAL on the 3B**,
+so the declared "FIXED on both" is not reached. On both deciders:
+- the sentence removes 0.79–0.91 of the anchors' excess over the control (E from
+  +0.52 to +0.76, every interval excluding zero);
+- the field does nothing once the sentence is present: D = +0.000 and −0.042 on the
+  3B, +0.010 and +0.000 on the 14B, all INERT;
+- no other step moves: accepted inclusion stays at 0.983–1.000 and undecided
+  proposals at 0.950–1.000 across the six cells (P2 holds).
+
+What remains on the 3B is a wording gap: the fix's sentence (8 words, no rejector, no
+reason, passive) sits at 0.292 against the control's 0.156 (G +0.135 [+0.052,
++0.219]). That contrast changes four things together, so which one matters is not
+identified. The practical reading is that a system which marks revocation with a field
+can keep its storage and append one sentence when it renders the record. With E29-K,
+the picture is consistent: the model can tell that a tagged record was revoked, but it
+acts on a revocation that is stated as a sentence. The lean was FIXED on both deciders,
+PARTIAL for the annotate cells and a competing field; the first held on the 14B only,
+the second held except for the 14B's `invalid_at` cell, and the third was wrong on
+both.
 
 ## 3. Why it matters: zombie steps
 
@@ -533,6 +602,9 @@ balance across the 2×2's four stores misses its ±0.10 band by 0.004 (3B) and
   the neutral arm only (§2.5). Why a trailing `(withdrawn)` is read while a
   leading `[withdrawn]` is not (position, bracket, or both) is not
   identified. The formats of §2.4 were run with the prefix only.
+- **The fix.** One sentence wording, in the neutral arm and markdown lists only. A
+  record-agnostic sentence that does not restate the proposal was not tested, and
+  E29-K's recognition-versus-planning dissociation is across two different prompts.
 - **Levels.** Levels across memory designs mix the design with the
   explicitness of the rendering, so only within-design contrasts are compared.
 
@@ -596,12 +668,12 @@ named in each.
 Corpus hashes: E16 `70f136a47f5779c8`, E29 `187a426616f26598`, E29-C
 `979143b67049adf2`, E29-N `e965c5fd022d6e37` (after the extractor correction;
 `7d33038c6c1a9912` before it). Prompt-block hashes: E29-S
-`f25719fc5d4a268c`, E29-R `8a9412801fc2bae1`, E29-T `69c8d207f3993086`. Runners
-refuse to start if a hash moves. `verify_claims.py` re-derives the headline numbers from the per-call CSVs.
+`f25719fc5d4a268c`, E29-R `8a9412801fc2bae1`, E29-T `69c8d207f3993086`, E29-K `e9ef529280d358bb`, E29-M
+`ecb2edf1dd1f84b9`. Runners refuse to start if a hash moves. `verify_claims.py` re-derives the headline numbers from the per-call CSVs.
 
 Runs re-execute with the matching runner (`e29_memory_semantics.py`,
 `e29e_encoding.py`, `e29s_structure.py`, `e29r_formats.py`, `e29t_idioms.py`,
-`e29d_ops_extractor.py`), and analyses with the matching `*_analysis.py`, with
+`e29k_recognition.py`, `e29m_fix.py`, `e29d_ops_extractor.py`), and analyses with the matching `*_analysis.py`, with
 zero model calls. `python xray_server.py` serves a side-by-side view of any
 dialogue through any two memory designs, and a live re-run of the decider
 checked against the record.
@@ -640,6 +712,10 @@ checked against the record.
 | E29-T P1 | anchor and control reproduce E29-S within 0.10 | holds: within 0.011 on both deciders |
 | E29-T P2 | never/accepted within 0.10 across the seven cells | misses on both: never spans 0.479–0.667 (3B) and 0.500–0.708 (14B); accepted 0.983–1.000 |
 | E29-T P3 | lean: MOST-FAIL on both; `invalid_at` most ignored; strikethrough most honoured | MOST-FAIL on both (4/5, 3/5); `invalid_at` most ignored on the 14B only (the 3B: `is_active`); strikethrough fails on both, and the `(withdrawn)` suffix is the most honoured |
+| E29-K lean | NOT-READ on the 3B, READ-NOT-USED on the 14B | 3B: READ-NOT-USED (gap −0.052 [−0.146, +0.042]; tag recognised 0.865): the lean was wrong; 14B running |
+| E29-M P1 | control and anchors reproduce E29-T within 0.10 | holds exactly on both deciders |
+| E29-M P2 | accepted and undecided inclusion within 0.10 across the six cells | holds on both (accepted 0.983–1.000; undecided 0.950–1.000) |
+| E29-M P3 | lean: rewrite FIXED on both; annotate PARTIAL; field COMPETES | rewrite FIXED on the 14B, PARTIAL on the 3B (0.79–0.91 of the excess removed); annotate PARTIAL except the 14B's invalid_at cell (FIXED); field INERT on both |
 
 ## Appendix B. Process record
 

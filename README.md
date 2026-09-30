@@ -5,6 +5,7 @@ decides whether the agent obeys it.** Written as its own sentence, the rejection
 the step out of small open models' plans (6–16 % of plans in this test). Written as a tag on
 the rejected record (`[withdrawn]`, `[is_active: false]`, `[invalid_at: …]`), the way many
 memory systems mark a revoked fact, the rejected step comes back up to 91 % of the time.
+Appending one plain sentence when the record is shown to the model removes most of the effect.
 
 This started as a university assignment (AgentCom: two LLM agents planning an incident
 recovery under a budget) and grew into a research project on agent memory, with its
@@ -51,6 +52,17 @@ revocation idioms, four fail on the 3B model and three on the 14B. The one that 
 neither, a trailing `(withdrawn)`, shows that the structure alone does not decide it: the
 spelling matters too.
 
+**The model knows, and one sentence fixes most of it.** Asked directly, llama3.2:3b says the
+tagged step was rejected 87 % of the time, as often as for the sentence (81 %), yet still
+plans it (59 % against 16 %). The tag is read; it is just not acted on. Rendering the record
+with one appended sentence, "The proposal to X was withdrawn.", brings the rejected step down
+from 73–91 % to 14–29 % on both models, removing 79–91 % of the effect, and the field does no
+harm once the sentence is there (E29-M, 1,152 calls). A memory system can apply this without
+changing how it stores records. It comes within the declared margin of the sentence on
+qwen2.5:14b (14 % against 6 %) and falls short of it on llama3.2:3b (29 % against 16 %).
+
+![The one-sentence fix](docs/paper/fig6-fix.png)
+
 Concurrent work (arXiv:2609.08258) showed that visible revocation labels in five shipped
 memory systems do not stop agents acting on the revoked fact. What this project adds is which
 property of the label makes it fail.
@@ -81,8 +93,8 @@ rate over all 96 dialogues.*
   bootstrap 95 % intervals; the smallest effect that counts is 0.15.
 - **Local open models.** About 19,200 planning calls plus about 2,000 extractor and router
   calls across the E29 experiments, run on a laptop through Ollama at temperature 0.
-- **Checkable.** `verify_claims.py` re-derives 267 reported values from the raw files with
-  0 mismatches (100 of them for E29); 227 offline tests pass.
+- **Checkable.** `verify_claims.py` re-derives 287 reported values from the raw files with
+  0 mismatches (120 of them for E29); 234 offline tests pass.
 - **Prior art first.** Before this, 22 candidate ideas went through a prior-art gate and all
   were closed with no original result (ledger in `docs/NOVELTY-GATE.md`; the first 13 are
   written up in `docs/NEGATIVE-RESULTS.md`).
@@ -90,8 +102,9 @@ rate over all 96 dialogues.*
 ## What is not established
 
 - The structural result rests on two models from two families. Runs on two more families
-  (gemma, aya) and a test of whether the model *recognises* the tag were declared but not
-  completed.
+  (gemma, aya) and the recognition test on qwen2.5:14b are in progress.
+- The fix was tested with one sentence wording, in markdown lists, without the partner
+  restating the step. The recognition result compares two different prompts.
 - Only small local models (3B–14B). No frontier model was tested.
 - The plan is pinned to four steps from a six-step menu, so a step nobody mentioned is still
   planned about half the time; absolute rates depend on that setup. The idioms were tested
