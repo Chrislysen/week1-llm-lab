@@ -1128,7 +1128,8 @@ try:
     claim("E29-S: merged store is the same text with one bullet fewer, in all 96", _same, 96)
     for _slug, _own_p, _same_p, _own_a, _same_a in (
             ("llama32-3b", 0.156, 0.094, 0.198, 0.594),
-            ("qwen25-14b-instruct", 0.052, 0.042, 0.031, 0.323)):
+            ("qwen25-14b-instruct", 0.052, 0.042, 0.031, 0.323),
+            ("aya-expanse-8b", 0.156, 0.052, 0.031, 0.479)):
         for _X, _want in (("addonly", _own_p), ("addonly_merged", _same_p),
                           ("addonly_meta", _own_a), ("addonly_flag", _same_a)):
             claim(f"E29-S {_slug} {_X}/neutral",
