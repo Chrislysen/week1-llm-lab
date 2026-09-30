@@ -18,17 +18,21 @@ rejection is a sentence.
 
 Over one add-only memory we cross two properties of the rejection of a
 proposal: whether it occupies its own list item, and whether it is a
-proposition with a verb.
+proposition or an attribute.
 - Merging the rejection sentence onto the proposal's item changes nothing. The
   text is byte-identical; one line break is removed.
-- Rewriting the rejection as a verb-less status line in its own item changes
-  nothing.
+- Rewriting the rejection as a status line in its own item changes nothing.
+  That line, `status(X) = WITHDRAWN; it is not needed for this case.`, keeps a
+  reason clause with a finite verb, so it is not verb-less (a correction made
+  after the fact; §2.3).
 - Doing both, so the rejection is a tag on the rejected record, raises
   enactment of the rejected step from 0.09–0.20 to 0.59 on llama3.2:3b, and
   from 0.03–0.05 to 0.32 on qwen2.5:14b-instruct.
 
 The pre-registered verdict is INTERACTION on both deciders, and again on a third model
-family (aya-expanse:8b, §4.6).
+family (aya-expanse:8b, §4.6). Because the own-item status line carried a verb, the
+design shows that the tag is the one rendering that fails; it does not yet separate
+attachment to the record from the plain absence of a verb. E29-A tests that.
 
 The finding came out of a memory-design study that motivates it. Across four
 deciders from three model families, a partner's later restatement of a
@@ -66,12 +70,14 @@ written from **whether** it is visible.
 We ask that question directly. Holding the information fixed, does the
 *structure* of a revocation decide whether a model honours it? The answer comes
 from a fixed-intervention 2×2 in which one cell is byte-identical text to
-another. It is yes, and specifically: a revocation is ignored when it is
-**both** subordinate to the record it revokes **and** verb-less. Either
-property alone is harmless. Their conjunction is the industry default, and
-the fields that implement it (`is_active`, `invalid_at`) are the worst we
-tested (§2.5). The conjunction is not sufficient on its own: one spelling of
-it, a trailing `(withdrawn)`, is mostly read.
+another. It is yes: a revocation is ignored when it is written as a verb-less
+attribute on the record it revokes, and honoured when it is a sentence, whether
+that sentence has its own item or not. Whether the attachment matters, or only
+the missing verb, is not yet settled: the separated status line in our 2×2 kept
+a reason clause with a verb (§2.3). The attached, verb-less form is the industry
+default, and the fields that implement it (`is_active`, `invalid_at`) are the worst we
+tested (§2.5). The form is not sufficient on its own: one spelling of it, a
+trailing `(withdrawn)`, is mostly read.
 
 **Contributions.**
 1. The structural dissociation, pre-registered on two deciders (§2).
@@ -153,6 +159,14 @@ E29-S separates the two properties over the same add-only fact stream
 The two proposition cells contain **byte-identical text**. The whole
 manipulation is that one `"\n- "` becomes `" "`, and a test asserts it. Two
 deciders, the extremes of the range, 1,536 calls, parse 1.000.
+
+**A correction, made after the fact.** The own-item attribute cell is E29-E's status
+line, `status(X) = WITHDRAWN; it is not needed for this case.`, and its reason clause
+has a finite verb. The tag cell has no reason clause and no verb. So the "attribute"
+row is verb-less only in the tag cell, and the 2×2 cannot tell "attached and
+verb-less" apart from "no finite clause at all". The cell numbers below stand; the
+reading as an interaction of attachment and form waits for E29-A, which adds a truly
+verb-less line in its own item (`status(X) = WITHDRAWN.`).
 
 Rejected-step inclusion, neutral arm, n = 96 per cell:
 
@@ -276,10 +290,10 @@ deployment reading standing for the idioms in use (§3.5).
 - **One idiom fails on neither decider: the `(withdrawn)` suffix.** It is the
   anchor's own word, placed after the proposal in parentheses, and it is
   honoured on the 14B and unclear on the 3B. This is a limit on the
-  structural claim. In E29-S, a revocation is ignored only when it is both
-  subordinate and verb-less: removing either property restores the
-  sentence's level. E29-T shows the conjunction is not sufficient, because
-  the spelling decides how much is lost. The suffix cell changes position
+  structural claim. In E29-S the tag is the only one of four renderings that
+  fails (with §2.3's caveat that the separated status line kept a verb). E29-T
+  shows that the attached, verb-less form is not sufficient, because the
+  spelling decides how much is lost. The suffix cell changes position
   and bracket together, so which of the two matters is not identified.
 - **`[status: revoked]` splits:** it fails on the 3B and is unclear on the
   14B.
@@ -670,7 +684,7 @@ stores.
 
 **Status lines, notes and the fix.** *How Strongly Should Task State Influence an
 LLM Agent?* (Zhang, Kweon and Han, arXiv:2609.25686, 2026-09-22) is concurrent and
-consistent with the conjunction: a verb-less status on a checklist item ("- s10:
+consistent with our result: a verb-less status on a checklist item ("- s10:
 DONE") is unreliable, and a directive sentence raises strict success from 0.55 to
 0.84 on Qwen3-235B. Their design changes form and instruction together. *Dead text or
 binding clause?* (Zhu, arXiv:2608.12599, 2026-08-12) is a precedent for §2.7: a
@@ -714,8 +728,9 @@ component of the construct without the conjunction:
 Tool Deprecation", May; "The Deprecation Notice Your Agent Can't Read", July)
 describe `[DEPRECATED]` tags on tool descriptions being under-read and a
 separate explicit line helping, without controlled measurement. The 2×2
-refines that folklore: separation alone is not the fix, since a separate
-verb-less status line works just as well. It is the conjunction that fails.
+refines that folklore: merging a sentence onto the record is harmless, and only the
+attached, verb-less tag fails; whether a separate verb-less line would also fail is
+E29-A's question (§2.3).
 
 For code models, *LLMs Meet Library Evolution* (arXiv:2406.09834, ICSE'25)
 inserts a natural-language deprecation comment into the prompt (fixing 25.7–

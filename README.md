@@ -38,12 +38,15 @@ rejection. A step that was proposed and never decided is planned 93–100 % of t
 Source: `results/e29t_*_summary.json` and the per-call files beside them, 1,344 calls.
 
 **What drives it.** A 2×2 experiment (E29-S) varies two properties of the same rejection:
-whether it has its own list item, and whether it is a sentence with a verb. Merging the
+whether it has its own list item, and whether it is a sentence or an attribute. Merging the
 sentence into the proposal's line (byte-identical text, one line break removed) does not
-raise the rate; on llama3.2:3b it lowers it slightly. Rewriting it as a verb-less status line
-in its own item changes nothing. Only doing both, which turns it into the `[withdrawn]` tag,
-raises it: from 9–20 % to 59 % on llama3.2:3b and from 3–5 % to 32 % on qwen2.5:14b. The
-same pattern holds on a third model family, aya-expanse:8b from Cohere (3–16 % to 48 %).
+raise the rate; on llama3.2:3b it lowers it slightly. A status line in its own item changes
+nothing either. Only the `[withdrawn]` tag on the proposal raises it: from 9–20 % to 59 % on
+llama3.2:3b and from 3–5 % to 32 % on qwen2.5:14b, and on a third model family,
+aya-expanse:8b from Cohere, from 3–16 % to 48 %. One correction: that separate status line
+kept a reason clause with a verb ("it is not needed for this case"), so this design does not
+yet say whether the attachment matters or only the missing verb. A follow-up, E29-A, is
+declared to settle it.
 
 ![The 2×2 in four list formats](docs/paper/fig4-formats.png)
 
