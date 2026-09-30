@@ -1315,6 +1315,22 @@ try:
                     and _S[(r["instance"], r["rotation"])][1] == r["action"])
         claim(f"E29-A {_slug} verbal_tag keeps the undecided proposal before it (of 17)", _kept, _mis)
 
+    # The README's scale: distinct planning calls (model, design, arm, dialogue, format) and
+    # probe calls in the E29 per-call files. E29-O's paused, unread run is not counted.
+    _plan, _probe = set(), 0
+    for fn in sorted(_glob.glob("results/e29*.csv")):
+        _b = os.path.basename(fn)
+        if _b.startswith("e29o_"):
+            continue
+        for r in _csv.DictReader(open(fn, encoding="utf-8")):
+            if "recognition" in _b or _b.startswith("e29k_"):
+                _probe += 1
+            else:
+                _plan.add((_b.split("_")[0],) + tuple(r.get(k, "-") for k in
+                          ("model", "design", "arm", "instance", "rotation", "format", "fmt", "length", "session")))
+    claim("E29 planning calls in the per-call files", len(_plan), 25764)
+    claim("E29 recognition-probe calls in the per-call files", _probe, 2688)
+
     # 4.6, free length: complete-case over the four designs, as the analysis reads it
     _FD = ("full", "delete", "addonly", "addonly_flag")
     for _slug, _dn, _an, _fn in (("llama32-3b", 0.768, 0.105, 0.642),

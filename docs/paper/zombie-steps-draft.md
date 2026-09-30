@@ -1,6 +1,7 @@
-# A tag is not a retraction: language models ignore a revocation written as an attribute of the record it revokes
+# Revoked, but still planned: where and how an agent's memory writes a revocation decides whether a language model obeys it
 
-*Working draft, restructured 2026-09-29 around the structural claim. Every number below is in a
+*Working draft, restructured 2026-09-29 around the structural claim; retitled 2026-09-30 after E29-A.
+Status: paused 2026-09-30, with E29-O and E29-W declared (§8). Every number below is in a
 `results/*_summary.json` file and re-derives from the committed per-call CSVs
 (`verify_claims.py`). Every protocol in `docs/protocols/` was committed with
 zero outcomes before its first call, except E29-B, whose written predictions were added after 6 of its 48
@@ -34,8 +35,11 @@ family (aya-expanse:8b, §4.6). Because the own-item status line carried a verb,
 design could not separate attachment to the record from the plain absence of a verb.
 E29-A (§2.8) did, and attachment is not what decides it: a verb-less status line in its
 own item fails on two of three deciders. What replicates on all three families is
-position. The same `[withdrawn]` placed after the proposal text is honoured, while
-field-style markers fail even there. Why position matters is tested next (E29-O).
+position. `[withdrawn]` placed before the proposal text leaves the rejected step in 31–60 %
+of plans; the same tag after the text leaves it in 15–25 %. Field-style markers fail even
+after the text. Two follow-ups are declared: E29-O on why position matters (six accounts,
+one prediction table) and E29-W on the mechanism (attention knockout). Both are paused
+before a full run.
 
 The finding came out of a memory-design study that motivates it. Across four
 deciders from three model families, a partner's later restatement of a
@@ -84,7 +88,9 @@ tested (§2.5). The form is not sufficient on its own: one spelling of it, a
 trailing `(withdrawn)`, is mostly read.
 
 **Contributions.**
-1. The structural dissociation, pre-registered on two deciders (§2).
+1. Where and how a revocation is written decides whether it is obeyed, pre-registered and
+   replicated on three model families: fields and leading tags fail, while trailing words and
+   sentences work (§2.3, §2.5, §2.8).
 2. The setting that makes it consequential: *zombie steps*, rejected proposals
    that re-enter an executable plan when the proposer restates them. They come
    back through memory designs that delete a rejection or flag the rejected
@@ -445,7 +451,8 @@ leading tag is the worst rendering on every decider.
 **A limit on "position decides".** E29-T's field-style markers also trail the record, and
 they fail: `[is_active: false]` 0.906 and 0.729, `[invalid_at: …]` 0.812 and 0.896. So a
 trailing position is not enough; what works is a revocation word or clause after the record.
-E29-O asks why position matters, with list position controlled.
+E29-O asks why position matters, with list position controlled (§8). Figure 7
+(`fig7-position.svg`, drawn by `paper_fig_position.py`) shows the pairs.
 
 ## 3. Why it matters: zombie steps
 
@@ -832,6 +839,40 @@ zero model calls. `python xray_server.py` serves a side-by-side view of any
 dialogue through any two memory designs, and a live re-run of the decider
 checked against the record.
 
+## 8. Status and next experiments
+
+The programme is paused as of 2026-09-30. Two follow-ups are declared and public (`0281990`,
+pushed before any call):
+
+- **E29-O** (`docs/protocols/E29O-order.md`) asks why a revocation marker works after a record
+  and not before it.
+  - **Size:** twenty cells on both corpora (192 dialogues) and the three deciders.
+  - **Accounts:** narrative order, last mention, attachment direction, a self-contained clause,
+    distance to the step's name, and field form.
+  - **Read rule:** a prediction table in which an account is refuted by any interpretable
+    outcome outside its row. An independent methods review's nine required fixes are applied
+    before the first call.
+- **E29-W** (`docs/protocols/E29W-knockout.md`) tests the mechanism in one model:
+  Llama-3.2-3B, with attention knockout in Hugging Face transformers. Does a trailing
+  `[withdrawn]` work because its tokens read the record?
+
+**Where the run stopped.** A first E29-O run was stopped by the local job runner after 151 of
+192 dialogues on llama3.2:3b. Those rows are committed and have not been read. The declared
+read uses only complete runs, and a resumed run continues from them:
+`python run_queue.py --log results/e29o_run.log -- "python -u e29o_order.py --all" "python -u e29o_recognition.py --all" "python -u e29w_knockout.py --run"`.
+
+**Next in line: tool registries.** The same question applies there. Does `[DEPRECATED]`
+before a tool's description stop an agent calling it as reliably as the same tag after the
+description? A prior-art gate returned CANDIDATE WITH NARROW RESIDUAL
+(`docs/protocols/TOOLS-gate.md`):
+- appended negative cues and list-position bias in tool selection are published;
+- no study found moves a status marker within a tool's description, with the words held
+  fixed.
+
+It is not declared.
+
+**Not tested at all:** frontier models.
+
 ## Appendix A. Predictions against outcomes
 
 | protocol | prediction | outcome |
@@ -871,6 +912,12 @@ checked against the record.
 | E29-M P2 | accepted and undecided inclusion within 0.10 across the six cells | holds on both (accepted 0.983–1.000; undecided 0.950–1.000) |
 | E29-M P3 | lean: rewrite FIXED on both; annotate PARTIAL; field COMPETES | rewrite FIXED on the 14B, PARTIAL on the 3B (0.79–0.91 of the excess removed); annotate PARTIAL except the 14B's invalid_at cell (FIXED); field INERT on both |
 | E29-S+ lean | CONJUNCTION on aya; gemma may read NULL near floor | aya-expanse:8b: INTERACTION, conjunction holds (lean right); gemma4:e4b VOID (mean plan 2.84–3.47), neither NULL nor a read; runtime drift, §4.6 |
+| E29-A P1 | anchors reproduce E29-S and E29-T within 0.10 | holds on all three deciders (largest gap 0.031, aya's sentence cell) |
+| E29-A P2 | accepted and undecided inclusion within 0.10 across the fifteen cells | misses on undecided proposals on all three (3B 0.733–0.983, 14B 0.867–1.000, aya 0.767–0.983): `[B rejected this]` drops the proposal before it |
+| E29-A lean, H1 | ATTACHMENT MATTERS on at least two deciders | wrong: MIXED (the verb explains it on the 3B and aya; attachment matters on the 14B) |
+| E29-A lean, H2 | AT-ISSUE GATES, recognition met, on at least two | wrong: UNTESTABLE on the 14B and aya; the 3B's AT-ISSUE GATES does not count (recognition VOID); programme reading AGAINST BOTH |
+| E29-A lean, verbal tag | `[B rejected this]` FAILS against the reference | right on all three (0.906, 0.667, 0.833) |
+| E29-A lean, bracket | bracket type matters more than position | wrong, the reverse: POS and POP EFFECT on all three, BRP and BRS NONE |
 
 ## Appendix B. Process record
 
