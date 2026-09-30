@@ -141,8 +141,9 @@ Three things appear in none of the papers above:
   the powered band). The intervention-ladder leg of C8 is therefore untested,
   not null.
 - `gold` is **diagnostic only, never pooled**, and its powered-band reading is
-  blocked by the band defect (`docs/RESUME.md` §4); the equivalence reading is
-  post-hoc.
+  blocked by the band defect (`[0.08, 0.12]` was computed for *difference
+  detection*; its lower bound wrongly blocks *equivalence* readings, where low
+  discordance is favourable); the equivalence reading is post-hoc.
 - One decider, `llama3.2:3b`. GroupQA's four models are 8B–70B and detect an
   *anti-normative* preference for paraphrases; E13 NORMATIVE's −0.074
   (CI [−0.139, −0.009]) points the same way but is inconclusive by rule. E13

@@ -108,8 +108,8 @@ and summarised in the table above.
 
 ### 0.3b Leads from the first Gemini Deep Research scout, triaged 2026-09-12
 
-Nine new leads (`docs/gemini-research-log/2026-09-12-triage.md`); the one
-Gemini flagged as covering the construct does not. Full-text reads marked.
+Nine new leads; the one Gemini flagged as covering the construct does not.
+Full-text reads marked.
 
 | paper | read | rejection in dialogue | partner restatement | design contrast | executable action | small local decider | verdict |
 |---|---|---|---|---|---|---|---|
@@ -125,9 +125,8 @@ residual in §0.5 is unchanged.
 
 ### 0.3c Leads from the second Gemini Deep Research scout, triaged 2026-09-12
 
-SINCE = 2026-09-01, corpora focus. Seven leads
-(`docs/gemini-research-log/2026-09-12-run2-triage.md`). One lands on a
-follow-up, none on the E29 residual.
+SINCE = 2026-09-01, corpora focus. Seven leads. One lands on a follow-up,
+none on the E29 residual.
 
 | paper | read | rejection in dialogue | partner restatement | design contrast | executable action | small local decider | verdict |
 |---|---|---|---|---|---|---|---|

@@ -11,7 +11,7 @@ code lives. The frozen compulsory baseline (`compulsory-baseline-v1`) contains
 
 Public, MIT, authored before this course. Paper: *Training-Free Lexical–Dense
 Fusion for Conversational-Memory Retrieval* (Lysenstøen, 2026). Not submitted
-for credit elsewhere. Reuse raised with Meisam in writing.
+for credit elsewhere. Reuse raised with the course instructor in writing.
 
 ### Adapted, as code
 

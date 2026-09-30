@@ -10,8 +10,8 @@ Written 2026-09-06. Everything below re-derives via `python verify_claims.py`
 (**167 verified / 0 mismatched / 4 unverifiable**) and `pytest` (**135 tests,
 17 suites**). The frozen corpus hashes are asserted at the start of every run.
 
-A formatted, shareable rendering of this document is published (privately) at
-https://claude.ai/code/artifact/9b5e4251-3899-4f91-a444-ff3ae4b8a835 — it is a rendering only; this file is the record.
+A formatted, shareable rendering of this document is published (privately) —
+it is a rendering only; this file is the record.
 
 ---
 
@@ -270,8 +270,8 @@ Both are real. Neither is novel: B-1's gate found "family dominates scale" and
 ## 7. Reproduction
 
 ```bash
-python verify_claims.py     # expect 167 verified / 0 mismatched / 4 unverifiable
-python -m pytest -q         # expect 135 passed
+python verify_claims.py     # 167 verified / 0 mismatched / 4 unverifiable when written; 267 / 0 / 4 on 2026-09-30
+python -m pytest -q         # 135 passed when written; 227 on 2026-09-30
 ```
 
 Primary records: `docs/findings.md` (results and the retraction ledger),

@@ -409,7 +409,7 @@ Ordered by how badly each threatens the comparison.
 To be maintained as `docs/PRIOR_WORK.md` before any code lands.
 
 **Adapted from OpSem** (public, MIT, `github.com/Chrislysen/opsem`, predates this
-course, permission requested from Meisam in writing):
+course, permission requested from the course instructor in writing):
 
 | taken | from | form |
 |---|---|---|
@@ -448,5 +448,5 @@ heuristic.
    `random` only.
 4. Confirm the **pilot decision rules** in §8 — particularly that "oracle ≤
    recency → stop and write it up" is an acceptable outcome.
-5. Confirm Meisam has replied on OpSem reuse. The pilot does not need it; BM25
-   does.
+5. Confirm the course instructor has replied on OpSem reuse. The pilot does
+   not need it; BM25 does.

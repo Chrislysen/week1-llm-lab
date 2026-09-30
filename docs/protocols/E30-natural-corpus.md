@@ -5,9 +5,8 @@ predictions are fixed here and nothing may be run against it. When E30 is
 declared it will be a separate file with its own zero-outcome commit.
 
 The paper's standing main limitation is that both corpora are generated from
-templates. The second Gemini scout was pointed at corpora for exactly this
-(`docs/gemini-research-log/2026-09-12-run2-triage.md` §4). This assesses
-whether the best candidate can actually carry the E29 construct.
+templates. The second Gemini scout was pointed at corpora for exactly this.
+This assesses whether the best candidate can actually carry the E29 construct.
 
 ## 1. The candidate: CaSiNo
 

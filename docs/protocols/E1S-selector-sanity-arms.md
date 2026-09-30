@@ -2,7 +2,7 @@
 
 Declared 2026-09-11 with **zero outcomes**. Diagnostic, not a novelty candidate;
 it does not enter the ledger. It closes a gap in the compulsory part of the
-brief: `docs/plan.md` ("The diagnostic arms — controls, never headline results")
+brief: the project plan ("The diagnostic arms — controls, never headline results")
 lists four arms with expected values, and `docs/research-design.md` §6 repeats
 them. E1 (`e1_landscape.py`, tag `selector-protocol-v1`) ran the five scored
 selectors plus the `oracle` diagnostic. The `full` ceiling, the `last-message`
@@ -39,7 +39,7 @@ arm and repeat replaces its row and is recorded here as a rerun.
 
 ## 2. Predictions — the plan's values, verbatim, and how each will be read
 
-From `docs/plan.md` (arm table) and `docs/research-design.md` §6. Reference
+From the project plan's arm table and `docs/research-design.md` §6. Reference
 values from E1: recency 0.5714, random 0.8095, bm25 0.6190, dense 0.7619,
 fusion 0.7619; oracle diagnostic 0.8571; all `parse_rate` 1.0.
 

@@ -110,7 +110,7 @@ manipulates how a revocation is encoded.
 ## 6. Decision
 
 **Candidate for testing — residual NARROW.** This licenses E29-R, the format
-replication named in `docs/paper/reframe-v2.md` §4.1. It is not a novelty
+replication named in `docs/protocols/E29S-structure.md` §5. It is not a novelty
 claim. The concurrent paper (2609.08258) owns the shipped-system finding, and
 the practitioner observation predates us. What is ours, if E29-R holds, is the
 controlled dissociation and its format generality. Revisit if a controlled

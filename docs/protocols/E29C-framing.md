@@ -18,7 +18,7 @@ discussion" *lowered* enactment of the rejected step X.
 | `llama3.2:3b` | 0.198 | 0.281 | −0.083 | [−0.167, −0.010] |
 | `qwen2.5:7b-instruct` | 0.240 | 0.312 | −0.073 | [−0.146, −0.010] |
 
-Two readings were left open in RESUME. **H-frame**: the sentence is a dispute
+Two readings were left open in the session notes. **H-frame**: the sentence is a dispute
 about authorship ("I did raise it"), not a request to do X, and it sends the
 decider back to the exchange where X was rejected. **H-mention**: any late
 mention of a rejected step in a full transcript makes the rejection salient

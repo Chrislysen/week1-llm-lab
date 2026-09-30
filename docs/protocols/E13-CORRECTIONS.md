@@ -2,7 +2,7 @@
 
 **Status.** Commits `459fc88` and `418bab2` are left in history unaltered; this
 document supersedes three of their conclusions. Found by a 27-agent adversarial
-panel (`docs/attack_e13.js`, run `wf_35c74eab-aee`, 22 candidates, 5 survived
+panel (run `wf_35c74eab-aee`, 22 candidates, 5 survived
 refutation, 17 refuted). **I re-derived every number below from the raw files
 before accepting it**; the re-derivations are pinned in `verify_claims.py` and
 printed, flagged POST-HOC, by `python e13_recognition.py --analyse`.
@@ -110,7 +110,7 @@ independent roots identically in its executable output.**
 The ordering-verdict null is unchanged: `default` +0.0000, CI [−0.056, +0.056].
 Every sentence that generalised it to *the decision* — E13 protocol §1,
 `lineage_e13.py` and `e13_recognition.py` docstrings, `findings.md` §0,
-`handoff.md` "Final answer", and the C8 claim text "prices them as k
+the handoff note's "Final answer", and the C8 claim text "prices them as k
 independent confirmations in a downstream executable decision" — is
 **withdrawn as written** and re-scoped to the ordering channel.
 
@@ -159,7 +159,7 @@ parse rate 1.00, but the sentence was wrong.
 **"E12's frozen probe, 27 vs 0" is E10's.** The 27/36 vs 0/36 distinct-document
 count is `e10_independence.py`'s manipulation check on E10's 36 discussion
 texts (`results/e10_manip_check.csv`). E12 has no probe. `e13_recognition.py`,
-`RESUME.md`, `novelty_matrix.md` and `418bab2` attributed it to E12. The
+the session notes, `novelty_matrix.md` and `418bab2` attributed it to E12. The
 model's ability to report shared root **on E13's own units** is shown by the
 paired primary boolean above (40 vs 0), not by E10's count.
 

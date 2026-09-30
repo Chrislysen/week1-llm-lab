@@ -253,6 +253,6 @@ sentence about the never-mentioned control failing is withdrawn.
 
 **Process note.** The bug lived in code E29 declared frozen and was caught by
 reading, four runs later. The test that now guards it should have been
-written with the second template bank. Recorded in `docs/RESUME.md` and in
+written with the second template bank. Recorded in the session notes and in
 the paper draft's reproducibility section; both versions of every number are
 on disk.

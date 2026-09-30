@@ -198,7 +198,6 @@ and it is the industry default.
 Two deciders, one corpus, oracle stores, and **one list format**: markdown
 bullets. The claim as stated is about item structure, and a markdown bullet
 is one way of making an item. Replicating the S_form_same contrast in JSON,
-in XML-tagged items and in a numbered list is the necessary next step and is
-named in `docs/paper/reframe-v2.md` §4.1; until it is run, the honest scope
-is "in a markdown list". No frontier model was tested, so whether the effect
-survives capability is open.
+in XML-tagged items and in a numbered list is the necessary next step; until
+it is run, the honest scope is "in a markdown list". No frontier model was
+tested, so whether the effect survives capability is open.

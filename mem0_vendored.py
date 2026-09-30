@@ -1,6 +1,7 @@
 """mem0_vendored.py: two prompts and one helper copied VERBATIM from
 mem0ai/mem0, file mem0/configs/prompts.py, fetched 2026-09-11 from the main
-branch (raw.githubusercontent.com). Nothing edited. Used by E29-B so the
+branch (raw.githubusercontent.com). Nothing edited. Mem0 is licensed under the
+Apache License 2.0 (https://github.com/mem0ai/mem0); these excerpts remain under it. Used by E29-B so the
 write path under test is the Mem0 paper pipeline's own wording, not ours.
 
     FACT_RETRIEVAL_PROMPT        extraction (paper pipeline, arXiv:2504.19413 s3.1)

@@ -835,7 +835,7 @@
   var installed = (D.live && D.live.models) || [], choices = (D.e29_models || []).slice();
   installed.forEach(function (m) { if (choices.indexOf(m) < 0) choices.push(m); });
   var pm = $('pk-model');
-  choices.forEach(function (m) { var ok = installed.indexOf(m) >= 0; var o = el('option', null, m + (ok ? '' : ' (not installed)')); o.value = m; o.disabled = !ok; pm.appendChild(o); });
+  choices.forEach(function (m) { var ok = installed.indexOf(m) >= 0; var o = el('option', null, m + (ok ? '' : ' (not installed)')); o.value = m; pm.appendChild(o); });   /* recorded plans stay viewable without Ollama; live deciding is gated separately */
   S.model = pm.value;
 
   function setState(txt, cls) { var s = $('state'); s.className = 'state ' + (cls || ''); s.lastChild.textContent = txt; }

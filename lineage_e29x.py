@@ -3,9 +3,9 @@
 DECLARED in docs/protocols/E29X-reviewer-controls.md before any decider call.
 
 Two objections from an outside adversarial review (Gemini Deep Research run
-1, docs/gemini-research-log/2026-09-12-triage.md §3) name controls E29 did
-not run. Both are oracle-store designs on the E29 corpus, rendered by the
-same functions as the four E29 designs.
+1, objections 2 and 4) name controls E29 did not run. Both are oracle-store
+designs on the E29 corpus, rendered by the same functions as the four E29
+designs.
 
     full_explicit   E29-R, the rendering control. The transcript, with each
                     accept/reject reply's bare referent ("that one", "that")

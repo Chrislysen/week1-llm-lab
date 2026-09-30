@@ -12,8 +12,7 @@ the target executable plan adheres to strict structural or length
 constraints, a high-volume memory system that faithfully retrieves dense
 historical context might naturally crowd out rejected items due to simple
 token-limit truncation or attention dilution" — the improvement could be an
-artefact of a saturated, fixed-size output
-(`docs/gemini-research-log/2026-09-12-run2-triage.md` §3, objection 3).
+artefact of a saturated, fixed-size output (objection 3).
 
 Every E29 result so far pins the plan to four identifiers from a six-item
 menu. That pin is why the never-mentioned control sits at 0.42–0.73: with

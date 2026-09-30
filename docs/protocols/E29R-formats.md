@@ -2,8 +2,8 @@
 
 Declared 2026-09-29 with **zero outcomes**, after the prior-art gate
 (`docs/protocols/E29R-gate.md`: candidate for testing, residual narrow).
-This is the replication `docs/paper/reframe-v2.md` §4.1 named as the
-highest-value next run.
+This is the replication the 2026-09-12 proposal for reframing the paper
+named as the highest-value next run.
 
 ## 0. What E29-S found, and the one thing it could not say
 

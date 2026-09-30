@@ -35,7 +35,7 @@ readings fit those numbers equally well:
 The consequence is not academic. Under H_menu the gate was near-unreachable
 before the first call, and the recorded lesson stands: **no future design may
 reuse this plan instruction when it needs a never-stated base rate.** Under
-H_base that lesson is wrong, was written into `docs/RESUME.md` and into the
+H_base that lesson is wrong, was written into the session notes and into the
 project memory on 2026-09-05, and must be struck.
 
 ## Design
@@ -185,8 +185,8 @@ prompt and a new declaration, and is not run here.
 
 ### What this does to the 2026-09-05 lesson
 
-The lesson written into `docs/protocols/E16-zombie-screen.md`, `docs/RESUME.md`
-and the project memory on 2026-09-05 said the `never` rate "floors at about
+The lesson written into `docs/protocols/E16-zombie-screen.md`, the session
+notes and the project memory on 2026-09-05 said the `never` rate "floors at about
 \|plan\| / \|vocab\|".
 
 - **Its arithmetic form was wrong and is corrected.** It was stated as though

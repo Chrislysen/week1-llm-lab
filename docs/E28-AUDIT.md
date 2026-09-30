@@ -60,7 +60,7 @@ An earlier write-up reported **"212 model calls"** for E28. That figure was
 wrong and was quoted onward in external review. Each pair is 2 runs x 8 turns =
 16 calls, so the correct counts are: smoke 16, E28 declared run 192 (8 ARM H +
 4 ARM R pairs), E28-D 80, E28-C 128 - **416 total**. Corrected in
-`docs/protocols/E28-power-probe.md` and `docs/RESUME-SESSION-2026-09-06.md`.
+`docs/protocols/E28-power-probe.md` and in the session notes.
 
 Every other reported figure reproduced exactly from the raw records.
 

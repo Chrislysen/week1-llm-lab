@@ -330,7 +330,7 @@ class OracleBudget(BudgetedPolicy):
 class SabotageBudget(BudgetedPolicy):
     """Constraint-bearing source messages EXCLUDED, then the most recent.
 
-    The evaluator's own sanity check (docs/plan.md, diagnostic arms; research-
+    The evaluator's own sanity check (the plan's diagnostic arms; research-
     design.md S6). A selector built to fail: it is told which message texts carry
     planted constraints and never returns one of them, spending the whole budget
     on the most recent non-source messages instead. Budget-matched like every

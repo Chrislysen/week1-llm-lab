@@ -13,11 +13,11 @@ model calls. Nothing here is a claim.**
 ## Why this file exists
 
 The first programme closed on 2026-09-02 at tag `research-closed-v1`
-(`docs/RESEARCH-LEAD-2026-09-02.md`, `docs/FFEP-FEASIBILITY.md`). On
+(`docs/FFEP-FEASIBILITY.md`). On
 2026-09-03 the author reopened the search for a new programme, with the
 explicit aim of a result that is novel rather than a negative-results
 write-up. That decision overrides the "do not search for E16" line in
-`docs/RESUME.md`; everything else in that file stands.
+the session notes; everything else in them stands.
 
 The author's own brainstorm words were: *binary, a different coding
 language, memory allocation, compression, anything that would qualify as a
@@ -30,8 +30,10 @@ until a search says otherwise.
 
 ## Rules carried over unchanged
 
-- Frozen artifacts (`compulsory-baseline-v1`, E10–E14 corpora, every hash in
-  `docs/RESUME.md` §1) are not touched. New work reads them, never rewrites.
+- Frozen artifacts (`compulsory-baseline-v1`, E10–E14 corpora, every frozen
+  corpus hash: Mode A `9dd2cea16a8142c2`, E10 `00947dde8eb0520b`, E11
+  `5c28ada4c4b899dc`, E12 `ecf1f4884fa49270`, E13 prompts `5c23297196241110`,
+  E14 `6cd7dafac78c31fe`) are not touched. New work reads them, never rewrites.
 - No model call before a declared protocol is committed with zero outcomes.
 - Every experiment carries a random control and a sabotage/oracle control
   that can fail.
@@ -94,7 +96,7 @@ All five deciders so far are non-reasoning instruct models. `qwen3:14b`
 thinking on, the same-root vs independent-root gap becomes non-zero in the
 normative direction; with thinking off on the same model it does not; the
 corroboration dose-response flattens under thinking. This is the "new
-programme with a new decider" that `docs/RESEARCH-LEAD-2026-09-02.md` §6
+programme with a new decider" that the 2026-09-02 research-lead memo
 named as the strongest remaining threat to the closing verdict.
 
 ### Scout
@@ -412,8 +414,8 @@ has now failed to clear eight times out of eight.
 **With S-O retired and S-E recommended for retirement, the 2026-09-03
 reopening has no live candidate.** S-A, S-B, S-L and E16-C were parked for
 weaker reasons and carry the same no-web-search caveat; none was rated better
-than these two. The honest next artifact is the negative-results write-up in
-`docs/RESEARCH-LEAD-2026-09-02.md` §8-9.
+than these two. The honest next artifact is the negative-results write-up
+(`docs/NEGATIVE-RESULTS.md`).
 
 ## Housekeeping
 
@@ -575,7 +577,7 @@ S-O is retired regardless.
 Both candidates of the 2026-09-03 reopening are closed by prior art, and each
 was closed by a paper the original gate could not see because it had no web
 search. Nothing is queued. The recommended artifact remains the
-negative-results write-up (`docs/RESEARCH-LEAD-2026-09-02.md` §8-9).
+negative-results write-up (`docs/NEGATIVE-RESULTS.md`).
 
 
 ---

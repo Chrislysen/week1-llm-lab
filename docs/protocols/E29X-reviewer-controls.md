@@ -2,7 +2,7 @@
 
 Declared 2026-09-12 with **zero outcomes**. Source of the two controls: the
 adversarial review returned by the first Gemini Deep Research scout
-(`docs/gemini-research-log/2026-09-12-triage.md` §3, objections 2 and 4).
+(objections 2 and 4).
 Not a novelty candidate; a robustness leg of E29
 (`docs/protocols/E29-memory-semantics.md`).
 
