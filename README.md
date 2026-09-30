@@ -63,7 +63,9 @@ harm once the sentence is there (E29-M, 1,152 calls). A memory system can apply 
 changing how it stores records. It comes within the declared margin of the sentence on
 qwen2.5:14b (14 % against 6 %) and falls short of it on llama3.2:3b (29 % against 16 %).
 
-![The one-sentence fix](docs/paper/fig6-fix.png)
+![The one-sentence fix: the rejected step drops from 91 % and 73 % to 29 % and 15 % of plans](docs/media/fix.gif)
+
+*All six cells for both models are in [Figure 6](docs/paper/fig6-fix.png).*
 
 Concurrent work (arXiv:2609.08258) showed that visible revocation labels in five shipped
 memory systems do not stop agents acting on the revoked fact. What this project adds is which
