@@ -67,9 +67,12 @@ qwen2.5:14b (14 % against 6 %) and falls short of it on llama3.2:3b (29 % agains
 
 *All six cells for both models are in [Figure 6](docs/paper/fig6-fix.png).*
 
-Concurrent work (arXiv:2609.08258) showed that visible revocation labels in five shipped
-memory systems do not stop agents acting on the revoked fact. What this project adds is which
-property of the label makes it fail.
+Concurrent and related work: arXiv:2609.08258 showed that visible revocation labels in five
+shipped memory systems do not stop agents acting on the revoked fact; arXiv:2609.25686 found a
+verb-less "DONE" status unreliable where a directive sentence works; arXiv:2608.12599 found a
+one-sentence note reduces relapse; and arXiv:2608.12321 showed models can know a constraint
+and not use it. What this project adds is a controlled test of which property of the label
+makes it fail, across formats, idioms and model families.
 
 **Where it came from: zombie steps.** The finding came out of a study of rejected plan
 steps that come back when a partner restates them. Across four models from three families, a

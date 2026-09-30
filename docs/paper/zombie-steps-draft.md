@@ -668,6 +668,30 @@ one's more absolute phrasing. Our §2 is the controlled encoding comparison it
 does not run, and our §3.3 reproduces its central observation on oracle
 stores.
 
+**Status lines, notes and the fix.** *How Strongly Should Task State Influence an
+LLM Agent?* (Zhang, Kweon and Han, arXiv:2609.25686, 2026-09-22) is concurrent and
+consistent with the conjunction: a verb-less status on a checklist item ("- s10:
+DONE") is unreliable, and a directive sentence raises strict success from 0.55 to
+0.84 on Qwen3-235B. Their design changes form and instruction together. *Dead text or
+binding clause?* (Zhu, arXiv:2608.12599, 2026-08-12) is a precedent for §2.7: a
+one-sentence "tombstone" note cuts relapse from 0.135 to 0.087, against 0.140 for an
+equal-length irrelevant note. Our E29-M adds the controlled comparison of removing the
+field, keeping it, and neither, and the finding that the field is inert once the
+sentence is present.
+
+**Knowing without using.** *LLMs Know the Constraint But Do Not Use It* (Li, Krishnan
+and Padman, arXiv:2608.12321, 2026) shows, for constraints that must be inferred, that
+a probe decodes the constraint while the model's output ignores it, and that patching
+from a donor stating the constraint as one declarative sentence repairs it on one of
+two models. *Model-Adaptive Tool Necessity Reveals the Knowing-Doing Gap in LLM Tool
+Use* (Cheng et al., arXiv:2605.14038, 2026) names the same gap for tool calls. Our
+E29-K (§2.6) is a behavioural analogue for a revocation that is stated explicitly; we
+make no mechanistic claim. *Hey, wait a minute: on at-issue sensitivity in Language
+Models* (Kim and Misra, arXiv:2510.12740, EACL 2026) finds that models treat
+not-at-issue content (asides such as appositive relative clauses) differently from the
+main point, which offers a candidate explanation of why a revocation attached to its
+record is ignored.
+
 **Memory designs.** Eighteen papers were read in full text under the E29
 novelty gate (`docs/protocols/E29-memory-semantics.md` §0), each occupying a
 component of the construct without the conjunction:
