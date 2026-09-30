@@ -42,7 +42,8 @@ whether it has its own list item, and whether it is a sentence with a verb. Merg
 sentence into the proposal's line (byte-identical text, one line break removed) does not
 raise the rate; on llama3.2:3b it lowers it slightly. Rewriting it as a verb-less status line
 in its own item changes nothing. Only doing both, which turns it into the `[withdrawn]` tag,
-raises it: from 9–20 % to 59 % on llama3.2:3b and from 3–5 % to 32 % on qwen2.5:14b.
+raises it: from 9–20 % to 59 % on llama3.2:3b and from 3–5 % to 32 % on qwen2.5:14b. The
+same pattern holds on a third model family, aya-expanse:8b from Cohere (3–16 % to 48 %).
 
 ![The 2×2 in four list formats](docs/paper/fig4-formats.png)
 
@@ -94,16 +95,16 @@ rate over all 96 dialogues.*
   bootstrap 95 % intervals; the smallest effect that counts is 0.15.
 - **Local open models.** About 19,200 planning calls plus about 2,000 extractor and router
   calls across the E29 experiments, run on a laptop through Ollama at temperature 0.
-- **Checkable.** `verify_claims.py` re-derives 295 reported values from the raw files with
-  0 mismatches (128 of them for E29); 234 offline tests pass.
+- **Checkable.** `verify_claims.py` re-derives 299 reported values from the raw files with
+  0 mismatches (132 of them for E29); 234 offline tests pass.
 - **Prior art first.** Before this, 22 candidate ideas went through a prior-art gate and all
   were closed with no original result (ledger in `docs/NOVELTY-GATE.md`; the first 13 are
   written up in `docs/NEGATIVE-RESULTS.md`).
 
 ## What is not established
 
-- The structural result rests on two models from two families. Runs on two more families
-  (gemma, aya) are in progress.
+- The structural result rests on three models from three families (Meta, Alibaba, Cohere).
+  The run on a fourth (gemma, from Google) is in progress.
 - The fix was tested with one sentence wording, in markdown lists, without the partner
   restating the step. The recognition result compares two different prompts, and it also
   runs the other way: qwen2.5:14b calls a status line a rejection only 59 % of the time

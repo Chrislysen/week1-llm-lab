@@ -27,7 +27,8 @@ proposition with a verb.
   enactment of the rejected step from 0.09–0.20 to 0.59 on llama3.2:3b, and
   from 0.03–0.05 to 0.32 on qwen2.5:14b-instruct.
 
-The pre-registered verdict is INTERACTION on both deciders.
+The pre-registered verdict is INTERACTION on both deciders, and again on a third model
+family (aya-expanse:8b, §4.6).
 
 The finding came out of a memory-design study that motivates it. Across four
 deciders from three model families, a partner's later restatement of a
@@ -591,6 +592,26 @@ corpus, and lower with an unpinned plan (down to 0.23 in E29-F). That band is th
 balance across the 2×2's four stores misses its ±0.10 band by 0.004 (3B) and
 0.025 (14B). This is a displacement in a pinned plan, reported as such.
 
+### 4.6 More model families (E29-S+)
+
+E29-S's two deciders come from two families (Meta, Alibaba). E29-S+ (declared in
+`4d30b5a` with zero outcomes) runs the same 2×2, byte for byte (block hash
+`f25719fc5d4a268c`), on two more: aya-expanse:8b (Cohere) and gemma4:e4b (Google). The
+read is E29-S's own rule plus E29-R's conjunction rule.
+
+| aya-expanse:8b, neutral arm | own item | same item |
+|---|---|---|
+| proposition | 0.156 | 0.052 |
+| attribute | 0.031 | **0.479** |
+
+On aya-expanse:8b the verdict is **INTERACTION**, and the conjunction holds: S_flag
++0.448 [+0.344, +0.552] and S_form_same +0.427 [+0.333, +0.521] reach the threshold,
+while S_merge −0.104 [−0.177, −0.042] and S_form_own −0.125 [−0.198, −0.052] do not.
+Every cell parses 1.000 with mean |plan| 3.99–4.03. As on the 14B, the restatement
+effect sits in the tag cell only (+0.177 [+0.094, +0.260]; the other three cells
++0.031 to +0.052, intervals including zero). The recorded lean (CONJUNCTION on aya) was
+right. The structural result now holds on three families. gemma4:e4b is running.
+
 ## 5. What this is not
 
 - **Scope.** Two to four local deciders of 3B–14B from three families, no
@@ -724,6 +745,7 @@ checked against the record.
 | E29-M P1 | control and anchors reproduce E29-T within 0.10 | holds exactly on both deciders |
 | E29-M P2 | accepted and undecided inclusion within 0.10 across the six cells | holds on both (accepted 0.983–1.000; undecided 0.950–1.000) |
 | E29-M P3 | lean: rewrite FIXED on both; annotate PARTIAL; field COMPETES | rewrite FIXED on the 14B, PARTIAL on the 3B (0.79–0.91 of the excess removed); annotate PARTIAL except the 14B's invalid_at cell (FIXED); field INERT on both |
+| E29-S+ lean | CONJUNCTION on aya; gemma may read NULL near floor | aya-expanse:8b: INTERACTION, conjunction holds (lean right); gemma4:e4b running |
 
 ## Appendix B. Process record
 
