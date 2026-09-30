@@ -10,8 +10,8 @@ dialogues had run (its read rule was committed in code first).*
 
 Agent memories and tool registries mark a revoked record in place: a validity
 interval, an `invalid_at` edge, an `is_active` flag, a `[withdrawn]` or
-`[DEPRECATED]` prefix. We find that this in-place, verb-less encoding is the one
-form of revocation that small open deciders act as though they had not seen.
+`[DEPRECATED]` prefix. We find that small open deciders act as though they had not
+seen most of these in-place, verb-less encodings.
 Written as `[is_active: false]` or `[invalid_at: …]`, a rejection leaves the
 rejected step in the plan 73–91 % of the time, against 6–16 % when the same
 rejection is a sentence.
@@ -30,9 +30,12 @@ proposition or an attribute.
   from 0.03–0.05 to 0.32 on qwen2.5:14b-instruct.
 
 The pre-registered verdict is INTERACTION on both deciders, and again on a third model
-family (aya-expanse:8b, §4.6). Because the own-item status line carried a verb, the
-design shows that the tag is the one rendering that fails; it does not yet separate
-attachment to the record from the plain absence of a verb. E29-A tests that.
+family (aya-expanse:8b, §4.6). Because the own-item status line carried a verb, that
+design could not separate attachment to the record from the plain absence of a verb.
+E29-A (§2.8) did, and attachment is not what decides it: a verb-less status line in its
+own item fails on two of three deciders. What replicates on all three families is
+position. The same `[withdrawn]` placed after the proposal text is honoured, while
+field-style markers fail even there. Why position matters is tested next (E29-O).
 
 The finding came out of a memory-design study that motivates it. Across four
 deciders from three model families, a partner's later restatement of a
@@ -72,9 +75,10 @@ We ask that question directly. Holding the information fixed, does the
 from a fixed-intervention 2×2 in which one cell is byte-identical text to
 another. It is yes: a revocation is ignored when it is written as a verb-less
 attribute on the record it revokes, and honoured when it is a sentence, whether
-that sentence has its own item or not. Whether the attachment matters, or only
-the missing verb, is not yet settled: the separated status line in our 2×2 kept
-a reason clause with a verb (§2.3). The attached, verb-less form is the industry
+that sentence has its own item or not. E29-A (§2.8) then showed that attachment
+is not what decides it. A verb-less line in its own item also fails on two of three
+deciders, and the same `[withdrawn]` tag is honoured when it follows the record instead
+of leading it. The attached, verb-less form is the industry
 default, and the fields that implement it (`is_active`, `invalid_at`) are the worst we
 tested (§2.5). The form is not sufficient on its own: one spelling of it, a
 trailing `(withdrawn)`, is mostly read.
@@ -164,9 +168,10 @@ deciders, the extremes of the range, 1,536 calls, parse 1.000.
 line, `status(X) = WITHDRAWN; it is not needed for this case.`, and its reason clause
 has a finite verb. The tag cell has no reason clause and no verb. So the "attribute"
 row is verb-less only in the tag cell, and the 2×2 cannot tell "attached and
-verb-less" apart from "no finite clause at all". The cell numbers below stand; the
-reading as an interaction of attachment and form waits for E29-A, which adds a truly
-verb-less line in its own item (`status(X) = WITHDRAWN.`).
+verb-less" apart from "no finite clause at all". The cell numbers below stand. E29-A
+(§2.8) added a truly verb-less line in its own item (`status(X) = WITHDRAWN.`). It fails
+on two of three deciders, so the conjunction below does not survive as a general claim.
+What replicates is the marker's position: the same tag after the record is honoured.
 
 Rejected-step inclusion, neutral arm, n = 96 per cell:
 
@@ -197,6 +202,9 @@ What remains is the conjunction:
 > attribute of the record it retracts**. Give it its own item, or give it a
 > verb, and it is honoured. Remove both and the model acts as though it were
 > not there.
+
+*(Superseded by §2.8: the verb-less line in its own item fails on the 3B and on aya,
+and the tag fails because it leads the record.)*
 
 Nothing in the manipulation is specific to memory. It is a list of statements
 in a prompt, and what varies is whether one of them is a separate item and
@@ -377,6 +385,67 @@ acts on a revocation that is stated as a sentence. The lean was FIXED on both de
 PARTIAL for the annotate cells and a competing field; the first held on the 14B only,
 the second held except for the 14B's `invalid_at` cell, and the third was wrong on
 both.
+
+### 2.8 Position, not attachment (E29-A)
+
+§2.3's correction left three accounts of E29-S's pattern:
+- **attachment:** a verb-less revocation fails only when it is written onto the record;
+- **the verb:** any revocation without a finite clause fails;
+- **at-issueness:** a revocation fails when it is marked as an aside.
+
+E29-A (declared in `a5cd6cd` with zero outcomes, after a 54-query prior-art gate and an
+independent review) renders the one rejection fifteen ways over E29-S's add-only stream. It
+runs on all three deciders: 4,320 calls, every cell parsing ≥ 0.95. Rejected-step inclusion
+in the neutral arm, n = 96 per cell:
+
+| the rejected proposal is rendered as | 3B | 14B | aya |
+|---|---|---|---|
+| `- A proposed to X.` / `- B rejected the proposal to X; <reason>.` (E29-S) | 0.156 | 0.062 | 0.125 |
+| `- A proposed to X.` / `- B rejected the proposal to X.` (reference) | 0.302 | 0.167 | 0.385 |
+| `- A proposed to X.` / `- status(X) = WITHDRAWN; <reason>.` (E29-S) | 0.208 | 0.031 | 0.021 |
+| `- A proposed to X.` / `- status(X) = WITHDRAWN.` | **0.760** | 0.188 | **0.604** |
+| `- [withdrawn] A proposed to X.` (E29-S's tag) | **0.604** | 0.312 | 0.490 |
+| `- A proposed to X. [withdrawn]` | 0.219 | 0.146 | 0.250 |
+| `- (withdrawn) A proposed to X.` | **0.531** | 0.302 | **0.552** |
+| `- A proposed to X. (withdrawn)` (E29-T's suffix) | 0.229 | 0.146 | 0.229 |
+| `- [B rejected this] A proposed to X.` | **0.906** | **0.667** | **0.833** |
+| `- A proposed to X. (B rejected this.)` | 0.115 | 0.104 | 0.167 |
+
+Bold cells FAIL against the reference, by the declared rule. The E29-S anchors reproduce
+within 0.011 on the 3B and 14B and within 0.031 on aya.
+
+**Attachment against the verb: mixed.** A truly verb-less status line in its own item
+(`status(X) = WITHDRAWN.`) fails on the 3B and on aya (THE VERB EXPLAINS IT) and is honoured
+on the 14B (ATTACHMENT MATTERS). By the declared programme rule, that is **mixed**, and §2.3's
+conjunction does not survive as a general claim. E29-S's status line worked on all three
+because of its reason clause: dropping "it is not needed for this case" raises inclusion by
++0.55, +0.16 and +0.58 (EFFECT on all three).
+
+**At-issueness: not testable.** The medial main-clause control is itself not honoured on the
+14B or aya, so the declared reading is UNTESTABLE there. The 3B's aside-versus-main-clause
+contrast came out AT-ISSUE GATES. It does not count, because its recognition condition is
+VOID: the model said "yes" about the control step 0.250 of the time, above the declared 0.20.
+
+**What replicates on all three families is the marker's position.** The same `[withdrawn]`
+before the proposal text and after it gives POS = +0.385, +0.167 and +0.240. With
+parentheses, POP = +0.302, +0.156 and +0.323. All six are EFFECT, and bracket type never
+matters (BRP and BRS NONE on all three). This explains E29-T's exception: the `(withdrawn)`
+suffix worked because it trails the record, not because of its brackets. A clause inside the
+leading tag is the worst rendering on every decider.
+
+**Two confounds**, found after the fact and not declared (`docs/protocols/E29O-gate.md`):
+- **List position.** The leading tag's failure is concentrated where the rejected proposal
+  opens the list: 0.96, 0.44 and 0.84 there, against 0.59, 0.32 and 0.41 after an ordinary
+  fact. Position was not manipulated.
+- **A pronoun that points back.** `[B rejected this]` drops the undecided proposal just
+  before it (5, 9 and 9 of 17, against 14 or more of 17 in every other cell). That cell
+  measures misattribution, not order. P2 misses on undecided proposals on all three for this
+  reason.
+
+**A limit on "position decides".** E29-T's field-style markers also trail the record, and
+they fail: `[is_active: false]` 0.906 and 0.729, `[invalid_at: …]` 0.812 and 0.896. So a
+trailing position is not enough; what works is a revocation word or clause after the record.
+E29-O asks why position matters, with list position controlled.
 
 ## 3. Why it matters: zombie steps
 

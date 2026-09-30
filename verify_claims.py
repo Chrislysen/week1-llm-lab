@@ -1237,6 +1237,84 @@ try:
             claim(f"E29-K {_slug} {_X} yes/rejected", _rate_k(_slug, _X, "rejected"), _want_rej)
             claim(f"E29-K {_slug} {_X} yes/control", _rate_k(_slug, _X, "control"), _want_ctl)
 
+    # 2.8, E29-A: fifteen renderings of one rejection, neutral arm, complete-case over
+    # the fifteen cells, as e29a_analysis reads it.
+    from lineage_e29a import CELLS as _AC
+
+    def _rej_a(slug):
+        seen = {}
+        for fn in sorted(_glob.glob(f"results/e29a_{slug}_r*.csv")):
+            for r in _csv.DictReader(open(fn, encoding="utf-8")):
+                seen[(r["instance"], r["rotation"], r["design"], r["arm"], r["slot"])] = r
+        rej = {}
+        for r in seen.values():
+            if r["status"] == "rejected" and r["arm"] == "neutral" and r["included"] in ("True", "False"):
+                rej.setdefault((r["instance"], r["rotation"]), {})[r["design"]] = r["included"] == "True"
+        keys = [k for k, v in rej.items() if all(c in v for c in _AC)]
+        return {c: sum(rej[k][c] for k in keys) / len(keys) for c in _AC} if keys else None
+
+    _A = {                                     # the paper's §2.8 numbers, in lineage_e29a.CELLS order
+        "llama32-3b": (0.156, 0.302, 0.208, 0.760, 0.604, 0.219, 0.531, 0.229, 0.906, 0.385, 0.229, 0.354,
+                       0.323, 0.115, 0.198),
+        "qwen25-14b-instruct": (0.062, 0.167, 0.031, 0.188, 0.312, 0.146, 0.302, 0.146, 0.667, 0.177, 0.240,
+                                0.135, 0.146, 0.104, 0.125),
+        "aya-expanse-8b": (0.125, 0.385, 0.021, 0.604, 0.490, 0.250, 0.552, 0.229, 0.833, 0.271, 0.448, 0.260,
+                           0.344, 0.167, 0.271)}
+    _AD = {"llama32-3b": (0.385, 0.302, 0.552), "qwen25-14b-instruct": (0.167, 0.156, 0.156),
+           "aya-expanse-8b": (0.240, 0.323, 0.583)}          # POS, POP, SRC
+    for _slug, _vals in _A.items():
+        _p = _rej_a(_slug)
+        for _c, _want in zip(_AC, _vals):
+            claim(f"E29-A {_slug} {_c}/neutral", round(_p[_c], 3) if _p else None, _want)
+        for _nm, (_a, _b), _want in zip(("POS", "POP", "SRC"),
+                                        (("tag_prefix", "tag_suffix"), ("paren_prefix", "paren_suffix"),
+                                         ("status_short", "status_long")), _AD[_slug]):
+            claim(f"E29-A {_slug} {_nm}", round(_p[_a] - _p[_b], 3) if _p else None, _want)
+
+    # E29-A recognition on the 3B: VOID by the control's yes-rate
+    _rc = {}
+    for r in _csv.DictReader(open("results/e29a_recognition_llama32-3b.csv", encoding="utf-8")):
+        _rc.setdefault((r["instance"], r["rotation"]), {})[(r["design"], r["target"])] = r["yes"] == "True"
+    _rk = [k for k, v in _rc.items() if len(v) == 4]
+    for (_d, _t), _want in ((("arc_medial", "rejected"), 0.792), (("main_medial", "rejected"), 0.771),
+                            (("arc_medial", "control"), 0.198), (("main_medial", "control"), 0.250)):
+        claim(f"E29-A recognition 3B {_d} yes/{_t}", round(sum(_rc[k][(_d, _t)] for k in _rk) / len(_rk), 3), _want)
+
+    # The post-hoc re-split in §2.8 and E29O-gate.md: the rejected record first in the list,
+    # and the undecided proposal directly before a "[B rejected this]" record.
+    from lineage_e29 import DOMAINS as _DOM
+    from lineage_e29s import store_s as _ss
+
+    def _strata():
+        out = {}
+        for _d in _ad():
+            _acts = dict(_DOM[_d["instance"].domain]["actions"])
+            _st = {u["action"]: u["status"] for u in _d["units"]}
+            _base = _ss("addonly", _d["instance"], _d["arms"]["neutral"])[0]
+            _x = _acts[next(u for u in _d["units"] if u["status"] == "rejected")["action"]]
+            _i = next(k for k, it in enumerate(_base) if it.endswith(f"proposed to {_x}.") and "rejected" not in it)
+            _prev = next((a for a, ph in _acts.items() if _i and _base[_i - 1].endswith(f"proposed to {ph}.")), None)
+            out[(_d["instance"].id, str(_d["rotation"]))] = (
+                "first" if _i == 0 else "accept" if "accepted the proposal" in _base[_i - 1]
+                else "undecided" if _prev and _st.get(_prev) == "proposed" else "other" if not _prev else "prop",
+                _prev if _prev and _st.get(_prev) == "proposed" else None)
+        return out
+
+    _S = _strata()
+    for _slug, _first, _other, _mis in (("llama32-3b", 0.96, 0.59, 5), ("qwen25-14b-instruct", 0.44, 0.32, 9),
+                                        ("aya-expanse-8b", 0.84, 0.41, 9)):
+        _rows_a = [r for fn in sorted(_glob.glob(f"results/e29a_{_slug}_r*.csv"))
+                   for r in _csv.DictReader(open(fn, encoding="utf-8"))]
+        _tp = {}
+        for r in _rows_a:
+            if r["design"] == "tag_prefix" and r["status"] == "rejected":
+                _tp.setdefault(_S[(r["instance"], r["rotation"])][0], []).append(r["included"] == "True")
+        claim(f"E29-A {_slug} tag_prefix, record first in list", round(sum(_tp["first"]) / len(_tp["first"]), 2), _first)
+        claim(f"E29-A {_slug} tag_prefix, after an ordinary fact", round(sum(_tp["other"]) / len(_tp["other"]), 2), _other)
+        _kept = sum(r["included"] == "True" for r in _rows_a if r["design"] == "verbal_tag"
+                    and _S[(r["instance"], r["rotation"])][1] == r["action"])
+        claim(f"E29-A {_slug} verbal_tag keeps the undecided proposal before it (of 17)", _kept, _mis)
+
     # 4.6, free length: complete-case over the four designs, as the analysis reads it
     _FD = ("full", "delete", "addonly", "addonly_flag")
     for _slug, _dn, _an, _fn in (("llama32-3b", 0.768, 0.105, 0.642),

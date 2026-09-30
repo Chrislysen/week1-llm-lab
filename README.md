@@ -44,17 +44,27 @@ raise the rate; on llama3.2:3b it lowers it slightly. A status line in its own i
 nothing either. Only the `[withdrawn]` tag on the proposal raises it: from 9–20 % to 59 % on
 llama3.2:3b and from 3–5 % to 32 % on qwen2.5:14b, and on a third model family,
 aya-expanse:8b from Cohere, from 3–16 % to 48 %. One correction: that separate status line
-kept a reason clause with a verb ("it is not needed for this case"), so this design does not
-yet say whether the attachment matters or only the missing verb. A follow-up, E29-A, is
-declared to settle it.
+kept a reason clause with a verb ("it is not needed for this case"), so that design could
+not say whether the attachment matters or only the missing verb.
+
+**Position, not attachment.** The follow-up, E29-A, ran 4,320 calls on the three model
+families.
+- **Attachment is not what decides it.** A truly verb-less status line in its own item fails
+  on two of the three models.
+- **Position holds on all three.** The same `[withdrawn]` placed after the proposal is
+  honoured (22 %, 15 %, 25 %), where before it fails (60 %, 31 %, 49 %), whatever the bracket.
+- **Position is not everything.** Field-style markers such as `[is_active: false]` fail even
+  after the proposal.
+
+Why position matters is the next experiment (E29-O).
 
 ![The 2×2 in four list formats](docs/paper/fig4-formats.png)
 
 **How general it is.** The same pattern holds when the memory is a JSON array, XML items or
 a numbered list instead of markdown, on both models (E29-R, 4,608 calls). Of five in-place
 revocation idioms, four fail on the 3B model and three on the 14B. The one that fails on
-neither, a trailing `(withdrawn)`, shows that the structure alone does not decide it: the
-spelling matters too.
+neither, a trailing `(withdrawn)`, works because it comes after the proposal, not because
+of its brackets (E29-A).
 
 **The model knows, and one sentence fixes most of it.** Asked directly whether the step was
 rejected, both models say yes for the tag as often as for the sentence (87 % against 81 % on
