@@ -1190,6 +1190,15 @@ try:
         for _i, _want in zip(_ID, _vals):
             claim(f"E29-T {_slug} {_i}/neutral", _rate_t(_slug, _i), _want)
 
+    # 4.6, E29-S+ gemma4:e4b: VOID by the declared rule (mean |plan| outside [3.9, 4.1]).
+    _gl = {}
+    for fn in sorted(_glob.glob("results/e29s_gemma4-e4b_*.csv")):
+        for r in _csv.DictReader(open(fn, encoding="utf-8")):
+            if r["parsed"] == "True":
+                _gl.setdefault((r["design"], r["arm"]), {})[(r["instance"], r["rotation"])] = int(r["n_actions"])
+    _void = sum(not (3.9 <= sum(v.values()) / len(v) <= 4.1) for v in _gl.values())
+    claim("E29-S+ gemma4:e4b cells with mean |plan| outside [3.9, 4.1] (VOID)", _void, 8)
+
     # E29-M: the read-time fix. Neutral arm, complete-case over its six cells,
     # as e29m_analysis reads it.
     from lineage_e29m import CELLS as _MC

@@ -97,8 +97,8 @@ rate over all 96 dialogues.*
   bootstrap 95 % intervals; the smallest effect that counts is 0.15.
 - **Local open models.** About 19,200 planning calls plus about 2,000 extractor and router
   calls across the E29 experiments, run on a laptop through Ollama at temperature 0.
-- **Checkable.** `verify_claims.py` re-derives 299 reported values from the raw files with
-  0 mismatches (132 of them for E29); 234 offline tests pass.
+- **Checkable.** `verify_claims.py` re-derives 300 reported values from the raw files with
+  0 mismatches (133 of them for E29); 234 offline tests pass.
 - **Prior art first.** Before this, 22 candidate ideas went through a prior-art gate and all
   were closed with no original result (ledger in `docs/NOVELTY-GATE.md`; the first 13 are
   written up in `docs/NEGATIVE-RESULTS.md`).
@@ -106,7 +106,9 @@ rate over all 96 dialogues.*
 ## What is not established
 
 - The structural result rests on three models from three families (Meta, Alibaba, Cohere).
-  The run on a fourth (gemma, from Google) is in progress.
+  The run on a fourth, gemma from Google, is void by the declared rule: after a runtime
+  update it stopped following the four-step plan format (the same prompt that got a
+  four-step plan two weeks earlier now gets a one-step plan), so it cannot be read.
 - The fix was tested with one sentence wording, in markdown lists, without the partner
   restating the step. The recognition result compares two different prompts, and it also
   runs the other way: qwen2.5:14b calls a status line a rejection only 59 % of the time

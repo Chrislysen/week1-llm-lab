@@ -103,7 +103,7 @@ def run(model, offset, limit, dry_run, resume=False):
         ds = [d for d in ds if (d["instance"].id, str(d["rotation"])) not in done]
         print(f"  resume: {before - len(ds)} of {before} already complete, {len(ds)} left")
     ds = ds[offset:None if limit is None else offset + limit]
-    print(f"=== E29-S free-length: {model}, {len(ds)} dialogues x {len(ARMS)} arms x "
+    print(f"=== E29-S structure: {model}, {len(ds)} dialogues x {len(ARMS)} arms x "
           f"{len(DESIGNS_F)} designs = {len(ds) * len(ARMS) * len(DESIGNS_F)} calls"
           f"{' (DRY RUN, no calls)' if dry_run else ''} ===\n")
     client = None if dry_run else CappedClient(RetryingOllamaClient(), NUM_PREDICT_CAP)

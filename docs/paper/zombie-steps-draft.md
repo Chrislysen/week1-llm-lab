@@ -610,7 +610,20 @@ while S_merge −0.104 [−0.177, −0.042] and S_form_own −0.125 [−0.198, �
 Every cell parses 1.000 with mean |plan| 3.99–4.03. As on the 14B, the restatement
 effect sits in the tag cell only (+0.177 [+0.094, +0.260]; the other three cells
 +0.031 to +0.052, intervals including zero). The recorded lean (CONJUNCTION on aya) was
-right. The structural result now holds on three families. gemma4:e4b is running.
+right. The structural result now holds on three families.
+
+On gemma4:e4b the read is **VOID** by the declared rule: every cell parses (0.989–1.000),
+but the mean plan length is 2.84–3.47 against the required [3.9, 4.1], so gemma did not
+follow the pinned four-step plan. The cause is a change in the runtime, not in the
+experiment. The user prompt E29-S+ sent is byte-identical to the one E29 sent for the same
+dialogue and store on 2026-09-11, when gemma answered all 768 calls with a four-step plan;
+on 2026-09-30, at temperature 0, it answered the same prompt with a one-step plan. The
+Ollama version at the later date was 0.34.4; the earlier version was not recorded. The
+same runtime reproduced llama3.2:3b's and qwen2.5:14b's E29-S cells to the third decimal
+(E29-T, E29-M), so the change is specific to gemma. Descriptively, gemma's tag cell is
+again the only high one (0.232 against 0.011–0.032), but the tag cell also has the longest
+plans, which gives the rejected step more room; this is not counted. The structural claim
+therefore rests on three families, with the fourth unreadable in this setup.
 
 ## 5. What this is not
 
@@ -634,6 +647,10 @@ right. The structural result now holds on three families. gemma4:e4b is running.
 - **The fix.** One sentence wording, in the neutral arm and markdown lists only. A
   record-agnostic sentence that does not restate the proposal was not tested, and
   E29-K's recognition-versus-planning dissociation is across two different prompts.
+- **Runtime drift.** Local runtimes change. gemma4:e4b answered a byte-identical prompt at
+  temperature 0 with a four-step plan on 2026-09-11 and a one-step plan on 2026-09-30
+  (§4.6). Model digests and the Ollama version should be recorded with every run; this
+  programme recorded them only from E29-M on.
 - **Levels.** Levels across memory designs mix the design with the
   explicitness of the rendering, so only within-design contrasts are compared.
 
@@ -745,7 +762,7 @@ checked against the record.
 | E29-M P1 | control and anchors reproduce E29-T within 0.10 | holds exactly on both deciders |
 | E29-M P2 | accepted and undecided inclusion within 0.10 across the six cells | holds on both (accepted 0.983–1.000; undecided 0.950–1.000) |
 | E29-M P3 | lean: rewrite FIXED on both; annotate PARTIAL; field COMPETES | rewrite FIXED on the 14B, PARTIAL on the 3B (0.79–0.91 of the excess removed); annotate PARTIAL except the 14B's invalid_at cell (FIXED); field INERT on both |
-| E29-S+ lean | CONJUNCTION on aya; gemma may read NULL near floor | aya-expanse:8b: INTERACTION, conjunction holds (lean right); gemma4:e4b running |
+| E29-S+ lean | CONJUNCTION on aya; gemma may read NULL near floor | aya-expanse:8b: INTERACTION, conjunction holds (lean right); gemma4:e4b VOID (mean plan 2.84–3.47), neither NULL nor a read; runtime drift, §4.6 |
 
 ## Appendix B. Process record
 
