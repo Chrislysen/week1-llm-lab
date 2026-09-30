@@ -1189,6 +1189,27 @@ try:
         for _i, _want in zip(_ID, _vals):
             claim(f"E29-T {_slug} {_i}/neutral", _rate_t(_slug, _i), _want)
 
+    # E29-M: the read-time fix. Neutral arm, complete-case over its six cells,
+    # as e29m_analysis reads it.
+    from lineage_e29m import CELLS as _MC
+
+    def _rate_m(slug, cell):
+        seen = {}
+        for fn in sorted(_glob.glob(f"results/e29m_{slug}_*.csv")):
+            for r in _csv.DictReader(open(fn, encoding="utf-8")):
+                seen[(r["instance"], r["rotation"], r["design"], r["arm"], r["slot"])] = r
+        rej = {}
+        for r in seen.values():
+            if r["status"] == "rejected" and r["arm"] == "neutral" and r["included"] in ("True", "False"):
+                rej.setdefault((r["instance"], r["rotation"]), {})[r["design"]] = r["included"] == "True"
+        keys = [k for k, v in rej.items() if all(c in v for c in _MC)]
+        return round(sum(rej[k][cell] for k in keys) / len(keys), 3) if keys else None
+
+    for _slug, _vals in (                      # from e29m_analysis, in lineage_e29m.CELLS order
+            ("llama32-3b", (0.156, 0.906, 0.812, 0.292, 0.292, 0.25)),):
+        for _c, _want in zip(_MC, _vals):
+            claim(f"E29-M {_slug} {_c}/neutral", _rate_m(_slug, _c), _want)
+
     # 2.6, E29-K: "has this step been rejected?" -- the rate of "yes" per store
     # and target, over dialogues with all eight answers, as e29k_recognition reads it.
     def _rate_k(slug, design, target):

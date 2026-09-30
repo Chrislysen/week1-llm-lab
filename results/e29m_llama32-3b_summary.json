@@ -1,0 +1,152 @@
+{
+ "model": "llama3.2:3b",
+ "n": 96,
+ "p": {
+  "sentence": 0.15625,
+  "is_active_false": 0.90625,
+  "invalid_at": 0.8125,
+  "rewrite": 0.2916666666666667,
+  "annotate_is_active": 0.2916666666666667,
+  "annotate_invalid_at": 0.25
+ },
+ "void": [],
+ "control": {
+  "accepted": {
+   "sentence": 1,
+   "is_active_false": 0.9833333333333333,
+   "invalid_at": 1,
+   "rewrite": 1,
+   "annotate_is_active": 1,
+   "annotate_invalid_at": 1
+  },
+  "proposed": {
+   "sentence": 0.9833333333333333,
+   "is_active_false": 0.95,
+   "invalid_at": 0.95,
+   "rewrite": 0.9666666666666667,
+   "annotate_is_active": 0.95,
+   "annotate_invalid_at": 0.9666666666666667
+  },
+  "never": {
+   "sentence": 0.6666666666666666,
+   "is_active_false": 0.5625,
+   "invalid_at": 0.5,
+   "rewrite": 0.5416666666666666,
+   "annotate_is_active": 0.6458333333333334,
+   "annotate_invalid_at": 0.5833333333333334
+  }
+ },
+ "p2_miss": [],
+ "p1": {
+  "sentence": [
+   0.156,
+   0.156,
+   true
+  ],
+  "is_active_false": [
+   0.906,
+   0.906,
+   true
+  ],
+  "invalid_at": [
+   0.812,
+   0.812,
+   true
+  ]
+ },
+ "anchors": {
+  "is_active_false": {
+   "G": 0.75,
+   "ci": [
+    0.65625,
+    0.84375
+   ],
+   "fails": true
+  },
+  "invalid_at": {
+   "G": 0.65625,
+   "ci": [
+    0.5625,
+    0.75
+   ],
+   "fails": true
+  }
+ },
+ "fixes": {
+  "rewrite vs is_active_false": {
+   "E": 0.6145833333333333,
+   "ci_E": [
+    0.5104166666666667,
+    0.7083333333333334
+   ],
+   "G": 0.13541666666666669,
+   "ci_G": [
+    0.05208333333333334,
+    0.21875000000000003
+   ],
+   "class": "PARTIAL",
+   "share_removed": 0.8194444444444443
+  },
+  "rewrite vs invalid_at": {
+   "E": 0.5208333333333333,
+   "ci_E": [
+    0.4270833333333333,
+    0.625
+   ],
+   "G": 0.13541666666666669,
+   "ci_G": [
+    0.05208333333333334,
+    0.21875000000000003
+   ],
+   "class": "PARTIAL",
+   "share_removed": 0.7936507936507935
+  },
+  "annotate_is_active vs is_active_false": {
+   "E": 0.6145833333333333,
+   "ci_E": [
+    0.5208333333333333,
+    0.7083333333333334
+   ],
+   "G": 0.13541666666666669,
+   "ci_G": [
+    0.05208333333333334,
+    0.21875000000000003
+   ],
+   "class": "PARTIAL",
+   "share_removed": 0.8194444444444443
+  },
+  "annotate_invalid_at vs invalid_at": {
+   "E": 0.5625,
+   "ci_E": [
+    0.46874999999999994,
+    0.6666666666666666
+   ],
+   "G": 0.09375,
+   "ci_G": [
+    0.020833333333333343,
+    0.17708333333333334
+   ],
+   "class": "PARTIAL",
+   "share_removed": 0.8571428571428571
+  }
+ },
+ "field": {
+  "annotate_is_active": {
+   "D": 0.0,
+   "ci": [
+    -0.07291666666666663,
+    0.07291666666666663
+   ],
+   "class": "INERT"
+  },
+  "annotate_invalid_at": {
+   "D": -0.041666666666666685,
+   "ci": [
+    -0.10416666666666666,
+    0.010416666666666685
+   ],
+   "class": "INERT"
+  }
+ },
+ "verdict": "PARTIAL"
+}
