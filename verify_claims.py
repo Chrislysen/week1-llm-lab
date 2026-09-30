@@ -1221,7 +1221,8 @@ try:
         return round(sum(cell[k][(design, target)] for k in keys) / len(keys), 3) if keys else None
 
     for _slug, _yes in (                       # from e29k_recognition --analyse, in _S4 order
-            ("llama32-3b", ((0.812, 0.052), (0.729, 0.073), (1, 0.115), (0.865, 0.146))),):
+            ("llama32-3b", ((0.812, 0.052), (0.729, 0.073), (1, 0.115), (0.865, 0.146))),
+            ("qwen25-14b-instruct", ((0.99, 0), (0.948, 0), (0.594, 0), (0.969, 0)))):
         for _X, (_want_rej, _want_ctl) in zip(_S4, _yes):
             claim(f"E29-K {_slug} {_X} yes/rejected", _rate_k(_slug, _X, "rejected"), _want_rej)
             claim(f"E29-K {_slug} {_X} yes/control", _rate_k(_slug, _X, "control"), _want_ctl)

@@ -300,20 +300,28 @@ four E29-S stores, one direct question instead of the plan instruction: "has the
 X been rejected or withdrawn in this discussion?" It asks about the rejected step and
 about a step that was not rejected, as a control for a bias toward "yes".
 
-| store (llama3.2:3b, neutral arm) | says "rejected": rejected step | says "rejected": control step | plans the rejected step (E29-S) |
-|---|---|---|---|
-| sentence, own item | 0.812 | 0.052 | 0.156 |
-| sentence, merged | 0.729 | 0.073 | 0.094 |
-| status line, own item | 1.000 | 0.115 | 0.198 |
-| `[withdrawn]` tag | 0.865 | 0.146 | **0.594** |
+Neutral arm, n = 96 per cell; "yes" rates for the rejected step and for the
+control step, beside the planning rate from E29-S:
 
-On llama3.2:3b the tag is recognised as a rejection as often as the sentence (gap
-−0.052 [−0.146, +0.042]), yet the tagged step is planned at 0.594 against 0.156. By
-the declared rule this is **READ-NOT-USED**: the failure lies between knowing and
-acting, not in reading the tag. The recorded lean (NOT-READ on the 3B) was wrong.
-Two caveats: recognition and planning are different prompts, so the dissociation is
-across tasks; and the control's "yes" rate is highest for the tag store (0.146, under
-the declared 0.20 limit). qwen2.5:14b-instruct's half is running.
+| store | 3B says "rejected" | 3B control "yes" | 3B plans it | 14B says "rejected" | 14B control "yes" | 14B plans it |
+|---|---|---|---|---|---|---|
+| sentence, own item | 0.812 | 0.052 | 0.156 | 0.990 | 0.000 | 0.052 |
+| sentence, merged | 0.729 | 0.073 | 0.094 | 0.948 | 0.000 | 0.042 |
+| status line, own item | 1.000 | 0.115 | 0.198 | 0.594 | 0.000 | 0.031 |
+| `[withdrawn]` tag | 0.865 | 0.146 | **0.594** | 0.969 | 0.000 | **0.323** |
+
+On both deciders the tag is recognised as a rejection as often as the sentence (gap
+−0.052 [−0.146, +0.042] on the 3B, +0.021 [+0.000, +0.052] on the 14B), yet the tagged
+step is planned far more often. By the declared rule the verdict is **READ-NOT-USED on
+both**: the failure lies between knowing and acting, not in reading the tag. The
+recorded lean was NOT-READ on the 3B (wrong) and READ-NOT-USED on the 14B (right).
+
+Three caveats. Recognition and planning are different prompts, so this is a
+dissociation across tasks, not a mechanism. It also runs the other way: the 14B calls
+the status line a rejection only 0.594 of the time, yet plans that step at 0.031, so
+what the question-and-answer probe measures is not what drives the plan. And on the 3B
+the control's "yes" rate is highest for the tag store (0.146, under the declared 0.20
+limit); on the 14B it is 0.000 everywhere.
 
 ### 2.7 A one-sentence fix (E29-M)
 
@@ -712,7 +720,7 @@ checked against the record.
 | E29-T P1 | anchor and control reproduce E29-S within 0.10 | holds: within 0.011 on both deciders |
 | E29-T P2 | never/accepted within 0.10 across the seven cells | misses on both: never spans 0.479–0.667 (3B) and 0.500–0.708 (14B); accepted 0.983–1.000 |
 | E29-T P3 | lean: MOST-FAIL on both; `invalid_at` most ignored; strikethrough most honoured | MOST-FAIL on both (4/5, 3/5); `invalid_at` most ignored on the 14B only (the 3B: `is_active`); strikethrough fails on both, and the `(withdrawn)` suffix is the most honoured |
-| E29-K lean | NOT-READ on the 3B, READ-NOT-USED on the 14B | 3B: READ-NOT-USED (gap −0.052 [−0.146, +0.042]; tag recognised 0.865): the lean was wrong; 14B running |
+| E29-K lean | NOT-READ on the 3B, READ-NOT-USED on the 14B | READ-NOT-USED on both (3B gap −0.052 [−0.146, +0.042], tag recognised 0.865; 14B gap +0.021 [+0.000, +0.052], tag recognised 0.969): wrong on the 3B, right on the 14B |
 | E29-M P1 | control and anchors reproduce E29-T within 0.10 | holds exactly on both deciders |
 | E29-M P2 | accepted and undecided inclusion within 0.10 across the six cells | holds on both (accepted 0.983–1.000; undecided 0.950–1.000) |
 | E29-M P3 | lean: rewrite FIXED on both; annotate PARTIAL; field COMPETES | rewrite FIXED on the 14B, PARTIAL on the 3B (0.79–0.91 of the excess removed); annotate PARTIAL except the 14B's invalid_at cell (FIXED); field INERT on both |
