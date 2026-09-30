@@ -1206,7 +1206,8 @@ try:
         return round(sum(rej[k][cell] for k in keys) / len(keys), 3) if keys else None
 
     for _slug, _vals in (                      # from e29m_analysis, in lineage_e29m.CELLS order
-            ("llama32-3b", (0.156, 0.906, 0.812, 0.292, 0.292, 0.25)),):
+            ("llama32-3b", (0.156, 0.906, 0.812, 0.292, 0.292, 0.25)),
+            ("qwen25-14b-instruct", (0.062, 0.729, 0.896, 0.135, 0.146, 0.135))):
         for _c, _want in zip(_MC, _vals):
             claim(f"E29-M {_slug} {_c}/neutral", _rate_m(_slug, _c), _want)
 
